@@ -1,0 +1,21 @@
+test_authenticated_fact_conflict_halts_without_reverse_accounting (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_authenticated_fact_conflict_halts_without_reverse_accounting) ... ok
+test_bad_signature_does_not_halt_or_release (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_bad_signature_does_not_halt_or_release) ... ok
+test_concurrent_distinct_proofs_one_settlement (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_concurrent_distinct_proofs_one_settlement) ... ok
+test_expired_first_proof_rejected_then_current_same_fact_recovers (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_expired_first_proof_rejected_then_current_same_fact_recovers) ... ok
+test_failure_recovery_releases_once (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_failure_recovery_releases_once) ... ok
+test_false_failure_flag_or_future_fact_time_rejected (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_false_failure_flag_or_future_fact_time_rejected) ... ok
+test_forged_conflict_cannot_halt_a_settled_operation (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_forged_conflict_cannot_halt_a_settled_operation) ... ok
+test_fresh_proof_expiry_cannot_exceed_current_trust (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_fresh_proof_expiry_cannot_exceed_current_trust) ... ok
+test_missing_ledger_fact_cannot_become_confirmed_failure (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_missing_ledger_fact_cannot_become_confirmed_failure) ... ok
+test_opposite_authenticated_outcome_halts_without_refund (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_opposite_authenticated_outcome_halts_without_refund) ... ok
+test_rotation_recovers_original_fact_without_old_key_acceptance (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_rotation_recovers_original_fact_without_old_key_acceptance) ... ok
+test_same_fact_new_proof_never_settles_twice (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_same_fact_new_proof_never_settles_twice) ... ok
+test_signed_wrong_binding_does_not_halt (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_signed_wrong_binding_does_not_halt) ... ok
+test_three_profiles_recover_and_cross_profile_is_rejected (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_three_profiles_recover_and_cross_profile_is_rejected) ... ok
+test_time_uncertainty_does_not_settle (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_time_uncertainty_does_not_settle) ... ok
+test_wrong_ledger_and_unknown_continuity_cannot_inherit (verification.protocol_v26_final_recovery.test_recovery.RecoveryTests.test_wrong_ledger_and_unknown_continuity_cannot_inherit) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.143s
+
+OK

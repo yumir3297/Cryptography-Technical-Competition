@@ -1,0 +1,4537 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "PAY-1 protocol transport",
+    "version": "2.6-R2"
+  },
+  "paths": {
+    "/zjj/2.6/issue": {
+      "post": {
+        "operationId": "pay1_issue",
+        "description": "Fixed profile/type/aud; TLS 1.3; no 0-RTT. Authenticated body controls outcome, HTTP 200 does not grant permission. No product service supplied.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/IssueRequest"
+                      }
+                    ]
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Envelope"
+                        },
+                        {
+                          "$ref": "#/components/schemas/Record"
+                        }
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 128
+                  }
+                },
+                "required": [
+                  "message",
+                  "objects"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signed response; verify binding, signature and current or historical role as specified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Result"
+                        }
+                      ]
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/Envelope"
+                          },
+                          {
+                            "$ref": "#/components/schemas/Record"
+                          }
+                        ]
+                      },
+                      "minItems": 0,
+                      "maxItems": 128
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "objects"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or unauthenticated transport input; no business outcome asserted"
+          },
+          "413": {
+            "description": "Byte/object limits exceeded"
+          },
+          "415": {
+            "description": "Unsupported content type"
+          },
+          "503": {
+            "description": "Communication outcome unknown"
+          }
+        }
+      }
+    },
+    "/zjj/2.6/challenge": {
+      "post": {
+        "operationId": "pay1_challenge",
+        "description": "Fixed profile/type/aud; TLS 1.3; no 0-RTT. Authenticated body controls outcome, HTTP 200 does not grant permission. No product service supplied.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ChallengeRequest"
+                      }
+                    ]
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Envelope"
+                        },
+                        {
+                          "$ref": "#/components/schemas/Record"
+                        }
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 128
+                  }
+                },
+                "required": [
+                  "message",
+                  "objects"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signed response; verify binding, signature and current or historical role as specified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Challenge"
+                        },
+                        {
+                          "$ref": "#/components/schemas/Result"
+                        }
+                      ]
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/Envelope"
+                          },
+                          {
+                            "$ref": "#/components/schemas/Record"
+                          }
+                        ]
+                      },
+                      "minItems": 0,
+                      "maxItems": 128
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "objects"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or unauthenticated transport input; no business outcome asserted"
+          },
+          "413": {
+            "description": "Byte/object limits exceeded"
+          },
+          "415": {
+            "description": "Unsupported content type"
+          },
+          "503": {
+            "description": "Communication outcome unknown"
+          }
+        }
+      }
+    },
+    "/zjj/2.6/commit": {
+      "post": {
+        "operationId": "pay1_commit",
+        "description": "Fixed profile/type/aud; TLS 1.3; no 0-RTT. Authenticated body controls outcome, HTTP 200 does not grant permission. No product service supplied.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/CommitProof"
+                      }
+                    ]
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Envelope"
+                        },
+                        {
+                          "$ref": "#/components/schemas/Record"
+                        }
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 128
+                  }
+                },
+                "required": [
+                  "message",
+                  "objects"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signed response; verify binding, signature and current or historical role as specified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Result"
+                        }
+                      ]
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/Envelope"
+                          },
+                          {
+                            "$ref": "#/components/schemas/Record"
+                          }
+                        ]
+                      },
+                      "minItems": 0,
+                      "maxItems": 128
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "objects"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or unauthenticated transport input; no business outcome asserted"
+          },
+          "413": {
+            "description": "Byte/object limits exceeded"
+          },
+          "415": {
+            "description": "Unsupported content type"
+          },
+          "503": {
+            "description": "Communication outcome unknown"
+          }
+        }
+      }
+    },
+    "/zjj/2.6/status": {
+      "post": {
+        "operationId": "pay1_status",
+        "description": "Fixed profile/type/aud; TLS 1.3; no 0-RTT. Authenticated body controls outcome, HTTP 200 does not grant permission. No product service supplied.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/StatusQuery"
+                      }
+                    ]
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Envelope"
+                        },
+                        {
+                          "$ref": "#/components/schemas/Record"
+                        }
+                      ]
+                    },
+                    "minItems": 0,
+                    "maxItems": 128
+                  }
+                },
+                "required": [
+                  "message",
+                  "objects"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signed response; verify binding, signature and current or historical role as specified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Result"
+                        }
+                      ]
+                    },
+                    "objects": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/Envelope"
+                          },
+                          {
+                            "$ref": "#/components/schemas/Record"
+                          }
+                        ]
+                      },
+                      "minItems": 0,
+                      "maxItems": 128
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "objects"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or unauthenticated transport input; no business outcome asserted"
+          },
+          "413": {
+            "description": "Byte/object limits exceeded"
+          },
+          "415": {
+            "description": "Unsupported content type"
+          },
+          "503": {
+            "description": "Communication outcome unknown"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "N": {
+        "type": "string",
+        "pattern": "^(?:0|[1-9][0-9]{0,17}|[1-8][0-9]{18}|9[0-1][0-9]{17}|92[0-1][0-9]{16}|922[0-2][0-9]{15}|9223[0-2][0-9]{14}|92233[0-6][0-9]{13}|922337[0-1][0-9]{12}|92233720[0-2][0-9]{10}|922337203[0-5][0-9]{9}|9223372036[0-7][0-9]{8}|92233720368[0-4][0-9]{7}|922337203685[0-3][0-9]{6}|9223372036854[0-6][0-9]{5}|92233720368547[0-6][0-9]{4}|922337203685477[0-4][0-9]{3}|9223372036854775[0-7][0-9]{2}|922337203685477580[0-6][0-9]{0}|9223372036854775807)(?![\\s\\S])"
+      },
+      "Positive": {
+        "type": "string",
+        "pattern": "^(?:[1-9][0-9]{0,17}|[1-8][0-9]{18}|9[0-1][0-9]{17}|92[0-1][0-9]{16}|922[0-2][0-9]{15}|9223[0-2][0-9]{14}|92233[0-6][0-9]{13}|922337[0-1][0-9]{12}|92233720[0-2][0-9]{10}|922337203[0-5][0-9]{9}|9223372036[0-7][0-9]{8}|92233720368[0-4][0-9]{7}|922337203685[0-3][0-9]{6}|9223372036854[0-6][0-9]{5}|92233720368547[0-6][0-9]{4}|922337203685477[0-4][0-9]{3}|9223372036854775[0-7][0-9]{2}|922337203685477580[0-6][0-9]{0}|9223372036854775807)(?![\\s\\S])"
+      },
+      "Ratio": {
+        "type": "string",
+        "pattern": "^(?:0|[1-9][0-9]{0,3}|10000)(?![\\s\\S])"
+      },
+      "Id": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9._:-]{0,63}(?![\\s\\S])"
+      },
+      "Text": {
+        "type": "string",
+        "maxLength": 1024
+      },
+      "Nonblank": {
+        "type": "string",
+        "maxLength": 1024,
+        "pattern": "[^\\u0009-\\u000d\\u0020\\u0085\\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000]"
+      },
+      "B16": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{21}[AQgw](?![\\s\\S])",
+        "minLength": 22,
+        "maxLength": 22
+      },
+      "B32": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048](?![\\s\\S])",
+        "minLength": 43,
+        "maxLength": 43
+      },
+      "B64": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{85}[AQgw](?![\\s\\S])",
+        "minLength": 86,
+        "maxLength": 86
+      },
+      "Scope": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "scenario": {
+            "const": "payment"
+          }
+        },
+        "required": [
+          "domain",
+          "tenant",
+          "scenario"
+        ],
+        "additionalProperties": false
+      },
+      "Role": {
+        "type": "string",
+        "enum": [
+          "HOLDER",
+          "ISSUER",
+          "SOURCE",
+          "FINANCE",
+          "ANOMALY",
+          "EXECUTOR"
+        ]
+      },
+      "ReviewPurpose": {
+        "type": "string",
+        "enum": [
+          "ANOMALY",
+          "LOW_EVIDENCE"
+        ]
+      },
+      "Dep": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "enum": [
+              "POLICY",
+              "TASK",
+              "KEY",
+              "ROLE",
+              "BEHAVIOR",
+              "ORDER",
+              "EXPERIENCE"
+            ]
+          },
+          "key": {
+            "type": "array",
+            "maxItems": 6,
+            "items": {
+              "type": "string"
+            }
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Positive"
+          },
+          "ref": {
+            "$ref": "#/components/schemas/B32"
+          }
+        },
+        "required": [
+          "namespace",
+          "key",
+          "revision",
+          "ref"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "POLICY"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "const": "payment"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "TASK"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "const": "payment"
+                    },
+                    {
+                      "$ref": "#/components/schemas/B16"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "KEY"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/B32"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 1,
+                  "maxItems": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "ROLE"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "const": "payment"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Role"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 5,
+                  "maxItems": 5
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "BEHAVIOR"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "const": "payment"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "ORDER"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "const": "payment"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 5,
+                  "maxItems": 5
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "EXPERIENCE"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    {
+                      "const": "payment"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Id"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Ctx": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "operation_id": {
+            "$ref": "#/components/schemas/B16"
+          },
+          "principal": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "holder": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "holder_kid": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "executor": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "action_hash": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "policy_ref": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "basis_ref": {
+            "$ref": "#/components/schemas/B32"
+          }
+        },
+        "required": [
+          "scope",
+          "operation_id",
+          "principal",
+          "holder",
+          "holder_kid",
+          "executor",
+          "action_hash",
+          "policy_ref",
+          "basis_ref"
+        ],
+        "additionalProperties": false
+      },
+      "ActionPayload": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "payer": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "payee": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "amount_minor": {
+            "$ref": "#/components/schemas/Positive"
+          },
+          "currency": {
+            "const": "CNY"
+          },
+          "purpose": {
+            "const": "order-settlement"
+          }
+        },
+        "required": [
+          "order_id",
+          "stage",
+          "payer",
+          "payee",
+          "amount_minor",
+          "currency",
+          "purpose"
+        ],
+        "additionalProperties": false
+      },
+      "Action": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "operation_id": {
+            "$ref": "#/components/schemas/B16"
+          },
+          "principal": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "holder": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "holder_kid": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "executor": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "tool": {
+            "const": "pay-sim"
+          },
+          "tool_version": {
+            "const": "1"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ActionPayload"
+          }
+        },
+        "required": [
+          "scope",
+          "operation_id",
+          "principal",
+          "holder",
+          "holder_kid",
+          "executor",
+          "tool",
+          "tool_version",
+          "destination",
+          "payload"
+        ],
+        "additionalProperties": false
+      },
+      "Reason": {
+        "type": "object",
+        "properties": {
+          "check": {
+            "type": "string",
+            "enum": [
+              "format",
+              "signature",
+              "audience",
+              "scope",
+              "binding",
+              "policy",
+              "task",
+              "source",
+              "assessment",
+              "reviews",
+              "authorization",
+              "deps",
+              "holder",
+              "nonce",
+              "intent",
+              "resource",
+              "behavior",
+              "tool",
+              "result"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "MALFORMED",
+              "LIMIT",
+              "UNSUPPORTED_VERSION",
+              "BAD_SIGNATURE",
+              "WRONG_SCOPE",
+              "WRONG_HOLDER",
+              "WRONG_AUDIENCE",
+              "BINDING",
+              "DEP_CONFLICT",
+              "REVOKED",
+              "STALE",
+              "EXPIRED",
+              "NO_ROLE",
+              "REPLAY",
+              "OPERATION_CONFLICT",
+              "ID_CONFLICT",
+              "OBJECT_KIND",
+              "OBJECT_INTEGRITY",
+              "CLAIM_FALSE",
+              "POLICY_DENY",
+              "REVIEW_DENY",
+              "AUTH_DENY",
+              "REVIEW_PURPOSE",
+              "REVIEW_REASON",
+              "REVIEW_REQUIRED",
+              "RISK_POLICY",
+              "DUPLICATE_CASE",
+              "DUPLICATE_INTENT",
+              "RESOURCE_LIMIT",
+              "BEHAVIOR_LIMIT",
+              "STATE_UNAVAILABLE",
+              "CLOCK_UNKNOWN",
+              "RISK_UNKNOWN",
+              "TOOL_UNAVAILABLE",
+              "TASK_BUSY",
+              "RETRY_CONFLICT",
+              "MISSING_OBJECT",
+              "MISSING_REVIEW",
+              "MISSING_AUTH",
+              "OK",
+              "EXISTING_ACCEPTANCE"
+            ]
+          }
+        },
+        "required": [
+          "check",
+          "code"
+        ],
+        "additionalProperties": false
+      },
+      "Review": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "Review"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "ctx": {
+                    "$ref": "#/components/schemas/Ctx"
+                  },
+                  "purpose": {
+                    "$ref": "#/components/schemas/ReviewPurpose"
+                  },
+                  "verdict": {
+                    "type": "string",
+                    "enum": [
+                      "APPROVE",
+                      "DENY"
+                    ]
+                  },
+                  "reason": {
+                    "$ref": "#/components/schemas/Nonblank"
+                  }
+                },
+                "required": [
+                  "ctx",
+                  "purpose",
+                  "verdict",
+                  "reason"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 900
+      },
+      "Authorization": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "Authorization"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "ctx": {
+                    "$ref": "#/components/schemas/Ctx"
+                  },
+                  "review_refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/B32"
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true,
+                    "x-zjj-order": "strict lexicographic Enc bytes"
+                  },
+                  "purpose": {
+                    "const": "EXECUTE"
+                  },
+                  "verdict": {
+                    "type": "string",
+                    "enum": [
+                      "APPROVE",
+                      "DENY"
+                    ]
+                  }
+                },
+                "required": [
+                  "ctx",
+                  "review_refs",
+                  "purpose",
+                  "verdict"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 900
+      },
+      "IssueRequest": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "IssueRequest"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "ctx": {
+                    "$ref": "#/components/schemas/Ctx"
+                  },
+                  "review_refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/B32"
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true,
+                    "x-zjj-order": "strict lexicographic Enc bytes"
+                  },
+                  "authorization_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  }
+                },
+                "required": [
+                  "ctx",
+                  "review_refs",
+                  "authorization_ref"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 120
+      },
+      "Permit": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "Permit"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "ctx": {
+                    "$ref": "#/components/schemas/Ctx"
+                  },
+                  "review_refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/B32"
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true,
+                    "x-zjj-order": "strict lexicographic Enc bytes"
+                  },
+                  "authorization_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "max_uses": {
+                    "const": "1"
+                  },
+                  "dispatch_before": {
+                    "$ref": "#/components/schemas/N"
+                  }
+                },
+                "required": [
+                  "ctx",
+                  "review_refs",
+                  "authorization_ref",
+                  "max_uses",
+                  "dispatch_before"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 120
+      },
+      "ChallengeRequest": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "ChallengeRequest"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "purpose": {
+                    "type": "string",
+                    "enum": [
+                      "COMMIT",
+                      "STATUS"
+                    ]
+                  },
+                  "operation_id": {
+                    "$ref": "#/components/schemas/B16"
+                  },
+                  "permit_ref": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/B32"
+                      }
+                    ]
+                  },
+                  "action_hash": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/B32"
+                      }
+                    ]
+                  },
+                  "attempt_id": {
+                    "$ref": "#/components/schemas/B16"
+                  }
+                },
+                "required": [
+                  "purpose",
+                  "operation_id",
+                  "permit_ref",
+                  "action_hash",
+                  "attempt_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 30
+      },
+      "Challenge": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "Challenge"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "purpose": {
+                    "type": "string",
+                    "enum": [
+                      "COMMIT",
+                      "STATUS"
+                    ]
+                  },
+                  "operation_id": {
+                    "$ref": "#/components/schemas/B16"
+                  },
+                  "permit_ref": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/B32"
+                      }
+                    ]
+                  },
+                  "action_hash": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/B32"
+                      }
+                    ]
+                  },
+                  "holder": {
+                    "$ref": "#/components/schemas/Id"
+                  },
+                  "holder_kid": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "session_id": {
+                    "$ref": "#/components/schemas/B16"
+                  },
+                  "nonce": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "request_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  }
+                },
+                "required": [
+                  "purpose",
+                  "operation_id",
+                  "permit_ref",
+                  "action_hash",
+                  "holder",
+                  "holder_kid",
+                  "session_id",
+                  "nonce",
+                  "request_ref"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 30
+      },
+      "CommitProof": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "CommitProof"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "ctx": {
+                    "$ref": "#/components/schemas/Ctx"
+                  },
+                  "permit_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "challenge_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "session_id": {
+                    "$ref": "#/components/schemas/B16"
+                  },
+                  "nonce": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "attempt_id": {
+                    "$ref": "#/components/schemas/B16"
+                  }
+                },
+                "required": [
+                  "ctx",
+                  "permit_ref",
+                  "challenge_ref",
+                  "session_id",
+                  "nonce",
+                  "attempt_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 30
+      },
+      "Acceptance": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "Acceptance"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "ctx": {
+                    "$ref": "#/components/schemas/Ctx"
+                  },
+                  "permit_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "proof_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "authorization_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "review_refs": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/B32"
+                    },
+                    "minItems": 0,
+                    "maxItems": 256,
+                    "uniqueItems": true,
+                    "x-zjj-order": "strict lexicographic Enc bytes"
+                  },
+                  "accept_seq": {
+                    "$ref": "#/components/schemas/Positive"
+                  },
+                  "accepted_at": {
+                    "$ref": "#/components/schemas/N"
+                  },
+                  "commit_record_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "dispatch_before": {
+                    "$ref": "#/components/schemas/N"
+                  }
+                },
+                "required": [
+                  "ctx",
+                  "permit_ref",
+                  "proof_ref",
+                  "authorization_ref",
+                  "review_refs",
+                  "accept_seq",
+                  "accepted_at",
+                  "commit_record_ref",
+                  "dispatch_before"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 900
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "Result"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "request_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "attempt_id": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/B16"
+                      }
+                    ]
+                  },
+                  "result": {
+                    "type": "string",
+                    "enum": [
+                      "ISSUED",
+                      "ACCEPTED",
+                      "REJECT",
+                      "DEFER",
+                      "EXISTING",
+                      "STATUS"
+                    ]
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Reason"
+                    },
+                    "minItems": 1,
+                    "maxItems": 20
+                  },
+                  "operation_id": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/B16"
+                      }
+                    ]
+                  },
+                  "permit_ref": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/B32"
+                      }
+                    ]
+                  },
+                  "acceptance_ref": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/B32"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "NONE",
+                      "PENDING",
+                      "ACCEPTED",
+                      "EFFECT_UNKNOWN",
+                      "SUCCEEDED",
+                      "FAILED_CONFIRMED",
+                      "HALTED"
+                    ]
+                  },
+                  "status_seq": {
+                    "$ref": "#/components/schemas/N"
+                  },
+                  "retry_after": {
+                    "oneOf": [
+                      {
+                        "const": ""
+                      },
+                      {
+                        "$ref": "#/components/schemas/N"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "request_ref",
+                  "attempt_id",
+                  "result",
+                  "reasons",
+                  "operation_id",
+                  "permit_ref",
+                  "acceptance_ref",
+                  "status",
+                  "status_seq",
+                  "retry_after"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 30
+      },
+      "StatusQuery": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.6"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "StatusQuery"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "operation_id": {
+                    "$ref": "#/components/schemas/B16"
+                  },
+                  "challenge_ref": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "session_id": {
+                    "$ref": "#/components/schemas/B16"
+                  },
+                  "nonce": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "attempt_id": {
+                    "$ref": "#/components/schemas/B16"
+                  }
+                },
+                "required": [
+                  "operation_id",
+                  "challenge_ref",
+                  "session_id",
+                  "nonce",
+                  "attempt_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-zjj-max-lifetime-seconds": 30
+      },
+      "Envelope": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Review"
+          },
+          {
+            "$ref": "#/components/schemas/Authorization"
+          },
+          {
+            "$ref": "#/components/schemas/IssueRequest"
+          },
+          {
+            "$ref": "#/components/schemas/Permit"
+          },
+          {
+            "$ref": "#/components/schemas/ChallengeRequest"
+          },
+          {
+            "$ref": "#/components/schemas/Challenge"
+          },
+          {
+            "$ref": "#/components/schemas/CommitProof"
+          },
+          {
+            "$ref": "#/components/schemas/Acceptance"
+          },
+          {
+            "$ref": "#/components/schemas/Result"
+          },
+          {
+            "$ref": "#/components/schemas/StatusQuery"
+          }
+        ]
+      },
+      "BehaviorRow": {
+        "type": "object",
+        "properties": {
+          "accepted_count": {
+            "$ref": "#/components/schemas/N"
+          },
+          "count_cap": {
+            "$ref": "#/components/schemas/Positive"
+          },
+          "inflight": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/B16"
+            },
+            "minItems": 0,
+            "maxItems": 256,
+            "uniqueItems": true,
+            "x-zjj-order": "strict lexicographic Enc bytes"
+          }
+        },
+        "required": [
+          "accepted_count",
+          "count_cap",
+          "inflight"
+        ],
+        "additionalProperties": false
+      },
+      "BehaviorWitness": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "$ref": "#/components/schemas/Id"
+              },
+              {
+                "$ref": "#/components/schemas/Id"
+              },
+              {
+                "const": "payment"
+              },
+              {
+                "$ref": "#/components/schemas/Id"
+              }
+            ],
+            "items": false,
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Positive"
+          },
+          "ref": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "row": {
+            "$ref": "#/components/schemas/BehaviorRow"
+          }
+        },
+        "required": [
+          "key",
+          "revision",
+          "ref",
+          "row"
+        ],
+        "additionalProperties": false
+      },
+      "ResourceWitness": {
+        "type": "object",
+        "properties": {
+          "reservation_id": {
+            "$ref": "#/components/schemas/B16"
+          },
+          "key": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "$ref": "#/components/schemas/Id"
+              },
+              {
+                "$ref": "#/components/schemas/Id"
+              },
+              {
+                "const": "payment"
+              },
+              {
+                "$ref": "#/components/schemas/Id"
+              },
+              {
+                "const": "CNY"
+              }
+            ],
+            "items": false,
+            "minItems": 5,
+            "maxItems": 5
+          },
+          "unit": {
+            "const": "CNY_MINOR"
+          },
+          "amount": {
+            "$ref": "#/components/schemas/Positive"
+          },
+          "capacity_before": {
+            "$ref": "#/components/schemas/N"
+          },
+          "reserved_before": {
+            "$ref": "#/components/schemas/N"
+          },
+          "spent_before": {
+            "$ref": "#/components/schemas/N"
+          },
+          "reserved_after": {
+            "$ref": "#/components/schemas/N"
+          },
+          "spent_after": {
+            "$ref": "#/components/schemas/N"
+          },
+          "revision_before": {
+            "$ref": "#/components/schemas/Positive"
+          },
+          "revision_after": {
+            "$ref": "#/components/schemas/Positive"
+          }
+        },
+        "required": [
+          "reservation_id",
+          "key",
+          "unit",
+          "amount",
+          "capacity_before",
+          "reserved_before",
+          "spent_before",
+          "reserved_after",
+          "spent_after",
+          "revision_before",
+          "revision_after"
+        ],
+        "additionalProperties": false
+      },
+      "CredentialWitness": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "kid": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "public_key": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "key_grant_ref": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "role_grant_ref": {
+            "$ref": "#/components/schemas/B32"
+          },
+          "key_revision": {
+            "$ref": "#/components/schemas/Positive"
+          },
+          "role_revision": {
+            "$ref": "#/components/schemas/Positive"
+          },
+          "verified_at_seq": {
+            "$ref": "#/components/schemas/Positive"
+          }
+        },
+        "required": [
+          "subject",
+          "kid",
+          "public_key",
+          "key_grant_ref",
+          "role",
+          "role_grant_ref",
+          "key_revision",
+          "role_revision",
+          "verified_at_seq"
+        ],
+        "additionalProperties": false
+      },
+      "V25_Evidence": {
+        "type": "object",
+        "properties": {
+          "protected": {
+            "type": "object",
+            "properties": {
+              "proto": {
+                "const": "ZJJ-AAP"
+              },
+              "version": {
+                "const": "2.5"
+              },
+              "profile": {
+                "const": "PAY-1"
+              },
+              "alg": {
+                "const": "Ed25519"
+              },
+              "type": {
+                "const": "Evidence"
+              },
+              "issuer": {
+                "$ref": "#/components/schemas/V25_Id"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/V25_B32"
+              }
+            },
+            "required": [
+              "proto",
+              "version",
+              "profile",
+              "alg",
+              "type",
+              "issuer",
+              "kid"
+            ],
+            "additionalProperties": false
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/V25_B16"
+              },
+              "scope": {
+                "$ref": "#/components/schemas/V25_Scope"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/V25_N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/V25_N"
+              },
+              "aud": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/V25_Id"
+                },
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+                "minItems": 1
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/V25_B32"
+                },
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/V25_Dep"
+                },
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "$ref": "#/components/schemas/V25_Id"
+                  },
+                  "stage": {
+                    "$ref": "#/components/schemas/V25_Id"
+                  },
+                  "order_revision": {
+                    "$ref": "#/components/schemas/V25_Positive"
+                  },
+                  "payer": {
+                    "$ref": "#/components/schemas/V25_Id"
+                  },
+                  "payee": {
+                    "$ref": "#/components/schemas/V25_Id"
+                  },
+                  "amount_minor": {
+                    "$ref": "#/components/schemas/V25_Positive"
+                  },
+                  "currency": {
+                    "const": "CNY"
+                  },
+                  "accepted_goods": {
+                    "$ref": "#/components/schemas/V25_Bool"
+                  },
+                  "unsettled": {
+                    "$ref": "#/components/schemas/V25_Bool"
+                  },
+                  "beneficiary_active": {
+                    "$ref": "#/components/schemas/V25_Bool"
+                  },
+                  "observed_at": {
+                    "$ref": "#/components/schemas/V25_N"
+                  }
+                },
+                "required": [
+                  "order_id",
+                  "stage",
+                  "order_revision",
+                  "payer",
+                  "payee",
+                  "amount_minor",
+                  "currency",
+                  "accepted_goods",
+                  "unsettled",
+                  "beneficiary_active",
+                  "observed_at"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "iat",
+              "exp",
+              "aud",
+              "refs",
+              "deps",
+              "payload"
+            ],
+            "additionalProperties": false
+          },
+          "sig": {
+            "$ref": "#/components/schemas/V25_B64"
+          }
+        },
+        "required": [
+          "protected",
+          "body",
+          "sig"
+        ],
+        "additionalProperties": false,
+        "x-pay1-max-lifetime-seconds": 900
+      },
+      "V25_Id": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9._:-]{0,63}(?![\\s\\S])"
+      },
+      "V25_B32": {
+        "type": "string",
+        "minLength": 43,
+        "maxLength": 43,
+        "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048](?![\\s\\S])"
+      },
+      "V25_B16": {
+        "type": "string",
+        "minLength": 22,
+        "maxLength": 22,
+        "pattern": "^[A-Za-z0-9_-]{21}[AQgw](?![\\s\\S])"
+      },
+      "V25_Scope": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          "scenario": {
+            "const": "payment"
+          }
+        },
+        "required": [
+          "domain",
+          "tenant",
+          "scenario"
+        ],
+        "additionalProperties": false
+      },
+      "V25_N": {
+        "type": "string",
+        "pattern": "^(?:0|[1-9][0-9]{0,17}|[1-8][0-9]{18}|9[0-1][0-9]{17}|92[0-1][0-9]{16}|922[0-2][0-9]{15}|9223[0-2][0-9]{14}|92233[0-6][0-9]{13}|922337[0-1][0-9]{12}|92233720[0-2][0-9]{10}|922337203[0-5][0-9]{9}|9223372036[0-7][0-9]{8}|92233720368[0-4][0-9]{7}|922337203685[0-3][0-9]{6}|9223372036854[0-6][0-9]{5}|92233720368547[0-6][0-9]{4}|922337203685477[0-4][0-9]{3}|9223372036854775[0-7][0-9]{2}|922337203685477580[0-6][0-9]{0}|9223372036854775807)(?![\\s\\S])"
+      },
+      "V25_Dep": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "enum": [
+              "CONFIG",
+              "TASK",
+              "ORDER",
+              "EXPERIENCE",
+              "ROLE",
+              "KEY",
+              "BEHAVIOR"
+            ]
+          },
+          "key": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/V25_Text"
+            },
+            "maxItems": 256
+          },
+          "revision": {
+            "$ref": "#/components/schemas/V25_N"
+          },
+          "ref": {
+            "$ref": "#/components/schemas/V25_B32"
+          }
+        },
+        "required": [
+          "namespace",
+          "key",
+          "revision",
+          "ref"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "CONFIG"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "$ref": "#/components/schemas/V25_Key_CONFIG"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "TASK"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "$ref": "#/components/schemas/V25_Key_TASK"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "ORDER"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "$ref": "#/components/schemas/V25_Key_ORDER"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "EXPERIENCE"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "$ref": "#/components/schemas/V25_Key_EXPERIENCE"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "ROLE"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "$ref": "#/components/schemas/V25_Key_ROLE"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "KEY"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "$ref": "#/components/schemas/V25_Key_KEY"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "namespace": {
+                  "const": "BEHAVIOR"
+                }
+              },
+              "required": [
+                "namespace"
+              ]
+            },
+            "then": {
+              "properties": {
+                "key": {
+                  "$ref": "#/components/schemas/V25_Key_BEHAVIOR"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "V25_Text": {
+        "type": "string",
+        "maxLength": 1024,
+        "x-pay1-unicode": "Unicode scalars only"
+      },
+      "V25_Key_CONFIG": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "const": "payment"
+          }
+        ],
+        "minItems": 3,
+        "maxItems": 3,
+        "items": false
+      },
+      "V25_Key_TASK": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "const": "payment"
+          },
+          {
+            "$ref": "#/components/schemas/V25_B16"
+          }
+        ],
+        "minItems": 4,
+        "maxItems": 4,
+        "items": false
+      },
+      "V25_Key_ORDER": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "const": "payment"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          }
+        ],
+        "minItems": 5,
+        "maxItems": 5,
+        "items": false
+      },
+      "V25_Key_EXPERIENCE": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "const": "payment"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          }
+        ],
+        "minItems": 4,
+        "maxItems": 4,
+        "items": false
+      },
+      "V25_Key_ROLE": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "const": "payment"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "type": "string",
+            "enum": [
+              "HOLDER",
+              "ISSUER",
+              "SOURCE",
+              "FINANCE",
+              "ANOMALY",
+              "EXECUTOR"
+            ]
+          }
+        ],
+        "minItems": 5,
+        "maxItems": 5,
+        "items": false
+      },
+      "V25_Key_KEY": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/V25_B32"
+          }
+        ],
+        "minItems": 1,
+        "maxItems": 1,
+        "items": false
+      },
+      "V25_Key_BEHAVIOR": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          },
+          {
+            "const": "payment"
+          },
+          {
+            "$ref": "#/components/schemas/V25_Id"
+          }
+        ],
+        "minItems": 4,
+        "maxItems": 4,
+        "items": false
+      },
+      "V25_Positive": {
+        "type": "string",
+        "pattern": "^(?:[1-9][0-9]{0,17}|[1-8][0-9]{18}|9[0-1][0-9]{17}|92[0-1][0-9]{16}|922[0-2][0-9]{15}|9223[0-2][0-9]{14}|92233[0-6][0-9]{13}|922337[0-1][0-9]{12}|92233720[0-2][0-9]{10}|922337203[0-5][0-9]{9}|9223372036[0-7][0-9]{8}|92233720368[0-4][0-9]{7}|922337203685[0-3][0-9]{6}|9223372036854[0-6][0-9]{5}|92233720368547[0-6][0-9]{4}|922337203685477[0-4][0-9]{3}|9223372036854775[0-7][0-9]{2}|922337203685477580[0-6][0-9]{0}|9223372036854775807)(?![\\s\\S])"
+      },
+      "V25_Bool": {
+        "type": "boolean"
+      },
+      "V25_B64": {
+        "type": "string",
+        "minLength": 86,
+        "maxLength": 86,
+        "pattern": "^[A-Za-z0-9_-]{85}[AQgw](?![\\s\\S])"
+      },
+      "Case": {
+        "type": "object",
+        "properties": {
+          "case_id": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "intent": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "revision": {
+            "$ref": "#/components/schemas/N"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "partition": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "payer": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "currency": {
+            "const": "CNY"
+          },
+          "ratio": {
+            "$ref": "#/components/schemas/Ratio"
+          },
+          "action_class": {
+            "type": "string",
+            "enum": [
+              "PAY",
+              "HOLD"
+            ]
+          },
+          "event_at": {
+            "$ref": "#/components/schemas/N"
+          },
+          "known_at": {
+            "$ref": "#/components/schemas/N"
+          },
+          "label": {
+            "const": "CONFIRMED_GOOD"
+          }
+        },
+        "required": [
+          "case_id",
+          "intent",
+          "revision",
+          "scope",
+          "partition",
+          "payer",
+          "stage",
+          "currency",
+          "ratio",
+          "action_class",
+          "event_at",
+          "known_at",
+          "label"
+        ],
+        "additionalProperties": false
+      },
+      "Record_BASIS": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "BASIS"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "$ref": "#/components/schemas/Scope"
+              },
+              "operation_id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "action": {
+                "$ref": "#/components/schemas/Action"
+              },
+              "action_hash": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "policy_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "task_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "evidence_refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 1,
+                "maxItems": 1,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "assessment_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "required_reviews": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ReviewPurpose"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "scope",
+              "operation_id",
+              "action",
+              "action_hash",
+              "policy_ref",
+              "task_ref",
+              "evidence_refs",
+              "assessment_ref",
+              "required_reviews",
+              "deps",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_KEY_GRANT": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "KEY_GRANT"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "subject": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "public_key": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "epoch": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "purposes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Review",
+                    "Authorization",
+                    "IssueRequest",
+                    "Permit",
+                    "ChallengeRequest",
+                    "Challenge",
+                    "CommitProof",
+                    "Acceptance",
+                    "Result",
+                    "StatusQuery",
+                    "SOURCE",
+                    "CONTROL",
+                    "READ"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "root_generation": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "enrollment_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "subject",
+              "public_key",
+              "kid",
+              "epoch",
+              "purposes",
+              "root_generation",
+              "enrollment_ref",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_ROLE_GRANT": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "ROLE_GRANT"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "subject": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "role": {
+                "$ref": "#/components/schemas/Role"
+              },
+              "epoch": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "tool_set": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "destination_set": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "scope_set": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Scope"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "constraints": {
+                "type": "object",
+                "properties": {
+                  "payer_set": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    "minItems": 1,
+                    "maxItems": 256,
+                    "uniqueItems": true,
+                    "x-zjj-order": "strict lexicographic Enc bytes"
+                  },
+                  "max_amount_minor": {
+                    "$ref": "#/components/schemas/Positive"
+                  }
+                },
+                "required": [
+                  "payer_set",
+                  "max_amount_minor"
+                ],
+                "additionalProperties": false
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "subject",
+              "role",
+              "epoch",
+              "tool_set",
+              "destination_set",
+              "scope_set",
+              "constraints",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_COMMIT": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "COMMIT"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "ctx": {
+                "$ref": "#/components/schemas/Ctx"
+              },
+              "action": {
+                "$ref": "#/components/schemas/Action"
+              },
+              "permit_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "proof_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "authorization_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "review_refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "accept_seq": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "accepted_at": {
+                "$ref": "#/components/schemas/N"
+              },
+              "trusted_time": {
+                "type": "object",
+                "properties": {
+                  "lo": {
+                    "$ref": "#/components/schemas/N"
+                  },
+                  "hi": {
+                    "$ref": "#/components/schemas/N"
+                  }
+                },
+                "required": [
+                  "lo",
+                  "hi"
+                ],
+                "additionalProperties": false
+              },
+              "checked_deps": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Dep"
+                },
+                "minItems": 0,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "reservation_plan": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ResourceWitness"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "reservation_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B16"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "behavior_before": {
+                "$ref": "#/components/schemas/BehaviorWitness"
+              },
+              "behavior_after": {
+                "$ref": "#/components/schemas/BehaviorWitness"
+              },
+              "taskflight": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "$ref": "#/components/schemas/Id"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Id"
+                      },
+                      {
+                        "const": "payment"
+                      },
+                      {
+                        "$ref": "#/components/schemas/B16"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 4,
+                    "maxItems": 4
+                  },
+                  "operation_id": {
+                    "$ref": "#/components/schemas/B16"
+                  }
+                },
+                "required": [
+                  "key",
+                  "operation_id"
+                ],
+                "additionalProperties": false
+              },
+              "dispatch_before": {
+                "$ref": "#/components/schemas/N"
+              },
+              "frozen_tool_request": {
+                "$ref": "#/components/schemas/Action"
+              },
+              "signing_public_key": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "credential_witnesses": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CredentialWitness"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              }
+            },
+            "required": [
+              "ctx",
+              "action",
+              "permit_ref",
+              "proof_ref",
+              "authorization_ref",
+              "review_refs",
+              "accept_seq",
+              "accepted_at",
+              "trusted_time",
+              "checked_deps",
+              "reservation_plan",
+              "reservation_ids",
+              "behavior_before",
+              "behavior_after",
+              "taskflight",
+              "dispatch_before",
+              "frozen_tool_request",
+              "signing_public_key",
+              "credential_witnesses"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_TOOL_FINAL": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "TOOL_FINAL"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "const": "tool-final-v2"
+              },
+              "ledger_id": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "operation_id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "action_hash": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "dispatch_attempt": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "tool": {
+                "const": "pay-sim"
+              },
+              "tool_version": {
+                "const": "1"
+              },
+              "destination": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "SUCCEEDED",
+                  "FAILED_CONFIRMED"
+                ]
+              },
+              "effect_id": {
+                "oneOf": [
+                  {
+                    "const": ""
+                  },
+                  {
+                    "$ref": "#/components/schemas/Id"
+                  }
+                ]
+              },
+              "no_late_effect": {
+                "type": "boolean"
+              },
+              "final_seq": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "finalized_at": {
+                "$ref": "#/components/schemas/N"
+              },
+              "attestation": {
+                "type": "object",
+                "properties": {
+                  "issuer": {
+                    "$ref": "#/components/schemas/Id"
+                  },
+                  "kid": {
+                    "$ref": "#/components/schemas/B32"
+                  },
+                  "sig": {
+                    "$ref": "#/components/schemas/B64"
+                  }
+                },
+                "required": [
+                  "issuer",
+                  "kid",
+                  "sig"
+                ],
+                "additionalProperties": false
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "method",
+              "ledger_id",
+              "operation_id",
+              "action_hash",
+              "dispatch_attempt",
+              "tool",
+              "tool_version",
+              "destination",
+              "outcome",
+              "effect_id",
+              "no_late_effect",
+              "final_seq",
+              "finalized_at",
+              "attestation",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_TOOL_TRUST": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "TOOL_TRUST"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "issuer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "tool": {
+                "const": "pay-sim"
+              },
+              "tool_version": {
+                "const": "1"
+              },
+              "destination": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "ledger_id": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "evidence_method": {
+                "const": "tool-final-v2"
+              },
+              "public_key": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "kid": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "epoch": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "issuer",
+              "tool",
+              "tool_version",
+              "destination",
+              "ledger_id",
+              "evidence_method",
+              "public_key",
+              "kid",
+              "epoch",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_POLICY": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "POLICY"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "profile": {
+                "const": "PAY-1"
+              },
+              "policy_revision": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "schema_version": {
+                "const": "pay1-payload-v1"
+              },
+              "verifier_version": {
+                "const": "pay1-verifier-v1"
+              },
+              "gateway": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "gateway_kid": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "executor": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "executor_kid": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "source": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "readers": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "tool": {
+                "const": "pay-sim"
+              },
+              "tool_version": {
+                "const": "1"
+              },
+              "destination": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "currency": {
+                "const": "CNY"
+              },
+              "method": {
+                "const": "order-match-v1"
+              },
+              "risk_method": {
+                "const": "history-int-v2"
+              },
+              "partition": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "count_cap": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "profile",
+              "policy_revision",
+              "schema_version",
+              "verifier_version",
+              "gateway",
+              "gateway_kid",
+              "executor",
+              "executor_kid",
+              "source",
+              "readers",
+              "tool",
+              "tool_version",
+              "destination",
+              "currency",
+              "method",
+              "risk_method",
+              "partition",
+              "count_cap",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_PAY_TASK": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "PAY_TASK"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "task_id": {
+                "$ref": "#/components/schemas/B16"
+              },
+              "task_revision": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "principal": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "holder": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "holder_kid": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "order_id": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "stage": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "payer": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "allowed_payees": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "max_amount_minor": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "executor": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "destination": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "policy_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "task_id",
+              "task_revision",
+              "principal",
+              "holder",
+              "holder_kid",
+              "order_id",
+              "stage",
+              "payer",
+              "allowed_payees",
+              "max_amount_minor",
+              "executor",
+              "destination",
+              "policy_ref",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_PAY_EVIDENCE": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "PAY_EVIDENCE"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "source_version": {
+                "const": "2.5"
+              },
+              "source_profile": {
+                "const": "PAY-1"
+              },
+              "source_type": {
+                "const": "Evidence"
+              },
+              "source_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "source_envelope": {
+                "$ref": "#/components/schemas/V25_Evidence"
+              }
+            },
+            "required": [
+              "source_version",
+              "source_profile",
+              "source_type",
+              "source_ref",
+              "source_envelope"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_PAY_HISTORY": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "PAY_HISTORY"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "partition": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "publication_revision": {
+                "$ref": "#/components/schemas/Positive"
+              },
+              "feature_schema": {
+                "const": "ratio-int-v1"
+              },
+              "cases": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Case"
+                },
+                "minItems": 0,
+                "maxItems": 128,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "partition",
+              "publication_revision",
+              "feature_schema",
+              "cases",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record_ASSESSMENT": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "const": "2.6"
+          },
+          "profile": {
+            "const": "PAY-1"
+          },
+          "kind": {
+            "const": "ASSESSMENT"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Scope"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "action_hash": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "policy_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "task_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "evidence_refs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/B32"
+                },
+                "minItems": 1,
+                "maxItems": 1,
+                "uniqueItems": true,
+                "x-zjj-order": "strict lexicographic Enc bytes"
+              },
+              "snapshot_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
+              "cutoff": {
+                "$ref": "#/components/schemas/N"
+              },
+              "feature": {
+                "$ref": "#/components/schemas/Ratio"
+              },
+              "selected_cases": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Id"
+                },
+                "minItems": 0,
+                "maxItems": 5
+              },
+              "support": {
+                "type": "string",
+                "pattern": "^(?:0|[1-4][0-9]{0}|5)(?![\\s\\S])"
+              },
+              "different": {
+                "type": "string",
+                "pattern": "^(?:0|[1-4][0-9]{0}|5)(?![\\s\\S])"
+              },
+              "result": {
+                "type": "string",
+                "enum": [
+                  "CLEAR",
+                  "FLAG",
+                  "INSUFFICIENT",
+                  "UNKNOWN"
+                ]
+              },
+              "method": {
+                "const": "history-int-v2"
+              },
+              "iat": {
+                "$ref": "#/components/schemas/N"
+              },
+              "exp": {
+                "$ref": "#/components/schemas/N"
+              }
+            },
+            "required": [
+              "action_hash",
+              "policy_ref",
+              "task_ref",
+              "evidence_refs",
+              "snapshot_ref",
+              "cutoff",
+              "feature",
+              "selected_cases",
+              "support",
+              "different",
+              "result",
+              "method",
+              "iat",
+              "exp"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "version",
+          "profile",
+          "kind",
+          "scope",
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "Record": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Record_BASIS"
+          },
+          {
+            "$ref": "#/components/schemas/Record_KEY_GRANT"
+          },
+          {
+            "$ref": "#/components/schemas/Record_ROLE_GRANT"
+          },
+          {
+            "$ref": "#/components/schemas/Record_COMMIT"
+          },
+          {
+            "$ref": "#/components/schemas/Record_TOOL_FINAL"
+          },
+          {
+            "$ref": "#/components/schemas/Record_TOOL_TRUST"
+          },
+          {
+            "$ref": "#/components/schemas/Record_POLICY"
+          },
+          {
+            "$ref": "#/components/schemas/Record_PAY_TASK"
+          },
+          {
+            "$ref": "#/components/schemas/Record_PAY_EVIDENCE"
+          },
+          {
+            "$ref": "#/components/schemas/Record_PAY_HISTORY"
+          },
+          {
+            "$ref": "#/components/schemas/Record_ASSESSMENT"
+          }
+        ]
+      },
+      "Bundle": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/Envelope"
+          },
+          "objects": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Envelope"
+                },
+                {
+                  "$ref": "#/components/schemas/Record"
+                }
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 128
+          }
+        },
+        "required": [
+          "message",
+          "objects"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

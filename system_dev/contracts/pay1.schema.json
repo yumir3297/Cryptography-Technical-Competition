@@ -1,0 +1,4890 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pay1.invalid/contracts/pay1.schema.json",
+  "title": "PAY-1 v2.5 structural envelope; not authorization",
+  "$ref": "#/$defs/Envelope",
+  "$defs": {
+    "N": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9][0-9]{0,17}|[1-8][0-9]{18}|9[0-1][0-9]{17}|92[0-1][0-9]{16}|922[0-2][0-9]{15}|9223[0-2][0-9]{14}|92233[0-6][0-9]{13}|922337[0-1][0-9]{12}|92233720[0-2][0-9]{10}|922337203[0-5][0-9]{9}|9223372036[0-7][0-9]{8}|92233720368[0-4][0-9]{7}|922337203685[0-3][0-9]{6}|9223372036854[0-6][0-9]{5}|92233720368547[0-6][0-9]{4}|922337203685477[0-4][0-9]{3}|9223372036854775[0-7][0-9]{2}|922337203685477580[0-6][0-9]{0}|9223372036854775807)(?![\\s\\S])"
+    },
+    "Positive": {
+      "type": "string",
+      "pattern": "^(?:[1-9][0-9]{0,17}|[1-8][0-9]{18}|9[0-1][0-9]{17}|92[0-1][0-9]{16}|922[0-2][0-9]{15}|9223[0-2][0-9]{14}|92233[0-6][0-9]{13}|922337[0-1][0-9]{12}|92233720[0-2][0-9]{10}|922337203[0-5][0-9]{9}|9223372036[0-7][0-9]{8}|92233720368[0-4][0-9]{7}|922337203685[0-3][0-9]{6}|9223372036854[0-6][0-9]{5}|92233720368547[0-6][0-9]{4}|922337203685477[0-4][0-9]{3}|9223372036854775[0-7][0-9]{2}|922337203685477580[0-6][0-9]{0}|9223372036854775807)(?![\\s\\S])"
+    },
+    "Ratio": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9][0-9]{0,3}|10000)(?![\\s\\S])"
+    },
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]{0,63}(?![\\s\\S])"
+    },
+    "Code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{0,63}(?![\\s\\S])"
+    },
+    "Bool": {
+      "type": "boolean"
+    },
+    "Text": {
+      "type": "string",
+      "maxLength": 1024,
+      "x-pay1-unicode": "Unicode scalars only"
+    },
+    "Nonblank": {
+      "type": "string",
+      "maxLength": 1024,
+      "pattern": "[^\\u0009-\\u000d\\u0020\\u0085\\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000]"
+    },
+    "empty": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "B16": {
+      "type": "string",
+      "minLength": 22,
+      "maxLength": 22,
+      "pattern": "^[A-Za-z0-9_-]{21}[AQgw](?![\\s\\S])"
+    },
+    "B32": {
+      "type": "string",
+      "minLength": 43,
+      "maxLength": 43,
+      "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048](?![\\s\\S])"
+    },
+    "B64": {
+      "type": "string",
+      "minLength": 86,
+      "maxLength": 86,
+      "pattern": "^[A-Za-z0-9_-]{85}[AQgw](?![\\s\\S])"
+    },
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "$ref": "#/$defs/Id"
+        },
+        "tenant": {
+          "$ref": "#/$defs/Id"
+        },
+        "scenario": {
+          "const": "payment"
+        }
+      },
+      "required": [
+        "domain",
+        "tenant",
+        "scenario"
+      ],
+      "additionalProperties": false
+    },
+    "Dep": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "enum": [
+            "CONFIG",
+            "TASK",
+            "ORDER",
+            "EXPERIENCE",
+            "ROLE",
+            "KEY",
+            "BEHAVIOR"
+          ]
+        },
+        "key": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Text"
+          },
+          "maxItems": 256
+        },
+        "revision": {
+          "$ref": "#/$defs/N"
+        },
+        "ref": {
+          "$ref": "#/$defs/B32"
+        }
+      },
+      "required": [
+        "namespace",
+        "key",
+        "revision",
+        "ref"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "CONFIG"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "$ref": "#/$defs/Key_CONFIG"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "TASK"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "$ref": "#/$defs/Key_TASK"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "ORDER"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "$ref": "#/$defs/Key_ORDER"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "EXPERIENCE"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "$ref": "#/$defs/Key_EXPERIENCE"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "ROLE"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "$ref": "#/$defs/Key_ROLE"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "KEY"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "$ref": "#/$defs/Key_KEY"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "BEHAVIOR"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "$ref": "#/$defs/Key_BEHAVIOR"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Ctx": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "task_ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/B16"
+        },
+        "principal": {
+          "$ref": "#/$defs/Id"
+        },
+        "holder": {
+          "$ref": "#/$defs/Id"
+        },
+        "holder_kid": {
+          "$ref": "#/$defs/B32"
+        },
+        "executor": {
+          "$ref": "#/$defs/Id"
+        },
+        "action_hash": {
+          "$ref": "#/$defs/B32"
+        },
+        "config_ref": {
+          "$ref": "#/$defs/B32"
+        }
+      },
+      "required": [
+        "scope",
+        "task_ref",
+        "operation_id",
+        "principal",
+        "holder",
+        "holder_kid",
+        "executor",
+        "action_hash",
+        "config_ref"
+      ],
+      "additionalProperties": false
+    },
+    "Action": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "task_id": {
+          "$ref": "#/$defs/B16"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/B16"
+        },
+        "principal": {
+          "$ref": "#/$defs/Id"
+        },
+        "holder": {
+          "$ref": "#/$defs/Id"
+        },
+        "holder_kid": {
+          "$ref": "#/$defs/B32"
+        },
+        "executor": {
+          "$ref": "#/$defs/Id"
+        },
+        "tool": {
+          "const": "pay-sim"
+        },
+        "tool_version": {
+          "const": "1"
+        },
+        "destination": {
+          "$ref": "#/$defs/Id"
+        },
+        "order_id": {
+          "$ref": "#/$defs/Id"
+        },
+        "stage": {
+          "$ref": "#/$defs/Id"
+        },
+        "payer": {
+          "$ref": "#/$defs/Id"
+        },
+        "payee": {
+          "$ref": "#/$defs/Id"
+        },
+        "amount_minor": {
+          "$ref": "#/$defs/Positive"
+        },
+        "currency": {
+          "const": "CNY"
+        },
+        "purpose": {
+          "const": "order-settlement"
+        },
+        "data_refs": {
+          "$ref": "#/$defs/empty"
+        }
+      },
+      "required": [
+        "scope",
+        "task_id",
+        "operation_id",
+        "principal",
+        "holder",
+        "holder_kid",
+        "executor",
+        "tool",
+        "tool_version",
+        "destination",
+        "order_id",
+        "stage",
+        "payer",
+        "payee",
+        "amount_minor",
+        "currency",
+        "purpose",
+        "data_refs"
+      ],
+      "additionalProperties": false
+    },
+    "Case": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "$ref": "#/$defs/Id"
+        },
+        "intent": {
+          "$ref": "#/$defs/Id"
+        },
+        "revision": {
+          "$ref": "#/$defs/Positive"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "partition": {
+          "$ref": "#/$defs/Id"
+        },
+        "payer": {
+          "$ref": "#/$defs/Id"
+        },
+        "stage": {
+          "$ref": "#/$defs/Id"
+        },
+        "currency": {
+          "const": "CNY"
+        },
+        "ratio": {
+          "$ref": "#/$defs/Ratio"
+        },
+        "action_class": {
+          "type": "string",
+          "enum": [
+            "PAY",
+            "HOLD"
+          ]
+        },
+        "event_at": {
+          "$ref": "#/$defs/N"
+        },
+        "known_at": {
+          "$ref": "#/$defs/N"
+        },
+        "label": {
+          "const": "CONFIRMED_GOOD"
+        }
+      },
+      "required": [
+        "case_id",
+        "intent",
+        "revision",
+        "scope",
+        "partition",
+        "payer",
+        "stage",
+        "currency",
+        "ratio",
+        "action_class",
+        "event_at",
+        "known_at",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "Reason": {
+      "type": "object",
+      "properties": {
+        "check": {
+          "$ref": "#/$defs/Id"
+        },
+        "code": {
+          "$ref": "#/$defs/Code"
+        }
+      },
+      "required": [
+        "check",
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    "Key_KEY": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/B32"
+        }
+      ],
+      "minItems": 1,
+      "maxItems": 1,
+      "items": false
+    },
+    "Key_CONFIG": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "payment"
+        }
+      ],
+      "minItems": 3,
+      "maxItems": 3,
+      "items": false
+    },
+    "Key_TASK": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "payment"
+        },
+        {
+          "$ref": "#/$defs/B16"
+        }
+      ],
+      "minItems": 4,
+      "maxItems": 4,
+      "items": false
+    },
+    "Key_ORDER": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "payment"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        }
+      ],
+      "minItems": 5,
+      "maxItems": 5,
+      "items": false
+    },
+    "Key_EXPERIENCE": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "payment"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        }
+      ],
+      "minItems": 4,
+      "maxItems": 4,
+      "items": false
+    },
+    "Key_ROLE": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "payment"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "HOLDER",
+            "ISSUER",
+            "SOURCE",
+            "FINANCE",
+            "ANOMALY",
+            "EXECUTOR"
+          ]
+        }
+      ],
+      "minItems": 5,
+      "maxItems": 5,
+      "items": false
+    },
+    "Key_BEHAVIOR": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "payment"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        }
+      ],
+      "minItems": 4,
+      "maxItems": 4,
+      "items": false
+    },
+    "Key_BUDGET": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "payment"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "CNY"
+        }
+      ],
+      "minItems": 5,
+      "maxItems": 5,
+      "items": false
+    },
+    "Key_OP_REGISTER": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "const": "payment"
+        },
+        {
+          "$ref": "#/$defs/B16"
+        }
+      ],
+      "minItems": 4,
+      "maxItems": 4,
+      "items": false
+    },
+    "Key_REVOKE": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string",
+          "enum": [
+            "EnrollmentChallenge",
+            "KeyProof",
+            "KeyGrant",
+            "RoleGrant",
+            "Config",
+            "Task",
+            "Evidence",
+            "ExperienceSnapshot",
+            "Decision",
+            "Risk",
+            "Review",
+            "Authorization",
+            "IssueRequest",
+            "Permit",
+            "ChallengeRequest",
+            "Challenge",
+            "CommitProof",
+            "Acceptance",
+            "Result",
+            "StatusQuery",
+            "StateUpdate",
+            "BudgetRecord",
+            "OperationRecord",
+            "ManagementReceipt"
+          ]
+        },
+        {
+          "$ref": "#/$defs/Id"
+        },
+        {
+          "$ref": "#/$defs/B16"
+        }
+      ],
+      "minItems": 3,
+      "maxItems": 3,
+      "items": false
+    },
+    "BehaviorRow": {
+      "type": "object",
+      "properties": {
+        "accepted_count": {
+          "$ref": "#/$defs/N"
+        },
+        "count_cap": {
+          "$ref": "#/$defs/Positive"
+        },
+        "inflight": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/B16"
+          },
+          "uniqueItems": true,
+          "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+        }
+      },
+      "required": [
+        "accepted_count",
+        "count_cap",
+        "inflight"
+      ],
+      "additionalProperties": false
+    },
+    "EnrollmentChallenge": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "EnrollmentChallenge"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "enrollment_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "subject": {
+                  "$ref": "#/$defs/Id"
+                },
+                "public_key": {
+                  "$ref": "#/$defs/B32"
+                },
+                "kid": {
+                  "$ref": "#/$defs/B32"
+                },
+                "nonce": {
+                  "$ref": "#/$defs/B32"
+                },
+                "purposes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "EVIDENCE",
+                      "DECISION",
+                      "RISK",
+                      "PERMIT",
+                      "FINANCE",
+                      "ANOMALY",
+                      "HOLDER",
+                      "EXECUTOR"
+                    ]
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "key_not_before": {
+                  "$ref": "#/$defs/N"
+                },
+                "key_not_after": {
+                  "$ref": "#/$defs/N"
+                },
+                "root_generation": {
+                  "$ref": "#/$defs/Positive"
+                }
+              },
+              "required": [
+                "enrollment_id",
+                "subject",
+                "public_key",
+                "kid",
+                "nonce",
+                "purposes",
+                "key_not_before",
+                "key_not_after",
+                "root_generation"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 60
+    },
+    "KeyProof": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "KeyProof"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "enrollment_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "subject": {
+                  "$ref": "#/$defs/Id"
+                },
+                "public_key": {
+                  "$ref": "#/$defs/B32"
+                },
+                "nonce": {
+                  "$ref": "#/$defs/B32"
+                }
+              },
+              "required": [
+                "enrollment_ref",
+                "subject",
+                "public_key",
+                "nonce"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 60
+    },
+    "KeyGrant": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "KeyGrant"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "$ref": "#/$defs/Id"
+                },
+                "public_key": {
+                  "$ref": "#/$defs/B32"
+                },
+                "kid": {
+                  "$ref": "#/$defs/B32"
+                },
+                "key_epoch": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "purposes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "EVIDENCE",
+                      "DECISION",
+                      "RISK",
+                      "PERMIT",
+                      "FINANCE",
+                      "ANOMALY",
+                      "HOLDER",
+                      "EXECUTOR"
+                    ]
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "root_generation": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "enrollment_ref": {
+                  "$ref": "#/$defs/B32"
+                }
+              },
+              "required": [
+                "subject",
+                "public_key",
+                "kid",
+                "key_epoch",
+                "purposes",
+                "root_generation",
+                "enrollment_ref"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 31536000
+    },
+    "RoleGrant": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "RoleGrant"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "$ref": "#/$defs/Id"
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "HOLDER",
+                    "ISSUER",
+                    "SOURCE",
+                    "FINANCE",
+                    "ANOMALY",
+                    "EXECUTOR"
+                  ]
+                },
+                "payer_set": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Id"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "tool_set": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Id"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "destination_set": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Id"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "max_amount_minor": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "role_epoch": {
+                  "$ref": "#/$defs/Positive"
+                }
+              },
+              "required": [
+                "subject",
+                "role",
+                "payer_set",
+                "tool_set",
+                "destination_set",
+                "max_amount_minor",
+                "role_epoch"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 31536000
+    },
+    "Config": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Config"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "config_epoch": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "gateway": {
+                  "$ref": "#/$defs/Id"
+                },
+                "executor": {
+                  "$ref": "#/$defs/Id"
+                },
+                "source": {
+                  "$ref": "#/$defs/Id"
+                },
+                "readers": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Id"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "tool": {
+                  "const": "pay-sim"
+                },
+                "tool_version": {
+                  "const": "1"
+                },
+                "destination": {
+                  "$ref": "#/$defs/Id"
+                },
+                "currency": {
+                  "const": "CNY"
+                },
+                "method": {
+                  "const": "order-match-v1"
+                },
+                "risk_method": {
+                  "const": "history-int-v2"
+                },
+                "partition": {
+                  "$ref": "#/$defs/Id"
+                },
+                "count_cap": {
+                  "$ref": "#/$defs/Positive"
+                }
+              },
+              "required": [
+                "config_epoch",
+                "gateway",
+                "executor",
+                "source",
+                "readers",
+                "tool",
+                "tool_version",
+                "destination",
+                "currency",
+                "method",
+                "risk_method",
+                "partition",
+                "count_cap"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 31536000
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Task"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "task_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "task_epoch": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "principal": {
+                  "$ref": "#/$defs/Id"
+                },
+                "holder": {
+                  "$ref": "#/$defs/Id"
+                },
+                "holder_kid": {
+                  "$ref": "#/$defs/B32"
+                },
+                "order_id": {
+                  "$ref": "#/$defs/Id"
+                },
+                "stage": {
+                  "$ref": "#/$defs/Id"
+                },
+                "payer": {
+                  "$ref": "#/$defs/Id"
+                },
+                "allowed_payees": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Id"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "max_amount_minor": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "executor": {
+                  "$ref": "#/$defs/Id"
+                },
+                "destination": {
+                  "$ref": "#/$defs/Id"
+                },
+                "config_ref": {
+                  "$ref": "#/$defs/B32"
+                }
+              },
+              "required": [
+                "task_id",
+                "task_epoch",
+                "principal",
+                "holder",
+                "holder_kid",
+                "order_id",
+                "stage",
+                "payer",
+                "allowed_payees",
+                "max_amount_minor",
+                "executor",
+                "destination",
+                "config_ref"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 86400
+    },
+    "Evidence": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Evidence"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "$ref": "#/$defs/Id"
+                },
+                "stage": {
+                  "$ref": "#/$defs/Id"
+                },
+                "order_revision": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "payer": {
+                  "$ref": "#/$defs/Id"
+                },
+                "payee": {
+                  "$ref": "#/$defs/Id"
+                },
+                "amount_minor": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "currency": {
+                  "const": "CNY"
+                },
+                "accepted_goods": {
+                  "$ref": "#/$defs/Bool"
+                },
+                "unsettled": {
+                  "$ref": "#/$defs/Bool"
+                },
+                "beneficiary_active": {
+                  "$ref": "#/$defs/Bool"
+                },
+                "observed_at": {
+                  "$ref": "#/$defs/N"
+                }
+              },
+              "required": [
+                "order_id",
+                "stage",
+                "order_revision",
+                "payer",
+                "payee",
+                "amount_minor",
+                "currency",
+                "accepted_goods",
+                "unsettled",
+                "beneficiary_active",
+                "observed_at"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 900
+    },
+    "ExperienceSnapshot": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "ExperienceSnapshot"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "partition": {
+                  "$ref": "#/$defs/Id"
+                },
+                "publication_epoch": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "feature_schema": {
+                  "const": "ratio-int-v1"
+                },
+                "cases": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Case"
+                  },
+                  "maxItems": 128
+                }
+              },
+              "required": [
+                "partition",
+                "publication_epoch",
+                "feature_schema",
+                "cases"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 31536000
+    },
+    "Decision": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Decision"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "action": {
+                  "$ref": "#/$defs/Action"
+                },
+                "evidence_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "outcome": {
+                  "type": "string",
+                  "enum": [
+                    "CANDIDATE",
+                    "BLOCK",
+                    "HANDOFF"
+                  ]
+                },
+                "method": {
+                  "const": "order-match-v1"
+                }
+              },
+              "required": [
+                "ctx",
+                "action",
+                "evidence_ref",
+                "outcome",
+                "method"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 900
+    },
+    "Risk": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Risk"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "decision_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "snapshot_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "cutoff": {
+                  "$ref": "#/$defs/N"
+                },
+                "feature": {
+                  "$ref": "#/$defs/Ratio"
+                },
+                "selected_cases": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Id"
+                  },
+                  "maxItems": 256
+                },
+                "support": {
+                  "$ref": "#/$defs/N"
+                },
+                "different": {
+                  "$ref": "#/$defs/N"
+                },
+                "result": {
+                  "type": "string",
+                  "enum": [
+                    "CLEAR",
+                    "FLAG",
+                    "INSUFFICIENT",
+                    "UNKNOWN"
+                  ]
+                },
+                "method": {
+                  "const": "history-int-v2"
+                }
+              },
+              "required": [
+                "ctx",
+                "decision_ref",
+                "snapshot_ref",
+                "cutoff",
+                "feature",
+                "selected_cases",
+                "support",
+                "different",
+                "result",
+                "method"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 900
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Review"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "decision_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "risk_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "purpose": {
+                  "type": "string",
+                  "enum": [
+                    "ANOMALY",
+                    "LOW_EVIDENCE"
+                  ]
+                },
+                "verdict": {
+                  "type": "string",
+                  "enum": [
+                    "APPROVE",
+                    "DENY"
+                  ]
+                },
+                "reason": {
+                  "$ref": "#/$defs/Nonblank"
+                }
+              },
+              "required": [
+                "ctx",
+                "decision_ref",
+                "risk_ref",
+                "purpose",
+                "verdict",
+                "reason"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 900
+    },
+    "Authorization": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Authorization"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "decision_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "risk_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "review_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "purpose": {
+                  "const": "EXECUTE"
+                },
+                "verdict": {
+                  "type": "string",
+                  "enum": [
+                    "APPROVE",
+                    "DENY"
+                  ]
+                }
+              },
+              "required": [
+                "ctx",
+                "decision_ref",
+                "risk_ref",
+                "review_refs",
+                "purpose",
+                "verdict"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 900
+    },
+    "IssueRequest": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "IssueRequest"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "decision_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "risk_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "review_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "authorization_ref": {
+                  "$ref": "#/$defs/B32"
+                }
+              },
+              "required": [
+                "ctx",
+                "decision_ref",
+                "risk_ref",
+                "review_refs",
+                "authorization_ref"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 120
+    },
+    "Permit": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Permit"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "decision_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "risk_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "review_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "authorization_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "max_uses": {
+                  "const": "1"
+                },
+                "dispatch_before": {
+                  "$ref": "#/$defs/N"
+                }
+              },
+              "required": [
+                "ctx",
+                "decision_ref",
+                "risk_ref",
+                "review_refs",
+                "authorization_ref",
+                "max_uses",
+                "dispatch_before"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 120
+    },
+    "ChallengeRequest": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "ChallengeRequest"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "purpose": {
+                  "type": "string",
+                  "enum": [
+                    "COMMIT",
+                    "STATUS"
+                  ]
+                },
+                "operation_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "permit_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "action_hash": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "attempt_id": {
+                  "$ref": "#/$defs/B16"
+                }
+              },
+              "required": [
+                "purpose",
+                "operation_id",
+                "permit_ref",
+                "action_hash",
+                "attempt_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 30
+    },
+    "Challenge": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Challenge"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "purpose": {
+                  "type": "string",
+                  "enum": [
+                    "COMMIT",
+                    "STATUS"
+                  ]
+                },
+                "operation_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "permit_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "action_hash": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "holder": {
+                  "$ref": "#/$defs/Id"
+                },
+                "holder_kid": {
+                  "$ref": "#/$defs/B32"
+                },
+                "session_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "nonce": {
+                  "$ref": "#/$defs/B32"
+                },
+                "request_ref": {
+                  "$ref": "#/$defs/B32"
+                }
+              },
+              "required": [
+                "purpose",
+                "operation_id",
+                "permit_ref",
+                "action_hash",
+                "holder",
+                "holder_kid",
+                "session_id",
+                "nonce",
+                "request_ref"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 30
+    },
+    "CommitProof": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "CommitProof"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "permit_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "challenge_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "session_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "nonce": {
+                  "$ref": "#/$defs/B32"
+                },
+                "attempt_id": {
+                  "$ref": "#/$defs/B16"
+                }
+              },
+              "required": [
+                "ctx",
+                "permit_ref",
+                "challenge_ref",
+                "session_id",
+                "nonce",
+                "attempt_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 30
+    },
+    "Acceptance": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Acceptance"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "permit_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "proof_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "authorization_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "decision_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "risk_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "review_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+                },
+                "accept_seq": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "accepted_at": {
+                  "$ref": "#/$defs/N"
+                },
+                "resource_key": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Text"
+                  },
+                  "maxItems": 256
+                },
+                "reserved_minor": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "behavior_before": {
+                  "$ref": "#/$defs/N"
+                },
+                "behavior_after": {
+                  "$ref": "#/$defs/N"
+                },
+                "dispatch_before": {
+                  "$ref": "#/$defs/N"
+                }
+              },
+              "required": [
+                "ctx",
+                "permit_ref",
+                "proof_ref",
+                "authorization_ref",
+                "decision_ref",
+                "risk_ref",
+                "review_refs",
+                "accept_seq",
+                "accepted_at",
+                "resource_key",
+                "reserved_minor",
+                "behavior_before",
+                "behavior_after",
+                "dispatch_before"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 900
+    },
+    "Result": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Result"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "request_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "attempt_id": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B16"
+                    }
+                  ]
+                },
+                "result": {
+                  "type": "string",
+                  "enum": [
+                    "ISSUED",
+                    "ACCEPTED",
+                    "REJECT",
+                    "DEFER",
+                    "EXISTING",
+                    "STATUS"
+                  ]
+                },
+                "reasons": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Reason"
+                  },
+                  "maxItems": 256
+                },
+                "operation_id": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B16"
+                    }
+                  ]
+                },
+                "acceptance_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "NONE",
+                    "PENDING",
+                    "ACCEPTED",
+                    "EFFECT_UNKNOWN",
+                    "SUCCEEDED",
+                    "FAILED_CONFIRMED",
+                    "HALTED"
+                  ]
+                },
+                "status_seq": {
+                  "$ref": "#/$defs/N"
+                },
+                "retry_after": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/N"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "request_ref",
+                "attempt_id",
+                "result",
+                "reasons",
+                "operation_id",
+                "acceptance_ref",
+                "status",
+                "status_seq",
+                "retry_after"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 30
+    },
+    "StatusQuery": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "StatusQuery"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "challenge_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "session_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "nonce": {
+                  "$ref": "#/$defs/B32"
+                },
+                "attempt_id": {
+                  "$ref": "#/$defs/B16"
+                }
+              },
+              "required": [
+                "operation_id",
+                "challenge_ref",
+                "session_id",
+                "nonce",
+                "attempt_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 30
+    },
+    "StateUpdate": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "StateUpdate"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "namespace": {
+                  "type": "string",
+                  "enum": [
+                    "KEY",
+                    "ROLE",
+                    "CONFIG",
+                    "TASK",
+                    "ORDER",
+                    "EXPERIENCE",
+                    "REVOKE",
+                    "BUDGET",
+                    "OP_REGISTER"
+                  ]
+                },
+                "key": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Text"
+                  },
+                  "maxItems": 256
+                },
+                "expected_revision": {
+                  "$ref": "#/$defs/N"
+                },
+                "new_revision": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "new_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "active": {
+                  "$ref": "#/$defs/Bool"
+                }
+              },
+              "required": [
+                "namespace",
+                "key",
+                "expected_revision",
+                "new_revision",
+                "new_ref",
+                "active"
+              ],
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "KEY"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_KEY"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "ROLE"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_ROLE"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "CONFIG"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_CONFIG"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "TASK"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_TASK"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "ORDER"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_ORDER"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "EXPERIENCE"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_EXPERIENCE"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "REVOKE"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_REVOKE"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "BUDGET"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_BUDGET"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "OP_REGISTER"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_OP_REGISTER"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 120
+    },
+    "BudgetRecord": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "BudgetRecord"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "payer": {
+                  "$ref": "#/$defs/Id"
+                },
+                "currency": {
+                  "const": "CNY"
+                },
+                "capacity": {
+                  "$ref": "#/$defs/N"
+                },
+                "revision": {
+                  "$ref": "#/$defs/Positive"
+                }
+              },
+              "required": [
+                "payer",
+                "currency",
+                "capacity",
+                "revision"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 31536000
+    },
+    "OperationRecord": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "OperationRecord"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "task_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "order_id": {
+                  "$ref": "#/$defs/Id"
+                },
+                "stage": {
+                  "$ref": "#/$defs/Id"
+                },
+                "payer": {
+                  "$ref": "#/$defs/Id"
+                }
+              },
+              "required": [
+                "operation_id",
+                "task_ref",
+                "order_id",
+                "stage",
+                "payer"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 86400
+    },
+    "ManagementReceipt": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.5"
+            },
+            "profile": {
+              "const": "PAY-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "ManagementReceipt"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes",
+              "minItems": 1
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-pay1-order": "lexicographic canonical UTF-8 bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "request_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "disposition": {
+                  "type": "string",
+                  "enum": [
+                    "APPLIED",
+                    "REJECT",
+                    "DEFER"
+                  ]
+                },
+                "code": {
+                  "$ref": "#/$defs/Code"
+                },
+                "namespace": {
+                  "type": "string",
+                  "enum": [
+                    "KEY",
+                    "ROLE",
+                    "CONFIG",
+                    "TASK",
+                    "ORDER",
+                    "EXPERIENCE",
+                    "REVOKE",
+                    "BUDGET",
+                    "OP_REGISTER"
+                  ]
+                },
+                "key": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Text"
+                  },
+                  "maxItems": 256
+                },
+                "revision": {
+                  "$ref": "#/$defs/N"
+                },
+                "state_seq": {
+                  "$ref": "#/$defs/N"
+                },
+                "applied_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "request_ref",
+                "disposition",
+                "code",
+                "namespace",
+                "key",
+                "revision",
+                "state_seq",
+                "applied_ref"
+              ],
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "KEY"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_KEY"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "ROLE"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_ROLE"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "CONFIG"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_CONFIG"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "TASK"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_TASK"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "ORDER"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_ORDER"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "EXPERIENCE"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_EXPERIENCE"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "REVOKE"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_REVOKE"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "BUDGET"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_BUDGET"
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "namespace": {
+                        "const": "OP_REGISTER"
+                      }
+                    },
+                    "required": [
+                      "namespace"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "key": {
+                        "$ref": "#/$defs/Key_OP_REGISTER"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-pay1-max-lifetime-seconds": 30
+    },
+    "Envelope": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/EnrollmentChallenge"
+        },
+        {
+          "$ref": "#/$defs/KeyProof"
+        },
+        {
+          "$ref": "#/$defs/KeyGrant"
+        },
+        {
+          "$ref": "#/$defs/RoleGrant"
+        },
+        {
+          "$ref": "#/$defs/Config"
+        },
+        {
+          "$ref": "#/$defs/Task"
+        },
+        {
+          "$ref": "#/$defs/Evidence"
+        },
+        {
+          "$ref": "#/$defs/ExperienceSnapshot"
+        },
+        {
+          "$ref": "#/$defs/Decision"
+        },
+        {
+          "$ref": "#/$defs/Risk"
+        },
+        {
+          "$ref": "#/$defs/Review"
+        },
+        {
+          "$ref": "#/$defs/Authorization"
+        },
+        {
+          "$ref": "#/$defs/IssueRequest"
+        },
+        {
+          "$ref": "#/$defs/Permit"
+        },
+        {
+          "$ref": "#/$defs/ChallengeRequest"
+        },
+        {
+          "$ref": "#/$defs/Challenge"
+        },
+        {
+          "$ref": "#/$defs/CommitProof"
+        },
+        {
+          "$ref": "#/$defs/Acceptance"
+        },
+        {
+          "$ref": "#/$defs/Result"
+        },
+        {
+          "$ref": "#/$defs/StatusQuery"
+        },
+        {
+          "$ref": "#/$defs/StateUpdate"
+        },
+        {
+          "$ref": "#/$defs/BudgetRecord"
+        },
+        {
+          "$ref": "#/$defs/OperationRecord"
+        },
+        {
+          "$ref": "#/$defs/ManagementReceipt"
+        }
+      ]
+    },
+    "Bundle": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/$defs/Envelope"
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Envelope"
+          },
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "message",
+        "objects"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$comment": "x-pay1 annotations are not executable validation. See docs/03."
+}

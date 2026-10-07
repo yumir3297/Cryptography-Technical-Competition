@@ -1,0 +1,1604 @@
+{
+  "date": "2026-10-07",
+  "generated_at_utc": "2026-10-07T14:38:13.067729+00:00",
+  "contract": "ZJJ-CORE-2.6-R2",
+  "checks_passed": 371,
+  "checks": [
+    {
+      "id": "PAY-1:deterministic-schema",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:ten-types",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Review:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Review:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Review:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Review:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Review:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Review:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Review:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Authorization:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Authorization:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Authorization:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Authorization:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Authorization:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Authorization:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Authorization:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:IssueRequest:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:IssueRequest:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:IssueRequest:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:IssueRequest:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:IssueRequest:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:IssueRequest:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:IssueRequest:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Permit:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Permit:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Permit:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Permit:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Permit:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Permit:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Permit:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:ChallengeRequest:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:ChallengeRequest:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:ChallengeRequest:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:ChallengeRequest:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:ChallengeRequest:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:ChallengeRequest:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:ChallengeRequest:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Challenge:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Challenge:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Challenge:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Challenge:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Challenge:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Challenge:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Challenge:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:CommitProof:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:CommitProof:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:CommitProof:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:CommitProof:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:CommitProof:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:CommitProof:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:CommitProof:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Acceptance:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Acceptance:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Acceptance:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Acceptance:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Acceptance:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Acceptance:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Acceptance:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Result:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Result:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Result:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Result:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Result:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Result:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Result:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:StatusQuery:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:StatusQuery:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:StatusQuery:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:StatusQuery:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:StatusQuery:reject-number",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:StatusQuery:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:StatusQuery:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_BASIS:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_BASIS:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_BASIS:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_KEY_GRANT:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_KEY_GRANT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_KEY_GRANT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_ROLE_GRANT:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_ROLE_GRANT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_ROLE_GRANT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_COMMIT:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_COMMIT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_COMMIT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_TOOL_FINAL:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_TOOL_FINAL:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_TOOL_FINAL:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_TOOL_TRUST:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_TOOL_TRUST:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_TOOL_TRUST:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_POLICY:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_POLICY:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_POLICY:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_TASK:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_TASK:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_TASK:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_EVIDENCE:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_EVIDENCE:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_EVIDENCE:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_HISTORY:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_HISTORY:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_PAY_HISTORY:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_ASSESSMENT:structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_ASSESSMENT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:Record_ASSESSMENT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:tool-v2-signed-structure",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:tool-v2-strict-signature",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:N-'9223372036854775807'",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:N-'9223372036854775808'",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:N-'01'",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:N-'-1'",
+      "pass": true
+    },
+    {
+      "id": "PAY-1:N-'1\\n'",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:deterministic-schema",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:normative-package-id",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:ten-types",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Review:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Review:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Review:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Review:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Review:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Review:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Review:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Authorization:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Authorization:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Authorization:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Authorization:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Authorization:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Authorization:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Authorization:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:IssueRequest:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:IssueRequest:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:IssueRequest:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:IssueRequest:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:IssueRequest:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:IssueRequest:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:IssueRequest:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Permit:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Permit:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Permit:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Permit:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Permit:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Permit:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Permit:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:ChallengeRequest:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:ChallengeRequest:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:ChallengeRequest:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:ChallengeRequest:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:ChallengeRequest:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:ChallengeRequest:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:ChallengeRequest:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Challenge:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Challenge:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Challenge:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Challenge:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Challenge:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Challenge:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Challenge:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:CommitProof:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:CommitProof:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:CommitProof:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:CommitProof:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:CommitProof:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:CommitProof:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:CommitProof:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Acceptance:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Acceptance:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Acceptance:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Acceptance:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Acceptance:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Acceptance:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Acceptance:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Result:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Result:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Result:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Result:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Result:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Result:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Result:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:StatusQuery:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:StatusQuery:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:StatusQuery:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:StatusQuery:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:StatusQuery:reject-number",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:StatusQuery:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:StatusQuery:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_BASIS:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_BASIS:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_BASIS:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_KEY_GRANT:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_KEY_GRANT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_KEY_GRANT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_ROLE_GRANT:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_ROLE_GRANT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_ROLE_GRANT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_COMMIT:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_COMMIT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_COMMIT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_TOOL_FINAL:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_TOOL_FINAL:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_TOOL_FINAL:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_TOOL_TRUST:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_TOOL_TRUST:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_TOOL_TRUST:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_POLICY:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_POLICY:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_POLICY:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_PACKAGE:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_PACKAGE:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_PACKAGE:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_UNIT:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_UNIT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_UNIT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_TASK:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_TASK:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_TASK:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_EVIDENCE:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_EVIDENCE:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_IND_EVIDENCE:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_ASSESSMENT:structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_ASSESSMENT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:Record_ASSESSMENT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:tool-v2-signed-structure",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:tool-v2-strict-signature",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:N-'9223372036854775807'",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:N-'9223372036854775808'",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:N-'01'",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:N-'-1'",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:N-'1\\n'",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-CONTROLLER",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-SOURCE",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-HOLDER",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-ISSUER",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-EXECUTOR",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-READER",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-AUDITOR",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-LINE_OPERATOR",
+      "pass": true
+    },
+    {
+      "id": "IND-DEMO-1:role-QUALITY_REVIEWER",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:deterministic-schema",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:ten-types",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Review:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Review:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Review:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Review:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Review:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Review:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Review:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Authorization:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Authorization:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Authorization:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Authorization:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Authorization:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Authorization:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Authorization:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:IssueRequest:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:IssueRequest:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:IssueRequest:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:IssueRequest:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:IssueRequest:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:IssueRequest:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:IssueRequest:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Permit:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Permit:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Permit:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Permit:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Permit:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Permit:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Permit:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:ChallengeRequest:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:ChallengeRequest:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:ChallengeRequest:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:ChallengeRequest:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:ChallengeRequest:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:ChallengeRequest:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:ChallengeRequest:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Challenge:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Challenge:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Challenge:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Challenge:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Challenge:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Challenge:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Challenge:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:CommitProof:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:CommitProof:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:CommitProof:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:CommitProof:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:CommitProof:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:CommitProof:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:CommitProof:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Acceptance:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Acceptance:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Acceptance:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Acceptance:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Acceptance:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Acceptance:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Acceptance:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Result:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Result:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Result:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Result:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Result:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Result:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Result:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:StatusQuery:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:StatusQuery:strict-valid-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:StatusQuery:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:StatusQuery:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:StatusQuery:reject-number",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:StatusQuery:reject-profile",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:StatusQuery:reject-scope",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_BASIS:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_BASIS:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_BASIS:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_KEY_GRANT:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_KEY_GRANT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_KEY_GRANT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_ROLE_GRANT:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_ROLE_GRANT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_ROLE_GRANT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_COMMIT:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_COMMIT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_COMMIT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_TOOL_FINAL:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_TOOL_FINAL:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_TOOL_FINAL:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_TOOL_TRUST:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_TOOL_TRUST:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_TOOL_TRUST:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_POLICY:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_POLICY:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_POLICY:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_ENCOUNTER:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_ENCOUNTER:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_ENCOUNTER:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_TASK:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_TASK:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_TASK:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_EVIDENCE:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_EVIDENCE:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_MED_EVIDENCE:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_ASSESSMENT:structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_ASSESSMENT:reject-missing",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:Record_ASSESSMENT:reject-unknown",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:tool-v2-signed-structure",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:tool-v2-strict-signature",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:N-'9223372036854775807'",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:N-'9223372036854775808'",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:N-'01'",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:N-'-1'",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:N-'1\\n'",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-CONTROLLER",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-SOURCE",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-HOLDER",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-ISSUER",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-EXECUTOR",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-READER",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-AUDITOR",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-MEDICAL_AUTHORIZER",
+      "pass": true
+    },
+    {
+      "id": "MED-DEMO-1:role-CLINICAL_REVIEWER",
+      "pass": true
+    },
+    {
+      "id": "raw-reject-whitespace",
+      "pass": true
+    },
+    {
+      "id": "raw-reject-duplicate",
+      "pass": true
+    },
+    {
+      "id": "raw-reject-bom",
+      "pass": true
+    },
+    {
+      "id": "raw-reject-utf8",
+      "pass": true
+    },
+    {
+      "id": "raw-reject-surrogate",
+      "pass": true
+    },
+    {
+      "id": "strict-reject-identity-key",
+      "pass": true
+    },
+    {
+      "id": "strict-reject-identity-R",
+      "pass": true
+    },
+    {
+      "id": "strict-reject-noncanonical-S",
+      "pass": true
+    },
+    {
+      "id": "strict-reject-invalid-R",
+      "pass": true
+    },
+    {
+      "id": "strict-reject-tampered-message",
+      "pass": true
+    },
+    {
+      "id": "strict-reject-short-signature",
+      "pass": true
+    },
+    {
+      "id": "node-cross-language-bytes-and-crypto",
+      "pass": true
+    },
+    {
+      "id": "node-vector-count",
+      "pass": true
+    }
+  ],
+  "envelope_vectors": 30,
+  "record_vectors": 34,
+  "action_vectors": 3,
+  "tool_evidence_vectors": 3,
+  "node": {
+    "node": "v24.14.1",
+    "checked": 70,
+    "ids": [
+      "PAY-1:Review",
+      "PAY-1:Authorization",
+      "PAY-1:IssueRequest",
+      "PAY-1:Permit",
+      "PAY-1:ChallengeRequest",
+      "PAY-1:Challenge",
+      "PAY-1:CommitProof",
+      "PAY-1:Acceptance",
+      "PAY-1:Result",
+      "PAY-1:StatusQuery",
+      "IND-DEMO-1:Review",
+      "IND-DEMO-1:Authorization",
+      "IND-DEMO-1:IssueRequest",
+      "IND-DEMO-1:Permit",
+      "IND-DEMO-1:ChallengeRequest",
+      "IND-DEMO-1:Challenge",
+      "IND-DEMO-1:CommitProof",
+      "IND-DEMO-1:Acceptance",
+      "IND-DEMO-1:Result",
+      "IND-DEMO-1:StatusQuery",
+      "MED-DEMO-1:Review",
+      "MED-DEMO-1:Authorization",
+      "MED-DEMO-1:IssueRequest",
+      "MED-DEMO-1:Permit",
+      "MED-DEMO-1:ChallengeRequest",
+      "MED-DEMO-1:Challenge",
+      "MED-DEMO-1:CommitProof",
+      "MED-DEMO-1:Acceptance",
+      "MED-DEMO-1:Result",
+      "MED-DEMO-1:StatusQuery",
+      "PAY-1:Record_BASIS",
+      "PAY-1:Record_KEY_GRANT",
+      "PAY-1:Record_ROLE_GRANT",
+      "PAY-1:Record_COMMIT",
+      "PAY-1:Record_TOOL_FINAL",
+      "PAY-1:Record_TOOL_TRUST",
+      "PAY-1:Record_POLICY",
+      "PAY-1:Record_PAY_TASK",
+      "PAY-1:Record_PAY_EVIDENCE",
+      "PAY-1:Record_PAY_HISTORY",
+      "PAY-1:Record_ASSESSMENT",
+      "IND-DEMO-1:Record_BASIS",
+      "IND-DEMO-1:Record_KEY_GRANT",
+      "IND-DEMO-1:Record_ROLE_GRANT",
+      "IND-DEMO-1:Record_COMMIT",
+      "IND-DEMO-1:Record_TOOL_FINAL",
+      "IND-DEMO-1:Record_TOOL_TRUST",
+      "IND-DEMO-1:Record_POLICY",
+      "IND-DEMO-1:Record_IND_PACKAGE",
+      "IND-DEMO-1:Record_IND_UNIT",
+      "IND-DEMO-1:Record_IND_TASK",
+      "IND-DEMO-1:Record_IND_EVIDENCE",
+      "IND-DEMO-1:Record_ASSESSMENT",
+      "MED-DEMO-1:Record_BASIS",
+      "MED-DEMO-1:Record_KEY_GRANT",
+      "MED-DEMO-1:Record_ROLE_GRANT",
+      "MED-DEMO-1:Record_COMMIT",
+      "MED-DEMO-1:Record_TOOL_FINAL",
+      "MED-DEMO-1:Record_TOOL_TRUST",
+      "MED-DEMO-1:Record_POLICY",
+      "MED-DEMO-1:Record_MED_ENCOUNTER",
+      "MED-DEMO-1:Record_MED_TASK",
+      "MED-DEMO-1:Record_MED_EVIDENCE",
+      "MED-DEMO-1:Record_ASSESSMENT",
+      "PAY-1:Action",
+      "IND-DEMO-1:Action",
+      "MED-DEMO-1:Action",
+      "PAY-1:tool-final-v2",
+      "IND-DEMO-1:tool-final-v2",
+      "MED-DEMO-1:tool-final-v2"
+    ],
+    "scope": "Restricted JCS bytes, domain-separated hashes, deterministic Ed25519 signing and valid-key verification. Not JS structural schema, strict subgroup rejection, state semantics or whole-protocol interoperation."
+  },
+  "environment": {
+    "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26340-SP0",
+    "jsonschema": "4.26.0"
+  },
+  "source_sha256": {
+    "system_dev/v26/contracts/industrial.openapi.json": "413fc47cd61b993ad98c44b4822ceaa618a97fe3853f3ae0d856f0a103a8de4a",
+    "system_dev/v26/contracts/industrial.schema.json": "a52f770efa459a2eb92634575063d3a79789b54291cefa8e5b095bd962ac08c4",
+    "system_dev/v26/contracts/medical.openapi.json": "5e9df7f16095ca9b9cc90a9bb54defbbe898e57a14360c464f7659c89dd41bd9",
+    "system_dev/v26/contracts/medical.schema.json": "cc91146e4779dd9e63cc1140f9744808da0d8646c19f5f91f2b841ed5772a638",
+    "system_dev/v26/contracts/pay1.openapi.json": "fce987c998016275bf6579d12fd63ab19b4d3dec4783c81e59826cf052e2d655",
+    "system_dev/v26/contracts/pay1.schema.json": "08f8e5a714d76e36a3a983635fc756cc0b99a13084f7c4d07e1428b00b9060ed",
+    "system_dev/v26/tools/build_contracts.py": "75c6d7457b22e17237f7a4f75304b9c6a7f98fd38f99f60d7bfbd5f743aaadf8",
+    "system_dev/v26/tools/verify_contracts.py": "dd9abd0968429d05cab6048b17e131099cb59429519d9687ef38781dc40e3923",
+    "system_dev/v26/tools/check_vectors.mjs": "74749c5de12ff3d0eba799f1bfe35e1f4be2687a7213f9c8c005b4b2e9099073",
+    "system_dev/v26/01_core_contract.md": "6b4e3ed613450f2169aaba5e9ce1108abbff7f089429a529f8763378e4b4394e",
+    "system_dev/v26/02_pay1_profile.md": "03ca864a6dee8df16b518264b1f9c30df6b07643b734242c89c6158d5f24fe0d",
+    "system_dev/v26/03_industrial_medical_profiles.md": "8e8babc40370e6715f99c8f1d722d8ba28d1a6c3b956d0f73c7c22e4dc085ae6",
+    "system_dev/v26/04_tool_final_recovery.md": "74969ea98534a1fd4b150b93e4677f51e440d20ba2dcaeac2a2ae51e7d3094d7",
+    "system_dev/v26/vectors/wire_vectors.json": "ff5353630a4be7578dca16495174495f10c76b5a729d6600b324d66079d45a8f",
+    "system_dev/v26/README.md": "6e4c80690e40b738308315ddaf2044cfcb9c8a3d3aecb1c7488ccf9cd9f6b064",
+    "system_dev/v26/semantic_cases.json": "77ecf89a66285bf4381c2327024db475e9d3b1a7b8c436f075898c3a578a4fad",
+    "system_dev/contracts/pay1.schema.json": "1e4d034a43758c7a13672e4c176e8182d699a9340d136d9029d61a0a9b05016f",
+    "verification/protocol_v25_reference/wire.py": "a8c2984bb4625b452001981d1e759323f790de3d5ac1c5a5f2deb85c5fd55b75"
+  },
+  "strict_point_check_source": "verification/protocol_v25_reference/wire.py.verify_raw (same mathematical acceptance, no v2.5 message validator used)",
+  "limits": [
+    "Node comparison checks bytes/hashes/deterministic signing, not JS schema or strict-subgroup rejection.",
+    "No handler, registered authority, whole business trajectory, transaction or tool is tested.",
+    "No full protocol implementation, independent security audit or formal proof claimed."
+  ]
+}

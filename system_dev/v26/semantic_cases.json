@@ -1,0 +1,322 @@
+{
+  "date": "2026-10-07",
+  "contract": "ZJJ-CORE-2.6-R2",
+  "kind": "protocol_semantic_conformance_cases",
+  "execution_count": 0,
+  "cases": [
+    {
+      "id": "CORE-01",
+      "profile": "ALL",
+      "scenario": "合法完整链，全部守卫T",
+      "expected": "唯一ACCEPTED，原COMMIT/Core/Ref一致",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-02",
+      "profile": "ALL",
+      "scenario": "正文、Profile、scope、aud或路径替换",
+      "expected": "F拒绝；0新接受/0派发",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-03",
+      "profile": "ALL",
+      "scenario": "G对漏一个必要Dep的Permit合法重签",
+      "expected": "F拒绝；独立重建检出",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-04",
+      "profile": "ALL",
+      "scenario": "同Dep键异revision/ref，错kind，引用环",
+      "expected": "F拒绝，不能从备用对象库找替代类型",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-05",
+      "profile": "ALL",
+      "scenario": "承重空集合新增记录、revision回退或A-B-A",
+      "expected": "旧依据STALE；重新准备",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-06",
+      "profile": "ALL",
+      "scenario": "必需引用暂不可读/确认不存在",
+      "expected": "分别U/DEFER与F/REJECT，无新接受",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-07",
+      "profile": "ALL",
+      "scenario": "G替代U、Review当EXECUTE、U/V同subject不同kid",
+      "expected": "F拒绝；独立授权/分离成立",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-08",
+      "profile": "ALL",
+      "scenario": "接受前事务故障与提交结果未知",
+      "expected": "前者整体回滚；后者通信未知不假造DEFER",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-09",
+      "profile": "ALL",
+      "scenario": "提交后签名失败/恢复/原钥撤销",
+      "expected": "原Core/Ref固定，不重接受、不换kid；历史已存回执可验",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-10",
+      "profile": "ALL",
+      "scenario": "已存回执同Core坏sig或有效重签替换Core",
+      "expected": "OBJECT_INTEGRITY或BAD_SIGNATURE，禁止直接返回",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-11",
+      "profile": "ALL",
+      "scenario": "同nonce同证明/异证明、同操作同动作/异动作",
+      "expected": "原响应/REPLAY及EXISTING/OPERATION_CONFLICT",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-12",
+      "profile": "ALL",
+      "scenario": "8路同intent提交与共享资源竞争",
+      "expected": "至多一次接受/许可消费；容量不超限",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-13",
+      "profile": "ALL",
+      "scenario": "领取前撤销、到期、跨期限区间",
+      "expected": "确定失效可安全取消；未知保持占用且不调用",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-14",
+      "profile": "ALL",
+      "scenario": "接受自身BEHAVIOR变更、丢reservation/flight或错归属",
+      "expected": "合法自身变化不误拒；错误HALTED且不部分释放",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-15",
+      "profile": "ALL",
+      "scenario": "pending取消与领取竞争、started后进程故障",
+      "expected": "一个转换获胜；未知不回pending、不重派",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-16",
+      "profile": "ALL",
+      "scenario": "普通SUCCESS、错tool/kid/attempt终局、相同/矛盾终局",
+      "expected": "未认证不结算；同终局一次结算；矛盾HALTED",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-17",
+      "profile": "ALL",
+      "scenario": "STATUS当前H换钥恢复，旧Permit已过期",
+      "expected": "当前查询授权成立可读原接受；无派发/结算副作用",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-18",
+      "profile": "ALL",
+      "scenario": "相同业务意图跨v2.5/v2.6、终态后重新登记",
+      "expected": "保留同去重事实，不能第二次接受",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-19",
+      "profile": "ALL",
+      "scenario": "公钥持有证明替换scope/purpose/期限/root或nonce重用",
+      "expected": "只匹配原pending授权tuple可登记；不授业务role",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "CORE-20",
+      "profile": "ALL",
+      "scenario": "同subject多G/X钥或服务换钥",
+      "expected": "只使用POLICY固定kid；换钥新POLICY使旧依赖失效",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "PAY-01",
+      "profile": "PAY-1",
+      "scenario": "CLEAR、FLAG、INSUFFICIENT合法路径",
+      "expected": "分别0、ANOMALY、LOW_EVIDENCE Review，均需FINANCE EXECUTE",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "PAY-02",
+      "profile": "PAY-1",
+      "scenario": "n=2，n=5 d=4，ratio距离1000、双时间边界",
+      "expected": "精确history-int-v2结果与selected_cases顺序",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "PAY-03",
+      "profile": "PAY-1",
+      "scenario": "重复case_id/intent、候选自报cutoff/风险结果",
+      "expected": "F拒绝；整快照先验，输出独立重算",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "PAY-04",
+      "profile": "PAY-1",
+      "scenario": "来源三事实false、付款金额或收款人不匹配",
+      "expected": "硬F，复核或CLEAR不能覆盖",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "PAY-05",
+      "profile": "PAY-1",
+      "scenario": "旧Evidence白名单以外类型/版本、原签名被删",
+      "expected": "F拒绝；原认证与新当前资格分别验证",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "IND-01",
+      "profile": "IND-DEMO-1",
+      "scenario": "三合成标签、错误route、无QUALITY_REVIEW",
+      "expected": "严格映射；缺陷RELEASE硬拒绝；UNCERTAIN需V+U",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "IND-02",
+      "profile": "IND-DEMO-1",
+      "scenario": "决策包检测器/预处理/mapper混搭",
+      "expected": "POLICY包精确组合不等即F",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "IND-03",
+      "profile": "IND-DEMO-1",
+      "scenario": "接受后UNIT自变/外部证据更新",
+      "expected": "前者精确scene_after允许；后者停止派发",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "IND-04",
+      "profile": "IND-DEMO-1",
+      "scenario": "cycle1 INSPECT成功推进/cycle2 INSPECT/未知推进",
+      "expected": "仅确认前终局受控推进；第二次人工留置；未知禁止推进",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "MED-01",
+      "profile": "MED-DEMO-1",
+      "scenario": "必需CLINICAL_REVIEW与独立医师授权",
+      "expected": "精确批准集合，两subject，不能PAY CLEAR免V",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "MED-02",
+      "profile": "MED-DEMO-1",
+      "scenario": "换患者/就诊/模板/record或同就诊新group",
+      "expected": "绑定/权限/稳定组拒绝；不能重建意图",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "MED-03",
+      "profile": "MED-DEMO-1",
+      "scenario": "已知记录不可用/完整性不足、来源未知",
+      "expected": "已知F与未知U分别处理，普通APPROVE不覆盖",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "MED-04",
+      "profile": "MED-DEMO-1",
+      "scenario": "缺READER、AUDITOR读取患者详情、读权撤销",
+      "expected": "执行前已约束读取；裁剪审计；旧批准失效",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "SC-01",
+      "profile": "IND-DEMO-1,MED-DEMO-1",
+      "scenario": "300秒证据边界、8槽、累计32次",
+      "expected": "边界T/F/U正确；资源/次数拒绝，不reset",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "SC-02",
+      "profile": "ALL",
+      "scenario": "跨Profile重用签名/Record/Task/许可或路径",
+      "expected": "隔离拒绝，无自动降级",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "AUD-02A",
+      "profile": "ALL",
+      "scenario": "工具已完成但首次TOOL_FINAL到达W时过期",
+      "expected": "原过期首证明拒绝；当前同账原事实再认证可以一次结算；不重派、不新增效果。",
+      "status": "NOT_RUN",
+      "protocol_decision": "RESOLVED_IN_R2",
+      "artifacts": []
+    },
+    {
+      "id": "AUD-02B",
+      "profile": "ALL",
+      "scenario": "W首次结算前工具换钥，再认证改变Ref而效果事实不变",
+      "expected": "C核同账连续后当前钥再认证；同事实不同Ref一次结算，不HALTED；经认证/绑定的矛盾事实HALTED，原账不逆转。",
+      "status": "NOT_RUN",
+      "protocol_decision": "RESOLVED_IN_R2",
+      "artifacts": []
+    },
+    {
+      "id": "AUD-02C",
+      "profile": "ALL",
+      "scenario": "账丢失/查不到原attempt，新工具ledger不同",
+      "expected": "未知保留预占；不得凭不存在签失败或用新账结算原账",
+      "status": "NOT_RUN",
+      "artifacts": []
+    },
+    {
+      "id": "AUD-02D",
+      "profile": "ALL",
+      "scenario": "坏签名/错绑定的矛盾包与真正可信矛盾",
+      "expected": "前者不改变操作账；后者HALTED且不自动解除",
+      "status": "NOT_RUN",
+      "artifacts": []
+    }
+  ]
+}

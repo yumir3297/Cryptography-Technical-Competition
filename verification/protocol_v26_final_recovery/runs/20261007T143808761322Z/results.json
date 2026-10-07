@@ -1,0 +1,58 @@
+{
+  "contract": "ZJJ-CORE-2.6-R2",
+  "generated_at_utc": "2026-10-07T14:38:08.936868+00:00",
+  "passed": true,
+  "tests": {
+    "r1_expected_red": {
+      "tests": 2,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "successful": false,
+      "failed_test_ids": [
+        "verification.protocol_v26_final_recovery.test_old_gap.OldGap.test_first_expired_receipt_has_a_recovery_route",
+        "verification.protocol_v26_final_recovery.test_old_gap.OldGap.test_first_receipt_after_rotation_has_a_recovery_route"
+      ]
+    },
+    "r2_recovery": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "successful": true,
+      "failed_test_ids": []
+    }
+  },
+  "signed_examples": "verification/protocol_v26_final_recovery/runs/20261007T143808761322Z/signed_examples.json",
+  "environment": {
+    "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26340-SP0",
+    "jsonschema": "4.26.0",
+    "cryptography": "50.0.0",
+    "PyNaCl": "1.6.2"
+  },
+  "source_sha256": {
+    "verification/protocol_v26_final_recovery/model.py": "01163ce2c2df2534ba763cbf4dce1050e5f4cd4ba32aae17f273dfc5d92c927d",
+    "verification/protocol_v26_final_recovery/run_all.py": "197282aa2f8c1694ccf7cb5fa79de94818ea43b5fafb18a482c5e716d4a2e401",
+    "verification/protocol_v26_final_recovery/test_old_gap.py": "69dc90932b5f66a96a9eac0545de4d133eb4dbc0cc765de756732c2ecb2ebc83",
+    "verification/protocol_v26_final_recovery/test_recovery.py": "ea3f4326fe2e5ad70a5c3ed31db473cbb3c903d66bf32bac6717317c79aa6588",
+    "verification/protocol_v26_final_recovery/README.md": "ceea49989678899215d87766724771a6308307f2d8998463d509c353befe4888",
+    "verification/protocol_v26_final_recovery/red.txt": "2300996b77f8161b65a58e96ce2fb2a8508a5cad1d78b8a985a6d2bcc519f1f3",
+    "verification/protocol_v26_audit/lifecycle/model.py": "0862521bf748e5fff9527dd70e57d524361e9da95be471f6da9d5a76cc01f7cc",
+    "verification/protocol_v25_reference/wire.py": "a8c2984bb4625b452001981d1e759323f790de3d5ac1c5a5f2deb85c5fd55b75",
+    "system_dev/v26/01_core_contract.md": "6b4e3ed613450f2169aaba5e9ce1108abbff7f089429a529f8763378e4b4394e",
+    "system_dev/v26/02_pay1_profile.md": "03ca864a6dee8df16b518264b1f9c30df6b07643b734242c89c6158d5f24fe0d",
+    "system_dev/v26/03_industrial_medical_profiles.md": "8e8babc40370e6715f99c8f1d722d8ba28d1a6c3b956d0f73c7c22e4dc085ae6",
+    "system_dev/v26/04_tool_final_recovery.md": "74969ea98534a1fd4b150b93e4677f51e440d20ba2dcaeac2a2ae51e7d3094d7",
+    "system_dev/v26/contracts/industrial.schema.json": "a52f770efa459a2eb92634575063d3a79789b54291cefa8e5b095bd962ac08c4",
+    "system_dev/v26/contracts/medical.schema.json": "cc91146e4779dd9e63cc1140f9744808da0d8646c19f5f91f2b841ed5772a638",
+    "system_dev/v26/contracts/pay1.schema.json": "08f8e5a714d76e36a3a983635fc756cc0b99a13084f7c4d07e1428b00b9060ed"
+  },
+  "limits": [
+    "Bounded signed model, not a product or full protocol implementation.",
+    "C registration, authenticated control snapshots, claim witnesses and ledger continuity are trusted fixture inputs.",
+    "Ledger execution counts are fixture constants, not observed real tool effects.",
+    "No durable database, crash consistency, cross-operation ledger uniqueness or full migration implementation tested.",
+    "The two R1 failures are expected counterexamples, not passing R2 tests."
+  ]
+}

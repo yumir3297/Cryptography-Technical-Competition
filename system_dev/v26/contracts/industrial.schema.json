@@ -1,0 +1,4235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zjj.invalid/v26/industrial.schema.json",
+  "title": "IND-DEMO-1 2.6-R2 structural contract; not authorization",
+  "$ref": "#/$defs/Envelope",
+  "$defs": {
+    "N": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9][0-9]{0,17}|[1-8][0-9]{18}|9[0-1][0-9]{17}|92[0-1][0-9]{16}|922[0-2][0-9]{15}|9223[0-2][0-9]{14}|92233[0-6][0-9]{13}|922337[0-1][0-9]{12}|92233720[0-2][0-9]{10}|922337203[0-5][0-9]{9}|9223372036[0-7][0-9]{8}|92233720368[0-4][0-9]{7}|922337203685[0-3][0-9]{6}|9223372036854[0-6][0-9]{5}|92233720368547[0-6][0-9]{4}|922337203685477[0-4][0-9]{3}|9223372036854775[0-7][0-9]{2}|922337203685477580[0-6][0-9]{0}|9223372036854775807)(?![\\s\\S])"
+    },
+    "Positive": {
+      "type": "string",
+      "pattern": "^(?:[1-9][0-9]{0,17}|[1-8][0-9]{18}|9[0-1][0-9]{17}|92[0-1][0-9]{16}|922[0-2][0-9]{15}|9223[0-2][0-9]{14}|92233[0-6][0-9]{13}|922337[0-1][0-9]{12}|92233720[0-2][0-9]{10}|922337203[0-5][0-9]{9}|9223372036[0-7][0-9]{8}|92233720368[0-4][0-9]{7}|922337203685[0-3][0-9]{6}|9223372036854[0-6][0-9]{5}|92233720368547[0-6][0-9]{4}|922337203685477[0-4][0-9]{3}|9223372036854775[0-7][0-9]{2}|922337203685477580[0-6][0-9]{0}|9223372036854775807)(?![\\s\\S])"
+    },
+    "Ratio": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9][0-9]{0,3}|10000)(?![\\s\\S])"
+    },
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]{0,63}(?![\\s\\S])"
+    },
+    "Text": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "Nonblank": {
+      "type": "string",
+      "maxLength": 1024,
+      "pattern": "[^\\u0009-\\u000d\\u0020\\u0085\\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000]"
+    },
+    "B16": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{21}[AQgw](?![\\s\\S])",
+      "minLength": 22,
+      "maxLength": 22
+    },
+    "B32": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048](?![\\s\\S])",
+      "minLength": 43,
+      "maxLength": 43
+    },
+    "B64": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{85}[AQgw](?![\\s\\S])",
+      "minLength": 86,
+      "maxLength": 86
+    },
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "$ref": "#/$defs/Id"
+        },
+        "tenant": {
+          "$ref": "#/$defs/Id"
+        },
+        "scenario": {
+          "const": "industrial"
+        }
+      },
+      "required": [
+        "domain",
+        "tenant",
+        "scenario"
+      ],
+      "additionalProperties": false
+    },
+    "Role": {
+      "type": "string",
+      "enum": [
+        "CONTROLLER",
+        "SOURCE",
+        "HOLDER",
+        "ISSUER",
+        "EXECUTOR",
+        "READER",
+        "AUDITOR",
+        "LINE_OPERATOR",
+        "QUALITY_REVIEWER"
+      ]
+    },
+    "ReviewPurpose": {
+      "type": "string",
+      "enum": [
+        "QUALITY_REVIEW"
+      ]
+    },
+    "Dep": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "enum": [
+            "POLICY",
+            "TASK",
+            "KEY",
+            "ROLE",
+            "BEHAVIOR",
+            "UNIT"
+          ]
+        },
+        "key": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "type": "string"
+          }
+        },
+        "revision": {
+          "$ref": "#/$defs/Positive"
+        },
+        "ref": {
+          "$ref": "#/$defs/B32"
+        }
+      },
+      "required": [
+        "namespace",
+        "key",
+        "revision",
+        "ref"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "POLICY"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "const": "industrial"
+                  }
+                ],
+                "items": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "TASK"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "const": "industrial"
+                  },
+                  {
+                    "$ref": "#/$defs/B16"
+                  }
+                ],
+                "items": false,
+                "minItems": 4,
+                "maxItems": 4
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "KEY"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "$ref": "#/$defs/B32"
+                  }
+                ],
+                "items": false,
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "ROLE"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "const": "industrial"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "$ref": "#/$defs/Role"
+                  }
+                ],
+                "items": false,
+                "minItems": 5,
+                "maxItems": 5
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "BEHAVIOR"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "const": "industrial"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  }
+                ],
+                "items": false,
+                "minItems": 4,
+                "maxItems": 4
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "namespace": {
+                "const": "UNIT"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          },
+          "then": {
+            "properties": {
+              "key": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "const": "industrial"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  },
+                  {
+                    "$ref": "#/$defs/Id"
+                  }
+                ],
+                "items": false,
+                "minItems": 5,
+                "maxItems": 5
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Ctx": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/B16"
+        },
+        "principal": {
+          "$ref": "#/$defs/Id"
+        },
+        "holder": {
+          "$ref": "#/$defs/Id"
+        },
+        "holder_kid": {
+          "$ref": "#/$defs/B32"
+        },
+        "executor": {
+          "$ref": "#/$defs/Id"
+        },
+        "action_hash": {
+          "$ref": "#/$defs/B32"
+        },
+        "policy_ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "basis_ref": {
+          "$ref": "#/$defs/B32"
+        }
+      },
+      "required": [
+        "scope",
+        "operation_id",
+        "principal",
+        "holder",
+        "holder_kid",
+        "executor",
+        "action_hash",
+        "policy_ref",
+        "basis_ref"
+      ],
+      "additionalProperties": false
+    },
+    "ActionPayload": {
+      "type": "object",
+      "properties": {
+        "line_id": {
+          "$ref": "#/$defs/Id"
+        },
+        "station_id": {
+          "$ref": "#/$defs/Id"
+        },
+        "unit_id": {
+          "$ref": "#/$defs/Id"
+        },
+        "batch_id": {
+          "$ref": "#/$defs/Id"
+        },
+        "inspection_cycle": {
+          "type": "string",
+          "enum": [
+            "1",
+            "2"
+          ]
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "INITIAL",
+            "REINSPECT"
+          ]
+        },
+        "route": {
+          "type": "string",
+          "enum": [
+            "RELEASE",
+            "QUARANTINE",
+            "INSPECT"
+          ]
+        }
+      },
+      "required": [
+        "line_id",
+        "station_id",
+        "unit_id",
+        "batch_id",
+        "inspection_cycle",
+        "phase",
+        "route"
+      ],
+      "additionalProperties": false
+    },
+    "Action": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/B16"
+        },
+        "principal": {
+          "$ref": "#/$defs/Id"
+        },
+        "holder": {
+          "$ref": "#/$defs/Id"
+        },
+        "holder_kid": {
+          "$ref": "#/$defs/B32"
+        },
+        "executor": {
+          "$ref": "#/$defs/Id"
+        },
+        "tool": {
+          "const": "line-sort-sim"
+        },
+        "tool_version": {
+          "const": "1"
+        },
+        "destination": {
+          "$ref": "#/$defs/Id"
+        },
+        "payload": {
+          "$ref": "#/$defs/ActionPayload"
+        }
+      },
+      "required": [
+        "scope",
+        "operation_id",
+        "principal",
+        "holder",
+        "holder_kid",
+        "executor",
+        "tool",
+        "tool_version",
+        "destination",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    "Reason": {
+      "type": "object",
+      "properties": {
+        "check": {
+          "type": "string",
+          "enum": [
+            "format",
+            "signature",
+            "audience",
+            "scope",
+            "binding",
+            "policy",
+            "task",
+            "source",
+            "assessment",
+            "reviews",
+            "authorization",
+            "deps",
+            "holder",
+            "nonce",
+            "intent",
+            "resource",
+            "behavior",
+            "tool",
+            "result"
+          ]
+        },
+        "code": {
+          "type": "string",
+          "enum": [
+            "MALFORMED",
+            "LIMIT",
+            "UNSUPPORTED_VERSION",
+            "BAD_SIGNATURE",
+            "WRONG_SCOPE",
+            "WRONG_HOLDER",
+            "WRONG_AUDIENCE",
+            "BINDING",
+            "DEP_CONFLICT",
+            "REVOKED",
+            "STALE",
+            "EXPIRED",
+            "NO_ROLE",
+            "REPLAY",
+            "OPERATION_CONFLICT",
+            "ID_CONFLICT",
+            "OBJECT_KIND",
+            "OBJECT_INTEGRITY",
+            "CLAIM_FALSE",
+            "POLICY_DENY",
+            "REVIEW_DENY",
+            "AUTH_DENY",
+            "REVIEW_PURPOSE",
+            "REVIEW_REASON",
+            "REVIEW_REQUIRED",
+            "RISK_POLICY",
+            "DUPLICATE_CASE",
+            "DUPLICATE_INTENT",
+            "RESOURCE_LIMIT",
+            "BEHAVIOR_LIMIT",
+            "STATE_UNAVAILABLE",
+            "CLOCK_UNKNOWN",
+            "RISK_UNKNOWN",
+            "TOOL_UNAVAILABLE",
+            "TASK_BUSY",
+            "RETRY_CONFLICT",
+            "MISSING_OBJECT",
+            "MISSING_REVIEW",
+            "MISSING_AUTH",
+            "OK",
+            "EXISTING_ACCEPTANCE"
+          ]
+        }
+      },
+      "required": [
+        "check",
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Review"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "purpose": {
+                  "$ref": "#/$defs/ReviewPurpose"
+                },
+                "verdict": {
+                  "type": "string",
+                  "enum": [
+                    "APPROVE",
+                    "DENY"
+                  ]
+                },
+                "reason": {
+                  "$ref": "#/$defs/Nonblank"
+                }
+              },
+              "required": [
+                "ctx",
+                "purpose",
+                "verdict",
+                "reason"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 900
+    },
+    "Authorization": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Authorization"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "review_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "minItems": 0,
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-zjj-order": "strict lexicographic Enc bytes"
+                },
+                "purpose": {
+                  "const": "EXECUTE"
+                },
+                "verdict": {
+                  "type": "string",
+                  "enum": [
+                    "APPROVE",
+                    "DENY"
+                  ]
+                }
+              },
+              "required": [
+                "ctx",
+                "review_refs",
+                "purpose",
+                "verdict"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 900
+    },
+    "IssueRequest": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "IssueRequest"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "review_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "minItems": 0,
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-zjj-order": "strict lexicographic Enc bytes"
+                },
+                "authorization_ref": {
+                  "$ref": "#/$defs/B32"
+                }
+              },
+              "required": [
+                "ctx",
+                "review_refs",
+                "authorization_ref"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 120
+    },
+    "Permit": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Permit"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "review_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "minItems": 0,
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-zjj-order": "strict lexicographic Enc bytes"
+                },
+                "authorization_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "max_uses": {
+                  "const": "1"
+                },
+                "dispatch_before": {
+                  "$ref": "#/$defs/N"
+                }
+              },
+              "required": [
+                "ctx",
+                "review_refs",
+                "authorization_ref",
+                "max_uses",
+                "dispatch_before"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 120
+    },
+    "ChallengeRequest": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "ChallengeRequest"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "purpose": {
+                  "type": "string",
+                  "enum": [
+                    "COMMIT",
+                    "STATUS"
+                  ]
+                },
+                "operation_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "permit_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "action_hash": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "attempt_id": {
+                  "$ref": "#/$defs/B16"
+                }
+              },
+              "required": [
+                "purpose",
+                "operation_id",
+                "permit_ref",
+                "action_hash",
+                "attempt_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 30
+    },
+    "Challenge": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Challenge"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "purpose": {
+                  "type": "string",
+                  "enum": [
+                    "COMMIT",
+                    "STATUS"
+                  ]
+                },
+                "operation_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "permit_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "action_hash": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "holder": {
+                  "$ref": "#/$defs/Id"
+                },
+                "holder_kid": {
+                  "$ref": "#/$defs/B32"
+                },
+                "session_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "nonce": {
+                  "$ref": "#/$defs/B32"
+                },
+                "request_ref": {
+                  "$ref": "#/$defs/B32"
+                }
+              },
+              "required": [
+                "purpose",
+                "operation_id",
+                "permit_ref",
+                "action_hash",
+                "holder",
+                "holder_kid",
+                "session_id",
+                "nonce",
+                "request_ref"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 30
+    },
+    "CommitProof": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "CommitProof"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "permit_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "challenge_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "session_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "nonce": {
+                  "$ref": "#/$defs/B32"
+                },
+                "attempt_id": {
+                  "$ref": "#/$defs/B16"
+                }
+              },
+              "required": [
+                "ctx",
+                "permit_ref",
+                "challenge_ref",
+                "session_id",
+                "nonce",
+                "attempt_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 30
+    },
+    "Acceptance": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Acceptance"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "ctx": {
+                  "$ref": "#/$defs/Ctx"
+                },
+                "permit_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "proof_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "authorization_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "review_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "minItems": 0,
+                  "maxItems": 256,
+                  "uniqueItems": true,
+                  "x-zjj-order": "strict lexicographic Enc bytes"
+                },
+                "accept_seq": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "accepted_at": {
+                  "$ref": "#/$defs/N"
+                },
+                "commit_record_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "dispatch_before": {
+                  "$ref": "#/$defs/N"
+                }
+              },
+              "required": [
+                "ctx",
+                "permit_ref",
+                "proof_ref",
+                "authorization_ref",
+                "review_refs",
+                "accept_seq",
+                "accepted_at",
+                "commit_record_ref",
+                "dispatch_before"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 900
+    },
+    "Result": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "Result"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "request_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "attempt_id": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B16"
+                    }
+                  ]
+                },
+                "result": {
+                  "type": "string",
+                  "enum": [
+                    "ISSUED",
+                    "ACCEPTED",
+                    "REJECT",
+                    "DEFER",
+                    "EXISTING",
+                    "STATUS"
+                  ]
+                },
+                "reasons": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Reason"
+                  },
+                  "minItems": 1,
+                  "maxItems": 20
+                },
+                "operation_id": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B16"
+                    }
+                  ]
+                },
+                "permit_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "acceptance_ref": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/B32"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "NONE",
+                    "PENDING",
+                    "ACCEPTED",
+                    "EFFECT_UNKNOWN",
+                    "SUCCEEDED",
+                    "FAILED_CONFIRMED",
+                    "HALTED"
+                  ]
+                },
+                "status_seq": {
+                  "$ref": "#/$defs/N"
+                },
+                "retry_after": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/N"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "request_ref",
+                "attempt_id",
+                "result",
+                "reasons",
+                "operation_id",
+                "permit_ref",
+                "acceptance_ref",
+                "status",
+                "status_seq",
+                "retry_after"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 30
+    },
+    "StatusQuery": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-AAP"
+            },
+            "version": {
+              "const": "2.6"
+            },
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "StatusQuery"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "challenge_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "session_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "nonce": {
+                  "$ref": "#/$defs/B32"
+                },
+                "attempt_id": {
+                  "$ref": "#/$defs/B16"
+                }
+              },
+              "required": [
+                "operation_id",
+                "challenge_ref",
+                "session_id",
+                "nonce",
+                "attempt_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "refs",
+            "deps",
+            "payload"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "x-zjj-max-lifetime-seconds": 30
+    },
+    "Envelope": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Review"
+        },
+        {
+          "$ref": "#/$defs/Authorization"
+        },
+        {
+          "$ref": "#/$defs/IssueRequest"
+        },
+        {
+          "$ref": "#/$defs/Permit"
+        },
+        {
+          "$ref": "#/$defs/ChallengeRequest"
+        },
+        {
+          "$ref": "#/$defs/Challenge"
+        },
+        {
+          "$ref": "#/$defs/CommitProof"
+        },
+        {
+          "$ref": "#/$defs/Acceptance"
+        },
+        {
+          "$ref": "#/$defs/Result"
+        },
+        {
+          "$ref": "#/$defs/StatusQuery"
+        }
+      ]
+    },
+    "BehaviorRow": {
+      "type": "object",
+      "properties": {
+        "accepted_count": {
+          "$ref": "#/$defs/N"
+        },
+        "count_cap": {
+          "const": "32"
+        },
+        "inflight": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/B16"
+          },
+          "minItems": 0,
+          "maxItems": 256,
+          "uniqueItems": true,
+          "x-zjj-order": "strict lexicographic Enc bytes"
+        }
+      },
+      "required": [
+        "accepted_count",
+        "count_cap",
+        "inflight"
+      ],
+      "additionalProperties": false
+    },
+    "BehaviorWitness": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "const": "industrial"
+            },
+            {
+              "$ref": "#/$defs/Id"
+            }
+          ],
+          "items": false,
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "revision": {
+          "$ref": "#/$defs/Positive"
+        },
+        "ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "row": {
+          "$ref": "#/$defs/BehaviorRow"
+        }
+      },
+      "required": [
+        "key",
+        "revision",
+        "ref",
+        "row"
+      ],
+      "additionalProperties": false
+    },
+    "ResourceWitness": {
+      "type": "object",
+      "properties": {
+        "reservation_id": {
+          "$ref": "#/$defs/B16"
+        },
+        "key": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "const": "industrial"
+            },
+            {
+              "const": "route-capacity"
+            },
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "const": "unit"
+            }
+          ],
+          "items": false,
+          "minItems": 7,
+          "maxItems": 7
+        },
+        "unit": {
+          "const": "UNIT"
+        },
+        "amount": {
+          "$ref": "#/$defs/Positive"
+        },
+        "capacity_before": {
+          "$ref": "#/$defs/N"
+        },
+        "reserved_before": {
+          "$ref": "#/$defs/N"
+        },
+        "spent_before": {
+          "$ref": "#/$defs/N"
+        },
+        "reserved_after": {
+          "$ref": "#/$defs/N"
+        },
+        "spent_after": {
+          "$ref": "#/$defs/N"
+        },
+        "revision_before": {
+          "$ref": "#/$defs/Positive"
+        },
+        "revision_after": {
+          "$ref": "#/$defs/Positive"
+        }
+      },
+      "required": [
+        "reservation_id",
+        "key",
+        "unit",
+        "amount",
+        "capacity_before",
+        "reserved_before",
+        "spent_before",
+        "reserved_after",
+        "spent_after",
+        "revision_before",
+        "revision_after"
+      ],
+      "additionalProperties": false
+    },
+    "CredentialWitness": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "$ref": "#/$defs/Id"
+        },
+        "kid": {
+          "$ref": "#/$defs/B32"
+        },
+        "public_key": {
+          "$ref": "#/$defs/B32"
+        },
+        "key_grant_ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "role": {
+          "$ref": "#/$defs/Role"
+        },
+        "role_grant_ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "key_revision": {
+          "$ref": "#/$defs/Positive"
+        },
+        "role_revision": {
+          "$ref": "#/$defs/Positive"
+        },
+        "verified_at_seq": {
+          "$ref": "#/$defs/Positive"
+        }
+      },
+      "required": [
+        "subject",
+        "kid",
+        "public_key",
+        "key_grant_ref",
+        "role",
+        "role_grant_ref",
+        "key_revision",
+        "role_revision",
+        "verified_at_seq"
+      ],
+      "additionalProperties": false
+    },
+    "SceneRow": {
+      "type": "object",
+      "properties": {
+        "unit_ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "inspection_cycle": {
+          "type": "string",
+          "enum": [
+            "1",
+            "2"
+          ]
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "INITIAL",
+            "REINSPECT"
+          ]
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "READY",
+            "ACCEPTED",
+            "RELEASED",
+            "QUARANTINED",
+            "AWAITING_REINSPECT",
+            "MANUAL_HOLD",
+            "STOPPED",
+            "EFFECT_UNKNOWN",
+            "HALTED"
+          ]
+        },
+        "evidence_ref": {
+          "oneOf": [
+            {
+              "const": ""
+            },
+            {
+              "$ref": "#/$defs/B32"
+            }
+          ]
+        },
+        "operation_id": {
+          "oneOf": [
+            {
+              "const": ""
+            },
+            {
+              "$ref": "#/$defs/B16"
+            }
+          ]
+        },
+        "predecessor_operation_id": {
+          "oneOf": [
+            {
+              "const": ""
+            },
+            {
+              "$ref": "#/$defs/B16"
+            }
+          ]
+        },
+        "predecessor_commit_ref": {
+          "oneOf": [
+            {
+              "const": ""
+            },
+            {
+              "$ref": "#/$defs/B32"
+            }
+          ]
+        }
+      },
+      "required": [
+        "unit_ref",
+        "inspection_cycle",
+        "phase",
+        "state",
+        "evidence_ref",
+        "operation_id",
+        "predecessor_operation_id",
+        "predecessor_commit_ref"
+      ],
+      "additionalProperties": false
+    },
+    "SceneWitness": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "const": "UNIT"
+        },
+        "key": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "const": "industrial"
+            },
+            {
+              "$ref": "#/$defs/Id"
+            },
+            {
+              "$ref": "#/$defs/Id"
+            }
+          ],
+          "items": false,
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "revision": {
+          "$ref": "#/$defs/Positive"
+        },
+        "ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "row": {
+          "$ref": "#/$defs/SceneRow"
+        }
+      },
+      "required": [
+        "namespace",
+        "key",
+        "revision",
+        "ref",
+        "row"
+      ],
+      "additionalProperties": false
+    },
+    "Record_BASIS": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "BASIS"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "operation_id": {
+              "$ref": "#/$defs/B16"
+            },
+            "action": {
+              "$ref": "#/$defs/Action"
+            },
+            "action_hash": {
+              "$ref": "#/$defs/B32"
+            },
+            "policy_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "task_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 1,
+              "maxItems": 1,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "assessment_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "required_reviews": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ReviewPurpose"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "scope",
+            "operation_id",
+            "action",
+            "action_hash",
+            "policy_ref",
+            "task_ref",
+            "evidence_refs",
+            "assessment_ref",
+            "required_reviews",
+            "deps",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_KEY_GRANT": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "KEY_GRANT"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "subject": {
+              "$ref": "#/$defs/Id"
+            },
+            "public_key": {
+              "$ref": "#/$defs/B32"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            },
+            "epoch": {
+              "$ref": "#/$defs/Positive"
+            },
+            "purposes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Review",
+                  "Authorization",
+                  "IssueRequest",
+                  "Permit",
+                  "ChallengeRequest",
+                  "Challenge",
+                  "CommitProof",
+                  "Acceptance",
+                  "Result",
+                  "StatusQuery",
+                  "SOURCE",
+                  "CONTROL",
+                  "READ"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "root_generation": {
+              "$ref": "#/$defs/Positive"
+            },
+            "enrollment_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "subject",
+            "public_key",
+            "kid",
+            "epoch",
+            "purposes",
+            "root_generation",
+            "enrollment_ref",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_ROLE_GRANT": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "ROLE_GRANT"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "subject": {
+              "$ref": "#/$defs/Id"
+            },
+            "role": {
+              "$ref": "#/$defs/Role"
+            },
+            "epoch": {
+              "$ref": "#/$defs/Positive"
+            },
+            "tool_set": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 16,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "destination_set": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 16,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "scope_set": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Scope"
+              },
+              "minItems": 1,
+              "maxItems": 16,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "constraints": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "line_set": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Id"
+                      },
+                      "minItems": 1,
+                      "maxItems": 16,
+                      "uniqueItems": true,
+                      "x-zjj-order": "strict lexicographic Enc bytes"
+                    },
+                    "station_set": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Id"
+                      },
+                      "minItems": 1,
+                      "maxItems": 16,
+                      "uniqueItems": true,
+                      "x-zjj-order": "strict lexicographic Enc bytes"
+                    },
+                    "unit_set": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Id"
+                      },
+                      "minItems": 1,
+                      "maxItems": 16,
+                      "uniqueItems": true,
+                      "x-zjj-order": "strict lexicographic Enc bytes"
+                    },
+                    "route_set": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "RELEASE",
+                          "QUARANTINE",
+                          "INSPECT"
+                        ]
+                      },
+                      "minItems": 1,
+                      "maxItems": 16,
+                      "uniqueItems": true,
+                      "x-zjj-order": "strict lexicographic Enc bytes"
+                    }
+                  },
+                  "required": [
+                    "line_set",
+                    "station_set",
+                    "unit_set",
+                    "route_set"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "line_set": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Id"
+                      },
+                      "minItems": 1,
+                      "maxItems": 16,
+                      "uniqueItems": true,
+                      "x-zjj-order": "strict lexicographic Enc bytes"
+                    },
+                    "station_set": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Id"
+                      },
+                      "minItems": 1,
+                      "maxItems": 16,
+                      "uniqueItems": true,
+                      "x-zjj-order": "strict lexicographic Enc bytes"
+                    },
+                    "route_set": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "RELEASE",
+                          "QUARANTINE",
+                          "INSPECT"
+                        ]
+                      },
+                      "minItems": 1,
+                      "maxItems": 3,
+                      "uniqueItems": true,
+                      "x-zjj-order": "strict lexicographic Enc bytes"
+                    }
+                  },
+                  "required": [
+                    "line_set",
+                    "station_set",
+                    "route_set"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "scope_set": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Scope"
+                      },
+                      "minItems": 1,
+                      "maxItems": 8,
+                      "uniqueItems": true,
+                      "x-zjj-order": "strict lexicographic Enc bytes"
+                    }
+                  },
+                  "required": [
+                    "scope_set"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "subject",
+            "role",
+            "epoch",
+            "tool_set",
+            "destination_set",
+            "scope_set",
+            "constraints",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "role": {
+                    "const": "AUDITOR"
+                  }
+                },
+                "required": [
+                  "role"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "constraints": {
+                    "type": "object",
+                    "properties": {
+                      "scope_set": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/$defs/Scope"
+                        },
+                        "minItems": 1,
+                        "maxItems": 8,
+                        "uniqueItems": true,
+                        "x-zjj-order": "strict lexicographic Enc bytes"
+                      }
+                    },
+                    "required": [
+                      "scope_set"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "else": {
+                "if": {
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "CONTROLLER",
+                        "SOURCE",
+                        "ISSUER",
+                        "EXECUTOR"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "role"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "constraints": {
+                      "type": "object",
+                      "properties": {
+                        "line_set": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/$defs/Id"
+                          },
+                          "minItems": 1,
+                          "maxItems": 16,
+                          "uniqueItems": true,
+                          "x-zjj-order": "strict lexicographic Enc bytes"
+                        },
+                        "station_set": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/$defs/Id"
+                          },
+                          "minItems": 1,
+                          "maxItems": 16,
+                          "uniqueItems": true,
+                          "x-zjj-order": "strict lexicographic Enc bytes"
+                        },
+                        "route_set": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "RELEASE",
+                              "QUARANTINE",
+                              "INSPECT"
+                            ]
+                          },
+                          "minItems": 1,
+                          "maxItems": 3,
+                          "uniqueItems": true,
+                          "x-zjj-order": "strict lexicographic Enc bytes"
+                        }
+                      },
+                      "required": [
+                        "line_set",
+                        "station_set",
+                        "route_set"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "constraints": {
+                      "type": "object",
+                      "properties": {
+                        "line_set": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/$defs/Id"
+                          },
+                          "minItems": 1,
+                          "maxItems": 16,
+                          "uniqueItems": true,
+                          "x-zjj-order": "strict lexicographic Enc bytes"
+                        },
+                        "station_set": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/$defs/Id"
+                          },
+                          "minItems": 1,
+                          "maxItems": 16,
+                          "uniqueItems": true,
+                          "x-zjj-order": "strict lexicographic Enc bytes"
+                        },
+                        "unit_set": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/$defs/Id"
+                          },
+                          "minItems": 1,
+                          "maxItems": 16,
+                          "uniqueItems": true,
+                          "x-zjj-order": "strict lexicographic Enc bytes"
+                        },
+                        "route_set": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "RELEASE",
+                              "QUARANTINE",
+                              "INSPECT"
+                            ]
+                          },
+                          "minItems": 1,
+                          "maxItems": 16,
+                          "uniqueItems": true,
+                          "x-zjj-order": "strict lexicographic Enc bytes"
+                        }
+                      },
+                      "required": [
+                        "line_set",
+                        "station_set",
+                        "unit_set",
+                        "route_set"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_COMMIT": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "COMMIT"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "ctx": {
+              "$ref": "#/$defs/Ctx"
+            },
+            "action": {
+              "$ref": "#/$defs/Action"
+            },
+            "permit_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "proof_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "authorization_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "review_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "accept_seq": {
+              "$ref": "#/$defs/Positive"
+            },
+            "accepted_at": {
+              "$ref": "#/$defs/N"
+            },
+            "trusted_time": {
+              "type": "object",
+              "properties": {
+                "lo": {
+                  "$ref": "#/$defs/N"
+                },
+                "hi": {
+                  "$ref": "#/$defs/N"
+                }
+              },
+              "required": [
+                "lo",
+                "hi"
+              ],
+              "additionalProperties": false
+            },
+            "checked_deps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Dep"
+              },
+              "minItems": 0,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "reservation_plan": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ResourceWitness"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "reservation_ids": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B16"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "behavior_before": {
+              "$ref": "#/$defs/BehaviorWitness"
+            },
+            "behavior_after": {
+              "$ref": "#/$defs/BehaviorWitness"
+            },
+            "taskflight": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "$ref": "#/$defs/Id"
+                    },
+                    {
+                      "$ref": "#/$defs/Id"
+                    },
+                    {
+                      "const": "industrial"
+                    },
+                    {
+                      "$ref": "#/$defs/B16"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                },
+                "operation_id": {
+                  "$ref": "#/$defs/B16"
+                }
+              },
+              "required": [
+                "key",
+                "operation_id"
+              ],
+              "additionalProperties": false
+            },
+            "dispatch_before": {
+              "$ref": "#/$defs/N"
+            },
+            "frozen_tool_request": {
+              "$ref": "#/$defs/Action"
+            },
+            "signing_public_key": {
+              "$ref": "#/$defs/B32"
+            },
+            "credential_witnesses": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/CredentialWitness"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "scene_before": {
+              "$ref": "#/$defs/SceneWitness"
+            },
+            "scene_after": {
+              "$ref": "#/$defs/SceneWitness"
+            }
+          },
+          "required": [
+            "ctx",
+            "action",
+            "permit_ref",
+            "proof_ref",
+            "authorization_ref",
+            "review_refs",
+            "accept_seq",
+            "accepted_at",
+            "trusted_time",
+            "checked_deps",
+            "reservation_plan",
+            "reservation_ids",
+            "behavior_before",
+            "behavior_after",
+            "taskflight",
+            "dispatch_before",
+            "frozen_tool_request",
+            "signing_public_key",
+            "credential_witnesses",
+            "scene_before",
+            "scene_after"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_TOOL_FINAL": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "TOOL_FINAL"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "const": "tool-final-v2"
+            },
+            "ledger_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "operation_id": {
+              "$ref": "#/$defs/B16"
+            },
+            "action_hash": {
+              "$ref": "#/$defs/B32"
+            },
+            "dispatch_attempt": {
+              "$ref": "#/$defs/B16"
+            },
+            "tool": {
+              "const": "line-sort-sim"
+            },
+            "tool_version": {
+              "const": "1"
+            },
+            "destination": {
+              "$ref": "#/$defs/Id"
+            },
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "SUCCEEDED",
+                "FAILED_CONFIRMED"
+              ]
+            },
+            "effect_id": {
+              "oneOf": [
+                {
+                  "const": ""
+                },
+                {
+                  "$ref": "#/$defs/Id"
+                }
+              ]
+            },
+            "no_late_effect": {
+              "type": "boolean"
+            },
+            "final_seq": {
+              "$ref": "#/$defs/Positive"
+            },
+            "finalized_at": {
+              "$ref": "#/$defs/N"
+            },
+            "attestation": {
+              "type": "object",
+              "properties": {
+                "issuer": {
+                  "$ref": "#/$defs/Id"
+                },
+                "kid": {
+                  "$ref": "#/$defs/B32"
+                },
+                "sig": {
+                  "$ref": "#/$defs/B64"
+                }
+              },
+              "required": [
+                "issuer",
+                "kid",
+                "sig"
+              ],
+              "additionalProperties": false
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "method",
+            "ledger_id",
+            "operation_id",
+            "action_hash",
+            "dispatch_attempt",
+            "tool",
+            "tool_version",
+            "destination",
+            "outcome",
+            "effect_id",
+            "no_late_effect",
+            "final_seq",
+            "finalized_at",
+            "attestation",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_TOOL_TRUST": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "TOOL_TRUST"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "tool": {
+              "const": "line-sort-sim"
+            },
+            "tool_version": {
+              "const": "1"
+            },
+            "destination": {
+              "$ref": "#/$defs/Id"
+            },
+            "ledger_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "evidence_method": {
+              "const": "tool-final-v2"
+            },
+            "public_key": {
+              "$ref": "#/$defs/B32"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            },
+            "epoch": {
+              "$ref": "#/$defs/Positive"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "issuer",
+            "tool",
+            "tool_version",
+            "destination",
+            "ledger_id",
+            "evidence_method",
+            "public_key",
+            "kid",
+            "epoch",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_POLICY": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "POLICY"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "profile": {
+              "const": "IND-DEMO-1"
+            },
+            "policy_revision": {
+              "$ref": "#/$defs/Positive"
+            },
+            "schema_version": {
+              "const": "ind-payload-v1"
+            },
+            "verifier_version": {
+              "const": "ind-fixed-v1"
+            },
+            "gateway": {
+              "$ref": "#/$defs/Id"
+            },
+            "gateway_kid": {
+              "$ref": "#/$defs/B32"
+            },
+            "executor": {
+              "$ref": "#/$defs/Id"
+            },
+            "executor_kid": {
+              "$ref": "#/$defs/B32"
+            },
+            "source": {
+              "$ref": "#/$defs/Id"
+            },
+            "readers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 8,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "tool": {
+              "const": "line-sort-sim"
+            },
+            "tool_version": {
+              "const": "1"
+            },
+            "controller": {
+              "$ref": "#/$defs/Id"
+            },
+            "line_id": {
+              "const": "demo-line-a"
+            },
+            "station_id": {
+              "const": "demo-check-1"
+            },
+            "route_destinations": {
+              "type": "object",
+              "properties": {
+                "release": {
+                  "const": "ind-release-bin"
+                },
+                "quarantine": {
+                  "const": "ind-quarantine-bin"
+                },
+                "inspect": {
+                  "const": "ind-inspection-bay"
+                }
+              },
+              "required": [
+                "release",
+                "quarantine",
+                "inspect"
+              ],
+              "additionalProperties": false
+            },
+            "decision_package_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "history_mode": {
+              "const": "DISABLED"
+            },
+            "max_cycles": {
+              "const": "2"
+            },
+            "evidence_ttl_seconds": {
+              "const": "300"
+            },
+            "task_ttl_seconds": {
+              "const": "900"
+            },
+            "behavior_count_cap": {
+              "const": "32"
+            },
+            "capacity_per_destination": {
+              "const": "8"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "profile",
+            "policy_revision",
+            "schema_version",
+            "verifier_version",
+            "gateway",
+            "gateway_kid",
+            "executor",
+            "executor_kid",
+            "source",
+            "readers",
+            "tool",
+            "tool_version",
+            "controller",
+            "line_id",
+            "station_id",
+            "route_destinations",
+            "decision_package_ref",
+            "history_mode",
+            "max_cycles",
+            "evidence_ttl_seconds",
+            "task_ttl_seconds",
+            "behavior_count_cap",
+            "capacity_per_destination",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_IND_PACKAGE": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "IND_PACKAGE"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "package_id": {
+              "const": "ind-fixed-package-1"
+            },
+            "package_revision": {
+              "$ref": "#/$defs/Positive"
+            },
+            "detector": {
+              "const": "SYNTHETIC-LABEL-1"
+            },
+            "preprocessing": {
+              "const": "IDENTITY-1"
+            },
+            "output_schema": {
+              "const": "IND-LABEL-V1"
+            },
+            "mapper": {
+              "const": "IND-ROUTE-V1"
+            },
+            "label_routes": {
+              "type": "object",
+              "properties": {
+                "normal": {
+                  "const": "RELEASE"
+                },
+                "defect": {
+                  "const": "QUARANTINE"
+                },
+                "uncertain": {
+                  "const": "INSPECT"
+                }
+              },
+              "required": [
+                "normal",
+                "defect",
+                "uncertain"
+              ],
+              "additionalProperties": false
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "package_id",
+            "package_revision",
+            "detector",
+            "preprocessing",
+            "output_schema",
+            "mapper",
+            "label_routes",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_IND_UNIT": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "IND_UNIT"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "unit_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "batch_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "line_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "station_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "synthetic": {
+              "const": true
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "unit_id",
+            "batch_id",
+            "line_id",
+            "station_id",
+            "synthetic",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_IND_TASK": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "IND_TASK"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "$ref": "#/$defs/B16"
+            },
+            "task_revision": {
+              "$ref": "#/$defs/Positive"
+            },
+            "principal": {
+              "$ref": "#/$defs/Id"
+            },
+            "holder": {
+              "$ref": "#/$defs/Id"
+            },
+            "holder_kid": {
+              "$ref": "#/$defs/B32"
+            },
+            "executor": {
+              "$ref": "#/$defs/Id"
+            },
+            "policy_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "line_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "station_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "allowed_units": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "unit_ref": {
+                    "$ref": "#/$defs/B32"
+                  },
+                  "unit_id": {
+                    "$ref": "#/$defs/Id"
+                  },
+                  "batch_id": {
+                    "$ref": "#/$defs/Id"
+                  },
+                  "inspection_cycle": {
+                    "type": "string",
+                    "enum": [
+                      "1",
+                      "2"
+                    ]
+                  },
+                  "phase": {
+                    "type": "string",
+                    "enum": [
+                      "INITIAL",
+                      "REINSPECT"
+                    ]
+                  }
+                },
+                "required": [
+                  "unit_ref",
+                  "unit_id",
+                  "batch_id",
+                  "inspection_cycle",
+                  "phase"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 16,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "allowed_routes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "RELEASE",
+                  "QUARANTINE",
+                  "INSPECT"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 3,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "tool": {
+              "const": "line-sort-sim"
+            },
+            "tool_version": {
+              "const": "1"
+            },
+            "route_destinations": {
+              "type": "object",
+              "properties": {
+                "release": {
+                  "const": "ind-release-bin"
+                },
+                "quarantine": {
+                  "const": "ind-quarantine-bin"
+                },
+                "inspect": {
+                  "const": "ind-inspection-bay"
+                }
+              },
+              "required": [
+                "release",
+                "quarantine",
+                "inspect"
+              ],
+              "additionalProperties": false
+            },
+            "max_inflight": {
+              "const": "1"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "task_id",
+            "task_revision",
+            "principal",
+            "holder",
+            "holder_kid",
+            "executor",
+            "policy_ref",
+            "line_id",
+            "station_id",
+            "allowed_units",
+            "allowed_routes",
+            "tool",
+            "tool_version",
+            "route_destinations",
+            "max_inflight",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_IND_EVIDENCE": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "IND_EVIDENCE"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "evidence_id": {
+                  "$ref": "#/$defs/B16"
+                },
+                "evidence_revision": {
+                  "$ref": "#/$defs/Positive"
+                },
+                "unit_ref": {
+                  "$ref": "#/$defs/B32"
+                },
+                "unit_id": {
+                  "$ref": "#/$defs/Id"
+                },
+                "batch_id": {
+                  "$ref": "#/$defs/Id"
+                },
+                "line_id": {
+                  "$ref": "#/$defs/Id"
+                },
+                "station_id": {
+                  "$ref": "#/$defs/Id"
+                },
+                "inspection_cycle": {
+                  "type": "string",
+                  "enum": [
+                    "1",
+                    "2"
+                  ]
+                },
+                "phase": {
+                  "type": "string",
+                  "enum": [
+                    "INITIAL",
+                    "REINSPECT"
+                  ]
+                },
+                "sampled_at": {
+                  "$ref": "#/$defs/N"
+                },
+                "known_at": {
+                  "$ref": "#/$defs/N"
+                },
+                "quality_flag": {
+                  "type": "string",
+                  "enum": [
+                    "VALID",
+                    "INVALID"
+                  ]
+                },
+                "label": {
+                  "type": "string",
+                  "enum": [
+                    "DEMO_NORMAL",
+                    "DEMO_DEFECT",
+                    "DEMO_UNCERTAIN"
+                  ]
+                }
+              },
+              "required": [
+                "evidence_id",
+                "evidence_revision",
+                "unit_ref",
+                "unit_id",
+                "batch_id",
+                "line_id",
+                "station_id",
+                "inspection_cycle",
+                "phase",
+                "sampled_at",
+                "known_at",
+                "quality_flag",
+                "label"
+              ],
+              "additionalProperties": false
+            },
+            "attestation": {
+              "type": "object",
+              "properties": {
+                "issuer": {
+                  "$ref": "#/$defs/Id"
+                },
+                "kid": {
+                  "$ref": "#/$defs/B32"
+                },
+                "iat": {
+                  "$ref": "#/$defs/N"
+                },
+                "exp": {
+                  "$ref": "#/$defs/N"
+                },
+                "sig": {
+                  "$ref": "#/$defs/B64"
+                }
+              },
+              "required": [
+                "issuer",
+                "kid",
+                "iat",
+                "exp",
+                "sig"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "data",
+            "attestation"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record_ASSESSMENT": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": "2.6"
+        },
+        "profile": {
+          "const": "IND-DEMO-1"
+        },
+        "kind": {
+          "const": "ASSESSMENT"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "operation_id": {
+              "$ref": "#/$defs/B16"
+            },
+            "action_hash": {
+              "$ref": "#/$defs/B32"
+            },
+            "policy_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "task_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/B32"
+              },
+              "minItems": 1,
+              "maxItems": 1,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "decision_package_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "cutoff": {
+              "$ref": "#/$defs/N"
+            },
+            "method": {
+              "const": "ind-fixed-v1"
+            },
+            "history_mode": {
+              "const": "DISABLED"
+            },
+            "label": {
+              "type": "string",
+              "enum": [
+                "DEMO_NORMAL",
+                "DEMO_DEFECT",
+                "DEMO_UNCERTAIN"
+              ]
+            },
+            "proposed_route": {
+              "type": "string",
+              "enum": [
+                "RELEASE",
+                "QUARANTINE",
+                "INSPECT"
+              ]
+            },
+            "result": {
+              "const": "MATCH"
+            },
+            "required_reviews": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "QUALITY_REVIEW"
+                ]
+              },
+              "minItems": 0,
+              "maxItems": 1,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            }
+          },
+          "required": [
+            "scope",
+            "operation_id",
+            "action_hash",
+            "policy_ref",
+            "task_ref",
+            "evidence_refs",
+            "decision_package_ref",
+            "cutoff",
+            "method",
+            "history_mode",
+            "label",
+            "proposed_route",
+            "result",
+            "required_reviews",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "kind",
+        "scope",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "Record": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Record_BASIS"
+        },
+        {
+          "$ref": "#/$defs/Record_KEY_GRANT"
+        },
+        {
+          "$ref": "#/$defs/Record_ROLE_GRANT"
+        },
+        {
+          "$ref": "#/$defs/Record_COMMIT"
+        },
+        {
+          "$ref": "#/$defs/Record_TOOL_FINAL"
+        },
+        {
+          "$ref": "#/$defs/Record_TOOL_TRUST"
+        },
+        {
+          "$ref": "#/$defs/Record_POLICY"
+        },
+        {
+          "$ref": "#/$defs/Record_IND_PACKAGE"
+        },
+        {
+          "$ref": "#/$defs/Record_IND_UNIT"
+        },
+        {
+          "$ref": "#/$defs/Record_IND_TASK"
+        },
+        {
+          "$ref": "#/$defs/Record_IND_EVIDENCE"
+        },
+        {
+          "$ref": "#/$defs/Record_ASSESSMENT"
+        }
+      ]
+    },
+    "Bundle": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/$defs/Envelope"
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Envelope"
+              },
+              {
+                "$ref": "#/$defs/Record"
+              }
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "message",
+        "objects"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "x-zjj-profile": "IND-DEMO-1",
+  "$comment": "Canonical bytes, signatures, cross-field guards, references, authority, time and state transitions are required by 01/02/03/04; schema alone is insufficient."
+}

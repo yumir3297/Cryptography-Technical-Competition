@@ -1,0 +1,392 @@
+[
+  {
+    "profile": "PAY-1",
+    "original_trust": {
+      "version": "2.6",
+      "profile": "PAY-1",
+      "kind": "TOOL_TRUST",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "payment"
+      },
+      "value": {
+        "issuer": "tool-1",
+        "tool": "pay-sim",
+        "tool_version": "1",
+        "destination": "pay-ledger",
+        "ledger_id": "ledger-1",
+        "evidence_method": "tool-final-v2",
+        "public_key": "-kg0FH9uaQw2k-_2EzYEZAPNiuKhTzGzxAc1hWkjlWU",
+        "kid": "88Wex9TQiHdMAjT5dHfNqKl4i7FWTpnbqYGdgCUW2dc",
+        "epoch": "1",
+        "iat": "100",
+        "exp": "10000"
+      }
+    },
+    "current_trust": {
+      "version": "2.6",
+      "profile": "PAY-1",
+      "kind": "TOOL_TRUST",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "payment"
+      },
+      "value": {
+        "issuer": "tool-1",
+        "tool": "pay-sim",
+        "tool_version": "1",
+        "destination": "pay-ledger",
+        "ledger_id": "ledger-1",
+        "evidence_method": "tool-final-v2",
+        "public_key": "GX9rI-FshTLGq8g4-s1ep4m-DHaykgM0A5v6iz02jWE",
+        "kid": "K_pRxZErPNIa82IvmsHS-Eq-nl2-H7OsDCw-i0lqXSo",
+        "epoch": "2",
+        "iat": "200",
+        "exp": "10000"
+      }
+    },
+    "original_proof": {
+      "version": "2.6",
+      "profile": "PAY-1",
+      "kind": "TOOL_FINAL",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "payment"
+      },
+      "value": {
+        "ledger_id": "ledger-1",
+        "operation_id": "AQEBAQEBAQEBAQEBAQEBAQ",
+        "action_hash": "AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI",
+        "dispatch_attempt": "AwMDAwMDAwMDAwMDAwMDAw",
+        "tool": "pay-sim",
+        "tool_version": "1",
+        "destination": "pay-ledger",
+        "outcome": "SUCCEEDED",
+        "effect_id": "effect-1",
+        "no_late_effect": false,
+        "final_seq": "1",
+        "finalized_at": "101",
+        "method": "tool-final-v2",
+        "iat": "101",
+        "exp": "1001",
+        "attestation": {
+          "issuer": "tool-1",
+          "kid": "88Wex9TQiHdMAjT5dHfNqKl4i7FWTpnbqYGdgCUW2dc",
+          "sig": "-sqq_izQ2JtzLxNBKIq6G1Hrby3jrbwchCauiSkiatEp3yV44lKbGgcATh6fYdObp2hUdhlwJgJwUg7mM2EjCw"
+        }
+      }
+    },
+    "renewed_proof": {
+      "version": "2.6",
+      "profile": "PAY-1",
+      "kind": "TOOL_FINAL",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "payment"
+      },
+      "value": {
+        "ledger_id": "ledger-1",
+        "operation_id": "AQEBAQEBAQEBAQEBAQEBAQ",
+        "action_hash": "AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI",
+        "dispatch_attempt": "AwMDAwMDAwMDAwMDAwMDAw",
+        "tool": "pay-sim",
+        "tool_version": "1",
+        "destination": "pay-ledger",
+        "outcome": "SUCCEEDED",
+        "effect_id": "effect-1",
+        "no_late_effect": false,
+        "final_seq": "1",
+        "finalized_at": "101",
+        "method": "tool-final-v2",
+        "iat": "1002",
+        "exp": "1902",
+        "attestation": {
+          "issuer": "tool-1",
+          "kid": "K_pRxZErPNIa82IvmsHS-Eq-nl2-H7OsDCw-i0lqXSo",
+          "sig": "SuKxO60hly6YOKYg98UJHXY9nT7da9Jp5Z4SfM-mycKt1Q-skb1CBG6e35_tED8yvNGE5_RWca0pL1PDONFhCA"
+        }
+      }
+    },
+    "original_ref": "pTKnQye-X6xs7h75HjY8DNMFhx7IXescghMLK2MjS30",
+    "renewed_ref": "67jbkxer_4dJTNl5RyskFGRD8nWjuvjA0k2aaGiHiew",
+    "original_fact_id": "4hJZMOeOfKTYh6_oTXiE2-jitNtLV5Ims44iA84uZhY",
+    "renewed_fact_id": "4hJZMOeOfKTYh6_oTXiE2-jitNtLV5Ims44iA84uZhY",
+    "first_result": {
+      "code": "SETTLED",
+      "state": "SUCCEEDED",
+      "fact_id": "4hJZMOeOfKTYh6_oTXiE2-jitNtLV5Ims44iA84uZhY"
+    },
+    "repeat_result": {
+      "code": "EXISTING",
+      "state": "SUCCEEDED",
+      "fact_id": "4hJZMOeOfKTYh6_oTXiE2-jitNtLV5Ims44iA84uZhY"
+    },
+    "settlements": 1,
+    "fixture_call_count": 1,
+    "fixture_effect_count": 1
+  },
+  {
+    "profile": "IND-DEMO-1",
+    "original_trust": {
+      "version": "2.6",
+      "profile": "IND-DEMO-1",
+      "kind": "TOOL_TRUST",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "industrial"
+      },
+      "value": {
+        "issuer": "tool-1",
+        "tool": "line-sort-sim",
+        "tool_version": "1",
+        "destination": "ind-release-bin",
+        "ledger_id": "ledger-1",
+        "evidence_method": "tool-final-v2",
+        "public_key": "-kg0FH9uaQw2k-_2EzYEZAPNiuKhTzGzxAc1hWkjlWU",
+        "kid": "88Wex9TQiHdMAjT5dHfNqKl4i7FWTpnbqYGdgCUW2dc",
+        "epoch": "1",
+        "iat": "100",
+        "exp": "10000"
+      }
+    },
+    "current_trust": {
+      "version": "2.6",
+      "profile": "IND-DEMO-1",
+      "kind": "TOOL_TRUST",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "industrial"
+      },
+      "value": {
+        "issuer": "tool-1",
+        "tool": "line-sort-sim",
+        "tool_version": "1",
+        "destination": "ind-release-bin",
+        "ledger_id": "ledger-1",
+        "evidence_method": "tool-final-v2",
+        "public_key": "GX9rI-FshTLGq8g4-s1ep4m-DHaykgM0A5v6iz02jWE",
+        "kid": "K_pRxZErPNIa82IvmsHS-Eq-nl2-H7OsDCw-i0lqXSo",
+        "epoch": "2",
+        "iat": "200",
+        "exp": "10000"
+      }
+    },
+    "original_proof": {
+      "version": "2.6",
+      "profile": "IND-DEMO-1",
+      "kind": "TOOL_FINAL",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "industrial"
+      },
+      "value": {
+        "ledger_id": "ledger-1",
+        "operation_id": "AQEBAQEBAQEBAQEBAQEBAQ",
+        "action_hash": "AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI",
+        "dispatch_attempt": "AwMDAwMDAwMDAwMDAwMDAw",
+        "tool": "line-sort-sim",
+        "tool_version": "1",
+        "destination": "ind-release-bin",
+        "outcome": "SUCCEEDED",
+        "effect_id": "effect-1",
+        "no_late_effect": false,
+        "final_seq": "1",
+        "finalized_at": "101",
+        "method": "tool-final-v2",
+        "iat": "101",
+        "exp": "1001",
+        "attestation": {
+          "issuer": "tool-1",
+          "kid": "88Wex9TQiHdMAjT5dHfNqKl4i7FWTpnbqYGdgCUW2dc",
+          "sig": "XwVE9mWjcXSY8KDwWNYr1FCvKkuTjyBWB9J4iykoMUlfUeR22bWCz--Me3Vd_sOp3yhFdNr9vmvH0wO4kv6ICQ"
+        }
+      }
+    },
+    "renewed_proof": {
+      "version": "2.6",
+      "profile": "IND-DEMO-1",
+      "kind": "TOOL_FINAL",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "industrial"
+      },
+      "value": {
+        "ledger_id": "ledger-1",
+        "operation_id": "AQEBAQEBAQEBAQEBAQEBAQ",
+        "action_hash": "AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI",
+        "dispatch_attempt": "AwMDAwMDAwMDAwMDAwMDAw",
+        "tool": "line-sort-sim",
+        "tool_version": "1",
+        "destination": "ind-release-bin",
+        "outcome": "SUCCEEDED",
+        "effect_id": "effect-1",
+        "no_late_effect": false,
+        "final_seq": "1",
+        "finalized_at": "101",
+        "method": "tool-final-v2",
+        "iat": "1002",
+        "exp": "1902",
+        "attestation": {
+          "issuer": "tool-1",
+          "kid": "K_pRxZErPNIa82IvmsHS-Eq-nl2-H7OsDCw-i0lqXSo",
+          "sig": "_uPdP2R9FYH9fqMyQte5jY6DPrwm2vlDLOet5p4ywTQYgHR1qCsg6ijfrCEAPehbjWT6ASTGPPpMgft51_xFAQ"
+        }
+      }
+    },
+    "original_ref": "wFTlf6E7czWGAFDWjd0pruSbsgYj_P3WQ4pGI_NVeXU",
+    "renewed_ref": "mERgfOwgBx-6cGikuqJkNSaNcIjoVygQiHa14GtkiAI",
+    "original_fact_id": "2m5L0mKAZ0xt8aI_4Lkj7XKHJ8WwqfJR-C_1-K1W0eI",
+    "renewed_fact_id": "2m5L0mKAZ0xt8aI_4Lkj7XKHJ8WwqfJR-C_1-K1W0eI",
+    "first_result": {
+      "code": "SETTLED",
+      "state": "SUCCEEDED",
+      "fact_id": "2m5L0mKAZ0xt8aI_4Lkj7XKHJ8WwqfJR-C_1-K1W0eI"
+    },
+    "repeat_result": {
+      "code": "EXISTING",
+      "state": "SUCCEEDED",
+      "fact_id": "2m5L0mKAZ0xt8aI_4Lkj7XKHJ8WwqfJR-C_1-K1W0eI"
+    },
+    "settlements": 1,
+    "fixture_call_count": 1,
+    "fixture_effect_count": 1
+  },
+  {
+    "profile": "MED-DEMO-1",
+    "original_trust": {
+      "version": "2.6",
+      "profile": "MED-DEMO-1",
+      "kind": "TOOL_TRUST",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "medical"
+      },
+      "value": {
+        "issuer": "tool-1",
+        "tool": "med-order-sim",
+        "tool_version": "1",
+        "destination": "med-demo-ledger",
+        "ledger_id": "ledger-1",
+        "evidence_method": "tool-final-v2",
+        "public_key": "-kg0FH9uaQw2k-_2EzYEZAPNiuKhTzGzxAc1hWkjlWU",
+        "kid": "88Wex9TQiHdMAjT5dHfNqKl4i7FWTpnbqYGdgCUW2dc",
+        "epoch": "1",
+        "iat": "100",
+        "exp": "10000"
+      }
+    },
+    "current_trust": {
+      "version": "2.6",
+      "profile": "MED-DEMO-1",
+      "kind": "TOOL_TRUST",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "medical"
+      },
+      "value": {
+        "issuer": "tool-1",
+        "tool": "med-order-sim",
+        "tool_version": "1",
+        "destination": "med-demo-ledger",
+        "ledger_id": "ledger-1",
+        "evidence_method": "tool-final-v2",
+        "public_key": "GX9rI-FshTLGq8g4-s1ep4m-DHaykgM0A5v6iz02jWE",
+        "kid": "K_pRxZErPNIa82IvmsHS-Eq-nl2-H7OsDCw-i0lqXSo",
+        "epoch": "2",
+        "iat": "200",
+        "exp": "10000"
+      }
+    },
+    "original_proof": {
+      "version": "2.6",
+      "profile": "MED-DEMO-1",
+      "kind": "TOOL_FINAL",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "medical"
+      },
+      "value": {
+        "ledger_id": "ledger-1",
+        "operation_id": "AQEBAQEBAQEBAQEBAQEBAQ",
+        "action_hash": "AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI",
+        "dispatch_attempt": "AwMDAwMDAwMDAwMDAwMDAw",
+        "tool": "med-order-sim",
+        "tool_version": "1",
+        "destination": "med-demo-ledger",
+        "outcome": "SUCCEEDED",
+        "effect_id": "effect-1",
+        "no_late_effect": false,
+        "final_seq": "1",
+        "finalized_at": "101",
+        "method": "tool-final-v2",
+        "iat": "101",
+        "exp": "1001",
+        "attestation": {
+          "issuer": "tool-1",
+          "kid": "88Wex9TQiHdMAjT5dHfNqKl4i7FWTpnbqYGdgCUW2dc",
+          "sig": "nRYwN-hUU2zDgYLHba09kMFPfx5oCshrK0sZT2pjiyhVElQgchIl1VkRCZJA4GdHQvxiceJpI9m63YcbrAl4Dg"
+        }
+      }
+    },
+    "renewed_proof": {
+      "version": "2.6",
+      "profile": "MED-DEMO-1",
+      "kind": "TOOL_FINAL",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "medical"
+      },
+      "value": {
+        "ledger_id": "ledger-1",
+        "operation_id": "AQEBAQEBAQEBAQEBAQEBAQ",
+        "action_hash": "AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI",
+        "dispatch_attempt": "AwMDAwMDAwMDAwMDAwMDAw",
+        "tool": "med-order-sim",
+        "tool_version": "1",
+        "destination": "med-demo-ledger",
+        "outcome": "SUCCEEDED",
+        "effect_id": "effect-1",
+        "no_late_effect": false,
+        "final_seq": "1",
+        "finalized_at": "101",
+        "method": "tool-final-v2",
+        "iat": "1002",
+        "exp": "1902",
+        "attestation": {
+          "issuer": "tool-1",
+          "kid": "K_pRxZErPNIa82IvmsHS-Eq-nl2-H7OsDCw-i0lqXSo",
+          "sig": "nFtcp7H0-Nn3HZ5ZkgDLzoSORiJPS0HPuTfdJZ9xgRPhxoDhU2diC19Z1ekzJkRW6mMDeQ0Gr5QAvN9ATzqlAQ"
+        }
+      }
+    },
+    "original_ref": "G5DDH9WaNzXavP6q7rRM2AHJz7xS7BFkhUsAqJw0Qxk",
+    "renewed_ref": "IVJ0lHw8Iz5UGd3_HkrSjTAIMSVk6DPL9BirjETj85A",
+    "original_fact_id": "wH-AUYLvWl8mY2gyxP5HBRTj6-2IJp2zm_CPGG-x8LI",
+    "renewed_fact_id": "wH-AUYLvWl8mY2gyxP5HBRTj6-2IJp2zm_CPGG-x8LI",
+    "first_result": {
+      "code": "SETTLED",
+      "state": "SUCCEEDED",
+      "fact_id": "wH-AUYLvWl8mY2gyxP5HBRTj6-2IJp2zm_CPGG-x8LI"
+    },
+    "repeat_result": {
+      "code": "EXISTING",
+      "state": "SUCCEEDED",
+      "fact_id": "wH-AUYLvWl8mY2gyxP5HBRTj6-2IJp2zm_CPGG-x8LI"
+    },
+    "settlements": 1,
+    "fixture_call_count": 1,
+    "fixture_effect_count": 1
+  }
+]
