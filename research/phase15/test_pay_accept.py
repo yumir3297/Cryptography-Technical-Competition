@@ -170,6 +170,16 @@ class PayBoundaryTests(unittest.TestCase):
         self.assertEqual(err.exception.code,'REQUIRED_DEPS_INCOMPLETE')
         self.assertEqual(self.w.snapshot()['accepted_rows'],0)
 
+    def test_valid_x_key_but_missing_issuer_grants_rejected(self):
+        req=self.prepare();acc,reply=self.sign_x(req)
+        signer=self.f.idents['X']
+        acc['body']['deps']=[]
+        acc['sig']=b64(signer.key.sign(canonical(['ZJJ-SIG-v1',acc['protected'],acc['body']])))
+        with self.assertRaises(ProtocolError) as cm:
+            self.w.finalize_pay(req['ticket'],acc,reply,clock=self.clock('FINALIZE',2,100))
+        self.assertEqual(cm.exception.code,'X_GRANT_DEPS')
+        self.assertEqual(self.w.snapshot()['accepted_rows'],0)
+
     def test_w_cannot_use_legacy_signer_accept(self):
         with self.assertRaises(ProtocolError):
             self.w.accept(self.f,self.op)
