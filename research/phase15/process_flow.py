@@ -167,7 +167,7 @@ def stage(d,name):
 
 def independent_audit(d):
     d=Path(d);v=load(wp(d))
-    with sqlite3.connect('file:'+str(db(d).replace('\\','/'))+'?mode=ro',uri=True) as c:
+    with sqlite3.connect('file:'+str(db(d).resolve())+'?mode=ro',uri=True) as c:
         c.row_factory=sqlite3.Row
         row=c.execute('SELECT * FROM accepted WHERE operation_id=?',(v['operation_id'],)).fetchone()
         require(row is not None,'NO_ACCEPTED_ROW')
