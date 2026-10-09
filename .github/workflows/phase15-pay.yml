@@ -27,6 +27,7 @@ jobs:
       - name: Run real process-handoff PAY-1 with read-only independent archive audit
         run: |
           set -o pipefail
+          rm -rf research_evidence/phase15_pay_process
           python -m research.phase15.process_flow --output research_evidence/phase15_pay_process 2>&1 | tee research_evidence/phase15_pay_process_output.txt
       - name: Recheck original official 39 without status promotion
         run: |
