@@ -6,6 +6,7 @@ a claim of a real physical effect. No original v2.6 schema is changed.
 """
 from __future__ import annotations
 import json
+import hashlib
 import os
 import sqlite3
 from pathlib import Path
@@ -163,7 +164,7 @@ class AuthenticatedIndustrialGateway:
                                       (v['operation_id'],)).fetchone() is None,
                             'UNAUTHENTICATED_ORIGINAL')
                     sequence=c.execute('SELECT seq FROM meta WHERE id=1').fetchone()[0]+1
-                    effect_id='ind-'+digest([DOMAIN,v])[:42].lower()
+                    effect_id='ind-'+hashlib.sha256(canonical([DOMAIN,v])).hexdigest()[:32]
                     a=v['action']
                     fact={'ledger_id':v['ledger_id'],'operation_id':v['operation_id'],
                           'action_hash':v['action_hash'],'dispatch_attempt':v['attempt'],
