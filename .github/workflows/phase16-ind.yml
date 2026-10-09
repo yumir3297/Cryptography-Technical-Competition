@@ -27,6 +27,10 @@ jobs:
           mkdir -p research_evidence/phase16
           set -o pipefail
           python -m unittest research.phase16.test_industrial_delivery -v 2>&1 | tee research_evidence/phase16/industrial_delivery_tests.txt
+      - name: Simulate tool process death after effect and reconcile without redispatch
+        run: |
+          set -o pipefail
+          python -m research.phase16.process_flow --output research_evidence/phase16/industrial_process 2>&1 | tee research_evidence/phase16/industrial_process_output.txt
       - name: Check unmodified upstream official 39 conformance
         run: |
           set -o pipefail
