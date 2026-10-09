@@ -1,0 +1,11 @@
+test_atomic_external_sign_restart_duplicate_and_tool_final (research.phase15.test_pay_accept.PayBoundaryTests.test_atomic_external_sign_restart_duplicate_and_tool_final) ... ok
+test_certified_revocation_after_prepare_fails_closed (research.phase15.test_pay_accept.PayBoundaryTests.test_certified_revocation_after_prepare_fails_closed) ... ok
+test_external_signature_tamper_is_atomic (research.phase15.test_pay_accept.PayBoundaryTests.test_external_signature_tamper_is_atomic) ... ok
+test_resource_race_after_prepare_fails_closed (research.phase15.test_pay_accept.PayBoundaryTests.test_resource_race_after_prepare_fails_closed) ... ok
+test_signed_permit_omits_dependency_but_C_source_reconstruction_rejects (research.phase15.test_pay_accept.PayBoundaryTests.test_signed_permit_omits_dependency_but_C_source_reconstruction_rejects) ... ok
+test_w_cannot_use_legacy_signer_accept (research.phase15.test_pay_accept.PayBoundaryTests.test_w_cannot_use_legacy_signer_accept) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 20.928s
+
+OK
