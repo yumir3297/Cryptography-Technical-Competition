@@ -23,6 +23,10 @@ jobs:
         run: |
           set -o pipefail
           python -m unittest research.phase15.test_pay_accept -v 2>&1 | tee phase15_pay_test_output.txt
+      - name: Run real process-handoff PAY-1 with read-only independent archive audit
+        run: |
+          set -o pipefail
+          python -m research.phase15.process_flow --output research/phase15/evidence/pay_process 2>&1 | tee phase15_pay_process_output.txt
       - name: Recheck original official 39 without status promotion
         run: |
           set -o pipefail
@@ -48,6 +52,8 @@ jobs:
           name: phase15-pay-lab-evidence
           path: |
             phase15_pay_test_output.txt
+            phase15_pay_process_output.txt
+            research/phase15/evidence/pay_process/**
             phase15_formal39_output.txt
             research/formal39/formal39_report.json
           if-no-files-found: ignore
