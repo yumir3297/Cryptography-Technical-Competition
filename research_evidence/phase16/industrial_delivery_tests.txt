@@ -1,0 +1,40 @@
+test_concurrent_delivery_only_one_effect (research.phase16.test_industrial_delivery.IndustrialDeliveryTests.test_concurrent_delivery_only_one_effect) ... ok
+test_different_tool_ledger_origin_denied (research.phase16.test_industrial_delivery.IndustrialDeliveryTests.test_different_tool_ledger_origin_denied) ... /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/json/decoder.py:361: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe98c27c40>
+  obj, end = self.scan_once(s, idx)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/json/decoder.py:361: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe988b4040>
+  obj, end = self.scan_once(s, idx)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_forged_w_signature_and_tampered_action_rejected (research.phase16.test_industrial_delivery.IndustrialDeliveryTests.test_forged_w_signature_and_tampered_action_rejected) ... /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/json/encoder.py:254: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe98c27c40>
+  _iterencode = c_make_encoder(
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/json/encoder.py:254: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe988b5e40>
+  _iterencode = c_make_encoder(
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_lost_reply_restart_and_original_tool_settlement (research.phase16.test_industrial_delivery.IndustrialDeliveryTests.test_lost_reply_restart_and_original_tool_settlement) ... /home/runner/work/Cryptography-Technical-Competition/Cryptography-Technical-Competition/research/reference_executor/wire.py:49: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe988b5a80>
+  require(all(type(k) is str and k.isascii() for k in a),'KEY_ENCODING')
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/Cryptography-Technical-Competition/Cryptography-Technical-Competition/research/reference_executor/wire.py:49: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe988b5e40>
+  require(all(type(k) is str and k.isascii() for k in a),'KEY_ENCODING')
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_outbox_is_immutable_across_restarts (research.phase16.test_industrial_delivery.IndustrialDeliveryTests.test_outbox_is_immutable_across_restarts) ... ok
+test_precommit_crash_rollback_no_effect (research.phase16.test_industrial_delivery.IndustrialDeliveryTests.test_precommit_crash_rollback_no_effect) ... /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/json/decoder.py:361: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe988b66b0>
+  obj, end = self.scan_once(s, idx)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/json/decoder.py:361: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe988b5e40>
+  obj, end = self.scan_once(s, idx)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_signed_conflicting_retry_is_not_new_effect (research.phase16.test_industrial_delivery.IndustrialDeliveryTests.test_signed_conflicting_retry_is_not_new_effect) ... /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/json/encoder.py:254: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7efe988b5a80>
+  _iterencode = c_make_encoder(
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_unclaimed_operation_cannot_get_dispatch_token (research.phase16.test_industrial_delivery.IndustrialDeliveryTests.test_unclaimed_operation_cannot_get_dispatch_token) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 10.288s
+
+OK

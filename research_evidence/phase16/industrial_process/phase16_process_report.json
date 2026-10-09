@@ -1,0 +1,141 @@
+{
+  "candidate": "IND_AUTHENTICATED_DELIVERY_AFTER_COMMIT_REPLY_LOSS",
+  "contract": "ZJJ-CORE-2.6-R2",
+  "limitations": [
+    "fixture W/C/X/tool signing seeds are known and unprotected",
+    "no hardware actuator connected; effect is a SQLite simulation",
+    "separate processes do not establish real independent OS key custody",
+    "transport uses local files not authenticated network/mTLS",
+    "original official 39 scenarios not fully covered"
+  ],
+  "official_complete_pass": false,
+  "phase": 16,
+  "profile": "IND-DEMO-1",
+  "readonly_audit": {
+    "W_accept_count": 1,
+    "W_call_count": 1,
+    "W_outbox_verified": true,
+    "W_reserved_after": 0,
+    "W_settlement_count": 1,
+    "W_spent_after": 1,
+    "acceptance_ref": "PR4IXejk3gcdyJMS355-g71fpcv7XIFOWryLg_v_VjU",
+    "authenticated_tool_effects": 1,
+    "candidate": "CORE-01",
+    "commit_ref": "UmxeRNL6qUzrF9qk6X-lTYYsa5Fb1Sh1uss3LTlqBMY",
+    "distinct_stage_pids": 5,
+    "final_ref": "HxyLxNRjmnzrnTfZ045IuH97Kw8kr7y7kTmQiBG-MMM",
+    "independent_readonly_verifier": true,
+    "limitations": [
+      "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+      "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+      "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+      "A per-profile W SQLite store is not one deployed cross-profile W",
+      "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+    ],
+    "lost_reply_observed_exit": 97,
+    "no_new_effect_on_retry": true,
+    "official_complete_pass": false,
+    "official_schema_check": true,
+    "phase14_prepared_ticket_checked": true,
+    "phase16_gateway_integrity": true,
+    "physical_execution_proven": false,
+    "processes": 16,
+    "profile": "IND-DEMO-1",
+    "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+    "validated_message_types": [
+      "acceptance",
+      "authorization",
+      "challenge",
+      "challenge_request",
+      "issue",
+      "permit",
+      "proof"
+    ]
+  },
+  "steps": [
+    {
+      "private_keys_exported_to_W": false,
+      "profile": "IND-DEMO-1",
+      "stage": "bootstrap"
+    },
+    {
+      "sequence": 1,
+      "signed_by": "external_C_fixture_process",
+      "stage": "c_prepare"
+    },
+    {
+      "no_acceptance_yet": true,
+      "stage": "w_prepare",
+      "ticket": "FpDLtXMnY8OoLuDOQxgNsg"
+    },
+    {
+      "external_X": true,
+      "signature_ref": "PR4IXejk3gcdyJMS355-g71fpcv7XIFOWryLg_v_VjU",
+      "stage": "x_sign"
+    },
+    {
+      "sequence": 2,
+      "signed_by": "external_C_fixture_process",
+      "stage": "c_finalize"
+    },
+    {
+      "acceptance_ref": "PR4IXejk3gcdyJMS355-g71fpcv7XIFOWryLg_v_VjU",
+      "commit_ref": "UmxeRNL6qUzrF9qk6X-lTYYsa5Fb1Sh1uss3LTlqBMY",
+      "stage": "w_finalize"
+    },
+    {
+      "certified": true,
+      "external_C": true,
+      "stage": "c_trust"
+    },
+    {
+      "public_C_cert_verified": true,
+      "stage": "w_activate"
+    },
+    {
+      "sequence": 3,
+      "signed_by": "external_C_fixture_process",
+      "stage": "c_claim"
+    },
+    {
+      "attempt": "AAAAAAAAAAAAAAAAAAAFhQ",
+      "claimed": true,
+      "stage": "claim"
+    },
+    {
+      "kind": "W_SIGNED_DISPATCH",
+      "outbox_persisted": true,
+      "packet_ref": "uG3QSffoZ1uoVvR6yyiQx8vc1LikgP-c_ZLj1vLWNfg"
+    },
+    {
+      "exit_code": 97,
+      "reply_lost": true,
+      "stage": "tool_crash"
+    },
+    {
+      "kind": "TOOL_RECOVERED_ORIGINAL",
+      "new_effect": false,
+      "tool_audit": {
+        "authenticated_operations": 1,
+        "frozen_ledger_facts": 1,
+        "ledger_sequence": 1,
+        "simulated_effects": 1
+      },
+      "tool_final_ref": "HxyLxNRjmnzrnTfZ045IuH97Kw8kr7y7kTmQiBG-MMM"
+    },
+    {
+      "sequence": 4,
+      "signed_by": "external_C_fixture_process",
+      "stage": "c_settle"
+    },
+    {
+      "stage": "settle",
+      "status": "SUCCEEDED"
+    },
+    {
+      "rejected": "NO_REDISPATCH",
+      "stage": "no_redispatch"
+    }
+  ],
+  "witness_sha256": "20e8b85141e584bb713839aeacaabfe908c0df0444b7bc84ba7ab4d4a028a48d"
+}

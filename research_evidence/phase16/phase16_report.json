@@ -1,0 +1,98 @@
+{
+  "contract": "ZJJ-CORE-2.6-R2",
+  "deliverable": {
+    "entries": 347,
+    "path": "research_archives/ZJJ_CORE_2_6_R2_Phase16_Industrial_Candidate_20261009.zip",
+    "sha256": "8c412c345cc5479f4d323868a3b333570b38ee115b33921512b82ea989162b17"
+  },
+  "experiment_sha256": {
+    "research_evidence/phase16/industrial_delivery_tests.txt": "2b90f4cf8704ba04656e769f2cd0e9597588742174a89dcec879e7fc63586acd",
+    "research_evidence/phase16/industrial_process/phase14_witness.json": "20e8b85141e584bb713839aeacaabfe908c0df0444b7bc84ba7ab4d4a028a48d",
+    "research_evidence/phase16/industrial_process/phase16_process_report.json": "8ebc44bd22fe9888ea044fa63e0994fa65331598b76bff064e1af06cfe95e0cb",
+    "research_evidence/phase16/industrial_process/tool.sqlite": "26e60f53892d4621aff41acaf22771fef80bf373eae2dd41949f685a37c74f36",
+    "research_evidence/phase16/industrial_process/w.sqlite": "99febb07a3c8870b79dfb4760d026a030e35fe04e84ea6e090cbcbcb0a1588ff",
+    "research_evidence/phase16/industrial_process/witness.json": "5dfeeaa263176c68aff720d6e0a0eb940f29ddff2faefbcd784fa5d6dbb7f177",
+    "research_evidence/phase16/industrial_process_output.txt": "771a756693eb25fc6d632b070fab1b46e00ae13f50c2be4d9c74c7b84c49e7ae",
+    "research_evidence/phase16/original39.txt": "bf3fa5edb3fb32d6ee248e0a2c93fcf17c11f4c44b53f1b7e069a465e3628500"
+  },
+  "label": "IND_AUTHENTICATED_TOOL_DELIVERY_LAB_CANDIDATE",
+  "official_full_conformance": {
+    "BLOCKED_FULL_CONFORMANCE": 39,
+    "FAIL": 0,
+    "PASS": 0
+  },
+  "original_contract_sha256": {
+    "system_dev/v26/contracts/industrial.schema.json": "36c325808a01d5afb51f27872df4fdc7c40907aa56b023a10bd5a949e4ad768d",
+    "system_dev/v26/contracts/medical.schema.json": "033df4601364abcb2bf9f4673d43804150da47e598b71cfceb0ec090366b7ac2",
+    "system_dev/v26/contracts/pay1.schema.json": "84f57ba485abe56b94141dc8d27968c56ecad50fb50095565939b02fd2f8833e",
+    "system_dev/v26/semantic_cases.json": "43cb3de4492c290f9ebcd6570db2e59e1865ede33fcd58190ac6e7f688b507da"
+  },
+  "phase": 16,
+  "readonly_audit": {
+    "W_accept_count": 1,
+    "W_call_count": 1,
+    "W_outbox_verified": true,
+    "W_reserved_after": 0,
+    "W_settlement_count": 1,
+    "W_spent_after": 1,
+    "acceptance_ref": "PR4IXejk3gcdyJMS355-g71fpcv7XIFOWryLg_v_VjU",
+    "authenticated_tool_effects": 1,
+    "candidate": "CORE-01",
+    "commit_ref": "UmxeRNL6qUzrF9qk6X-lTYYsa5Fb1Sh1uss3LTlqBMY",
+    "distinct_stage_pids": 5,
+    "final_ref": "HxyLxNRjmnzrnTfZ045IuH97Kw8kr7y7kTmQiBG-MMM",
+    "independent_readonly_verifier": true,
+    "limitations": [
+      "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+      "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+      "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+      "A per-profile W SQLite store is not one deployed cross-profile W",
+      "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+    ],
+    "lost_reply_observed_exit": 97,
+    "no_new_effect_on_retry": true,
+    "official_complete_pass": false,
+    "official_schema_check": true,
+    "phase14_prepared_ticket_checked": true,
+    "phase16_gateway_integrity": true,
+    "physical_execution_proven": false,
+    "processes": 16,
+    "profile": "IND-DEMO-1",
+    "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+    "validated_message_types": [
+      "acceptance",
+      "authorization",
+      "challenge",
+      "challenge_request",
+      "issue",
+      "permit",
+      "proof"
+    ]
+  },
+  "scoped_case_facets": {
+    "AUD-02C": "Tool immutable original fact and W first settlement are compared with independent SQLite record",
+    "CORE-01": "IND existing C/X/W acceptance and separate tool authenticated delivery; lab positive path",
+    "CORE-13": "IND post-CLAIM EFFECT_UNKNOWN held on lost tool reply; recover original fact, never redispatch",
+    "CORE-15": "IND transport retry concurrent and after local tool process death; one simulated effect fact"
+  },
+  "source_sha256": {
+    ".github/workflows/phase16-ind.yml": "c2ab8d49e38ae2e947fc1fdbfd5a042cadd45c5c4949949911642002559fc730",
+    "research/formal39/run_formal39.py": "ff2a2c53c9c1d5763b4386717db64a6083204ee6bac6beb53a9601d765aecc19",
+    "research/phase11/scene_r2.py": "bc0b310f60d2c420b5d2acee061354bb743099f0905f23d8b0950c95693328a3",
+    "research/phase14/verifier.py": "6ecfb889b50b8450e9774d4cbab8616092385f144043fe9bdd8f310e7abaa7dd",
+    "research/phase16/build_report.py": "303b1a562c05fe89783d475ed4f22977b492d35be2541e1db6252e48ba8dd5b7",
+    "research/phase16/industrial_delivery.py": "7ba3513e939ca27cf45d96c9fa4a605ff71a3131e13fe5f2b72130091a23ed7c",
+    "research/phase16/process_flow.py": "9559045404f717574a2bb23eb9e127963672772fd7373ff730ccb7300b79620e",
+    "research/phase16/test_industrial_delivery.py": "2b7f1eafdaa0e36629c9ccad2e357a3377fe6fafda2cdf6b771ebee5bc246e54",
+    "research/phase6/trusted_final.py": "d9e79342f9672cd460e9681d7d55a827e58501eea33e020da4b9badcf1f9cb49"
+  },
+  "test_count": 8,
+  "unmet": [
+    "C/E/X/W keys are still synthetic, with no hardware or independent privilege custody",
+    "No real industrial actuator; exactly one SQLite fact is not proof of exactly one physical effect",
+    "Signed W delivery token is handed off through local test files, not an authenticated network",
+    "No trusted wall clock or variable Prepare/Sign/Finalize latency solution",
+    "No unified real cross-profile W and no full 39-case transport/status/exhaustive semantics"
+  ],
+  "warning": "A successful lab tool receipt does NOT certify a real effect, safe remote actuation, or 39-case PASS."
+}
