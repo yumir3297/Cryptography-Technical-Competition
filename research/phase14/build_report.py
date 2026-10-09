@@ -14,7 +14,7 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def save(path,obj):
     path.write_text(json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=False)+'\n',encoding='utf-8')
 def run(evidence,assemble=True):
-    p=Path(evidence)
+    p=Path(evidence).resolve()
     data=json.loads((p/'phase14_process_report.json').read_text(encoding='utf8'))
     assert set(data['profiles'])=={'IND-DEMO-1','MED-DEMO-1'}
     assert data['official_passes']==0
