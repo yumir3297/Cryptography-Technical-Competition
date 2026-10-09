@@ -25,9 +25,9 @@ class PayBoundaryTests(unittest.TestCase):
         self.f.authorize(self.op);self.f.issue(self.op);self.f.challenge(self.op)
         # Capture C's pre-accept facts BEFORE external proposal changes BEHAVIOR.
         self.source_rows=[
-          {'namespace':ns,'key':list(key),'revision':entry.revision,
+          {'namespace':ns,'key':list(key),'revision':str(entry.revision),
            'ref':entry.ref,'value':copy.deepcopy(entry.value),
-           'record':copy.deepcopy(entry.record)}
+           'record':copy.deepcopy(entry.record) if entry.record is not None else {}}
           for (ns,key),entry in self.f.trusted._rows.items()
         ]
         self.f.commit(self.op)
@@ -50,7 +50,7 @@ class PayBoundaryTests(unittest.TestCase):
             cl={'scope':self.f.scope,'dep':{k:dep[k] for k in ('namespace','key','revision','ref')},
                 'seq':'1','iat':'90','exp':'2000'}
             self.w.publish_window(sign_window(self.root,cl))
-        source={'scope':self.f.scope,'seq':1,'rows':self.source_rows}
+        source={'scope':self.f.scope,'seq':'1','rows':self.source_rows}
         self.w.publish_source_bundle({'claim':source,
              'signature':b64(self.root.key.sign(canonical(['ZJJ-P15-C-SOURCE-v1',source])))})
 
