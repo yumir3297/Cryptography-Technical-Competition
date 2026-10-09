@@ -150,7 +150,7 @@ class AuthenticatedIndustrialGateway:
                 old=c.execute('SELECT * FROM p16_authenticated_delivery WHERE operation_id=?',
                               (v['operation_id'],)).fetchone()
                 if old:
-                    require(old['packet_ref']==packet_ref and old['attempt']==v['attempt'],
+                    require(old[0]==v['operation_id'] and old[1]==packet_ref and old[2]==v['attempt'],
                             'DISPATCH_CONFLICT')
                     require(c.execute('SELECT COUNT(*) FROM finalized WHERE operation_id=?',
                                       (v['operation_id'],)).fetchone()[0]==1,'LEDGER_INTEGRITY')
