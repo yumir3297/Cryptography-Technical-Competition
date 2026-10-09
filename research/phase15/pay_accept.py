@@ -17,6 +17,7 @@ from research.phase5.durable_w import _json, archive_verify, archive_verify_repl
 from research.phase4.flow import check_record_contract
 from research.phase11.trusted_clock import checked_clock, consume_clock
 from research.strict_v26.pay_dependencies import TrustedStore, required_pay_deps
+from research.strict_v26.pay_history import verify_pay_authoritative
 from research.reference_executor.wire import (ProtocolError, require, raw, keyid, envelope, number,
     msgref, rec_ref, canonical, digest, sortset, b64, strict_verify)
 from research.strict_v26.upstream_schema import UpstreamSchema
@@ -103,7 +104,7 @@ class VerifierOnlyPayW(HardenedPayW):
                       (int(cl['seq']),_json(cert)))
         return True
 
-    def _trusted_deps(self,c,commit,reviews,at):
+    def _trusted_deps(self,c,bundle,at):
         src=c.execute('SELECT certificate FROM p15_authoritative_sources WHERE id=1').fetchone()
         require(src is not None,'SOURCES_UNAVAILABLE')
         cert=json.loads(src['certificate']);cl=cert['claim']
@@ -113,9 +114,42 @@ class VerifierOnlyPayW(HardenedPayW):
         store=TrustedStore(cl['scope'])
         for x in cl['rows']:
             store._set(x['namespace'],x['key'],int(x['revision']),x['ref'],x['value'],x['record'] or None)
-        v=commit['value'];task_id=v['taskflight']['key'][-1]
+        commit=bundle['commit'];v=commit['value'];task_id=v['taskflight']['key'][-1]
+        docs={x['namespace']:x for x in cl['rows'] if x['namespace'] in
+              ('POLICY','TASK','ORDER','EXPERIENCE')}
+        require(set(docs)=={'POLICY','TASK','ORDER','EXPERIENCE'},'RISK_SOURCES_MISSING')
+        assessment=bundle['assessment'];basis=bundle['basis']
+        check_record_contract(assessment,'ASSESSMENT',cl['scope'])
+        check_record_contract(basis,'BASIS',cl['scope'])
+        gate=UpstreamSchema(ROOT,'PAY-1')
+        gate.validate(assessment,'Record_ASSESSMENT')
+        gate.validate(basis,'Record_BASIS')
+        risk,computed=verify_pay_authoritative(
+            scope=cl['scope'],action=v['action'],
+            policy_record=docs['POLICY']['record'],
+            task_record=docs['TASK']['record'],
+            evidence_record=docs['ORDER']['record'],
+            history_record=docs['EXPERIENCE']['record'],
+            source_public_key=self.public_actors['E'].pub,
+            source_subject=self.public_actors['E'].name,
+            cutoff=at, policy_rev=int(docs['POLICY']['revision']),
+            task_rev=int(docs['TASK']['revision']),
+            order_rev=int(docs['ORDER']['revision']),
+            history_rev=int(docs['EXPERIENCE']['revision']),
+            witness_authenticated=True,
+            claimed_assessment=assessment['value'])
+        require(assessment['value']==computed,'ASSESSMENT_MISMATCH')
+        require(basis['value']['assessment_ref']==rec_ref(assessment) and
+                basis['value']['action']==v['action'] and
+                v['ctx']['basis_ref']==rec_ref(basis) and
+                basis['value']['required_reviews']==list(risk.required_reviews),
+                'BASIS_BINDING')
+        reviews=bundle['reviews']
+        require(len(reviews)==len(risk.required_reviews) and
+                sorted(x['body']['payload']['purpose'] for x in reviews)==
+                sorted(risk.required_reviews),'REVIEW_REQUIRED')
         signers={k:(a.name,a.kid) for k,a in self.public_actors.items()}
-        derived=required_pay_deps(store,v['action'],task_id,signers,bool(reviews),at)
+        derived=required_pay_deps(store,v['action'],task_id,signers,bool(risk.required_reviews),at)
         require(derived==v['checked_deps'],'REQUIRED_DEPS_INCOMPLETE')
         return derived
 
@@ -163,7 +197,8 @@ class VerifierOnlyPayW(HardenedPayW):
 
     def _verify_bundle(self,c,bundle,at):
         require(type(bundle) is dict and set(bundle)==
-                {'commit','permit','proof','challenge','challenge_request','authorization','reviews'}, 'BUNDLE_FIELDS')
+                {'commit','permit','proof','challenge','challenge_request','authorization',
+                 'reviews','assessment','basis'}, 'BUNDLE_FIELDS')
         commit=bundle['commit']
         check_record_contract(commit,'COMMIT',commit['scope'])
         UpstreamSchema(ROOT,'PAY-1').validate(commit,'Record_COMMIT')
@@ -201,7 +236,7 @@ class VerifierOnlyPayW(HardenedPayW):
         require(v['checked_deps']==bundle['permit']['body']['deps'],'DEPS_CONFLICT')
         require(v['taskflight']['operation_id']==action['operation_id'],'TASK_BINDING')
         require(v['taskflight']['key'][-1] in (req.get('task_id',''),v['taskflight']['key'][-1]),'TASK_BINDING')
-        self._trusted_deps(c,commit,reviews,at)
+        self._trusted_deps(c,bundle,at)
         self._verify_dependencies(c,commit,at)
         # Issuer KEY and ROLE refs are C-authenticated and bound to the roster.
         for w in v['credential_witnesses']:
