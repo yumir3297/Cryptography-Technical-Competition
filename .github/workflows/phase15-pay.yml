@@ -8,6 +8,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: phase15-pay-signed-evidence-branch
+  cancel-in-progress: true
 jobs:
   pay:
     runs-on: ubuntu-latest
