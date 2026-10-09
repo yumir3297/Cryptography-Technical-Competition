@@ -35,6 +35,11 @@ class PayBoundaryTests(unittest.TestCase):
           'proof':copy.deepcopy(self.op.proof),'challenge':copy.deepcopy(self.op.challenge),
           'challenge_request':copy.deepcopy(self.op.challenge_request),
           'authorization':copy.deepcopy(self.op.authorization),'reviews':copy.deepcopy(self.op.reviews)}
+        # Only the exact C-current dependency namespace/key set is admitted.
+        required={(d['namespace'],tuple(d['key'])) for d in
+                  self.bundle['commit']['value']['checked_deps']}
+        self.source_rows=[x for x in self.source_rows
+                          if (x['namespace'],tuple(x['key'])) in required]
         self.ledger=ToolLedger(self.path/'tool.sqlite')
         self.w=VerifierOnlyPayW(self.path/'w.sqlite',self.root.public_key,
                                 ledger=self.ledger,actors=self.f.actors)
