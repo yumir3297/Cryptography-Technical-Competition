@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from research.phase4.flow import SignedPayFlow
+from research.strict_v26.test_pay_history import case
 from research.phase7.guarded_dispatch import _make_cert
 from research.phase11.pay_r2 import sign_window
 from research.phase11.trusted_clock import seal
@@ -20,7 +21,7 @@ class PayBoundaryTests(unittest.TestCase):
         self.t=tempfile.TemporaryDirectory();self.addCleanup(self.t.cleanup)
         self.path=Path(self.t.name);self.root=Controller.fixture()
         # The proposer is a LAB fixture with private keys; it is never passed to W.
-        self.f=SignedPayFlow(schema_root=ROOT);self.op=self.f.prepare()
+        self.f=SignedPayFlow(cases=getattr(self,'PAY_CASES',None),schema_root=ROOT);self.op=self.f.prepare()
         for purpose in self.op.required:self.f.review(self.op,purpose=purpose)
         self.f.authorize(self.op);self.f.issue(self.op);self.f.challenge(self.op)
         # Capture C's pre-accept facts BEFORE external proposal changes BEHAVIOR.
@@ -172,6 +173,45 @@ class PayBoundaryTests(unittest.TestCase):
     def test_w_cannot_use_legacy_signer_accept(self):
         with self.assertRaises(ProtocolError):
             self.w.accept(self.f,self.op)
+        self.assertEqual(self.w.snapshot()['accepted_rows'],0)
+
+
+class FlagRiskReviewTests(unittest.TestCase):
+    PAY_CASES=[case(i,action_class='HOLD' if i<=4 else 'PAY') for i in range(1,6)]
+    setUp=PayBoundaryTests.setUp
+    clock=PayBoundaryTests.clock
+
+    def test_signed_gateway_and_finance_cannot_suppress_risk_review(self):
+        self.assertEqual(self.op.required,('ANOMALY',))
+        data=copy.deepcopy(self.bundle)
+        data['reviews']=[]
+        u,g,h=(self.f.idents[x] for x in ('U','G','H'))
+        auth=data['authorization']
+        auth['body']['payload']['review_refs']=[]
+        auth['body']['refs']=[]
+        auth['sig']=b64(u.key.sign(canonical(['ZJJ-SIG-v1',auth['protected'],auth['body']])))
+        permit=data['permit']
+        permit['body']['payload']['review_refs']=[]
+        permit['body']['payload']['authorization_ref']=msgref(auth)
+        permit['body']['refs']=[msgref(auth)]
+        original=permit['body']['deps']
+        excluded={self.f.idents['V'].kid,self.f.idents['V'].name}
+        trim=[d for d in original if not
+             (d['namespace']=='KEY' and d['key']==[self.f.idents['V'].kid]) and not
+             (d['namespace']=='ROLE' and d['key'][-2:]==['reviewer','ANOMALY'])]
+        self.assertLess(len(trim),len(original))
+        permit['body']['deps']=trim
+        permit['sig']=b64(g.key.sign(canonical(['ZJJ-SIG-v1',permit['protected'],permit['body']])))
+        proof=data['proof'];proof['body']['payload']['permit_ref']=msgref(permit)
+        proof['body']['refs']=sortset([msgref(permit),msgref(data['challenge'])])
+        proof['sig']=b64(h.key.sign(canonical(['ZJJ-SIG-v1',proof['protected'],proof['body']])))
+        v=data['commit']['value']
+        v['authorization_ref']=msgref(auth);v['review_refs']=[]
+        v['permit_ref']=msgref(permit);v['proof_ref']=msgref(proof)
+        v['checked_deps']=trim
+        with self.assertRaises(ProtocolError) as ex:
+            self.w.prepare_pay(data,clock=self.clock('PREPARE',1,100))
+        self.assertEqual(ex.exception.code,'REVIEW_REQUIRED')
         self.assertEqual(self.w.snapshot()['accepted_rows'],0)
 
 
