@@ -12,7 +12,7 @@ from research.phase11.trusted_clock import seal
 from research.phase11.run_phase11 import ROOT
 from research.phase15.pay_accept import VerifierOnlyPayW
 from research.phase6.trusted_final import Controller,ToolLedger,_pub
-from research.reference_executor.wire import (ProtocolError, b64, keyid, sid, rec_ref, msgref, sortset)
+from research.reference_executor.wire import (ProtocolError, b64, keyid, sid, rec_ref, msgref, sortset, canonical)
 
 
 class PayBoundaryTests(unittest.TestCase):
@@ -23,6 +23,13 @@ class PayBoundaryTests(unittest.TestCase):
         self.f=SignedPayFlow(schema_root=ROOT);self.op=self.f.prepare()
         for purpose in self.op.required:self.f.review(self.op,purpose=purpose)
         self.f.authorize(self.op);self.f.issue(self.op);self.f.challenge(self.op)
+        # Capture C's pre-accept facts BEFORE external proposal changes BEHAVIOR.
+        self.source_rows=[
+          {'namespace':ns,'key':list(key),'revision':entry.revision,
+           'ref':entry.ref,'value':copy.deepcopy(entry.value),
+           'record':copy.deepcopy(entry.record)}
+          for (ns,key),entry in self.f.trusted._rows.items()
+        ]
         self.f.commit(self.op)
         self.bundle={'commit':copy.deepcopy(self.f.commit_record),'permit':copy.deepcopy(self.op.permit),
           'proof':copy.deepcopy(self.op.proof),'challenge':copy.deepcopy(self.op.challenge),
@@ -43,6 +50,9 @@ class PayBoundaryTests(unittest.TestCase):
             cl={'scope':self.f.scope,'dep':{k:dep[k] for k in ('namespace','key','revision','ref')},
                 'seq':'1','iat':'90','exp':'2000'}
             self.w.publish_window(sign_window(self.root,cl))
+        source={'scope':self.f.scope,'seq':1,'rows':self.source_rows}
+        self.w.publish_source_bundle({'claim':source,
+             'signature':b64(self.root.key.sign(canonical(['ZJJ-P15-C-SOURCE-v1',source])))})
 
     def clock(self,purpose,seq,at):
         return seal(self.root,'PAY-1',self.f.scope,self.op.action['operation_id'],
@@ -129,6 +139,28 @@ class PayBoundaryTests(unittest.TestCase):
             self.w.finalize_pay(req['ticket'],acc,reply,clock=self.clock('FINALIZE',2,100))
         self.assertEqual(self.w.snapshot()['accepted_rows'],0)
         self.assertEqual(self.w.snapshot()['reserved'],100)
+
+    def test_signed_permit_omits_dependency_but_C_source_reconstruction_rejects(self):
+        # Gateway AND holder can sign a locally self-consistent reduced
+        # dependency list; C-signed sources must still reconstruct the missing row.
+        bundle=copy.deepcopy(self.bundle)
+        g=self.f.idents['G'];h=self.f.idents['H']
+        deps=bundle['permit']['body']['deps']
+        assert any(x['namespace']=='EXPERIENCE' for x in deps)
+        bundle['permit']['body']['deps']=[x for x in deps if x['namespace']!='EXPERIENCE']
+        p=bundle['permit']
+        p['sig']=b64(g.key.sign(canonical(['ZJJ-SIG-v1',p['protected'],p['body']])))
+        proof=bundle['proof']
+        proof['body']['payload']['permit_ref']=msgref(p)
+        proof['body']['refs']=sortset([msgref(p),msgref(bundle['challenge'])])
+        proof['sig']=b64(h.key.sign(canonical(['ZJJ-SIG-v1',proof['protected'],proof['body']])))
+        v=bundle['commit']['value']
+        v['permit_ref']=msgref(p);v['proof_ref']=msgref(proof)
+        v['checked_deps']=bundle['permit']['body']['deps']
+        with self.assertRaises(ProtocolError) as err:
+            self.w.prepare_pay(bundle,clock=self.clock('PREPARE',1,100))
+        self.assertEqual(err.exception.code,'REQUIRED_DEPS_INCOMPLETE')
+        self.assertEqual(self.w.snapshot()['accepted_rows'],0)
 
     def test_w_cannot_use_legacy_signer_accept(self):
         with self.assertRaises(ProtocolError):
