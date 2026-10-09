@@ -1,0 +1,55 @@
+name: Phase16 Industrial Authenticated Delivery Laboratory
+on:
+  push:
+    branches: [research/zjj-core-phase13-handoff-20261009]
+    paths:
+      - 'research/phase16/**'
+      - '.github/workflows/phase16-ind.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: phase16-industrial-evidence
+  cancel-in-progress: true
+jobs:
+  industrial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned research dependencies
+        run: python -m pip install -r requirements_phase13.txt
+      - name: Execute industrial authenticated-delivery failure-mode tests
+        run: |
+          mkdir -p research_evidence/phase16
+          set -o pipefail
+          python -m unittest research.phase16.test_industrial_delivery -v 2>&1 | tee research_evidence/phase16/industrial_delivery_tests.txt
+      - name: Check unmodified upstream official 39 conformance
+        run: |
+          set -o pipefail
+          python -m research.formal39.run_formal39 2>&1 | tee research_evidence/phase16/original39.txt
+      - name: Check pinned schemas and prevent false official PASS
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from research.phase14.build_report import EXPECTED
+          for p,hash_ in EXPECTED.items():
+              assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==hash_, p
+          r=json.loads(Path('research/formal39/formal39_report.json').read_text())
+          assert r['summary']['official_complete_pass']==0
+          assert len(r['official_cases'])==39
+          assert all(not c['official_complete_pass'] for c in r['official_cases'])
+          print('ORIGINAL_SCHEMAS_AND_39_CASES_UNCHANGED; 0 FULL OFFICIAL PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase16-industrial-laboratory
+          path: |
+            research_evidence/phase16/**
+            research/formal39/formal39_report.json
+          if-no-files-found: ignore
