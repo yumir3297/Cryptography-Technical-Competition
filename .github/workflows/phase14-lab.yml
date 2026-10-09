@@ -6,6 +6,11 @@ on:
       - 'research/phase14/**'
       - '.github/workflows/phase14-lab.yml'
   workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: phase14-lab-research
+  cancel-in-progress: true
 jobs:
   phase14:
     runs-on: ubuntu-latest
@@ -29,6 +34,9 @@ jobs:
         run: |
           set -o pipefail
           python -m research.formal39.run_formal39 2>&1 | tee phase14_formal39_stdout.txt
+      - name: Build pinned official39 matrix and reproducible Phase14 candidate ZIP
+        run: |
+          python -m research.phase14.build_report --evidence research/phase14/evidence/core01_process 2>&1 | tee phase14_report_output.txt
       - name: Preserve raw experimental logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -36,7 +44,22 @@ jobs:
           name: phase14-laboratory-logs
           path: |
             phase14_test_output.txt
+            phase14_report_output.txt
+            research/phase14/phase14_report.json
+            research/phase14/phase14_39case_matrix.csv
+            research_archives/ZJJ_CORE_2_6_R2_Phase14_Candidate_20261009.zip
             phase14_process_output.txt
             research/phase14/evidence/core01_process/**
             phase14_formal39_stdout.txt
           if-no-files-found: ignore
+      - name: Sync evidence, unchanged-status matrix and reproducible ZIP to research branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/phase14/phase14_report.json research/phase14/phase14_39case_matrix.csv research/phase14/evidence/core01_process
+          git add research_archives/ZJJ_CORE_2_6_R2_Phase14_Candidate_20261009.zip
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence(phase14): verified process traces, unchanged 39-case matrix, reproducible ZIP'
+            git push origin HEAD:research/zjj-core-phase13-handoff-20261009
+          fi
