@@ -21,6 +21,10 @@ jobs:
         run: |
           set -o pipefail
           python -m unittest research.phase14.test_phase14 -v 2>&1 | tee phase14_test_output.txt
+      - name: Execute external C/X process separated acceptance, simulated TOOL_FINAL and readonly audit
+        run: |
+          set -o pipefail
+          python -m research.phase14.process_flow --output research/phase14/evidence/core01_process 2>&1 | tee phase14_process_output.txt
       - name: Run original 39-case dispatcher without promoting statuses
         run: |
           set -o pipefail
@@ -32,5 +36,7 @@ jobs:
           name: phase14-laboratory-logs
           path: |
             phase14_test_output.txt
+            phase14_process_output.txt
+            research/phase14/evidence/core01_process/**
             phase14_formal39_stdout.txt
           if-no-files-found: ignore
