@@ -49,6 +49,9 @@ jobs:
           assert all(not c['official_complete_pass'] for c in r['official_cases'])
           print('ORIGINAL_SCHEMAS_AND_39_CASES_UNCHANGED; 0 FULL OFFICIAL PASS')
           PY
+      - name: Freeze evidence, original39 matrix and self-contained candidate ZIP
+        run: |
+          python -m research.phase16.build_report | tee research_evidence/phase16/build_report_stdout.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -56,4 +59,16 @@ jobs:
           path: |
             research_evidence/phase16/**
             research/formal39/formal39_report.json
+            research_archives/ZJJ_CORE_2_6_R2_Phase16_Industrial_Candidate_20261009.zip
           if-no-files-found: ignore
+      - name: Sync verified Phase16 IND evidence to research branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research_evidence/phase16
+          git add research_archives/ZJJ_CORE_2_6_R2_Phase16_Industrial_Candidate_20261009.zip
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence(phase16): IND lost-reply crash audit and pinned original39 candidate'
+            git push origin HEAD:research/zjj-core-phase13-handoff-20261009
+          fi
