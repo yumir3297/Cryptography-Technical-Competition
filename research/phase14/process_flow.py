@@ -144,7 +144,7 @@ def independent_audit(d):
     # Use the unmodified Phase13 verifier as an independent read-only oracle.
     audited={k:v[k] for k in ['profile','scope','action','operation_id','fixture_root_public',
                 'fixture_actor_public','signed_messages','commit','tool_certificate',
-                'initial_snapshot','dispatch','settlement','replay','stage_pids','process_stage_outcomes']}
+                'initial_snapshot','dispatch','tool','settlement','replay','stage_pids','process_stage_outcomes']}
     # Phase13 auditor requires its standard witness name; it does not open W classes.
     dump(d/'witness.json',audited)
     result=readonly_audit(d)
