@@ -7,7 +7,7 @@
 - Canonical upstream repo: `yumir3297/Cryptography-Technical-Competition`, `main` remains unchanged by this checkpoint.
 - Latest **verified local source snapshot**: `ZJJ_CORE_2_6_R2_Phase13_Reproducible_20261009.zip`, 248 ZIP entries.
 - Archive SHA-256: `f434a0831a983deaa4797482181561c31dcae8bebb851afca7ff55c2e9296c12`.
-- **Important:** The archive itself and its 248 entries are **not yet uploaded to GitHub** by this handoff commit. They remain in the current ChatGPT conversation as a downloadable attachment. Do not treat this branch as a complete source mirror.
+- **GitHub sync verified:** The original 248-entry ZIP is stored at `research_archives/ZJJ_CORE_2_6_R2_Phase13_Reproducible_20261009.zip` on this branch; all 248 entries are also present as individual repository files. Remote Git blob SHA-1 for the archive is `d8d276740396bf0fb03aa85f444ca462c1f7fcd9`. A path-by-path comparison of all 248 remote blob hashes against the verified ZIP found **0 mismatches**. `main` is still unchanged.
 - The separately named Phase 14 work directory available during this handoff contained only `INSTALL_AND_SCOPE.md`. It did **not** contain persisted or independently verified Phase 14 code modifications. Previous dialogue described work in progress on verifier-only W / external X, which must be implemented again from the Phase 13 baseline or recovered from another verified artifact.
 
 ## Research scope and accurate case count
@@ -52,4 +52,4 @@ External C/E trust roots, independently pinned audit trust, single deployed cros
 
 ## Repository synchronization note
 
-This GitHub branch records the handoff **metadata only**. The Phase 13 source ZIP is available separately in the originating conversation. Future contributors must import the canonical ZIP bytes, verify SHA-256, review content for public-release suitability (including synthetic key fixtures), then commit source under `research/` and official assets under `system_dev/v26/`, without overwriting unrelated existing files. Run full tests and attach execution logs before merging to `main`.
+This research branch now contains the **complete Phase 13 snapshot** twice: the original ZIP archive and its 248 unpacked files, preserving the repository's unrelated existing paths. All 248 Git blob hashes matched the local archive. This does **not** include verified Phase 14 implementation. The repository is public, so inspect all synthetic signing fixtures and archived logs before promoting this branch or using them outside a laboratory. Re-run tests in a clean environment and attach independent logs before merging to `main`.
