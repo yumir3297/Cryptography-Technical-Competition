@@ -34,7 +34,9 @@ class PayBoundaryTests(unittest.TestCase):
         self.bundle={'commit':copy.deepcopy(self.f.commit_record),'permit':copy.deepcopy(self.op.permit),
           'proof':copy.deepcopy(self.op.proof),'challenge':copy.deepcopy(self.op.challenge),
           'challenge_request':copy.deepcopy(self.op.challenge_request),
-          'authorization':copy.deepcopy(self.op.authorization),'reviews':copy.deepcopy(self.op.reviews)}
+          'authorization':copy.deepcopy(self.op.authorization),'reviews':copy.deepcopy(self.op.reviews),
+          'assessment':copy.deepcopy(self.f.assessment_record),
+          'basis':copy.deepcopy(self.f.basis_record)}
         # Only the exact C-current dependency namespace/key set is admitted.
         required={(d['namespace'],tuple(d['key'])) for d in
                   self.bundle['commit']['value']['checked_deps']}
