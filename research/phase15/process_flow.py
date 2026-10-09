@@ -44,7 +44,8 @@ def bootstrap(d):
     f.commit(o)
     bundle={'commit':f.commit_record,'permit':o.permit,'proof':o.proof,
         'challenge':o.challenge,'challenge_request':o.challenge_request,
-        'authorization':o.authorization,'reviews':o.reviews}
+        'authorization':o.authorization,'reviews':o.reviews,
+        'assessment':f.assessment_record,'basis':f.basis_record}
     wanted={(a['namespace'],tuple(a['key'])) for a in f.commit_record['value']['checked_deps']}
     sources=[r for r in sources if (r['namespace'],tuple(r['key'])) in wanted]
     witness={'profile':'PAY-1','scope':f.scope,'operation_id':o.action['operation_id'],
