@@ -108,7 +108,7 @@ class VerifierOnlyPayW(HardenedPayW):
         src=c.execute('SELECT certificate FROM p15_authoritative_sources WHERE id=1').fetchone()
         require(src is not None,'SOURCES_UNAVAILABLE')
         cert=json.loads(src['certificate']);cl=cert['claim']
-        require(cl['scope']==commit['scope'],'SOURCE_SCOPE')
+        require(cl['scope']==bundle['commit']['scope'],'SOURCE_SCOPE')
         strict_verify(self.root_pub,raw(cert['signature'],64),
                       canonical(['ZJJ-P15-C-SOURCE-v1',cl]))
         store=TrustedStore(cl['scope'])
