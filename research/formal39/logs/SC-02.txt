@@ -1,0 +1,8 @@
+test_evidence_kind_cannot_be_cross_profile_reused (research.phase8.test_scene_authority.SceneTests.test_evidence_kind_cannot_be_cross_profile_reused) ... ok
+test_ind_med_receipts_have_different_protected_profiles (research.phase8.test_scene_authority.SceneTests.test_ind_med_receipts_have_different_protected_profiles) ... ok
+test_cross_profile_tool_final_rejected (research.reference_executor.test_reference.FlowTests.test_cross_profile_tool_final_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.538s
+
+OK

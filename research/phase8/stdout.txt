@@ -1,0 +1,29 @@
+{
+  "regression": {
+    "tests": 301,
+    "passed": 301,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "scene": {
+    "tests": 54,
+    "case_ids_with_partial_evidence": 22,
+    "source_sign_domain": "ZJJ-SOURCE-v1",
+    "control_sign_domain": "ZJJ-C-CONTROL-LAB-v1",
+    "sqlite_atomic_receipt": true,
+    "ind_med_signed_scene_paths": 5,
+    "commit_record_value_fields": 21
+  },
+  "official_ind_med_schema": {
+    "IND-DEMO-1": {
+      "status": "NOT_RUN_SCHEMA_NOT_INSTALLED",
+      "expected_blob_sha1": "f937286b1be32b2a8356b991a93770abff430578"
+    },
+    "MED-DEMO-1": {
+      "status": "NOT_RUN_SCHEMA_NOT_INSTALLED",
+      "expected_blob_sha1": "5e43b803ed32a3359e4ad2b7e48a3c96f7fd9482"
+    }
+  },
+  "official_semantic_full_pass": 0
+}

@@ -1,0 +1,22 @@
+{
+  "policy": {
+    "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+    "detail": "SCHEMA_NOT_INSTALLED"
+  },
+  "task": {
+    "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+    "detail": "SCHEMA_NOT_INSTALLED"
+  },
+  "history": {
+    "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+    "detail": "SCHEMA_NOT_INSTALLED"
+  },
+  "evidence": {
+    "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+    "detail": "SCHEMA_NOT_INSTALLED"
+  },
+  "assessment": {
+    "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+    "detail": "SCHEMA_NOT_INSTALLED"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "generated_utc": "2026-10-09T03:50:07.736814+00:00",
+  "protocol": "ZJJ-CORE-2.6-R2",
+  "source_repo": "yumir3297/Cryptography-Technical-Competition",
+  "combined_regression": {
+    "tests": 301,
+    "passed": 301,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "phase8_local": {
+    "tests": 54,
+    "case_ids_with_partial_evidence": 22,
+    "source_sign_domain": "ZJJ-SOURCE-v1",
+    "control_sign_domain": "ZJJ-C-CONTROL-LAB-v1",
+    "sqlite_atomic_receipt": true,
+    "ind_med_signed_scene_paths": 5,
+    "commit_record_value_fields": 21
+  },
+  "official_schema_ind_med": {
+    "IND-DEMO-1": {
+      "status": "NOT_RUN_SCHEMA_NOT_INSTALLED",
+      "expected_blob_sha1": "f937286b1be32b2a8356b991a93770abff430578"
+    },
+    "MED-DEMO-1": {
+      "status": "NOT_RUN_SCHEMA_NOT_INSTALLED",
+      "expected_blob_sha1": "5e43b803ed32a3359e4ad2b7e48a3c96f7fd9482"
+    }
+  },
+  "official_semantic_cases": {
+    "total": 39,
+    "fully_passed": 0,
+    "fully_run": 0,
+    "all_case_claims_unmodified": true,
+    "note": "Local fixture tests are not complete, independently authenticated official tests"
+  },
+  "limitations": [
+    "No original industrial/medical full JSON Schema local unless supplied from repository",
+    "C signers and E SOURCE signing keys are deterministic fixtures, no key PoP enrollment",
+    "Source/current records are in same single-process W SQLite for experiments, not independent distributed services",
+    "R2 TOOL_FINAL integration with scene engine and ledger continuity not present",
+    "No complete Result/status/issuer-idempotency/transport/bundle lifecycle or DENY range coverage",
+    "No full exact role scope, expiry inheritance and implicit dependency closure for every Profile",
+    "Known race between authoritative updates and separately signed application envelopes not formalized beyond local W transaction",
+    "Full all-39 official conformance not established"
+  ],
+  "runtime": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41"
+  },
+  "code_sha256": {
+    "patch_commit.py": "37650ef9cc670e659f4d3428241e111c2d9957d05cf493ceb4cc18e5f293f92d",
+    "fixtures.py": "e4bcc96dd38e0878cd90d728eeb3e1ebdc4b522e4f9a348b252e3da287a6a319",
+    "scene_authority.py": "cb6a3c8258fa1ef67caf8505017a3cd6f379f2f6bede93ef3fadc17b934c7375",
+    "test_scene_authority.py": "85ce783ac3eefb32e8f20da3928332cac743858d0394626e2bbeb67799921db1",
+    "run_phase8.py": "a473cac616507cdfa82190a53ea6ae82ab6b799204fbfbe1cdc5d619f19b743b",
+    "crash_worker.py": "859bdad10eb127ef4a1e9bd8a8dfa9c9ede45fbc049cd918772633fe35269914"
+  }
+}

@@ -1,0 +1,7 @@
+test_scene_external_update_after_accept_blocks_dispatch (research.phase8.test_scene_authority.SceneTests.test_scene_external_update_after_accept_blocks_dispatch) ... ok
+test_commit_contains_full_scene_and_resource_witnesses (research.phase8.test_scene_authority.SceneTests.test_commit_contains_full_scene_and_resource_witnesses) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.348s
+
+OK

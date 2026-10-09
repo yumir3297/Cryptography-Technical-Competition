@@ -1,0 +1,357 @@
+{
+  "case_id": "CORE-01",
+  "contract": "ZJJ-CORE-2.6-R2",
+  "official_39_status": "0 PASS / 39 BLOCKED",
+  "official_complete_pass": false,
+  "phase": 13,
+  "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+  "three_profiles": {
+    "IND-DEMO-1": {
+      "audit": {
+        "W_accept_count": 1,
+        "W_call_count": 1,
+        "W_reserved_after": 0,
+        "W_settlement_count": 1,
+        "W_spent_after": 1,
+        "acceptance_ref": "_F836Q8_HhRqs1jLJOgUVfEJ_wtgHdz2oMDLye-1A9g",
+        "candidate": "CORE-01",
+        "commit_ref": "nq79g5ReBdUvAv0bBdaZs56BSbuCUE532EkDzpfis3E",
+        "distinct_stage_pids": 5,
+        "final_ref": "LyOEY1gN0tP475Zbmbet7iIQ2xYztLiT3AC6dKebakE",
+        "independent_readonly_verifier": true,
+        "limitations": [
+          "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+          "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+          "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+          "A per-profile W SQLite store is not one deployed cross-profile W",
+          "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+        ],
+        "official_complete_pass": false,
+        "official_schema_check": true,
+        "profile": "IND-DEMO-1",
+        "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+        "validated_message_types": [
+          "acceptance",
+          "authorization",
+          "challenge",
+          "challenge_request",
+          "issue",
+          "permit",
+          "proof"
+        ]
+      },
+      "db_integrity": {
+        "tool_sha256": "3ad68aec4a45eed21a14e359858e9b4527b9a0f16089726790e9ffcc2a59c105",
+        "w_sha256": "b1baecf987043c34b90665001f4bf82de8454e75d606c015dc7a19f9ff10c9f1"
+      },
+      "events": [
+        {
+          "attempt": "AAAAAAAAAAAAAAAAAAAFIQ",
+          "claimed": true,
+          "stage": "claim"
+        },
+        {
+          "reject": "NO_REDISPATCH",
+          "stage": "no_redispatch"
+        },
+        {
+          "once": true,
+          "stage": "settle",
+          "status": "SUCCEEDED"
+        },
+        {
+          "fact_frozen": true,
+          "stage": "tool",
+          "tool_final_ref": "LyOEY1gN0tP475Zbmbet7iIQ2xYztLiT3AC6dKebakE"
+        },
+        {
+          "audit": {
+            "W_accept_count": 1,
+            "W_call_count": 1,
+            "W_reserved_after": 0,
+            "W_settlement_count": 1,
+            "W_spent_after": 1,
+            "acceptance_ref": "_F836Q8_HhRqs1jLJOgUVfEJ_wtgHdz2oMDLye-1A9g",
+            "candidate": "CORE-01",
+            "commit_ref": "nq79g5ReBdUvAv0bBdaZs56BSbuCUE532EkDzpfis3E",
+            "distinct_stage_pids": 5,
+            "final_ref": "LyOEY1gN0tP475Zbmbet7iIQ2xYztLiT3AC6dKebakE",
+            "independent_readonly_verifier": true,
+            "limitations": [
+              "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+              "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+              "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+              "A per-profile W SQLite store is not one deployed cross-profile W",
+              "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+            ],
+            "official_complete_pass": false,
+            "official_schema_check": true,
+            "profile": "IND-DEMO-1",
+            "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+            "validated_message_types": [
+              "acceptance",
+              "authorization",
+              "challenge",
+              "challenge_request",
+              "issue",
+              "permit",
+              "proof"
+            ]
+          },
+          "stage": "audit"
+        }
+      ],
+      "mutations": [
+        {
+          "exception": "BAD_SIGNATURE",
+          "rejected": true,
+          "variant": "acceptance_commit_ref"
+        },
+        {
+          "exception": "FACT_BINDING",
+          "rejected": true,
+          "variant": "tool_final_effect_id"
+        },
+        {
+          "exception": "MESSAGE_BINDING",
+          "rejected": true,
+          "variant": "profile_substitution"
+        }
+      ],
+      "witness_path": "IND-DEMO-1/witness.json",
+      "witness_sha256": "589a1213d6e2b3a4071f2c0dbcb3063798f2b98b96e45afaa3227af9d6226885"
+    },
+    "MED-DEMO-1": {
+      "audit": {
+        "W_accept_count": 1,
+        "W_call_count": 1,
+        "W_reserved_after": 0,
+        "W_settlement_count": 1,
+        "W_spent_after": 1,
+        "acceptance_ref": "DPeBOVrlHK-RXx5whA04Dnl8XBo4sogsqeS8R73pPvI",
+        "candidate": "CORE-01",
+        "commit_ref": "OXqOumPzKwxaHE1V52WqOmgI99pB03gCAWjy5qmNQeU",
+        "distinct_stage_pids": 5,
+        "final_ref": "mKrX_8qPSjGgiR7JCARqAvKo1d7_hv_4hpYefJ9vpX4",
+        "independent_readonly_verifier": true,
+        "limitations": [
+          "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+          "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+          "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+          "A per-profile W SQLite store is not one deployed cross-profile W",
+          "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+        ],
+        "official_complete_pass": false,
+        "official_schema_check": true,
+        "profile": "MED-DEMO-1",
+        "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+        "validated_message_types": [
+          "acceptance",
+          "authorization",
+          "challenge",
+          "challenge_request",
+          "issue",
+          "permit",
+          "proof",
+          "review_0"
+        ]
+      },
+      "db_integrity": {
+        "tool_sha256": "096e727fa27f94e5739cc803ece40a106026133f627abf2d563f082338064c87",
+        "w_sha256": "c534ab593343872c13e9cb05cc34f5b170497d1a07cde02590fb318b76360293"
+      },
+      "events": [
+        {
+          "attempt": "AAAAAAAAAAAAAAAAAAAFIQ",
+          "claimed": true,
+          "stage": "claim"
+        },
+        {
+          "reject": "NO_REDISPATCH",
+          "stage": "no_redispatch"
+        },
+        {
+          "once": true,
+          "stage": "settle",
+          "status": "SUCCEEDED"
+        },
+        {
+          "fact_frozen": true,
+          "stage": "tool",
+          "tool_final_ref": "mKrX_8qPSjGgiR7JCARqAvKo1d7_hv_4hpYefJ9vpX4"
+        },
+        {
+          "audit": {
+            "W_accept_count": 1,
+            "W_call_count": 1,
+            "W_reserved_after": 0,
+            "W_settlement_count": 1,
+            "W_spent_after": 1,
+            "acceptance_ref": "DPeBOVrlHK-RXx5whA04Dnl8XBo4sogsqeS8R73pPvI",
+            "candidate": "CORE-01",
+            "commit_ref": "OXqOumPzKwxaHE1V52WqOmgI99pB03gCAWjy5qmNQeU",
+            "distinct_stage_pids": 5,
+            "final_ref": "mKrX_8qPSjGgiR7JCARqAvKo1d7_hv_4hpYefJ9vpX4",
+            "independent_readonly_verifier": true,
+            "limitations": [
+              "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+              "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+              "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+              "A per-profile W SQLite store is not one deployed cross-profile W",
+              "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+            ],
+            "official_complete_pass": false,
+            "official_schema_check": true,
+            "profile": "MED-DEMO-1",
+            "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+            "validated_message_types": [
+              "acceptance",
+              "authorization",
+              "challenge",
+              "challenge_request",
+              "issue",
+              "permit",
+              "proof",
+              "review_0"
+            ]
+          },
+          "stage": "audit"
+        }
+      ],
+      "mutations": [
+        {
+          "exception": "BAD_SIGNATURE",
+          "rejected": true,
+          "variant": "acceptance_commit_ref"
+        },
+        {
+          "exception": "FACT_BINDING",
+          "rejected": true,
+          "variant": "tool_final_effect_id"
+        },
+        {
+          "exception": "MESSAGE_BINDING",
+          "rejected": true,
+          "variant": "profile_substitution"
+        }
+      ],
+      "witness_path": "MED-DEMO-1/witness.json",
+      "witness_sha256": "42f77252c1c8bcd1bd514ac672687ea45fd1b03dc0673a8af98dfc866c389f32"
+    },
+    "PAY-1": {
+      "audit": {
+        "W_accept_count": 1,
+        "W_call_count": 1,
+        "W_reserved_after": 0,
+        "W_settlement_count": 1,
+        "W_spent_after": 2000,
+        "acceptance_ref": "g8hy5WDXfl0eXytEtbIkVdGytB9YbNUcyJUbmgtHcxQ",
+        "candidate": "CORE-01",
+        "commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+        "distinct_stage_pids": 5,
+        "final_ref": "0pWYIpHJA37vRTK4BKmYmXw9PMfZjOoPkvNxvy2QGkE",
+        "independent_readonly_verifier": true,
+        "limitations": [
+          "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+          "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+          "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+          "A per-profile W SQLite store is not one deployed cross-profile W",
+          "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+        ],
+        "official_complete_pass": false,
+        "official_schema_check": true,
+        "profile": "PAY-1",
+        "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+        "validated_message_types": [
+          "acceptance",
+          "authorization",
+          "challenge",
+          "challenge_request",
+          "issue",
+          "permit",
+          "proof"
+        ]
+      },
+      "db_integrity": {
+        "tool_sha256": "7cb073a065133580a149f1cfcce85c43118e8bfa9304fc66ae48ba74dfaa37dd",
+        "w_sha256": "b806f4c8eba79c4bea4d3b2cef3d61b81b9becb67e1747e160dedacab57769e3"
+      },
+      "events": [
+        {
+          "attempt": "AAAAAAAAAAAAAAAAAAAFIQ",
+          "claimed": true,
+          "stage": "claim"
+        },
+        {
+          "reject": "NO_REDISPATCH",
+          "stage": "no_redispatch"
+        },
+        {
+          "once": true,
+          "stage": "settle",
+          "status": "SUCCEEDED"
+        },
+        {
+          "fact_frozen": true,
+          "stage": "tool",
+          "tool_final_ref": "0pWYIpHJA37vRTK4BKmYmXw9PMfZjOoPkvNxvy2QGkE"
+        },
+        {
+          "audit": {
+            "W_accept_count": 1,
+            "W_call_count": 1,
+            "W_reserved_after": 0,
+            "W_settlement_count": 1,
+            "W_spent_after": 2000,
+            "acceptance_ref": "g8hy5WDXfl0eXytEtbIkVdGytB9YbNUcyJUbmgtHcxQ",
+            "candidate": "CORE-01",
+            "commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+            "distinct_stage_pids": 5,
+            "final_ref": "0pWYIpHJA37vRTK4BKmYmXw9PMfZjOoPkvNxvy2QGkE",
+            "independent_readonly_verifier": true,
+            "limitations": [
+              "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+              "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+              "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+              "A per-profile W SQLite store is not one deployed cross-profile W",
+              "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+            ],
+            "official_complete_pass": false,
+            "official_schema_check": true,
+            "profile": "PAY-1",
+            "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+            "validated_message_types": [
+              "acceptance",
+              "authorization",
+              "challenge",
+              "challenge_request",
+              "issue",
+              "permit",
+              "proof"
+            ]
+          },
+          "stage": "audit"
+        }
+      ],
+      "mutations": [
+        {
+          "exception": "BAD_SIGNATURE",
+          "rejected": true,
+          "variant": "acceptance_commit_ref"
+        },
+        {
+          "exception": "FACT_BINDING",
+          "rejected": true,
+          "variant": "tool_final_effect_id"
+        },
+        {
+          "exception": "MESSAGE_BINDING",
+          "rejected": true,
+          "variant": "profile_substitution"
+        }
+      ],
+      "witness_path": "PAY-1/witness.json",
+      "witness_sha256": "b7d637ab0acc2f66f1028777281cafbfbc2378bd0f38733bb236ed105261bb5e"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+test_policy_revocation_before_claim_blocks (research.phase7.test_guarded_dispatch.GuardedDispatchTests.test_policy_revocation_before_claim_blocks) ... ok
+test_aba_revision_change_even_same_ref_blocks (research.phase7.test_guarded_dispatch.GuardedDispatchTests.test_aba_revision_change_even_same_ref_blocks) ... ok
+test_role_revocation_after_accept_blocks_dispatch (research.phase8.test_scene_authority.SceneTests.test_role_revocation_after_accept_blocks_dispatch) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.896s
+
+OK

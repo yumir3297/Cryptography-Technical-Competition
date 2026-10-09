@@ -1,0 +1,2083 @@
+{
+  "C_windows": [],
+  "action": {
+    "destination": "med-demo-ledger",
+    "executor": "fixture-x",
+    "holder": "fixture-h",
+    "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+    "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+    "payload": {
+      "destination_system": "med-demo-ledger",
+      "encounter_id": "encounter-a",
+      "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+      "phase": "SUBMIT",
+      "record_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+      "synthetic_patient_id": "patient-a",
+      "template_id": "DEMO-ORDER-A"
+    },
+    "principal": "principal",
+    "scope": {
+      "domain": "lab",
+      "scenario": "medical",
+      "tenant": "tenant-1"
+    },
+    "tool": "med-order-sim",
+    "tool_version": "1"
+  },
+  "candidate": "CORE-01",
+  "commit": {
+    "kind": "COMMIT",
+    "profile": "MED-DEMO-1",
+    "scope": {
+      "domain": "lab",
+      "scenario": "medical",
+      "tenant": "tenant-1"
+    },
+    "value": {
+      "accept_seq": "1",
+      "accepted_at": "106",
+      "action": {
+        "destination": "med-demo-ledger",
+        "executor": "fixture-x",
+        "holder": "fixture-h",
+        "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+        "payload": {
+          "destination_system": "med-demo-ledger",
+          "encounter_id": "encounter-a",
+          "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+          "phase": "SUBMIT",
+          "record_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+          "synthetic_patient_id": "patient-a",
+          "template_id": "DEMO-ORDER-A"
+        },
+        "principal": "principal",
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        },
+        "tool": "med-order-sim",
+        "tool_version": "1"
+      },
+      "authorization_ref": "DFHQ1gEYhp0TPApXTson9YrfgEOEakl0VqufIrYCGKM",
+      "behavior_after": {
+        "key": [
+          "lab",
+          "tenant-1",
+          "medical",
+          "principal"
+        ],
+        "ref": "NmvkIFrvvtQXIhxIkj1U-YoUuHLrbgs4-u2U36wam08",
+        "revision": "2",
+        "row": {
+          "accepted_count": "1",
+          "count_cap": "32",
+          "inflight": [
+            "AAAAAAAAAAAAAAAAAAAAQA"
+          ]
+        }
+      },
+      "behavior_before": {
+        "key": [
+          "lab",
+          "tenant-1",
+          "medical",
+          "principal"
+        ],
+        "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+        "revision": "1",
+        "row": {
+          "accepted_count": "0",
+          "count_cap": "32",
+          "inflight": []
+        }
+      },
+      "checked_deps": [
+        {
+          "key": [
+            "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8"
+          ],
+          "namespace": "KEY",
+          "ref": "9bWg68NzYCMSP1GmCfTgUafHRafF2rc3PlCee_US5Xw",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0"
+          ],
+          "namespace": "KEY",
+          "ref": "-zx1s1yP3ccOd4bDWNJINPmeb_4WaMdcIn2oRM3M5ys",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4"
+          ],
+          "namespace": "KEY",
+          "ref": "1c21kd35EJEqqZxw4-i15Zrznwx_osk_kkwLOncWxRA",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw"
+          ],
+          "namespace": "KEY",
+          "ref": "A3bEzuBelJwE-3zi4U-1joyZGRZCyzRoseJ2dupjxkw",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4"
+          ],
+          "namespace": "KEY",
+          "ref": "dh6Y8xTjr-Eo9fYuZqhSJfF7Nw6D1ysxVxD4Ipxa4IQ",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU"
+          ],
+          "namespace": "KEY",
+          "ref": "5DUnvxXCycyG26ni4ud-j-U8BQl4oaAQGNzmFQx30BE",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "AAAAAAAAAAAAAAAAAAAAPw"
+          ],
+          "namespace": "TASK",
+          "ref": "vMP2cOxXkFYhvwWwikYoGGhuqBNepshTjSNCxYQ1oKg",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-e",
+            "SOURCE"
+          ],
+          "namespace": "ROLE",
+          "ref": "BrXd-7Q4-fd3Ozsc7JTgb7C92ERAfR0ZGHDKvru4-VI",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-g",
+            "ISSUER"
+          ],
+          "namespace": "ROLE",
+          "ref": "P8-tuBsYTFxDPn8i3JSlTRxbLBxBem00MsIqtZuTjxQ",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-g",
+            "READER"
+          ],
+          "namespace": "ROLE",
+          "ref": "Pr1znenGR1Vb5X7ssdV6poBV7K3RP_kQS41YYrXK7gE",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-h",
+            "HOLDER"
+          ],
+          "namespace": "ROLE",
+          "ref": "wDYmn1068DnIFIxc0swXrlUxB7KaRmngephskwqlcGQ",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-h",
+            "READER"
+          ],
+          "namespace": "ROLE",
+          "ref": "ltRYl7FgDxPCt_ppTo49PgUKWOC6P9DvsULDJFOnMSk",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-u",
+            "MEDICAL_AUTHORIZER"
+          ],
+          "namespace": "ROLE",
+          "ref": "J0OD-daSWwvHCDt2iqkRGyO4lYmrFYCDxWrcnH4dWSY",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-u",
+            "READER"
+          ],
+          "namespace": "ROLE",
+          "ref": "ix9AR_oVXaEtu0ID_4ioUQ5VGXRdxKmadIRKt7zwuXQ",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-v",
+            "CLINICAL_REVIEWER"
+          ],
+          "namespace": "ROLE",
+          "ref": "_ah_ebeB11LbWVYWeeRrMkjvsnmP8HPMXAiHjWYt1_U",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-v",
+            "READER"
+          ],
+          "namespace": "ROLE",
+          "ref": "BKLQNa2b2tv1E_GjHEJ5jrLm7CP77zcByK37l6OKBmM",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-x",
+            "EXECUTOR"
+          ],
+          "namespace": "ROLE",
+          "ref": "rKgVN7kcpf7QiwiBrtQw9HiA_tEw8CGr98pzoUHQMok",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "fixture-x",
+            "READER"
+          ],
+          "namespace": "ROLE",
+          "ref": "H81jy2E0Yt7R4lIr-1ysjQnTgoDw6UrNrylk1nZZqZ8",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "patient-a",
+            "encounter-a"
+          ],
+          "namespace": "ENCOUNTER",
+          "ref": "LgKN-F4Qm-MRuqQVVUPb1QA9NRC4g7k0WpebHmTajCo",
+          "revision": "2"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "principal"
+          ],
+          "namespace": "BEHAVIOR",
+          "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical"
+          ],
+          "namespace": "POLICY",
+          "ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+          "revision": "1"
+        }
+      ],
+      "credential_witnesses": [
+        {
+          "key_grant_ref": "-zx1s1yP3ccOd4bDWNJINPmeb_4WaMdcIn2oRM3M5ys",
+          "key_revision": "1",
+          "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+          "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+          "role": "ISSUER",
+          "role_grant_ref": "P8-tuBsYTFxDPn8i3JSlTRxbLBxBem00MsIqtZuTjxQ",
+          "role_revision": "1",
+          "subject": "fixture-g",
+          "verified_at_seq": "1"
+        },
+        {
+          "key_grant_ref": "1c21kd35EJEqqZxw4-i15Zrznwx_osk_kkwLOncWxRA",
+          "key_revision": "1",
+          "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+          "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+          "role": "EXECUTOR",
+          "role_grant_ref": "rKgVN7kcpf7QiwiBrtQw9HiA_tEw8CGr98pzoUHQMok",
+          "role_revision": "1",
+          "subject": "fixture-x",
+          "verified_at_seq": "1"
+        },
+        {
+          "key_grant_ref": "5DUnvxXCycyG26ni4ud-j-U8BQl4oaAQGNzmFQx30BE",
+          "key_revision": "1",
+          "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+          "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+          "role": "SOURCE",
+          "role_grant_ref": "BrXd-7Q4-fd3Ozsc7JTgb7C92ERAfR0ZGHDKvru4-VI",
+          "role_revision": "1",
+          "subject": "fixture-e",
+          "verified_at_seq": "1"
+        },
+        {
+          "key_grant_ref": "9bWg68NzYCMSP1GmCfTgUafHRafF2rc3PlCee_US5Xw",
+          "key_revision": "1",
+          "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+          "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+          "role": "HOLDER",
+          "role_grant_ref": "wDYmn1068DnIFIxc0swXrlUxB7KaRmngephskwqlcGQ",
+          "role_revision": "1",
+          "subject": "fixture-h",
+          "verified_at_seq": "1"
+        },
+        {
+          "key_grant_ref": "A3bEzuBelJwE-3zi4U-1joyZGRZCyzRoseJ2dupjxkw",
+          "key_revision": "1",
+          "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+          "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+          "role": "MEDICAL_AUTHORIZER",
+          "role_grant_ref": "J0OD-daSWwvHCDt2iqkRGyO4lYmrFYCDxWrcnH4dWSY",
+          "role_revision": "1",
+          "subject": "fixture-u",
+          "verified_at_seq": "1"
+        },
+        {
+          "key_grant_ref": "dh6Y8xTjr-Eo9fYuZqhSJfF7Nw6D1ysxVxD4Ipxa4IQ",
+          "key_revision": "1",
+          "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+          "public_key": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+          "role": "CLINICAL_REVIEWER",
+          "role_grant_ref": "_ah_ebeB11LbWVYWeeRrMkjvsnmP8HPMXAiHjWYt1_U",
+          "role_revision": "1",
+          "subject": "fixture-v",
+          "verified_at_seq": "1"
+        }
+      ],
+      "ctx": {
+        "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+        "basis_ref": "xt8Ycd2KvKZJ2jZWshScRhj2qmJFZwL5C99u_eIm9LA",
+        "executor": "fixture-x",
+        "holder": "fixture-h",
+        "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+        "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+        "principal": "principal",
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "dispatch_before": "220",
+      "frozen_tool_request": {
+        "destination": "med-demo-ledger",
+        "executor": "fixture-x",
+        "holder": "fixture-h",
+        "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+        "payload": {
+          "destination_system": "med-demo-ledger",
+          "encounter_id": "encounter-a",
+          "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+          "phase": "SUBMIT",
+          "record_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+          "synthetic_patient_id": "patient-a",
+          "template_id": "DEMO-ORDER-A"
+        },
+        "principal": "principal",
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        },
+        "tool": "med-order-sim",
+        "tool_version": "1"
+      },
+      "permit_ref": "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q",
+      "proof_ref": "lhyBUwj0IktfGJeiCTZCy3z50aybtWmq5i3AeNmeBwM",
+      "reservation_ids": [
+        "AAAAAAAAAAAAAAAAAAADIQ"
+      ],
+      "reservation_plan": [
+        {
+          "amount": "1",
+          "capacity_before": "8",
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "order-capacity",
+            "med-demo-ledger",
+            "order"
+          ],
+          "reservation_id": "AAAAAAAAAAAAAAAAAAADIQ",
+          "reserved_after": "1",
+          "reserved_before": "0",
+          "revision_after": "2",
+          "revision_before": "1",
+          "spent_after": "0",
+          "spent_before": "0",
+          "unit": "ORDER"
+        }
+      ],
+      "review_refs": [
+        "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs"
+      ],
+      "scene_after": {
+        "key": [
+          "lab",
+          "tenant-1",
+          "medical",
+          "patient-a",
+          "encounter-a"
+        ],
+        "namespace": "ENCOUNTER",
+        "ref": "jfq1AA8-z5n4OEhv7jV1vG9vmkoRjR1SPPlo_lQFf20",
+        "revision": "3",
+        "row": {
+          "encounter_ref": "a1PWaDHz6wcoLrbAwuvTH-aKQXMQvt0oW8zWjKoXfiY",
+          "evidence_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+          "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+          "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+          "phase": "SUBMIT",
+          "state": "ACCEPTED"
+        }
+      },
+      "scene_before": {
+        "key": [
+          "lab",
+          "tenant-1",
+          "medical",
+          "patient-a",
+          "encounter-a"
+        ],
+        "namespace": "ENCOUNTER",
+        "ref": "LgKN-F4Qm-MRuqQVVUPb1QA9NRC4g7k0WpebHmTajCo",
+        "revision": "2",
+        "row": {
+          "encounter_ref": "a1PWaDHz6wcoLrbAwuvTH-aKQXMQvt0oW8zWjKoXfiY",
+          "evidence_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+          "operation_id": "",
+          "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+          "phase": "SUBMIT",
+          "state": "READY"
+        }
+      },
+      "signing_public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+      "taskflight": {
+        "key": [
+          "lab",
+          "tenant-1",
+          "medical",
+          "AAAAAAAAAAAAAAAAAAAAPw"
+        ],
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAQA"
+      },
+      "trusted_time": {
+        "hi": "106",
+        "lo": "106"
+      }
+    },
+    "version": "2.6"
+  },
+  "dispatch": {
+    "after": {
+      "accepts": 1,
+      "calls": 1,
+      "reserved": 1,
+      "settlements": 0,
+      "spent": 0
+    },
+    "attempt": "AAAAAAAAAAAAAAAAAAAFIQ",
+    "before": {
+      "accepts": 1,
+      "calls": 0,
+      "reserved": 1,
+      "settlements": 0,
+      "spent": 0
+    },
+    "clock": {
+      "claim": {
+        "hi": "107",
+        "lo": "107",
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+        "profile": "MED-DEMO-1",
+        "purpose": "DISPATCH",
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        },
+        "sequence": "1"
+      },
+      "signature": "P63uGckWU6gzGsqvJSblhes7gV9NqTmTulLWzd9dd5lqJt39eALGpIKrt1bbDHiK_kI5W-8BR2BHh7QOo7dVCA"
+    },
+    "response": {
+      "attempt": "AAAAAAAAAAAAAAAAAAAFIQ",
+      "status": "CLAIMED"
+    }
+  },
+  "fixture_actor_public": {
+    "E": {
+      "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+      "name": "fixture-e",
+      "pub": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+      "purposes": [
+        "READ",
+        "SOURCE"
+      ]
+    },
+    "G": {
+      "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+      "name": "fixture-g",
+      "pub": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+      "purposes": [
+        "Permit",
+        "READ",
+        "Result"
+      ]
+    },
+    "H": {
+      "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+      "name": "fixture-h",
+      "pub": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+      "purposes": [
+        "ChallengeRequest",
+        "CommitProof",
+        "IssueRequest",
+        "READ",
+        "StatusQuery"
+      ]
+    },
+    "U": {
+      "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+      "name": "fixture-u",
+      "pub": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+      "purposes": [
+        "Authorization",
+        "READ"
+      ]
+    },
+    "V": {
+      "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+      "name": "fixture-v",
+      "pub": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+      "purposes": [
+        "READ",
+        "Review"
+      ]
+    },
+    "X": {
+      "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+      "name": "fixture-x",
+      "pub": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+      "purposes": [
+        "Acceptance",
+        "Challenge",
+        "READ",
+        "Result"
+      ]
+    }
+  },
+  "fixture_root_public": "Y1VpHBeKj_kQB6dHivuVXvc1LGPnslcDmEz3iybiGlY",
+  "initial_snapshot": {
+    "accepts": 1,
+    "calls": 0,
+    "reserved": 1,
+    "settlements": 0,
+    "spent": 0
+  },
+  "official_complete_pass": false,
+  "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+  "process_stage_outcomes": {
+    "claim": {
+      "attempt": "AAAAAAAAAAAAAAAAAAAFIQ",
+      "claimed": true,
+      "stage": "claim"
+    },
+    "no_redispatch": {
+      "reject": "NO_REDISPATCH",
+      "stage": "no_redispatch"
+    },
+    "settle": {
+      "once": true,
+      "stage": "settle",
+      "status": "SUCCEEDED"
+    },
+    "tool": {
+      "fact_frozen": true,
+      "stage": "tool",
+      "tool_final_ref": "mKrX_8qPSjGgiR7JCARqAvKo1d7_hv_4hpYefJ9vpX4"
+    }
+  },
+  "profile": "MED-DEMO-1",
+  "replay": {
+    "attempt": "AAAAAAAAAAAAAAAAAAAFIg",
+    "rejection": "NO_REDISPATCH",
+    "unchanged": true
+  },
+  "scope": {
+    "domain": "lab",
+    "scenario": "medical",
+    "tenant": "tenant-1"
+  },
+  "settlement": {
+    "after": {
+      "accepts": 1,
+      "calls": 1,
+      "reserved": 0,
+      "settlements": 1,
+      "spent": 1
+    },
+    "before": {
+      "accepts": 1,
+      "calls": 1,
+      "reserved": 1,
+      "settlements": 0,
+      "spent": 0
+    },
+    "clock": {
+      "claim": {
+        "hi": "112",
+        "lo": "112",
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+        "profile": "MED-DEMO-1",
+        "purpose": "SETTLE",
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        },
+        "sequence": "2"
+      },
+      "signature": "qQ9auwx42ZnLswIq9_a8Sqna0oTLYZmQFZ0Km8kFjwZ0arJNdS8iK8wabOW9Xmlx6U7kl1tqeSHaMtMMDC2WAA"
+    },
+    "response": {
+      "fact_id": "JrLYaG0EiHse7AZsWSj0JGVTc3TATz4vs1yq84mcduU",
+      "historical": false,
+      "idempotent": false,
+      "status": "SUCCEEDED"
+    }
+  },
+  "signed_messages": {
+    "acceptance": {
+      "body": {
+        "aud": [
+          "fixture-g",
+          "fixture-h",
+          "fixture-u"
+        ],
+        "deps": [],
+        "exp": "1006",
+        "iat": "106",
+        "id": "AAAAAAAAAAAAAAAAAAGeGA",
+        "payload": {
+          "accept_seq": "1",
+          "accepted_at": "106",
+          "authorization_ref": "DFHQ1gEYhp0TPApXTson9YrfgEOEakl0VqufIrYCGKM",
+          "commit_record_ref": "OXqOumPzKwxaHE1V52WqOmgI99pB03gCAWjy5qmNQeU",
+          "ctx": {
+            "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+            "basis_ref": "xt8Ycd2KvKZJ2jZWshScRhj2qmJFZwL5C99u_eIm9LA",
+            "executor": "fixture-x",
+            "holder": "fixture-h",
+            "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            }
+          },
+          "dispatch_before": "220",
+          "permit_ref": "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q",
+          "proof_ref": "lhyBUwj0IktfGJeiCTZCy3z50aybtWmq5i3AeNmeBwM",
+          "review_refs": [
+            "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs"
+          ]
+        },
+        "refs": [
+          "DFHQ1gEYhp0TPApXTson9YrfgEOEakl0VqufIrYCGKM",
+          "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q",
+          "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs",
+          "lhyBUwj0IktfGJeiCTZCy3z50aybtWmq5i3AeNmeBwM"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "fixture-x",
+        "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "Acceptance",
+        "version": "2.6"
+      },
+      "sig": "2dihl_6os4_YyxaoKATzxiwb5mvX219G6_NujjwSq6Wj8Jn_PXKaeySN3XGPek3cJoEUoMw__yXsRHbwhCVQCw"
+    },
+    "authorization": {
+      "body": {
+        "aud": [
+          "fixture-g",
+          "fixture-h",
+          "fixture-x"
+        ],
+        "deps": [
+          {
+            "key": [
+              "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8"
+            ],
+            "namespace": "KEY",
+            "ref": "9bWg68NzYCMSP1GmCfTgUafHRafF2rc3PlCee_US5Xw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0"
+            ],
+            "namespace": "KEY",
+            "ref": "-zx1s1yP3ccOd4bDWNJINPmeb_4WaMdcIn2oRM3M5ys",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4"
+            ],
+            "namespace": "KEY",
+            "ref": "1c21kd35EJEqqZxw4-i15Zrznwx_osk_kkwLOncWxRA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw"
+            ],
+            "namespace": "KEY",
+            "ref": "A3bEzuBelJwE-3zi4U-1joyZGRZCyzRoseJ2dupjxkw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4"
+            ],
+            "namespace": "KEY",
+            "ref": "dh6Y8xTjr-Eo9fYuZqhSJfF7Nw6D1ysxVxD4Ipxa4IQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU"
+            ],
+            "namespace": "KEY",
+            "ref": "5DUnvxXCycyG26ni4ud-j-U8BQl4oaAQGNzmFQx30BE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "AAAAAAAAAAAAAAAAAAAAPw"
+            ],
+            "namespace": "TASK",
+            "ref": "vMP2cOxXkFYhvwWwikYoGGhuqBNepshTjSNCxYQ1oKg",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-e",
+              "SOURCE"
+            ],
+            "namespace": "ROLE",
+            "ref": "BrXd-7Q4-fd3Ozsc7JTgb7C92ERAfR0ZGHDKvru4-VI",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-g",
+              "ISSUER"
+            ],
+            "namespace": "ROLE",
+            "ref": "P8-tuBsYTFxDPn8i3JSlTRxbLBxBem00MsIqtZuTjxQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-g",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "Pr1znenGR1Vb5X7ssdV6poBV7K3RP_kQS41YYrXK7gE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-h",
+              "HOLDER"
+            ],
+            "namespace": "ROLE",
+            "ref": "wDYmn1068DnIFIxc0swXrlUxB7KaRmngephskwqlcGQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-h",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "ltRYl7FgDxPCt_ppTo49PgUKWOC6P9DvsULDJFOnMSk",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-u",
+              "MEDICAL_AUTHORIZER"
+            ],
+            "namespace": "ROLE",
+            "ref": "J0OD-daSWwvHCDt2iqkRGyO4lYmrFYCDxWrcnH4dWSY",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-u",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "ix9AR_oVXaEtu0ID_4ioUQ5VGXRdxKmadIRKt7zwuXQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-v",
+              "CLINICAL_REVIEWER"
+            ],
+            "namespace": "ROLE",
+            "ref": "_ah_ebeB11LbWVYWeeRrMkjvsnmP8HPMXAiHjWYt1_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-v",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "BKLQNa2b2tv1E_GjHEJ5jrLm7CP77zcByK37l6OKBmM",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-x",
+              "EXECUTOR"
+            ],
+            "namespace": "ROLE",
+            "ref": "rKgVN7kcpf7QiwiBrtQw9HiA_tEw8CGr98pzoUHQMok",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-x",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "H81jy2E0Yt7R4lIr-1ysjQnTgoDw6UrNrylk1nZZqZ8",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "patient-a",
+              "encounter-a"
+            ],
+            "namespace": "ENCOUNTER",
+            "ref": "LgKN-F4Qm-MRuqQVVUPb1QA9NRC4g7k0WpebHmTajCo",
+            "revision": "2"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "principal"
+            ],
+            "namespace": "BEHAVIOR",
+            "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical"
+            ],
+            "namespace": "POLICY",
+            "ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "revision": "1"
+          }
+        ],
+        "exp": "220",
+        "iat": "103",
+        "id": "AAAAAAAAAAAAAAAAAAGSWg",
+        "payload": {
+          "ctx": {
+            "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+            "basis_ref": "xt8Ycd2KvKZJ2jZWshScRhj2qmJFZwL5C99u_eIm9LA",
+            "executor": "fixture-x",
+            "holder": "fixture-h",
+            "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            }
+          },
+          "purpose": "EXECUTE",
+          "review_refs": [
+            "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs"
+          ],
+          "verdict": "APPROVE"
+        },
+        "refs": [
+          "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "fixture-u",
+        "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "Authorization",
+        "version": "2.6"
+      },
+      "sig": "YxTvbew5QfeoLdQ0AOECsUzVFtPAAK5p8t0Pl9KHOsUgDcl6y87yWAXt0ggmn779Cc_D3pP8GlPJYdG0pRURDA"
+    },
+    "challenge": {
+      "body": {
+        "aud": [
+          "fixture-h"
+        ],
+        "deps": [],
+        "exp": "135",
+        "iat": "105",
+        "id": "AAAAAAAAAAAAAAAAAAGaLg",
+        "payload": {
+          "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+          "holder": "fixture-h",
+          "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+          "nonce": "xIEu9Miqje_b904FvpmkLwCN6uBEgxaWA5uSQgTl1Xc",
+          "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+          "permit_ref": "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q",
+          "purpose": "COMMIT",
+          "request_ref": "52AuAzCXov_G5JUkk0fPo0Gjs-cVjSUT9EwxPViMkGU",
+          "session_id": "AAAAAAAAAAAAAAAAAAACwg"
+        },
+        "refs": [
+          "52AuAzCXov_G5JUkk0fPo0Gjs-cVjSUT9EwxPViMkGU",
+          "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "fixture-x",
+        "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "Challenge",
+        "version": "2.6"
+      },
+      "sig": "33lgujPdNq4r1fGojjeLn0JKiCEZTnp-WNa5bYkZ6zHxuFge5_76G2w-MWQQLOPrQKj3pI6XQF5bBR-AnZtuDQ"
+    },
+    "challenge_request": {
+      "body": {
+        "aud": [
+          "fixture-x"
+        ],
+        "deps": [],
+        "exp": "135",
+        "iat": "105",
+        "id": "AAAAAAAAAAAAAAAAAAGaLQ",
+        "payload": {
+          "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+          "attempt_id": "AAAAAAAAAAAAAAAAAAACwQ",
+          "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+          "permit_ref": "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q",
+          "purpose": "COMMIT"
+        },
+        "refs": [
+          "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "fixture-h",
+        "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "ChallengeRequest",
+        "version": "2.6"
+      },
+      "sig": "SVZn_4xJnsBnFqE0ejZHzfbqPdaWgdFC-fzWJpRQA6RNwkzMGzRzcV3ruKgRrgKD6wpaLHYm1hyyrawMBZ4pBg"
+    },
+    "issue": {
+      "body": {
+        "aud": [
+          "fixture-g"
+        ],
+        "deps": [
+          {
+            "key": [
+              "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8"
+            ],
+            "namespace": "KEY",
+            "ref": "9bWg68NzYCMSP1GmCfTgUafHRafF2rc3PlCee_US5Xw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0"
+            ],
+            "namespace": "KEY",
+            "ref": "-zx1s1yP3ccOd4bDWNJINPmeb_4WaMdcIn2oRM3M5ys",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4"
+            ],
+            "namespace": "KEY",
+            "ref": "1c21kd35EJEqqZxw4-i15Zrznwx_osk_kkwLOncWxRA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw"
+            ],
+            "namespace": "KEY",
+            "ref": "A3bEzuBelJwE-3zi4U-1joyZGRZCyzRoseJ2dupjxkw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4"
+            ],
+            "namespace": "KEY",
+            "ref": "dh6Y8xTjr-Eo9fYuZqhSJfF7Nw6D1ysxVxD4Ipxa4IQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU"
+            ],
+            "namespace": "KEY",
+            "ref": "5DUnvxXCycyG26ni4ud-j-U8BQl4oaAQGNzmFQx30BE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "AAAAAAAAAAAAAAAAAAAAPw"
+            ],
+            "namespace": "TASK",
+            "ref": "vMP2cOxXkFYhvwWwikYoGGhuqBNepshTjSNCxYQ1oKg",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-e",
+              "SOURCE"
+            ],
+            "namespace": "ROLE",
+            "ref": "BrXd-7Q4-fd3Ozsc7JTgb7C92ERAfR0ZGHDKvru4-VI",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-g",
+              "ISSUER"
+            ],
+            "namespace": "ROLE",
+            "ref": "P8-tuBsYTFxDPn8i3JSlTRxbLBxBem00MsIqtZuTjxQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-g",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "Pr1znenGR1Vb5X7ssdV6poBV7K3RP_kQS41YYrXK7gE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-h",
+              "HOLDER"
+            ],
+            "namespace": "ROLE",
+            "ref": "wDYmn1068DnIFIxc0swXrlUxB7KaRmngephskwqlcGQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-h",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "ltRYl7FgDxPCt_ppTo49PgUKWOC6P9DvsULDJFOnMSk",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-u",
+              "MEDICAL_AUTHORIZER"
+            ],
+            "namespace": "ROLE",
+            "ref": "J0OD-daSWwvHCDt2iqkRGyO4lYmrFYCDxWrcnH4dWSY",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-u",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "ix9AR_oVXaEtu0ID_4ioUQ5VGXRdxKmadIRKt7zwuXQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-v",
+              "CLINICAL_REVIEWER"
+            ],
+            "namespace": "ROLE",
+            "ref": "_ah_ebeB11LbWVYWeeRrMkjvsnmP8HPMXAiHjWYt1_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-v",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "BKLQNa2b2tv1E_GjHEJ5jrLm7CP77zcByK37l6OKBmM",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-x",
+              "EXECUTOR"
+            ],
+            "namespace": "ROLE",
+            "ref": "rKgVN7kcpf7QiwiBrtQw9HiA_tEw8CGr98pzoUHQMok",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-x",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "H81jy2E0Yt7R4lIr-1ysjQnTgoDw6UrNrylk1nZZqZ8",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "patient-a",
+              "encounter-a"
+            ],
+            "namespace": "ENCOUNTER",
+            "ref": "LgKN-F4Qm-MRuqQVVUPb1QA9NRC4g7k0WpebHmTajCo",
+            "revision": "2"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "principal"
+            ],
+            "namespace": "BEHAVIOR",
+            "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical"
+            ],
+            "namespace": "POLICY",
+            "ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "revision": "1"
+          }
+        ],
+        "exp": "220",
+        "iat": "104",
+        "id": "AAAAAAAAAAAAAAAAAAGWQw",
+        "payload": {
+          "authorization_ref": "DFHQ1gEYhp0TPApXTson9YrfgEOEakl0VqufIrYCGKM",
+          "ctx": {
+            "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+            "basis_ref": "xt8Ycd2KvKZJ2jZWshScRhj2qmJFZwL5C99u_eIm9LA",
+            "executor": "fixture-x",
+            "holder": "fixture-h",
+            "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            }
+          },
+          "review_refs": [
+            "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs"
+          ]
+        },
+        "refs": [
+          "DFHQ1gEYhp0TPApXTson9YrfgEOEakl0VqufIrYCGKM",
+          "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "fixture-h",
+        "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "IssueRequest",
+        "version": "2.6"
+      },
+      "sig": "LMUJsFxRa4KxtoF6lXdYvo_J70NP2QkMtvPWfNDeH6weFJUsq_8JoWE5v2z_3Odbg9hnd17dZFlb9pMZfZbyAQ"
+    },
+    "permit": {
+      "body": {
+        "aud": [
+          "fixture-h",
+          "fixture-x"
+        ],
+        "deps": [
+          {
+            "key": [
+              "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8"
+            ],
+            "namespace": "KEY",
+            "ref": "9bWg68NzYCMSP1GmCfTgUafHRafF2rc3PlCee_US5Xw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0"
+            ],
+            "namespace": "KEY",
+            "ref": "-zx1s1yP3ccOd4bDWNJINPmeb_4WaMdcIn2oRM3M5ys",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4"
+            ],
+            "namespace": "KEY",
+            "ref": "1c21kd35EJEqqZxw4-i15Zrznwx_osk_kkwLOncWxRA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw"
+            ],
+            "namespace": "KEY",
+            "ref": "A3bEzuBelJwE-3zi4U-1joyZGRZCyzRoseJ2dupjxkw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4"
+            ],
+            "namespace": "KEY",
+            "ref": "dh6Y8xTjr-Eo9fYuZqhSJfF7Nw6D1ysxVxD4Ipxa4IQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU"
+            ],
+            "namespace": "KEY",
+            "ref": "5DUnvxXCycyG26ni4ud-j-U8BQl4oaAQGNzmFQx30BE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "AAAAAAAAAAAAAAAAAAAAPw"
+            ],
+            "namespace": "TASK",
+            "ref": "vMP2cOxXkFYhvwWwikYoGGhuqBNepshTjSNCxYQ1oKg",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-e",
+              "SOURCE"
+            ],
+            "namespace": "ROLE",
+            "ref": "BrXd-7Q4-fd3Ozsc7JTgb7C92ERAfR0ZGHDKvru4-VI",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-g",
+              "ISSUER"
+            ],
+            "namespace": "ROLE",
+            "ref": "P8-tuBsYTFxDPn8i3JSlTRxbLBxBem00MsIqtZuTjxQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-g",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "Pr1znenGR1Vb5X7ssdV6poBV7K3RP_kQS41YYrXK7gE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-h",
+              "HOLDER"
+            ],
+            "namespace": "ROLE",
+            "ref": "wDYmn1068DnIFIxc0swXrlUxB7KaRmngephskwqlcGQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-h",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "ltRYl7FgDxPCt_ppTo49PgUKWOC6P9DvsULDJFOnMSk",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-u",
+              "MEDICAL_AUTHORIZER"
+            ],
+            "namespace": "ROLE",
+            "ref": "J0OD-daSWwvHCDt2iqkRGyO4lYmrFYCDxWrcnH4dWSY",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-u",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "ix9AR_oVXaEtu0ID_4ioUQ5VGXRdxKmadIRKt7zwuXQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-v",
+              "CLINICAL_REVIEWER"
+            ],
+            "namespace": "ROLE",
+            "ref": "_ah_ebeB11LbWVYWeeRrMkjvsnmP8HPMXAiHjWYt1_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-v",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "BKLQNa2b2tv1E_GjHEJ5jrLm7CP77zcByK37l6OKBmM",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-x",
+              "EXECUTOR"
+            ],
+            "namespace": "ROLE",
+            "ref": "rKgVN7kcpf7QiwiBrtQw9HiA_tEw8CGr98pzoUHQMok",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-x",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "H81jy2E0Yt7R4lIr-1ysjQnTgoDw6UrNrylk1nZZqZ8",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "patient-a",
+              "encounter-a"
+            ],
+            "namespace": "ENCOUNTER",
+            "ref": "LgKN-F4Qm-MRuqQVVUPb1QA9NRC4g7k0WpebHmTajCo",
+            "revision": "2"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "principal"
+            ],
+            "namespace": "BEHAVIOR",
+            "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical"
+            ],
+            "namespace": "POLICY",
+            "ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "revision": "1"
+          }
+        ],
+        "exp": "220",
+        "iat": "104",
+        "id": "AAAAAAAAAAAAAAAAAAGWRA",
+        "payload": {
+          "authorization_ref": "DFHQ1gEYhp0TPApXTson9YrfgEOEakl0VqufIrYCGKM",
+          "ctx": {
+            "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+            "basis_ref": "xt8Ycd2KvKZJ2jZWshScRhj2qmJFZwL5C99u_eIm9LA",
+            "executor": "fixture-x",
+            "holder": "fixture-h",
+            "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            }
+          },
+          "dispatch_before": "220",
+          "max_uses": "1",
+          "review_refs": [
+            "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs"
+          ]
+        },
+        "refs": [
+          "DFHQ1gEYhp0TPApXTson9YrfgEOEakl0VqufIrYCGKM",
+          "dSlA0ovvsMBIND9p4b2RqDsM3aJuMRcDiL6LCIa_4Gs"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "fixture-g",
+        "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "Permit",
+        "version": "2.6"
+      },
+      "sig": "XZBDY4oBWChE9NRrQBoR2L4kcK9bUuWuxbPxfXIYGQYv2zOlWjZju6SncSu1gJksYeljtI6P07M8d2cKitXpDg"
+    },
+    "proof": {
+      "body": {
+        "aud": [
+          "fixture-x"
+        ],
+        "deps": [],
+        "exp": "135",
+        "iat": "106",
+        "id": "AAAAAAAAAAAAAAAAAAGeFw",
+        "payload": {
+          "attempt_id": "AAAAAAAAAAAAAAAAAAACwQ",
+          "challenge_ref": "re-cBbZsutvf7UER5lvT06fA1k-ct2kkUwzbAQvoX5I",
+          "ctx": {
+            "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+            "basis_ref": "xt8Ycd2KvKZJ2jZWshScRhj2qmJFZwL5C99u_eIm9LA",
+            "executor": "fixture-x",
+            "holder": "fixture-h",
+            "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            }
+          },
+          "nonce": "xIEu9Miqje_b904FvpmkLwCN6uBEgxaWA5uSQgTl1Xc",
+          "permit_ref": "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q",
+          "session_id": "AAAAAAAAAAAAAAAAAAACwg"
+        },
+        "refs": [
+          "K3-BsLuBaY5Pcl5hOt80Aabl6ePrun-yErHF8jmAG9Q",
+          "re-cBbZsutvf7UER5lvT06fA1k-ct2kkUwzbAQvoX5I"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "fixture-h",
+        "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "CommitProof",
+        "version": "2.6"
+      },
+      "sig": "A6_yUDufLbT88Y-tyZoTaIpaeUYOxtug9W__ZOEyQUh2VqAPB_4a9pS15DB1YdqxVS2BSY6zbi-HlfwqJ0XeDQ"
+    },
+    "review_0": {
+      "body": {
+        "aud": [
+          "fixture-g",
+          "fixture-h",
+          "fixture-x"
+        ],
+        "deps": [
+          {
+            "key": [
+              "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8"
+            ],
+            "namespace": "KEY",
+            "ref": "9bWg68NzYCMSP1GmCfTgUafHRafF2rc3PlCee_US5Xw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0"
+            ],
+            "namespace": "KEY",
+            "ref": "-zx1s1yP3ccOd4bDWNJINPmeb_4WaMdcIn2oRM3M5ys",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4"
+            ],
+            "namespace": "KEY",
+            "ref": "1c21kd35EJEqqZxw4-i15Zrznwx_osk_kkwLOncWxRA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw"
+            ],
+            "namespace": "KEY",
+            "ref": "A3bEzuBelJwE-3zi4U-1joyZGRZCyzRoseJ2dupjxkw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4"
+            ],
+            "namespace": "KEY",
+            "ref": "dh6Y8xTjr-Eo9fYuZqhSJfF7Nw6D1ysxVxD4Ipxa4IQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU"
+            ],
+            "namespace": "KEY",
+            "ref": "5DUnvxXCycyG26ni4ud-j-U8BQl4oaAQGNzmFQx30BE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "AAAAAAAAAAAAAAAAAAAAPw"
+            ],
+            "namespace": "TASK",
+            "ref": "vMP2cOxXkFYhvwWwikYoGGhuqBNepshTjSNCxYQ1oKg",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-e",
+              "SOURCE"
+            ],
+            "namespace": "ROLE",
+            "ref": "BrXd-7Q4-fd3Ozsc7JTgb7C92ERAfR0ZGHDKvru4-VI",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-g",
+              "ISSUER"
+            ],
+            "namespace": "ROLE",
+            "ref": "P8-tuBsYTFxDPn8i3JSlTRxbLBxBem00MsIqtZuTjxQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-g",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "Pr1znenGR1Vb5X7ssdV6poBV7K3RP_kQS41YYrXK7gE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-h",
+              "HOLDER"
+            ],
+            "namespace": "ROLE",
+            "ref": "wDYmn1068DnIFIxc0swXrlUxB7KaRmngephskwqlcGQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-h",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "ltRYl7FgDxPCt_ppTo49PgUKWOC6P9DvsULDJFOnMSk",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-u",
+              "MEDICAL_AUTHORIZER"
+            ],
+            "namespace": "ROLE",
+            "ref": "J0OD-daSWwvHCDt2iqkRGyO4lYmrFYCDxWrcnH4dWSY",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-u",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "ix9AR_oVXaEtu0ID_4ioUQ5VGXRdxKmadIRKt7zwuXQ",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-v",
+              "CLINICAL_REVIEWER"
+            ],
+            "namespace": "ROLE",
+            "ref": "_ah_ebeB11LbWVYWeeRrMkjvsnmP8HPMXAiHjWYt1_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-v",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "BKLQNa2b2tv1E_GjHEJ5jrLm7CP77zcByK37l6OKBmM",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-x",
+              "EXECUTOR"
+            ],
+            "namespace": "ROLE",
+            "ref": "rKgVN7kcpf7QiwiBrtQw9HiA_tEw8CGr98pzoUHQMok",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "fixture-x",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "H81jy2E0Yt7R4lIr-1ysjQnTgoDw6UrNrylk1nZZqZ8",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "patient-a",
+              "encounter-a"
+            ],
+            "namespace": "ENCOUNTER",
+            "ref": "LgKN-F4Qm-MRuqQVVUPb1QA9NRC4g7k0WpebHmTajCo",
+            "revision": "2"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "principal"
+            ],
+            "namespace": "BEHAVIOR",
+            "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical"
+            ],
+            "namespace": "POLICY",
+            "ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "revision": "1"
+          }
+        ],
+        "exp": "220",
+        "iat": "103",
+        "id": "AAAAAAAAAAAAAAAAAAGSWQ",
+        "payload": {
+          "ctx": {
+            "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+            "basis_ref": "xt8Ycd2KvKZJ2jZWshScRhj2qmJFZwL5C99u_eIm9LA",
+            "executor": "fixture-x",
+            "holder": "fixture-h",
+            "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            }
+          },
+          "purpose": "CLINICAL_REVIEW",
+          "reason": "scene checked",
+          "verdict": "APPROVE"
+        },
+        "refs": [],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "fixture-v",
+        "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "Review",
+        "version": "2.6"
+      },
+      "sig": "I9vBsMprmFUF5JUZapf7gaaCgtBZNJ7Hx2n56AZyodcEvwr2Oq59hVZUwoY9sgOaIW1rXvJBMNkU-qZb5kGmDA"
+    }
+  },
+  "stage_pids": {
+    "bootstrap": 5355,
+    "claim": 5365,
+    "no_redispatch": 5473,
+    "settle": 5385,
+    "tool": 5375
+  },
+  "tool": {
+    "fact": {
+      "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+      "destination": "med-demo-ledger",
+      "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAFIQ",
+      "effect_id": "phase13-effect-med",
+      "final_seq": "1",
+      "finalized_at": "110",
+      "ledger_id": "ledger1",
+      "no_late_effect": false,
+      "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+      "outcome": "SUCCEEDED",
+      "tool": "med-order-sim",
+      "tool_version": "1"
+    },
+    "ledger_origin": "x6I6KvfQx5Js7aHfwmKIDUW4HjQp4t5-ShIc7-q1sZo",
+    "signed_final": {
+      "kind": "TOOL_FINAL",
+      "profile": "MED-DEMO-1",
+      "scope": {
+        "domain": "lab",
+        "scenario": "medical",
+        "tenant": "tenant-1"
+      },
+      "value": {
+        "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+        "attestation": {
+          "issuer": "tool-issuer",
+          "kid": "0tD_Mpz3KBlTkkzmzds4Ip4JBFP9MQ8sllk3Sq6kToA",
+          "sig": "TDdw2BjzQRXZTQJNTyDK1ie8_jn_KRceYytLT9JtYm8eG_cpOfIgYoMZBfvvL1OLmB7meb7JCruq-Wd0iJIkCA"
+        },
+        "destination": "med-demo-ledger",
+        "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAFIQ",
+        "effect_id": "phase13-effect-med",
+        "exp": "231",
+        "final_seq": "1",
+        "finalized_at": "110",
+        "iat": "111",
+        "ledger_id": "ledger1",
+        "method": "tool-final-v2",
+        "no_late_effect": false,
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+        "outcome": "SUCCEEDED",
+        "tool": "med-order-sim",
+        "tool_version": "1"
+      },
+      "version": "2.6"
+    }
+  },
+  "tool_certificate": {
+    "claim": {
+      "ledger_head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
+      "ledger_origin": "x6I6KvfQx5Js7aHfwmKIDUW4HjQp4t5-ShIc7-q1sZo",
+      "record": {
+        "kind": "TOOL_TRUST",
+        "profile": "MED-DEMO-1",
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        },
+        "value": {
+          "destination": "med-demo-ledger",
+          "epoch": "1",
+          "evidence_method": "tool-final-v2",
+          "exp": "2000",
+          "iat": "90",
+          "issuer": "tool-issuer",
+          "kid": "0tD_Mpz3KBlTkkzmzds4Ip4JBFP9MQ8sllk3Sq6kToA",
+          "ledger_id": "ledger1",
+          "public_key": "wFDFY3pE-oYp__PMzOIwDLNipj2Z2V_FQUUmb0MyRFo",
+          "tool": "med-order-sim",
+          "tool_version": "1"
+        },
+        "version": "2.6"
+      },
+      "revision": "1"
+    },
+    "root_kid": "y7cz50nbvhsrD1h8XCKrUPYek3RFjRmMkkSz1p7SSpg",
+    "signature": "GyMDY8bTNvrtYw5L6IrJnmCvd7ottc-3LNw_1tPUaosqLvzQxkp8prnhvxUufYGTizL0hCwDEy2v5yZplJVxCA"
+  }
+}

@@ -1,0 +1,7 @@
+test_ind_fixed_package_mismatch_is_rejected (research.phase8.test_scene_authority.SceneTests.test_ind_fixed_package_mismatch_is_rejected) ... ok
+test_ind_missing_package_fails_closed (research.phase8.test_scene_authority.SceneTests.test_ind_missing_package_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.193s
+
+OK

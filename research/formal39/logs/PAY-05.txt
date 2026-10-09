@@ -1,0 +1,8 @@
+test_wrong_source_version_rejected (research.strict_v26.test_pay_history.HistoryTests.test_wrong_source_version_rejected) ... ok
+test_v25_signature_tamper_even_with_recomputed_ref (research.strict_v26.test_pay_history.HistoryTests.test_v25_signature_tamper_even_with_recomputed_ref) ... ok
+test_wrong_source_ref_rejected (research.strict_v26.test_pay_history.HistoryTests.test_wrong_source_ref_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.005s
+
+OK

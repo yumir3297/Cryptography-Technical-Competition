@@ -1,0 +1,7 @@
+test_expired_first_proof_requires_fresh_reattest (research.phase6.test_trusted_final.FinalTests.test_expired_first_proof_requires_fresh_reattest) ... ok
+test_two_crash_boundaries_recovery (research.phase6.test_trusted_final.CrashBoundaryTests.test_two_crash_boundaries_recovery) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 3.155s
+
+OK

@@ -1,0 +1,17 @@
+[
+  {
+    "profile": "PAY-1",
+    "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+    "schema": "/mnt/data/ZJJ_protocol_assurance_patch/system_dev/v26/contracts/pay1.schema.json"
+  },
+  {
+    "profile": "IND-DEMO-1",
+    "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+    "schema": "/mnt/data/ZJJ_protocol_assurance_patch/system_dev/v26/contracts/industrial.schema.json"
+  },
+  {
+    "profile": "MED-DEMO-1",
+    "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+    "schema": "/mnt/data/ZJJ_protocol_assurance_patch/system_dev/v26/contracts/medical.schema.json"
+  }
+]

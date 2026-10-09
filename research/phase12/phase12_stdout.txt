@@ -1,0 +1,11 @@
+{
+  "legacy_pay_gap_confirmed": true,
+  "official_complete_passes_from_phase12": 0,
+  "phase": 12,
+  "targeted_case_ids": [
+    "CORE-15",
+    "AUD-02C"
+  ],
+  "triprofile_traces": 6
+}
+

@@ -1,0 +1,8 @@
+test_archive_tamper_rejected (research.phase5.test_durable_w.DurableWTests.test_archive_tamper_rejected) ... ok
+test_archive_commit_mutation_detected (research.phase4.test_flow.Phase4PayFlow.test_archive_commit_mutation_detected) ... ok
+test_wrong_acceptance_signature_detected (research.phase4.test_flow.Phase4PayFlow.test_wrong_acceptance_signature_detected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.239s
+
+OK

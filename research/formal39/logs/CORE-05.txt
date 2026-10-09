@@ -1,0 +1,8 @@
+test_empty_range_to_nonempty_changes_revision (research.assurance.test_deny_range_model.ProposedDenyRangeTests.test_empty_range_to_nonempty_changes_revision) ... ok
+test_reactivate_old_content_does_not_revive_old_ref (research.strict_v26.test_pay_dependencies.RequiredDepTests.test_reactivate_old_content_does_not_revive_old_ref) ... ok
+test_controller_update_invalidates_signed_candidate (research.phase8.test_scene_authority.SceneTests.test_controller_update_invalidates_signed_candidate) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.168s
+
+OK

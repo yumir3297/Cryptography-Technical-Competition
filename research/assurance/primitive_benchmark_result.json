@@ -1,0 +1,71 @@
+{
+  "kind": "primitive_microbenchmark_only",
+  "generated_at_utc": "2026-10-09T01:52:46.822847+00:00",
+  "iterations": 600,
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cryptography": "46.0.4"
+  },
+  "public_key_bytes": 32,
+  "signature_bytes": 64,
+  "sizes": {
+    "512": {
+      "sha256": {
+        "median_us": 0.681,
+        "p95_us": 0.711,
+        "mean_us": 0.796
+      },
+      "ed25519_sign": {
+        "median_us": 32.068,
+        "p95_us": 34.752,
+        "mean_us": 32.962
+      },
+      "ed25519_verify": {
+        "median_us": 103.251,
+        "p95_us": 121.804,
+        "mean_us": 106.716
+      }
+    },
+    "4096": {
+      "sha256": {
+        "median_us": 2.684,
+        "p95_us": 2.715,
+        "mean_us": 2.741
+      },
+      "ed25519_sign": {
+        "median_us": 40.25,
+        "p95_us": 54.272,
+        "mean_us": 42.41
+      },
+      "ed25519_verify": {
+        "median_us": 105.74,
+        "p95_us": 137.096,
+        "mean_us": 111.95
+      }
+    },
+    "16384": {
+      "sha256": {
+        "median_us": 9.454,
+        "p95_us": 9.585,
+        "mean_us": 9.743
+      },
+      "ed25519_sign": {
+        "median_us": 68.153,
+        "p95_us": 83.686,
+        "mean_us": 70.954
+      },
+      "ed25519_verify": {
+        "median_us": 119.821,
+        "p95_us": 157.377,
+        "mean_us": 126.138
+      }
+    }
+  },
+  "limits": [
+    "Single-process sequential local microbench. No network, W transaction, JSON Schema, graph checking or durable store.",
+    "Not a measured end-to-end ZJJ signature count or commit latency.",
+    "No claims about real payments, industrial equipment or medical devices.",
+    "Measurements vary with hardware/software/load and cannot be used for cross-system superiority without matched setups."
+  ]
+}

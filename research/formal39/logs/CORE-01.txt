@@ -1,0 +1,7 @@
+test_all_five_fixed_synthetic_paths (research.phase8.test_scene_authority.SceneTests.test_all_five_fixed_synthetic_paths) ... ok
+test_acceptance_record_contract_exact (research.phase4.test_flow.Phase4PayFlow.test_acceptance_record_contract_exact) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.026s
+
+OK

@@ -1,0 +1,341 @@
+[
+  {
+    "id": "CORE-01",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-02",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-03",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-04",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-05",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-06",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-07",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-08",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "PASS_PARTIAL",
+    "phase6_related_tests": [
+      "research.phase6.test_trusted_final.CrashBoundaryTests.test_two_crash_boundaries_recovery"
+    ],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-09",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-10",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-11",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-12",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-13",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-14",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-15",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "PASS_PARTIAL",
+    "phase6_related_tests": [
+      "research.phase6.test_trusted_final.CrashBoundaryTests.test_two_crash_boundaries_recovery",
+      "research.phase6.test_trusted_final.FinalTests.test_claim_is_one_shot_no_arbitrary_witness_bool"
+    ],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-16",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "PASS_PARTIAL",
+    "phase6_related_tests": [
+      "research.phase6.test_trusted_final.FinalTests.test_success_and_persistent_settlement",
+      "research.phase6.test_trusted_final.FinalTests.test_failed_confirmed_no_late_effect",
+      "research.phase6.test_trusted_final.FinalTests.test_forged_effect_semantics_fail"
+    ],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-17",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-18",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-19",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "CORE-20",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "PASS_PARTIAL",
+    "phase6_related_tests": [
+      "research.phase6.test_trusted_final.FinalTests.test_rotation_recovery_same_ledger",
+      "research.phase6.test_trusted_final.FinalTests.test_rotation_replay_epoch_reject"
+    ],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "PAY-01",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "PAY-02",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "PAY-03",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "PAY-04",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "PAY-05",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "IND-01",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "IND-02",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "IND-03",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "IND-04",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "MED-01",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "MED-02",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "MED-03",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "MED-04",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "SC-01",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "SC-02",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "NOT_MAPPED_IN_PHASE6",
+    "phase6_related_tests": [],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "AUD-02A",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "PASS_PARTIAL",
+    "phase6_related_tests": [
+      "research.phase6.test_trusted_final.FinalTests.test_expired_first_proof_requires_fresh_reattest",
+      "research.phase6.test_trusted_final.FinalTests.test_missing_fact_never_implies_failed"
+    ],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "AUD-02B",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "PASS_PARTIAL",
+    "phase6_related_tests": [
+      "research.phase6.test_trusted_final.FinalTests.test_rotation_recovery_same_ledger",
+      "research.phase6.test_trusted_final.FinalTests.test_same_fact_fresh_attestation_new_ref_no_second_settlement",
+      "research.phase6.test_trusted_final.FinalTests.test_rotation_to_different_ledger_reject"
+    ],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "AUD-02C",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "PASS_PARTIAL",
+    "phase6_related_tests": [
+      "research.phase6.test_trusted_final.FinalTests.test_missing_fact_never_implies_failed",
+      "research.phase6.test_trusted_final.FinalTests.test_rotation_ledger_head_mismatch",
+      "research.phase6.test_trusted_final.FinalTests.test_rotation_to_different_ledger_reject"
+    ],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  },
+  {
+    "id": "AUD-02D",
+    "full_official_case_status": "NOT_RUN",
+    "research_subtest_status": "PASS_PARTIAL",
+    "phase6_related_tests": [
+      "research.phase6.test_trusted_final.FinalTests.test_bad_signature_cannot_halt",
+      "research.phase6.test_trusted_final.FinalTests.test_trusted_conflicting_fact_halts_without_reverse_settlement",
+      "research.phase6.test_trusted_final.FinalTests.test_halted_not_unhalted_by_good_replay"
+    ],
+    "fully_conformant": false,
+    "scope_note": "Offline PAY-1 simulator with controller/trust fixtures; not the all-profile official case."
+  }
+]

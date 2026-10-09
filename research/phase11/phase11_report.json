@@ -1,0 +1,85 @@
+{
+  "contract": "ZJJ-CORE-2.6-R2",
+  "generated_utc": "2026-10-09T08:34:40.574766+00:00",
+  "known_nonconformance_gaps": [
+    "Trusted controller and time source are local laboratory fixtures, not independently operated C/E governance or quorum time",
+    "PAY and scene W adapters share transaction semantics but are not one deployed W service or one global datastore",
+    "Network/status/aud/path/zero-RTT proof across the official transport contract not exercised",
+    "No real external physical tool dispatch or distributed atomic commit across tool ledger and W",
+    "Not all official per-case negative subvariants, attestation fail-stops and independent reviewer checks are closed",
+    "Official Schema structural validation does not establish semantic requirements or all x-zjj-order constraints"
+  ],
+  "official_cases_total": 39,
+  "official_complete_passes_from_phase11": 0,
+  "phase": 11,
+  "phase11_unittests": {
+    "errors": 0,
+    "failed": 0,
+    "run": 17,
+    "skipped": 0
+  },
+  "pinned_git_blobs": {
+    "industrial": "f937286b1be32b2a8356b991a93770abff430578",
+    "manifest": "b0bc9dbeedac135f6520b5e93729f63686d97bb4",
+    "medical": "5e43b803ed32a3359e4ad2b7e48a3c96f7fd9482",
+    "pay": "86ba1bae0e4c455899af661bed44edfc5494aa5e"
+  },
+  "repro": [
+    "python -m unittest research.phase11.test_phase11 -q",
+    "python -m research.phase11.run_phase11",
+    "python -m research.formal39.run_formal39"
+  ],
+  "scope": "Strict local controller+signed deterministic time+single-authority W and separate durable simulated tool ledger; not full C/E governance or physical effect",
+  "source_sha256": {
+    "research/phase11/pay_r2.py": "724fd6ae4d763988268923a716d199554ae2b10b4e2d54fc43d8877e48dd1bac",
+    "research/phase11/run_phase11.py": "7938e2599b1951bd6a85e5e4401e57ecc223de8d8854865a80c17e95b580785b",
+    "research/phase11/scene_r2.py": "bc0b310f60d2c420b5d2acee061354bb743099f0905f23d8b0950c95693328a3",
+    "research/phase11/test_phase11.py": "bd8c5733740d8f551e69c74ff31147752a5a06486efd41105dfa755273518ff4",
+    "research/phase11/trusted_clock.py": "31dfa35add5392172e1008ce2e06325d6f4cd24d36545058e6fe71325b14fc08",
+    "research/phase5/durable_w.py": "48eeb63c80ed70e2916a380c9ee5bd4789bbabb887f1c1d54c9c1011699a29a6",
+    "research/phase6/trusted_final.py": "d9e79342f9672cd460e9681d7d55a827e58501eea33e020da4b9badcf1f9cb49",
+    "research/phase8/fixtures.py": "98514763b51c6322a6468cd332119f02565d17580ef570660a4403682bb4f572"
+  },
+  "targeted_slices": {
+    "AUD-02A": {
+      "path": "research/phase11/evidence/AUD-02A.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "88fc58054846650b974455d7b02f74663d57f541e2422348839c829e633ef703",
+      "status": "PASS_SCOPED_INTEGRATION"
+    },
+    "AUD-02B": {
+      "path": "research/phase11/evidence/AUD-02B.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "87f458145af65edb82d35cec9f4a59f37b1d2289c6748c4e646d088f3d759bf3",
+      "status": "PASS_SCOPED_INTEGRATION"
+    },
+    "CORE-03": {
+      "path": "research/phase11/evidence/CORE-03.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "cea64bf87b3b39b885784f4b8405a7920ff630a8295d6ba0ff043580b85187de",
+      "status": "PASS_SCOPED_INTEGRATION"
+    },
+    "CORE-13": {
+      "path": "research/phase11/evidence/CORE-13.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "8a56c8c5201730cf7edc3b3027ffebd488158ac4722725b5b1fee9a27b980cd1",
+      "status": "PASS_SCOPED_INTEGRATION"
+    }
+  }
+}

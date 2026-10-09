@@ -1,0 +1,65 @@
+{
+  "timestamp_utc": "2026-10-09T02:19:01.402902+00:00",
+  "contract_basis": "ZJJ-CORE-2.6-R2 pinned at HEAD 0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c",
+  "research_scope": "SELECTED_PAY_CLAUSES_AND_ABSTRACT_REFERENCE_ONLY_NOT_FULL_V26_CONFORMANCE",
+  "suite": {
+    "tests": 143,
+    "pass": 143,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_strict_pay_tests": 66,
+  "official_schema_probes": {
+    "policy": {
+      "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+      "detail": "SCHEMA_NOT_INSTALLED"
+    },
+    "task": {
+      "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+      "detail": "SCHEMA_NOT_INSTALLED"
+    },
+    "history": {
+      "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+      "detail": "SCHEMA_NOT_INSTALLED"
+    },
+    "evidence": {
+      "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+      "detail": "SCHEMA_NOT_INSTALLED"
+    },
+    "assessment": {
+      "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+      "detail": "SCHEMA_NOT_INSTALLED"
+    }
+  },
+  "official_semantic_cases": {
+    "full_pass": 0,
+    "partial_relevance": 30,
+    "not_run": 9
+  },
+  "profile_traces": 3,
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cryptography": "46.0.4",
+    "jsonschema": "4.26.0"
+  },
+  "source_sha256": {
+    "pay_history.py": "769a692618978f769cf2903176a5d203699445df825efb7d3201a11a80382729",
+    "pay_dependencies.py": "284b3389527195cb18261e0654a1abe188471cea82de966fcd58d5b1bb1f5410",
+    "upstream_schema.py": "33840e3a68fc40420366ab1e0cb9dc6c97609160379c4d8a433d6b8655ae6b7a",
+    "test_pay_history.py": "d0e612bff880a3a083865ae53137bd092299ea32aae10825bb0da0e47462b882",
+    "test_pay_dependencies.py": "1abacd3254852e85410bfd283dec5a999942eefed18786c9b9e7fc653efc822f",
+    "test_upstream_schema.py": "337c962697f9f71efa100a5d2dccac3749e69091946bcc2aec38add924637a71",
+    "run_phase3.py": "3c28d4ddbb4cbeae760df8aa273730584e2bad584ee0b26a60e136e783d659ec"
+  },
+  "known_gaps": [
+    "No upstream official JSON Schema files in detached patch; probes not executed",
+    "No full v2.5 Evidence signature/dependency/audience historical graph",
+    "C publication and credential historical provenance are pretrusted in-memory inputs",
+    "Current KEY/ROLE range semantics are tested only in PAY slice; no authenticated C PoP",
+    "No complete COMMIT/Acceptance fields, Result transport, real durable W transactions",
+    "IND/MED schemas and full source/phase read rights not integrated into this slice",
+    "No official 39-case end-to-end execution or independent complete secondary implementation"
+  ]
+}

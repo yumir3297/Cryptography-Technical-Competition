@@ -1,0 +1,334 @@
+[
+  {
+    "id": "CORE-01",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_all_five_fixed_synthetic_paths",
+      "test_atomic_accept_and_archive_after_restart"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-02",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_evidence_kind_cannot_be_cross_profile_reused",
+      "test_broken_signed_permit_rejected"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-03",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_controller_update_invalidates_signed_candidate"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-04",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-05",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_controller_update_invalidates_signed_candidate",
+      "test_invalid_scene_evidence_current_revision"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-06",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-07",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_review_read_permission_revocation",
+      "test_wrong_review_purpose_rejected"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-08",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_hard_crash_rolls_back_every_write"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-09",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_atomic_accept_and_archive_after_restart"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-10",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-11",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_identical_commitproof_idempotent",
+      "test_nonce_same_other_proof_rejected"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-12",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_eight_concurrent_identical_submit_single_accept"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-13",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_role_revocation_after_accept_blocks_dispatch"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-14",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_behavior_inflight_missing_blocks_dispatch"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-15",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_repeat_claim_is_nonexecuting"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-16",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-17",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-18",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-19",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "CORE-20",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_key_revocation_prevents_accept"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "PAY-01",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "PAY-02",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "PAY-03",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "PAY-04",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "PAY-05",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "IND-01",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_all_five_fixed_synthetic_paths",
+      "test_ind_defect_cannot_release",
+      "test_missing_required_review_rejected"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "IND-02",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_ind_fixed_package_mismatch_is_rejected",
+      "test_ind_missing_package_fails_closed"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "IND-03",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_scene_external_update_after_accept_blocks_dispatch"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "IND-04",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "MED-01",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_all_five_fixed_synthetic_paths",
+      "test_missing_required_review_rejected"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "MED-02",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_med_wrong_patient_rejected",
+      "test_med_wrong_group_rejected",
+      "test_med_wrong_record_ref_rejected",
+      "test_med_wrong_template_rejected"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "MED-03",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_med_signed_but_incomplete_record_is_hard_reject",
+      "test_med_signed_but_unavailable_record_is_hard_reject"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "MED-04",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_review_read_permission_revocation",
+      "test_authenticated_policy_reader_removed_fails"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "SC-01",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_source_expires_at_upper_boundary",
+      "test_zero_capacity_rejects_without_consuming"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "SC-02",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "SCENE_SIGNED_SQLITE_SUBSET",
+    "phase8_tests": [
+      "test_ind_med_receipts_have_different_protected_profiles"
+    ],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "AUD-02A",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "AUD-02B",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "AUD-02C",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  },
+  {
+    "id": "AUD-02D",
+    "official_full_conformance": "NOT_RUN",
+    "phase8_evidence": "NO_ADDITIONAL_PHASE8_TEST",
+    "phase8_tests": [],
+    "status_note": "This case includes other mandatory conditions not covered by the fixture; not an official PASS"
+  }
+]

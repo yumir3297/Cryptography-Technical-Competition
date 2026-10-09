@@ -1,0 +1,122 @@
+{
+  "generated_utc": "2026-10-09T07:26:26.429196+00:00",
+  "protocol": "ZJJ-CORE-2.6-R2",
+  "repository": "yumir3297/Cryptography-Technical-Competition",
+  "meaning": "Partial individually executed case witnesses; cannot issue official PASS without complete inputs, trusted authority and all case obligations",
+  "original_manifest": {
+    "status": "NOT_INSTALLED",
+    "source": "GitHub connector verified case IDs, local original manifest required",
+    "expected_git_blob": "b0bc9dbeedac135f6520b5e93729f63686d97bb4"
+  },
+  "official_schema_gates": {
+    "PAY-1": {
+      "status": "EXACT_ORIGINAL_SCHEMA_LOADED",
+      "git_blob": "86ba1bae0e4c455899af661bed44edfc5494aa5e",
+      "definitions": 64
+    },
+    "IND-DEMO-1": {
+      "status": "MISSING",
+      "expected_git_blob": "f937286b1be32b2a8356b991a93770abff430578"
+    },
+    "MED-DEMO-1": {
+      "status": "MISSING",
+      "expected_git_blob": "5e43b803ed32a3359e4ad2b7e48a3c96f7fd9482"
+    }
+  },
+  "summary": {
+    "case_ids_in_official_manifest": 39,
+    "cases_selected": 3,
+    "local_witness_executed": 2,
+    "local_witness_passed_cases": 2,
+    "local_witness_failed_cases": 0,
+    "cases_without_witness": 1,
+    "harness_errors": 0,
+    "official_complete_pass": 0,
+    "official_complete_fail": 0,
+    "still_blocked_or_partially_verified": 3,
+    "outcome": "PARTIAL_EVIDENCE_COLLECTED"
+  },
+  "cases": [
+    {
+      "id": "CORE-13",
+      "profile": "ALL",
+      "expected": "Pre-dispatch revoked/expired/cross-boundary evidence does not execute",
+      "status": "PARTIAL_WITNESSES_PASS",
+      "official_full_conformance": "NOT_ESTABLISHED",
+      "run": 3,
+      "passed": 3,
+      "seconds": 0.921,
+      "test_ids": [
+        "research.phase7.test_guarded_dispatch.GuardedDispatchTests.test_policy_revocation_before_claim_blocks",
+        "research.phase7.test_guarded_dispatch.GuardedDispatchTests.test_aba_revision_change_even_same_ref_blocks",
+        "research.phase8.test_scene_authority.SceneTests.test_role_revocation_after_accept_blocks_dispatch"
+      ],
+      "missing_full_requirements": [
+        "merge legacy and guarded dispatch implementations; legacy revocation gap exists",
+        "authoritative trusted-time interval crossing and deterministic cancellation"
+      ],
+      "failures": [],
+      "errors": [],
+      "skipped": [],
+      "runner_log": "test_policy_revocation_before_claim_blocks (research.phase7.test_guarded_dispatch.GuardedDispatchTests.test_policy_revocation_before_claim_blocks) ... ok\ntest_aba_revision_change_even_same_ref_blocks (research.phase7.test_guarded_dispatch.GuardedDispatchTests.test_aba_revision_change_even_same_ref_blocks) ... ok\ntest_role_revocation_after_accept_blocks_dispatch (research.phase8.test_scene_authority.SceneTests.test_role_revocation_after_accept_blocks_dispatch) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.921s\n\nOK\n"
+    },
+    {
+      "id": "PAY-02",
+      "profile": "PAY-1",
+      "expected": "n=2, n=5 d=4, distance=1000, event/known cutoff and selection order",
+      "status": "PARTIAL_WITNESSES_PASS",
+      "official_full_conformance": "NOT_ESTABLISHED",
+      "run": 6,
+      "passed": 6,
+      "seconds": 0.019,
+      "test_ids": [
+        "research.strict_v26.test_pay_history.HistoryTests.test_n2_insufficient",
+        "research.strict_v26.test_pay_history.HistoryTests.test_n5_d4_flag",
+        "research.strict_v26.test_pay_history.HistoryTests.test_distance_equal_1000_included",
+        "research.strict_v26.test_pay_history.HistoryTests.test_time_known_at_at_cutoff_included",
+        "research.strict_v26.test_pay_history.HistoryTests.test_time_known_at_after_cutoff_excluded",
+        "research.strict_v26.test_pay_history.HistoryTests.test_order_by_distance_then_ascii_case_id"
+      ],
+      "missing_full_requirements": [
+        "original authenticated History publication audit and trusted cutoff origin",
+        "full official-case transcript with all negative variants"
+      ],
+      "failures": [],
+      "errors": [],
+      "skipped": [],
+      "runner_log": "test_n2_insufficient (research.strict_v26.test_pay_history.HistoryTests.test_n2_insufficient) ... ok\ntest_n5_d4_flag (research.strict_v26.test_pay_history.HistoryTests.test_n5_d4_flag) ... ok\ntest_distance_equal_1000_included (research.strict_v26.test_pay_history.HistoryTests.test_distance_equal_1000_included) ... ok\ntest_time_known_at_at_cutoff_included (research.strict_v26.test_pay_history.HistoryTests.test_time_known_at_at_cutoff_included) ... ok\ntest_time_known_at_after_cutoff_excluded (research.strict_v26.test_pay_history.HistoryTests.test_time_known_at_after_cutoff_excluded) ... ok\ntest_order_by_distance_then_ascii_case_id (research.strict_v26.test_pay_history.HistoryTests.test_order_by_distance_then_ascii_case_id) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.019s\n\nOK\n"
+    },
+    {
+      "id": "IND-04",
+      "profile": "IND-DEMO-1",
+      "expected": "Cycle1 INSPECT successful advance; cycle2 INSPECT hold; unknown cannot advance",
+      "status": "BLOCKED_NO_EXECUTABLE_WITNESS",
+      "run": 0,
+      "passed": 0,
+      "missing_full_requirements": [
+        "AdvanceIndustrialPhase command and cycle-2 state transition not implemented",
+        "full R2 final binding to scene and no second execution"
+      ],
+      "official_full_conformance": "NOT_ESTABLISHED"
+    }
+  ],
+  "integrity": {
+    "suite_source_sha256": {
+      "research.phase7.test_guarded_dispatch": "fb9fcf841dffcaebe946a8045703c91b2bb8699f8a95033b2394c2d5bc4cbe4d",
+      "research.phase8.test_scene_authority": "cf4dcd1561b36f8e657dd3a6ce0b8bb65bb4eea4516330d61aec4c76ed67853a",
+      "research.strict_v26.test_pay_history": "d0e612bff880a3a083865ae53137bd092299ea32aae10825bb0da0e47462b882"
+    },
+    "runner_sha256": "8f4fc1603d02fd515d446666e0b89243ae8cbdb77daa9b84912f6eb9a36c1d83",
+    "cases_sha256": "0285aecc7d167154577d8c67d6d6f57ec913cc433b7cac24f6faf12e3e92ebea"
+  },
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41"
+  },
+  "warnings": [
+    "No case status is lifted from PARTIAL to FULL merely by counting module tests.",
+    "Official schema Draft 2020-12 checks do NOT implement extra x-zjj-order constraints.",
+    "The known legacy dispatch revocation vulnerability has an experimental guarded mitigation only.",
+    "Unimplemented enrollment PoP, lifecycle transitions, trust continuity and cross-profile linkage can invalidate case assumptions."
+  ]
+}

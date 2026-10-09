@@ -1,0 +1,146 @@
+[
+  {
+    "kind": "SUCCEEDED",
+    "profile": "PAY-1",
+    "signed_commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+    "final_fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+    "final_record_ref": "jGZSdiiMCaVmex-nTIJF-PezlVgxCDQ3DFS9kV31rOQ",
+    "immutable_fact": {
+      "ledger_id": "ledger1",
+      "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+      "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+      "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAB9Q",
+      "tool": "pay-sim",
+      "tool_version": "1",
+      "destination": "pay-sim-dest",
+      "outcome": "SUCCEEDED",
+      "effect_id": "effect1",
+      "no_late_effect": false,
+      "final_seq": "1",
+      "finalized_at": "105"
+    },
+    "result": {
+      "status": "SUCCEEDED",
+      "fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+      "idempotent": false,
+      "historical": false
+    },
+    "historical_replay": {
+      "status": "SUCCEEDED",
+      "fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+      "idempotent": true,
+      "historical": true
+    },
+    "w_state": {
+      "id": 1,
+      "capacity": 30000,
+      "reserved": 0,
+      "spent": 2000,
+      "revision": 3,
+      "accept_seq": 1,
+      "accepted_count": 1,
+      "count_cap": 32,
+      "accepted_rows": 1,
+      "flight_rows": 0,
+      "audit_rows": 4
+    },
+    "tool_ledger_head": "B-dYZ-Qo2P813zd3y1p6h7pEOqPD6iX6JsoGYobfQ2I",
+    "tool_final_count": 1
+  },
+  {
+    "kind": "FAILED_CONFIRMED",
+    "profile": "PAY-1",
+    "signed_commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+    "final_fact_id": "QJDlZtEvCYM7uG2SO_sOllxdsSXntMCtOZF-IV_ZkFU",
+    "final_record_ref": "OyBPiCcY_1-BD7LUREw4b2UOW8MmoBZEXMKwX7o7XV0",
+    "immutable_fact": {
+      "ledger_id": "ledger1",
+      "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+      "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+      "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAB9Q",
+      "tool": "pay-sim",
+      "tool_version": "1",
+      "destination": "pay-sim-dest",
+      "outcome": "FAILED_CONFIRMED",
+      "effect_id": "",
+      "no_late_effect": true,
+      "final_seq": "1",
+      "finalized_at": "105"
+    },
+    "result": {
+      "status": "FAILED_CONFIRMED",
+      "fact_id": "QJDlZtEvCYM7uG2SO_sOllxdsSXntMCtOZF-IV_ZkFU",
+      "idempotent": false,
+      "historical": false
+    },
+    "historical_replay": {
+      "status": "FAILED_CONFIRMED",
+      "fact_id": "QJDlZtEvCYM7uG2SO_sOllxdsSXntMCtOZF-IV_ZkFU",
+      "idempotent": true,
+      "historical": true
+    },
+    "w_state": {
+      "id": 1,
+      "capacity": 30000,
+      "reserved": 0,
+      "spent": 0,
+      "revision": 3,
+      "accept_seq": 1,
+      "accepted_count": 1,
+      "count_cap": 32,
+      "accepted_rows": 1,
+      "flight_rows": 0,
+      "audit_rows": 4
+    },
+    "tool_ledger_head": "m8hlMVWPhyLvjE9JHAIbb1jgmBD-rpsDymUDlfF5Srs",
+    "tool_final_count": 1
+  },
+  {
+    "kind": "ROTATION",
+    "profile": "PAY-1",
+    "signed_commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+    "final_fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+    "final_record_ref": "qVFgNpbiQzH9-qfQz8vKF3Ta8-eIQeF3axmSf5snhyM",
+    "immutable_fact": {
+      "ledger_id": "ledger1",
+      "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+      "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+      "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAB9Q",
+      "tool": "pay-sim",
+      "tool_version": "1",
+      "destination": "pay-sim-dest",
+      "outcome": "SUCCEEDED",
+      "effect_id": "effect1",
+      "no_late_effect": false,
+      "final_seq": "1",
+      "finalized_at": "105"
+    },
+    "result": {
+      "status": "SUCCEEDED",
+      "fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+      "idempotent": false,
+      "historical": false
+    },
+    "historical_replay": {
+      "status": "SUCCEEDED",
+      "fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+      "idempotent": true,
+      "historical": true
+    },
+    "w_state": {
+      "id": 1,
+      "capacity": 30000,
+      "reserved": 0,
+      "spent": 2000,
+      "revision": 3,
+      "accept_seq": 1,
+      "accepted_count": 1,
+      "count_cap": 32,
+      "accepted_rows": 1,
+      "flight_rows": 0,
+      "audit_rows": 5
+    },
+    "tool_ledger_head": "B-dYZ-Qo2P813zd3y1p6h7pEOqPD6iX6JsoGYobfQ2I",
+    "tool_final_count": 1
+  }
+]

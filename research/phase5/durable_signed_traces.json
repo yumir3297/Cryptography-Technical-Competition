@@ -1,0 +1,42 @@
+[
+  {
+    "risk_result": "CLEAR",
+    "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+    "authorization_review_purposes": [],
+    "permit_ref": "hNijbNDFRQuMus2G7-28AZvQ7WOAZ8E_mpJpsTsyaOw",
+    "commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+    "acceptance_ref": "g8hy5WDXfl0eXytEtbIkVdGytB9YbNUcyJUbmgtHcxQ",
+    "single_accept_seq": 1,
+    "reserved_minor": 2000,
+    "after_replay_unchanged": true,
+    "schema_validated": true
+  },
+  {
+    "risk_result": "FLAG",
+    "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+    "authorization_review_purposes": [
+      "ANOMALY"
+    ],
+    "permit_ref": "OP1blNEmedcMI9qbbxlr5uNqGvCvJIM19pgcb5qqm00",
+    "commit_ref": "KJH8j184gmQr0v_EU8_S5zyHRsGvzA_Eb3Vsf5iUei4",
+    "acceptance_ref": "xUsz3ZGXsFlu6lDXceiR84qYpmN-wbVYZio9lJX3ZJk",
+    "single_accept_seq": 1,
+    "reserved_minor": 2000,
+    "after_replay_unchanged": true,
+    "schema_validated": true
+  },
+  {
+    "risk_result": "INSUFFICIENT",
+    "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+    "authorization_review_purposes": [
+      "LOW_EVIDENCE"
+    ],
+    "permit_ref": "Kb75UVARxdgfT0n4412TNJ1RUT-TzZ-gN7a9DnPhMKI",
+    "commit_ref": "tM2wggsYuJa_dyZI-nsxNuzSWh0l_LpnXYMKIZxsjjE",
+    "acceptance_ref": "LFERohJLPBKEmUdMaCjf0gkldXSujj--CvTBhbVzRlI",
+    "single_accept_seq": 1,
+    "reserved_minor": 2000,
+    "after_replay_unchanged": true,
+    "schema_validated": true
+  }
+]

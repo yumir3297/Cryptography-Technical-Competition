@@ -1,0 +1,72 @@
+{
+  "strategy": "MODULE_BY_MODULE_AFTER_COMBINED_TIMEOUT",
+  "combined_run": "TIMED_OUT; NOT COUNTED",
+  "total_methods_passed": 145,
+  "not_official_conformance": true,
+  "modules": [
+    {
+      "module": "phase5.test_durable_w",
+      "executed": 20,
+      "passed": 20,
+      "status": "MODULE_RUN_PASS",
+      "log": "research/phase12/test_durable_w.txt",
+      "sha256": "f6f92fd54f6fca9daa12bf0c4fd4c6313f6fda8a0c7ebc76cf611906e0588b43"
+    },
+    {
+      "module": "phase6.test_trusted_final",
+      "executed": 28,
+      "passed": 28,
+      "status": "MODULE_RUN_PASS",
+      "log": "research/phase12/test_trusted_final.txt",
+      "sha256": "d89fd3b0f19d9282b07d1318f02c508acd6c9ddda96aa992934a434577d6c714"
+    },
+    {
+      "module": "phase7.test_guarded_dispatch",
+      "executed": 11,
+      "passed": 11,
+      "status": "MODULE_RUN_PASS",
+      "log": "research/phase12/test_guarded_dispatch.txt",
+      "sha256": "e6e2c33dc8763b3ef6bc2850347e941bf08f9428c0768e648410336e7414dace"
+    },
+    {
+      "module": "phase7.test_dispatch_gap",
+      "executed": 1,
+      "passed": 1,
+      "status": "MODULE_RUN_PASS",
+      "log": "research/phase12/test_dispatch_gap.txt",
+      "sha256": "e5f585eeee88852760802bf0d1e48a94d15553e6f8a7e84eefea75c20a01b66a"
+    },
+    {
+      "module": "phase7.test_official_contract",
+      "executed": 7,
+      "passed": 7,
+      "status": "MODULE_RUN_PASS",
+      "log": "research/phase12/test_official_contract.txt",
+      "sha256": "64c0103962d04e45cdb7c5047f3afe147692e5c4720cc1234bf041f8cc32a944"
+    },
+    {
+      "module": "phase8.test_scene_authority",
+      "executed": 54,
+      "passed": 54,
+      "status": "MODULE_RUN_PASS",
+      "log": "research/phase12/phase8_split.txt",
+      "sha256": "bc4dbbab8ff2fb50441ac956263edc7f66d32b802ab6f6a175e976fbce1e2aeb"
+    },
+    {
+      "module": "phase11.test_phase11",
+      "executed": 17,
+      "passed": 17,
+      "status": "MODULE_RUN_PASS",
+      "log": "research/phase12/phase11_split.txt",
+      "sha256": "ba661dc20bc2f03b264b42fce5e8ac9d656c23e845ec26a2e4fd14ec9f432763"
+    },
+    {
+      "module": "phase12.test_phase12",
+      "executed": 7,
+      "passed": 7,
+      "status": "MODULE_RUN_PASS",
+      "log": "research/phase12/test_run.txt",
+      "sha256": "e66192c62c4d2efdf4d05938b12cc2752a3bbe8838147dbd786f59af440ad1d0"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "generated_utc": "2026-10-09T03:33:32.945546+00:00",
+  "upstream_repository": "yumir3297/Cryptography-Technical-Competition",
+  "protocol": "ZJJ-CORE-2.6-R2",
+  "source_schema": {
+    "status": "PINNED_OFFICIAL_JSON_AVAILABLE",
+    "path": "/mnt/data/ZJJ_phase7_work/system_dev/v26/contracts/pay1.schema.json",
+    "size_bytes": 101858,
+    "git_blob_sha1": "86ba1bae0e4c455899af661bed44edfc5494aa5e"
+  },
+  "official_schema_validation": {
+    "status": "PASS_PAY1_DRAFT_2020_12_STRUCTURAL_SUBSET",
+    "schema_defs": 64,
+    "mutation_cases": {
+      "risk_paths": 3,
+      "valid_emitted_objects": 50,
+      "removed_required_outer": 192,
+      "extra_outer_properties": 50,
+      "removed_required_inner": 464,
+      "wrong_profile": 100,
+      "support_objects": 2,
+      "total_positive_plus_rejection_probes": 858
+    },
+    "warning": "x-zjj-order and semantic constraints are custom annotations, not enforced by jsonschema"
+  },
+  "combined_regression": {
+    "tests": 247,
+    "passed": 247,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "official_39_semantic": {
+    "total": 39,
+    "fully_passed": 0,
+    "fully_run": 0,
+    "manifest_provenance": "REMOTE_GITHUB_CASE_IDS_CHECKED__LOCAL_FULL_MANIFEST_NOT_INSTALLED",
+    "note": "Local tests are fixtures, not official full-case executions"
+  },
+  "phase7_dispatch_gate": {
+    "status": "LAB_MITIGATION_TESTED_NOT_PRODUCTION_COMPLETE",
+    "issue": "Legacy FinalW.claim_bound accepted a dispatch after C policy revocation",
+    "disclosed_reproduction_test": "test_dispatch_gap.DisclosedProtocolGap",
+    "mitigation": "GuardedFinalW C-root signed current-state rows plus same-SQLite transaction check; fail closed on missing, revoked, changed or stale deps",
+    "limitations": "Initial accepted dependency set remains a trusted fixture; root enrollment/authenticated E and real source publishers not integrated"
+  },
+  "tool_control_limits": [
+    "No authenticated external C enrollment/publication service",
+    "No independently authenticated source E at real network boundary",
+    "ClaimDispatch still omits full current-policy/RequiredDeps transactional recheck",
+    "ToolLedger continuity uses same-host local SQLite snapshots and trusted controller",
+    "No strict IND/MED end-to-end executor, and no guaranteed real-world exactly-once effect"
+  ],
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "jsonschema": "4.26.0",
+    "cryptography": "46.0.4"
+  },
+  "code_sha256": {
+    "test_dispatch_gap.py": "9db32e7ed50714156985b70de8f11c3ce39c57d0e711d27ad5070bb02ad8b1e4",
+    "test_guarded_dispatch.py": "fb9fcf841dffcaebe946a8045703c91b2bb8699f8a95033b2394c2d5bc4cbe4d",
+    "run_phase7.py": "1da2f04830a4156591a073f79f523c3c7713e14cc625676671c6a9ec772917cd",
+    "test_official_contract.py": "d3c0238a34c89296168b2d6cd92bcad00a50fdf33e896f4d09ba9ef4ae767c0b",
+    "guarded_dispatch.py": "a7b63ad5dcce2ad3e519ac1ad89bb4730bc369d9f97f7e5a822dea989e9b2ed7",
+    "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

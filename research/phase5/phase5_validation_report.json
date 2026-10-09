@@ -1,0 +1,102 @@
+{
+  "contract": "ZJJ-CORE-2.6-R2",
+  "generated_at_utc": "2026-10-09T03:27:19.917126+00:00",
+  "upstream_commit": "0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c",
+  "experiment_scope": "PHASE5_PAY1_SQLITE_DURABLE_ACCEPT_SUBSET",
+  "suite": {
+    "tests": 200,
+    "passed": 200,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "official_json_schema": {
+    "status": "PINNED_OFFICIAL_JSON_VALIDATED",
+    "path": "system_dev/v26/contracts/pay1.schema.json",
+    "size_bytes": 101858,
+    "git_blob_sha1": "86ba1bae0e4c455899af661bed44edfc5494aa5e",
+    "structural_checks": 50
+  },
+  "formal_official_semantic_cases": {
+    "cases_total": 39,
+    "fully_executed": 0,
+    "passed": 0,
+    "note": "This runner is not the official 39-case conformance harness."
+  },
+  "positive_signed_durable_traces": [
+    {
+      "risk_result": "CLEAR",
+      "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+      "authorization_review_purposes": [],
+      "permit_ref": "hNijbNDFRQuMus2G7-28AZvQ7WOAZ8E_mpJpsTsyaOw",
+      "commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+      "acceptance_ref": "g8hy5WDXfl0eXytEtbIkVdGytB9YbNUcyJUbmgtHcxQ",
+      "single_accept_seq": 1,
+      "reserved_minor": 2000,
+      "after_replay_unchanged": true,
+      "schema_validated": true
+    },
+    {
+      "risk_result": "FLAG",
+      "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+      "authorization_review_purposes": [
+        "ANOMALY"
+      ],
+      "permit_ref": "OP1blNEmedcMI9qbbxlr5uNqGvCvJIM19pgcb5qqm00",
+      "commit_ref": "KJH8j184gmQr0v_EU8_S5zyHRsGvzA_Eb3Vsf5iUei4",
+      "acceptance_ref": "xUsz3ZGXsFlu6lDXceiR84qYpmN-wbVYZio9lJX3ZJk",
+      "single_accept_seq": 1,
+      "reserved_minor": 2000,
+      "after_replay_unchanged": true,
+      "schema_validated": true
+    },
+    {
+      "risk_result": "INSUFFICIENT",
+      "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+      "authorization_review_purposes": [
+        "LOW_EVIDENCE"
+      ],
+      "permit_ref": "Kb75UVARxdgfT0n4412TNJ1RUT-TzZ-gN7a9DnPhMKI",
+      "commit_ref": "tM2wggsYuJa_dyZI-nsxNuzSWh0l_LpnXYMKIZxsjjE",
+      "acceptance_ref": "LFERohJLPBKEmUdMaCjf0gkldXSujj--CvTBhbVzRlI",
+      "single_accept_seq": 1,
+      "reserved_minor": 2000,
+      "after_replay_unchanged": true,
+      "schema_validated": true
+    }
+  ],
+  "fault_model": {
+    "transactional_engine": "SQLite BEGIN IMMEDIATE/WAL/FULL",
+    "hard_process_exit_code": 79,
+    "crash_points": [
+      "after_validation_before_write",
+      "after_SQL_writes_before_commit",
+      "after_commit_before_reply"
+    ],
+    "effect_of_test_process_exit": "evidence of SQLite transaction atomicity in the local test environment; not OS power failure or replicated durability"
+  },
+  "known_gaps": [
+    "Control C and source E authentication/legacy provenance remain Phase-4 trusted fixtures",
+    "Only one fixed PAY account / principal; no arbitrary operations or all PAY resource/behavior interleavings",
+    "Full required-dependency scope has no authenticated external current-state service",
+    "Dispatch claim uses a caller-supplied verified-witness fixture, not a production trust boundary",
+    "No persistent authenticated TOOL_FINAL/effect ledger or real effect exactly-once proof",
+    "SQL transaction rollback is validated, not power-loss fsync durability on all environments",
+    "When schema is NOT_RUN, no claim of official machine-contract validation",
+    "No complete official 39-case protocol semantic conformance or IND/MED strict implementation"
+  ],
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "sqlite": "3.46.1",
+    "cryptography": "46.0.4",
+    "jsonschema": "4.26.0"
+  },
+  "source_sha256": {
+    "durable_w.py": "40c79bcdbbc7658fef1d9e19a3067c9b13c03555879a9b0d5e05421a4be141e4",
+    "run_phase5.py": "73f07b2102c7c389e8290f921a9b5119c3f89f55f1d902c39965920e663839d2",
+    "test_durable_w.py": "c178a18bade9f65fd835a6b4ce9c5b3b47a1ba9037e8a7274b2c33a470b3116f",
+    "__init__.py": "87391b3489da7f26abaf978e593f98944d90b78a871242f750a111443b911409",
+    "crash_worker.py": "80c84a3383feb9922cd2d98be62b51474d9a46151d0058afdc13189fbfbe498c"
+  }
+}

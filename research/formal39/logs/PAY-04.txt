@@ -1,0 +1,8 @@
+test_known_false_hard_reject (research.strict_v26.test_pay_history.HistoryTests.test_known_false_hard_reject) ... ok
+test_amount_over_cap (research.strict_v26.test_pay_history.HistoryTests.test_amount_over_cap) ... ok
+test_payee_outside_allowlist (research.strict_v26.test_pay_history.HistoryTests.test_payee_outside_allowlist) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.021s
+
+OK
