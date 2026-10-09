@@ -1,5 +1,5 @@
 {
-  "W_db_sha256": "ba9e25b3bfb62da2117356c673a57b31d376d93d9fe074bf64ddfd07f58c8a9f",
+  "W_db_sha256": "779217d871ed7a64a14f73ddb95b472c1e949b89bceff9c58b7de8cb2eb27d46",
   "audit": {
     "W_accept_count": 1,
     "W_settlement_count": 1,
@@ -28,7 +28,7 @@
   "official_complete_pass": false,
   "phase": 15,
   "profile": "PAY-1",
-  "signed_witness_sha256": "5bad8e19dfabed815a46a0f9be505f48d0f2c586b073c829480f0e5175666d6c",
+  "signed_witness_sha256": "1f0c7285a9da3639a619fff1052f15a9320faf4412b2521a42c99dde126ed860",
   "steps": [
     {
       "W_received_private_signer": false,
@@ -46,7 +46,7 @@
     {
       "W_signing_key": false,
       "prepared": true,
-      "ticket": "R_l_OsHJpd-J-5gng1h19w"
+      "ticket": "XDr3Q0G21_CeHGIjIgm9pw"
     },
     {
       "X_external": true,
@@ -95,5 +95,5 @@
       "rejected": "NO_REDISPATCH"
     }
   ],
-  "tool_db_sha256": "6047924e1a060f07d8e6eabb084d123232fff5250fa147d2ae92a9d2b1f4958a"
+  "tool_db_sha256": "f450fab37816763a503aac49d5c29d7d94b17d05b93fada837ec48e7d946cff8"
 }

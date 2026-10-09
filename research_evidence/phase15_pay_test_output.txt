@@ -1,11 +1,13 @@
+test_signed_gateway_and_finance_cannot_suppress_risk_review (research.phase15.test_pay_accept.FlagRiskReviewTests.test_signed_gateway_and_finance_cannot_suppress_risk_review) ... ok
 test_atomic_external_sign_restart_duplicate_and_tool_final (research.phase15.test_pay_accept.PayBoundaryTests.test_atomic_external_sign_restart_duplicate_and_tool_final) ... ok
 test_certified_revocation_after_prepare_fails_closed (research.phase15.test_pay_accept.PayBoundaryTests.test_certified_revocation_after_prepare_fails_closed) ... ok
 test_external_signature_tamper_is_atomic (research.phase15.test_pay_accept.PayBoundaryTests.test_external_signature_tamper_is_atomic) ... ok
 test_resource_race_after_prepare_fails_closed (research.phase15.test_pay_accept.PayBoundaryTests.test_resource_race_after_prepare_fails_closed) ... ok
 test_signed_permit_omits_dependency_but_C_source_reconstruction_rejects (research.phase15.test_pay_accept.PayBoundaryTests.test_signed_permit_omits_dependency_but_C_source_reconstruction_rejects) ... ok
+test_valid_x_key_but_missing_issuer_grants_rejected (research.phase15.test_pay_accept.PayBoundaryTests.test_valid_x_key_but_missing_issuer_grants_rejected) ... ok
 test_w_cannot_use_legacy_signer_accept (research.phase15.test_pay_accept.PayBoundaryTests.test_w_cannot_use_legacy_signer_accept) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 20.928s
+Ran 8 tests in 32.348s
 
 OK

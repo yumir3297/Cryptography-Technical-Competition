@@ -5,7 +5,7 @@
     "entries": 326,
     "note": "archive contains report without self-referential ZIP digest",
     "path": "research_archives/ZJJ_CORE_2_6_R2_Phase15_Pay_Candidate_20261009.zip",
-    "sha256": "d11c46051401da6943b029073228407ce15edfa1a97234517f8211e2546e51d9"
+    "sha256": "501c1aa9af4d925d5135ba4a3304a5521d0f816cbd9cb1956d769a2ebfea76c4"
   },
   "environment": {
     "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
@@ -41,12 +41,12 @@
   },
   "raw_evidence_sha256": {
     "research_evidence/phase15_formal39_output.txt": "bf3fa5edb3fb32d6ee248e0a2c93fcf17c11f4c44b53f1b7e069a465e3628500",
-    "research_evidence/phase15_pay_process/pay_w.sqlite": "ba9e25b3bfb62da2117356c673a57b31d376d93d9fe074bf64ddfd07f58c8a9f",
-    "research_evidence/phase15_pay_process/pay_witness.json": "5bad8e19dfabed815a46a0f9be505f48d0f2c586b073c829480f0e5175666d6c",
-    "research_evidence/phase15_pay_process/phase15_pay_report.json": "c2eee28bd23f78b3c371b513ea5c136891638712517978514442c17a45b92594",
-    "research_evidence/phase15_pay_process/tool.sqlite": "6047924e1a060f07d8e6eabb084d123232fff5250fa147d2ae92a9d2b1f4958a",
-    "research_evidence/phase15_pay_process_output.txt": "9acd9171a0e6193add3a57cd0babc7f351e2250ac4d154c47a5a7544ab9f76c6",
-    "research_evidence/phase15_pay_test_output.txt": "8ed976b9abe6a5c442e1b7fc9b7205d51d5fe57e78ac728dab06aad8ff1f0dd9"
+    "research_evidence/phase15_pay_process/pay_w.sqlite": "779217d871ed7a64a14f73ddb95b472c1e949b89bceff9c58b7de8cb2eb27d46",
+    "research_evidence/phase15_pay_process/pay_witness.json": "1f0c7285a9da3639a619fff1052f15a9320faf4412b2521a42c99dde126ed860",
+    "research_evidence/phase15_pay_process/phase15_pay_report.json": "31c6f4dd60fe07570a0c210334b79b4794b1477c956eb20887efdb5c8d7287da",
+    "research_evidence/phase15_pay_process/tool.sqlite": "f450fab37816763a503aac49d5c29d7d94b17d05b93fada837ec48e7d946cff8",
+    "research_evidence/phase15_pay_process_output.txt": "87c28f8cc92b5d16ca4f141aebb368699af22c4eb9781b1ff11e22fd69824686",
+    "research_evidence/phase15_pay_test_output.txt": "6ce8ac280bdf1095842df9b34f853a3d60df290819f0beaa198bfa36b8ec3bdd"
   },
   "remaining_blockers": [
     "C/X/E public fixture keys are not independently custodied or production-enrolled",
@@ -65,17 +65,17 @@
   },
   "source_date_epoch": "2026-10-09T00:00:00Z",
   "source_sha256": {
-    ".github/workflows/phase15-pay.yml": "695b42d3d519c94a4e3fad39520bbadad3331b00492b18b234634f3f4ac5b8d4",
+    ".github/workflows/phase15-pay.yml": "e781e2ce364103ca9bcfd92802f17650f6a922f905f1ad70a5dfdc3388c54eb7",
     "research/formal39/run_formal39.py": "ff2a2c53c9c1d5763b4386717db64a6083204ee6bac6beb53a9601d765aecc19",
     "research/phase12/authority.py": "993f73006c5ca6fec2baa4fc4d935b5b5cbdec4b2a098fd60274c9285fb37ce9",
     "research/phase15/build_report.py": "96b6ed6fa78607b60a92f263755f65249d841cefb195ebccbd4745c6345513f2",
-    "research/phase15/pay_accept.py": "aff5b62b26c569b8db7b15ef8a04482122371d393a35e9816cb13e3df20bb1f5",
-    "research/phase15/process_flow.py": "3934e9f85cd8a2b3ab78882e97d6b211dd0e4e8c6097f66923903b7f34fd0e74",
-    "research/phase15/test_pay_accept.py": "0663a3ac9afb43b5f63bb7a5286649da355009d88bff066a7b4c1e98d086c56a",
+    "research/phase15/pay_accept.py": "abe345bd72e0d6fb3f920e67e5e23cb60e7415fe11eeca9512ae06a484706688",
+    "research/phase15/process_flow.py": "e1f4100101323179355fae50c8f1ae5adf72c71c04bdcfe81329d8849afa497f",
+    "research/phase15/test_pay_accept.py": "2109673410bf7aabd30d4db10527b4999bedc23e37360fe643ae5623cb6c7e85",
     "research/phase4/flow.py": "4b8637f6e088699ed065e75545e49cedef7b96859e2d62768bc5f8040294be61",
     "research/reference_executor/wire.py": "c240e8b61611d60acbb5aa1b144c92bff2900843fc909aac08ee038c6d9c8e57",
     "research/strict_v26/pay_dependencies.py": "284b3389527195cb18261e0654a1abe188471cea82de966fcd58d5b1bb1f5410"
   },
   "status": "PAY_LAB_EXPERIMENTAL_NOT_OFFICIAL_CONFORMANT",
-  "test_count": 6
+  "test_count": 8
 }
