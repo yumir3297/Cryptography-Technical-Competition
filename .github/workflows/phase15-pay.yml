@@ -1,0 +1,53 @@
+name: Phase15 PAY External Signer Boundary
+on:
+  push:
+    branches: [research/zjj-core-phase13-handoff-20261009]
+    paths:
+      - 'research/phase15/**'
+      - '.github/workflows/phase15-pay.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned laboratory dependencies
+        run: python -m pip install -r requirements_phase13.txt
+      - name: Check PAY signer boundary and crash/replay/revocation/resource cases
+        run: |
+          set -o pipefail
+          python -m unittest research.phase15.test_pay_accept -v 2>&1 | tee phase15_pay_test_output.txt
+      - name: Recheck original official 39 without status promotion
+        run: |
+          set -o pipefail
+          python -m research.formal39.run_formal39 2>&1 | tee phase15_formal39_output.txt
+      - name: Verify pinned official schemas and statuses
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          from research.phase14.build_report import EXPECTED
+          for p,h in EXPECTED.items():
+              actual=hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+              assert actual==h,(p,actual)
+          r=json.loads(pathlib.Path('research/formal39/formal39_report.json').read_text())
+          assert r['summary']['official_complete_pass']==0
+          assert len(r['official_cases'])==39
+          assert all(not x['official_complete_pass'] for x in r['official_cases'])
+          print('PINNED_OFFICIAL_ARTIFACTS_OK; FULL_OFFICIAL_PASS=0/39')
+          PY
+      - name: Upload raw signed boundary tests and formal runner
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase15-pay-lab-evidence
+          path: |
+            phase15_pay_test_output.txt
+            phase15_formal39_output.txt
+            research/formal39/formal39_report.json
+          if-no-files-found: ignore
