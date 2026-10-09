@@ -55,7 +55,7 @@ class TwoPhaseSceneTests(unittest.TestCase):
                 self.assertFalse(hasattr(w.controller,'sign'))
                 # Clean test isolation per subtest requires a fresh temporary DB.
                 if profile=='IND-DEMO-1':
-                    self.tmp.cleanup(); self.tmp=tempfile.TemporaryDirectory()
+                    self.tmp.cleanup(); self.tmp=tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
     def test_bad_signature_rejected_without_accept(self):
         w,op=self.bootstrap('IND-DEMO-1')
         req=self.prepared(w,op)
@@ -86,7 +86,8 @@ class TwoPhaseSceneTests(unittest.TestCase):
         w,op=self.bootstrap('IND-DEMO-1')
         req=self.prepared(w,op);signed=self.signed(req)
         with w.tx() as c:
-            c.execute('UPDATE resource SET capacity=0,revision=revision+1 WHERE destination=?',
+            c.execute('INSERT OR IGNORE INTO resource(destination) VALUES(?)',(op['action']['destination'],))
+            c.execute('UPDATE resource SET reserved=8,revision=revision+1 WHERE destination=?',
                 (op['action']['destination'],))
         with self.assertRaises(ProtocolError):
             w.finalize_accept(req['ticket'],signed,clock=self.clock(w,op,'FINALIZE',2))
