@@ -190,7 +190,7 @@ def independent_audit(d):
         require(src==v['source_certificate'],'SOURCE_MISMATCH')
         assert c.execute('SELECT COUNT(*) FROM accepted').fetchone()[0]==1
         assert c.execute('SELECT COUNT(*) FROM settled').fetchone()[0]==1
-        assert c.execute('SELECT spent,reserved FROM account WHERE id=1').fetchone()==(2000,0)
+        assert tuple(c.execute('SELECT spent,reserved FROM account WHERE id=1').fetchone())==(2000,0)
     with sqlite3.connect('file:'+str(lp(d))+'?mode=ro',uri=True) as c:
         row=c.execute('SELECT fact FROM finalized WHERE operation_id=?',(v['operation_id'],)).fetchone()
         require(row is not None and json.loads(row[0])==final_fact(v['tool']['final']),
