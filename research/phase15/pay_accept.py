@@ -144,6 +144,10 @@ class VerifierOnlyPayW(HardenedPayW):
                 v['ctx']['basis_ref']==rec_ref(basis) and
                 basis['value']['required_reviews']==list(risk.required_reviews),
                 'BASIS_BINDING')
+        require(basis['value']['task_ref']==docs['TASK']['ref'] and
+                basis['value']['policy_ref']==docs['POLICY']['ref'] and
+                basis['value']['evidence_refs']==[docs['ORDER']['ref']],
+                'BASIS_SOURCE_BINDING')
         reviews=bundle['reviews']
         require(len(reviews)==len(risk.required_reviews) and
                 sorted(x['body']['payload']['purpose'] for x in reviews)==
@@ -235,7 +239,9 @@ class VerifierOnlyPayW(HardenedPayW):
                 'COMMIT_BINDING')
         require(v['checked_deps']==bundle['permit']['body']['deps'],'DEPS_CONFLICT')
         require(v['taskflight']['operation_id']==action['operation_id'],'TASK_BINDING')
-        require(v['taskflight']['key'][-1] in (req.get('task_id',''),v['taskflight']['key'][-1]),'TASK_BINDING')
+        require(type(v['taskflight']['key']) is list and len(v['taskflight']['key'])==4 and
+                v['taskflight']['key'][:3]==[scope[k] for k in ('domain','tenant','scenario')],
+                'TASK_BINDING')
         self._trusted_deps(c,bundle,at)
         self._verify_dependencies(c,commit,at)
         # Issuer KEY and ROLE refs are C-authenticated and bound to the roster.
@@ -281,6 +287,15 @@ class VerifierOnlyPayW(HardenedPayW):
                 'REPLAY')
         return a
 
+    @staticmethod
+    def _issuer_deps(commit_value,who):
+        deps=sortset([d for d in commit_value['checked_deps'] if
+            (d['namespace']=='KEY' and d['key']==[who.kid]) or
+            (d['namespace']=='ROLE' and len(d['key'])>=2 and
+             d['key'][-2:]==[who.name,'EXECUTOR'])])
+        require(len(deps)==2,'X_GRANTS_MISSING')
+        return deps
+
     def prepare_pay(self,bundle,*,clock):
         v=bundle['commit']['value'];oid=v['action']['operation_id'];scope=bundle['commit']['scope']
         with self._tx() as c:
@@ -298,13 +313,13 @@ class VerifierOnlyPayW(HardenedPayW):
                  'review_refs':src['review_refs'],'accept_seq':src['accept_seq'],
                  'accepted_at':src['accepted_at'],'commit_record_ref':rec_ref(bundle['commit']),
                  'dispatch_before':src['dispatch_before']}
+        xdeps=self._issuer_deps(src,x)
         return {'ticket':ticket,'profile':'PAY-1','scope':scope,'x_kid':x.kid,
                 'signed_at':lo,'acceptance_payload':payload,
                 'refs':sortset([src['permit_ref'],src['proof_ref'],
                                 src['authorization_ref']]+src['review_refs']),
                 'aud':sortset([self.public_actors[k].name for k in ('H','G','U')]),
-                'x_issuer_deps':[d for d in src['checked_deps'] if d['namespace']=='KEY' and d['key']==[x.kid] or
-                                 d['namespace']=='ROLE' and d['key'][-2:]==[x.name,'EXECUTOR']],
+                'x_issuer_deps':xdeps,
                 'proof_ref':src['proof_ref'],'operation_id':oid,'accept_seq':src['accept_seq'],
                 'commit_record_ref':rec_ref(bundle['commit'])}
 
@@ -324,6 +339,9 @@ class VerifierOnlyPayW(HardenedPayW):
             self._verify_bundle(c,bundle,lo)
             self._signed(acceptance,'Acceptance','X',record['scope'],lo)
             self._signed(reply,'Result','X',record['scope'],lo)
+            xdeps=self._issuer_deps(v,self.public_actors['X'])
+            require(acceptance['body']['deps']==xdeps and reply['body']['deps']==xdeps,
+                    'X_GRANT_DEPS')
             expected={'ctx':v['ctx'],'permit_ref':v['permit_ref'],'proof_ref':v['proof_ref'],
                  'authorization_ref':v['authorization_ref'],'review_refs':v['review_refs'],
                  'accept_seq':v['accept_seq'],'accepted_at':v['accepted_at'],
