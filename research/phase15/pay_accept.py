@@ -16,8 +16,9 @@ from research.phase12.authority import HardenedPayW
 from research.phase5.durable_w import _json, archive_verify, archive_verify_reply
 from research.phase4.flow import check_record_contract
 from research.phase11.trusted_clock import checked_clock, consume_clock
+from research.strict_v26.pay_dependencies import TrustedStore, required_pay_deps
 from research.reference_executor.wire import (ProtocolError, require, raw, keyid, envelope,
-    msgref, rec_ref, canonical, digest, sortset, b64)
+    msgref, rec_ref, canonical, digest, sortset, b64, strict_verify)
 from research.strict_v26.upstream_schema import UpstreamSchema
 from research.phase11.run_phase11 import ROOT
 
@@ -50,10 +51,73 @@ class VerifierOnlyPayW(HardenedPayW):
                 account_revision INTEGER NOT NULL, accepted_seq INTEGER NOT NULL,
                 state TEXT NOT NULL CHECK(state IN ('PREPARED','DONE')),
                 acceptance TEXT NOT NULL DEFAULT '', reply TEXT NOT NULL DEFAULT ''
+            );
+            CREATE TABLE IF NOT EXISTS p15_authoritative_sources(
+                id INTEGER PRIMARY KEY CHECK(id=1), seq INTEGER NOT NULL,
+                certificate TEXT NOT NULL
             );""")
 
     def accept(self,*args,**kwargs):
         raise ProtocolError('EXTERNAL_X_REQUIRED')
+
+    def publish_source_bundle(self,cert):
+        """C-signed immutable source corpus; W never trusts caller-supplied Permit.deps.
+
+        This is a laboratory signed C snapshot, not a real publisher/PoP or KMS.
+        Every non-BEHAVIOR row must also match the current signed C registry.
+        """
+        require(type(cert) is dict and set(cert)=={'claim','signature'},'SOURCE_FIELDS')
+        cl=cert['claim']
+        require(type(cl) is dict and set(cl)=={'scope','seq','rows'},'SOURCE_FIELDS')
+        require(type(cl['seq']) is int and cl['seq']>0 and type(cl['rows']) is list
+                and 12<=len(cl['rows'])<=64,'SOURCE_FIELDS')
+        strict_verify(self.root_pub,raw(cert['signature'],64),
+                      canonical(['ZJJ-P15-C-SOURCE-v1',cl]))
+        with self._tx() as c:
+            old=c.execute('SELECT seq FROM p15_authoritative_sources WHERE id=1').fetchone()
+            require(old is None or cl['seq']>old['seq'],'SOURCE_REPLAY')
+            seen=set()
+            for row in cl['rows']:
+                require(type(row) is dict and set(row)==
+                        {'namespace','key','revision','ref','value','record'},'SOURCE_FIELDS')
+                ns,key=row['namespace'],row['key']
+                require(type(ns) is str and type(key) is list and
+                        all(type(k) is str for k in key),'SOURCE_FIELDS')
+                idx=ns,_json(key)
+                require(idx not in seen,'SOURCE_DUPLICATE')
+                seen.add(idx)
+                if row['record'] is None:
+                    require(ns=='BEHAVIOR' and row['ref']==digest(['ZJJ-STATE-v1',ns,key,
+                                            str(row['revision']),row['value']]),'SOURCE_REF')
+                else:
+                    require(rec_ref(row['record'])==row['ref'] and
+                            row['record']['scope']==cl['scope'] and
+                            row['record']['value']==row['value'],'SOURCE_REF')
+                if ns!='BEHAVIOR':
+                    c_row=c.execute('SELECT * FROM authority WHERE namespace=? AND dep_key=?',
+                                   (ns,_json(key))).fetchone()
+                    require(c_row is not None and c_row['active']==1 and
+                            c_row['revision']==row['revision'] and
+                            c_row['ref']==row['ref'],'SOURCE_NOT_CURRENT')
+            c.execute('INSERT INTO p15_authoritative_sources(id,seq,certificate) VALUES(1,?,?) ON CONFLICT(id) DO UPDATE SET seq=excluded.seq,certificate=excluded.certificate',
+                      (cl['seq'],_json(cert)))
+        return True
+
+    def _trusted_deps(self,c,commit,reviews,at):
+        src=c.execute('SELECT certificate FROM p15_authoritative_sources WHERE id=1').fetchone()
+        require(src is not None,'SOURCES_UNAVAILABLE')
+        cert=json.loads(src['certificate']);cl=cert['claim']
+        require(cl['scope']==commit['scope'],'SOURCE_SCOPE')
+        strict_verify(self.root_pub,raw(cert['signature'],64),
+                      canonical(['ZJJ-P15-C-SOURCE-v1',cl]))
+        store=TrustedStore(cl['scope'])
+        for x in cl['rows']:
+            store._set(x['namespace'],x['key'],x['revision'],x['ref'],x['value'],x['record'])
+        v=commit['value'];task_id=v['taskflight']['key'][-1]
+        signers={k:(a.name,a.kid) for k,a in self.public_actors.items()}
+        derived=required_pay_deps(store,v['action'],task_id,signers,bool(reviews),at)
+        require(derived==v['checked_deps'],'REQUIRED_DEPS_INCOMPLETE')
+        return derived
 
     def _signed(self,env,kind,alias,scope,at):
         who=self.public_actors[alias]
@@ -137,6 +201,7 @@ class VerifierOnlyPayW(HardenedPayW):
         require(v['checked_deps']==bundle['permit']['body']['deps'],'DEPS_CONFLICT')
         require(v['taskflight']['operation_id']==action['operation_id'],'TASK_BINDING')
         require(v['taskflight']['key'][-1] in (req.get('task_id',''),v['taskflight']['key'][-1]),'TASK_BINDING')
+        self._trusted_deps(c,commit,reviews,at)
         self._verify_dependencies(c,commit,at)
         # Issuer KEY and ROLE refs are C-authenticated and bound to the roster.
         for w in v['credential_witnesses']:
