@@ -17,7 +17,7 @@ from research.phase5.durable_w import _json, archive_verify, archive_verify_repl
 from research.phase4.flow import check_record_contract
 from research.phase11.trusted_clock import checked_clock, consume_clock
 from research.strict_v26.pay_dependencies import TrustedStore, required_pay_deps
-from research.reference_executor.wire import (ProtocolError, require, raw, keyid, envelope,
+from research.reference_executor.wire import (ProtocolError, require, raw, keyid, envelope, number,
     msgref, rec_ref, canonical, digest, sortset, b64, strict_verify)
 from research.strict_v26.upstream_schema import UpstreamSchema
 from research.phase11.run_phase11 import ROOT
@@ -69,13 +69,13 @@ class VerifierOnlyPayW(HardenedPayW):
         require(type(cert) is dict and set(cert)=={'claim','signature'},'SOURCE_FIELDS')
         cl=cert['claim']
         require(type(cl) is dict and set(cl)=={'scope','seq','rows'},'SOURCE_FIELDS')
-        require(type(cl['seq']) is int and cl['seq']>0 and type(cl['rows']) is list
+        require(number(cl['seq'],True) and type(cl['rows']) is list
                 and 12<=len(cl['rows'])<=64,'SOURCE_FIELDS')
         strict_verify(self.root_pub,raw(cert['signature'],64),
                       canonical(['ZJJ-P15-C-SOURCE-v1',cl]))
         with self._tx() as c:
             old=c.execute('SELECT seq FROM p15_authoritative_sources WHERE id=1').fetchone()
-            require(old is None or cl['seq']>old['seq'],'SOURCE_REPLAY')
+            require(old is None or int(cl['seq'])>old['seq'],'SOURCE_REPLAY')
             seen=set()
             for row in cl['rows']:
                 require(type(row) is dict and set(row)==
@@ -86,7 +86,7 @@ class VerifierOnlyPayW(HardenedPayW):
                 idx=ns,_json(key)
                 require(idx not in seen,'SOURCE_DUPLICATE')
                 seen.add(idx)
-                if row['record'] is None:
+                if row['record']=={}:
                     require(ns=='BEHAVIOR' and row['ref']==digest(['ZJJ-STATE-v1',ns,key,
                                             str(row['revision']),row['value']]),'SOURCE_REF')
                 else:
@@ -97,10 +97,10 @@ class VerifierOnlyPayW(HardenedPayW):
                     c_row=c.execute('SELECT * FROM authority WHERE namespace=? AND dep_key=?',
                                    (ns,_json(key))).fetchone()
                     require(c_row is not None and c_row['active']==1 and
-                            c_row['revision']==row['revision'] and
+                            c_row['revision']==int(row['revision']) and
                             c_row['ref']==row['ref'],'SOURCE_NOT_CURRENT')
             c.execute('INSERT INTO p15_authoritative_sources(id,seq,certificate) VALUES(1,?,?) ON CONFLICT(id) DO UPDATE SET seq=excluded.seq,certificate=excluded.certificate',
-                      (cl['seq'],_json(cert)))
+                      (int(cl['seq']),_json(cert)))
         return True
 
     def _trusted_deps(self,c,commit,reviews,at):
@@ -112,7 +112,7 @@ class VerifierOnlyPayW(HardenedPayW):
                       canonical(['ZJJ-P15-C-SOURCE-v1',cl]))
         store=TrustedStore(cl['scope'])
         for x in cl['rows']:
-            store._set(x['namespace'],x['key'],x['revision'],x['ref'],x['value'],x['record'])
+            store._set(x['namespace'],x['key'],int(x['revision']),x['ref'],x['value'],x['record'] or None)
         v=commit['value'];task_id=v['taskflight']['key'][-1]
         signers={k:(a.name,a.kid) for k,a in self.public_actors.items()}
         derived=required_pay_deps(store,v['action'],task_id,signers,bool(reviews),at)
