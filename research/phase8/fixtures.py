@@ -6,8 +6,13 @@ from research.reference_executor.wire import sid, b64, rec_ref, action_hash, sor
 from .scene_authority import SceneAuthority, _rec, DEST, TEMPLATES, MAPPING
 
 
-def build_scene(path,profile,label=None,authority_class=SceneAuthority):
-    a=authority_class(path,profile)
+def build_scene(path,profile,label=None,authority_class=SceneAuthority,*,controller=None,actors=None):
+    # Optional provisioned principals: defaults preserve the original reference fixture.
+    # The independent-role pilot injects fresh keys instead of hard-coded test seeds.
+    opts={}
+    if controller is not None:opts['controller']=controller
+    if actors is not None:opts['actors']=actors
+    a=authority_class(path,profile,**opts)
     if hasattr(a,"enroll_actor"):
         for alias in a.actors:a.enroll_actor(alias)
     for key in a.actors:
