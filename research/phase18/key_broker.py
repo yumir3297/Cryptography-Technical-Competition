@@ -10,11 +10,40 @@ W and sibling roles cannot open other role files, NOT separate trust domains
 against a compromised sudo-capable deployment administrator.
 """
 from __future__ import annotations
-import argparse,base64,json,os,sys
+import argparse,base64,hashlib,json,os,sys
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding,PublicFormat
-from research.reference_executor.wire import canonical,b64,keyid,require,ProtocolError
+
+class ProtocolError(ValueError):
+    def __init__(self,code):
+        self.code=code
+        super().__init__(code)
+
+def require(condition,code):
+    if not condition:raise ProtocolError(code)
+
+def canonical(value):
+    # Exact JSON byte format of the original protocol wire canonicalizer.
+    def walk(item,depth=0):
+        require(depth<=32,'LIMIT')
+        if isinstance(item,dict):
+            require(all(type(k) is str and k.isascii() for k in item),'KEY_ENCODING')
+            for val in item.values():walk(val,depth+1)
+        elif isinstance(item,list):
+            require(len(item)<=256,'LIMIT')
+            for val in item:walk(val,depth+1)
+        elif isinstance(item,str):
+            item.encode('utf-8','strict')
+        else:require(type(item) is bool,'WIRE_TYPE')
+    walk(value)
+    return json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode('utf-8')
+
+def b64(raw_bytes):
+    return base64.urlsafe_b64encode(raw_bytes).decode().rstrip('=')
+
+def keyid(pub):
+    return b64(hashlib.sha256(canonical(['ZJJ-KEY-v1','Ed25519',b64(pub)])).digest())
 
 PROFILES={'H':('IssueRequest','ChallengeRequest','CommitProof'),
  'G':('Permit',),'U':('Authorization',),'X':('Challenge','Acceptance'),
