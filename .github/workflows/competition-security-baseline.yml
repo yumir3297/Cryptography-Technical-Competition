@@ -6,7 +6,9 @@ on:
     paths:
       - 'competition/**'
       - 'research/phase11/trusted_clock.py'
-      - 'research/phase18/key_broker.py'
+      - 'research/phase18/**'
+      - 'research/phase17/**'
+      - 'research/phase16/industrial_delivery.py'
       - '.github/workflows/competition-security-baseline.yml'
   workflow_dispatch:
 permissions:
@@ -51,3 +53,29 @@ jobs:
         run: |
           BROKER_DIR=$(python -c "from research.phase18.process_flow import broker_base; print(broker_base('/tmp/zjj_comp_${GITHUB_RUN_ID}'))")
           sudo -n rm -rf "/tmp/zjj_comp_${GITHUB_RUN_ID}" "$BROKER_DIR"
+
+  med-end-to-end:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      ZJJ_COMPETITION_PROFILE: MED-DEMO-1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install research dependencies
+        run: python -m pip install -r requirements_phase13.txt
+      - name: Confirm disposable sudo-enabled Linux lab
+        run: sudo -n true
+      - name: Run MED simulated clinical review and role-separated 26-stage flow
+        run: python -m research.phase18.process_flow --output "/tmp/zjj_comp_med_${GITHUB_RUN_ID}"
+      - name: Verify medical required reviewer, signature isolation, and no double effect
+        env:
+          PHASE18_LAB_PATH: /tmp/zjj_comp_med_${{ github.run_id }}
+        run: python -m unittest research.phase18.test_isolated_signers -v
+      - name: Remove privileged temporary signer keys
+        if: always()
+        run: |
+          BROKER_DIR=$(python -c "from research.phase18.process_flow import broker_base; print(broker_base('/tmp/zjj_comp_med_${GITHUB_RUN_ID}'))")
+          sudo -n rm -rf "/tmp/zjj_comp_med_${GITHUB_RUN_ID}" "$BROKER_DIR"
