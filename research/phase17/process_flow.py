@@ -86,8 +86,11 @@ def start(d):
         a=Identity('pilot-'+alias.lower(),10+i,roles=[ROLES[PROFILE][alias]],purposes=PURPOSES[alias])
         a.key=keys[alias];a.pub=pub_from_key(keys[alias]);a.kid=keyid(a.pub)
         actors[alias]=a
-    issuer,act,task,scene,ev=build_scene(db(d),PROFILE,authority_class=HardenedSceneW,
-                                          controller=keys['C'],actors=actors)
+    # Local adapter avoids ANY mutation of historical Phase8 fixture source/hash.
+    class ProvisionedScene(HardenedSceneW):
+        def __init__(self,path,profile):
+            super().__init__(path,profile,controller=keys['C'],actors=actors)
+    issuer,act,task,scene,ev=build_scene(db(d),PROFILE,authority_class=ProvisionedScene)
     require(not any(pub_from_key(keys[n])==pub_from_key(keys[m]) for i,n in
         enumerate(SIGNERS) for m in SIGNERS[i+1:]),'KEY_COLLISION')
     roster={a:{'name':v.name,'kid':v.kid,'pub':b64(v.pub),
