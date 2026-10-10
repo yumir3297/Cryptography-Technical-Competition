@@ -135,6 +135,12 @@ def stage(d,name):
         require(w._read_row('EVIDENCE',v['scene_key'])['ref']==before,'FORGED_SOURCE_SIDE_EFFECT')
         ev_ref=w.import_evidence(ev,v['scene_key'])
         require(w._read_row('EVIDENCE',v['scene_key'])['ref']==ev_ref,'SOURCE_NOT_CURRENT')
+        if PROFILE=='MED-DEMO-1':
+            # MED.action is explicitly bound to the current E record ref.
+            # Rebind the *unsigned proposed action* before assessments/approval.
+            # No previously signed decision or COMMIT is rewritten.
+            v['action']['payload']['record_ref']=ev_ref
+            result['med_action_rebound_to_authenticated_source']=True
         result['imported_source_ref']=ev_ref
     elif name=='w_plan':
         w=verifier(d,v);op=w.prepare(act,v['task_id'],v['scene_key'],at=102)
