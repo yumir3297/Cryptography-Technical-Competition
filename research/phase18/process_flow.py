@@ -22,6 +22,15 @@ from research.phase18.key_broker import ALLOW_DOMAINS
 ROLE_USERS={x:'zjj18_'+x.lower() for x in ALLOW_DOMAINS}
 RECORDS=[]
 
+def broker_base(directory):
+    # A root-owned directory under sticky /tmp; unlike a runner-owned working
+    # directory, this cannot be replaced by an unprivileged W process.
+    suffix=hashlib.sha256(str(Path(directory).resolve()).encode()).hexdigest()[:16]
+    return Path('/tmp')/('zjj18_trusted_broker_'+suffix)
+
+def broker_file(directory):
+    return broker_base(directory)/'key_broker.py'
+
 def sudo(*argv,check=True,input=None):
     cmd=['sudo','-n',*map(str,argv)]
     return subprocess.run(cmd,cwd=ROOT,input=input,text=True,capture_output=True,
@@ -50,6 +59,14 @@ def setup_isolated_users(d):
     # Role owners retain read-only access to their own private key file.
     sudo('chown','root:root',keys)
     sudo('chmod','0711',keys)
+    # Install the independently importable signer into a root-owned, immutable
+    # (to W) broker directory in /tmp. Parent /tmp has sticky-bit semantics.
+    target=broker_base(d)
+    sudo('install','-d','-o','root','-g','root','-m','0755',target)
+    sudo('install','-o','root','-g','root','-m','0444',
+         ROOT/'research/phase18/key_broker.py',broker_file(d))
+    require(target.stat().st_uid==0 and broker_file(d).stat().st_uid==0,
+            'UNTRUSTED_BROKER_BINARY')
     # WTOOL signer is correctly owned by W; C/E/X/TOOL remain delegated.
     require((keys/'WTOOL.key').stat().st_uid==os.geteuid(),'WTOOL_NOT_LOCAL')
     check=check_permissions(d)
@@ -97,8 +114,8 @@ class RemoteEd25519:
     def sign(self,message):
         require(type(message) is bytes and 0<len(message)<=65536,'SIGNER_MESSAGE')
         payload=json.dumps({'message':base64.b64encode(message).decode('ascii')})
-        result=sudo('-u',ROLE_USERS[self.role],sys.executable,'-m',
-                  'research.phase18.key_broker','--role',self.role,
+        result=sudo('-u',ROLE_USERS[self.role],sys.executable,
+                  broker_file(self.directory),'--role',self.role,
                   '--directory',self.directory,check=False,input=payload+'\n')
         if result.returncode:
             # Broker reports only a denial code or Python import failure; never secret bytes.
