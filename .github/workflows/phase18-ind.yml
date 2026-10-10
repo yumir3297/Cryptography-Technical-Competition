@@ -1,0 +1,73 @@
+name: Phase18 Industrial Signer OS Isolation
+on:
+  push:
+    branches: [research/zjj-core-phase13-handoff-20261009]
+    paths:
+      - 'research/phase18/**'
+      - '.github/workflows/phase18-ind.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: phase18-industrial-key-isolation
+  cancel-in-progress: true
+jobs:
+  ind-key-boundary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned research dependencies
+        run: python -m pip install -r requirements_phase13.txt
+      - name: Check permission to provision isolated Linux signer identities
+        run: |
+          sudo -n true
+          sudo -n test "$(id -u)" -ne 0
+          echo 'LINUX_DAC_ROLE_USERS_SUPPORTED'
+      - name: Execute IND minimum loop with separate role-owned signing keys
+        run: |
+          set -o pipefail
+          mkdir -p research_evidence/phase18
+          python -m research.phase18.process_flow --output "$GITHUB_WORKSPACE/.phase18_lab" 2>&1 | tee research_evidence/phase18/industrial_isolated_loop.txt
+      - name: Verify Linux DAC access, broker denials and single durable effect
+        env:
+          PHASE18_LAB_PATH: ${{ github.workspace }}/.phase18_lab
+        run: |
+          set -o pipefail
+          python -m unittest research.phase18.test_isolated_signers -v 2>&1 | tee research_evidence/phase18/test_isolated_signers.txt
+      - name: Re-run unmodified official 39-case conservative adjudicator
+        run: |
+          set -o pipefail
+          python -m research.formal39.run_formal39 2>&1 | tee research_evidence/phase18/original39.txt
+      - name: Freeze public-only evidence and candidate ZIP
+        run: |
+          python -m research.phase18.build_report --input "$GITHUB_WORKSPACE/.phase18_lab" | tee research_evidence/phase18/build_report_stdout.txt
+          if find research_evidence/phase18 -name '*.key' | grep -q .; then echo 'LEAKED_KEY' >&2; exit 1; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase18-industrial-role-isolation-public
+          path: |
+            research_evidence/phase18/**
+            research_archives/ZJJ_CORE_2_6_R2_Phase18_Industrial_Role_Isolation_20261010.zip
+          if-no-files-found: ignore
+      - name: Clean local privileged signer key sandbox
+        if: always()
+        run: |
+          sudo -n rm -rf "$GITHUB_WORKSPACE/.phase18_lab"
+      - name: Publish sanitized evidence to research branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research_evidence/phase18
+          git add research_archives/ZJJ_CORE_2_6_R2_Phase18_Industrial_Role_Isolation_20261010.zip
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence(phase18): Linux per-role signer DAC audit and IND minimal loop'
+            git reset --hard HEAD
+            git pull --rebase origin research/zjj-core-phase13-handoff-20261009
+            git push origin HEAD:research/zjj-core-phase13-handoff-20261009
+          fi
