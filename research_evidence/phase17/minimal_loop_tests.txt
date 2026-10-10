@@ -1,0 +1,11 @@
+test_e_x_w_negative_signatures_fail_closed (research.phase17.test_minimal_loop.MinimumLoopTests.test_e_x_w_negative_signatures_fail_closed) ... ok
+test_ind_evidence_through_settlement (research.phase17.test_minimal_loop.MinimumLoopTests.test_ind_evidence_through_settlement) ... ok
+test_real_random_role_keys_but_no_separate_os_id (research.phase17.test_minimal_loop.MinimumLoopTests.test_real_random_role_keys_but_no_separate_os_id) ... ok
+test_tool_state_one_original_simulated_effect (research.phase17.test_minimal_loop.MinimumLoopTests.test_tool_state_one_original_simulated_effect) ... ok
+test_w_runtime_owns_no_controller_source_or_x_signer (research.phase17.test_minimal_loop.MinimumLoopTests.test_w_runtime_owns_no_controller_source_or_x_signer) ... ok
+test_wrong_clock_issuer_denied (research.phase17.test_minimal_loop.MinimumLoopTests.test_wrong_clock_issuer_denied) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 5.060s
+
+OK

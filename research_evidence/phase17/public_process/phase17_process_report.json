@@ -1,0 +1,173 @@
+{
+  "case": "IND_MINIMUM_CLOSED_LOOP",
+  "contract": "ZJJ-CORE-2.6-R2",
+  "limitations": [
+    "Provisioner initially sees all private signing keys; no KMS, HSM or separate OS identities",
+    "The role keyfiles must NEVER be committed or delivered as an artifact",
+    "C signed laboratory time still uses equal PREPARE/FINALIZE timestamp",
+    "No PLC/sensor hardware attached; SQLite simulator records one fact, not a physical action",
+    "No full 39-case conformance or full network STATUS/0-RTT evidence"
+  ],
+  "official_complete_pass": false,
+  "phase": 17,
+  "profile": "IND-DEMO-1",
+  "readonly_audit": {
+    "E_source_attestation_verified": true,
+    "W_accept_count": 1,
+    "W_call_count": 1,
+    "W_has_C_E_X_private_keys": false,
+    "W_reserved_after": 0,
+    "W_settlement_count": 1,
+    "W_spent_after": 1,
+    "acceptance_ref": "ZHqFfbc1Bp5AXaYQJm7GVLgAaJMJrj-VevL4-aURXwI",
+    "candidate": "IND_MINIMAL_SIGNER_SOURCE_EXECUTION_CLOSED_LOOP",
+    "commit_ref": "06vRTxzeva7Kw7iu6TDyx0mE4aM90LXhB2TcNJNc7S8",
+    "distinct_stage_pids": 5,
+    "durable_effects": 1,
+    "final_ref": "DEI19V7mjPu5VnUv-iNvf5gkt62tTWeTL4Iab9Xz5c4",
+    "forged_E_rejected": true,
+    "forged_W_rejected": true,
+    "forged_X_rejected": true,
+    "fresh_provisioned_key_sets": true,
+    "independent_readonly_verifier": true,
+    "limitations": [
+      "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+      "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+      "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+      "A per-profile W SQLite store is not one deployed cross-profile W",
+      "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+    ],
+    "official_complete_pass": false,
+    "official_schema_check": true,
+    "phase14_prepared_ticket_checked": true,
+    "physical_effect_proven": false,
+    "processes": 24,
+    "profile": "IND-DEMO-1",
+    "real_independent_OS_identity_custody": false,
+    "recovery_no_second_effect": true,
+    "role_public_keys_distinct": 9,
+    "signer_processes_separate": true,
+    "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+    "validated_message_types": [
+      "acceptance",
+      "authorization",
+      "challenge",
+      "challenge_request",
+      "issue",
+      "permit",
+      "proof"
+    ]
+  },
+  "stage_count": 25,
+  "stages": [
+    {
+      "W_has_C_E_X_private_keys": false,
+      "fresh_random_roles": 9,
+      "separate_OS_accounts": false,
+      "stage": "provision"
+    },
+    {
+      "E_pub": "EBymXIXA1KZzW6PP93RGTDLFEzuYvM8Uc1S7OIcBFaI",
+      "E_source_signed": true,
+      "stage": "e_sign"
+    },
+    {
+      "forged_E_rejected": "SIGNATURE_ENCODING",
+      "imported_source_ref": "_E40LirNofTM8FZ-kG8NV6HBNbNe0YwrjeIs-TpBSY8",
+      "stage": "w_import"
+    },
+    {
+      "basis_ref": "CAKQrqi-c90l4SbmN6Ymc0DOmzVvA3SJ3L6X5BZ4NRQ",
+      "stage": "w_plan"
+    },
+    {
+      "stage": "u_authorize"
+    },
+    {
+      "stage": "h_issue"
+    },
+    {
+      "stage": "g_permit"
+    },
+    {
+      "stage": "h_challenge"
+    },
+    {
+      "stage": "x_challenge"
+    },
+    {
+      "stage": "h_proof"
+    },
+    {
+      "C_signed": true,
+      "purpose": "PREPARE",
+      "sequence": 1,
+      "stage": "c_prepare"
+    },
+    {
+      "prepared_without_side_effect": true,
+      "stage": "w_prepare"
+    },
+    {
+      "acceptance_ref": "ZHqFfbc1Bp5AXaYQJm7GVLgAaJMJrj-VevL4-aURXwI",
+      "stage": "x_accept"
+    },
+    {
+      "C_signed": true,
+      "purpose": "FINALIZE",
+      "sequence": 2,
+      "stage": "c_finalize"
+    },
+    {
+      "commit_ref": "06vRTxzeva7Kw7iu6TDyx0mE4aM90LXhB2TcNJNc7S8",
+      "forged_X_rejected": "SIGNATURE_ENCODING",
+      "stage": "w_finalize"
+    },
+    {
+      "stage": "c_trust",
+      "tool_root_certified": true
+    },
+    {
+      "C_signed_tool_trust_verified": true,
+      "stage": "w_activate"
+    },
+    {
+      "C_signed": true,
+      "purpose": "DISPATCH",
+      "sequence": 3,
+      "stage": "c_claim"
+    },
+    {
+      "claimed": true,
+      "stage": "w_claim"
+    },
+    {
+      "W_transport_signature": true,
+      "stage": "w_delivery"
+    },
+    {
+      "exit_code": 97,
+      "response_lost": true,
+      "stage": "tool_crash"
+    },
+    {
+      "recover_original_only": true,
+      "stage": "tool_recover"
+    },
+    {
+      "C_signed": true,
+      "purpose": "SETTLE",
+      "sequence": 4,
+      "stage": "c_settle"
+    },
+    {
+      "settled": true,
+      "stage": "w_settle"
+    },
+    {
+      "no_redispatch": true,
+      "stage": "w_no_replay"
+    }
+  ],
+  "witness_sha256": "e119b74f053a92ba4a6a26f505ce964744967c0d13aebe42cc0265cc446135f4"
+}

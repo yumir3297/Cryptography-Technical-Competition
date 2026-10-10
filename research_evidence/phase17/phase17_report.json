@@ -1,0 +1,88 @@
+{
+  "archive": {
+    "contains_private_keys": false,
+    "entry_count": 241,
+    "path": "research_archives/ZJJ_CORE_2_6_R2_Phase17_Industrial_Minimum_20261010.zip",
+    "sha256": "069c3352db6318d6748e0d2d3ee6fd68370b840c2e451f142877acea5cd90abc"
+  },
+  "important": "A fresh per-run key is not independently custodied: the single provisioner sees all keys and runner shares OS credentials. Device effect is simulated only.",
+  "limitations": [
+    "Provisioner initially sees all private signing keys; no KMS, HSM or separate OS identities",
+    "The role keyfiles must NEVER be committed or delivered as an artifact",
+    "C signed laboratory time still uses equal PREPARE/FINALIZE timestamp",
+    "No PLC/sensor hardware attached; SQLite simulator records one fact, not a physical action",
+    "No full 39-case conformance or full network STATUS/0-RTT evidence"
+  ],
+  "official_full_conformance": {
+    "BLOCKED_FULL_CONFORMANCE": 39,
+    "FAIL": 0,
+    "PASS": 0
+  },
+  "original_contract_sha256": {
+    "system_dev/v26/contracts/industrial.schema.json": "36c325808a01d5afb51f27872df4fdc7c40907aa56b023a10bd5a949e4ad768d",
+    "system_dev/v26/contracts/medical.schema.json": "033df4601364abcb2bf9f4673d43804150da47e598b71cfceb0ec090366b7ac2",
+    "system_dev/v26/contracts/pay1.schema.json": "84f57ba485abe56b94141dc8d27968c56ecad50fb50095565939b02fd2f8833e",
+    "system_dev/v26/semantic_cases.json": "43cb3de4492c290f9ebcd6570db2e59e1865ede33fcd58190ac6e7f688b507da"
+  },
+  "phase": 17,
+  "private_signer_files_exported": false,
+  "profile": "IND-DEMO-1",
+  "project": "ZJJ-CORE-2.6-R2",
+  "public_witness_sha256": {
+    "research_evidence/phase17/public_process/phase14_witness.json": "e119b74f053a92ba4a6a26f505ce964744967c0d13aebe42cc0265cc446135f4",
+    "research_evidence/phase17/public_process/phase17_process_report.json": "8d6df2e478842f904aba0409274f7ba0b53c3ee5c345933cd657e5b05e30e32f",
+    "research_evidence/phase17/public_process/tool.sqlite": "672c4c3a57d8bf9b03cb3f999e54813fb7c94cc58b2a06eaecd9ad99e8e59c9d",
+    "research_evidence/phase17/public_process/w.sqlite": "c79cb6e3a64d272e840da45f1821819734d8cb521f262f6595397684c6151459",
+    "research_evidence/phase17/public_process/witness.json": "3519aabbf657db667f4f46f94aee85023eb5fe40eeb39bf9c5d421e1c0443268"
+  },
+  "readonly_audit": {
+    "E_source_attestation_verified": true,
+    "W_accept_count": 1,
+    "W_call_count": 1,
+    "W_has_C_E_X_private_keys": false,
+    "W_reserved_after": 0,
+    "W_settlement_count": 1,
+    "W_spent_after": 1,
+    "acceptance_ref": "ZHqFfbc1Bp5AXaYQJm7GVLgAaJMJrj-VevL4-aURXwI",
+    "candidate": "IND_MINIMAL_SIGNER_SOURCE_EXECUTION_CLOSED_LOOP",
+    "commit_ref": "06vRTxzeva7Kw7iu6TDyx0mE4aM90LXhB2TcNJNc7S8",
+    "distinct_stage_pids": 5,
+    "durable_effects": 1,
+    "final_ref": "DEI19V7mjPu5VnUv-iNvf5gkt62tTWeTL4Iab9Xz5c4",
+    "forged_E_rejected": true,
+    "forged_W_rejected": true,
+    "forged_X_rejected": true,
+    "fresh_provisioned_key_sets": true,
+    "independent_readonly_verifier": true,
+    "limitations": [
+      "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+      "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+      "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+      "A per-profile W SQLite store is not one deployed cross-profile W",
+      "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+    ],
+    "official_complete_pass": false,
+    "official_schema_check": true,
+    "phase14_prepared_ticket_checked": true,
+    "physical_effect_proven": false,
+    "processes": 24,
+    "profile": "IND-DEMO-1",
+    "real_independent_OS_identity_custody": false,
+    "recovery_no_second_effect": true,
+    "role_public_keys_distinct": 9,
+    "signer_processes_separate": true,
+    "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+    "validated_message_types": [
+      "acceptance",
+      "authorization",
+      "challenge",
+      "challenge_request",
+      "issue",
+      "permit",
+      "proof"
+    ]
+  },
+  "scope": "IND_MINIMUM_CLOSED_LOOP_RESEARCH_ONLY",
+  "stage_count": 25,
+  "test_count": 6
+}
