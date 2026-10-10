@@ -57,7 +57,10 @@ jobs:
       - name: Clean local privileged signer key sandbox
         if: always()
         run: |
-          sudo -n rm -rf "/tmp/zjj_phase18_ind_${GITHUB_RUN_ID}"
+          # Both private role keys and the root-owned broker binary are local
+          # ephemeral experiment products, never candidate artifacts.
+          BROKER_DIR=$(python -c "from research.phase18.process_flow import broker_base; print(broker_base('/tmp/zjj_phase18_ind_${GITHUB_RUN_ID}'))")
+          sudo -n rm -rf "/tmp/zjj_phase18_ind_${GITHUB_RUN_ID}" "$BROKER_DIR"
       - name: Publish sanitized evidence to research branch
         if: success()
         run: |
