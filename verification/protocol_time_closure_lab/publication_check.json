@@ -1,0 +1,173 @@
+{
+  "baseline_commit": "0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c",
+  "branch": "research/protocol-time-closure-20261010",
+  "passed": true,
+  "baseline_git_blobs_checked": 37,
+  "baseline_mismatches": [],
+  "direct_research_links_checked": [
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "docs/research/2026-10-10-协议时间补全_研究简报.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "docs/research/2026-10-10-协议时间补全_基线审查.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "docs/research/2026-10-10-协议时间补全_事务来源.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "docs/research/2026-10-10-协议时间补全_授权来源.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "verification/protocol_time_closure_lab/README.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "docs/research/2026-10-10-协议时间补全_事务来源.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "docs/research/2026-10-10-协议时间补全_授权来源.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "system_dev/v26/01_core_contract.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "system_dev/docs/14_协议符合性补全合同.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "system_dev/v26/04_tool_final_recovery.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "system_dev/v26/semantic_cases.json"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "docs/research/2026-10-10-协议时间补全_基线审查.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "verification/protocol_time_closure_lab/README.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
+      "target": "verification/protocol_time_closure_lab/temporal_cases.json"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "system_dev/v26/01_core_contract.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "system_dev/v26/04_tool_final_recovery.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "system_dev/v26/03_industrial_medical_profiles.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "system_dev/v26/02_pay1_profile.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "system_dev/docs/14_协议符合性补全合同.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "docs/证决界_v2.6_R1_协议质疑审查_2026-10-07.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "system_dev/v26/semantic_cases.json"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "verification/protocol_time_closure_lab/model.py"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
+      "target": "verification/protocol_time_closure_lab/test_model.py"
+    },
+    {
+      "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
+      "target": "system_dev/v26/01_core_contract.md"
+    },
+    {
+      "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
+      "target": "system_dev/v26/04_tool_final_recovery.md"
+    },
+    {
+      "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
+      "target": "system_dev/docs/14_协议符合性补全合同.md"
+    },
+    {
+      "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
+      "target": "docs/research/2026-10-10-协议时间补全_研究简报.md"
+    },
+    {
+      "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
+      "target": "verification/protocol_time_closure_lab/temporal_cases.json"
+    },
+    {
+      "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
+      "target": "verification/protocol_time_closure_lab/README.md"
+    },
+    {
+      "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
+      "target": "docs/research/2026-10-10-协议时间补全_基线审查.md"
+    },
+    {
+      "source": "verification/protocol_time_closure_lab/README.md",
+      "target": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md"
+    },
+    {
+      "source": "verification/protocol_time_closure_lab/README.md",
+      "target": "docs/research/2026-10-10-协议时间补全_研究简报.md"
+    }
+  ],
+  "readonly_context_link_exception": "system_dev/docs/14_协议符合性补全合同.md retains historical full-package links; see research entrance.",
+  "fresh_run": "verification/protocol_time_closure_lab/runs/20261010T031351028570Z",
+  "original_39_status": "NOT_RUN",
+  "supplemental_22_status": "NOT_RUN",
+  "source_sha256": {
+    "docs/research/2026-10-10-协议时间研究_分支入口.md": "ac0eb08f4827da93274a0cc1a8e22cb7f6c8b50d3fa504f91195d8868780b6d4",
+    "docs/research/2026-10-10-协议时间补全_研究简报.md": "632489d1c1542a8ca2bf1d27a8ea78325f8164e391cc5cc822af1eb5d8849464",
+    "docs/research/2026-10-10-协议时间补全_事务来源.md": "1665836092e99e04b5d95c22a8b88def5b39a49d45d485d7bfd1d06451a7aace",
+    "docs/research/2026-10-10-协议时间补全_授权来源.md": "67dff7038596fc0380c7d6b8e8f3453199f44bff5cebaf4caefbbcaeb79e66f7",
+    "docs/research/2026-10-10-协议时间补全_基线审查.md": "ded07a09affe719a4fddf7a97845d4b8b606e1f6bf8afdf4ab66bfa25a8300da",
+    "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md": "09a1db309beacf42a4128baaa8f4f6123d215adad71a9f50c25809563b4940aa",
+    "system_dev/docs/14_协议符合性补全合同.md": "5f0899f992d82d7bc32ca2ca3e06b06cea5c859397f441b67c72ebf868d8345d",
+    "verification/protocol_time_closure_lab/model.py": "e86f13f9495b81f1edae05c39bc749d1ea6dca5838ffe21692e4e544e1fecb04",
+    "verification/protocol_time_closure_lab/test_model.py": "b9e769055909c8875470a8967bb336a43909922f711a87fd0ef83697da2d7473",
+    "verification/protocol_time_closure_lab/run_all.py": "6f059dfcfe73174999f11277e30d5a05f2e39446524d5f18d41a5334a059586e",
+    "verification/protocol_time_closure_lab/README.md": "52a6922c2a98958e04c868490cbe36225a4559cc431931e018ebe97429df19cb",
+    "verification/protocol_time_closure_lab/temporal_cases.json": "8457f73a38a3cad1726184807184e7301db51a1dbfb20aab01abc1dfe38c64a0",
+    ".github/workflows/protocol-time-research.yml": "3098462e401bbd54cfb485aa1ff4e28d0209943b3a0543c1fc776509a907ff37",
+    "verification/protocol_time_closure_lab/runs/20261010T031351028570Z/results.json": "2a56d56a60ac5e3d3c0b72974899ac509baaa4254a466cf1abfd9f0feb3eb520",
+    "verification/protocol_time_closure_lab/runs/20261010T031351028570Z/tests.txt": "2775f8aea573a735ed465659a42c28fcae4524baf0cff1d8e26eccea19292554"
+  },
+  "limits": [
+    "Publication consistency check, not protocol or implementation certification."
+  ]
+}

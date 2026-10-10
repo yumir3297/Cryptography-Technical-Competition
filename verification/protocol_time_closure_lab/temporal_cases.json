@@ -1,0 +1,335 @@
+{
+  "contract": "TIME-CLOSURE-PROPOSED-0.1",
+  "date": "2026-10-10",
+  "kind": "supplemental_protocol_research_cases",
+  "official_execution_count": 0,
+  "cases": [
+    {
+      "id": "TIME-01",
+      "original_case_ids": [
+        "CORE-01",
+        "CORE-09"
+      ],
+      "scenario": "接受后跨秒签署",
+      "expected": "固定原accepted_at/Core，窗口内合法签署不新增接受",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_commit_before_expiry_and_later_sign"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-02",
+      "original_case_ids": [
+        "CORE-01",
+        "CORE-08"
+      ],
+      "scenario": "X预签后W最终拒绝",
+      "expected": "未持久提交不构成接受；仅验签不得成功",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-03",
+      "original_case_ids": [
+        "CORE-01",
+        "CORE-13"
+      ],
+      "scenario": "新接受确定到期",
+      "expected": "F拒绝，无新接受",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_expired_new_commit_refused"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-04",
+      "original_case_ids": [
+        "CORE-06",
+        "CORE-13"
+      ],
+      "scenario": "当前区间跨到期界",
+      "expected": "U，不推进接受/领取",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_uncertain_expiry_new_commit_refused"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-05",
+      "original_case_ids": [
+        "CORE-03",
+        "CORE-12"
+      ],
+      "scenario": "接受前依赖/容量变化",
+      "expected": "重读/CAS拒绝陈旧计划，无部分接受",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_changed_dependency_commit_refused",
+        "test_resource_race_commit_refused"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-06",
+      "original_case_ids": [
+        "CORE-09",
+        "CORE-17"
+      ],
+      "scenario": "未签原回执到期",
+      "expected": "原Envelope仍不可补签；候选新观察绑定原事实",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_old_signing_deadline_gap_characterized",
+        "test_new_proof_observes_same_old_fact"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-07",
+      "original_case_ids": [
+        "CORE-09",
+        "CORE-20"
+      ],
+      "scenario": "原钥撤销/换钥",
+      "expected": "不换原kid/iat/Ref，新认证需当前资格与连续历史",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_old_signing_deadline_gap_characterized"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-08",
+      "original_case_ids": [
+        "CORE-09",
+        "CORE-17"
+      ],
+      "scenario": "重复认证历史事实",
+      "expected": "可重认证，接受/预占/派发/结算增量为0",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_reattest_preserves_accept_dispatch_and_reservation"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-09",
+      "original_case_ids": [
+        "CORE-09",
+        "CORE-18"
+      ],
+      "scenario": "W旧账备份回退/新账复用ID",
+      "expected": "连续性未证不认证，不恢复消费/意图",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_no_continuous_ledger_no_proof"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-10",
+      "original_case_ids": [
+        "CORE-09",
+        "CORE-10"
+      ],
+      "scenario": "原Core或当时资格档案缺失",
+      "expected": "无确定成功认证，保留恢复未知",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_missing_historical_authority_no_proof",
+        "test_changed_fact_proof_rejected"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-11",
+      "original_case_ids": [
+        "CORE-07",
+        "CORE-20"
+      ],
+      "scenario": "当前认证者资格/用途失效",
+      "expected": "阻止本次新认证；不抹除原接受",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_no_current_signing_authority_no_proof"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-12",
+      "original_case_ids": [
+        "CORE-02",
+        "CORE-10"
+      ],
+      "scenario": "换scope/op/Core/Ref/接受时刻",
+      "expected": "严格绑定并拒绝，不以摘要或有效当前sig补信任",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_changed_fact_proof_rejected"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-13",
+      "original_case_ids": [
+        "CORE-02",
+        "CORE-17"
+      ],
+      "scenario": "新证明替换请求/挑战或过期",
+      "expected": "当前绑定及新鲜性拒绝",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_wrong_query_proof_rejected",
+        "test_expired_or_uncertain_proof_rejected"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-14",
+      "original_case_ids": [
+        "CORE-11",
+        "CORE-17"
+      ],
+      "scenario": "已接受请求重传与新查询",
+      "expected": "重传原响应不改iat/status；新查询独立鉴权",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_retransmission_never_new_acceptance"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-15",
+      "original_case_ids": [
+        "CORE-13",
+        "CORE-17"
+      ],
+      "scenario": "历史恢复时派发已截止",
+      "expected": "只认证过去事实，不能延长原派发期限",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_history_proof_does_not_allow_expired_dispatch"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-16",
+      "original_case_ids": [
+        "CORE-13",
+        "CORE-15"
+      ],
+      "scenario": "pending未知/取消与领取竞争",
+      "expected": "U保占用；确定取消与领取至多一个获胜",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_uncertain_dispatch_keeps_reservation"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-17",
+      "original_case_ids": [
+        "CORE-15",
+        "AUD-02C"
+      ],
+      "scenario": "started后故障/无回复",
+      "expected": "不回pending，不重派，保留未知占用",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_started_never_reclaimed_or_released_by_timeout"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-18",
+      "original_case_ids": [
+        "CORE-06",
+        "CORE-13"
+      ],
+      "scenario": "静止旧签名时钟样本",
+      "expected": "样本须推到当前区间；未知年龄/重启为U",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_old_sample_must_age_to_current_interval",
+        "test_unbounded_clock_sample_age_is_unknown",
+        "test_monotonic_reset_cannot_supply_negative_elapsed_time"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-19",
+      "original_case_ids": [
+        "CORE-01",
+        "CORE-13"
+      ],
+      "scenario": "要求实际持久提交/设备动作在期限前",
+      "expected": "须新增覆盖真实事件机制，不能由逻辑tg/锁/签名推出",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-20",
+      "original_case_ids": [
+        "CORE-17",
+        "CORE-20"
+      ],
+      "scenario": "Result/Bundle新kind、当前认证用途与跨版本",
+      "expected": "版本隔离、类型化解析；原R2客户端不得误接",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-21",
+      "original_case_ids": [
+        "CORE-09",
+        "CORE-10"
+      ],
+      "scenario": "原已签回执到期/原钥撤销",
+      "expected": "按当时档案作历史验证；不重新要求业务资格有效",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [],
+      "requires_formal_schema_or_real_implementation": true
+    },
+    {
+      "id": "TIME-22",
+      "original_case_ids": [
+        "CORE-12"
+      ],
+      "scenario": "两个完整候选共享容量",
+      "expected": "受控单权威原子接受，容量不能超限",
+      "status": "NOT_RUN",
+      "meaning": "完整协议用例未执行；abstract_checks只是局部模型关联",
+      "abstract_checks": [
+        "test_shared_resource_two_candidates"
+      ],
+      "requires_formal_schema_or_real_implementation": true
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+test_bounded_interleavings (test_model.TimeClosureTests.test_bounded_interleavings) ... ok
+test_changed_dependency_commit_refused (test_model.TimeClosureTests.test_changed_dependency_commit_refused) ... ok
+test_changed_fact_proof_rejected (test_model.TimeClosureTests.test_changed_fact_proof_rejected) ... ok
+test_clock_floor_and_future_attestation (test_model.TimeClosureTests.test_clock_floor_and_future_attestation) ... ok
+test_commit_before_expiry_and_later_sign (test_model.TimeClosureTests.test_commit_before_expiry_and_later_sign) ... ok
+test_elapsed_uncertainty_can_exceed_clock_width (test_model.TimeClosureTests.test_elapsed_uncertainty_can_exceed_clock_width) ... ok
+test_expired_new_commit_refused (test_model.TimeClosureTests.test_expired_new_commit_refused) ... ok
+test_expired_or_uncertain_proof_rejected (test_model.TimeClosureTests.test_expired_or_uncertain_proof_rejected) ... ok
+test_history_proof_does_not_allow_expired_dispatch (test_model.TimeClosureTests.test_history_proof_does_not_allow_expired_dispatch) ... ok
+test_interval_boundaries (test_model.TimeClosureTests.test_interval_boundaries) ... ok
+test_missing_historical_authority_no_proof (test_model.TimeClosureTests.test_missing_historical_authority_no_proof) ... ok
+test_monotonic_reset_cannot_supply_negative_elapsed_time (test_model.TimeClosureTests.test_monotonic_reset_cannot_supply_negative_elapsed_time) ... ok
+test_new_proof_observes_same_old_fact (test_model.TimeClosureTests.test_new_proof_observes_same_old_fact) ... ok
+test_no_continuous_ledger_no_proof (test_model.TimeClosureTests.test_no_continuous_ledger_no_proof) ... ok
+test_no_current_signing_authority_no_proof (test_model.TimeClosureTests.test_no_current_signing_authority_no_proof) ... ok
+test_no_fact_no_historical_proof (test_model.TimeClosureTests.test_no_fact_no_historical_proof) ... ok
+test_old_sample_must_age_to_current_interval (test_model.TimeClosureTests.test_old_sample_must_age_to_current_interval) ... ok
+test_old_signing_deadline_gap_characterized (test_model.TimeClosureTests.test_old_signing_deadline_gap_characterized) ... ok
+test_reattest_preserves_accept_dispatch_and_reservation (test_model.TimeClosureTests.test_reattest_preserves_accept_dispatch_and_reservation) ... ok
+test_resource_race_commit_refused (test_model.TimeClosureTests.test_resource_race_commit_refused) ... ok
+test_retransmission_never_new_acceptance (test_model.TimeClosureTests.test_retransmission_never_new_acceptance) ... ok
+test_shared_resource_two_candidates (test_model.TimeClosureTests.test_shared_resource_two_candidates) ... ok
+test_started_never_reclaimed_or_released_by_timeout (test_model.TimeClosureTests.test_started_never_reclaimed_or_released_by_timeout) ... ok
+test_unbounded_clock_sample_age_is_unknown (test_model.TimeClosureTests.test_unbounded_clock_sample_age_is_unknown) ... ok
+test_uncertain_dispatch_keeps_reservation (test_model.TimeClosureTests.test_uncertain_dispatch_keeps_reservation) ... ok
+test_uncertain_expiry_new_commit_refused (test_model.TimeClosureTests.test_uncertain_expiry_new_commit_refused) ... ok
+test_wrong_query_proof_rejected (test_model.TimeClosureTests.test_wrong_query_proof_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.225s
+
+OK

@@ -1,0 +1,31 @@
+name: Protocol Time Closure Research
+
+on:
+  push:
+    branches: [research/protocol-time-closure-20261010]
+    paths:
+      - 'verification/protocol_time_closure_lab/**'
+      - 'system_dev/v26/**'
+      - '.github/workflows/protocol-time-research.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  abstract-model:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Run bounded research model
+        run: python verification/protocol_time_closure_lab/run_all.py
+      - name: Upload research evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol-time-research-${{ github.sha }}
+          path: verification/protocol_time_closure_lab/runs/
+          if-no-files-found: error

@@ -1,0 +1,92 @@
+{
+  "contract": "TIME-CLOSURE-PROPOSED-0.1",
+  "generated_at_utc": "2026-10-10T03:13:51.480799+00:00",
+  "passed": true,
+  "model_tests": {
+    "run": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "bounded_exploration": {
+    "states": 5544,
+    "transitions": 41502,
+    "violations": [],
+    "domain": {
+      "clock": [
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "operations": 1,
+      "permit_exp": 102,
+      "original_receipt_ttl": 3,
+      "current_key_generations": [
+        0,
+        1
+      ]
+    },
+    "scope": "finite abstract reachability only; one operation; trusted atomic accept; no crypto/W/network/tool implementation"
+  },
+  "characterization": {
+    "r2_recovery_boundary": {
+      "accepted_at": 100,
+      "original_receipt_exp": 1000,
+      "original_sign_at_expiry": false,
+      "original_sign_after_key_revocation": false,
+      "accept_count_unchanged": 1
+    },
+    "proposed_observation": {
+      "current_proof_after_old_expiry": true,
+      "current_proof_after_old_key_revocation": true,
+      "new_accepts": 0,
+      "new_calls": 0
+    },
+    "research_same_timestamp_counterexample": {
+      "prepare_at": 100,
+      "finalize_at": 101,
+      "permit_exp": 120,
+      "research_equality_gate_accepts": false,
+      "fresh_final_time_gate": "T",
+      "meaning": "research equality gate blocks legal delay; NOT a counterexample against R2 after-commit signing"
+    }
+  },
+  "supplemental_protocol_cases": {
+    "total": 22,
+    "NOT_RUN": 22,
+    "unknown_test_refs": [],
+    "unknown_original_ids": []
+  },
+  "official_cases": {
+    "total": 39,
+    "executed_here": 0,
+    "source_status_counts": {
+      "NOT_RUN": 39
+    }
+  },
+  "source_sha256": {
+    "verification/protocol_time_closure_lab/model.py": "e86f13f9495b81f1edae05c39bc749d1ea6dca5838ffe21692e4e544e1fecb04",
+    "verification/protocol_time_closure_lab/test_model.py": "b9e769055909c8875470a8967bb336a43909922f711a87fd0ef83697da2d7473",
+    "verification/protocol_time_closure_lab/run_all.py": "6f059dfcfe73174999f11277e30d5a05f2e39446524d5f18d41a5334a059586e",
+    "verification/protocol_time_closure_lab/README.md": "52a6922c2a98958e04c868490cbe36225a4559cc431931e018ebe97429df19cb",
+    "verification/protocol_time_closure_lab/temporal_cases.json": "8457f73a38a3cad1726184807184e7301db51a1dbfb20aab01abc1dfe38c64a0",
+    "system_dev/v26/01_core_contract.md": "519931403fcc1d3085df227ff2639cf32e00aa8cbf79856633b2b128e64cb299",
+    "system_dev/v26/04_tool_final_recovery.md": "74969ea98534a1fd4b150b93e4677f51e440d20ba2dcaeac2a2ae51e7d3094d7",
+    "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md": "09a1db309beacf42a4128baaa8f4f6123d215adad71a9f50c25809563b4940aa",
+    "system_dev/v26/semantic_cases.json": "43cb3de4492c290f9ebcd6570db2e59e1865ede33fcd58190ac6e7f688b507da"
+  },
+  "environment": {
+    "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26340-SP0"
+  },
+  "limits": [
+    "Finite single-operation abstraction, not R2 wire/crypto/schema conformance.",
+    "Authentication, current authority, archive validity and ledger continuity are explicit premises.",
+    "Atomic durable commit and trustworthy current time are assumed; no database or real clock proved.",
+    "No original signatures, network/STATUS/Result/Bundle, fair scheduling, full profiles or physical tools modeled.",
+    "Claim/call opportunity collapsed in calls; no claim-to-send window or real settlement modeled.",
+    "27 local tests and finite exploration do not promote any of the 22 supplemental or 39 original cases."
+  ]
+}
