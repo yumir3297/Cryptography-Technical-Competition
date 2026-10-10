@@ -21,7 +21,9 @@ unchanged. Do not merge this branch into `main` as an R2 conformance release.
 | Unified CoreService / three adapters | DESIGNED, NOT implemented | `docs/unified-core-migration.md` |
 | Original 39 full official obligations | **0 FULL PASS / 39 BLOCKED** | unchanged original adjudicator; competition tests are not official substitutes |
 
-The new clock adapter is not yet wired into legacy Phase14/15 W acceptance; the protected research clock code is preserved byte-for-byte so its original evidence hashes remain valid.\n\nThe Phase18 lab signer broker remains privileged-runner administered. It
+The new clock adapter is not yet wired into legacy Phase14/15 W acceptance; the protected research clock code is preserved byte-for-byte so its original evidence hashes remain valid.
+
+The Phase18 lab signer broker remains privileged-runner administered. It
 restricts domain, profile, role and key but does **not** independently approve
 business operations; the current `C` clock is a lab-signed oracle, not a
 demonstrated wall-clock attestation. Tool effects are simulated, not physical,

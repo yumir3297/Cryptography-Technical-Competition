@@ -1,6 +1,8 @@
 # 密码学技术竞赛：协议交接材料
 
-> 📌 **竞赛开发优先入口（与本地 Codex 对齐）**：**[最终交付目标、剩余修复与逐项验收清单](00_COMPETITION_FINAL_DELIVERY_SPEC.md)**。当前在 `competition/zjj-core-final-20261010` 分支开发；此链接对应竞赛交付规格，不代表已通过正式 39 项完整验收。\n\n
+> 📌 **竞赛开发优先入口（与本地 Codex 对齐）**：**[最终交付目标、剩余修复与逐项验收清单](00_COMPETITION_FINAL_DELIVERY_SPEC.md)**。当前在 `competition/zjj-core-final-20261010` 分支开发；此链接对应竞赛交付规格，不代表已通过正式 39 项完整验收。
+
+
 当前协议实现依据为 [ZJJ-CORE-2.6-R2](system_dev/v26/README.md)。核心协议保持10条签名消息；R2补齐了工具终局事实再认证与换钥恢复规则。
 
 ## 阅读顺序
