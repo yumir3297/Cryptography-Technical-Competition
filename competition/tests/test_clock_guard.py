@@ -5,7 +5,7 @@ from types import SimpleNamespace
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
-from research.phase11.trusted_clock import (
+from competition.core.trusted_clock import (
     seal, prepare_table, checked_clock, consume_clock,
 )
 from research.reference_executor.wire import ProtocolError

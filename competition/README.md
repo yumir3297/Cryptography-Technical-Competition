@@ -12,13 +12,13 @@ unchanged. Do not merge this branch into `main` as an R2 conformance release.
 |---|---|---|
 | IND-Demo-1 pre-existing Phase18 industrial execution loop | existing scoped PASS, rechecked on competition branch | 25 process stages, Linux DAC role keys, dedicated W/Tool signature, one SQLite simulated effect |
 | MED-DEMO-1 / PAY-1 legacy local verifier-only path | existing scoped tests, rechecked | NOT yet using same deployed W, broker custody and tool outbox |
-| Signed C clock sequence + durable lower floor | implemented | `research/phase11/trusted_clock.py`, bounded interval/replay/rollback/transaction regressions |
+| Signed C clock sequence + durable lower floor | implemented | `competition/core/trusted_clock.py`, bounded interval/replay/rollback/transaction regressions |
 | Cross-profile restricted signing broker | partially implemented | IND/MED role bindings, PAY X, profile scopes; PAY H/G/U/V governance not enrolled |
 | PREPARE -> X Sign -> FINALIZE with real elapsed time | **BLOCKED** | legacy Phase14 requires identical times; `test_acceptance_gap.py` records this deliberately RED business capability |
 | Unified CoreService / three adapters | DESIGNED, NOT implemented | `docs/unified-core-migration.md` |
 | Original 39 full official obligations | **0 FULL PASS / 39 BLOCKED** | unchanged original adjudicator; competition tests are not official substitutes |
 
-The Phase18 lab signer broker remains privileged-runner administered. It
+The new clock adapter is not yet wired into legacy Phase14/15 W acceptance; the protected research clock code is preserved byte-for-byte so its original evidence hashes remain valid.\n\nThe Phase18 lab signer broker remains privileged-runner administered. It
 restricts domain, profile, role and key but does **not** independently approve
 business operations; the current `C` clock is a lab-signed oracle, not a
 demonstrated wall-clock attestation. Tool effects are simulated, not physical,
