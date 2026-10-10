@@ -1,5 +1,7 @@
 # ZJJ-CORE — Competition Edition (work in progress)
 
+> **先读交付定义**：[`../00_COMPETITION_FINAL_DELIVERY_SPEC.md`](../00_COMPETITION_FINAL_DELIVERY_SPEC.md) — 最终效果、P0/P1/P2 修复、竞赛验收矩阵和本地端逐项对齐表。
+
 This **branch** is an independent competition delivery track started at
 `research/zjj-core-phase13-handoff-20261009`, commit
 `3633db637c52bb0429c0b61af426d4c7eced5097`.
