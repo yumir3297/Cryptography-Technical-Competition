@@ -1,0 +1,90 @@
+[
+  {
+    "risk_result": "CLEAR",
+    "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+    "required_reviews": [],
+    "phase3_assessment_ref": "OYAPlUJgjaSq7pgdQiDyDiWPD4m55xeFB-do5n2BZws",
+    "basis_ref": "1iCcpMepR4BvPu_WNNJml3qH2BJvY__U2qoy8qG74Ew",
+    "permit_ref": "hNijbNDFRQuMus2G7-28AZvQ7WOAZ8E_mpJpsTsyaOw",
+    "commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+    "acceptance_ref": "g8hy5WDXfl0eXytEtbIkVdGytB9YbNUcyJUbmgtHcxQ",
+    "issue_result_ref": "JPKeN9uPOjT9CTsA_76aRAguHidFcdtd2J6iAp1Ei08",
+    "commit_result_ref": "PgocM_5hlNzoo6ux4ddBdhPg9AGaka9ZpTyPdMBpWkw",
+    "initial_W_after_acceptance": {
+      "accepted": 1,
+      "reserved": 2000,
+      "spent": 0,
+      "status": "ACCEPTED"
+    },
+    "after_first_final": "SETTLED",
+    "after_re_attestation": "EXISTING",
+    "final_W": {
+      "reserved": 0,
+      "spent": 2000,
+      "settlements": 1,
+      "status": "SUCCEEDED"
+    },
+    "original_message_rounds": 10,
+    "note": "in-memory fixture; not upstream formal conformance"
+  },
+  {
+    "risk_result": "FLAG",
+    "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+    "required_reviews": [
+      "ANOMALY"
+    ],
+    "phase3_assessment_ref": "DuI766jsLhwnJ7_QfHE-UUyuwfdQFu74rgY4ECPQHKo",
+    "basis_ref": "41cbDtj95z23cHazrzjWq3Oy4xtoLBaS5puDuaPBvAk",
+    "permit_ref": "OP1blNEmedcMI9qbbxlr5uNqGvCvJIM19pgcb5qqm00",
+    "commit_ref": "KJH8j184gmQr0v_EU8_S5zyHRsGvzA_Eb3Vsf5iUei4",
+    "acceptance_ref": "xUsz3ZGXsFlu6lDXceiR84qYpmN-wbVYZio9lJX3ZJk",
+    "issue_result_ref": "M66bLtgg00qvNk73GoAScPzkvgRoyMOfcxwuvCY3we8",
+    "commit_result_ref": "Ognn_SpsNteYZUDJnJ8XJSPUUBybRdehibIhlwM9cRQ",
+    "initial_W_after_acceptance": {
+      "accepted": 1,
+      "reserved": 2000,
+      "spent": 0,
+      "status": "ACCEPTED"
+    },
+    "after_first_final": "SETTLED",
+    "after_re_attestation": "EXISTING",
+    "final_W": {
+      "reserved": 0,
+      "spent": 2000,
+      "settlements": 1,
+      "status": "SUCCEEDED"
+    },
+    "original_message_rounds": 10,
+    "note": "in-memory fixture; not upstream formal conformance"
+  },
+  {
+    "risk_result": "INSUFFICIENT",
+    "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+    "required_reviews": [
+      "LOW_EVIDENCE"
+    ],
+    "phase3_assessment_ref": "5vz6-4nQIAZCukbuMd5Fr4IIzq9pUHwj7hZbAjscgw8",
+    "basis_ref": "RE4YRpYAREJdYdaVcMNsozwCFYrx2fKhdFtg--v43Xs",
+    "permit_ref": "Kb75UVARxdgfT0n4412TNJ1RUT-TzZ-gN7a9DnPhMKI",
+    "commit_ref": "tM2wggsYuJa_dyZI-nsxNuzSWh0l_LpnXYMKIZxsjjE",
+    "acceptance_ref": "LFERohJLPBKEmUdMaCjf0gkldXSujj--CvTBhbVzRlI",
+    "issue_result_ref": "YZFyXu2d-fvsBtPUP7wqXwXsN90YNh_gx1sLzAqSuN0",
+    "commit_result_ref": "SspgLq2TGOpBF6odPv34404bLbNy0EQu1k5n6eb_fEY",
+    "initial_W_after_acceptance": {
+      "accepted": 1,
+      "reserved": 2000,
+      "spent": 0,
+      "status": "ACCEPTED"
+    },
+    "after_first_final": "SETTLED",
+    "after_re_attestation": "EXISTING",
+    "final_W": {
+      "reserved": 0,
+      "spent": 2000,
+      "settlements": 1,
+      "status": "SUCCEEDED"
+    },
+    "original_message_rounds": 10,
+    "note": "in-memory fixture; not upstream formal conformance"
+  }
+]

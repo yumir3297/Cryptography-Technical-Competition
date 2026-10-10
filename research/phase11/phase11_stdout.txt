@@ -1,0 +1,52 @@
+{
+  "official_complete_pass": 0,
+  "phase11_tests": {
+    "errors": 0,
+    "failed": 0,
+    "run": 17,
+    "skipped": 0
+  },
+  "target_facets": {
+    "AUD-02A": {
+      "path": "research/phase11/evidence/AUD-02A.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "88fc58054846650b974455d7b02f74663d57f541e2422348839c829e633ef703",
+      "status": "PASS_SCOPED_INTEGRATION"
+    },
+    "AUD-02B": {
+      "path": "research/phase11/evidence/AUD-02B.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "87f458145af65edb82d35cec9f4a59f37b1d2289c6748c4e646d088f3d759bf3",
+      "status": "PASS_SCOPED_INTEGRATION"
+    },
+    "CORE-03": {
+      "path": "research/phase11/evidence/CORE-03.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "cea64bf87b3b39b885784f4b8405a7920ff630a8295d6ba0ff043580b85187de",
+      "status": "PASS_SCOPED_INTEGRATION"
+    },
+    "CORE-13": {
+      "path": "research/phase11/evidence/CORE-13.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "8a56c8c5201730cf7edc3b3027ffebd488158ac4722725b5b1fee9a27b980cd1",
+      "status": "PASS_SCOPED_INTEGRATION"
+    }
+  }
+}
+

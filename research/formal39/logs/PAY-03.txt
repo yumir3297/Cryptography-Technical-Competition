@@ -1,0 +1,9 @@
+test_duplicate_case_id_reject_before_filter (research.strict_v26.test_pay_history.HistoryTests.test_duplicate_case_id_reject_before_filter) ... ok
+test_duplicate_intent_reject_before_filter (research.strict_v26.test_pay_history.HistoryTests.test_duplicate_intent_reject_before_filter) ... ok
+test_claimed_cutoff_tamper_rejected (research.strict_v26.test_pay_history.HistoryTests.test_claimed_cutoff_tamper_rejected) ... ok
+test_unsigned_claimed_clear_rejected_on_flag (research.strict_v26.test_pay_history.HistoryTests.test_unsigned_claimed_clear_rejected_on_flag) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.016s
+
+OK

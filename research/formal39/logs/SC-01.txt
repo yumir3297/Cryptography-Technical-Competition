@@ -1,0 +1,7 @@
+test_source_expires_at_upper_boundary (research.phase8.test_scene_authority.SceneTests.test_source_expires_at_upper_boundary) ... ok
+test_zero_capacity_rejects_without_consuming (research.phase8.test_scene_authority.SceneTests.test_zero_capacity_rejects_without_consuming) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.264s
+
+OK

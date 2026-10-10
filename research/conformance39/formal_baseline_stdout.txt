@@ -1,0 +1,42 @@
+CORE-01  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-02  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-03  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-04  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-05  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-06  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-07  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-08  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-09  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-10  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-11  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-12  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-13  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-14  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-15  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-16  PARTIAL_WITNESSES_PASS         3/3 witness tests
+CORE-17  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-18  PARTIAL_WITNESSES_PASS         2/2 witness tests
+CORE-19  PARTIAL_WITNESSES_PASS         7/7 witness tests
+CORE-20  PARTIAL_WITNESSES_PASS         2/2 witness tests
+PAY-01   PARTIAL_WITNESSES_PASS         3/3 witness tests
+PAY-02   PARTIAL_WITNESSES_PASS         6/6 witness tests
+PAY-03   PARTIAL_WITNESSES_PASS         4/4 witness tests
+PAY-04   PARTIAL_WITNESSES_PASS         3/3 witness tests
+PAY-05   PARTIAL_WITNESSES_PASS         3/3 witness tests
+IND-01   PARTIAL_WITNESSES_PASS         3/3 witness tests
+IND-02   PARTIAL_WITNESSES_PASS         2/2 witness tests
+IND-03   PARTIAL_WITNESSES_PASS         2/2 witness tests
+IND-04   PARTIAL_WITNESSES_PASS         4/4 witness tests
+MED-01   PARTIAL_WITNESSES_PASS         3/3 witness tests
+MED-02   PARTIAL_WITNESSES_PASS         4/4 witness tests
+MED-03   PARTIAL_WITNESSES_PASS         2/2 witness tests
+MED-04   PARTIAL_WITNESSES_PASS         2/2 witness tests
+SC-01    PARTIAL_WITNESSES_PASS         2/2 witness tests
+SC-02    PARTIAL_WITNESSES_PASS         3/3 witness tests
+AUD-02A  PARTIAL_WITNESSES_PASS         2/2 witness tests
+AUD-02B  PARTIAL_WITNESSES_PASS         2/2 witness tests
+AUD-02C  PARTIAL_WITNESSES_PASS         3/3 witness tests
+AUD-02D  PARTIAL_WITNESSES_PASS         3/3 witness tests
+
+SUMMARY {"case_ids_in_official_manifest": 39, "cases_selected": 39, "local_witness_executed": 39, "local_witness_passed_cases": 39, "local_witness_failed_cases": 0, "cases_without_witness": 0, "harness_errors": 0, "official_complete_pass": 0, "official_complete_fail": 0, "still_blocked_or_partially_verified": 39, "outcome": "PARTIAL_EVIDENCE_COLLECTED"}
+REPORT /mnt/data/zjj_39_work/research/conformance39/official39_formal_baseline.json

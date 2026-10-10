@@ -1,0 +1,12 @@
+test_exact_possession_registers_one_key_no_business_role (research.conformance39.test_enrollment_lab.EnrollmentProofTests.test_exact_possession_registers_one_key_no_business_role) ... ok
+test_modified_scope_rejected (research.conformance39.test_enrollment_lab.EnrollmentProofTests.test_modified_scope_rejected) ... ok
+test_modified_purposes_rejected (research.conformance39.test_enrollment_lab.EnrollmentProofTests.test_modified_purposes_rejected) ... ok
+test_modified_root_rejected (research.conformance39.test_enrollment_lab.EnrollmentProofTests.test_modified_root_rejected) ... ok
+test_wrong_nonce_rejected (research.conformance39.test_enrollment_lab.EnrollmentProofTests.test_wrong_nonce_rejected) ... ok
+test_root_rotation_blocks_unconsumed_proof (research.conformance39.test_enrollment_lab.EnrollmentProofTests.test_root_rotation_blocks_unconsumed_proof) ... ok
+test_nonce_proof_replacement_after_first_accept_rejected (research.conformance39.test_enrollment_lab.EnrollmentProofTests.test_nonce_proof_replacement_after_first_accept_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.042s
+
+OK

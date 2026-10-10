@@ -1,0 +1,97 @@
+{
+  "OS_access_audit": {
+    "other_roles_cannot_read": true,
+    "roles_verified": 8,
+    "same_ci_runner_has_privileged_sudo": true,
+    "unprivileged_W_cannot_read": true
+  },
+  "archive": {
+    "file_count": 246,
+    "path": "research_archives/ZJJ_CORE_2_6_R2_Phase18_Industrial_Role_Isolation_20261010.zip",
+    "secret_key_files": 0,
+    "sha256": "531d1210b313fb6c843e63eba49db9e531d6b1e438d6b961b1976153b369c2f5"
+  },
+  "candidate": "IND_LINUX_DAC_ROLE_SIGNER_ISOLATION_LAB",
+  "evidence_hashes": {
+    "research_evidence/phase18/public_process/phase14_witness.json": "886945f7fcd39fc51dd73072caa6ca86af97fcb2cee13d5234f64089e3d433fa",
+    "research_evidence/phase18/public_process/phase18_process_report.json": "c999d825f4773bcd8ba440964d84bc1e89a3a69dfd66ec51292f2aac1aa67d6a",
+    "research_evidence/phase18/public_process/tool.sqlite": "9ca4264ad9a8c884ed97f4b909bc154446f5f0b477154ef1d127d65a06c2525b",
+    "research_evidence/phase18/public_process/w.sqlite": "ce943bfd6491bfdd78569968f683fc6d7f53f27d8f1751f2271b64ba5346f6bc",
+    "research_evidence/phase18/public_process/witness.json": "48285f07f393091cd602f78c778d624b2372166e935f3eeb7d3e30e73961fa9e"
+  },
+  "limitations": [
+    "All initial keys are generated in the Phase17 bootstrap process before chown; no independent C/E/X key ceremony",
+    "CI has passwordless sudo, thus its controlling account can still invoke privileged signing services",
+    "Signer broker validates role/domain, not the complete independently governed business policy",
+    "W and signer role calls use local sudo subprocess IPC, not mutually authenticated network services",
+    "Laboratory C time signs identical PREPARE and FINALIZE instants; no real latency solution yet",
+    "Tool effect is an authenticated simulator ledger fact, not proof of actual physical equipment movement",
+    "39 official semantics retain 0 complete PASS; this is an isolated scoped industrial candidate"
+  ],
+  "official_conformance": {
+    "BLOCKED_FULL_CONFORMANCE": 39,
+    "FULL_FAIL": 0,
+    "FULL_PASS": 0
+  },
+  "original_artifact_sha256": {
+    "system_dev/v26/contracts/industrial.schema.json": "36c325808a01d5afb51f27872df4fdc7c40907aa56b023a10bd5a949e4ad768d",
+    "system_dev/v26/contracts/medical.schema.json": "033df4601364abcb2bf9f4673d43804150da47e598b71cfceb0ec090366b7ac2",
+    "system_dev/v26/contracts/pay1.schema.json": "84f57ba485abe56b94141dc8d27968c56ecad50fb50095565939b02fd2f8833e",
+    "system_dev/v26/semantic_cases.json": "43cb3de4492c290f9ebcd6570db2e59e1865ede33fcd58190ac6e7f688b507da"
+  },
+  "phase": 18,
+  "profile": "IND-DEMO-1",
+  "project": "ZJJ-CORE-2.6-R2",
+  "public_role_signer_receipt_count": 14,
+  "published_private_key_files": 0,
+  "readonly_audit": {
+    "E_source_attestation_verified": true,
+    "W_accept_count": 1,
+    "W_call_count": 1,
+    "W_has_C_E_X_private_keys": false,
+    "W_reserved_after": 0,
+    "W_settlement_count": 1,
+    "W_spent_after": 1,
+    "acceptance_ref": "VphCcLew567jOHn3m2CkDp6sa-h2Q6RoAXXpYRsQ2z0",
+    "candidate": "IND_MINIMAL_SIGNER_SOURCE_EXECUTION_CLOSED_LOOP",
+    "commit_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
+    "distinct_stage_pids": 5,
+    "durable_effects": 1,
+    "final_ref": "DkoBXfq7DRJiZAfW6XGlIwMYI0gN1xH8HxBeG4F997E",
+    "forged_E_rejected": true,
+    "forged_W_rejected": true,
+    "forged_X_rejected": true,
+    "fresh_provisioned_key_sets": true,
+    "independent_readonly_verifier": true,
+    "limitations": [
+      "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+      "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+      "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+      "A per-profile W SQLite store is not one deployed cross-profile W",
+      "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+    ],
+    "official_complete_pass": false,
+    "official_schema_check": true,
+    "phase14_prepared_ticket_checked": true,
+    "physical_effect_proven": false,
+    "processes": 24,
+    "profile": "IND-DEMO-1",
+    "real_independent_OS_identity_custody": false,
+    "recovery_no_second_effect": true,
+    "role_public_keys_distinct": 9,
+    "signer_processes_separate": true,
+    "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+    "validated_message_types": [
+      "acceptance",
+      "authorization",
+      "challenge",
+      "challenge_request",
+      "issue",
+      "permit",
+      "proof"
+    ]
+  },
+  "stages": 25,
+  "status": "PASS_SCOPED_LAB_ONLY",
+  "test_count": 7
+}

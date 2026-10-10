@@ -1,0 +1,176 @@
+{
+  "baseline": {
+    "visited_states": 4616,
+    "explored_edges": 17426,
+    "max_reached_depth": 14,
+    "configured_depth": 18,
+    "fully_explored_finite_model": true,
+    "first_violation": null,
+    "claim": "bounded abstract state-space exploration only"
+  },
+  "mutants": {
+    "ignore_u": {
+      "visited_states": 123,
+      "explored_edges": 211,
+      "max_reached_depth": 2,
+      "configured_depth": 18,
+      "fully_explored_finite_model": false,
+      "first_violation": {
+        "properties": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "trace": [
+          "G_issue_permit_0",
+          "W_accept_0"
+        ],
+        "state": "State(revision=0, u_approved=-1, denied=-1, permit=(0, -1), accepted=(True, False), legitimate_at_accept=(False, False), revoked=False, calls=(0, 0), final_fact=(False, False), proof_epoch=(-1, -1), settled=(0, 0), tool_epoch=0, ledger_continuous=True)"
+      },
+      "claim": "bounded abstract state-space exploration only"
+    },
+    "ignore_revision": {
+      "visited_states": 564,
+      "explored_edges": 1396,
+      "max_reached_depth": 4,
+      "configured_depth": 18,
+      "fully_explored_finite_model": false,
+      "first_violation": {
+        "properties": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "trace": [
+          "G_issue_permit_0",
+          "new_basis_revision",
+          "independent_U_approve",
+          "W_accept_0"
+        ],
+        "state": "State(revision=1, u_approved=1, denied=-1, permit=(0, -1), accepted=(True, False), legitimate_at_accept=(False, False), revoked=False, calls=(0, 0), final_fact=(False, False), proof_epoch=(-1, -1), settled=(0, 0), tool_epoch=0, ledger_continuous=True)"
+      },
+      "claim": "bounded abstract state-space exploration only"
+    },
+    "ignore_deny": {
+      "visited_states": 332,
+      "explored_edges": 750,
+      "max_reached_depth": 4,
+      "configured_depth": 18,
+      "fully_explored_finite_model": false,
+      "first_violation": {
+        "properties": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "trace": [
+          "independent_U_approve",
+          "publish_V_deny",
+          "G_issue_permit_0",
+          "W_accept_0"
+        ],
+        "state": "State(revision=0, u_approved=0, denied=0, permit=(0, -1), accepted=(True, False), legitimate_at_accept=(False, False), revoked=False, calls=(0, 0), final_fact=(False, False), proof_epoch=(-1, -1), settled=(0, 0), tool_epoch=0, ledger_continuous=True)"
+      },
+      "claim": "bounded abstract state-space exploration only"
+    },
+    "ignore_intent": {
+      "visited_states": 725,
+      "explored_edges": 1912,
+      "max_reached_depth": 5,
+      "configured_depth": 18,
+      "fully_explored_finite_model": false,
+      "first_violation": {
+        "properties": [
+          "INTENT_AT_MOST_ONCE"
+        ],
+        "trace": [
+          "independent_U_approve",
+          "G_issue_permit_0",
+          "W_accept_0",
+          "G_issue_permit_1",
+          "W_accept_1"
+        ],
+        "state": "State(revision=0, u_approved=0, denied=-1, permit=(0, 0), accepted=(True, True), legitimate_at_accept=(True, True), revoked=False, calls=(0, 0), final_fact=(False, False), proof_epoch=(-1, -1), settled=(0, 0), tool_epoch=0, ledger_continuous=True)"
+      },
+      "claim": "bounded abstract state-space exploration only"
+    },
+    "allow_redispatch": {
+      "visited_states": 714,
+      "explored_edges": 1881,
+      "max_reached_depth": 5,
+      "configured_depth": 18,
+      "fully_explored_finite_model": false,
+      "first_violation": {
+        "properties": [
+          "NO_REDISPATCH"
+        ],
+        "trace": [
+          "independent_U_approve",
+          "G_issue_permit_0",
+          "W_accept_0",
+          "claim_and_dispatch_0",
+          "claim_and_dispatch_0"
+        ],
+        "state": "State(revision=0, u_approved=0, denied=-1, permit=(0, -1), accepted=(True, False), legitimate_at_accept=(True, False), revoked=False, calls=(2, 0), final_fact=(False, False), proof_epoch=(-1, -1), settled=(0, 0), tool_epoch=0, ledger_continuous=True)"
+      },
+      "claim": "bounded abstract state-space exploration only"
+    },
+    "allow_double_settle": {
+      "visited_states": 2208,
+      "explored_edges": 6896,
+      "max_reached_depth": 8,
+      "configured_depth": 18,
+      "fully_explored_finite_model": false,
+      "first_violation": {
+        "properties": [
+          "SETTLE_AT_MOST_ONCE"
+        ],
+        "trace": [
+          "independent_U_approve",
+          "G_issue_permit_0",
+          "W_accept_0",
+          "claim_and_dispatch_0",
+          "tool_finalizes_0",
+          "reattest_final_0",
+          "W_settle_0",
+          "W_settle_0"
+        ],
+        "state": "State(revision=0, u_approved=0, denied=-1, permit=(0, -1), accepted=(True, False), legitimate_at_accept=(True, False), revoked=False, calls=(1, 0), final_fact=(True, False), proof_epoch=(0, -1), settled=(2, 0), tool_epoch=0, ledger_continuous=True)"
+      },
+      "claim": "bounded abstract state-space exploration only"
+    },
+    "ignore_revocation": {
+      "visited_states": 364,
+      "explored_edges": 850,
+      "max_reached_depth": 4,
+      "configured_depth": 18,
+      "fully_explored_finite_model": false,
+      "first_violation": {
+        "properties": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "trace": [
+          "independent_U_approve",
+          "revoke_role",
+          "G_issue_permit_0",
+          "W_accept_0"
+        ],
+        "state": "State(revision=0, u_approved=0, denied=-1, permit=(0, -1), accepted=(True, False), legitimate_at_accept=(False, False), revoked=True, calls=(0, 0), final_fact=(False, False), proof_epoch=(-1, -1), settled=(0, 0), tool_epoch=0, ledger_continuous=True)"
+      },
+      "claim": "bounded abstract state-space exploration only"
+    },
+    "same_subject": {
+      "visited_states": 173,
+      "explored_edges": 339,
+      "max_reached_depth": 3,
+      "configured_depth": 18,
+      "fully_explored_finite_model": false,
+      "first_violation": {
+        "properties": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "trace": [
+          "independent_U_approve",
+          "G_issue_permit_0",
+          "W_accept_0"
+        ],
+        "state": "State(revision=0, u_approved=0, denied=-1, permit=(0, -1), accepted=(True, False), legitimate_at_accept=(False, False), revoked=False, calls=(0, 0), final_fact=(False, False), proof_epoch=(-1, -1), settled=(0, 0), tool_epoch=0, ledger_continuous=True)"
+      },
+      "claim": "bounded abstract state-space exploration only"
+    }
+  }
+}

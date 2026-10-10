@@ -1,0 +1,8 @@
+test_pay_clear_full_signed_acceptance (research.phase4.test_flow.Phase4PayFlow.test_pay_clear_full_signed_acceptance) ... ok
+test_pay_flag_requires_anomaly_review (research.phase4.test_flow.Phase4PayFlow.test_pay_flag_requires_anomaly_review) ... ok
+test_pay_insufficient_requires_low_evidence_review (research.phase4.test_flow.Phase4PayFlow.test_pay_insufficient_requires_low_evidence_review) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.251s
+
+OK

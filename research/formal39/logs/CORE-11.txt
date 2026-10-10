@@ -1,0 +1,8 @@
+test_replay_same_bytes_returns_original_receipt_without_new_accept (research.phase5.test_durable_w.DurableWTests.test_replay_same_bytes_returns_original_receipt_without_new_accept) ... ok
+test_same_operation_changed_signed_proof_rejects (research.phase5.test_durable_w.DurableWTests.test_same_operation_changed_signed_proof_rejects) ... ok
+test_nonce_same_other_proof_rejected (research.phase8.test_scene_authority.SceneTests.test_nonce_same_other_proof_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.475s
+
+OK

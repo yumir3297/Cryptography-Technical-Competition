@@ -1,0 +1,112 @@
+{
+  "code_sha256": {
+    "research/phase11/pay_r2.py": "724fd6ae4d763988268923a716d199554ae2b10b4e2d54fc43d8877e48dd1bac",
+    "research/phase11/scene_r2.py": "bc0b310f60d2c420b5d2acee061354bb743099f0905f23d8b0950c95693328a3",
+    "research/phase12/authority.py": "993f73006c5ca6fec2baa4fc4d935b5b5cbdec4b2a098fd60274c9285fb37ce9",
+    "research/phase13/build_report.py": "062bbc8708fcef2a13a40793dca52935e11d762f1aecb83c5c4144bca2484511",
+    "research/phase13/process_flow.py": "38df8dacf393ab3dbff6454e94b87cea154e315611103cd646d59fae8fe3a32d",
+    "research/phase13/test_phase13.py": "4dd2a2b74d63bc20b243cf504e56ed250457a0013f397a46dcb347179533c140",
+    "research/phase8/scene_authority.py": "6433c7afaf84fd36c95bdb410b050b53ea89a290371066bba82e0024a9773bce"
+  },
+  "contract": "ZJJ-CORE-2.6-R2",
+  "do_not_infer": "Phase13 local positive candidate is not one complete official semantic conformance PASS.",
+  "environment": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  },
+  "formal39_reexecuted": true,
+  "formal39_summary": {
+    "case_facets_with_fresh_integrated_probes": 10,
+    "case_statuses": {
+      "BLOCKED_FULL_CONFORMANCE": 39
+    },
+    "independent_integrated_probe_functions": 5,
+    "independent_integrated_probes_passed": 5,
+    "local_witness_cases_executed": 39,
+    "local_witness_tests_executed": 110,
+    "local_witness_tests_passed": 110,
+    "observed_subtest_failure_cases": [],
+    "official_cases": 39,
+    "official_complete_fail": 0,
+    "official_complete_pass": 0,
+    "official_scene_objects_structurally_passed": 161,
+    "official_scene_schema_failures": 0,
+    "phase11_signed_profile_transcripts": 12,
+    "phase11_targeted_case_facets": 4,
+    "phase11_unit_facet_checks": 17,
+    "phase12_signed_profile_transcripts": 6,
+    "phase12_targeted_case_facets": 2
+  },
+  "formal_status_unchanged": {
+    "BLOCKED_FULL_CONFORMANCE": 39,
+    "FAIL": 0,
+    "PASS": 0
+  },
+  "full_official_case_blockers": [
+    "C and E issuer trust roots and change governance remain lab fixtures (trust root is supplied by transcript)",
+    "IND/MED HardenedSceneW still instantiate and expose C private signing key and X private signing key",
+    "W persists one SQLite database per profile instead of a single deployed authority spanning all profiles",
+    "TOOL_FINAL comes from deterministic simulated ToolLedger, not externally attested effect source",
+    "Full official typed RequiredDeps and T/F/U proof not independently reconstructed for every transitive binding",
+    "Complete path/aud/scope, STATUS/Result, response binding, 0-RTT, transport and cross-service failure/lifecycle proofs not closed"
+  ],
+  "generated_utc": "2026-10-09T09:16:12.903702+00:00",
+  "original_resource_sha256": {
+    "system_dev/v26/contracts/industrial.schema.json": "36c325808a01d5afb51f27872df4fdc7c40907aa56b023a10bd5a949e4ad768d",
+    "system_dev/v26/contracts/medical.schema.json": "033df4601364abcb2bf9f4673d43804150da47e598b71cfceb0ec090366b7ac2",
+    "system_dev/v26/contracts/pay1.schema.json": "84f57ba485abe56b94141dc8d27968c56ecad50fb50095565939b02fd2f8833e",
+    "system_dev/v26/semantic_cases.json": "43cb3de4492c290f9ebcd6570db2e59e1865ede33fcd58190ac6e7f688b507da"
+  },
+  "phase": 13,
+  "phase13_test_cases": 5,
+  "phase13_test_log": "research/phase13/phase13_test_stdout.txt",
+  "selected_official_case": {
+    "expected": "唯一ACCEPTED，原COMMIT/Core/Ref一致",
+    "formal_status": "BLOCKED_FULL_CONFORMANCE",
+    "id": "CORE-01",
+    "new_evidence_status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+    "official_complete_pass": false,
+    "scenario": "合法完整链，全部守卫T"
+  },
+  "three_profiles": {
+    "IND-DEMO-1": {
+      "W_acceptances": 1,
+      "W_dispatches": 1,
+      "W_settlements": 1,
+      "distinct_executed_stage_processes": 5,
+      "evidence": "IND-DEMO-1/witness.json",
+      "independently_verified": true,
+      "negative_transcript_mutations_rejected": 3
+    },
+    "MED-DEMO-1": {
+      "W_acceptances": 1,
+      "W_dispatches": 1,
+      "W_settlements": 1,
+      "distinct_executed_stage_processes": 5,
+      "evidence": "MED-DEMO-1/witness.json",
+      "independently_verified": true,
+      "negative_transcript_mutations_rejected": 3
+    },
+    "PAY-1": {
+      "W_acceptances": 1,
+      "W_dispatches": 1,
+      "W_settlements": 1,
+      "distinct_executed_stage_processes": 5,
+      "evidence": "PAY-1/witness.json",
+      "independently_verified": true,
+      "negative_transcript_mutations_rejected": 3
+    }
+  },
+  "transcript_sha256": {
+    "research/phase13/evidence/core01_process/IND-DEMO-1/witness.json": "589a1213d6e2b3a4071f2c0dbcb3063798f2b98b96e45afaa3227af9d6226885",
+    "research/phase13/evidence/core01_process/MED-DEMO-1/witness.json": "42f77252c1c8bcd1bd514ac672687ea45fd1b03dc0673a8af98dfc866c389f32",
+    "research/phase13/evidence/core01_process/PAY-1/witness.json": "b7d637ab0acc2f66f1028777281cafbfbc2378bd0f38733bb236ed105261bb5e"
+  },
+  "verified_experimental_scope": [
+    "distinct bootstrap / claim / simulated tool final / settle / redispatch check / readonly verifier processes",
+    "original signed envelopes and schemas",
+    "COMMIT and acceptance ref equality",
+    "SQL persistent acceptance/attempt/final fact/settlement consistency",
+    "tampered Acceptance, TOOL_FINAL and profile substitution rejection"
+  ]
+}

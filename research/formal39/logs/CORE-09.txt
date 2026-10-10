@@ -1,0 +1,7 @@
+test_signed_commit_persists_and_recovers_new_connection (research.phase5.test_durable_w.DurableWTests.test_signed_commit_persists_and_recovers_new_connection) ... ok
+test_acceptance_record_contract_exact (research.phase4.test_flow.Phase4PayFlow.test_acceptance_record_contract_exact) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.183s
+
+OK

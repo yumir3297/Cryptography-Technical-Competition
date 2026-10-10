@@ -1,0 +1,48 @@
+{
+  "contract": "ZJJ-CORE-2.6-R2",
+  "generated_utc": "2026-10-09T08:52:17.168222+00:00",
+  "limitations": [
+    "No full C/E managed independent root/issuer graph",
+    "PAY and IND/MED remain separate adapter instances, not one deployed W",
+    "No authenticated transport/0-RTT/STATUS life cycle",
+    "The separate tool SQLite is a simulator, not actual physical-effect attestation",
+    "Only CORE-15 and AUD-02C added new Phase12 scoped facets"
+  ],
+  "official_complete_passes_from_phase12": 0,
+  "phase": 12,
+  "phase11_pay_gap": {
+    "path": "research/phase12/evidence/PAY_LEGACY_AUD02C_GAP.json",
+    "sha256": "559f00b1fba7265431ec00f6ccaa0d332469d74846f9039c3f8cccb83fef9095"
+  },
+  "reproduce": [
+    "python -m unittest research.phase12.test_phase12 -q",
+    "python -m research.phase12.run_phase12",
+    "python -m research.formal39.run_formal39"
+  ],
+  "source_sha256": {
+    "research/phase12/authority.py": "993f73006c5ca6fec2baa4fc4d935b5b5cbdec4b2a098fd60274c9285fb37ce9",
+    "research/phase12/crash_worker.py": "b0504b2d3895bc10fa1a8e4c2c117108c3885c8c3dbc74927b7f2a53b0ec1852",
+    "research/phase12/run_phase12.py": "2a316977c1e19e47ed8c6bf2302155fe656e26863ee0f595077130041f1c0f33",
+    "research/phase12/test_phase12.py": "817ab273693d0b1497a20e39d5329abf4ed584ed65f8062f76d21b7758ca8bb2"
+  },
+  "targeted_slices": {
+    "AUD-02C": {
+      "path": "research/phase12/evidence/AUD-02C.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "afa845e4185ccac499a9e25d9adac5fd9be748e48df177c8b480b0cdf140e9b2"
+    },
+    "CORE-15": {
+      "path": "research/phase12/evidence/CORE-15.json",
+      "profiles": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ],
+      "sha256": "26c7722a8d51f22985312e781c094cd11275c3dffbf8ed9055bc93fd216be215"
+    }
+  }
+}

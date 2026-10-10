@@ -1,0 +1,8 @@
+test_bad_signature_cannot_halt (research.phase6.test_trusted_final.FinalTests.test_bad_signature_cannot_halt) ... ok
+test_trusted_conflicting_fact_halts_without_reverse_settlement (research.phase6.test_trusted_final.FinalTests.test_trusted_conflicting_fact_halts_without_reverse_settlement) ... ok
+test_binding_wrong_attempt_rejected_unchanged (research.phase6.test_trusted_final.FinalTests.test_binding_wrong_attempt_rejected_unchanged) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.424s
+
+OK

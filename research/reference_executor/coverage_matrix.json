@@ -1,0 +1,206 @@
+{
+  "source": "/mnt/data/ZJJ_protocol_assurance_patch/system_dev/v26/semantic_cases.json",
+  "upstream_schema_found": false,
+  "source_verified": false,
+  "cases": [
+    {
+      "id": "CORE-01",
+      "status": "PARTIAL",
+      "partial_evidence": "signed H/V/U/G/X path only; no official full COMMIT witness"
+    },
+    {
+      "id": "CORE-02",
+      "status": "PARTIAL",
+      "partial_evidence": "profile/scope alteration and signature tamper only"
+    },
+    {
+      "id": "CORE-03",
+      "status": "PARTIAL",
+      "partial_evidence": "permit dependency equality; not full independently derived RequiredDeps graph"
+    },
+    {
+      "id": "CORE-04",
+      "status": "PARTIAL",
+      "partial_evidence": "signed direct-ref mismatch; no full typed graph closure or cycles"
+    },
+    {
+      "id": "CORE-05",
+      "status": "PARTIAL",
+      "partial_evidence": "mock authoritative revision invalidation; no range/rollback mechanics"
+    },
+    {
+      "id": "CORE-06",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "CORE-07",
+      "status": "PARTIAL",
+      "partial_evidence": "required independent U signature; separation checks limited to fixture identities"
+    },
+    {
+      "id": "CORE-08",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "CORE-09",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "CORE-10",
+      "status": "PARTIAL",
+      "partial_evidence": "signature tamper rejection; no persistent Acceptance response recovery"
+    },
+    {
+      "id": "CORE-11",
+      "status": "PARTIAL",
+      "partial_evidence": "nonce/proof replay only; no full ID conflict replay cache"
+    },
+    {
+      "id": "CORE-12",
+      "status": "PARTIAL",
+      "partial_evidence": "8 Python threads under RLock; not real database serializable transactions"
+    },
+    {
+      "id": "CORE-13",
+      "status": "PARTIAL",
+      "partial_evidence": "expiry condition and pre-dispatch guard only"
+    },
+    {
+      "id": "CORE-14",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "CORE-15",
+      "status": "PARTIAL",
+      "partial_evidence": "pending cancel / no redispatch; no crash persistence"
+    },
+    {
+      "id": "CORE-16",
+      "status": "PARTIAL",
+      "partial_evidence": "signed mock tool final and contradictory fact; no durable tool effect"
+    },
+    {
+      "id": "CORE-17",
+      "status": "PARTIAL",
+      "partial_evidence": "fresh STATUS-only challenge and read-only state; no holder rekey"
+    },
+    {
+      "id": "CORE-18",
+      "status": "PARTIAL",
+      "partial_evidence": "single-profile stable intent uniqueness; no v2.5 migration"
+    },
+    {
+      "id": "CORE-19",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "CORE-20",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "PAY-01",
+      "status": "PARTIAL",
+      "partial_evidence": "trusted fixture risk label CLEAR/ANOMALY/LOW_EVIDENCE; NOT history-int-v2"
+    },
+    {
+      "id": "PAY-02",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "PAY-03",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "PAY-04",
+      "status": "PARTIAL",
+      "partial_evidence": "amount/format fixed constraints; no 3 certified source facts"
+    },
+    {
+      "id": "PAY-05",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "IND-01",
+      "status": "PARTIAL",
+      "partial_evidence": "3 fixed synthetic label mappings and basic independent review"
+    },
+    {
+      "id": "IND-02",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "IND-03",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "IND-04",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "MED-01",
+      "status": "PARTIAL",
+      "partial_evidence": "synthetic review and independent Authorization; no certified clinician role"
+    },
+    {
+      "id": "MED-02",
+      "status": "PARTIAL",
+      "partial_evidence": "stable synthetic encounter/group intent; no C-authorized encounter task changes"
+    },
+    {
+      "id": "MED-03",
+      "status": "PARTIAL",
+      "partial_evidence": "mock availability/completeness gate; no authenticated source evidence"
+    },
+    {
+      "id": "MED-04",
+      "status": "NOT_RUN",
+      "partial_evidence": "Not implemented in the reference slice"
+    },
+    {
+      "id": "SC-01",
+      "status": "PARTIAL",
+      "partial_evidence": "sample 8-slot cap only; no full TTL/32-count resource model"
+    },
+    {
+      "id": "SC-02",
+      "status": "PARTIAL",
+      "partial_evidence": "profile-separated signature and tool final rejection only"
+    },
+    {
+      "id": "AUD-02A",
+      "status": "PARTIAL",
+      "partial_evidence": "expired proof guard / current re-attestation; no persistent ledger"
+    },
+    {
+      "id": "AUD-02B",
+      "status": "PARTIAL",
+      "partial_evidence": "current key re-attestation same frozen fact; continuity is a boolean fixture"
+    },
+    {
+      "id": "AUD-02C",
+      "status": "PARTIAL",
+      "partial_evidence": "ledger-continuity=false blocks settlement; no real ledger transfer proof"
+    },
+    {
+      "id": "AUD-02D",
+      "status": "PARTIAL",
+      "partial_evidence": "bad and authentic contradictory signed facts with HALTED; not full archival contradiction evidence"
+    }
+  ],
+  "official_full_conformance_pass": 0,
+  "warning": "PARTIAL means only specific sub-properties tested; NOT a full upstream case PASS.",
+  "partial_count": 26,
+  "not_run_count": 13
+}

@@ -1,0 +1,62 @@
+{
+  "date_utc": "2026-10-09T02:07:59.232922+00:00",
+  "scope": "OFFLINE_SIGNED_REFERENCE_SLICE_NOT_UPSTREAM_CONFORMANCE",
+  "upstream_snapshot_head_used_for_design": "0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c",
+  "tests": {
+    "run": 59,
+    "passed": 59,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "official_full_conformance": {
+    "passed": 0,
+    "partial_model_relevance": 26,
+    "untouched": 13,
+    "upstream_inventory_verified_here": false
+  },
+  "trace_demo_profiles": [
+    "PAY-1",
+    "IND-DEMO-1",
+    "MED-DEMO-1"
+  ],
+  "upstream_schema_probe": [
+    {
+      "profile": "PAY-1",
+      "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+      "schema": "/mnt/data/ZJJ_protocol_assurance_patch/system_dev/v26/contracts/pay1.schema.json"
+    },
+    {
+      "profile": "IND-DEMO-1",
+      "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+      "schema": "/mnt/data/ZJJ_protocol_assurance_patch/system_dev/v26/contracts/industrial.schema.json"
+    },
+    {
+      "profile": "MED-DEMO-1",
+      "status": "SKIPPED_NO_UPSTREAM_SCHEMA",
+      "schema": "/mnt/data/ZJJ_protocol_assurance_patch/system_dev/v26/contracts/medical.schema.json"
+    }
+  ],
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cryptography": "46.0.4"
+  },
+  "source_sha256": {
+    "wire.py": "c240e8b61611d60acbb5aa1b144c92bff2900843fc909aac08ee038c6d9c8e57",
+    "engine.py": "08067659abcc5545c8e99295f91f06a449f9c2710ffe3b0877e4ae25b887b945",
+    "test_reference.py": "4ddbea26e100dcad0218e829ffcb7d247c133b935eeeca8a4c6a251a67ec1560",
+    "coverage.py": "d21472a1e1c8c8f99f269b14ec339b8e6f13df040120d2a00cbed29cb37a3ace",
+    "run_reference.py": "29dd55dc1978f55557f883ae583111331601e1ef592a8230513c1807062a7827",
+    "upstream_schema_probe.py": "c1327a918ede0e531f73d216450f513094461e9c7e9061af690f580ef46b0d9f",
+    "README.md": "c2083e972e6765ee322003224221432292618f03a70b7102a83309e8ce49612c"
+  },
+  "limits": [
+    "In-memory mock of C/W, not durable or linearizable across processes",
+    "Full upstream JSON Schema not loaded in this detached patch",
+    "Basis/COMMIT and evidence Record are only partial: not wire-compatible full contract",
+    "PAY risk status is a trusted fixture; no history-int-v2 re-computation",
+    "No key enrollment/revocation attestation, full authenticated source or old-version migration",
+    "No real tool effects; Ed25519 Python subgroup test is research-only"
+  ]
+}

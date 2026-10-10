@@ -1,0 +1,15 @@
+test_broker_rejects_wrong_actor_even_right_domain (research.phase18.test_isolated_signers.LinuxSignerBoundary.test_broker_rejects_wrong_actor_even_right_domain) ... ROLE_BROKER_X:DENY:BROKER_FOREIGN_ROLE
+\nok
+test_broker_rejects_wrong_signature_domain (research.phase18.test_isolated_signers.LinuxSignerBoundary.test_broker_rejects_wrong_signature_domain) ... ROLE_BROKER_E:DENY:BROKER_DOMAIN
+\nok
+test_c_broker_rejects_unapproved_domain (research.phase18.test_isolated_signers.LinuxSignerBoundary.test_c_broker_rejects_unapproved_domain) ... ROLE_BROKER_C:DENY:BROKER_DOMAIN
+\nok
+test_db_effect_unique (research.phase18.test_isolated_signers.LinuxSignerBoundary.test_db_effect_unique) ... ok
+test_minimal_ind_closure_with_remote_signers (research.phase18.test_isolated_signers.LinuxSignerBoundary.test_minimal_ind_closure_with_remote_signers) ... ok
+test_signer_key_os_dac_and_sibling_isolation (research.phase18.test_isolated_signers.LinuxSignerBoundary.test_signer_key_os_dac_and_sibling_isolation) ... ok
+test_w_can_not_replace_key_and_cannot_read_privileged_key (research.phase18.test_isolated_signers.LinuxSignerBoundary.test_w_can_not_replace_key_and_cannot_read_privileged_key) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.726s
+
+OK

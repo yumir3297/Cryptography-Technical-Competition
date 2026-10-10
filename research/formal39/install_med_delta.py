@@ -1,0 +1,26 @@
+"""Byte-exact delta for pinned official MED schema; run only with verification."""
+from .install_schema_delta import BASE,ROOT
+import base64,json,hashlib
+PATCH='''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'''
+
+def install():
+ p=base64.b64decode(PATCH);out=bytearray();i=0
+ while i<len(p):
+  x=p[i];i+=1
+  if x!=255:out.append(x);continue
+  cmd=p[i];i+=1
+  if cmd==0:out.append(255)
+  elif cmd==1:
+   pos=(p[i]<<8)|p[i+1];size=(p[i+2]<<8)|p[i+3];i+=4;out.extend(BASE[pos:pos+size])
+  elif cmd==2:
+   dist=(p[i]<<8)|p[i+1];size=p[i+2];i+=3
+   for _ in range(size):out.append(out[-dist])
+  else:raise ValueError('bad op')
+ obj=json.loads(out.decode('ascii'))
+ content=(json.dumps(obj,ensure_ascii=False,indent=2)+'\n').encode()
+ actual=hashlib.sha1(b'blob '+str(len(content)).encode()+b'\0'+content).hexdigest()
+ expected='5e43b803ed32a3359e4ad2b7e48a3c96f7fd9482'
+ if actual!=expected:raise RuntimeError(f'schema digest mismatch {actual} != {expected}')
+ path=ROOT/'system_dev/v26/contracts/medical.schema.json';path.write_bytes(content)
+ print('PINNED_SCHEMA_VERIFIED medical.schema.json',len(content),actual)
+if __name__=='__main__':install()

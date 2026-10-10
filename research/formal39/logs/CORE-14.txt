@@ -1,0 +1,8 @@
+test_dispatch_allows_only_acceptance_own_behavior_change (research.phase4.test_flow.Phase4PayFlow.test_dispatch_allows_only_acceptance_own_behavior_change) ... ok
+test_reservation_ownership_violation_blocks_claim (research.phase4.test_flow.Phase4PayFlow.test_reservation_ownership_violation_blocks_claim) ... ok
+test_behavior_inflight_missing_blocks_dispatch (research.phase8.test_scene_authority.SceneTests.test_behavior_inflight_missing_blocks_dispatch) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.348s
+
+OK

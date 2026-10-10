@@ -1,0 +1,8 @@
+test_claim_is_one_shot_no_arbitrary_witness_bool (research.phase6.test_trusted_final.FinalTests.test_claim_is_one_shot_no_arbitrary_witness_bool) ... ok
+test_claim_single_dispatch_and_restart_unknown (research.phase5.test_durable_w.DurableWTests.test_claim_single_dispatch_and_restart_unknown) ... ok
+test_cancel_only_before_start (research.reference_executor.test_reference.FlowTests.test_cancel_only_before_start) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.287s
+
+OK

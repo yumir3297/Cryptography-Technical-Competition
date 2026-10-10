@@ -1,0 +1,199 @@
+{
+  "contract": "ZJJ-CORE-2.6-R2",
+  "upstream_commit": "0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c",
+  "generated_at_utc": "2026-10-09T03:17:01.546274+00:00",
+  "suite": {
+    "tests": 228,
+    "passed": 228,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "official_schema": {
+    "status": "NOT_RUN_OFFICIAL_JSON_UNAVAILABLE",
+    "expected_git_blob_sha1": "86ba1bae0e4c455899af661bed44edfc5494aa5e"
+  },
+  "official_semantic_cases": {
+    "total": 39,
+    "source_status": "NOT_RUN_OFFICIAL_CASES_FILE_UNAVAILABLE",
+    "fully_run": 0,
+    "passed": 0,
+    "related_partial_evidence": 8
+  },
+  "durable_r2_traces": [
+    {
+      "kind": "SUCCEEDED",
+      "profile": "PAY-1",
+      "signed_commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+      "final_fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+      "final_record_ref": "jGZSdiiMCaVmex-nTIJF-PezlVgxCDQ3DFS9kV31rOQ",
+      "immutable_fact": {
+        "ledger_id": "ledger1",
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+        "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+        "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAB9Q",
+        "tool": "pay-sim",
+        "tool_version": "1",
+        "destination": "pay-sim-dest",
+        "outcome": "SUCCEEDED",
+        "effect_id": "effect1",
+        "no_late_effect": false,
+        "final_seq": "1",
+        "finalized_at": "105"
+      },
+      "result": {
+        "status": "SUCCEEDED",
+        "fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+        "idempotent": false,
+        "historical": false
+      },
+      "historical_replay": {
+        "status": "SUCCEEDED",
+        "fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+        "idempotent": true,
+        "historical": true
+      },
+      "w_state": {
+        "id": 1,
+        "capacity": 30000,
+        "reserved": 0,
+        "spent": 2000,
+        "revision": 3,
+        "accept_seq": 1,
+        "accepted_count": 1,
+        "count_cap": 32,
+        "accepted_rows": 1,
+        "flight_rows": 0,
+        "audit_rows": 4
+      },
+      "tool_ledger_head": "B-dYZ-Qo2P813zd3y1p6h7pEOqPD6iX6JsoGYobfQ2I",
+      "tool_final_count": 1
+    },
+    {
+      "kind": "FAILED_CONFIRMED",
+      "profile": "PAY-1",
+      "signed_commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+      "final_fact_id": "QJDlZtEvCYM7uG2SO_sOllxdsSXntMCtOZF-IV_ZkFU",
+      "final_record_ref": "OyBPiCcY_1-BD7LUREw4b2UOW8MmoBZEXMKwX7o7XV0",
+      "immutable_fact": {
+        "ledger_id": "ledger1",
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+        "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+        "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAB9Q",
+        "tool": "pay-sim",
+        "tool_version": "1",
+        "destination": "pay-sim-dest",
+        "outcome": "FAILED_CONFIRMED",
+        "effect_id": "",
+        "no_late_effect": true,
+        "final_seq": "1",
+        "finalized_at": "105"
+      },
+      "result": {
+        "status": "FAILED_CONFIRMED",
+        "fact_id": "QJDlZtEvCYM7uG2SO_sOllxdsSXntMCtOZF-IV_ZkFU",
+        "idempotent": false,
+        "historical": false
+      },
+      "historical_replay": {
+        "status": "FAILED_CONFIRMED",
+        "fact_id": "QJDlZtEvCYM7uG2SO_sOllxdsSXntMCtOZF-IV_ZkFU",
+        "idempotent": true,
+        "historical": true
+      },
+      "w_state": {
+        "id": 1,
+        "capacity": 30000,
+        "reserved": 0,
+        "spent": 0,
+        "revision": 3,
+        "accept_seq": 1,
+        "accepted_count": 1,
+        "count_cap": 32,
+        "accepted_rows": 1,
+        "flight_rows": 0,
+        "audit_rows": 4
+      },
+      "tool_ledger_head": "m8hlMVWPhyLvjE9JHAIbb1jgmBD-rpsDymUDlfF5Srs",
+      "tool_final_count": 1
+    },
+    {
+      "kind": "ROTATION",
+      "profile": "PAY-1",
+      "signed_commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+      "final_fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+      "final_record_ref": "qVFgNpbiQzH9-qfQz8vKF3Ta8-eIQeF3axmSf5snhyM",
+      "immutable_fact": {
+        "ledger_id": "ledger1",
+        "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+        "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+        "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAB9Q",
+        "tool": "pay-sim",
+        "tool_version": "1",
+        "destination": "pay-sim-dest",
+        "outcome": "SUCCEEDED",
+        "effect_id": "effect1",
+        "no_late_effect": false,
+        "final_seq": "1",
+        "finalized_at": "105"
+      },
+      "result": {
+        "status": "SUCCEEDED",
+        "fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+        "idempotent": false,
+        "historical": false
+      },
+      "historical_replay": {
+        "status": "SUCCEEDED",
+        "fact_id": "NBIvMdq8r-Thj6QiGYceE3VA79lgHMR28xJxtH_MhtQ",
+        "idempotent": true,
+        "historical": true
+      },
+      "w_state": {
+        "id": 1,
+        "capacity": 30000,
+        "reserved": 0,
+        "spent": 2000,
+        "revision": 3,
+        "accept_seq": 1,
+        "accepted_count": 1,
+        "count_cap": 32,
+        "accepted_rows": 1,
+        "flight_rows": 0,
+        "audit_rows": 5
+      },
+      "tool_ledger_head": "B-dYZ-Qo2P813zd3y1p6h7pEOqPD6iX6JsoGYobfQ2I",
+      "tool_final_count": 1
+    }
+  ],
+  "scope": {
+    "implemented": "PAY-1 laboratory immutable tool-final + controller-signed trust + W settlement; separate SQLite files",
+    "assumptions": [
+      "Controller root signing key trusted; no control-plane compromise model",
+      "Two local SQLite files, not external production tool or distributed atomic protocol",
+      "Claim has authenticated tool mapping but not full current-policy/RequiredDeps reconstruction",
+      "Simulated signed facts are not proof of actual economic/industrial effects",
+      "Trust rotation snapshot is only a local continuity check, not external ledger migration proof",
+      "Hard process termination does not test real disk power failure or all concurrency interleavings"
+    ],
+    "uncompleted": [
+      "Official 39-case integrated harness, all three profiles",
+      "Source E and real C enrollment/publication workflow",
+      "Complete transaction-current authorization guard for dispatch",
+      "External tool ledger and independent, verifiable continuity at key rotation"
+    ]
+  },
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cryptography": "46.0.4",
+    "sqlite3": "3.46.1"
+  },
+  "source_sha256": {
+    "test_trusted_final.py": "42b8987b9067243a1c42105da4b9f521bbbac010349288ef073a11b80f44081c",
+    "trusted_final.py": "c99bb0ee19b1a465b63be6a3c4f8657542db9ef1a94e2354fdce62b4ce89cdfd",
+    "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "run_phase6.py": "6172636da4c0e12cfdca7e7a26905c832baf0ffb56fd4e416929c2057c648a1f",
+    "crash_worker.py": "65ad1d303ff935e96c42290857fa8d3ee627c28462e105719fc1567bf8082413"
+  }
+}

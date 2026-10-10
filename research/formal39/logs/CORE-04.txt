@@ -1,0 +1,7 @@
+test_duplicate_same_key_rejected (research.strict_v26.test_pay_dependencies.RequiredDepTests.test_duplicate_same_key_rejected) ... ok
+test_wrong_record_kind_rejected (research.strict_v26.test_pay_history.HistoryTests.test_wrong_record_kind_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.004s
+
+OK

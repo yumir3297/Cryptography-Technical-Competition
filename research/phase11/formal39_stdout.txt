@@ -1,0 +1,33 @@
+{
+  "upstream_manifest": {
+    "status": "EXACT_OFFICIAL_MANIFEST_VERIFIED",
+    "git_blob": "b0bc9dbeedac135f6520b5e93729f63686d97bb4",
+    "count": 39,
+    "unmodified_declared_statuses": true
+  },
+  "schema_statuses": {
+    "PAY-1": "EXACT_ORIGINAL_SCHEMA_LOADED",
+    "IND-DEMO-1": "EXACT_ORIGINAL_SCHEMA_LOADED",
+    "MED-DEMO-1": "EXACT_ORIGINAL_SCHEMA_LOADED"
+  },
+  "summary": {
+    "official_cases": 39,
+    "official_complete_pass": 0,
+    "official_complete_fail": 0,
+    "case_facets_with_fresh_integrated_probes": 10,
+    "independent_integrated_probe_functions": 5,
+    "independent_integrated_probes_passed": 5,
+    "local_witness_cases_executed": 39,
+    "local_witness_tests_executed": 110,
+    "local_witness_tests_passed": 110,
+    "observed_subtest_failure_cases": [],
+    "case_statuses": {
+      "BLOCKED_FULL_CONFORMANCE": 39
+    },
+    "phase11_targeted_case_facets": 4,
+    "phase11_unit_facet_checks": 17,
+    "phase11_signed_profile_transcripts": 12,
+    "official_scene_objects_structurally_passed": 161,
+    "official_scene_schema_failures": 0
+  }
+}

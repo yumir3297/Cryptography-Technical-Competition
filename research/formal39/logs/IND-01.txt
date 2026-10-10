@@ -1,0 +1,8 @@
+test_all_five_fixed_synthetic_paths (research.phase8.test_scene_authority.SceneTests.test_all_five_fixed_synthetic_paths) ... ok
+test_ind_defect_cannot_release (research.phase8.test_scene_authority.SceneTests.test_ind_defect_cannot_release) ... ok
+test_missing_required_review_rejected (research.phase8.test_scene_authority.SceneTests.test_missing_required_review_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.378s
+
+OK

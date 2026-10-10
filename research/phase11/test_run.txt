@@ -1,0 +1,22 @@
+test_authenticated_signed_contradiction_halts_without_reversal (research.phase11.test_phase11.Phase11Tests.test_authenticated_signed_contradiction_halts_without_reversal) ... ok
+test_bad_final_signature_no_halt (research.phase11.test_phase11.Phase11Tests.test_bad_final_signature_no_halt) ... ok
+test_concurrent_scene_claim_single_attempt (research.phase11.test_phase11.Phase11Tests.test_concurrent_scene_claim_single_attempt) ... ok
+test_enrolment_pop_and_replay (research.phase11.test_phase11.Phase11Tests.test_enrolment_pop_and_replay) ... ok
+test_expired_first_tool_final_reattest_same_fact (research.phase11.test_phase11.Phase11Tests.test_expired_first_tool_final_reattest_same_fact) ... ok
+test_ind_and_med_complete_local_final_chain_and_schema (research.phase11.test_phase11.Phase11Tests.test_ind_and_med_complete_local_final_chain_and_schema) ... ok
+test_interval_crossing_unknown_preserves_escrow (research.phase11.test_phase11.Phase11Tests.test_interval_crossing_unknown_preserves_escrow) ... ok
+test_pay_controlled_time_cross_boundary_and_cancel (research.phase11.test_phase11.Phase11Tests.test_pay_controlled_time_cross_boundary_and_cancel) ... ok
+test_pay_current_reattest_and_same_fact_twice (research.phase11.test_phase11.Phase11Tests.test_pay_current_reattest_and_same_fact_twice) ... ok
+test_pay_full_resigned_permit_missing_dep_w_independently_rejects (research.phase11.test_phase11.Phase11Tests.test_pay_full_resigned_permit_missing_dep_w_independently_rejects) ... ok
+test_pay_new_claim_normal_and_same_attempt_only (research.phase11.test_phase11.Phase11Tests.test_pay_new_claim_normal_and_same_attempt_only) ... ok
+test_pay_rotation_contradiction_halt_without_rollback (research.phase11.test_phase11.Phase11Tests.test_pay_rotation_contradiction_halt_without_rollback) ... ok
+test_revocation_cancels_atomically_before_claim (research.phase11.test_phase11.Phase11Tests.test_revocation_cancels_atomically_before_claim) ... ok
+test_rotation_same_ledger_continuity_different_record_ref (research.phase11.test_phase11.Phase11Tests.test_rotation_same_ledger_continuity_different_record_ref) ... ok
+test_scene_legacy_dispatch_api_cannot_bypass_clock (research.phase11.test_phase11.Phase11Tests.test_scene_legacy_dispatch_api_cannot_bypass_clock) ... ok
+test_tool_ledger_continuity_rejects_split_storage (research.phase11.test_phase11.Phase11Tests.test_tool_ledger_continuity_rejects_split_storage) ... ok
+test_validly_resigned_permit_missing_dep_fails (research.phase11.test_phase11.Phase11Tests.test_validly_resigned_permit_missing_dep_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 6.396s
+
+OK

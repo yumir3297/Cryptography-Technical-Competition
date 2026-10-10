@@ -1,0 +1,81 @@
+{
+  "archive_note": "ZIP entries are deterministic for identical witness bytes; independent runs may differ because simulated ledger origin is random.",
+  "contract": "ZJJ-CORE-2.6-R2",
+  "delivery_archive": {
+    "entries": 326,
+    "note": "archive contains report without self-referential ZIP digest",
+    "path": "research_archives/ZJJ_CORE_2_6_R2_Phase15_Pay_Candidate_20261009.zip",
+    "sha256": "501c1aa9af4d925d5135ba4a3304a5521d0f816cbd9cb1956d769a2ebfea76c4"
+  },
+  "environment": {
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "python": "3.13.16"
+  },
+  "official": {
+    "BLOCKED": 39,
+    "FAIL": 0,
+    "PASS": 0
+  },
+  "original_artifact_sha256": {
+    "system_dev/v26/contracts/industrial.schema.json": "36c325808a01d5afb51f27872df4fdc7c40907aa56b023a10bd5a949e4ad768d",
+    "system_dev/v26/contracts/medical.schema.json": "033df4601364abcb2bf9f4673d43804150da47e598b71cfceb0ec090366b7ac2",
+    "system_dev/v26/contracts/pay1.schema.json": "84f57ba485abe56b94141dc8d27968c56ecad50fb50095565939b02fd2f8833e",
+    "system_dev/v26/semantic_cases.json": "43cb3de4492c290f9ebcd6570db2e59e1865ede33fcd58190ac6e7f688b507da"
+  },
+  "phase": 15,
+  "process_audit": {
+    "W_accept_count": 1,
+    "W_settlement_count": 1,
+    "externally_signed_X": true,
+    "independent_readonly_verifier": true,
+    "lab_process_count": 15,
+    "official_complete_pass": false,
+    "original_schema_records": [
+      "Record_COMMIT",
+      "Acceptance",
+      "Result",
+      "Record_TOOL_FINAL"
+    ],
+    "source_certificate_verified": true,
+    "tool_is_simulation": true
+  },
+  "raw_evidence_sha256": {
+    "research_evidence/phase15_formal39_output.txt": "bf3fa5edb3fb32d6ee248e0a2c93fcf17c11f4c44b53f1b7e069a465e3628500",
+    "research_evidence/phase15_pay_process/pay_w.sqlite": "779217d871ed7a64a14f73ddb95b472c1e949b89bceff9c58b7de8cb2eb27d46",
+    "research_evidence/phase15_pay_process/pay_witness.json": "1f0c7285a9da3639a619fff1052f15a9320faf4412b2521a42c99dde126ed860",
+    "research_evidence/phase15_pay_process/phase15_pay_report.json": "31c6f4dd60fe07570a0c210334b79b4794b1477c956eb20887efdb5c8d7287da",
+    "research_evidence/phase15_pay_process/tool.sqlite": "f450fab37816763a503aac49d5c29d7d94b17d05b93fada837ec48e7d946cff8",
+    "research_evidence/phase15_pay_process_output.txt": "87c28f8cc92b5d16ca4f141aebb368699af22c4eb9781b1ff11e22fd69824686",
+    "research_evidence/phase15_pay_test_output.txt": "6ce8ac280bdf1095842df9b34f853a3d60df290819f0beaa198bfa36b8ec3bdd"
+  },
+  "remaining_blockers": [
+    "C/X/E public fixture keys are not independently custodied or production-enrolled",
+    "No authenticated W-to-X request channel or independent X admission policy",
+    "C-signed source corpus is synthetic and not real evidence provenance",
+    "PAY trusted clock requires same timestamp at Prepare and Finalize, disallowing production latency",
+    "No deployed cross-profile single W or cross-profile atomicity",
+    "ToolLedger is a local simulator, not physical finance/industrial/clinical effect",
+    "Full 39 official semantic scenarios, distributed transport and authenticated STATUS/Result lifecycle unproven"
+  ],
+  "scoped_facets": {
+    "AUD-02A/B/C": "Phase11/12 prior scoped ledger reattestation preserved; not new complete Phase15 evidence",
+    "CORE-01/PAY-1": "Proposer/C/X/W separate OS processes; externally X-signed acceptance and result, one durable acceptance, tool simulation, read-only audit",
+    "CORE-03/PAY-1": "Signed Permit deliberately omits EXPERIENCE; W recomputes RequiredDeps from C-signed current source corpus and rejects",
+    "CORE-13/PAY-1": "C revocation before finalization and resource race after prepare reject; Phase11 dispatch clocks remain laboratory"
+  },
+  "source_date_epoch": "2026-10-09T00:00:00Z",
+  "source_sha256": {
+    ".github/workflows/phase15-pay.yml": "e781e2ce364103ca9bcfd92802f17650f6a922f905f1ad70a5dfdc3388c54eb7",
+    "research/formal39/run_formal39.py": "ff2a2c53c9c1d5763b4386717db64a6083204ee6bac6beb53a9601d765aecc19",
+    "research/phase12/authority.py": "993f73006c5ca6fec2baa4fc4d935b5b5cbdec4b2a098fd60274c9285fb37ce9",
+    "research/phase15/build_report.py": "96b6ed6fa78607b60a92f263755f65249d841cefb195ebccbd4745c6345513f2",
+    "research/phase15/pay_accept.py": "abe345bd72e0d6fb3f920e67e5e23cb60e7415fe11eeca9512ae06a484706688",
+    "research/phase15/process_flow.py": "e1f4100101323179355fae50c8f1ae5adf72c71c04bdcfe81329d8849afa497f",
+    "research/phase15/test_pay_accept.py": "2109673410bf7aabd30d4db10527b4999bedc23e37360fe643ae5623cb6c7e85",
+    "research/phase4/flow.py": "4b8637f6e088699ed065e75545e49cedef7b96859e2d62768bc5f8040294be61",
+    "research/reference_executor/wire.py": "c240e8b61611d60acbb5aa1b144c92bff2900843fc909aac08ee038c6d9c8e57",
+    "research/strict_v26/pay_dependencies.py": "284b3389527195cb18261e0654a1abe188471cea82de966fcd58d5b1bb1f5410"
+  },
+  "status": "PAY_LAB_EXPERIMENTAL_NOT_OFFICIAL_CONFORMANT",
+  "test_count": 8
+}

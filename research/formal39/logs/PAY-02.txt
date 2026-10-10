@@ -1,0 +1,11 @@
+test_n2_insufficient (research.strict_v26.test_pay_history.HistoryTests.test_n2_insufficient) ... ok
+test_n5_d4_flag (research.strict_v26.test_pay_history.HistoryTests.test_n5_d4_flag) ... ok
+test_distance_equal_1000_included (research.strict_v26.test_pay_history.HistoryTests.test_distance_equal_1000_included) ... ok
+test_time_known_at_at_cutoff_included (research.strict_v26.test_pay_history.HistoryTests.test_time_known_at_at_cutoff_included) ... ok
+test_time_known_at_after_cutoff_excluded (research.strict_v26.test_pay_history.HistoryTests.test_time_known_at_after_cutoff_excluded) ... ok
+test_order_by_distance_then_ascii_case_id (research.strict_v26.test_pay_history.HistoryTests.test_order_by_distance_then_ascii_case_id) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.018s
+
+OK

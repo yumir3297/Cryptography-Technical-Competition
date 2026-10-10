@@ -1,0 +1,99 @@
+{
+  "W_db_sha256": "779217d871ed7a64a14f73ddb95b472c1e949b89bceff9c58b7de8cb2eb27d46",
+  "audit": {
+    "W_accept_count": 1,
+    "W_settlement_count": 1,
+    "externally_signed_X": true,
+    "independent_readonly_verifier": true,
+    "lab_process_count": 15,
+    "official_complete_pass": false,
+    "original_schema_records": [
+      "Record_COMMIT",
+      "Acceptance",
+      "Result",
+      "Record_TOOL_FINAL"
+    ],
+    "source_certificate_verified": true,
+    "tool_is_simulation": true
+  },
+  "case": "CORE-01",
+  "limitations": [
+    "publicly known lab fixture signing seeds",
+    "different processes do not imply independent OS credentials",
+    "pay TrustedStore recreated from C-signed synthetic source records",
+    "C time is a signed laboratory assertion, not a physical clock",
+    "simulated ToolLedger does not prove real financial settlement",
+    "original full39 semantic conformance remains BLOCKED"
+  ],
+  "official_complete_pass": false,
+  "phase": 15,
+  "profile": "PAY-1",
+  "signed_witness_sha256": "1f0c7285a9da3639a619fff1052f15a9320faf4412b2521a42c99dde126ed860",
+  "steps": [
+    {
+      "W_received_private_signer": false,
+      "bootstrap_signed_candidate": true
+    },
+    {
+      "C_signed_publications": 14,
+      "source_rows": 15
+    },
+    {
+      "C_external": true,
+      "purpose": "PREPARE",
+      "seq": 1
+    },
+    {
+      "W_signing_key": false,
+      "prepared": true,
+      "ticket": "XDr3Q0G21_CeHGIjIgm9pw"
+    },
+    {
+      "X_external": true,
+      "acceptance_ref": "-qsb2GXDFH511t6diS8u0ZI_uB3VuOGL6CgX51VVgI0",
+      "result_ref": "kfZJgF6y2w9KWl1gjINVcsahFHZX5MM-pe8nNO5G5dU"
+    },
+    {
+      "C_external": true,
+      "purpose": "FINALIZE",
+      "seq": 2
+    },
+    {
+      "commit_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+      "finalized": true
+    },
+    {
+      "C_external": true,
+      "certificate": true
+    },
+    {
+      "trusted_ledger": true
+    },
+    {
+      "C_external": true,
+      "purpose": "DISPATCH",
+      "seq": 3
+    },
+    {
+      "attempt": "AAAAAAAAAAAAAAAAAAA8mQ",
+      "claimed": true
+    },
+    {
+      "signed_ref": "Ivqs3eeHdkX3-UGP-pDyF8Z378pTLQXinLarxzoLCAQ",
+      "simulated_fact": true
+    },
+    {
+      "C_external": true,
+      "purpose": "SETTLE",
+      "seq": 4
+    },
+    {
+      "settled": true,
+      "spent": 2000
+    },
+    {
+      "rejected": "NO_REDISPATCH"
+    }
+  ],
+  "tool_db_sha256": "f450fab37816763a503aac49d5c29d7d94b17d05b93fada837ec48e7d946cff8"
+}

@@ -1,0 +1,7 @@
+test_true_process_hard_kills_at_commit_boundaries (research.phase5.test_durable_w.DurableWTests.test_true_process_hard_kills_at_commit_boundaries) ... ok
+test_hard_crash_rolls_back_every_write (research.phase8.test_scene_authority.SceneTests.test_hard_crash_rolls_back_every_write) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 6.273s
+
+OK

@@ -1,0 +1,128 @@
+[
+  {
+    "case": "CLEAR",
+    "risk_result": "CLEAR",
+    "ratio_feature": "2000",
+    "selected_cases": [
+      "case-01",
+      "case-02",
+      "case-03"
+    ],
+    "support": "3",
+    "different": "0",
+    "required_reviews": [],
+    "independently_derived_dep_count": 15,
+    "tampered_result_rejection": "ASSESSMENT_MISMATCH",
+    "source_record_ref": "TEi8FIYmV8ZKoJI9FeNZMur-aO7eCDRWFjGfdJE1L4g",
+    "history_record_ref": "WKG1bG6P7HqA1-y1s-91RD1Pj5luvfOpMT4Norg3Nbk",
+    "assessment_candidate": {
+      "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+      "policy_ref": "huqBG--sK7_yE8BxRndmv-vqp6UZTG5D1v1IOAJUKDU",
+      "task_ref": "FbKsoFyBL7hdMrYdiLjj8tmOQOZ7MwHLH51qoCz-ogE",
+      "evidence_refs": [
+        "TEi8FIYmV8ZKoJI9FeNZMur-aO7eCDRWFjGfdJE1L4g"
+      ],
+      "snapshot_ref": "WKG1bG6P7HqA1-y1s-91RD1Pj5luvfOpMT4Norg3Nbk",
+      "cutoff": "100",
+      "feature": "2000",
+      "selected_cases": [
+        "case-01",
+        "case-02",
+        "case-03"
+      ],
+      "support": "3",
+      "different": "0",
+      "result": "CLEAR",
+      "method": "history-int-v2",
+      "iat": "100",
+      "exp": "300"
+    },
+    "limits": "C publication authenticity and v2.5 historical credential graph are fixtures; no full official conformance"
+  },
+  {
+    "case": "FLAG",
+    "risk_result": "FLAG",
+    "ratio_feature": "2000",
+    "selected_cases": [
+      "case-01",
+      "case-02",
+      "case-03",
+      "case-04",
+      "case-05"
+    ],
+    "support": "5",
+    "different": "4",
+    "required_reviews": [
+      "ANOMALY"
+    ],
+    "independently_derived_dep_count": 17,
+    "tampered_result_rejection": "ASSESSMENT_MISMATCH",
+    "source_record_ref": "TEi8FIYmV8ZKoJI9FeNZMur-aO7eCDRWFjGfdJE1L4g",
+    "history_record_ref": "gHwZuhapE76q_a8gXnOQAuhWlgkueO2jMD154VV0Obo",
+    "assessment_candidate": {
+      "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+      "policy_ref": "huqBG--sK7_yE8BxRndmv-vqp6UZTG5D1v1IOAJUKDU",
+      "task_ref": "FbKsoFyBL7hdMrYdiLjj8tmOQOZ7MwHLH51qoCz-ogE",
+      "evidence_refs": [
+        "TEi8FIYmV8ZKoJI9FeNZMur-aO7eCDRWFjGfdJE1L4g"
+      ],
+      "snapshot_ref": "gHwZuhapE76q_a8gXnOQAuhWlgkueO2jMD154VV0Obo",
+      "cutoff": "100",
+      "feature": "2000",
+      "selected_cases": [
+        "case-01",
+        "case-02",
+        "case-03",
+        "case-04",
+        "case-05"
+      ],
+      "support": "5",
+      "different": "4",
+      "result": "FLAG",
+      "method": "history-int-v2",
+      "iat": "100",
+      "exp": "300"
+    },
+    "limits": "C publication authenticity and v2.5 historical credential graph are fixtures; no full official conformance"
+  },
+  {
+    "case": "INSUFFICIENT",
+    "risk_result": "INSUFFICIENT",
+    "ratio_feature": "2000",
+    "selected_cases": [
+      "case-01",
+      "case-02"
+    ],
+    "support": "2",
+    "different": "0",
+    "required_reviews": [
+      "LOW_EVIDENCE"
+    ],
+    "independently_derived_dep_count": 17,
+    "tampered_result_rejection": "ASSESSMENT_MISMATCH",
+    "source_record_ref": "TEi8FIYmV8ZKoJI9FeNZMur-aO7eCDRWFjGfdJE1L4g",
+    "history_record_ref": "KlJGoGDU6x3sJ7GbX9yKhOjJP7p1-A3T3JeXOS0xhWw",
+    "assessment_candidate": {
+      "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+      "policy_ref": "huqBG--sK7_yE8BxRndmv-vqp6UZTG5D1v1IOAJUKDU",
+      "task_ref": "FbKsoFyBL7hdMrYdiLjj8tmOQOZ7MwHLH51qoCz-ogE",
+      "evidence_refs": [
+        "TEi8FIYmV8ZKoJI9FeNZMur-aO7eCDRWFjGfdJE1L4g"
+      ],
+      "snapshot_ref": "KlJGoGDU6x3sJ7GbX9yKhOjJP7p1-A3T3JeXOS0xhWw",
+      "cutoff": "100",
+      "feature": "2000",
+      "selected_cases": [
+        "case-01",
+        "case-02"
+      ],
+      "support": "2",
+      "different": "0",
+      "result": "INSUFFICIENT",
+      "method": "history-int-v2",
+      "iat": "100",
+      "exp": "300"
+    },
+    "limits": "C publication authenticity and v2.5 historical credential graph are fixtures; no full official conformance"
+  }
+]

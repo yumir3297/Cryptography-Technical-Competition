@@ -1,0 +1,70 @@
+{
+  "interpretation": "Reproduced scoped AUD-02C gap; Phase12 HardenedPayW now rejects it",
+  "ledger_fact_absent": true,
+  "observed_phase11_accepts_without_original_fact": true,
+  "old_after": {
+    "accept_seq": 1,
+    "accepted_count": 1,
+    "accepted_rows": 1,
+    "audit_rows": 18,
+    "capacity": 30000,
+    "count_cap": 32,
+    "flight_rows": 0,
+    "id": 1,
+    "reserved": 0,
+    "revision": 3,
+    "spent": 2000
+  },
+  "old_before": {
+    "accept_seq": 1,
+    "accepted_count": 1,
+    "accepted_rows": 1,
+    "audit_rows": 17,
+    "capacity": 30000,
+    "count_cap": 32,
+    "flight_rows": 1,
+    "id": 1,
+    "reserved": 2000,
+    "revision": 2,
+    "spent": 0
+  },
+  "old_settlement_result": {
+    "fact_id": "xZaKMwlbZRsHeFaAk8dgeezpSVssMBoU4312w2UkeOY",
+    "historical": false,
+    "idempotent": false,
+    "status": "SUCCEEDED"
+  },
+  "old_signed_tool_final": {
+    "kind": "TOOL_FINAL",
+    "profile": "PAY-1",
+    "scope": {
+      "domain": "lab",
+      "scenario": "payment",
+      "tenant": "tenant-1"
+    },
+    "value": {
+      "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+      "attestation": {
+        "issuer": "tool-issuer",
+        "kid": "0tD_Mpz3KBlTkkzmzds4Ip4JBFP9MQ8sllk3Sq6kToA",
+        "sig": "7R-7XWcZdlwXJTmJcd3v81FWK9FPemAY_Wrwuvy59KHozpKXV2uRJYeweOV8cbbSla9VI0JLpRB_sJkdFkYlAA"
+      },
+      "destination": "pay-sim-dest",
+      "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAgVQ",
+      "effect_id": "effect1",
+      "exp": "231",
+      "final_seq": "1",
+      "finalized_at": "110",
+      "iat": "111",
+      "ledger_id": "ledger1",
+      "method": "tool-final-v2",
+      "no_late_effect": false,
+      "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+      "outcome": "SUCCEEDED",
+      "tool": "pay-sim",
+      "tool_version": "1"
+    },
+    "version": "2.6"
+  },
+  "phase11_existing_strict_pay_code_path": "settle_r2 on signed final with erased independent ledger fact"
+}

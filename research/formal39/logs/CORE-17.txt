@@ -1,0 +1,7 @@
+test_status_query_read_only (research.phase4.test_flow.Phase4PayFlow.test_status_query_read_only) ... ok
+test_status_after_old_challenge_expiry (research.reference_executor.test_reference.FlowTests.test_status_after_old_challenge_expiry) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.147s
+
+OK

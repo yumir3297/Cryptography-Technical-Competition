@@ -1,0 +1,68 @@
+name: Phase17 IND Minimum Closed Loop
+on:
+  push:
+    branches: [research/zjj-core-phase13-handoff-20261009]
+    paths:
+      - 'research/phase17/**'
+      - 'research/phase8/fixtures.py'
+      - '.github/workflows/phase17-ind.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: phase17-ind-pilot
+  cancel-in-progress: true
+jobs:
+  industrial-minimum:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned reference dependencies
+        run: python -m pip install -r requirements_phase13.txt
+      - name: Run fresh-identity industrial closed loop
+        run: |
+          mkdir -p research_evidence/phase17
+          set -o pipefail
+          python -m research.phase17.process_flow --output "$RUNNER_TEMP/zjj_phase17_ind" 2>&1 | tee research_evidence/phase17/orchestrate.txt
+      - name: Run independent negative tests and sanity checks
+        run: |
+          set -o pipefail
+          python -m unittest research.phase17.test_minimal_loop -v 2>&1 | tee research_evidence/phase17/minimal_loop_tests.txt
+      - name: Re-run original official 39 cases
+        run: |
+          set -o pipefail
+          python -m research.formal39.run_formal39 2>&1 | tee research_evidence/phase17/original39.txt
+      - name: Freeze only public evidence - NEVER upload signer key files
+        run: |
+          python -m research.phase17.build_report --input "$RUNNER_TEMP/zjj_phase17_ind" | tee research_evidence/phase17/build_report.txt
+          if find research_evidence/phase17 research_archives -name '*.key' | grep -q .; then
+            echo 'SECRET_FILE_LEAK' >&2
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase17-industrial-minimum-public-only
+          path: |
+            research_evidence/phase17/**
+            research_archives/ZJJ_CORE_2_6_R2_Phase17_Industrial_Minimum_20261010.zip
+          if-no-files-found: ignore
+      - name: Sync vetted public research evidence to branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research_evidence/phase17
+          git add research_archives/ZJJ_CORE_2_6_R2_Phase17_Industrial_Minimum_20261010.zip
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence(phase17): minimum IND closure, signer boundaries and audits'
+            # Disposable CI checkout: drop uncommitted derived formal39 report edits
+            # after committing ONLY the vetted Phase17 public evidence and archive.
+            git reset --hard HEAD
+            git pull --rebase origin research/zjj-core-phase13-handoff-20261009
+            git push origin HEAD:research/zjj-core-phase13-handoff-20261009
+          fi

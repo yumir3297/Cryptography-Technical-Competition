@@ -1,0 +1,83 @@
+[
+  {
+    "profile": "PAY-1",
+    "run": "signed-positive-rotation-recovery",
+    "required_reviews": [],
+    "refs": {
+      "basis_ref": "vAv-ZL7gjlM-_cWHTkIG6UhJDbO0_b02suk-c-mFAug",
+      "action_hash": "hOXFYyfO6lAXjN-g1PI9xYaqtymmarNKeR13Zvc6uCE",
+      "authorization_ref": "F4XoG2rIX_GwqzgHiM6Bk4xvG5A8R26TqfILxYslW9g",
+      "permit_ref": "JaXYd1oH_ZyqLD7wnU8AxVUsRlLdbngmPObzCLuE9aY",
+      "challenge_ref": "slvRcboNa37Vm_56tdshtkp0egATr5dBrsLD8lVPbp4",
+      "proof_ref": "UwgWFNS5CiQDYWt9VfXn-AUE2J-ILdDFeL8xzQ-UFe8",
+      "acceptance_ref": "PULuJ2VoAzVhkfBMRmx_YIjgi9aJuHR7AajsnPEnzJU",
+      "original_tool_final_ref": "JbVuQPke3V2JQXCIVNWAY-nfa57sNEeNcv7VzHV2zvk",
+      "refreshed_tool_final_ref": "kgX8kEAkePiCFi9-KaGvDMSYJ0vsn6UOVmITVmcOUPY",
+      "final_fact_id": "nCHOMa1WF1ntOlMLi0YSTZ3GojhYS6YppYUB6eI0NHY"
+    },
+    "first_settlement": "SETTLED",
+    "second_re_attestation": "EXISTING",
+    "final_status": "SUCCEEDED",
+    "calls": 1,
+    "settlements": 1,
+    "resource_reserved": 0,
+    "resource_spent": 1,
+    "fixture_notice": "in-memory tool ledger; no durable execution"
+  },
+  {
+    "profile": "IND-DEMO-1",
+    "run": "signed-positive-rotation-recovery",
+    "required_reviews": [
+      "QUALITY_REVIEW"
+    ],
+    "refs": {
+      "basis_ref": "PG-xOEXP69-07htBHkEllhwU_X7DHYxyHftLtyww6Fs",
+      "action_hash": "fmw_7jQi02BLG5ZhnbKB8ZH65PCINu7x8kn5b5n2Uy0",
+      "review_ref": "oK7NlszTIdEHQfnDu1Gnnq73GHnY7pB0P9-7fXDUgr4",
+      "authorization_ref": "odPQICKSwdgm1NaT6mh_ByXE-jiFpoKZu4d8ce4txlM",
+      "permit_ref": "C43AXXJg_tielrjDt_hOtINToRGmlSshFJ_UzwHfFS8",
+      "challenge_ref": "wPYiFTIASsSneIB9U6lL4bSObwtA6EMTeAHnchm0kEA",
+      "proof_ref": "iwKGhFc4n0iXSr0XAafICLSMg4_6nfCRNzQBsLwVmks",
+      "acceptance_ref": "qp-_lVawWG9RYWsKGjwmXzhrsDGpdg78HNV716i6o1U",
+      "original_tool_final_ref": "0sG--aLFu0Gf6SA-PRvXEnIIj-nkwo21QrtvSXCg9yc",
+      "refreshed_tool_final_ref": "Z5Bdva1WRzc6nxRC0UjVx4qjZJVjP3GhCFSvh2LXQp0",
+      "final_fact_id": "jQL8o96QhdWTZ8K2DhrofSJwdqeTbMvGe1Q77tyJ46U"
+    },
+    "first_settlement": "SETTLED",
+    "second_re_attestation": "EXISTING",
+    "final_status": "SUCCEEDED",
+    "calls": 1,
+    "settlements": 1,
+    "resource_reserved": 0,
+    "resource_spent": 1,
+    "fixture_notice": "in-memory tool ledger; no durable execution"
+  },
+  {
+    "profile": "MED-DEMO-1",
+    "run": "signed-positive-rotation-recovery",
+    "required_reviews": [
+      "CLINICAL_REVIEW"
+    ],
+    "refs": {
+      "basis_ref": "jKKDq9_xqHF9y8RGT6-iy3y04OQpqZOqPoBFqVr4DFw",
+      "action_hash": "3BTq-Oe1wTtRfea4CPdOjoqfKRikBeOQArIUh6ucIVk",
+      "review_ref": "F7T59hBhywjwABZiZjbLeO_dvOcA8f5zJ9H5ZjMRX2g",
+      "authorization_ref": "QqGI_WllEVDnXEFJXHEnC5D1EnTz0E4xbgrZoHe0Scc",
+      "permit_ref": "XQLI_49yiEz_CAHBvUniboIIJgS-1Hc3ELDeEzrmtlA",
+      "challenge_ref": "ixx7Yzj9iLG0hwO4CaKBEG6fZfhe_mT0U4OhwMcIWis",
+      "proof_ref": "IkfKQcWjRZAJs-7x3rYr1ivMRVWa0zfFj33E04v3TZo",
+      "acceptance_ref": "cMu7pWXqmKZsQ65RdDSGs_fJ6USfZQg38J2N29VH_6k",
+      "original_tool_final_ref": "OUbLoE6fQa309Kl0BtOMoaTmHQSrUeaLlQr0lh9qh3Q",
+      "refreshed_tool_final_ref": "6BXDV7KpUVqdgmUKGlFzxjunl1Tvwua_Jh2Cfr7ie5w",
+      "final_fact_id": "nxnbbqwjNb6bpDFJz3186HLBZ1LqCve1AIKSBLPjzOY"
+    },
+    "first_settlement": "SETTLED",
+    "second_re_attestation": "EXISTING",
+    "final_status": "SUCCEEDED",
+    "calls": 1,
+    "settlements": 1,
+    "resource_reserved": 0,
+    "resource_spent": 1,
+    "fixture_notice": "in-memory tool ledger; no durable execution"
+  }
+]

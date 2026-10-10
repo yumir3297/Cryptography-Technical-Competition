@@ -1,0 +1,8 @@
+test_all_five_fixed_synthetic_paths (research.phase8.test_scene_authority.SceneTests.test_all_five_fixed_synthetic_paths) ... ok
+test_wrong_review_purpose_rejected (research.phase8.test_scene_authority.SceneTests.test_wrong_review_purpose_rejected) ... ok
+test_review_read_permission_revocation (research.phase8.test_scene_authority.SceneTests.test_review_read_permission_revocation) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.405s
+
+OK

@@ -1,0 +1,8 @@
+test_envelope_reject_cross_profile (research.reference_executor.test_reference.WireTests.test_envelope_reject_cross_profile) ... ok
+test_evidence_kind_cannot_be_cross_profile_reused (research.phase8.test_scene_authority.SceneTests.test_evidence_kind_cannot_be_cross_profile_reused) ... ok
+test_broken_signed_permit_rejected (research.phase8.test_scene_authority.SceneTests.test_broken_signed_permit_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.223s
+
+OK

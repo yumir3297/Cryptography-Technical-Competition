@@ -1,0 +1,235 @@
+{
+  "case": "CORE-01",
+  "contract": "ZJJ-CORE-2.6-R2",
+  "label": "LAB_PROCESS_ISOLATED_SCENE_CANDIDATE",
+  "limitations": [
+    "C/X use insecure publicly known fixture keys",
+    "separate OS processes do not establish separate OS account privileges",
+    "PAY legacy Phase13 path not yet migrated",
+    "simulated ToolLedger not physical effect",
+    "original full 39-case conformance not closed"
+  ],
+  "official_passes": 0,
+  "phase": 14,
+  "profiles": {
+    "IND-DEMO-1": {
+      "audit": {
+        "W_accept_count": 1,
+        "W_call_count": 1,
+        "W_reserved_after": 0,
+        "W_settlement_count": 1,
+        "W_spent_after": 1,
+        "acceptance_ref": "FBeHSVjQ7OzGrhZHPqPrTMOALIolDQICyXeqJ3zh3UI",
+        "candidate": "CORE-01",
+        "commit_ref": "MnvDtXNcGFYzY6w5FtuQfxuMphaStF1sV3drkLb94xA",
+        "distinct_stage_pids": 5,
+        "final_ref": "8TaYy_CPIKFtRsH6TFj0uhp7qwqf33c1Rho70hcfmVE",
+        "independent_readonly_verifier": true,
+        "limitations": [
+          "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+          "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+          "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+          "A per-profile W SQLite store is not one deployed cross-profile W",
+          "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+        ],
+        "official_complete_pass": false,
+        "official_schema_check": true,
+        "phase14_prepared_ticket_checked": true,
+        "processes": 14,
+        "profile": "IND-DEMO-1",
+        "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+        "validated_message_types": [
+          "acceptance",
+          "authorization",
+          "challenge",
+          "challenge_request",
+          "issue",
+          "permit",
+          "proof"
+        ]
+      },
+      "db_sha256": "cca27b199d7b9fa76ce0f3e0b17cbad1ba99e310e37826a5449d1f908845687e",
+      "stages": [
+        {
+          "private_keys_exported_to_W": false,
+          "profile": "IND-DEMO-1",
+          "stage": "bootstrap"
+        },
+        {
+          "sequence": 1,
+          "signed_by": "external_C_fixture_process",
+          "stage": "c_prepare"
+        },
+        {
+          "no_acceptance_yet": true,
+          "stage": "w_prepare",
+          "ticket": "aDoBqWjCgAJDGi1OHoYaDw"
+        },
+        {
+          "external_X": true,
+          "signature_ref": "FBeHSVjQ7OzGrhZHPqPrTMOALIolDQICyXeqJ3zh3UI",
+          "stage": "x_sign"
+        },
+        {
+          "sequence": 2,
+          "signed_by": "external_C_fixture_process",
+          "stage": "c_finalize"
+        },
+        {
+          "acceptance_ref": "FBeHSVjQ7OzGrhZHPqPrTMOALIolDQICyXeqJ3zh3UI",
+          "commit_ref": "MnvDtXNcGFYzY6w5FtuQfxuMphaStF1sV3drkLb94xA",
+          "stage": "w_finalize"
+        },
+        {
+          "certified": true,
+          "external_C": true,
+          "stage": "c_trust"
+        },
+        {
+          "public_C_cert_verified": true,
+          "stage": "w_activate"
+        },
+        {
+          "sequence": 3,
+          "signed_by": "external_C_fixture_process",
+          "stage": "c_claim"
+        },
+        {
+          "attempt": "AAAAAAAAAAAAAAAAAAAFhQ",
+          "claimed": true,
+          "stage": "claim"
+        },
+        {
+          "W_private_signing": false,
+          "stage": "tool",
+          "tool_final_ref": "8TaYy_CPIKFtRsH6TFj0uhp7qwqf33c1Rho70hcfmVE"
+        },
+        {
+          "sequence": 4,
+          "signed_by": "external_C_fixture_process",
+          "stage": "c_settle"
+        },
+        {
+          "stage": "settle",
+          "status": "SUCCEEDED"
+        },
+        {
+          "rejected": "NO_REDISPATCH",
+          "stage": "no_redispatch"
+        }
+      ],
+      "tool_sha256": "7207a6ae35d95514edf15270ac227e57502168890d998f5c9668c1bda444e620",
+      "witness_sha256": "a753cadb59341abbd90e2226256a7bfcc3cd788cfea56450df441a985d9c4c8a"
+    },
+    "MED-DEMO-1": {
+      "audit": {
+        "W_accept_count": 1,
+        "W_call_count": 1,
+        "W_reserved_after": 0,
+        "W_settlement_count": 1,
+        "W_spent_after": 1,
+        "acceptance_ref": "ckSeFHG0_ar0Pq8heM9xbadIsBX0m_dacTnsIBhwaVY",
+        "candidate": "CORE-01",
+        "commit_ref": "bPi_nK6c6pwxgiArZbft1ZBiIchfMM9BRhjaJRWOVWk",
+        "distinct_stage_pids": 5,
+        "final_ref": "AHATv3ZlIahLxK6VTfLQ0W1YtyRgUbeYZ5lk3ueGPgY",
+        "independent_readonly_verifier": true,
+        "limitations": [
+          "deterministic C/X signer keys remain constructed within the reference W; no true custody isolation",
+          "ToolLedger is a simulator; cannot independently attest a physical or clinical effect",
+          "No canonical transport aud/scope/path/0-RTT/STATUS lifecycle verification",
+          "A per-profile W SQLite store is not one deployed cross-profile W",
+          "The independent auditor reads the public tuple and fixture trusted root supplied in the witness, not external root trust"
+        ],
+        "official_complete_pass": false,
+        "official_schema_check": true,
+        "phase14_prepared_ticket_checked": true,
+        "processes": 14,
+        "profile": "MED-DEMO-1",
+        "status": "PASS_PROCESS_SEPARATED_LAB_CANDIDATE",
+        "validated_message_types": [
+          "acceptance",
+          "authorization",
+          "challenge",
+          "challenge_request",
+          "issue",
+          "permit",
+          "proof",
+          "review_0"
+        ]
+      },
+      "db_sha256": "f14f16a889d209edb75a711c251961c2e5bed6fcdc1b645357ffe717afd26a96",
+      "stages": [
+        {
+          "private_keys_exported_to_W": false,
+          "profile": "MED-DEMO-1",
+          "stage": "bootstrap"
+        },
+        {
+          "sequence": 1,
+          "signed_by": "external_C_fixture_process",
+          "stage": "c_prepare"
+        },
+        {
+          "no_acceptance_yet": true,
+          "stage": "w_prepare",
+          "ticket": "jzPRrPkXgfTZrInwo2BisQ"
+        },
+        {
+          "external_X": true,
+          "signature_ref": "ckSeFHG0_ar0Pq8heM9xbadIsBX0m_dacTnsIBhwaVY",
+          "stage": "x_sign"
+        },
+        {
+          "sequence": 2,
+          "signed_by": "external_C_fixture_process",
+          "stage": "c_finalize"
+        },
+        {
+          "acceptance_ref": "ckSeFHG0_ar0Pq8heM9xbadIsBX0m_dacTnsIBhwaVY",
+          "commit_ref": "bPi_nK6c6pwxgiArZbft1ZBiIchfMM9BRhjaJRWOVWk",
+          "stage": "w_finalize"
+        },
+        {
+          "certified": true,
+          "external_C": true,
+          "stage": "c_trust"
+        },
+        {
+          "public_C_cert_verified": true,
+          "stage": "w_activate"
+        },
+        {
+          "sequence": 3,
+          "signed_by": "external_C_fixture_process",
+          "stage": "c_claim"
+        },
+        {
+          "attempt": "AAAAAAAAAAAAAAAAAAAFhQ",
+          "claimed": true,
+          "stage": "claim"
+        },
+        {
+          "W_private_signing": false,
+          "stage": "tool",
+          "tool_final_ref": "AHATv3ZlIahLxK6VTfLQ0W1YtyRgUbeYZ5lk3ueGPgY"
+        },
+        {
+          "sequence": 4,
+          "signed_by": "external_C_fixture_process",
+          "stage": "c_settle"
+        },
+        {
+          "stage": "settle",
+          "status": "SUCCEEDED"
+        },
+        {
+          "rejected": "NO_REDISPATCH",
+          "stage": "no_redispatch"
+        }
+      ],
+      "tool_sha256": "f176f07e00a8ff7aa4391936fc86a808508a179555d3cf28e9103a5cd8250887",
+      "witness_sha256": "e1e8ec8843fa458999450f49cd993d9e15da04ef71d7b741cbbfccd087468123"
+    }
+  }
+}

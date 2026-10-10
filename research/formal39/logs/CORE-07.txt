@@ -1,0 +1,8 @@
+test_independent_finance_not_gateway (research.strict_v26.test_pay_dependencies.RequiredDepTests.test_independent_finance_not_gateway) ... ok
+test_independent_review_not_finance (research.strict_v26.test_pay_dependencies.RequiredDepTests.test_independent_review_not_finance) ... ok
+test_wrong_review_purpose_rejected (research.phase8.test_scene_authority.SceneTests.test_wrong_review_purpose_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.192s
+
+OK

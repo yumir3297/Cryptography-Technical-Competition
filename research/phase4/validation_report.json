@@ -1,0 +1,48 @@
+{
+  "timestamp_utc": "2026-10-09T02:54:52.414965+00:00",
+  "protocol": "ZJJ-CORE-2.6-R2",
+  "target_head": "0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c",
+  "suite": {
+    "test_count": 180,
+    "passed": 180,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "official_schema": {
+    "status": "SKIPPED_OFFICIAL_SCHEMA_NOT_INSTALLED",
+    "pinned_blob_sha1": "86ba1bae0e4c455899af661bed44edfc5494aa5e"
+  },
+  "official_full_conformance": {
+    "passed": 0,
+    "official_semantic_cases_executed": 0,
+    "note": "No official semantic_cases.json harness or full trusted actor/transaction implementation"
+  },
+  "result_scope": "OFFLINE_SIGNED_PAY1_IN_MEMORY_INTEGRATION_SUBSET",
+  "positive_traces": [
+    "CLEAR",
+    "FLAG",
+    "INSUFFICIENT"
+  ],
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cryptography": "46.0.4",
+    "jsonschema": "4.26.0"
+  },
+  "source_sha256": {
+    "test_flow.py": "96f48623d1997337f7d025b5e22efc2aa5d74f7b8a3fb65aaef95fb86a3ba2d7",
+    "flow.py": "4b8637f6e088699ed065e75545e49cedef7b96859e2d62768bc5f8040294be61",
+    "run_phase4.py": "f313071708916e98916baf851b0b888839e9bcfc72f160d187139e38077cd6d0",
+    "__init__.py": "843af38b43421fcfe6178744e68ecc4d2ca1bbee12aec315969550aa34973c3d"
+  },
+  "limits": [
+    "C control publication and historic provenance provided as trusted fixtures",
+    "W state and resource/nonce/intent transitions in-process RLock, no durable DB isolation/crash verification",
+    "PAY complete v2.5 legacy dependency and signing-authority snapshot not independently verified",
+    "Current key role checks are a selected PAY RequiredDeps closure, not all transitive witness edges",
+    "Pending vs started retrieval, cross-operation ledger continuity and C key rotation not complete",
+    "Remaining IND/MED Profiles use older illustrative ReferenceW, not this strict PAY integration",
+    "No actual payment or tool effect; finite tests not proof of universal security"
+  ]
+}

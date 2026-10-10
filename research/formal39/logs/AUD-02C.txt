@@ -1,0 +1,8 @@
+test_missing_fact_never_implies_failed (research.phase6.test_trusted_final.FinalTests.test_missing_fact_never_implies_failed) ... ok
+test_rotation_to_different_ledger_reject (research.phase6.test_trusted_final.FinalTests.test_rotation_to_different_ledger_reject) ... ok
+test_same_ledger_id_separate_storage_origin_rejected (research.phase6.test_trusted_final.LedgerOriginTests.test_same_ledger_id_separate_storage_origin_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.248s
+
+OK

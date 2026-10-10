@@ -1,0 +1,7 @@
+test_source_current_row_disappears_fail_closed (research.phase8.test_scene_authority.SceneTests.test_source_current_row_disappears_fail_closed) ... ok
+test_missing_role_row_cannot_be_filled_by_client (research.strict_v26.test_pay_dependencies.RequiredDepTests.test_missing_role_row_cannot_be_filled_by_client) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.092s
+
+OK

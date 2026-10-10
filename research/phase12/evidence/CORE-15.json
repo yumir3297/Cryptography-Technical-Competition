@@ -1,0 +1,4556 @@
+{
+  "case": "CORE-15",
+  "contract": "ZJJ-CORE-2.6-R2",
+  "official_complete_pass": false,
+  "profiles": [
+    {
+      "concurrent_claim_cancel": {
+        "W_audit": [
+          {
+            "detail": {
+              "epoch": "1",
+              "trust_ref": "x3asBE_wmx9PcW35ndY16md-ASIdze2V_LSDVMKYCMg"
+            },
+            "kind": "TOOL_TRUST",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "proof_ref": "iL9w9dr2MTzdN6vvt5_AQpFxy9JTu7y0Vr9lH0nIf50",
+              "seq": "1"
+            },
+            "kind": "ACCEPTED",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "1FxrDD4c3eaIgiiPzo06xlVbwzpsCuEU-Q6hJDoxzUA"
+                ],
+                "namespace": "KEY",
+                "ref": "Zk1M8glJuyLxWtPmYFTImOTD-rateAa674XTqRUlDBs",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "Lnae52q9u0K7WsBVzQpEZRwwCnAkpioopC-qGbYmwRc"
+                ],
+                "namespace": "KEY",
+                "ref": "CnSTfIU22M5xEWbRQ5jwRQoPfcU-X6xs02mNDZLvjcw",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "XEoICTalFK4mknl9Ttcjgg1nVBYXoPXY0D5HFwb9HLE"
+                ],
+                "namespace": "KEY",
+                "ref": "i5DtLqKZBornEkHUcH3yOD3b0-KZi6D9O-1ich_ueOo",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "AAAAAAAAAAAAAAAAAAAAAQ"
+                ],
+                "namespace": "TASK",
+                "ref": "lTBSiElY5azNyngeY6qt8e-MDr-c2pO6u74FwDhiXPU",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "executor",
+                  "EXECUTOR"
+                ],
+                "namespace": "ROLE",
+                "ref": "JuRe7whuVosQZJ5A5lEn1d-_Lc0wc3Ucl2Q05rNL4IM",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "finance",
+                  "FINANCE"
+                ],
+                "namespace": "ROLE",
+                "ref": "LWqoqjjrTRD6y95Vx755MQOOLDjxT0vmTFrd4vR9smU",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "gateway",
+                  "ISSUER"
+                ],
+                "namespace": "ROLE",
+                "ref": "2NIt3t0D4rA5cqozKFQv7YM__TBoK_3nhqWDb20Gais",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "holder",
+                  "HOLDER"
+                ],
+                "namespace": "ROLE",
+                "ref": "2Gdmv7RWp5Mbo7xt5dK8W1Y3caUZu9DbKCWSOjIsbsw",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "main"
+                ],
+                "namespace": "EXPERIENCE",
+                "ref": "EzHJsX2ldeUpeSkZYCpvWtEswuVhNPduDpHfSroZB44",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "ord",
+                  "pay"
+                ],
+                "namespace": "ORDER",
+                "ref": "osQMJSb_k7zzWPpM38H2DlC8DoVsCMC-_3CRnzrzvIQ",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "source",
+                  "SOURCE"
+                ],
+                "namespace": "ROLE",
+                "ref": "GzNHQxS8BUk2UlSAOzz-mEQN7ZQ-FXNy99lwW9-TP18",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment"
+                ],
+                "namespace": "POLICY",
+                "ref": "vmu7gV4KBd4rF1jlO-dTq6aVZM_kG73-RKKnMYHJbbA",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4"
+                ],
+                "namespace": "KEY",
+                "ref": "-jmNs9U8D585VzgCgtZIDuYcs12yldt4EAOC7kawXE8",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "ty3h37djK7xx2StViQCfoNV_pLofUNPSrk1m8ZQaIhI"
+                ],
+                "namespace": "KEY",
+                "ref": "qnJFAsAuhEJl2B2ikCh3xvN7fwVrL5C3ZIxMarz8DFY",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "reason": "C_AUTHORIZED_CANCEL"
+            },
+            "kind": "SAFE_CANCEL",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg"
+          },
+          {
+            "detail": {
+              "clock": {
+                "claim": {
+                  "hi": "107",
+                  "lo": "107",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+                  "profile": "PAY-1",
+                  "purpose": "CANCEL",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "payment",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "1"
+                },
+                "signature": "TFpMZ6N0IlmLG2jWVprSA5dnOPaCu6CR1vuess_9BTelM-WnTbQH1kiYmyfm88CAao1BqpcmSFD14xIpGez7AA"
+              },
+              "result": {
+                "calls": "0",
+                "reason": "C_AUTHORIZED_CANCEL",
+                "status": "CANCELLED"
+              }
+            },
+            "kind": "C_CANCEL_REQUEST",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg"
+          }
+        ],
+        "after": {
+          "accept_seq": 1,
+          "accepted_count": 1,
+          "accepted_rows": 1,
+          "audit_rows": 18,
+          "capacity": 30000,
+          "count_cap": 32,
+          "flight_rows": 0,
+          "id": 1,
+          "reserved": 0,
+          "revision": 3,
+          "spent": 0
+        },
+        "before": {
+          "accept_seq": 1,
+          "accepted_count": 1,
+          "accepted_rows": 1,
+          "audit_rows": 16,
+          "capacity": 30000,
+          "count_cap": 32,
+          "flight_rows": 1,
+          "id": 1,
+          "reserved": 2000,
+          "revision": 2,
+          "spent": 0
+        },
+        "persisted_calls": 0,
+        "persisted_state": "CANCELLED",
+        "results": [
+          {
+            "name": "CANCEL",
+            "result": {
+              "calls": 0,
+              "reason": "C_AUTHORIZED_CANCEL",
+              "status": "CANCELLED"
+            },
+            "succeeded": true
+          },
+          {
+            "error": "NO_DISPATCH",
+            "name": "DISPATCH",
+            "succeeded": false
+          }
+        ],
+        "signed_C_cancel": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+            "profile": "PAY-1",
+            "purpose": "CANCEL",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "TFpMZ6N0IlmLG2jWVprSA5dnOPaCu6CR1vuess_9BTelM-WnTbQH1kiYmyfm88CAao1BqpcmSFD14xIpGez7AA"
+        },
+        "signed_C_dispatch_clock": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+            "profile": "PAY-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "-_JEmbsbtBzh1EzLzvsbECGnB7MxEELlIE2UovsV1DW-SXb9TFQvjFu2cIjeaDdVzuR5xrCXbOVT4xdgtrH2Cw"
+        }
+      },
+      "crash_after_claim_before_tool": {
+        "C_authorization": {
+          "control_certificate": {
+            "claim": {
+              "ledger_head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
+              "ledger_origin": "I-6Owhe8yn9FhOLKw3buF5h6fhyOPfHtJ94zzXQfn8w",
+              "record": {
+                "kind": "TOOL_TRUST",
+                "profile": "PAY-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "destination": "pay-sim-dest",
+                  "epoch": "1",
+                  "evidence_method": "tool-final-v2",
+                  "exp": "2000",
+                  "iat": "90",
+                  "issuer": "tool-issuer",
+                  "kid": "0tD_Mpz3KBlTkkzmzds4Ip4JBFP9MQ8sllk3Sq6kToA",
+                  "ledger_id": "ledger1",
+                  "public_key": "wFDFY3pE-oYp__PMzOIwDLNipj2Z2V_FQUUmb0MyRFo",
+                  "tool": "pay-sim",
+                  "tool_version": "1"
+                },
+                "version": "2.6"
+              },
+              "revision": "1"
+            },
+            "root_kid": "WuNmGmYK_cvo4dZPezKeEkA7gQt4KrONawcZ_hychdU",
+            "signature": "A52e-YE8NK3XBC76Qirv7NIURpRXKxBKI7XJNed3JHhq5PvTuSczfRT7oGprxLODbRTyo7vznKDt2Ep2YsntDQ"
+          },
+          "published_validity_windows": [
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "1FxrDD4c3eaIgiiPzo06xlVbwzpsCuEU-Q6hJDoxzUA"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "Zk1M8glJuyLxWtPmYFTImOTD-rateAa674XTqRUlDBs",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "vSwIqgBfwjB2eo0k7IEQGw1PZ6B30Ts7guFnyWQiKMWij7BK3uBaZ7InW-VfvQ9ar57ax-hoAL-TmtFR0XI8Cg"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "Lnae52q9u0K7WsBVzQpEZRwwCnAkpioopC-qGbYmwRc"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "CnSTfIU22M5xEWbRQ5jwRQoPfcU-X6xs02mNDZLvjcw",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "iUIOE1vqQe_PamWPXsDNU-Ro7K-dz9jRCloUvRINr1hj2yjw-mJH9cPye4QvZWRQybupJ7EKfszzfwkDNj1uBA"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "XEoICTalFK4mknl9Ttcjgg1nVBYXoPXY0D5HFwb9HLE"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "i5DtLqKZBornEkHUcH3yOD3b0-KZi6D9O-1ich_ueOo",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "dehHNj9UbD-VcEQSpA46bGLXiw0GQ8giby8iMoNFI6ETlvjAYYQXshcleQK1P7F0EqvyNUM3v2DgfuLERfaBAQ"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "AAAAAAAAAAAAAAAAAAAAAQ"
+                  ],
+                  "namespace": "TASK",
+                  "ref": "lTBSiElY5azNyngeY6qt8e-MDr-c2pO6u74FwDhiXPU",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "Nv3dquQ_02DPXb2kRAfiy86AooJXHPygq8Hxkvpx7RZTX3e1gPxKOWcZYidtXRLASqla6AF4Mzf4q-zZpkeQBw"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "executor",
+                    "EXECUTOR"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "JuRe7whuVosQZJ5A5lEn1d-_Lc0wc3Ucl2Q05rNL4IM",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "YusbQYwyUPL2ARhntQ2toU8hXY6Lb7EcjvAzLzv2Rs0nndng77sGKX2iH7ZEGT8qDP75CKJGrBwxxL1Ubi3eDg"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "finance",
+                    "FINANCE"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "LWqoqjjrTRD6y95Vx755MQOOLDjxT0vmTFrd4vR9smU",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "RGwGKviBpt7Ql4L8RIdKEZJ59Vc9572pHCSjuWh_V0H9ZOlQiUwSePOWx_8qkORAu42Prq-GJGCJevhyK08DDQ"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "gateway",
+                    "ISSUER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "2NIt3t0D4rA5cqozKFQv7YM__TBoK_3nhqWDb20Gais",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "V0MLlGjE92n_CdrMj6-hgT5xsj_-aXSnnJHNSeFFGOhr7ZK6D0dx0rVltkrdFXqD_HunpBVESVWYYUVR2wOrAg"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "holder",
+                    "HOLDER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "2Gdmv7RWp5Mbo7xt5dK8W1Y3caUZu9DbKCWSOjIsbsw",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "-5-25oREm6RYDUyUWfh2tuLgi4pTm0VpZqT7nadO7zBoVpq7nJwZ5rzCDow5hhQGlxiR0X-RWX9kRe6d32WXCQ"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "main"
+                  ],
+                  "namespace": "EXPERIENCE",
+                  "ref": "EzHJsX2ldeUpeSkZYCpvWtEswuVhNPduDpHfSroZB44",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "t-UZ9fY4v7RMlUZAgstk3aA-0xcF5iQCx6VD3yd3jnVSar9TxX7mIXp5Jb-0MTvdNsZv3OQNuQx3uSwppeARDw"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "ord",
+                    "pay"
+                  ],
+                  "namespace": "ORDER",
+                  "ref": "osQMJSb_k7zzWPpM38H2DlC8DoVsCMC-_3CRnzrzvIQ",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "daCEB5K8e6ryfKALMWg7hfL0sBiNF5AWfsKJZAqHg0XJP25SqvZK8EQJi7x9KmzCQpTtmHcv5kGARrgo8dKdAQ"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "source",
+                    "SOURCE"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "GzNHQxS8BUk2UlSAOzz-mEQN7ZQ-FXNy99lwW9-TP18",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "pM8RUoE_d7cQjpAumvMz28BBdONLevP_qpq1bqrnchRl5tB94Voir1kw1Bse7g-5nPNCTzAtZWeX_ToYg7FDBQ"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment"
+                  ],
+                  "namespace": "POLICY",
+                  "ref": "vmu7gV4KBd4rF1jlO-dTq6aVZM_kG73-RKKnMYHJbbA",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "h4ZjTL5XwM2uI7P_ZIubzVbrmiErqSn110LuZq7eqhY88Au6fX6ZPNZHnomk6UXR5kB_dqQGEgkb8q9wPnwJCA"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "-jmNs9U8D585VzgCgtZIDuYcs12yldt4EAOC7kawXE8",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "PwWT0INXe6mQgsMQtbGH-3FJpHhcMq8Tqu8-T8CUDnIOo7icgCLjCVjsmyKdVZq8xcxPLiOVOw5wlDYmcTbJDQ"
+            },
+            {
+              "claim": {
+                "dep": {
+                  "key": [
+                    "ty3h37djK7xx2StViQCfoNV_pLofUNPSrk1m8ZQaIhI"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "qnJFAsAuhEJl2B2ikCh3xvN7fwVrL5C3ZIxMarz8DFY",
+                  "revision": "1"
+                },
+                "exp": "2000",
+                "iat": "90",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "seq": "1"
+              },
+              "signature": "Otw4CrTPp5pVe7uv50WGcIlfeBTABxCSaGELgF4BdabPLtqFw9ntjzucWLQd9Qa_NsIp9jkwiYlXFtze2bUkAQ"
+            }
+          ]
+        },
+        "W_after_restart": {
+          "accept_seq": 1,
+          "accepted_count": 1,
+          "accepted_rows": 1,
+          "audit_rows": 17,
+          "capacity": 30000,
+          "count_cap": 32,
+          "flight_rows": 1,
+          "id": 1,
+          "reserved": 2000,
+          "revision": 2,
+          "spent": 0
+        },
+        "W_audit": [
+          {
+            "detail": {
+              "epoch": "1",
+              "trust_ref": "x3asBE_wmx9PcW35ndY16md-ASIdze2V_LSDVMKYCMg"
+            },
+            "kind": "TOOL_TRUST",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "proof_ref": "iL9w9dr2MTzdN6vvt5_AQpFxy9JTu7y0Vr9lH0nIf50",
+              "seq": "1"
+            },
+            "kind": "ACCEPTED",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "1FxrDD4c3eaIgiiPzo06xlVbwzpsCuEU-Q6hJDoxzUA"
+                ],
+                "namespace": "KEY",
+                "ref": "Zk1M8glJuyLxWtPmYFTImOTD-rateAa674XTqRUlDBs",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "Lnae52q9u0K7WsBVzQpEZRwwCnAkpioopC-qGbYmwRc"
+                ],
+                "namespace": "KEY",
+                "ref": "CnSTfIU22M5xEWbRQ5jwRQoPfcU-X6xs02mNDZLvjcw",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "XEoICTalFK4mknl9Ttcjgg1nVBYXoPXY0D5HFwb9HLE"
+                ],
+                "namespace": "KEY",
+                "ref": "i5DtLqKZBornEkHUcH3yOD3b0-KZi6D9O-1ich_ueOo",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "AAAAAAAAAAAAAAAAAAAAAQ"
+                ],
+                "namespace": "TASK",
+                "ref": "lTBSiElY5azNyngeY6qt8e-MDr-c2pO6u74FwDhiXPU",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "executor",
+                  "EXECUTOR"
+                ],
+                "namespace": "ROLE",
+                "ref": "JuRe7whuVosQZJ5A5lEn1d-_Lc0wc3Ucl2Q05rNL4IM",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "finance",
+                  "FINANCE"
+                ],
+                "namespace": "ROLE",
+                "ref": "LWqoqjjrTRD6y95Vx755MQOOLDjxT0vmTFrd4vR9smU",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "gateway",
+                  "ISSUER"
+                ],
+                "namespace": "ROLE",
+                "ref": "2NIt3t0D4rA5cqozKFQv7YM__TBoK_3nhqWDb20Gais",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "holder",
+                  "HOLDER"
+                ],
+                "namespace": "ROLE",
+                "ref": "2Gdmv7RWp5Mbo7xt5dK8W1Y3caUZu9DbKCWSOjIsbsw",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "main"
+                ],
+                "namespace": "EXPERIENCE",
+                "ref": "EzHJsX2ldeUpeSkZYCpvWtEswuVhNPduDpHfSroZB44",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "ord",
+                  "pay"
+                ],
+                "namespace": "ORDER",
+                "ref": "osQMJSb_k7zzWPpM38H2DlC8DoVsCMC-_3CRnzrzvIQ",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "source",
+                  "SOURCE"
+                ],
+                "namespace": "ROLE",
+                "ref": "GzNHQxS8BUk2UlSAOzz-mEQN7ZQ-FXNy99lwW9-TP18",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment"
+                ],
+                "namespace": "POLICY",
+                "ref": "vmu7gV4KBd4rF1jlO-dTq6aVZM_kG73-RKKnMYHJbbA",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4"
+                ],
+                "namespace": "KEY",
+                "ref": "-jmNs9U8D585VzgCgtZIDuYcs12yldt4EAOC7kawXE8",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "dep": {
+                "key": [
+                  "ty3h37djK7xx2StViQCfoNV_pLofUNPSrk1m8ZQaIhI"
+                ],
+                "namespace": "KEY",
+                "ref": "qnJFAsAuhEJl2B2ikCh3xvN7fwVrL5C3ZIxMarz8DFY",
+                "revision": "1"
+              },
+              "seq": "1"
+            },
+            "kind": "C_VALIDITY",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "attempt": "AAAAAAAAAAAAAAAAAAAgCw",
+              "clock": {
+                "claim": {
+                  "hi": "107",
+                  "lo": "107",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+                  "profile": "PAY-1",
+                  "purpose": "DISPATCH",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "payment",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "1"
+                },
+                "signature": "-_JEmbsbtBzh1EzLzvsbECGnB7MxEELlIE2UovsV1DW-SXb9TFQvjFu2cIjeaDdVzuR5xrCXbOVT4xdgtrH2Cw"
+              }
+            },
+            "kind": "CLAIM_PHASE11",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg"
+          },
+          {
+            "detail": {
+              "clock": {
+                "claim": {
+                  "hi": "108",
+                  "lo": "108",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+                  "profile": "PAY-1",
+                  "purpose": "CANCEL",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "payment",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "2"
+                },
+                "signature": "O2x_3S7dtQjvWVaJ5rfvSUkn4EK_F6805oreH3Vz8gxyVoSGmRUF2LVLB_HkHqwqVZc0zVQShvdUohWjyV4SBQ"
+              },
+              "result": {
+                "calls": "1",
+                "status": "TOO_LATE"
+              }
+            },
+            "kind": "C_CANCEL_REQUEST",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg"
+          }
+        ],
+        "W_before": {
+          "accept_seq": 1,
+          "accepted_count": 1,
+          "accepted_rows": 1,
+          "audit_rows": 16,
+          "capacity": 30000,
+          "count_cap": 32,
+          "flight_rows": 1,
+          "id": 1,
+          "reserved": 2000,
+          "revision": 2,
+          "spent": 0
+        },
+        "cancel_refused": {
+          "calls": 1,
+          "status": "TOO_LATE"
+        },
+        "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAgCw",
+        "no_reclaim_with_fresh_attempt_clock": {
+          "claim": {
+            "hi": "108",
+            "lo": "108",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+            "profile": "PAY-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            },
+            "sequence": "2"
+          },
+          "signature": "vlKqNMHWIfBeGvw7yl6gBQhkdXGMjDpSoELOGOENDCubJglI-V2-a21I4j3rQTHYCvUuwM_Iem973AJT6gtHCQ"
+        },
+        "no_redispatch": {
+          "confirmed": true,
+          "expected": "NO_REDISPATCH",
+          "observed": "NO_REDISPATCH"
+        },
+        "no_tool_original_fact": true,
+        "signed_C_dispatch_clock": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+            "profile": "PAY-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "-_JEmbsbtBzh1EzLzvsbECGnB7MxEELlIE2UovsV1DW-SXb9TFQvjFu2cIjeaDdVzuR5xrCXbOVT4xdgtrH2Cw"
+        },
+        "signed_cancel_after_started": {
+          "claim": {
+            "hi": "108",
+            "lo": "108",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+            "profile": "PAY-1",
+            "purpose": "CANCEL",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            },
+            "sequence": "2"
+          },
+          "signature": "O2x_3S7dtQjvWVaJ5rfvSUkn4EK_F6805oreH3Vz8gxyVoSGmRUF2LVLB_HkHqwqVZc0zVQShvdUohWjyV4SBQ"
+        },
+        "signed_initial_objects": {
+          "acceptance": {
+            "body": {
+              "aud": [
+                "finance",
+                "gateway",
+                "holder"
+              ],
+              "deps": [
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "executor",
+                    "EXECUTOR"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "JuRe7whuVosQZJ5A5lEn1d-_Lc0wc3Ucl2Q05rNL4IM",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "ty3h37djK7xx2StViQCfoNV_pLofUNPSrk1m8ZQaIhI"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "qnJFAsAuhEJl2B2ikCh3xvN7fwVrL5C3ZIxMarz8DFY",
+                  "revision": "1"
+                }
+              ],
+              "exp": "1000",
+              "iat": "100",
+              "id": "AAAAAAAAAAAAAAAAAAAACw",
+              "payload": {
+                "accept_seq": "1",
+                "accepted_at": "100",
+                "authorization_ref": "mxs1Gg8KOq3p2j-iNFKhG5zZ5uXjdzxcXorWkRieAyo",
+                "commit_record_ref": "8B_SFbOb-6yPT1ZsVwLH6ngLk3VrNzBFGSP1hulR-6E",
+                "ctx": {
+                  "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+                  "basis_ref": "1iCcpMepR4BvPu_WNNJml3qH2BJvY__U2qoy8qG74Ew",
+                  "executor": "executor",
+                  "holder": "holder",
+                  "holder_kid": "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+                  "policy_ref": "vmu7gV4KBd4rF1jlO-dTq6aVZM_kG73-RKKnMYHJbbA",
+                  "principal": "payer",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "payment",
+                    "tenant": "tenant-1"
+                  }
+                },
+                "dispatch_before": "220",
+                "permit_ref": "hNijbNDFRQuMus2G7-28AZvQ7WOAZ8E_mpJpsTsyaOw",
+                "proof_ref": "iL9w9dr2MTzdN6vvt5_AQpFxy9JTu7y0Vr9lH0nIf50",
+                "review_refs": []
+              },
+              "refs": [
+                "hNijbNDFRQuMus2G7-28AZvQ7WOAZ8E_mpJpsTsyaOw",
+                "iL9w9dr2MTzdN6vvt5_AQpFxy9JTu7y0Vr9lH0nIf50",
+                "mxs1Gg8KOq3p2j-iNFKhG5zZ5uXjdzxcXorWkRieAyo"
+              ],
+              "scope": {
+                "domain": "lab",
+                "scenario": "payment",
+                "tenant": "tenant-1"
+              }
+            },
+            "protected": {
+              "alg": "Ed25519",
+              "issuer": "executor",
+              "kid": "ty3h37djK7xx2StViQCfoNV_pLofUNPSrk1m8ZQaIhI",
+              "profile": "PAY-1",
+              "proto": "ZJJ-AAP",
+              "type": "Acceptance",
+              "version": "2.6"
+            },
+            "sig": "YWH51plo8dgZhJOJLs1317tBHDqngmnJTt_UTkeieSoBsmje8QfXCF20WRwJ6pUd7oQjbh6yDKGtfJi101NjBA"
+          },
+          "commit": {
+            "kind": "COMMIT",
+            "profile": "PAY-1",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            },
+            "value": {
+              "accept_seq": "1",
+              "accepted_at": "100",
+              "action": {
+                "destination": "pay-sim-dest",
+                "executor": "executor",
+                "holder": "holder",
+                "holder_kid": "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+                "payload": {
+                  "amount_minor": "2000",
+                  "currency": "CNY",
+                  "order_id": "ord",
+                  "payee": "payee",
+                  "payer": "payer",
+                  "purpose": "order-settlement",
+                  "stage": "pay"
+                },
+                "principal": "payer",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "tool": "pay-sim",
+                "tool_version": "1"
+              },
+              "authorization_ref": "mxs1Gg8KOq3p2j-iNFKhG5zZ5uXjdzxcXorWkRieAyo",
+              "behavior_after": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "payer"
+                ],
+                "ref": "hpvkzIFLpuU1qlG9V3Td-F_-wDtrUCimftfQzulMbAg",
+                "revision": "2",
+                "row": {
+                  "accepted_count": "1",
+                  "count_cap": "32",
+                  "inflight": [
+                    "AAAAAAAAAAAAAAAAAAAAAg"
+                  ]
+                }
+              },
+              "behavior_before": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "payer"
+                ],
+                "ref": "s_6Tx8C3-_7zGLwfMqxl06B-ijb2eu6YUn6Rt-XPLj8",
+                "revision": "1",
+                "row": {
+                  "accepted_count": "0",
+                  "count_cap": "32",
+                  "inflight": []
+                }
+              },
+              "checked_deps": [
+                {
+                  "key": [
+                    "1FxrDD4c3eaIgiiPzo06xlVbwzpsCuEU-Q6hJDoxzUA"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "Zk1M8glJuyLxWtPmYFTImOTD-rateAa674XTqRUlDBs",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "Lnae52q9u0K7WsBVzQpEZRwwCnAkpioopC-qGbYmwRc"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "CnSTfIU22M5xEWbRQ5jwRQoPfcU-X6xs02mNDZLvjcw",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "XEoICTalFK4mknl9Ttcjgg1nVBYXoPXY0D5HFwb9HLE"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "i5DtLqKZBornEkHUcH3yOD3b0-KZi6D9O-1ich_ueOo",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "AAAAAAAAAAAAAAAAAAAAAQ"
+                  ],
+                  "namespace": "TASK",
+                  "ref": "lTBSiElY5azNyngeY6qt8e-MDr-c2pO6u74FwDhiXPU",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "executor",
+                    "EXECUTOR"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "JuRe7whuVosQZJ5A5lEn1d-_Lc0wc3Ucl2Q05rNL4IM",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "finance",
+                    "FINANCE"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "LWqoqjjrTRD6y95Vx755MQOOLDjxT0vmTFrd4vR9smU",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "gateway",
+                    "ISSUER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "2NIt3t0D4rA5cqozKFQv7YM__TBoK_3nhqWDb20Gais",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "holder",
+                    "HOLDER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "2Gdmv7RWp5Mbo7xt5dK8W1Y3caUZu9DbKCWSOjIsbsw",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "main"
+                  ],
+                  "namespace": "EXPERIENCE",
+                  "ref": "EzHJsX2ldeUpeSkZYCpvWtEswuVhNPduDpHfSroZB44",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "ord",
+                    "pay"
+                  ],
+                  "namespace": "ORDER",
+                  "ref": "osQMJSb_k7zzWPpM38H2DlC8DoVsCMC-_3CRnzrzvIQ",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "payer"
+                  ],
+                  "namespace": "BEHAVIOR",
+                  "ref": "s_6Tx8C3-_7zGLwfMqxl06B-ijb2eu6YUn6Rt-XPLj8",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "source",
+                    "SOURCE"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "GzNHQxS8BUk2UlSAOzz-mEQN7ZQ-FXNy99lwW9-TP18",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment"
+                  ],
+                  "namespace": "POLICY",
+                  "ref": "vmu7gV4KBd4rF1jlO-dTq6aVZM_kG73-RKKnMYHJbbA",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "-jmNs9U8D585VzgCgtZIDuYcs12yldt4EAOC7kawXE8",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "ty3h37djK7xx2StViQCfoNV_pLofUNPSrk1m8ZQaIhI"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "qnJFAsAuhEJl2B2ikCh3xvN7fwVrL5C3ZIxMarz8DFY",
+                  "revision": "1"
+                }
+              ],
+              "credential_witnesses": [
+                {
+                  "key_grant_ref": "-jmNs9U8D585VzgCgtZIDuYcs12yldt4EAOC7kawXE8",
+                  "key_revision": "1",
+                  "kid": "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4",
+                  "public_key": "IEBA42TBDyvsnB_lAKHNTCR8idZQoB7X6CyrqGeHfCE",
+                  "role": "HOLDER",
+                  "role_grant_ref": "2Gdmv7RWp5Mbo7xt5dK8W1Y3caUZu9DbKCWSOjIsbsw",
+                  "role_revision": "1",
+                  "subject": "holder",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "CnSTfIU22M5xEWbRQ5jwRQoPfcU-X6xs02mNDZLvjcw",
+                  "key_revision": "1",
+                  "kid": "Lnae52q9u0K7WsBVzQpEZRwwCnAkpioopC-qGbYmwRc",
+                  "public_key": "1UIH2hlJd9z0atv-wrwudbUtWopCGE_t_cAAJPDj6No",
+                  "role": "FINANCE",
+                  "role_grant_ref": "LWqoqjjrTRD6y95Vx755MQOOLDjxT0vmTFrd4vR9smU",
+                  "role_revision": "1",
+                  "subject": "finance",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "Zk1M8glJuyLxWtPmYFTImOTD-rateAa674XTqRUlDBs",
+                  "key_revision": "1",
+                  "kid": "1FxrDD4c3eaIgiiPzo06xlVbwzpsCuEU-Q6hJDoxzUA",
+                  "public_key": "Zs1gi5KLiOUODv6qM_rxxDzv4HKUsLh-n-CrpqPPdjM",
+                  "role": "ISSUER",
+                  "role_grant_ref": "2NIt3t0D4rA5cqozKFQv7YM__TBoK_3nhqWDb20Gais",
+                  "role_revision": "1",
+                  "subject": "gateway",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "i5DtLqKZBornEkHUcH3yOD3b0-KZi6D9O-1ich_ueOo",
+                  "key_revision": "1",
+                  "kid": "XEoICTalFK4mknl9Ttcjgg1nVBYXoPXY0D5HFwb9HLE",
+                  "public_key": "0EqyMnQrtKs6E2i9RhXk5tAiSrcaAWuvhSCjMsl3hzc",
+                  "role": "SOURCE",
+                  "role_grant_ref": "GzNHQxS8BUk2UlSAOzz-mEQN7ZQ-FXNy99lwW9-TP18",
+                  "role_revision": "1",
+                  "subject": "source",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "qnJFAsAuhEJl2B2ikCh3xvN7fwVrL5C3ZIxMarz8DFY",
+                  "key_revision": "1",
+                  "kid": "ty3h37djK7xx2StViQCfoNV_pLofUNPSrk1m8ZQaIhI",
+                  "public_key": "IIKL9cW9ystoSGMzbCAvtVmdpIvlWWYVdCFwcFvsqfc",
+                  "role": "EXECUTOR",
+                  "role_grant_ref": "JuRe7whuVosQZJ5A5lEn1d-_Lc0wc3Ucl2Q05rNL4IM",
+                  "role_revision": "1",
+                  "subject": "executor",
+                  "verified_at_seq": "1"
+                }
+              ],
+              "ctx": {
+                "action_hash": "nB9xCpu6ejLW1v_nl6EyWTRx9OUz-8W8-mf4nFqUcDY",
+                "basis_ref": "1iCcpMepR4BvPu_WNNJml3qH2BJvY__U2qoy8qG74Ew",
+                "executor": "executor",
+                "holder": "holder",
+                "holder_kid": "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+                "policy_ref": "vmu7gV4KBd4rF1jlO-dTq6aVZM_kG73-RKKnMYHJbbA",
+                "principal": "payer",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                }
+              },
+              "dispatch_before": "220",
+              "frozen_tool_request": {
+                "destination": "pay-sim-dest",
+                "executor": "executor",
+                "holder": "holder",
+                "holder_kid": "q4V-cAheGeQ9M7P1YvMFw3Kl7rOLmmjqmADuRuFSmJ4",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAAg",
+                "payload": {
+                  "amount_minor": "2000",
+                  "currency": "CNY",
+                  "order_id": "ord",
+                  "payee": "payee",
+                  "payer": "payer",
+                  "purpose": "order-settlement",
+                  "stage": "pay"
+                },
+                "principal": "payer",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "payment",
+                  "tenant": "tenant-1"
+                },
+                "tool": "pay-sim",
+                "tool_version": "1"
+              },
+              "permit_ref": "hNijbNDFRQuMus2G7-28AZvQ7WOAZ8E_mpJpsTsyaOw",
+              "proof_ref": "iL9w9dr2MTzdN6vvt5_AQpFxy9JTu7y0Vr9lH0nIf50",
+              "reservation_ids": [
+                "AAAAAAAAAAAAAAAAAAAACg"
+              ],
+              "reservation_plan": [
+                {
+                  "amount": "2000",
+                  "capacity_before": "30000",
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "payment",
+                    "payer",
+                    "CNY"
+                  ],
+                  "reservation_id": "AAAAAAAAAAAAAAAAAAAACg",
+                  "reserved_after": "2000",
+                  "reserved_before": "0",
+                  "revision_after": "2",
+                  "revision_before": "1",
+                  "spent_after": "0",
+                  "spent_before": "0",
+                  "unit": "CNY_MINOR"
+                }
+              ],
+              "review_refs": [],
+              "signing_public_key": "IIKL9cW9ystoSGMzbCAvtVmdpIvlWWYVdCFwcFvsqfc",
+              "taskflight": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "payment",
+                  "AAAAAAAAAAAAAAAAAAAAAQ"
+                ],
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAAg"
+              },
+              "trusted_time": {
+                "hi": "100",
+                "lo": "100"
+              }
+            },
+            "version": "2.6"
+          }
+        },
+        "subprocess_abrupt_exit_code": 79
+      },
+      "known_limitations": [
+        "A deterministic same-sequence contention run is not an exhaustive real scheduling model",
+        "The worker exits after W commit, not after verified physical tool effect",
+        "Missing authenticated dispatch delivery and full multi-service cancellation protocol"
+      ],
+      "official_case": "CORE-15",
+      "official_complete_pass": false,
+      "profile": "PAY-1",
+      "scope": "LAB_SCOPED_FACET"
+    },
+    {
+      "concurrent_claim_cancel": {
+        "W_audit": [
+          {
+            "detail": {
+              "enrollment_id": "ov3XZbjysYAlAbivy3CKVw",
+              "expires": "70",
+              "nonce": "r7ZaMHD1u8H06-pmKgBkjK1TnkUCZzFDDjMlpquxzh0",
+              "tuple_hash": "IkanpOXJafn82Q0i68wfukAL5Sy9BL0JQ4pJ7i5OsFM"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-h"
+          },
+          {
+            "detail": {
+              "enrollment_id": "ov3XZbjysYAlAbivy3CKVw",
+              "grant_ref": "mRB-CfdB-Zk18ipXVai9ntLpWCL76q0dwxAX-CeClwU",
+              "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+              "nonce": "r7ZaMHD1u8H06-pmKgBkjK1TnkUCZzFDDjMlpquxzh0"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-h"
+          },
+          {
+            "detail": {
+              "enrollment_id": "t0K9XGToj2Jvpcm12ClCQg",
+              "expires": "70",
+              "nonce": "iOpgYzVhTxMN3gQC5mWqKhVQjifRJRevDhcRA765rvw",
+              "tuple_hash": "y-gtNk6PB-Fql4UklfOEJd2y7lhOAf080FqmKdz1Ex4"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-g"
+          },
+          {
+            "detail": {
+              "enrollment_id": "t0K9XGToj2Jvpcm12ClCQg",
+              "grant_ref": "_X5FQb3Mxlm4AxakwXUtXXqClxs0Uv5xVkmllq2iSEA",
+              "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+              "nonce": "iOpgYzVhTxMN3gQC5mWqKhVQjifRJRevDhcRA765rvw"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-g"
+          },
+          {
+            "detail": {
+              "enrollment_id": "uk5-CA7JvKBk66IIELOO2A",
+              "expires": "70",
+              "nonce": "C-xL7IiVqU1elwgB-QPdOFMzJepMpSwTBCLKQjR3qKg",
+              "tuple_hash": "nx0io_jYC4dVz6i0ZnDS8iswJgKYwoBg1EQG7sskNxI"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-x"
+          },
+          {
+            "detail": {
+              "enrollment_id": "uk5-CA7JvKBk66IIELOO2A",
+              "grant_ref": "OO5xWVaM9m3nxCQwpf-DCff8SPHBm0-xUXK6L0etFsE",
+              "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+              "nonce": "C-xL7IiVqU1elwgB-QPdOFMzJepMpSwTBCLKQjR3qKg"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-x"
+          },
+          {
+            "detail": {
+              "enrollment_id": "MhiX8byaBCJ8wIOtDUu3sQ",
+              "expires": "70",
+              "nonce": "DBPMgppqennq64to8y043IYi8tgjZSUkMsA3467PmwQ",
+              "tuple_hash": "UCc_qZpNxjFQZKhrxKcZjYvDC57iAob7VVgDLtTLF0o"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-u"
+          },
+          {
+            "detail": {
+              "enrollment_id": "MhiX8byaBCJ8wIOtDUu3sQ",
+              "grant_ref": "7SqsXOqwK0zmSi2PGjlXVD3-wWXPVsfynOIsRi80Ny4",
+              "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+              "nonce": "DBPMgppqennq64to8y043IYi8tgjZSUkMsA3467PmwQ"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-u"
+          },
+          {
+            "detail": {
+              "enrollment_id": "nDt39a1Mp6DnbNQT8tZggw",
+              "expires": "70",
+              "nonce": "k6ojnvpywYt5XLefMAgxt9ii4J2UkaZeODVA-UzhmCA",
+              "tuple_hash": "At1PWXh5_jmSvJ1N6mKu4yBw2Z6TwafGH_dnUl-sKH0"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-v"
+          },
+          {
+            "detail": {
+              "enrollment_id": "nDt39a1Mp6DnbNQT8tZggw",
+              "grant_ref": "m2FAYlxvT3z6apfMsYb5Iqc-GmNPG1nNmK0KI890Vnc",
+              "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+              "nonce": "k6ojnvpywYt5XLefMAgxt9ii4J2UkaZeODVA-UzhmCA"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-v"
+          },
+          {
+            "detail": {
+              "enrollment_id": "6wRuTMpWdrtkVO8s9a0ztw",
+              "expires": "70",
+              "nonce": "Zs9WinlxnpZ1nxu6r1tkSo_DtVdEJY-ZI5iAdH2iwHw",
+              "tuple_hash": "trbo4YW8tmXRPmoe93s2pDNvGGVdaiAaFEd0LIfFaQw"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-e"
+          },
+          {
+            "detail": {
+              "enrollment_id": "6wRuTMpWdrtkVO8s9a0ztw",
+              "grant_ref": "kTlLpT9P-cfaqUfnRTdEeVSqyK2GbBRWfBLI-0hr5EU",
+              "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+              "nonce": "Zs9WinlxnpZ1nxu6r1tkSo_DtVdEJY-ZI5iAdH2iwHw"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-e"
+          },
+          {
+            "detail": {
+              "epoch": "1",
+              "head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
+              "trust_ref": "uvLTHu2BDp1PsLYcmJ5CcxPHKo8rAa7yNSXWTf5wk2o"
+            },
+            "kind": "TOOL_TRUST",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "reason": "C_AUTHORIZED_CANCEL"
+            },
+            "kind": "CANCEL",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg"
+          },
+          {
+            "detail": {
+              "clock": {
+                "claim": {
+                  "hi": "107",
+                  "lo": "107",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+                  "profile": "IND-DEMO-1",
+                  "purpose": "CANCEL",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "1"
+                },
+                "signature": "teGqrxTvxZJlDKaQ23fgofvu11dT_qhC2pK7ZeDoNPHEUYctqTXcnSgU7lh1licd9sS7z7gR4sTnFOGLCiIZBA"
+              },
+              "result": {
+                "calls": "0",
+                "reason": "C_AUTHORIZED_CANCEL",
+                "status": "CANCELLED"
+              }
+            },
+            "kind": "C_CANCEL_REQUEST",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg"
+          }
+        ],
+        "after": {
+          "accepts": 1,
+          "calls": 0,
+          "reserved": 0,
+          "settlements": 0,
+          "spent": 0
+        },
+        "before": {
+          "accepts": 1,
+          "calls": 0,
+          "reserved": 1,
+          "settlements": 0,
+          "spent": 0
+        },
+        "persisted_calls": 0,
+        "persisted_state": "CANCELLED",
+        "results": [
+          {
+            "name": "CANCEL",
+            "result": {
+              "calls": 0,
+              "reason": "C_AUTHORIZED_CANCEL",
+              "status": "CANCELLED"
+            },
+            "succeeded": true
+          },
+          {
+            "error": "NO_DISPATCH",
+            "name": "DISPATCH",
+            "succeeded": false
+          }
+        ],
+        "signed_C_cancel": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+            "profile": "IND-DEMO-1",
+            "purpose": "CANCEL",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "teGqrxTvxZJlDKaQ23fgofvu11dT_qhC2pK7ZeDoNPHEUYctqTXcnSgU7lh1licd9sS7z7gR4sTnFOGLCiIZBA"
+        },
+        "signed_C_dispatch_clock": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+            "profile": "IND-DEMO-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "tNdLwaOiA1IxaiGlOeCF293kx-ZtiUw2VJIk9HZcvaU1Bukus5m7D3x-fMWFPXNZHxUFADa8thNEiGOMa0pgBw"
+        }
+      },
+      "crash_after_claim_before_tool": {
+        "C_authorization": {
+          "control_certificate": {
+            "claim": {
+              "ledger_head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
+              "ledger_origin": "VOAuHE_zPtevzRCmR2bIprk9MsCG11deYHZMic1DwNQ",
+              "record": {
+                "kind": "TOOL_TRUST",
+                "profile": "IND-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "destination": "ind-release-bin",
+                  "epoch": "1",
+                  "evidence_method": "tool-final-v2",
+                  "exp": "2000",
+                  "iat": "90",
+                  "issuer": "tool-issuer",
+                  "kid": "0tD_Mpz3KBlTkkzmzds4Ip4JBFP9MQ8sllk3Sq6kToA",
+                  "ledger_id": "ledger1",
+                  "public_key": "wFDFY3pE-oYp__PMzOIwDLNipj2Z2V_FQUUmb0MyRFo",
+                  "tool": "line-sort-sim",
+                  "tool_version": "1"
+                },
+                "version": "2.6"
+              },
+              "revision": "1"
+            },
+            "root_kid": "y7cz50nbvhsrD1h8XCKrUPYek3RFjRmMkkSz1p7SSpg",
+            "signature": "r9ATVtdkgNy4jHHZcXioJHQ3EDP6Zf-r9yx6jtYljl1IWJa303HzscGeJ7gsu5S2CoSt0bzv0Eq0memJ7TstDw"
+          },
+          "signed_POP_enrollments": [
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "IND-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "cxgMinqi3E7Crq68cv8x3sCwdLSrqtFWH1Fxq-tsDa8",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                  "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+                  "purposes": [
+                    "ChallengeRequest",
+                    "CommitProof",
+                    "IssueRequest",
+                    "READ",
+                    "StatusQuery"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-h"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "mZdShl4C93bnd4CnKcfAPA",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "eK2cc_QwlKGDy4sOi4QB_s6n4G4rbV-8cK3Pi2r2x3c",
+                "signature": "W9GA7BvkZjZ0qnmjuShxIFGl0W6d9eR0tNls4zZacT1qHSLuDqKFEjlJJ9c-XbHiSbcR30nlGKJEyHbIEO1JCg",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                  "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+                  "purposes": [
+                    "ChallengeRequest",
+                    "CommitProof",
+                    "IssueRequest",
+                    "READ",
+                    "StatusQuery"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-h"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+                "purposes": [
+                  "ChallengeRequest",
+                  "CommitProof",
+                  "IssueRequest",
+                  "READ",
+                  "StatusQuery"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-h"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "IND-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "YIjALftBWiF_ncW2ypwtanoqoImj_wT1rppfqMlEtZg",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+                  "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+                  "purposes": [
+                    "Permit",
+                    "READ",
+                    "Result"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-g"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "VVXFhfGDBZELPKjceiznoA",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "OCSYsqaMW7gnDXv1AwiktyyRqyddaMHcCzOwZsucs4A",
+                "signature": "K9PW3obS5R4081XyRnAn705qeHBML_N_Vml8AKz_H8728wSzyYTa_6iD8yTaoAw5HirKx9ge8hsXjow2KTc0DA",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+                  "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+                  "purposes": [
+                    "Permit",
+                    "READ",
+                    "Result"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-g"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+                "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+                "purposes": [
+                  "Permit",
+                  "READ",
+                  "Result"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-g"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "IND-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "bTVP-j5HHi0eBz4MrBRxFunCqs-lV0G7qOvRbwZZJS8",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+                  "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+                  "purposes": [
+                    "Acceptance",
+                    "Challenge",
+                    "READ",
+                    "Result"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-x"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "ENuRxuzK6Gki4zHYxe0OuA",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "VOB8IxKdj5ZxfrGDR0gznKbsXeeaichbrCTI4242x78",
+                "signature": "gOWMte-d0Bv3qfF7aQkq0zq1_xmtqM7t6BXt__d4ZM2MIUhHeXCgOX15MnwnMHoXWEoGygchlLbURHhQ91TcAg",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+                  "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+                  "purposes": [
+                    "Acceptance",
+                    "Challenge",
+                    "READ",
+                    "Result"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-x"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+                "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+                "purposes": [
+                  "Acceptance",
+                  "Challenge",
+                  "READ",
+                  "Result"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-x"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "IND-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "XmaV6kbl8UjglHDxWW-z40-7-PJjVoa1OhVxFKz9PdM",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+                  "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+                  "purposes": [
+                    "Authorization",
+                    "READ"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-u"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "C0RT1bLq6wlE16DtEUs2VA",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "LbEzPndWnLdss2sEZjqE6WaG987ilCR-PxF5QuBqRFI",
+                "signature": "p3MaYPQU9_4kg6Z_2XLmJ1Dm7DDn_X0vE_oxuMu9QBau-th2AxgKjQm5bnDyF_nw3NZMFOgcuqAfL_c8BtI6BQ",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+                  "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+                  "purposes": [
+                    "Authorization",
+                    "READ"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-u"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+                "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+                "purposes": [
+                  "Authorization",
+                  "READ"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-u"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "IND-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "zF-anrda_DNx62CyplGo0zaQaAJ-xQIJ31fzsfPJ5hQ",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+                  "public_key": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+                  "purposes": [
+                    "READ",
+                    "Review"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-v"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "9pa_XJIIwT9jFHNsASCxPw",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "jx0xv3Z92o5e9xZhsK2qRwWFAg4UX9O9wxcz35tpt_E",
+                "signature": "K-Ws_mvHqldoERrR89mAQrOeujZIIqSoOwEHebdBn8ZdVZOdW5kcMhEDkPpD8AVF3MzSduyxKPh2F8J08affDQ",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+                  "public_key": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+                  "purposes": [
+                    "READ",
+                    "Review"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-v"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+                "public_key": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+                "purposes": [
+                  "READ",
+                  "Review"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-v"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "IND-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "VIzgMUznlx3Spu9GFo35i1p1t9GutEEFvt81Fj13cWQ",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+                  "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+                  "purposes": [
+                    "READ",
+                    "SOURCE"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-e"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "lh-Kfv6k852clZcHJZsIPQ",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "U5d9fPnzunPknFcwJxyds5t0s26IO05YsJbnhR61Zms",
+                "signature": "tyyenzv6rizMwkQgo91D5alX2OahkbgHq8eHueifv_b5Jp_aVlKicfVFPaPvey6x0ZTyuJmf5vtcN0eZvDQ1CQ",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+                  "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+                  "purposes": [
+                    "READ",
+                    "SOURCE"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-e"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+                "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+                "purposes": [
+                  "READ",
+                  "SOURCE"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-e"
+              }
+            }
+          ]
+        },
+        "W_after_restart": {
+          "accepts": 1,
+          "calls": 1,
+          "reserved": 1,
+          "settlements": 0,
+          "spent": 0
+        },
+        "W_audit": [
+          {
+            "detail": {
+              "enrollment_id": "mZdShl4C93bnd4CnKcfAPA",
+              "expires": "70",
+              "nonce": "eK2cc_QwlKGDy4sOi4QB_s6n4G4rbV-8cK3Pi2r2x3c",
+              "tuple_hash": "IkanpOXJafn82Q0i68wfukAL5Sy9BL0JQ4pJ7i5OsFM"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-h"
+          },
+          {
+            "detail": {
+              "enrollment_id": "mZdShl4C93bnd4CnKcfAPA",
+              "grant_ref": "JwTXLboUluckd3UjlEe4_EVdoovvqoH3l1xk93uI7og",
+              "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+              "nonce": "eK2cc_QwlKGDy4sOi4QB_s6n4G4rbV-8cK3Pi2r2x3c"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-h"
+          },
+          {
+            "detail": {
+              "enrollment_id": "VVXFhfGDBZELPKjceiznoA",
+              "expires": "70",
+              "nonce": "OCSYsqaMW7gnDXv1AwiktyyRqyddaMHcCzOwZsucs4A",
+              "tuple_hash": "y-gtNk6PB-Fql4UklfOEJd2y7lhOAf080FqmKdz1Ex4"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-g"
+          },
+          {
+            "detail": {
+              "enrollment_id": "VVXFhfGDBZELPKjceiznoA",
+              "grant_ref": "H2kGKyo7VMJX9XeGZanQJzRTc1tSZJmK_-q6vHvPEnM",
+              "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+              "nonce": "OCSYsqaMW7gnDXv1AwiktyyRqyddaMHcCzOwZsucs4A"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-g"
+          },
+          {
+            "detail": {
+              "enrollment_id": "ENuRxuzK6Gki4zHYxe0OuA",
+              "expires": "70",
+              "nonce": "VOB8IxKdj5ZxfrGDR0gznKbsXeeaichbrCTI4242x78",
+              "tuple_hash": "nx0io_jYC4dVz6i0ZnDS8iswJgKYwoBg1EQG7sskNxI"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-x"
+          },
+          {
+            "detail": {
+              "enrollment_id": "ENuRxuzK6Gki4zHYxe0OuA",
+              "grant_ref": "CRdSiqxpbSOqQqHsgwiUXVn3uHgUZxpsjXAm1ntqRRs",
+              "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+              "nonce": "VOB8IxKdj5ZxfrGDR0gznKbsXeeaichbrCTI4242x78"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-x"
+          },
+          {
+            "detail": {
+              "enrollment_id": "C0RT1bLq6wlE16DtEUs2VA",
+              "expires": "70",
+              "nonce": "LbEzPndWnLdss2sEZjqE6WaG987ilCR-PxF5QuBqRFI",
+              "tuple_hash": "UCc_qZpNxjFQZKhrxKcZjYvDC57iAob7VVgDLtTLF0o"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-u"
+          },
+          {
+            "detail": {
+              "enrollment_id": "C0RT1bLq6wlE16DtEUs2VA",
+              "grant_ref": "Q8NclIvVWfAGwNc3FawwuTMO3ledeBkx_S3KM0WDlh4",
+              "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+              "nonce": "LbEzPndWnLdss2sEZjqE6WaG987ilCR-PxF5QuBqRFI"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-u"
+          },
+          {
+            "detail": {
+              "enrollment_id": "9pa_XJIIwT9jFHNsASCxPw",
+              "expires": "70",
+              "nonce": "jx0xv3Z92o5e9xZhsK2qRwWFAg4UX9O9wxcz35tpt_E",
+              "tuple_hash": "At1PWXh5_jmSvJ1N6mKu4yBw2Z6TwafGH_dnUl-sKH0"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-v"
+          },
+          {
+            "detail": {
+              "enrollment_id": "9pa_XJIIwT9jFHNsASCxPw",
+              "grant_ref": "AQramOcF7SPKDObbSSFMcfsTWSTtWpobEsWEFQ118bI",
+              "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+              "nonce": "jx0xv3Z92o5e9xZhsK2qRwWFAg4UX9O9wxcz35tpt_E"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-v"
+          },
+          {
+            "detail": {
+              "enrollment_id": "lh-Kfv6k852clZcHJZsIPQ",
+              "expires": "70",
+              "nonce": "U5d9fPnzunPknFcwJxyds5t0s26IO05YsJbnhR61Zms",
+              "tuple_hash": "trbo4YW8tmXRPmoe93s2pDNvGGVdaiAaFEd0LIfFaQw"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-e"
+          },
+          {
+            "detail": {
+              "enrollment_id": "lh-Kfv6k852clZcHJZsIPQ",
+              "grant_ref": "Fp6hB4j0pQX7rKyEQfn2zM38j-ZdeXkAYV8PLwQ-2XQ",
+              "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+              "nonce": "U5d9fPnzunPknFcwJxyds5t0s26IO05YsJbnhR61Zms"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-e"
+          },
+          {
+            "detail": {
+              "epoch": "1",
+              "head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
+              "trust_ref": "uvLTHu2BDp1PsLYcmJ5CcxPHKo8rAa7yNSXWTf5wk2o"
+            },
+            "kind": "TOOL_TRUST",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "attempt": "AAAAAAAAAAAAAAAAAAAgCw",
+              "clock": {
+                "claim": {
+                  "hi": "107",
+                  "lo": "107",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+                  "profile": "IND-DEMO-1",
+                  "purpose": "DISPATCH",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "1"
+                },
+                "signature": "tNdLwaOiA1IxaiGlOeCF293kx-ZtiUw2VJIk9HZcvaU1Bukus5m7D3x-fMWFPXNZHxUFADa8thNEiGOMa0pgBw"
+              },
+              "ledger": "ledger1"
+            },
+            "kind": "DISPATCH",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg"
+          },
+          {
+            "detail": {
+              "clock": {
+                "claim": {
+                  "hi": "108",
+                  "lo": "108",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+                  "profile": "IND-DEMO-1",
+                  "purpose": "CANCEL",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "2"
+                },
+                "signature": "Am5esBNVnQK8eN18mt5bIOtytqSJ1ONspTycm5grbgJXbo3nrPBQBD849hYWJURlshoQarVo2V3vHZsLtucCCQ"
+              },
+              "result": {
+                "calls": "1",
+                "status": "TOO_LATE"
+              }
+            },
+            "kind": "C_CANCEL_REQUEST",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg"
+          }
+        ],
+        "W_before": {
+          "accepts": 1,
+          "calls": 0,
+          "reserved": 1,
+          "settlements": 0,
+          "spent": 0
+        },
+        "cancel_refused": {
+          "calls": 1,
+          "status": "TOO_LATE"
+        },
+        "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAgCw",
+        "no_reclaim_with_fresh_attempt_clock": {
+          "claim": {
+            "hi": "108",
+            "lo": "108",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+            "profile": "IND-DEMO-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "sequence": "2"
+          },
+          "signature": "nBRXgbcEc2rJPH0maqI3SGd3z3YsQsQi-QjIx69ofVwCfJdp6wt1jYhzuBLxajDxIcA-E4mrX2M3u1MGHklpCw"
+        },
+        "no_redispatch": {
+          "confirmed": true,
+          "expected": "NO_REDISPATCH",
+          "observed": "NO_REDISPATCH"
+        },
+        "no_tool_original_fact": true,
+        "signed_C_dispatch_clock": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+            "profile": "IND-DEMO-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "tNdLwaOiA1IxaiGlOeCF293kx-ZtiUw2VJIk9HZcvaU1Bukus5m7D3x-fMWFPXNZHxUFADa8thNEiGOMa0pgBw"
+        },
+        "signed_cancel_after_started": {
+          "claim": {
+            "hi": "108",
+            "lo": "108",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+            "profile": "IND-DEMO-1",
+            "purpose": "CANCEL",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "sequence": "2"
+          },
+          "signature": "Am5esBNVnQK8eN18mt5bIOtytqSJ1ONspTycm5grbgJXbo3nrPBQBD849hYWJURlshoQarVo2V3vHZsLtucCCQ"
+        },
+        "signed_initial_objects": {
+          "acceptance": {
+            "body": {
+              "aud": [
+                "fixture-g",
+                "fixture-h",
+                "fixture-u"
+              ],
+              "deps": [],
+              "exp": "1006",
+              "iat": "106",
+              "id": "AAAAAAAAAAAAAAAAAAGeGA",
+              "payload": {
+                "accept_seq": "1",
+                "accepted_at": "106",
+                "authorization_ref": "fV_hYDOOuabW-y0dEuHKXM_zcU4eAYwPbRSfRjpfTx4",
+                "commit_record_ref": "ZtiiA3DJi27fFJDnJ-nIvl-heYPYBBfMP5--qq1sK0c",
+                "ctx": {
+                  "action_hash": "wZV9G3Tma1jLCO5jNQutGRM5mx2-6kV70nb4yjhMk-g",
+                  "basis_ref": "9if_tAjv5T7LSvPE3qET-tHR23LxB6EBWzeTySxFV1A",
+                  "executor": "fixture-x",
+                  "holder": "fixture-h",
+                  "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+                  "policy_ref": "Rnz-GD1IAfC4brxhkVck3HxE9w5kzhL_fJwFn9MSiTE",
+                  "principal": "principal",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "industrial",
+                    "tenant": "tenant-1"
+                  }
+                },
+                "dispatch_before": "220",
+                "permit_ref": "RjpwIa-pQ56TKTFzfG3-R0mcSb7gDm6t5nf9SRLZ43w",
+                "proof_ref": "viPalgNmqOVBLSJpR08TeaWU8D2fXm0udzVQhTWweQ4",
+                "review_refs": []
+              },
+              "refs": [
+                "RjpwIa-pQ56TKTFzfG3-R0mcSb7gDm6t5nf9SRLZ43w",
+                "fV_hYDOOuabW-y0dEuHKXM_zcU4eAYwPbRSfRjpfTx4",
+                "viPalgNmqOVBLSJpR08TeaWU8D2fXm0udzVQhTWweQ4"
+              ],
+              "scope": {
+                "domain": "lab",
+                "scenario": "industrial",
+                "tenant": "tenant-1"
+              }
+            },
+            "protected": {
+              "alg": "Ed25519",
+              "issuer": "fixture-x",
+              "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+              "profile": "IND-DEMO-1",
+              "proto": "ZJJ-AAP",
+              "type": "Acceptance",
+              "version": "2.6"
+            },
+            "sig": "rBMo3Hfkg0-0DaMLX5dM0hpQlndXhf5Xc76B3I3w-l4TzvIwMUvmizxnGq3SkmMYLb1dSLRG-PRnATb4K2IZDA"
+          },
+          "commit": {
+            "kind": "COMMIT",
+            "profile": "IND-DEMO-1",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "value": {
+              "accept_seq": "1",
+              "accepted_at": "106",
+              "action": {
+                "destination": "ind-release-bin",
+                "executor": "fixture-x",
+                "holder": "fixture-h",
+                "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+                "payload": {
+                  "batch_id": "batch-a",
+                  "inspection_cycle": "1",
+                  "line_id": "demo-line-a",
+                  "phase": "INITIAL",
+                  "route": "RELEASE",
+                  "station_id": "demo-check-1",
+                  "unit_id": "unit-a"
+                },
+                "principal": "principal",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "tool": "line-sort-sim",
+                "tool_version": "1"
+              },
+              "authorization_ref": "fV_hYDOOuabW-y0dEuHKXM_zcU4eAYwPbRSfRjpfTx4",
+              "behavior_after": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "industrial",
+                  "principal"
+                ],
+                "ref": "M9h4jdiNBvrg6rv-KrMyQdLBn1EI8B2Uq5lT6UDEqTM",
+                "revision": "2",
+                "row": {
+                  "accepted_count": "1",
+                  "count_cap": "32",
+                  "inflight": [
+                    "AAAAAAAAAAAAAAAAAAAAKg"
+                  ]
+                }
+              },
+              "behavior_before": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "industrial",
+                  "principal"
+                ],
+                "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk",
+                "revision": "1",
+                "row": {
+                  "accepted_count": "0",
+                  "count_cap": "32",
+                  "inflight": []
+                }
+              },
+              "checked_deps": [
+                {
+                  "key": [
+                    "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "JwTXLboUluckd3UjlEe4_EVdoovvqoH3l1xk93uI7og",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "H2kGKyo7VMJX9XeGZanQJzRTc1tSZJmK_-q6vHvPEnM",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "CRdSiqxpbSOqQqHsgwiUXVn3uHgUZxpsjXAm1ntqRRs",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "Q8NclIvVWfAGwNc3FawwuTMO3ledeBkx_S3KM0WDlh4",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "Fp6hB4j0pQX7rKyEQfn2zM38j-ZdeXkAYV8PLwQ-2XQ",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "AAAAAAAAAAAAAAAAAAAAKQ"
+                  ],
+                  "namespace": "TASK",
+                  "ref": "mPAAUQar6JbpbU5m0EoAcegzN-jiHvHEAnhtSBINuJA",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "demo-line-a",
+                    "unit-a"
+                  ],
+                  "namespace": "UNIT",
+                  "ref": "lN3JTulGfaq769VQP50h7NarxOEyn8dujuDo6x99_SE",
+                  "revision": "2"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-e",
+                    "SOURCE"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "_PjjHE6Epm7JiNIDy85Q26hrdsdVjQ83Ah_GpDNbyjs",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-g",
+                    "ISSUER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "t-Rw9TqIQQS0vvcCFKZFjz33KA_LXzeEzN5M6948GRE",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-g",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "K8DJ7Ga2ify77rn64lJ1wfLVsPa-PkMDb1qrXc5IBiM",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-h",
+                    "HOLDER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "DlYIrVm4SIR3U9UqtidR1Mk6f_ZIkY5u89q1BbogCC4",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-h",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "gSU0g6obsPqmN2eL05dHGWVlU42ZdO3P0qhBgOd78pU",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-u",
+                    "LINE_OPERATOR"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "8mE_zNyLXZM5GqwsHSa8d3xFsfUmGeSWCfeRclrVoFE",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-u",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "w35Kwb5UdywEgaypG0sOwdT8sgNwuY6ozMUFuuYi5zs",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-x",
+                    "EXECUTOR"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "6R3EANDxT2d07-r5fxOgiep8dLUI8o6TscM8QMj0QyU",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "fixture-x",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "emSYUAy_p7VF4jUzipyjrIy7F7bAeJD1P3OhaCoTEcM",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "principal"
+                  ],
+                  "namespace": "BEHAVIOR",
+                  "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial"
+                  ],
+                  "namespace": "POLICY",
+                  "ref": "Rnz-GD1IAfC4brxhkVck3HxE9w5kzhL_fJwFn9MSiTE",
+                  "revision": "1"
+                }
+              ],
+              "credential_witnesses": [
+                {
+                  "key_grant_ref": "CRdSiqxpbSOqQqHsgwiUXVn3uHgUZxpsjXAm1ntqRRs",
+                  "key_revision": "1",
+                  "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+                  "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+                  "role": "EXECUTOR",
+                  "role_grant_ref": "6R3EANDxT2d07-r5fxOgiep8dLUI8o6TscM8QMj0QyU",
+                  "role_revision": "1",
+                  "subject": "fixture-x",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "Fp6hB4j0pQX7rKyEQfn2zM38j-ZdeXkAYV8PLwQ-2XQ",
+                  "key_revision": "1",
+                  "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+                  "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+                  "role": "SOURCE",
+                  "role_grant_ref": "_PjjHE6Epm7JiNIDy85Q26hrdsdVjQ83Ah_GpDNbyjs",
+                  "role_revision": "1",
+                  "subject": "fixture-e",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "H2kGKyo7VMJX9XeGZanQJzRTc1tSZJmK_-q6vHvPEnM",
+                  "key_revision": "1",
+                  "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+                  "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+                  "role": "ISSUER",
+                  "role_grant_ref": "t-Rw9TqIQQS0vvcCFKZFjz33KA_LXzeEzN5M6948GRE",
+                  "role_revision": "1",
+                  "subject": "fixture-g",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "JwTXLboUluckd3UjlEe4_EVdoovvqoH3l1xk93uI7og",
+                  "key_revision": "1",
+                  "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                  "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+                  "role": "HOLDER",
+                  "role_grant_ref": "DlYIrVm4SIR3U9UqtidR1Mk6f_ZIkY5u89q1BbogCC4",
+                  "role_revision": "1",
+                  "subject": "fixture-h",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "Q8NclIvVWfAGwNc3FawwuTMO3ledeBkx_S3KM0WDlh4",
+                  "key_revision": "1",
+                  "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+                  "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+                  "role": "LINE_OPERATOR",
+                  "role_grant_ref": "8mE_zNyLXZM5GqwsHSa8d3xFsfUmGeSWCfeRclrVoFE",
+                  "role_revision": "1",
+                  "subject": "fixture-u",
+                  "verified_at_seq": "1"
+                }
+              ],
+              "ctx": {
+                "action_hash": "wZV9G3Tma1jLCO5jNQutGRM5mx2-6kV70nb4yjhMk-g",
+                "basis_ref": "9if_tAjv5T7LSvPE3qET-tHR23LxB6EBWzeTySxFV1A",
+                "executor": "fixture-x",
+                "holder": "fixture-h",
+                "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+                "policy_ref": "Rnz-GD1IAfC4brxhkVck3HxE9w5kzhL_fJwFn9MSiTE",
+                "principal": "principal",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                }
+              },
+              "dispatch_before": "220",
+              "frozen_tool_request": {
+                "destination": "ind-release-bin",
+                "executor": "fixture-x",
+                "holder": "fixture-h",
+                "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+                "payload": {
+                  "batch_id": "batch-a",
+                  "inspection_cycle": "1",
+                  "line_id": "demo-line-a",
+                  "phase": "INITIAL",
+                  "route": "RELEASE",
+                  "station_id": "demo-check-1",
+                  "unit_id": "unit-a"
+                },
+                "principal": "principal",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "industrial",
+                  "tenant": "tenant-1"
+                },
+                "tool": "line-sort-sim",
+                "tool_version": "1"
+              },
+              "permit_ref": "RjpwIa-pQ56TKTFzfG3-R0mcSb7gDm6t5nf9SRLZ43w",
+              "proof_ref": "viPalgNmqOVBLSJpR08TeaWU8D2fXm0udzVQhTWweQ4",
+              "reservation_ids": [
+                "AAAAAAAAAAAAAAAAAAADIQ"
+              ],
+              "reservation_plan": [
+                {
+                  "amount": "1",
+                  "capacity_before": "8",
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "industrial",
+                    "route-capacity",
+                    "demo-line-a",
+                    "ind-release-bin",
+                    "unit"
+                  ],
+                  "reservation_id": "AAAAAAAAAAAAAAAAAAADIQ",
+                  "reserved_after": "1",
+                  "reserved_before": "0",
+                  "revision_after": "2",
+                  "revision_before": "1",
+                  "spent_after": "0",
+                  "spent_before": "0",
+                  "unit": "UNIT"
+                }
+              ],
+              "review_refs": [],
+              "scene_after": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "industrial",
+                  "demo-line-a",
+                  "unit-a"
+                ],
+                "namespace": "UNIT",
+                "ref": "VGrmLYXxdUeUSb1Z0ok9_tj2GBqoDwB8aod937pcRzs",
+                "revision": "3",
+                "row": {
+                  "evidence_ref": "BCiHM5aMQidP1ks00JBauFy1auuLVt6hh9GChWkEkVA",
+                  "inspection_cycle": "1",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
+                  "phase": "INITIAL",
+                  "predecessor_commit_ref": "",
+                  "predecessor_operation_id": "",
+                  "state": "ACCEPTED",
+                  "unit_ref": "D-MFUA4BbeEKvEPB03KZHCrtd6S-YRhR_e70xmoWpdg"
+                }
+              },
+              "scene_before": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "industrial",
+                  "demo-line-a",
+                  "unit-a"
+                ],
+                "namespace": "UNIT",
+                "ref": "lN3JTulGfaq769VQP50h7NarxOEyn8dujuDo6x99_SE",
+                "revision": "2",
+                "row": {
+                  "evidence_ref": "BCiHM5aMQidP1ks00JBauFy1auuLVt6hh9GChWkEkVA",
+                  "inspection_cycle": "1",
+                  "operation_id": "",
+                  "phase": "INITIAL",
+                  "predecessor_commit_ref": "",
+                  "predecessor_operation_id": "",
+                  "state": "READY",
+                  "unit_ref": "D-MFUA4BbeEKvEPB03KZHCrtd6S-YRhR_e70xmoWpdg"
+                }
+              },
+              "signing_public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+              "taskflight": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "industrial",
+                  "AAAAAAAAAAAAAAAAAAAAKQ"
+                ],
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAKg"
+              },
+              "trusted_time": {
+                "hi": "106",
+                "lo": "106"
+              }
+            },
+            "version": "2.6"
+          }
+        },
+        "subprocess_abrupt_exit_code": 79
+      },
+      "known_limitations": [
+        "A deterministic same-sequence contention run is not an exhaustive real scheduling model",
+        "The worker exits after W commit, not after verified physical tool effect",
+        "Missing authenticated dispatch delivery and full multi-service cancellation protocol"
+      ],
+      "official_case": "CORE-15",
+      "official_complete_pass": false,
+      "profile": "IND-DEMO-1",
+      "scope": "LAB_SCOPED_FACET"
+    },
+    {
+      "concurrent_claim_cancel": {
+        "W_audit": [
+          {
+            "detail": {
+              "enrollment_id": "zrHaFrcjrJAUOYyjxOi-AQ",
+              "expires": "70",
+              "nonce": "CgKm5oGrZcvc-oekdIq-N7wZ3dsoOg5aTi5XPfUwBkA",
+              "tuple_hash": "Y_oH1_y2ce18_wJGjwaI9x3eNSkt8jmuqkRzlFfS490"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-h"
+          },
+          {
+            "detail": {
+              "enrollment_id": "zrHaFrcjrJAUOYyjxOi-AQ",
+              "grant_ref": "roTGPwH_7P5BkFCujcFgNMe0uE8UQcibU0fB0l2E6U0",
+              "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+              "nonce": "CgKm5oGrZcvc-oekdIq-N7wZ3dsoOg5aTi5XPfUwBkA"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-h"
+          },
+          {
+            "detail": {
+              "enrollment_id": "f2yflmC0HUyK5IfnaWPcmw",
+              "expires": "70",
+              "nonce": "w2_ymWHWbpIh3WJlajRX10M_G4G4BNiOBdjb438RvM4",
+              "tuple_hash": "eGDTNN71mg1pMG5_5iIIjZWpu4TMHutFRNAlSGy_1X0"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-g"
+          },
+          {
+            "detail": {
+              "enrollment_id": "f2yflmC0HUyK5IfnaWPcmw",
+              "grant_ref": "tAOrymQnhLDxc5pfhhIbPn16M1ZIsca56uR-UIzC2P0",
+              "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+              "nonce": "w2_ymWHWbpIh3WJlajRX10M_G4G4BNiOBdjb438RvM4"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-g"
+          },
+          {
+            "detail": {
+              "enrollment_id": "hccfOhrp3wwsUD4gU6Ij3g",
+              "expires": "70",
+              "nonce": "xepnVhpLeDVs1SnubzzDcWybPxF7yBZrqOVJWutP50Q",
+              "tuple_hash": "QMK9uDHYmxTVlXJzowvc6OD0LTQcdnxEuDoVQM2e52I"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-x"
+          },
+          {
+            "detail": {
+              "enrollment_id": "hccfOhrp3wwsUD4gU6Ij3g",
+              "grant_ref": "G6g8P4UAdRL9pCTPYK0UXRW7nCg31UlJyKSR47y_FPQ",
+              "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+              "nonce": "xepnVhpLeDVs1SnubzzDcWybPxF7yBZrqOVJWutP50Q"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-x"
+          },
+          {
+            "detail": {
+              "enrollment_id": "tF1dsAI4rCX-eI_IJfKY-w",
+              "expires": "70",
+              "nonce": "UC2LS0fklSM6zjRamIz4EUdCqV6wEzp7lKJDib4PfMg",
+              "tuple_hash": "MpFTgzr6X2aTgVIF3GZzOi3tWDfaIL9OctPOPMAmlNU"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-u"
+          },
+          {
+            "detail": {
+              "enrollment_id": "tF1dsAI4rCX-eI_IJfKY-w",
+              "grant_ref": "YqGSx27-Wej6LH06o1Y9kbTdsuQ8FNR6N3Lp6w21w_s",
+              "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+              "nonce": "UC2LS0fklSM6zjRamIz4EUdCqV6wEzp7lKJDib4PfMg"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-u"
+          },
+          {
+            "detail": {
+              "enrollment_id": "ZSQHmY88l7Lo648HGJX4Yg",
+              "expires": "70",
+              "nonce": "kT4CwfxCb26O7OYJO5rlWcF8rKkbkCmvQQlyslMGgoE",
+              "tuple_hash": "Q99daU15Vqi5vqfyApiPCKGQ7V1BHYiQBxNyR1jCzEA"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-v"
+          },
+          {
+            "detail": {
+              "enrollment_id": "ZSQHmY88l7Lo648HGJX4Yg",
+              "grant_ref": "UAkmLlKCpxgMQW-2AWjdEdTpXbwXFxGCPTWSONNbDUE",
+              "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+              "nonce": "kT4CwfxCb26O7OYJO5rlWcF8rKkbkCmvQQlyslMGgoE"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-v"
+          },
+          {
+            "detail": {
+              "enrollment_id": "BNYo33yPZL5v7kFExOvkTA",
+              "expires": "70",
+              "nonce": "u0ExGO4ziQXWqPapvziokMagSebrAJV96CnGVtB8DPM",
+              "tuple_hash": "8KVIGStsa4ld8o6UyrY3BVLg5dzHJfwKsJLrrtoObo8"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-e"
+          },
+          {
+            "detail": {
+              "enrollment_id": "BNYo33yPZL5v7kFExOvkTA",
+              "grant_ref": "9jY2muZ0YGEabOOUAIXVqbBbql0xpJbs8_0i55kICYE",
+              "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+              "nonce": "u0ExGO4ziQXWqPapvziokMagSebrAJV96CnGVtB8DPM"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-e"
+          },
+          {
+            "detail": {
+              "epoch": "1",
+              "head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
+              "trust_ref": "xYPtbJ1v2mGmiJ-tIMxU0MVb1a47lj2y266QZsWGsFs"
+            },
+            "kind": "TOOL_TRUST",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "attempt": "AAAAAAAAAAAAAAAAAAAgCg",
+              "clock": {
+                "claim": {
+                  "hi": "107",
+                  "lo": "107",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+                  "profile": "MED-DEMO-1",
+                  "purpose": "DISPATCH",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "1"
+                },
+                "signature": "P63uGckWU6gzGsqvJSblhes7gV9NqTmTulLWzd9dd5lqJt39eALGpIKrt1bbDHiK_kI5W-8BR2BHh7QOo7dVCA"
+              },
+              "ledger": "ledger1"
+            },
+            "kind": "DISPATCH",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA"
+          }
+        ],
+        "after": {
+          "accepts": 1,
+          "calls": 1,
+          "reserved": 1,
+          "settlements": 0,
+          "spent": 0
+        },
+        "before": {
+          "accepts": 1,
+          "calls": 0,
+          "reserved": 1,
+          "settlements": 0,
+          "spent": 0
+        },
+        "persisted_calls": 1,
+        "persisted_state": "EFFECT_UNKNOWN",
+        "results": [
+          {
+            "error": "CLOCK_REPLAY",
+            "name": "CANCEL",
+            "succeeded": false
+          },
+          {
+            "name": "DISPATCH",
+            "result": {
+              "attempt": "AAAAAAAAAAAAAAAAAAAgCg",
+              "status": "CLAIMED"
+            },
+            "succeeded": true
+          }
+        ],
+        "signed_C_cancel": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "profile": "MED-DEMO-1",
+            "purpose": "CANCEL",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "BCQ28GOkxo0b6lGOUZABn6SEOY7f0nKCmnPtuXrjFM1J7PPl6mws3BAowbd8mDYYFvP3EOWAOczsPqBZ5IYiAw"
+        },
+        "signed_C_dispatch_clock": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "profile": "MED-DEMO-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "P63uGckWU6gzGsqvJSblhes7gV9NqTmTulLWzd9dd5lqJt39eALGpIKrt1bbDHiK_kI5W-8BR2BHh7QOo7dVCA"
+        }
+      },
+      "crash_after_claim_before_tool": {
+        "C_authorization": {
+          "control_certificate": {
+            "claim": {
+              "ledger_head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
+              "ledger_origin": "5NSg4bSAU8mWGwwE5wWJfAGbw4UBqYwZf2JbW0GiC-g",
+              "record": {
+                "kind": "TOOL_TRUST",
+                "profile": "MED-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "destination": "med-demo-ledger",
+                  "epoch": "1",
+                  "evidence_method": "tool-final-v2",
+                  "exp": "2000",
+                  "iat": "90",
+                  "issuer": "tool-issuer",
+                  "kid": "0tD_Mpz3KBlTkkzmzds4Ip4JBFP9MQ8sllk3Sq6kToA",
+                  "ledger_id": "ledger1",
+                  "public_key": "wFDFY3pE-oYp__PMzOIwDLNipj2Z2V_FQUUmb0MyRFo",
+                  "tool": "med-order-sim",
+                  "tool_version": "1"
+                },
+                "version": "2.6"
+              },
+              "revision": "1"
+            },
+            "root_kid": "y7cz50nbvhsrD1h8XCKrUPYek3RFjRmMkkSz1p7SSpg",
+            "signature": "7TjsfsT9ToPOb6mQkdJ89ZKIASVO8CnYVQOlI2ubnpwTXMz1-rdbkEfcTHAQmn7rZtjRNyJoMO_ujPTHFTuYCw"
+          },
+          "signed_POP_enrollments": [
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "MED-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "pbWBAk9Lx0peiNcZcGPcpSmfx_RVyopPoVrXBINifFM",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                  "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+                  "purposes": [
+                    "ChallengeRequest",
+                    "CommitProof",
+                    "IssueRequest",
+                    "READ",
+                    "StatusQuery"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-h"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "nxUcQrU0Sxb2cIOh3diPOA",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "Wdu1b02xGV_-7zYRdidDjH46mOG-pRoKYBkc1AeGdj0",
+                "signature": "YSu8WssxZaFGWvRVOKIgMZi64YWzsHMDOw_1Y5xC1YsrOtn_UlmbFCy8so8_7Wow3_2OV6wq4ODW59XA4D83Ag",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                  "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+                  "purposes": [
+                    "ChallengeRequest",
+                    "CommitProof",
+                    "IssueRequest",
+                    "READ",
+                    "StatusQuery"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-h"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+                "purposes": [
+                  "ChallengeRequest",
+                  "CommitProof",
+                  "IssueRequest",
+                  "READ",
+                  "StatusQuery"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-h"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "MED-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "8R8U7Z5IrZLeG2B4pyjEFs9gVIp9paESUtv18YxW5ho",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+                  "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+                  "purposes": [
+                    "Permit",
+                    "READ",
+                    "Result"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-g"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "X220yEqbIK7i6IGWyGRqqw",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "F6MgIxfsvNXi_2P0hSe_l2x0RpX_SOTG8XLtmUIT0B4",
+                "signature": "1ylaeRZVw7GlQCZ4kT_i3xPb9Of3FudGtZOnkwxKM02F1iztiCA-tJ6CfgcjyduSRc3VRI2Omb3wXrFJ98WUBg",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+                  "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+                  "purposes": [
+                    "Permit",
+                    "READ",
+                    "Result"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-g"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+                "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+                "purposes": [
+                  "Permit",
+                  "READ",
+                  "Result"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-g"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "MED-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "xxBvUOxMBWx0P98bsuEA879uk9Ec5CRYnqZ41jf3Ogo",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+                  "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+                  "purposes": [
+                    "Acceptance",
+                    "Challenge",
+                    "READ",
+                    "Result"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-x"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "th-P3E8s5LzjbGjoJjzxSA",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "zJepaN1JRrQgfqGGlZsTSgMWQ_98qxiKB0_ASYw9pyU",
+                "signature": "vCuYPkDyBMuQ6tfio-kv9HsU4CRbuwXJL4PvaSQ6TeCQDNjzq25XVwTJyi7oFQPkV4d5ofd0hKaBxTkbI3NdDg",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+                  "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+                  "purposes": [
+                    "Acceptance",
+                    "Challenge",
+                    "READ",
+                    "Result"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-x"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+                "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+                "purposes": [
+                  "Acceptance",
+                  "Challenge",
+                  "READ",
+                  "Result"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-x"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "MED-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "42_27IQ2LlVUTDjU5av827gYbB7qGfba5ysbRTmi2tU",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+                  "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+                  "purposes": [
+                    "Authorization",
+                    "READ"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-u"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "mj7foNhYUfTmIdRrSwCPGg",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "u-7Rui3ytYRqdfJlVt1OTLYz3vBGjzjA_06CxW8jL3I",
+                "signature": "HA7d9jHa1q6_CyJ8cHDmp2-5ocJaXCRhjMR-UJW3iYTErQbhlEaYAWY4D8CeKCWZ-XI6kFSH-NI5KW9oTnfQAw",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+                  "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+                  "purposes": [
+                    "Authorization",
+                    "READ"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-u"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+                "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+                "purposes": [
+                  "Authorization",
+                  "READ"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-u"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "MED-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "hP4LXigHxAXBxCxecHkd3xZww-HSxfP4CfHIJtDaxuY",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+                  "public_key": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+                  "purposes": [
+                    "READ",
+                    "Review"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-v"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "WdMLJyHutdV6Aem84uu9jg",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "PVSYetvAzc6AW46yj0fJuYzgJJ7PcuOyLuKBUhm6_Zs",
+                "signature": "noG0ujfZw_oCp6m4JGNiDOmLSgnF8kHDZtmnspFEvRSetqpy32WGGuHThABQlqOSKpmzP7sdQydwBkQvCWnTCw",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+                  "public_key": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+                  "purposes": [
+                    "READ",
+                    "Review"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-v"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+                "public_key": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+                "purposes": [
+                  "READ",
+                  "Review"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-v"
+              }
+            },
+            {
+              "grant": {
+                "kind": "KEY_GRANT",
+                "profile": "MED-DEMO-1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "value": {
+                  "enrollment_ref": "QQWTycnIVB12ToC7LGr0PgbACoEpQ9GBstBszesZV4I",
+                  "epoch": "1",
+                  "exp": "2000",
+                  "iat": "10",
+                  "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+                  "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+                  "purposes": [
+                    "READ",
+                    "SOURCE"
+                  ],
+                  "root_generation": "1",
+                  "subject": "fixture-e"
+                },
+                "version": "2.6"
+              },
+              "proof": {
+                "enrollment_id": "YHl1G3smWlSGMQnd7-VhGw",
+                "exp": "50",
+                "iat": "11",
+                "nonce": "rb05_jowcTflAxshQOPeL0LR1MT2bdZP3PfMrZoeZig",
+                "signature": "zLfCCyBqw93mwu44NYzpQ2oCBtbfxdRdtcUMxAT-kA5cL657wCRw6AAWdx74Uu7GU4pd6AnvGuZ756h1SLLwCg",
+                "tuple": {
+                  "key_not_after": "2000",
+                  "key_not_before": "10",
+                  "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+                  "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+                  "purposes": [
+                    "READ",
+                    "SOURCE"
+                  ],
+                  "root_generation": "1",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "subject": "fixture-e"
+                }
+              },
+              "tuple": {
+                "key_not_after": "2000",
+                "key_not_before": "10",
+                "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+                "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+                "purposes": [
+                  "READ",
+                  "SOURCE"
+                ],
+                "root_generation": "1",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "subject": "fixture-e"
+              }
+            }
+          ]
+        },
+        "W_after_restart": {
+          "accepts": 1,
+          "calls": 1,
+          "reserved": 1,
+          "settlements": 0,
+          "spent": 0
+        },
+        "W_audit": [
+          {
+            "detail": {
+              "enrollment_id": "nxUcQrU0Sxb2cIOh3diPOA",
+              "expires": "70",
+              "nonce": "Wdu1b02xGV_-7zYRdidDjH46mOG-pRoKYBkc1AeGdj0",
+              "tuple_hash": "Y_oH1_y2ce18_wJGjwaI9x3eNSkt8jmuqkRzlFfS490"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-h"
+          },
+          {
+            "detail": {
+              "enrollment_id": "nxUcQrU0Sxb2cIOh3diPOA",
+              "grant_ref": "PpBJGtRLb59Opy7v-1KMSDbJdVopTn722KW8vR-GwG8",
+              "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+              "nonce": "Wdu1b02xGV_-7zYRdidDjH46mOG-pRoKYBkc1AeGdj0"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-h"
+          },
+          {
+            "detail": {
+              "enrollment_id": "X220yEqbIK7i6IGWyGRqqw",
+              "expires": "70",
+              "nonce": "F6MgIxfsvNXi_2P0hSe_l2x0RpX_SOTG8XLtmUIT0B4",
+              "tuple_hash": "eGDTNN71mg1pMG5_5iIIjZWpu4TMHutFRNAlSGy_1X0"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-g"
+          },
+          {
+            "detail": {
+              "enrollment_id": "X220yEqbIK7i6IGWyGRqqw",
+              "grant_ref": "aqQl8i1f2J-Q2cZEyaAop6Pf3R5esGh9Gi9SETBP1e0",
+              "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+              "nonce": "F6MgIxfsvNXi_2P0hSe_l2x0RpX_SOTG8XLtmUIT0B4"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-g"
+          },
+          {
+            "detail": {
+              "enrollment_id": "th-P3E8s5LzjbGjoJjzxSA",
+              "expires": "70",
+              "nonce": "zJepaN1JRrQgfqGGlZsTSgMWQ_98qxiKB0_ASYw9pyU",
+              "tuple_hash": "QMK9uDHYmxTVlXJzowvc6OD0LTQcdnxEuDoVQM2e52I"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-x"
+          },
+          {
+            "detail": {
+              "enrollment_id": "th-P3E8s5LzjbGjoJjzxSA",
+              "grant_ref": "pos7tkO7zGgseH4DtQDcDeAHuitPNGC1Lz_DFQwGlZI",
+              "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+              "nonce": "zJepaN1JRrQgfqGGlZsTSgMWQ_98qxiKB0_ASYw9pyU"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-x"
+          },
+          {
+            "detail": {
+              "enrollment_id": "mj7foNhYUfTmIdRrSwCPGg",
+              "expires": "70",
+              "nonce": "u-7Rui3ytYRqdfJlVt1OTLYz3vBGjzjA_06CxW8jL3I",
+              "tuple_hash": "MpFTgzr6X2aTgVIF3GZzOi3tWDfaIL9OctPOPMAmlNU"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-u"
+          },
+          {
+            "detail": {
+              "enrollment_id": "mj7foNhYUfTmIdRrSwCPGg",
+              "grant_ref": "yY5CXMTzb-Uh_JAEj_AG-CopBLS5swX18WOkUPjc1Mc",
+              "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+              "nonce": "u-7Rui3ytYRqdfJlVt1OTLYz3vBGjzjA_06CxW8jL3I"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-u"
+          },
+          {
+            "detail": {
+              "enrollment_id": "WdMLJyHutdV6Aem84uu9jg",
+              "expires": "70",
+              "nonce": "PVSYetvAzc6AW46yj0fJuYzgJJ7PcuOyLuKBUhm6_Zs",
+              "tuple_hash": "Q99daU15Vqi5vqfyApiPCKGQ7V1BHYiQBxNyR1jCzEA"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-v"
+          },
+          {
+            "detail": {
+              "enrollment_id": "WdMLJyHutdV6Aem84uu9jg",
+              "grant_ref": "k_pv8YV3P4LL1p1gNzkl9M1xKjF_z4p2RxK25637lvA",
+              "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+              "nonce": "PVSYetvAzc6AW46yj0fJuYzgJJ7PcuOyLuKBUhm6_Zs"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-v"
+          },
+          {
+            "detail": {
+              "enrollment_id": "YHl1G3smWlSGMQnd7-VhGw",
+              "expires": "70",
+              "nonce": "rb05_jowcTflAxshQOPeL0LR1MT2bdZP3PfMrZoeZig",
+              "tuple_hash": "8KVIGStsa4ld8o6UyrY3BVLg5dzHJfwKsJLrrtoObo8"
+            },
+            "kind": "ENROLL_CHALLENGE",
+            "operation_id": "fixture-e"
+          },
+          {
+            "detail": {
+              "enrollment_id": "YHl1G3smWlSGMQnd7-VhGw",
+              "grant_ref": "2kElqmNgAg9dV4wJy1yeEtTJKasgFOfHWo-nqmsUdxE",
+              "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+              "nonce": "rb05_jowcTflAxshQOPeL0LR1MT2bdZP3PfMrZoeZig"
+            },
+            "kind": "ENROLL",
+            "operation_id": "fixture-e"
+          },
+          {
+            "detail": {
+              "epoch": "1",
+              "head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
+              "trust_ref": "xYPtbJ1v2mGmiJ-tIMxU0MVb1a47lj2y266QZsWGsFs"
+            },
+            "kind": "TOOL_TRUST",
+            "operation_id": "-"
+          },
+          {
+            "detail": {
+              "attempt": "AAAAAAAAAAAAAAAAAAAgCw",
+              "clock": {
+                "claim": {
+                  "hi": "107",
+                  "lo": "107",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+                  "profile": "MED-DEMO-1",
+                  "purpose": "DISPATCH",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "1"
+                },
+                "signature": "P63uGckWU6gzGsqvJSblhes7gV9NqTmTulLWzd9dd5lqJt39eALGpIKrt1bbDHiK_kI5W-8BR2BHh7QOo7dVCA"
+              },
+              "ledger": "ledger1"
+            },
+            "kind": "DISPATCH",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA"
+          },
+          {
+            "detail": {
+              "clock": {
+                "claim": {
+                  "hi": "108",
+                  "lo": "108",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+                  "profile": "MED-DEMO-1",
+                  "purpose": "CANCEL",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  },
+                  "sequence": "2"
+                },
+                "signature": "maj921owx_ZI5oJo_s0VkzEs0S0pG-SdSKzbx0PDN3e6h8KtWECQtdahEdsP0D0I-WXq_Jrzws_tUnAkGZ6WAA"
+              },
+              "result": {
+                "calls": "1",
+                "status": "TOO_LATE"
+              }
+            },
+            "kind": "C_CANCEL_REQUEST",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA"
+          }
+        ],
+        "W_before": {
+          "accepts": 1,
+          "calls": 0,
+          "reserved": 1,
+          "settlements": 0,
+          "spent": 0
+        },
+        "cancel_refused": {
+          "calls": 1,
+          "status": "TOO_LATE"
+        },
+        "dispatch_attempt": "AAAAAAAAAAAAAAAAAAAgCw",
+        "no_reclaim_with_fresh_attempt_clock": {
+          "claim": {
+            "hi": "108",
+            "lo": "108",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "profile": "MED-DEMO-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            },
+            "sequence": "2"
+          },
+          "signature": "dKRMFi4w-IkD4Amw5_EYf9zTMsxatCmj0l50wWwlDKd51GlrDPvqG0JE2otU8Ido2T150sjMAvd9rH_KYK58Cg"
+        },
+        "no_redispatch": {
+          "confirmed": true,
+          "expected": "NO_REDISPATCH",
+          "observed": "NO_REDISPATCH"
+        },
+        "no_tool_original_fact": true,
+        "signed_C_dispatch_clock": {
+          "claim": {
+            "hi": "107",
+            "lo": "107",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "profile": "MED-DEMO-1",
+            "purpose": "DISPATCH",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            },
+            "sequence": "1"
+          },
+          "signature": "P63uGckWU6gzGsqvJSblhes7gV9NqTmTulLWzd9dd5lqJt39eALGpIKrt1bbDHiK_kI5W-8BR2BHh7QOo7dVCA"
+        },
+        "signed_cancel_after_started": {
+          "claim": {
+            "hi": "108",
+            "lo": "108",
+            "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+            "profile": "MED-DEMO-1",
+            "purpose": "CANCEL",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            },
+            "sequence": "2"
+          },
+          "signature": "maj921owx_ZI5oJo_s0VkzEs0S0pG-SdSKzbx0PDN3e6h8KtWECQtdahEdsP0D0I-WXq_Jrzws_tUnAkGZ6WAA"
+        },
+        "signed_initial_objects": {
+          "acceptance": {
+            "body": {
+              "aud": [
+                "fixture-g",
+                "fixture-h",
+                "fixture-u"
+              ],
+              "deps": [],
+              "exp": "1006",
+              "iat": "106",
+              "id": "AAAAAAAAAAAAAAAAAAGeGA",
+              "payload": {
+                "accept_seq": "1",
+                "accepted_at": "106",
+                "authorization_ref": "2-QcMbFckPscMrtMlJbxkAua8P9CdcBjSNiDxkvjzX4",
+                "commit_record_ref": "yIbikkO1z2iUtKZCEadthX6syNpAeoJk91y0hAXDghU",
+                "ctx": {
+                  "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+                  "basis_ref": "Q2_NrWf_MTicO2T_PhekFZEeuoyoF33bLJdkoiUrJQU",
+                  "executor": "fixture-x",
+                  "holder": "fixture-h",
+                  "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+                  "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+                  "principal": "principal",
+                  "scope": {
+                    "domain": "lab",
+                    "scenario": "medical",
+                    "tenant": "tenant-1"
+                  }
+                },
+                "dispatch_before": "220",
+                "permit_ref": "oCoE9qY9HHeZ2S7S_9lwbJhNAP4VkOtMlKwUuXkiyyk",
+                "proof_ref": "pndz-5LOq_z2RWM1YQuJJJKB84yLpdT2fiB-khvRSLc",
+                "review_refs": [
+                  "ZhSfTDNv4U6wKTlkN0IHSB5gKKE7iZqgMRkj2G94nFA"
+                ]
+              },
+              "refs": [
+                "2-QcMbFckPscMrtMlJbxkAua8P9CdcBjSNiDxkvjzX4",
+                "ZhSfTDNv4U6wKTlkN0IHSB5gKKE7iZqgMRkj2G94nFA",
+                "oCoE9qY9HHeZ2S7S_9lwbJhNAP4VkOtMlKwUuXkiyyk",
+                "pndz-5LOq_z2RWM1YQuJJJKB84yLpdT2fiB-khvRSLc"
+              ],
+              "scope": {
+                "domain": "lab",
+                "scenario": "medical",
+                "tenant": "tenant-1"
+              }
+            },
+            "protected": {
+              "alg": "Ed25519",
+              "issuer": "fixture-x",
+              "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+              "profile": "MED-DEMO-1",
+              "proto": "ZJJ-AAP",
+              "type": "Acceptance",
+              "version": "2.6"
+            },
+            "sig": "kI2Y0ZFnORf7_ayY9MyIQBLjkM6_4dLAvvBC5Ve1A84Bw5hvQScCQcOOTELAC1j7cgu2PJkB0BUamSQKY3OoAg"
+          },
+          "commit": {
+            "kind": "COMMIT",
+            "profile": "MED-DEMO-1",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            },
+            "value": {
+              "accept_seq": "1",
+              "accepted_at": "106",
+              "action": {
+                "destination": "med-demo-ledger",
+                "executor": "fixture-x",
+                "holder": "fixture-h",
+                "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+                "payload": {
+                  "destination_system": "med-demo-ledger",
+                  "encounter_id": "encounter-a",
+                  "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+                  "phase": "SUBMIT",
+                  "record_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+                  "synthetic_patient_id": "patient-a",
+                  "template_id": "DEMO-ORDER-A"
+                },
+                "principal": "principal",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "tool": "med-order-sim",
+                "tool_version": "1"
+              },
+              "authorization_ref": "2-QcMbFckPscMrtMlJbxkAua8P9CdcBjSNiDxkvjzX4",
+              "behavior_after": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "medical",
+                  "principal"
+                ],
+                "ref": "NmvkIFrvvtQXIhxIkj1U-YoUuHLrbgs4-u2U36wam08",
+                "revision": "2",
+                "row": {
+                  "accepted_count": "1",
+                  "count_cap": "32",
+                  "inflight": [
+                    "AAAAAAAAAAAAAAAAAAAAQA"
+                  ]
+                }
+              },
+              "behavior_before": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "medical",
+                  "principal"
+                ],
+                "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+                "revision": "1",
+                "row": {
+                  "accepted_count": "0",
+                  "count_cap": "32",
+                  "inflight": []
+                }
+              },
+              "checked_deps": [
+                {
+                  "key": [
+                    "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "PpBJGtRLb59Opy7v-1KMSDbJdVopTn722KW8vR-GwG8",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "aqQl8i1f2J-Q2cZEyaAop6Pf3R5esGh9Gi9SETBP1e0",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "pos7tkO7zGgseH4DtQDcDeAHuitPNGC1Lz_DFQwGlZI",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "yY5CXMTzb-Uh_JAEj_AG-CopBLS5swX18WOkUPjc1Mc",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "k_pv8YV3P4LL1p1gNzkl9M1xKjF_z4p2RxK25637lvA",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU"
+                  ],
+                  "namespace": "KEY",
+                  "ref": "2kElqmNgAg9dV4wJy1yeEtTJKasgFOfHWo-nqmsUdxE",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "AAAAAAAAAAAAAAAAAAAAPw"
+                  ],
+                  "namespace": "TASK",
+                  "ref": "vMP2cOxXkFYhvwWwikYoGGhuqBNepshTjSNCxYQ1oKg",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-e",
+                    "SOURCE"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "BrXd-7Q4-fd3Ozsc7JTgb7C92ERAfR0ZGHDKvru4-VI",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-g",
+                    "ISSUER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "P8-tuBsYTFxDPn8i3JSlTRxbLBxBem00MsIqtZuTjxQ",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-g",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "Pr1znenGR1Vb5X7ssdV6poBV7K3RP_kQS41YYrXK7gE",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-h",
+                    "HOLDER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "wDYmn1068DnIFIxc0swXrlUxB7KaRmngephskwqlcGQ",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-h",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "ltRYl7FgDxPCt_ppTo49PgUKWOC6P9DvsULDJFOnMSk",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-u",
+                    "MEDICAL_AUTHORIZER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "J0OD-daSWwvHCDt2iqkRGyO4lYmrFYCDxWrcnH4dWSY",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-u",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "ix9AR_oVXaEtu0ID_4ioUQ5VGXRdxKmadIRKt7zwuXQ",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-v",
+                    "CLINICAL_REVIEWER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "_ah_ebeB11LbWVYWeeRrMkjvsnmP8HPMXAiHjWYt1_U",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-v",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "BKLQNa2b2tv1E_GjHEJ5jrLm7CP77zcByK37l6OKBmM",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-x",
+                    "EXECUTOR"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "rKgVN7kcpf7QiwiBrtQw9HiA_tEw8CGr98pzoUHQMok",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "fixture-x",
+                    "READER"
+                  ],
+                  "namespace": "ROLE",
+                  "ref": "H81jy2E0Yt7R4lIr-1ysjQnTgoDw6UrNrylk1nZZqZ8",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "patient-a",
+                    "encounter-a"
+                  ],
+                  "namespace": "ENCOUNTER",
+                  "ref": "LgKN-F4Qm-MRuqQVVUPb1QA9NRC4g7k0WpebHmTajCo",
+                  "revision": "2"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "principal"
+                  ],
+                  "namespace": "BEHAVIOR",
+                  "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+                  "revision": "1"
+                },
+                {
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical"
+                  ],
+                  "namespace": "POLICY",
+                  "ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+                  "revision": "1"
+                }
+              ],
+              "credential_witnesses": [
+                {
+                  "key_grant_ref": "2kElqmNgAg9dV4wJy1yeEtTJKasgFOfHWo-nqmsUdxE",
+                  "key_revision": "1",
+                  "kid": "WRVvxq42RReTV411xyan6aRkQxPXFWsGLpdPDNY79oU",
+                  "public_key": "2b8hSHSKhcidparY7gsPwtEF_TnUGkx5ZTY1TwrikAw",
+                  "role": "SOURCE",
+                  "role_grant_ref": "BrXd-7Q4-fd3Ozsc7JTgb7C92ERAfR0ZGHDKvru4-VI",
+                  "role_revision": "1",
+                  "subject": "fixture-e",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "PpBJGtRLb59Opy7v-1KMSDbJdVopTn722KW8vR-GwG8",
+                  "key_revision": "1",
+                  "kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                  "public_key": "Q6cucUQBdi32a2jCbfvfJoKq7J8kdOykYT5CSg-6_Tw",
+                  "role": "HOLDER",
+                  "role_grant_ref": "wDYmn1068DnIFIxc0swXrlUxB7KaRmngephskwqlcGQ",
+                  "role_revision": "1",
+                  "subject": "fixture-h",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "aqQl8i1f2J-Q2cZEyaAop6Pf3R5esGh9Gi9SETBP1e0",
+                  "key_revision": "1",
+                  "kid": "8CucMm69D3B31TmwKtxu23yiKlbDB-b6g5VjVo_KOT0",
+                  "public_key": "Zr5-Myx6RTMyvZ0Kf32wVfXF7xoGraZtmLOftoEMRzo",
+                  "role": "ISSUER",
+                  "role_grant_ref": "P8-tuBsYTFxDPn8i3JSlTRxbLBxBem00MsIqtZuTjxQ",
+                  "role_revision": "1",
+                  "subject": "fixture-g",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "k_pv8YV3P4LL1p1gNzkl9M1xKjF_z4p2RxK25637lvA",
+                  "key_revision": "1",
+                  "kid": "QItCHZeb1nuRreaSNRpN-A8SYsbnKRjqurSijziEiB4",
+                  "public_key": "C-71qeZ55qPhNP4ng3v_MsfLX11E6gm8sOVCutakwMw",
+                  "role": "CLINICAL_REVIEWER",
+                  "role_grant_ref": "_ah_ebeB11LbWVYWeeRrMkjvsnmP8HPMXAiHjWYt1_U",
+                  "role_revision": "1",
+                  "subject": "fixture-v",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "pos7tkO7zGgseH4DtQDcDeAHuitPNGC1Lz_DFQwGlZI",
+                  "key_revision": "1",
+                  "kid": "FoSlHZDkdZTgRQ957Z1emPbLr7xKvzrFl8wD5D9bpY4",
+                  "public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+                  "role": "EXECUTOR",
+                  "role_grant_ref": "rKgVN7kcpf7QiwiBrtQw9HiA_tEw8CGr98pzoUHQMok",
+                  "role_revision": "1",
+                  "subject": "fixture-x",
+                  "verified_at_seq": "1"
+                },
+                {
+                  "key_grant_ref": "yY5CXMTzb-Uh_JAEj_AG-CopBLS5swX18WOkUPjc1Mc",
+                  "key_revision": "1",
+                  "kid": "N5ybdBecxJWdK0iwshc0di-rBq0nbk9mVDdcIVaukPw",
+                  "public_key": "kaKKC3Q4FZOk2UaVeSCJJq_IrYLIg5t2RDWbnrqaSzo",
+                  "role": "MEDICAL_AUTHORIZER",
+                  "role_grant_ref": "J0OD-daSWwvHCDt2iqkRGyO4lYmrFYCDxWrcnH4dWSY",
+                  "role_revision": "1",
+                  "subject": "fixture-u",
+                  "verified_at_seq": "1"
+                }
+              ],
+              "ctx": {
+                "action_hash": "3N7LbF-R6HrOC5aqKfswn0_Xvw0q_P_ho7v-QXMxVT8",
+                "basis_ref": "Q2_NrWf_MTicO2T_PhekFZEeuoyoF33bLJdkoiUrJQU",
+                "executor": "fixture-x",
+                "holder": "fixture-h",
+                "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+                "policy_ref": "-MNcf0x1yryTwfpHlQQeCA2BXo8nK3Lk4tkBvSq_bl0",
+                "principal": "principal",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                }
+              },
+              "dispatch_before": "220",
+              "frozen_tool_request": {
+                "destination": "med-demo-ledger",
+                "executor": "fixture-x",
+                "holder": "fixture-h",
+                "holder_kid": "37DHEL1CTnNXwoBwE_4FI66iqfCt_lPsEePfp-zmlb8",
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+                "payload": {
+                  "destination_system": "med-demo-ledger",
+                  "encounter_id": "encounter-a",
+                  "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+                  "phase": "SUBMIT",
+                  "record_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+                  "synthetic_patient_id": "patient-a",
+                  "template_id": "DEMO-ORDER-A"
+                },
+                "principal": "principal",
+                "scope": {
+                  "domain": "lab",
+                  "scenario": "medical",
+                  "tenant": "tenant-1"
+                },
+                "tool": "med-order-sim",
+                "tool_version": "1"
+              },
+              "permit_ref": "oCoE9qY9HHeZ2S7S_9lwbJhNAP4VkOtMlKwUuXkiyyk",
+              "proof_ref": "pndz-5LOq_z2RWM1YQuJJJKB84yLpdT2fiB-khvRSLc",
+              "reservation_ids": [
+                "AAAAAAAAAAAAAAAAAAADIQ"
+              ],
+              "reservation_plan": [
+                {
+                  "amount": "1",
+                  "capacity_before": "8",
+                  "key": [
+                    "lab",
+                    "tenant-1",
+                    "medical",
+                    "order-capacity",
+                    "med-demo-ledger",
+                    "order"
+                  ],
+                  "reservation_id": "AAAAAAAAAAAAAAAAAAADIQ",
+                  "reserved_after": "1",
+                  "reserved_before": "0",
+                  "revision_after": "2",
+                  "revision_before": "1",
+                  "spent_after": "0",
+                  "spent_before": "0",
+                  "unit": "ORDER"
+                }
+              ],
+              "review_refs": [
+                "ZhSfTDNv4U6wKTlkN0IHSB5gKKE7iZqgMRkj2G94nFA"
+              ],
+              "scene_after": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "medical",
+                  "patient-a",
+                  "encounter-a"
+                ],
+                "namespace": "ENCOUNTER",
+                "ref": "jfq1AA8-z5n4OEhv7jV1vG9vmkoRjR1SPPlo_lQFf20",
+                "revision": "3",
+                "row": {
+                  "encounter_ref": "a1PWaDHz6wcoLrbAwuvTH-aKQXMQvt0oW8zWjKoXfiY",
+                  "evidence_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+                  "operation_id": "AAAAAAAAAAAAAAAAAAAAQA",
+                  "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+                  "phase": "SUBMIT",
+                  "state": "ACCEPTED"
+                }
+              },
+              "scene_before": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "medical",
+                  "patient-a",
+                  "encounter-a"
+                ],
+                "namespace": "ENCOUNTER",
+                "ref": "LgKN-F4Qm-MRuqQVVUPb1QA9NRC4g7k0WpebHmTajCo",
+                "revision": "2",
+                "row": {
+                  "encounter_ref": "a1PWaDHz6wcoLrbAwuvTH-aKQXMQvt0oW8zWjKoXfiY",
+                  "evidence_ref": "zQJr2siz-Uy8cxv17U9q6jB_aFhNGWjQQ3SZddQNhD8",
+                  "operation_id": "",
+                  "order_group_id": "AAAAAAAAAAAAAAAAAAAAPQ",
+                  "phase": "SUBMIT",
+                  "state": "READY"
+                }
+              },
+              "signing_public_key": "C1E62bSSQBXKCQLtB5BE06xdvsIwbwaUjBDajrbjny0",
+              "taskflight": {
+                "key": [
+                  "lab",
+                  "tenant-1",
+                  "medical",
+                  "AAAAAAAAAAAAAAAAAAAAPw"
+                ],
+                "operation_id": "AAAAAAAAAAAAAAAAAAAAQA"
+              },
+              "trusted_time": {
+                "hi": "106",
+                "lo": "106"
+              }
+            },
+            "version": "2.6"
+          }
+        },
+        "subprocess_abrupt_exit_code": 79
+      },
+      "known_limitations": [
+        "A deterministic same-sequence contention run is not an exhaustive real scheduling model",
+        "The worker exits after W commit, not after verified physical tool effect",
+        "Missing authenticated dispatch delivery and full multi-service cancellation protocol"
+      ],
+      "official_case": "CORE-15",
+      "official_complete_pass": false,
+      "profile": "MED-DEMO-1",
+      "scope": "LAB_SCOPED_FACET"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+test_rotation_recovery_same_ledger (research.phase6.test_trusted_final.FinalTests.test_rotation_recovery_same_ledger) ... ok
+test_same_fact_fresh_attestation_new_ref_no_second_settlement (research.phase6.test_trusted_final.FinalTests.test_same_fact_fresh_attestation_new_ref_no_second_settlement) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.286s
+
+OK

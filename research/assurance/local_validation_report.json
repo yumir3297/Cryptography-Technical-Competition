@@ -1,0 +1,131 @@
+{
+  "scope": "candidate normative closure + bounded abstract model + proposed DENY range demo + primitive microbenchmark",
+  "generated_at_utc": "2026-10-09T01:55:53.663450+00:00",
+  "python": "3.13.5",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "results": {
+    "abstract_checker_run": {
+      "passed": true,
+      "baseline_states": 4616,
+      "baseline_edges": 17426,
+      "finite_model_exhausted": true,
+      "baseline_has_violation": false,
+      "mutation_counterexamples": {
+        "ignore_u": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "ignore_revision": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "ignore_deny": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "ignore_intent": [
+          "INTENT_AT_MOST_ONCE"
+        ],
+        "allow_redispatch": [
+          "NO_REDISPATCH"
+        ],
+        "allow_double_settle": [
+          "SETTLE_AT_MOST_ONCE"
+        ],
+        "ignore_revocation": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ],
+        "same_subject": [
+          "NO_UNAUTHORIZED_ACCEPT"
+        ]
+      },
+      "all_mutants_exposed": true
+    },
+    "abstract_unit_tests": {
+      "passed": true,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "nterexamples) ... ok\ntest_bounded_baseline_has_no_counterexample (test_abstract_checker.CoreSafetyAbstractionTests.test_bounded_baseline_has_no_counterexample) ... ok\ntest_compromised_g_alone_cannot_accept (test_abstract_checker.CoreSafetyAbstractionTests.test_compromised_g_alone_cannot_accept) ... ok\ntest_deny_cannot_be_omitted (test_abstract_checker.CoreSafetyAbstractionTests.test_deny_cannot_be_omitted) ... ok\ntest_lost_continuity_after_attestation_blocks_first_settlement (test_abstract_checker.CoreSafetyAbstractionTests.test_lost_continuity_after_attestation_blocks_first_settlement) ... ok\ntest_lost_ledger_does_not_fabricate_final (test_abstract_checker.CoreSafetyAbstractionTests.test_lost_ledger_does_not_fabricate_final) ... ok\ntest_no_automatic_redispatch (test_abstract_checker.CoreSafetyAbstractionTests.test_no_automatic_redispatch) ... ok\ntest_positive_authorized_commit (test_abstract_checker.CoreSafetyAbstractionTests.test_positive_authorized_commit) ... ok\ntest_revoke_blocks_future_acceptance (test_abstract_checker.CoreSafetyAbstractionTests.test_revoke_blocks_future_acceptance) ... ok\ntest_rotate_requires_current_proof_and_does_not_repeat_effect (test_abstract_checker.CoreSafetyAbstractionTests.test_rotate_requires_current_proof_and_does_not_repeat_effect) ... ok\ntest_stable_intent_blocks_second_candidate (test_abstract_checker.CoreSafetyAbstractionTests.test_stable_intent_blocks_second_candidate) ... ok\ntest_stale_approval_rejected (test_abstract_checker.CoreSafetyAbstractionTests.test_stale_approval_rejected) ... ok\ntest_subject_separation_required (test_abstract_checker.CoreSafetyAbstractionTests.test_subject_separation_required) ... ok\ntest_concurrent_deny_after_prepare_invalidates_range (test_deny_range_model.ProposedDenyRangeTests.test_concurrent_deny_after_prepare_invalidates_range) ... ok\ntest_deny_after_already_accepted_is_not_retroactive (test_deny_range_model.ProposedDenyRangeTests.test_deny_after_already_accepted_is_not_retroactive) ... ok\ntest_deny_before_prepare_blocks (test_deny_range_model.ProposedDenyRangeTests.test_deny_before_prepare_blocks) ... ok\ntest_empty_range_to_nonempty_changes_revision (test_deny_range_model.ProposedDenyRangeTests.test_empty_range_to_nonempty_changes_revision) ... ok\ntest_selected_refs_only_has_counterexample (test_deny_range_model.ProposedDenyRangeTests.test_selected_refs_only_has_counterexample) ... ok\n\n----------------------------------------------------------------------\nRan 18 tests in 0.164s\n\nOK\n"
+    },
+    "crypto_microbenchmark": {
+      "passed": true,
+      "iterations": 600,
+      "measurements": {
+        "512": {
+          "sha256": {
+            "median_us": 0.681,
+            "p95_us": 0.701,
+            "mean_us": 0.708
+          },
+          "ed25519_sign": {
+            "median_us": 32.359,
+            "p95_us": 56.926,
+            "mean_us": 36.802
+          },
+          "ed25519_verify": {
+            "median_us": 102.405,
+            "p95_us": 145.559,
+            "mean_us": 109.426
+          }
+        },
+        "4096": {
+          "sha256": {
+            "median_us": 2.674,
+            "p95_us": 2.714,
+            "mean_us": 2.857
+          },
+          "ed25519_sign": {
+            "median_us": 40.451,
+            "p95_us": 52.88,
+            "mean_us": 42.434
+          },
+          "ed25519_verify": {
+            "median_us": 105.709,
+            "p95_us": 150.437,
+            "mean_us": 114.929
+          }
+        },
+        "16384": {
+          "sha256": {
+            "median_us": 9.475,
+            "p95_us": 9.595,
+            "mean_us": 9.78
+          },
+          "ed25519_sign": {
+            "median_us": 68.303,
+            "p95_us": 87.703,
+            "mean_us": 74.207
+          },
+          "ed25519_verify": {
+            "median_us": 121.233,
+            "p95_us": 167.452,
+            "mean_us": 129.298
+          }
+        }
+      },
+      "limits": [
+        "Single-process sequential local microbench. No network, W transaction, JSON Schema, graph checking or durable store.",
+        "Not a measured end-to-end ZJJ signature count or commit latency.",
+        "No claims about real payments, industrial equipment or medical devices.",
+        "Measurements vary with hardware/software/load and cannot be used for cross-system superiority without matched setups."
+      ]
+    },
+    "semantic_case_inventory": {
+      "passed": false,
+      "skipped": "original semantic_cases.json absent from standalone patch",
+      "full_semantic_test_claim": "NOT_RUN / not tested by this package"
+    }
+  },
+  "source_sha256": {
+    "01_normative_closure_PROPOSED.md": "a1f75680a57f14d85ce41ad483510efff4bb5235783ff8d2f6cce1b57e82ab85",
+    "02_formal_model_and_claims.md": "ec2d6caa60ca0e44ec3f35fb6d4ca644c7a520f75bd68848dd7b8fc89c771b4d",
+    "03_literature_and_experiment_design.md": "5c3a09843029da229936d56602537182ca0afc81a46531c4248332c73c924bfd",
+    "04_current_validation_summary.md": "4b6540d6640f7a8ef2b978d42a310d1b39659c407ab4500370a13b1e0a08f04b",
+    "README.md": "9e9bcb75cf988f4b9dbecd410bd5d7d384198d93a720f707d9a51731ada7742b",
+    "abstract_checker.py": "680f828a482c9a9adfa2bff75620695239a02a608a020ad71188b45e3c80bb41",
+    "benchmark_primitives.py": "f72265c5ea98d52ac1aded72f1dbf37832b5651ccded7220375cc94768a49766",
+    "conformance_inventory.py": "3933a9d301be3fbfcc2af7dabdfb43d269ab9cf8b31fccd05887ec1371dd4be8",
+    "deny_range_model.py": "be232556cd21731ab74bf15ffc5f3cf02a8a637ad05a0e110a35a08491ffee6e",
+    "run_all.py": "bbbf82afa99404107175305c5eefc8c89fc28cb60dc6c0fc7cdd8101dc54b350",
+    "test_abstract_checker.py": "7dd1a8269030b14a8ea052d8f45fd09cae65429146b0fa275ea534a557e3db88",
+    "test_deny_range_model.py": "b9c5a2a6a38b4d470eeacd392543cec7c5fcd71f2f0115732356c98daa76a9af"
+  },
+  "overall_local_checks_passed": true
+}
