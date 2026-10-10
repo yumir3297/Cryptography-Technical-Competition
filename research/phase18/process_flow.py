@@ -21,6 +21,7 @@ from research.phase18.key_broker import ALLOW_DOMAINS
 
 ROLE_USERS={x:'zjj18_'+x.lower() for x in ALLOW_DOMAINS}
 RECORDS=[]
+ORIGINAL_LOCAL_KEY=v17.key
 
 def broker_base(directory):
     # A root-owned directory under sticky /tmp; unlike a runner-owned working
@@ -137,7 +138,7 @@ class RemoteEd25519:
 def delegated_key(d,role):
     if role=='WTOOL':
         # This is the W delivery credential, NOT a C/E/X authority key.
-        return v17.key(d,role)
+        return ORIGINAL_LOCAL_KEY(d,role)
     return RemoteEd25519(d,role)
 
 def worker(d,step):
