@@ -29,7 +29,8 @@ from research.reference_executor.wire import (
 )
 from research.strict_v26.upstream_schema import UpstreamSchema
 
-PROFILE='IND-DEMO-1'
+PROFILE=os.environ.get('ZJJ_COMPETITION_PROFILE','IND-DEMO-1')
+require(PROFILE in ('IND-DEMO-1','MED-DEMO-1'),'COMPETITION_PROFILE')
 SIGNERS=('C','H','G','X','U','V','E','TOOL','WTOOL')
 STAGE_SIGNERS={'e_sign':'E','u_authorize':'U','h_issue':'H','g_permit':'G',
  'h_challenge':'H','x_challenge':'X','h_proof':'H','x_accept':'X',
@@ -137,22 +138,33 @@ def stage(d,name):
         result['imported_source_ref']=ev_ref
     elif name=='w_plan':
         w=verifier(d,v);op=w.prepare(act,v['task_id'],v['scene_key'],at=102)
-        require(op['required']==[],'SCENE_REQUIRES_REVIEW')
+        require(op['required']==([] if PROFILE=='IND-DEMO-1' else ['CLINICAL_REVIEW']),
+                'UNRECOGNIZED_SCENE_REVIEW')
         v['op']=op;result['basis_ref']=op['ctx']['basis_ref']
+    elif name=='v_review':
+        require(PROFILE=='MED-DEMO-1' and op['required']==['CLINICAL_REVIEW'],
+                'REVIEW_NOT_REQUIRED')
+        op['reviews'].append(role_envelope(d,v,'V','Review',
+             {'ctx':op['ctx'],'purpose':'CLINICAL_REVIEW',
+              'verdict':'APPROVE','reason':'scene checked'},
+             deps=op['deps'],at=103,nonce=1,ttl=117))
+        result['signed_required_clinical_review']=True
     elif name=='u_authorize':
-        refs=[]
+        refs=sortset([obj_ref(r) for r in op['reviews']])
+        require(sorted(x['body']['payload']['purpose'] for x in op['reviews'])==
+                sorted(op['required']),'REVIEW_REQUIRED')
         op['authorization']=role_envelope(d,v,'U','Authorization',
              {'ctx':op['ctx'],'review_refs':refs,'purpose':'EXECUTE','verdict':'APPROVE'},
              refs=refs,deps=op['deps'],at=103,nonce=2,ttl=117)
     elif name in ('h_issue','g_permit'):
-        ar=obj_ref(op['authorization']);rr=[]
+        ar=obj_ref(op['authorization']);rr=sortset([obj_ref(r) for r in op['reviews']])
         payload=({'ctx':op['ctx'],'review_refs':rr,'authorization_ref':ar} if name=='h_issue'
             else {'ctx':op['ctx'],'review_refs':rr,'authorization_ref':ar,
                  'max_uses':'1','dispatch_before':'220'})
         alias,typ,recipients,nonce=('H','IssueRequest',('G',),3) if name=='h_issue' else (
              'G','Permit',('H','X'),4)
         op['issue' if name=='h_issue' else 'permit']=role_envelope(d,v,alias,typ,payload,
-             refs=[ar],deps=op['deps'],aud=recipients,at=104,nonce=nonce,ttl=116)
+             refs=sortset(rr+[ar]),deps=op['deps'],aud=recipients,at=104,nonce=nonce,ttl=116)
     elif name=='h_challenge':
         pref=obj_ref(op['permit'])
         op['challenge_request']=role_envelope(d,v,'H','ChallengeRequest',
@@ -319,7 +331,9 @@ def subprocess_stage(d,name):
     if p.returncode:raise RuntimeError(f'{name} failed with {p.returncode}: {p.stderr[-4000:]}')
     return json.loads(p.stdout)
 
-STAGES=('provision','e_sign','w_import','w_plan','u_authorize','h_issue','g_permit',
+STAGES=('provision','e_sign','w_import','w_plan',
+        *(('v_review',) if PROFILE=='MED-DEMO-1' else ()),
+        'u_authorize','h_issue','g_permit',
         'h_challenge','x_challenge','h_proof','c_prepare','w_prepare','x_accept',
         'c_finalize','w_finalize','c_trust','w_activate','c_claim','w_claim',
         'w_delivery','tool_crash','tool_recover','c_settle','w_settle','w_no_replay')

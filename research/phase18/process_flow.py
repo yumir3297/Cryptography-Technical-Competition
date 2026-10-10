@@ -175,12 +175,13 @@ def run(output):
     v=load(manifest(d))
     receipts=v.get('isolated_signer_receipts',[])
     needed={'E','C','H','G','U','X','TOOL'}
+    if v17.PROFILE=='MED-DEMO-1':needed.add('V')
     require(needed.issubset({x['role'] for x in receipts}),'MISSING_EXTERNAL_SIGNER_RECEIPTS')
     require(all(x['signer_euid']!=os.geteuid() for x in receipts),'SIGNER_NOT_SEPARATE_UID')
     require(audited['W_accept_count']==audited['W_call_count']==audited['W_settlement_count']==
             audited['durable_effects']==1,'FULL_LOOP_NOT_CLOSED')
     report={'phase':18,'contract':'ZJJ-CORE-2.6-R2','profile':v17.PROFILE,
-      'candidate':'LINUX_DAC_ROLE_KEY_ISOLATION_IND_MINIMAL_LOOP',
+      'candidate':'LINUX_DAC_ROLE_KEY_ISOLATION_'+v17.PROFILE+'_MINIMAL_LOOP',
       'official_complete_pass':False,'stage_count':len(results),'stages':results,
       'public_signer_receipts':receipts,'OS_access_audit':checks,
       'readonly_audit':audited,'W_no_C_E_X_file_access':True,

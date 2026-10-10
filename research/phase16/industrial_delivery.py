@@ -36,7 +36,7 @@ class WDispatchOutbox:
     exact same bytes after loss of response or service restart.
     """
     def __init__(self, w_db, profile, *, signer):
-        require(profile=='IND-DEMO-1','IND_ONLY')
+        require(profile in ('IND-DEMO-1','MED-DEMO-1'),'SCENE_ONLY')
         require(isinstance(signer,Ed25519PrivateKey),'TRANSPORT_KEY')
         self.w_db=str(w_db);self.profile=profile;self.signer=signer
         require(Path(self.w_db).is_file(),'W_DB_UNAVAILABLE')
@@ -109,7 +109,7 @@ class AuthenticatedIndustrialGateway:
     only simulator exactly-once recording under crash/retry/concurrent delivery.
     """
     def __init__(self,ledger:ToolLedger,*,w_public:bytes,scope:dict):
-        require(ledger.profile=='IND-DEMO-1','IND_ONLY')
+        require(ledger.profile in ('IND-DEMO-1','MED-DEMO-1'),'SCENE_ONLY')
         require(type(w_public) is bytes and len(w_public)==32 and good_point(w_public),
                 'W_PUBLIC_KEY')
         self.ledger=ledger
@@ -164,7 +164,7 @@ class AuthenticatedIndustrialGateway:
                                       (v['operation_id'],)).fetchone() is None,
                             'UNAUTHENTICATED_ORIGINAL')
                     sequence=c.execute('SELECT seq FROM meta WHERE id=1').fetchone()[0]+1
-                    effect_id='ind-'+hashlib.sha256(canonical([DOMAIN,v])).hexdigest()[:32]
+                    effect_id=('ind-' if v['profile']=='IND-DEMO-1' else 'med-')+hashlib.sha256(canonical([DOMAIN,v])).hexdigest()[:32]
                     a=v['action']
                     fact={'ledger_id':v['ledger_id'],'operation_id':v['operation_id'],
                           'action_hash':v['action_hash'],'dispatch_attempt':v['attempt'],
