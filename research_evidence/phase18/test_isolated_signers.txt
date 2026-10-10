@@ -10,6 +10,6 @@ test_signer_key_os_dac_and_sibling_isolation (research.phase18.test_isolated_sig
 test_w_can_not_replace_key_and_cannot_read_privileged_key (research.phase18.test_isolated_signers.LinuxSignerBoundary.test_w_can_not_replace_key_and_cannot_read_privileged_key) ... ok
 
 ----------------------------------------------------------------------
-Ran 7 tests in 0.605s
+Ran 7 tests in 0.726s
 
 OK

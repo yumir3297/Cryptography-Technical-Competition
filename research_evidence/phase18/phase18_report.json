@@ -6,18 +6,18 @@
     "unprivileged_W_cannot_read": true
   },
   "archive": {
-    "file_count": 245,
+    "file_count": 246,
     "path": "research_archives/ZJJ_CORE_2_6_R2_Phase18_Industrial_Role_Isolation_20261010.zip",
     "secret_key_files": 0,
-    "sha256": "eae7ff1e11e5ebd33d62ae312dd0f575a8e42829d395a8a62ac1cd3fddaac2ff"
+    "sha256": "531d1210b313fb6c843e63eba49db9e531d6b1e438d6b961b1976153b369c2f5"
   },
   "candidate": "IND_LINUX_DAC_ROLE_SIGNER_ISOLATION_LAB",
   "evidence_hashes": {
-    "research_evidence/phase18/public_process/phase14_witness.json": "9b4a265ab51efc8ab4b7d1b5e089619e0d96bd46123930beecaad2fd4086ee55",
-    "research_evidence/phase18/public_process/phase18_process_report.json": "7b91775f18eb88cd885a2556b1d084fada013cf6ceb4a53ef296eec48c209e96",
-    "research_evidence/phase18/public_process/tool.sqlite": "55ca88bb05f7731b350b4a82fd692e538ef0fa9c87e33a1159ede13a3839b8de",
-    "research_evidence/phase18/public_process/w.sqlite": "d6725686ef3ea89de1ed712be51d4e4af7b00ff1790d9291142b6d092870e3cf",
-    "research_evidence/phase18/public_process/witness.json": "c06a53e331f1cc34926f759580f81b92f78fa1e2b4d92b5f00735fd05a5a6bc9"
+    "research_evidence/phase18/public_process/phase14_witness.json": "886945f7fcd39fc51dd73072caa6ca86af97fcb2cee13d5234f64089e3d433fa",
+    "research_evidence/phase18/public_process/phase18_process_report.json": "c999d825f4773bcd8ba440964d84bc1e89a3a69dfd66ec51292f2aac1aa67d6a",
+    "research_evidence/phase18/public_process/tool.sqlite": "9ca4264ad9a8c884ed97f4b909bc154446f5f0b477154ef1d127d65a06c2525b",
+    "research_evidence/phase18/public_process/w.sqlite": "ce943bfd6491bfdd78569968f683fc6d7f53f27d8f1751f2271b64ba5346f6bc",
+    "research_evidence/phase18/public_process/witness.json": "48285f07f393091cd602f78c778d624b2372166e935f3eeb7d3e30e73961fa9e"
   },
   "limitations": [
     "All initial keys are generated in the Phase17 bootstrap process before chown; no independent C/E/X key ceremony",
@@ -52,12 +52,12 @@
     "W_reserved_after": 0,
     "W_settlement_count": 1,
     "W_spent_after": 1,
-    "acceptance_ref": "QyuXAbHsaDKfbGdgIVIgHTqmluqpcCVjv_iruKxw_84",
+    "acceptance_ref": "VphCcLew567jOHn3m2CkDp6sa-h2Q6RoAXXpYRsQ2z0",
     "candidate": "IND_MINIMAL_SIGNER_SOURCE_EXECUTION_CLOSED_LOOP",
-    "commit_ref": "IhYrDlrnSGa084Kfp5Ko44daCDYlNL-Xkzyk8mucyKw",
+    "commit_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
     "distinct_stage_pids": 5,
     "durable_effects": 1,
-    "final_ref": "10SzBMLbfqggA0vooGydIiz2A73GVxrpF6233MHbxSo",
+    "final_ref": "DkoBXfq7DRJiZAfW6XGlIwMYI0gN1xH8HxBeG4F997E",
     "forged_E_rejected": true,
     "forged_W_rejected": true,
     "forged_X_rejected": true,

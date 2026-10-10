@@ -23,113 +23,113 @@
   "profile": "IND-DEMO-1",
   "public_signer_receipts": [
     {
-      "broker_pid": 2355,
+      "broker_pid": 2584,
       "domain": "ZJJ-SOURCE-v1",
-      "key_kid": "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM",
+      "key_kid": "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM",
       "role": "E",
       "signature_verified": true,
       "signer_euid": 997
     },
     {
-      "broker_pid": 2360,
+      "broker_pid": 2589,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74",
+      "key_kid": "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks",
       "role": "U",
       "signature_verified": true,
       "signer_euid": 992
     },
     {
-      "broker_pid": 2363,
+      "broker_pid": 2592,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "key_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "role": "H",
       "signature_verified": true,
       "signer_euid": 994
     },
     {
-      "broker_pid": 2366,
+      "broker_pid": 2595,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA",
+      "key_kid": "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4",
       "role": "G",
       "signature_verified": true,
       "signer_euid": 995
     },
     {
-      "broker_pid": 2369,
+      "broker_pid": 2598,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "key_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "role": "H",
       "signature_verified": true,
       "signer_euid": 994
     },
     {
-      "broker_pid": 2372,
+      "broker_pid": 2601,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+      "key_kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
       "role": "X",
       "signature_verified": true,
       "signer_euid": 986
     },
     {
-      "broker_pid": 2376,
+      "broker_pid": 2604,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "key_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "role": "H",
       "signature_verified": true,
       "signer_euid": 994
     },
     {
-      "broker_pid": 2379,
+      "broker_pid": 2607,
       "domain": "ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
     },
     {
-      "broker_pid": 2383,
+      "broker_pid": 2611,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+      "key_kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
       "role": "X",
       "signature_verified": true,
       "signer_euid": 986
     },
     {
-      "broker_pid": 2386,
+      "broker_pid": 2614,
       "domain": "ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
     },
     {
-      "broker_pid": 2390,
+      "broker_pid": 2618,
       "domain": "ZJJ-CONTROL-TOOL-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
     },
     {
-      "broker_pid": 2394,
+      "broker_pid": 2622,
       "domain": "ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
     },
     {
-      "broker_pid": 2400,
+      "broker_pid": 2628,
       "domain": "ZJJ-TOOL-FINAL-v2",
-      "key_kid": "NJqCb9VQs20N6lXPe61QFBwIWT2fZSKSDL8ICyS_du8",
+      "key_kid": "A1RuYQwKETVJKmwTdWMel9UH0rzO6QQME11o3wg4APs",
       "role": "TOOL",
       "signature_verified": true,
       "signer_euid": 993
     },
     {
-      "broker_pid": 2403,
+      "broker_pid": 2631,
       "domain": "ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
@@ -143,12 +143,12 @@
     "W_reserved_after": 0,
     "W_settlement_count": 1,
     "W_spent_after": 1,
-    "acceptance_ref": "QyuXAbHsaDKfbGdgIVIgHTqmluqpcCVjv_iruKxw_84",
+    "acceptance_ref": "VphCcLew567jOHn3m2CkDp6sa-h2Q6RoAXXpYRsQ2z0",
     "candidate": "IND_MINIMAL_SIGNER_SOURCE_EXECUTION_CLOSED_LOOP",
-    "commit_ref": "IhYrDlrnSGa084Kfp5Ko44daCDYlNL-Xkzyk8mucyKw",
+    "commit_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
     "distinct_stage_pids": 5,
     "durable_effects": 1,
-    "final_ref": "10SzBMLbfqggA0vooGydIiz2A73GVxrpF6233MHbxSo",
+    "final_ref": "DkoBXfq7DRJiZAfW6XGlIwMYI0gN1xH8HxBeG4F997E",
     "forged_E_rejected": true,
     "forged_W_rejected": true,
     "forged_X_rejected": true,
@@ -192,17 +192,17 @@
       "stage": "provision"
     },
     {
-      "E_pub": "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM",
+      "E_pub": "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM",
       "E_source_signed": true,
       "stage": "e_sign"
     },
     {
       "forged_E_rejected": "SIGNATURE_ENCODING",
-      "imported_source_ref": "NiQGCPqvRKUYJKJfKFPd6QMMHZQzXFyoLUZ3FsW5U14",
+      "imported_source_ref": "FR0yQeSzleO__osno2AxytR-sv5Per_t7n5ZC3ti4yg",
       "stage": "w_import"
     },
     {
-      "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+      "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
       "stage": "w_plan"
     },
     {
@@ -234,7 +234,7 @@
       "stage": "w_prepare"
     },
     {
-      "acceptance_ref": "QyuXAbHsaDKfbGdgIVIgHTqmluqpcCVjv_iruKxw_84",
+      "acceptance_ref": "VphCcLew567jOHn3m2CkDp6sa-h2Q6RoAXXpYRsQ2z0",
       "stage": "x_accept"
     },
     {
@@ -244,7 +244,7 @@
       "stage": "c_finalize"
     },
     {
-      "commit_ref": "IhYrDlrnSGa084Kfp5Ko44daCDYlNL-Xkzyk8mucyKw",
+      "commit_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
       "forged_X_rejected": "SIGNATURE_ENCODING",
       "stage": "w_finalize"
     },

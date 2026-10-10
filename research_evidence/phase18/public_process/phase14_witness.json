@@ -13,16 +13,16 @@
       "payload": {
         "accept_seq": "1",
         "accepted_at": "106",
-        "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
-        "commit_record_ref": "IhYrDlrnSGa084Kfp5Ko44daCDYlNL-Xkzyk8mucyKw",
+        "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
+        "commit_record_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
         "ctx": {
-          "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-          "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+          "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+          "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
           "executor": "pilot-x",
           "holder": "pilot-h",
-          "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+          "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-          "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+          "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
           "principal": "principal",
           "scope": {
             "domain": "lab",
@@ -31,14 +31,14 @@
           }
         },
         "dispatch_before": "220",
-        "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
-        "proof_ref": "OE0JB-qJwU46xkl_aOQAu8zj_DwQR8AlQ7sMEkiPDBs",
+        "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+        "proof_ref": "hO8yeGmlKZQJoTe4GE6hwsqkId5-9jYTufPZJ_Gp8Cc",
         "review_refs": []
       },
       "refs": [
-        "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
-        "OE0JB-qJwU46xkl_aOQAu8zj_DwQR8AlQ7sMEkiPDBs",
-        "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+        "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+        "hO8yeGmlKZQJoTe4GE6hwsqkId5-9jYTufPZJ_Gp8Cc",
+        "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8"
       ],
       "scope": {
         "domain": "lab",
@@ -49,19 +49,19 @@
     "protected": {
       "alg": "Ed25519",
       "issuer": "pilot-x",
-      "kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+      "kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
       "profile": "IND-DEMO-1",
       "proto": "ZJJ-AAP",
       "type": "Acceptance",
       "version": "2.6"
     },
-    "sig": "LD2WZxqN5bxbhO-8rla7zgRuoYg1nkzRGIAHTPLpjpkY4aNosLOl2IwHaqF3RiYvhkB0siIccYW3g_jSoJ_UBw"
+    "sig": "dwYRI6uhg92pU-XO9TPlnzbOjcaCFByRhWQn5614moOIBOC61KNXErp0Fmr5q9xUCzZdmDf4eWFJ6kPR7ZLMCA"
   },
   "action": {
     "destination": "ind-release-bin",
     "executor": "pilot-x",
     "holder": "pilot-h",
-    "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+    "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
     "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
     "payload": {
       "batch_id": "batch-a",
@@ -96,7 +96,7 @@
         },
         "sequence": "3"
       },
-      "signature": "WoNSkYF3FJTTDkoLT7-OnTH7ViSHl8iYLEdMpkvvJShZLkj9jxIuRq8onsje8pYAYsrFukLr6i4LldqqtOdjAg"
+      "signature": "QlwjZ6XoM2QuL4yvCabtOiR7yOogyOFGZzHUhqFFLwR52j1WiwqfdY5Cdeuw2bx2AlMbmcTlbxnlg2DAg7ysBw"
     },
     "FINALIZE": {
       "claim": {
@@ -112,7 +112,7 @@
         },
         "sequence": "2"
       },
-      "signature": "CkAQGWAQlF-YLozjaxX5OgGwdEVlb6wRqQMFJurjdMgy5PaEMn7VdMcKinh3xVk2KCispUBqFpMB90k_ERVPBw"
+      "signature": "rgxjSooUhmz1FPtkqTzHk0HFcLFbmEYjvjpFKnaP4DAiLGYAoKrjCA-mFy5024MHEVtK8dxARVUhyTy5UnRfBw"
     },
     "PREPARE": {
       "claim": {
@@ -128,7 +128,7 @@
         },
         "sequence": "1"
       },
-      "signature": "7x3cDOQQfi2B5LLZKK8gHLGVxCTV_gu-Nm9lb1tjXOaZKmmDyEBI4dO5BBLxw1PPs8p38R-mFp-VfRfmdPw5Aw"
+      "signature": "GcOgZ_-3YqPr-LBqp9d4oGbYWouzJNlObmLXmEIJM0AfXq3h901cqJwnX-x-u1dmALsorCi1-neS3faV-LlZCA"
     },
     "SETTLE": {
       "claim": {
@@ -144,7 +144,7 @@
         },
         "sequence": "4"
       },
-      "signature": "BqDXCt0Dart9K9-J-znvsn6SNQZevpvgKsaSTedXU6BQrFcdpJk_hoyP3EJQtNlxGBVath_jaEoYuFzUPeyqBw"
+      "signature": "MWWH_i4IWZiy194FUJ7q6oof4K2HbB8psKpGwITe3xVEwH7yjf4zEVuI0CK80UFAXjT9Rihv7SLJ4VmM5JlyAw"
     }
   },
   "commit": {
@@ -162,7 +162,7 @@
         "destination": "ind-release-bin",
         "executor": "pilot-x",
         "holder": "pilot-h",
-        "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
         "payload": {
           "batch_id": "batch-a",
@@ -182,7 +182,7 @@
         "tool": "line-sort-sim",
         "tool_version": "1"
       },
-      "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
+      "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
       "behavior_after": {
         "key": [
           "lab",
@@ -218,26 +218,42 @@
       "checked_deps": [
         {
           "key": [
-            "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+            "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
           ],
           "namespace": "KEY",
-          "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+          "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
           "revision": "1"
         },
         {
           "key": [
-            "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+            "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
           ],
           "namespace": "KEY",
-          "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+          "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
           "revision": "1"
         },
         {
           "key": [
-            "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+            "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
           ],
           "namespace": "KEY",
-          "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+          "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+          ],
+          "namespace": "KEY",
+          "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+          "revision": "1"
+        },
+        {
+          "key": [
+            "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+          ],
+          "namespace": "KEY",
+          "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
           "revision": "1"
         },
         {
@@ -248,7 +264,7 @@
             "AAAAAAAAAAAAAAAAAAAAKQ"
           ],
           "namespace": "TASK",
-          "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+          "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
           "revision": "1"
         },
         {
@@ -260,7 +276,7 @@
             "unit-a"
           ],
           "namespace": "UNIT",
-          "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+          "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
           "revision": "3"
         },
         {
@@ -389,32 +405,16 @@
             "industrial"
           ],
           "namespace": "POLICY",
-          "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-          "revision": "1"
-        },
-        {
-          "key": [
-            "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-          ],
-          "namespace": "KEY",
-          "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-          "revision": "1"
-        },
-        {
-          "key": [
-            "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-          ],
-          "namespace": "KEY",
-          "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+          "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
           "revision": "1"
         }
       ],
       "credential_witnesses": [
         {
-          "key_grant_ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+          "key_grant_ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
           "key_revision": "1",
-          "kid": "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA",
-          "public_key": "8iG0eKLQ_U-trbFhpbtAMcQ4t6yckQGs9_6Zd5IE8A4",
+          "kid": "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4",
+          "public_key": "lNmR9oaktqGRdFRLAJo54ZGJqLjmLhS_g667BG0TjU4",
           "role": "ISSUER",
           "role_grant_ref": "C_qjVDopz22xb_hND33MXdeE2aPxb2fey3E4BRjYAp8",
           "role_revision": "1",
@@ -422,10 +422,21 @@
           "verified_at_seq": "1"
         },
         {
-          "key_grant_ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+          "key_grant_ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
           "key_revision": "1",
-          "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
-          "public_key": "SNhXHNv3eu8u3zHZgAOPCxzmo6frcoM0QGJ_lmI8BpU",
+          "kid": "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks",
+          "public_key": "ORLTL4JcUQL7wm9AG--CzHU6phlzOSpUW-ZtvJcz4qg",
+          "role": "LINE_OPERATOR",
+          "role_grant_ref": "RRiZU0QbGgaalqu-TJ8JIz7HosF-n8USA3dIoDje7ZY",
+          "role_revision": "1",
+          "subject": "pilot-u",
+          "verified_at_seq": "1"
+        },
+        {
+          "key_grant_ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+          "key_revision": "1",
+          "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
+          "public_key": "CZ7P-8i0RfHUCx-LKsHtdctBE7uUpM1GqWyFP2-DgeY",
           "role": "HOLDER",
           "role_grant_ref": "vGHvY16t2EIN-qhCuhAov7hV6m3ppX5mdNs6775Cvdg",
           "role_revision": "1",
@@ -433,21 +444,10 @@
           "verified_at_seq": "1"
         },
         {
-          "key_grant_ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
+          "key_grant_ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
           "key_revision": "1",
-          "kid": "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM",
-          "public_key": "3hNqm-fBEXfE7N_aMhLo87b8tFfG5maW6gCtq2ROBfE",
-          "role": "SOURCE",
-          "role_grant_ref": "sNbKtuF7o6wCbF-Gz6jheK9GBJs9A4RsuXr8_V1AwhM",
-          "role_revision": "1",
-          "subject": "pilot-e",
-          "verified_at_seq": "1"
-        },
-        {
-          "key_grant_ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
-          "key_revision": "1",
-          "kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
-          "public_key": "Mg7jsRSyIK0yLcVbE1azqzFxarQSvrrI1BVkLN1lUNQ",
+          "kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
+          "public_key": "FdaLFqqO-38zzWoJh8L6Wghxc5SNIPZHX88Yxcm8zdA",
           "role": "EXECUTOR",
           "role_grant_ref": "jorcDilG2A014NeMp67YY_5qJjYjinZcE78LrItFaaw",
           "role_revision": "1",
@@ -455,25 +455,25 @@
           "verified_at_seq": "1"
         },
         {
-          "key_grant_ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+          "key_grant_ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
           "key_revision": "1",
-          "kid": "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74",
-          "public_key": "6elYe8lfIuigui4LlN-KKfLkNo1rYPp2CJ53lH_dr70",
-          "role": "LINE_OPERATOR",
-          "role_grant_ref": "RRiZU0QbGgaalqu-TJ8JIz7HosF-n8USA3dIoDje7ZY",
+          "kid": "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM",
+          "public_key": "xsm1x4XASND6SAF2QRRIf1SkPOV4WXxZFWKR-4FZawg",
+          "role": "SOURCE",
+          "role_grant_ref": "sNbKtuF7o6wCbF-Gz6jheK9GBJs9A4RsuXr8_V1AwhM",
           "role_revision": "1",
-          "subject": "pilot-u",
+          "subject": "pilot-e",
           "verified_at_seq": "1"
         }
       ],
       "ctx": {
-        "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-        "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+        "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+        "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
         "executor": "pilot-x",
         "holder": "pilot-h",
-        "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-        "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+        "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
         "principal": "principal",
         "scope": {
           "domain": "lab",
@@ -486,7 +486,7 @@
         "destination": "ind-release-bin",
         "executor": "pilot-x",
         "holder": "pilot-h",
-        "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
         "payload": {
           "batch_id": "batch-a",
@@ -506,8 +506,8 @@
         "tool": "line-sort-sim",
         "tool_version": "1"
       },
-      "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
-      "proof_ref": "OE0JB-qJwU46xkl_aOQAu8zj_DwQR8AlQ7sMEkiPDBs",
+      "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+      "proof_ref": "hO8yeGmlKZQJoTe4GE6hwsqkId5-9jYTufPZJ_Gp8Cc",
       "reservation_ids": [
         "AAAAAAAAAAAAAAAAAAADIQ"
       ],
@@ -544,10 +544,10 @@
           "unit-a"
         ],
         "namespace": "UNIT",
-        "ref": "PsIg0_ntkLi9wruLH37UzzXHUW6bpK1LGYwK0rZtdII",
+        "ref": "__8lUdLT1a57Y8dbPkWx6JQpatHrk0oe6Do5W8MVzn4",
         "revision": "4",
         "row": {
-          "evidence_ref": "NiQGCPqvRKUYJKJfKFPd6QMMHZQzXFyoLUZ3FsW5U14",
+          "evidence_ref": "FR0yQeSzleO__osno2AxytR-sv5Per_t7n5ZC3ti4yg",
           "inspection_cycle": "1",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
           "phase": "INITIAL",
@@ -566,10 +566,10 @@
           "unit-a"
         ],
         "namespace": "UNIT",
-        "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+        "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
         "revision": "3",
         "row": {
-          "evidence_ref": "NiQGCPqvRKUYJKJfKFPd6QMMHZQzXFyoLUZ3FsW5U14",
+          "evidence_ref": "FR0yQeSzleO__osno2AxytR-sv5Per_t7n5ZC3ti4yg",
           "inspection_cycle": "1",
           "operation_id": "",
           "phase": "INITIAL",
@@ -579,7 +579,7 @@
           "unit_ref": "D-MFUA4BbeEKvEPB03KZHCrtd6S-YRhR_e70xmoWpdg"
         }
       },
-      "signing_public_key": "Mg7jsRSyIK0yLcVbE1azqzFxarQSvrrI1BVkLN1lUNQ",
+      "signing_public_key": "FdaLFqqO-38zzWoJh8L6Wghxc5SNIPZHX88Yxcm8zdA",
       "taskflight": {
         "key": [
           "lab",
@@ -631,7 +631,7 @@
         },
         "sequence": "3"
       },
-      "signature": "WoNSkYF3FJTTDkoLT7-OnTH7ViSHl8iYLEdMpkvvJShZLkj9jxIuRq8onsje8pYAYsrFukLr6i4LldqqtOdjAg"
+      "signature": "QlwjZ6XoM2QuL4yvCabtOiR7yOogyOFGZzHUhqFFLwR52j1WiwqfdY5Cdeuw2bx2AlMbmcTlbxnlg2DAg7ysBw"
     },
     "response": {
       "attempt": "AAAAAAAAAAAAAAAAAAKb-w",
@@ -644,7 +644,7 @@
         "destination": "ind-release-bin",
         "executor": "pilot-x",
         "holder": "pilot-h",
-        "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
         "payload": {
           "batch_id": "batch-a",
@@ -664,11 +664,11 @@
         "tool": "line-sort-sim",
         "tool_version": "1"
       },
-      "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
+      "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
       "attempt": "AAAAAAAAAAAAAAAAAAKb-w",
-      "commit_ref": "IhYrDlrnSGa084Kfp5Ko44daCDYlNL-Xkzyk8mucyKw",
+      "commit_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
       "ledger_id": "ledger1",
-      "ledger_origin": "i4Ulp9_JLUYL6MlhQWAH8oPKQ6gEeECaKHIiY60mCtg",
+      "ledger_origin": "3OawHtDkxP4rsJ5BbLkSwwffI67QjTO0D_av81YSxbg",
       "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
       "profile": "IND-DEMO-1",
       "scope": {
@@ -676,10 +676,10 @@
         "scenario": "industrial",
         "tenant": "tenant-1"
       },
-      "tool_trust_ref": "kRNJY6UfR3royTtBIfiEzYp2pm3dcoimwkCrNILHa1w"
+      "tool_trust_ref": "jtq06ZCEdv9hNo_S02LxcnYFwbwciFern9a3IGL-WWM"
     },
-    "kid": "I2tD3FRFK2BCkwL3kAKYzfXVQukGiWfe7Pmb8TrY7rQ",
-    "signature": "k8XAxeyKibrOS95UIVnAAHFqhgl0608O5IFIfB3CTef6mLabj_CcaJvhl_SOpKOtoUohVdwN-37ekMj9bUZFDw"
+    "kid": "paErPWsyUQvgEAZCoEzxptiBmI83h5ZqSv6LUnLuImU",
+    "signature": "ZXKFTgsOnLGz6JIQnECJ7p1nP4piskTiJb-06uwAp7F5jzuu_CRzJ4Ws4GnnMSNijQjqeqo7P-aCTxKzBiCuDQ"
   },
   "evidence_data": {
     "batch_id": "batch-a",
@@ -698,9 +698,9 @@
   },
   "fixture_actor_public": {
     "E": {
-      "kid": "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM",
+      "kid": "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM",
       "name": "pilot-e",
-      "pub": "3hNqm-fBEXfE7N_aMhLo87b8tFfG5maW6gCtq2ROBfE",
+      "pub": "xsm1x4XASND6SAF2QRRIf1SkPOV4WXxZFWKR-4FZawg",
       "purposes": [
         "READ",
         "SOURCE"
@@ -710,9 +710,9 @@
       ]
     },
     "G": {
-      "kid": "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA",
+      "kid": "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4",
       "name": "pilot-g",
-      "pub": "8iG0eKLQ_U-trbFhpbtAMcQ4t6yckQGs9_6Zd5IE8A4",
+      "pub": "lNmR9oaktqGRdFRLAJo54ZGJqLjmLhS_g667BG0TjU4",
       "purposes": [
         "Permit",
         "READ",
@@ -723,9 +723,9 @@
       ]
     },
     "H": {
-      "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "name": "pilot-h",
-      "pub": "SNhXHNv3eu8u3zHZgAOPCxzmo6frcoM0QGJ_lmI8BpU",
+      "pub": "CZ7P-8i0RfHUCx-LKsHtdctBE7uUpM1GqWyFP2-DgeY",
       "purposes": [
         "ChallengeRequest",
         "CommitProof",
@@ -738,9 +738,9 @@
       ]
     },
     "U": {
-      "kid": "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74",
+      "kid": "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks",
       "name": "pilot-u",
-      "pub": "6elYe8lfIuigui4LlN-KKfLkNo1rYPp2CJ53lH_dr70",
+      "pub": "ORLTL4JcUQL7wm9AG--CzHU6phlzOSpUW-ZtvJcz4qg",
       "purposes": [
         "Authorization",
         "READ"
@@ -750,9 +750,9 @@
       ]
     },
     "V": {
-      "kid": "3NKglDalDlbNLiIeCXyFlbGEyLeFwIvMVHXfY-1St4k",
+      "kid": "QKwvGCmR80aUaxKgkupsHx0Vpk0VY_UWLpzywDPklDw",
       "name": "pilot-v",
-      "pub": "cXxqCPInFPK3FKxurLKkcVAvLGta-3gFyD0vjIO_NAA",
+      "pub": "1mVIlykDuHSD8LkIx9gbgjBTJX3U2aVRb5nPXXGLsbk",
       "purposes": [
         "READ",
         "Review"
@@ -762,9 +762,9 @@
       ]
     },
     "X": {
-      "kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+      "kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
       "name": "pilot-x",
-      "pub": "Mg7jsRSyIK0yLcVbE1azqzFxarQSvrrI1BVkLN1lUNQ",
+      "pub": "FdaLFqqO-38zzWoJh8L6Wghxc5SNIPZHX88Yxcm8zdA",
       "purposes": [
         "Acceptance",
         "Challenge",
@@ -776,7 +776,7 @@
       ]
     }
   },
-  "fixture_root_public": "9Wq3TPWc4SMWzj3c4pwrvcW5IPNCc45vhajjLxJVop4",
+  "fixture_root_public": "IMbAk2h3MbGHkb5yGopQ4-nYBHv5u7ekyNMzPX_HCbM",
   "initial_snapshot": {
     "accepts": 1,
     "calls": 0,
@@ -787,113 +787,113 @@
   "isolated_os_key_directory": true,
   "isolated_signer_receipts": [
     {
-      "broker_pid": 2355,
+      "broker_pid": 2584,
       "domain": "ZJJ-SOURCE-v1",
-      "key_kid": "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM",
+      "key_kid": "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM",
       "role": "E",
       "signature_verified": true,
       "signer_euid": 997
     },
     {
-      "broker_pid": 2360,
+      "broker_pid": 2589,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74",
+      "key_kid": "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks",
       "role": "U",
       "signature_verified": true,
       "signer_euid": 992
     },
     {
-      "broker_pid": 2363,
+      "broker_pid": 2592,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "key_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "role": "H",
       "signature_verified": true,
       "signer_euid": 994
     },
     {
-      "broker_pid": 2366,
+      "broker_pid": 2595,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA",
+      "key_kid": "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4",
       "role": "G",
       "signature_verified": true,
       "signer_euid": 995
     },
     {
-      "broker_pid": 2369,
+      "broker_pid": 2598,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "key_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "role": "H",
       "signature_verified": true,
       "signer_euid": 994
     },
     {
-      "broker_pid": 2372,
+      "broker_pid": 2601,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+      "key_kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
       "role": "X",
       "signature_verified": true,
       "signer_euid": 986
     },
     {
-      "broker_pid": 2376,
+      "broker_pid": 2604,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "key_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "role": "H",
       "signature_verified": true,
       "signer_euid": 994
     },
     {
-      "broker_pid": 2379,
+      "broker_pid": 2607,
       "domain": "ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
     },
     {
-      "broker_pid": 2383,
+      "broker_pid": 2611,
       "domain": "ZJJ-SIG-v1",
-      "key_kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+      "key_kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
       "role": "X",
       "signature_verified": true,
       "signer_euid": 986
     },
     {
-      "broker_pid": 2386,
+      "broker_pid": 2614,
       "domain": "ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
     },
     {
-      "broker_pid": 2390,
+      "broker_pid": 2618,
       "domain": "ZJJ-CONTROL-TOOL-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
     },
     {
-      "broker_pid": 2394,
+      "broker_pid": 2622,
       "domain": "ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
     },
     {
-      "broker_pid": 2400,
+      "broker_pid": 2628,
       "domain": "ZJJ-TOOL-FINAL-v2",
-      "key_kid": "NJqCb9VQs20N6lXPe61QFBwIWT2fZSKSDL8ICyS_du8",
+      "key_kid": "A1RuYQwKETVJKmwTdWMel9UH0rzO6QQME11o3wg4APs",
       "role": "TOOL",
       "signature_verified": true,
       "signer_euid": 993
     },
     {
-      "broker_pid": 2403,
+      "broker_pid": 2631,
       "domain": "ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1",
-      "key_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
+      "key_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
       "role": "C",
       "signature_verified": true,
       "signer_euid": 999
@@ -906,7 +906,7 @@
       "destination": "ind-release-bin",
       "executor": "pilot-x",
       "holder": "pilot-h",
-      "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
       "payload": {
         "batch_id": "batch-a",
@@ -935,11 +935,11 @@
         "tenant": "tenant-1"
       },
       "value": {
-        "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
+        "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
         "cutoff": "102",
         "decision_package_ref": "kUAXrvbdY754A8zWmsZhASoFxQJwdUaqdb8yDl04ZoQ",
         "evidence_refs": [
-          "NiQGCPqvRKUYJKJfKFPd6QMMHZQzXFyoLUZ3FsW5U14"
+          "FR0yQeSzleO__osno2AxytR-sv5Per_t7n5ZC3ti4yg"
         ],
         "exp": "220",
         "history_mode": "DISABLED",
@@ -947,7 +947,7 @@
         "label": "DEMO_NORMAL",
         "method": "ind-fixed-v1",
         "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-        "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+        "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
         "proposed_route": "RELEASE",
         "required_reviews": [],
         "result": "MATCH",
@@ -956,7 +956,7 @@
           "scenario": "industrial",
           "tenant": "tenant-1"
         },
-        "task_ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4"
+        "task_ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI"
       },
       "version": "2.6"
     },
@@ -971,26 +971,42 @@
         "deps": [
           {
             "key": [
-              "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+              "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
             ],
             "namespace": "KEY",
-            "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "revision": "1"
           },
           {
             "key": [
-              "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+              "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
             ],
             "namespace": "KEY",
-            "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "revision": "1"
           },
           {
             "key": [
-              "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+              "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
             ],
             "namespace": "KEY",
-            "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+            ],
+            "namespace": "KEY",
+            "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+            ],
+            "namespace": "KEY",
+            "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "revision": "1"
           },
           {
@@ -1001,7 +1017,7 @@
               "AAAAAAAAAAAAAAAAAAAAKQ"
             ],
             "namespace": "TASK",
-            "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+            "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
             "revision": "1"
           },
           {
@@ -1013,7 +1029,7 @@
               "unit-a"
             ],
             "namespace": "UNIT",
-            "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+            "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
             "revision": "3"
           },
           {
@@ -1142,23 +1158,7 @@
               "industrial"
             ],
             "namespace": "POLICY",
-            "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-            ],
-            "namespace": "KEY",
-            "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-            ],
-            "namespace": "KEY",
-            "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+            "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "revision": "1"
           }
         ],
@@ -1167,13 +1167,13 @@
         "id": "AAAAAAAAAAAAAAAAAAGSWg",
         "payload": {
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -1195,13 +1195,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-u",
-        "kid": "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74",
+        "kid": "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "Authorization",
         "version": "2.6"
       },
-      "sig": "W8gTo_01VqN1l1Mn7fCMB8IvBw9MMkkNoF6zytHj1ERh4G6WKhuxyh7rGt3ZaxTvknX6IxKe911nbPlh_T2VCg"
+      "sig": "BH5rXyY5PnQlJD7PZjdQSxwlX3kL9YrblkGi0Yf7HDoR10-S2kGeDgY9RSAddtYuLtkJeK5QUJhqdwE0FhHaDw"
     },
     "basis": {
       "kind": "BASIS",
@@ -1216,7 +1216,7 @@
           "destination": "ind-release-bin",
           "executor": "pilot-x",
           "holder": "pilot-h",
-          "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+          "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
           "payload": {
             "batch_id": "batch-a",
@@ -1236,31 +1236,47 @@
           "tool": "line-sort-sim",
           "tool_version": "1"
         },
-        "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-        "assessment_ref": "MsiQxcd5pRDR-e_pu3L4wM9VKNkbZ5pq2CqWtj3r2IM",
+        "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+        "assessment_ref": "adetj1ioudV-zNsb9Fjrvh9U4-brcpISMbCk2T518pI",
         "deps": [
           {
             "key": [
-              "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+              "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
             ],
             "namespace": "KEY",
-            "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "revision": "1"
           },
           {
             "key": [
-              "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+              "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
             ],
             "namespace": "KEY",
-            "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "revision": "1"
           },
           {
             "key": [
-              "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+              "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
             ],
             "namespace": "KEY",
-            "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+            ],
+            "namespace": "KEY",
+            "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+            ],
+            "namespace": "KEY",
+            "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "revision": "1"
           },
           {
@@ -1271,7 +1287,7 @@
               "AAAAAAAAAAAAAAAAAAAAKQ"
             ],
             "namespace": "TASK",
-            "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+            "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
             "revision": "1"
           },
           {
@@ -1283,7 +1299,7 @@
               "unit-a"
             ],
             "namespace": "UNIT",
-            "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+            "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
             "revision": "3"
           },
           {
@@ -1412,40 +1428,24 @@
               "industrial"
             ],
             "namespace": "POLICY",
-            "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-            ],
-            "namespace": "KEY",
-            "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-            ],
-            "namespace": "KEY",
-            "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+            "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "revision": "1"
           }
         ],
         "evidence_refs": [
-          "NiQGCPqvRKUYJKJfKFPd6QMMHZQzXFyoLUZ3FsW5U14"
+          "FR0yQeSzleO__osno2AxytR-sv5Per_t7n5ZC3ti4yg"
         ],
         "exp": "220",
         "iat": "102",
         "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-        "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+        "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
         "required_reviews": [],
         "scope": {
           "domain": "lab",
           "scenario": "industrial",
           "tenant": "tenant-1"
         },
-        "task_ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4"
+        "task_ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI"
       },
       "version": "2.6"
     },
@@ -1459,19 +1459,19 @@
         "iat": "105",
         "id": "AAAAAAAAAAAAAAAAAAGaLg",
         "payload": {
-          "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
+          "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
           "holder": "pilot-h",
-          "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+          "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
           "nonce": "FqBW-Uy935DP3qRybHIEEJSnrrYfPmV95vdIlDqSHcY",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-          "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
+          "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
           "purpose": "COMMIT",
-          "request_ref": "_78keGLW5gC3NWnD0GPANVK8ur1psIvGftGOQ0HZens",
+          "request_ref": "UBGkPNpNle-toc8V1HUigzzFDrMIjx8CbZq_7q41Ubc",
           "session_id": "AAAAAAAAAAAAAAAAAAACwg"
         },
         "refs": [
-          "_78keGLW5gC3NWnD0GPANVK8ur1psIvGftGOQ0HZens",
-          "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+          "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+          "UBGkPNpNle-toc8V1HUigzzFDrMIjx8CbZq_7q41Ubc"
         ],
         "scope": {
           "domain": "lab",
@@ -1482,13 +1482,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-x",
-        "kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+        "kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "Challenge",
         "version": "2.6"
       },
-      "sig": "YCEYp5vbq5clPtAY2F_CfQyTIG-KDcW6Ueig5sSBdYL-X2yQ8TziI8sxr_5rthQFyeRJvQy4-BgV283TUUMTAQ"
+      "sig": "OamVew8WnPcSHM-3WmeCe2YOba8E5ekE1-mx83UFj1h2Q0r5Oe8MO9caoHAgnbFyDYGqiFMP3YYxGR8DJYIFAA"
     },
     "challenge_request": {
       "body": {
@@ -1500,14 +1500,14 @@
         "iat": "105",
         "id": "AAAAAAAAAAAAAAAAAAGaLQ",
         "payload": {
-          "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
+          "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
           "attempt_id": "AAAAAAAAAAAAAAAAAAACwQ",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-          "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
+          "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
           "purpose": "COMMIT"
         },
         "refs": [
-          "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+          "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU"
         ],
         "scope": {
           "domain": "lab",
@@ -1518,23 +1518,23 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-h",
-        "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "ChallengeRequest",
         "version": "2.6"
       },
-      "sig": "UP5hnW3e05dA9HvNuceiqS48QDDUjaMt2yUIr25YpgB0vaJwR3_UnexzOKH18qzRVkv8Kstthad44iB1wr9ODg"
+      "sig": "GloEZ_E-3H8TfLDbE7_heCA0fr_M4IE6Id7lwYZqsHZbYlpA8_XJl9v37_B8X_x1hyzVgD1Rf3rAbBXLE7tlCQ"
     },
     "commit_record": null,
     "ctx": {
-      "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-      "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+      "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+      "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
       "executor": "pilot-x",
       "holder": "pilot-h",
-      "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+      "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
       "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-      "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+      "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
       "principal": "principal",
       "scope": {
         "domain": "lab",
@@ -1545,26 +1545,42 @@
     "deps": [
       {
         "key": [
-          "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+          "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
         ],
         "namespace": "KEY",
-        "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+        "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
         "revision": "1"
       },
       {
         "key": [
-          "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+          "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
         ],
         "namespace": "KEY",
-        "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+        "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
         "revision": "1"
       },
       {
         "key": [
-          "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+          "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
         ],
         "namespace": "KEY",
-        "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+        "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+        "revision": "1"
+      },
+      {
+        "key": [
+          "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+        ],
+        "namespace": "KEY",
+        "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+        "revision": "1"
+      },
+      {
+        "key": [
+          "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+        ],
+        "namespace": "KEY",
+        "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
         "revision": "1"
       },
       {
@@ -1575,7 +1591,7 @@
           "AAAAAAAAAAAAAAAAAAAAKQ"
         ],
         "namespace": "TASK",
-        "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+        "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
         "revision": "1"
       },
       {
@@ -1587,7 +1603,7 @@
           "unit-a"
         ],
         "namespace": "UNIT",
-        "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+        "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
         "revision": "3"
       },
       {
@@ -1716,23 +1732,7 @@
           "industrial"
         ],
         "namespace": "POLICY",
-        "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-        "revision": "1"
-      },
-      {
-        "key": [
-          "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-        ],
-        "namespace": "KEY",
-        "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-        "revision": "1"
-      },
-      {
-        "key": [
-          "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-        ],
-        "namespace": "KEY",
-        "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+        "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
         "revision": "1"
       }
     ],
@@ -1744,26 +1744,42 @@
         "deps": [
           {
             "key": [
-              "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+              "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
             ],
             "namespace": "KEY",
-            "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "revision": "1"
           },
           {
             "key": [
-              "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+              "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
             ],
             "namespace": "KEY",
-            "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "revision": "1"
           },
           {
             "key": [
-              "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+              "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
             ],
             "namespace": "KEY",
-            "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+            ],
+            "namespace": "KEY",
+            "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+            ],
+            "namespace": "KEY",
+            "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "revision": "1"
           },
           {
@@ -1774,7 +1790,7 @@
               "AAAAAAAAAAAAAAAAAAAAKQ"
             ],
             "namespace": "TASK",
-            "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+            "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
             "revision": "1"
           },
           {
@@ -1786,7 +1802,7 @@
               "unit-a"
             ],
             "namespace": "UNIT",
-            "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+            "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
             "revision": "3"
           },
           {
@@ -1915,23 +1931,7 @@
               "industrial"
             ],
             "namespace": "POLICY",
-            "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-            ],
-            "namespace": "KEY",
-            "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-            ],
-            "namespace": "KEY",
-            "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+            "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "revision": "1"
           }
         ],
@@ -1939,15 +1939,15 @@
         "iat": "104",
         "id": "AAAAAAAAAAAAAAAAAAGWQw",
         "payload": {
-          "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
+          "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -1958,7 +1958,7 @@
           "review_refs": []
         },
         "refs": [
-          "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw"
+          "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8"
         ],
         "scope": {
           "domain": "lab",
@@ -1969,13 +1969,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-h",
-        "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "IssueRequest",
         "version": "2.6"
       },
-      "sig": "nCFytwbTunKN5GgXHFiNdDX__wFDu4n0feQHl_s0bfYQFMCtEIUmAP1E33iMBPWecLBMVkwCEHbtvLcWGSbsCw"
+      "sig": "goVg5mQgl96tA5hrteua7i85H0_JJqGkCDHN9PpF7s0Dk8RIFCPdVLYeJB-pCow2Z5RM3X0x4FPjomkl6rCdCA"
     },
     "permit": {
       "body": {
@@ -1986,26 +1986,42 @@
         "deps": [
           {
             "key": [
-              "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+              "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
             ],
             "namespace": "KEY",
-            "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "revision": "1"
           },
           {
             "key": [
-              "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+              "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
             ],
             "namespace": "KEY",
-            "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "revision": "1"
           },
           {
             "key": [
-              "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+              "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
             ],
             "namespace": "KEY",
-            "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+            ],
+            "namespace": "KEY",
+            "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+            ],
+            "namespace": "KEY",
+            "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "revision": "1"
           },
           {
@@ -2016,7 +2032,7 @@
               "AAAAAAAAAAAAAAAAAAAAKQ"
             ],
             "namespace": "TASK",
-            "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+            "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
             "revision": "1"
           },
           {
@@ -2028,7 +2044,7 @@
               "unit-a"
             ],
             "namespace": "UNIT",
-            "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+            "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
             "revision": "3"
           },
           {
@@ -2157,23 +2173,7 @@
               "industrial"
             ],
             "namespace": "POLICY",
-            "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-            ],
-            "namespace": "KEY",
-            "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-            ],
-            "namespace": "KEY",
-            "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+            "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "revision": "1"
           }
         ],
@@ -2181,15 +2181,15 @@
         "iat": "104",
         "id": "AAAAAAAAAAAAAAAAAAGWRA",
         "payload": {
-          "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
+          "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -2202,7 +2202,7 @@
           "review_refs": []
         },
         "refs": [
-          "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw"
+          "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8"
         ],
         "scope": {
           "domain": "lab",
@@ -2213,13 +2213,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-g",
-        "kid": "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA",
+        "kid": "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "Permit",
         "version": "2.6"
       },
-      "sig": "8L72Rst_bMAnl1MeA81-xU6xKLA0OBV_u6_0xxwZk_DyiXsO804lD4ppnA4TZ7NXNXRmMqFftAKeht1QsSRyCA"
+      "sig": "L6-r_FaSH7M-ZAMLTPIAr8-_gHSFs4f3xtQR9JWmcXL4nJHVh14pDCyleEbW5_p4Ms_v12sJIKUJp8PD43_DBg"
     },
     "proof": {
       "body": {
@@ -2232,15 +2232,15 @@
         "id": "AAAAAAAAAAAAAAAAAAGeFw",
         "payload": {
           "attempt_id": "AAAAAAAAAAAAAAAAAAACwQ",
-          "challenge_ref": "_7eSR14uxdyeF6QsOyOKqw5HiHnBkrI2hRe7xzhm9bk",
+          "challenge_ref": "I9qruoWg59I0uYT3WPyP0bZOQkDA9MBUW-WO8OO1D3s",
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -2249,12 +2249,12 @@
             }
           },
           "nonce": "FqBW-Uy935DP3qRybHIEEJSnrrYfPmV95vdIlDqSHcY",
-          "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
+          "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
           "session_id": "AAAAAAAAAAAAAAAAAAACwg"
         },
         "refs": [
-          "_7eSR14uxdyeF6QsOyOKqw5HiHnBkrI2hRe7xzhm9bk",
-          "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+          "I9qruoWg59I0uYT3WPyP0bZOQkDA9MBUW-WO8OO1D3s",
+          "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU"
         ],
         "scope": {
           "domain": "lab",
@@ -2265,13 +2265,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-h",
-        "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "CommitProof",
         "version": "2.6"
       },
-      "sig": "AI-DoyJQ_xwB_uLv-T0Cw9HvdgEgGdwdD-Aom5ekTH1VXFUwi3j75A8v4Y6iX0l-wKdlRkL5Fkvp3JfQLWhFBQ"
+      "sig": "0mCdh73zno9zxnU5mrU0Mz_qF7h92scFJPH6q07YiwQlbxHH66kpUB_IOUuSaQsGQymuWmXcXwhurb8O4SrmBg"
     },
     "required": [],
     "reviews": [],
@@ -2289,16 +2289,16 @@
     "acceptance_payload": {
       "accept_seq": "1",
       "accepted_at": "106",
-      "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
-      "commit_record_ref": "IhYrDlrnSGa084Kfp5Ko44daCDYlNL-Xkzyk8mucyKw",
+      "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
+      "commit_record_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
       "ctx": {
-        "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-        "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+        "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+        "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
         "executor": "pilot-x",
         "holder": "pilot-h",
-        "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-        "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+        "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
         "principal": "principal",
         "scope": {
           "domain": "lab",
@@ -2307,8 +2307,8 @@
         }
       },
       "dispatch_before": "220",
-      "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
-      "proof_ref": "OE0JB-qJwU46xkl_aOQAu8zj_DwQR8AlQ7sMEkiPDBs",
+      "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+      "proof_ref": "hO8yeGmlKZQJoTe4GE6hwsqkId5-9jYTufPZJ_Gp8Cc",
       "review_refs": []
     },
     "aud": [
@@ -2331,7 +2331,7 @@
           "destination": "ind-release-bin",
           "executor": "pilot-x",
           "holder": "pilot-h",
-          "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+          "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
           "payload": {
             "batch_id": "batch-a",
@@ -2351,7 +2351,7 @@
           "tool": "line-sort-sim",
           "tool_version": "1"
         },
-        "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
+        "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
         "behavior_after": {
           "key": [
             "lab",
@@ -2387,26 +2387,42 @@
         "checked_deps": [
           {
             "key": [
-              "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+              "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
             ],
             "namespace": "KEY",
-            "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "revision": "1"
           },
           {
             "key": [
-              "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+              "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
             ],
             "namespace": "KEY",
-            "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "revision": "1"
           },
           {
             "key": [
-              "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+              "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
             ],
             "namespace": "KEY",
-            "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+            ],
+            "namespace": "KEY",
+            "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+            ],
+            "namespace": "KEY",
+            "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "revision": "1"
           },
           {
@@ -2417,7 +2433,7 @@
               "AAAAAAAAAAAAAAAAAAAAKQ"
             ],
             "namespace": "TASK",
-            "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+            "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
             "revision": "1"
           },
           {
@@ -2429,7 +2445,7 @@
               "unit-a"
             ],
             "namespace": "UNIT",
-            "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+            "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
             "revision": "3"
           },
           {
@@ -2558,32 +2574,16 @@
               "industrial"
             ],
             "namespace": "POLICY",
-            "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-            ],
-            "namespace": "KEY",
-            "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-            ],
-            "namespace": "KEY",
-            "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+            "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "revision": "1"
           }
         ],
         "credential_witnesses": [
           {
-            "key_grant_ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "key_grant_ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "key_revision": "1",
-            "kid": "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA",
-            "public_key": "8iG0eKLQ_U-trbFhpbtAMcQ4t6yckQGs9_6Zd5IE8A4",
+            "kid": "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4",
+            "public_key": "lNmR9oaktqGRdFRLAJo54ZGJqLjmLhS_g667BG0TjU4",
             "role": "ISSUER",
             "role_grant_ref": "C_qjVDopz22xb_hND33MXdeE2aPxb2fey3E4BRjYAp8",
             "role_revision": "1",
@@ -2591,10 +2591,21 @@
             "verified_at_seq": "1"
           },
           {
-            "key_grant_ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "key_grant_ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "key_revision": "1",
-            "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
-            "public_key": "SNhXHNv3eu8u3zHZgAOPCxzmo6frcoM0QGJ_lmI8BpU",
+            "kid": "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks",
+            "public_key": "ORLTL4JcUQL7wm9AG--CzHU6phlzOSpUW-ZtvJcz4qg",
+            "role": "LINE_OPERATOR",
+            "role_grant_ref": "RRiZU0QbGgaalqu-TJ8JIz7HosF-n8USA3dIoDje7ZY",
+            "role_revision": "1",
+            "subject": "pilot-u",
+            "verified_at_seq": "1"
+          },
+          {
+            "key_grant_ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "key_revision": "1",
+            "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
+            "public_key": "CZ7P-8i0RfHUCx-LKsHtdctBE7uUpM1GqWyFP2-DgeY",
             "role": "HOLDER",
             "role_grant_ref": "vGHvY16t2EIN-qhCuhAov7hV6m3ppX5mdNs6775Cvdg",
             "role_revision": "1",
@@ -2602,21 +2613,10 @@
             "verified_at_seq": "1"
           },
           {
-            "key_grant_ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
+            "key_grant_ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
             "key_revision": "1",
-            "kid": "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM",
-            "public_key": "3hNqm-fBEXfE7N_aMhLo87b8tFfG5maW6gCtq2ROBfE",
-            "role": "SOURCE",
-            "role_grant_ref": "sNbKtuF7o6wCbF-Gz6jheK9GBJs9A4RsuXr8_V1AwhM",
-            "role_revision": "1",
-            "subject": "pilot-e",
-            "verified_at_seq": "1"
-          },
-          {
-            "key_grant_ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
-            "key_revision": "1",
-            "kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
-            "public_key": "Mg7jsRSyIK0yLcVbE1azqzFxarQSvrrI1BVkLN1lUNQ",
+            "kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
+            "public_key": "FdaLFqqO-38zzWoJh8L6Wghxc5SNIPZHX88Yxcm8zdA",
             "role": "EXECUTOR",
             "role_grant_ref": "jorcDilG2A014NeMp67YY_5qJjYjinZcE78LrItFaaw",
             "role_revision": "1",
@@ -2624,25 +2624,25 @@
             "verified_at_seq": "1"
           },
           {
-            "key_grant_ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "key_grant_ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "key_revision": "1",
-            "kid": "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74",
-            "public_key": "6elYe8lfIuigui4LlN-KKfLkNo1rYPp2CJ53lH_dr70",
-            "role": "LINE_OPERATOR",
-            "role_grant_ref": "RRiZU0QbGgaalqu-TJ8JIz7HosF-n8USA3dIoDje7ZY",
+            "kid": "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM",
+            "public_key": "xsm1x4XASND6SAF2QRRIf1SkPOV4WXxZFWKR-4FZawg",
+            "role": "SOURCE",
+            "role_grant_ref": "sNbKtuF7o6wCbF-Gz6jheK9GBJs9A4RsuXr8_V1AwhM",
             "role_revision": "1",
-            "subject": "pilot-u",
+            "subject": "pilot-e",
             "verified_at_seq": "1"
           }
         ],
         "ctx": {
-          "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-          "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+          "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+          "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
           "executor": "pilot-x",
           "holder": "pilot-h",
-          "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+          "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-          "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+          "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
           "principal": "principal",
           "scope": {
             "domain": "lab",
@@ -2655,7 +2655,7 @@
           "destination": "ind-release-bin",
           "executor": "pilot-x",
           "holder": "pilot-h",
-          "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+          "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
           "payload": {
             "batch_id": "batch-a",
@@ -2675,8 +2675,8 @@
           "tool": "line-sort-sim",
           "tool_version": "1"
         },
-        "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
-        "proof_ref": "OE0JB-qJwU46xkl_aOQAu8zj_DwQR8AlQ7sMEkiPDBs",
+        "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+        "proof_ref": "hO8yeGmlKZQJoTe4GE6hwsqkId5-9jYTufPZJ_Gp8Cc",
         "reservation_ids": [
           "AAAAAAAAAAAAAAAAAAADIQ"
         ],
@@ -2713,10 +2713,10 @@
             "unit-a"
           ],
           "namespace": "UNIT",
-          "ref": "PsIg0_ntkLi9wruLH37UzzXHUW6bpK1LGYwK0rZtdII",
+          "ref": "__8lUdLT1a57Y8dbPkWx6JQpatHrk0oe6Do5W8MVzn4",
           "revision": "4",
           "row": {
-            "evidence_ref": "NiQGCPqvRKUYJKJfKFPd6QMMHZQzXFyoLUZ3FsW5U14",
+            "evidence_ref": "FR0yQeSzleO__osno2AxytR-sv5Per_t7n5ZC3ti4yg",
             "inspection_cycle": "1",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
             "phase": "INITIAL",
@@ -2735,10 +2735,10 @@
             "unit-a"
           ],
           "namespace": "UNIT",
-          "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+          "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
           "revision": "3",
           "row": {
-            "evidence_ref": "NiQGCPqvRKUYJKJfKFPd6QMMHZQzXFyoLUZ3FsW5U14",
+            "evidence_ref": "FR0yQeSzleO__osno2AxytR-sv5Per_t7n5ZC3ti4yg",
             "inspection_cycle": "1",
             "operation_id": "",
             "phase": "INITIAL",
@@ -2748,7 +2748,7 @@
             "unit_ref": "D-MFUA4BbeEKvEPB03KZHCrtd6S-YRhR_e70xmoWpdg"
           }
         },
-        "signing_public_key": "Mg7jsRSyIK0yLcVbE1azqzFxarQSvrrI1BVkLN1lUNQ",
+        "signing_public_key": "FdaLFqqO-38zzWoJh8L6Wghxc5SNIPZHX88Yxcm8zdA",
         "taskflight": {
           "key": [
             "lab",
@@ -2767,9 +2767,9 @@
     },
     "profile": "IND-DEMO-1",
     "refs": [
-      "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
-      "OE0JB-qJwU46xkl_aOQAu8zj_DwQR8AlQ7sMEkiPDBs",
-      "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+      "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+      "hO8yeGmlKZQJoTe4GE6hwsqkId5-9jYTufPZJ_Gp8Cc",
+      "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8"
     ],
     "scope": {
       "domain": "lab",
@@ -2777,8 +2777,8 @@
       "tenant": "tenant-1"
     },
     "signed_at": 106,
-    "ticket": "gttifGm_wSry6Ws7d15ZTw",
-    "x_kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
+    "ticket": "kqLwFJXc-YJbDpvXwJ1HrA",
+    "x_kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
   },
   "process_stage_outcomes": {
     "c_claim": {
@@ -2810,7 +2810,7 @@
       "tool_root_certified": true
     },
     "e_sign": {
-      "E_pub": "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM",
+      "E_pub": "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM",
       "E_source_signed": true,
       "stage": "e_sign"
     },
@@ -2846,13 +2846,13 @@
       "stage": "w_delivery"
     },
     "w_finalize": {
-      "commit_ref": "IhYrDlrnSGa084Kfp5Ko44daCDYlNL-Xkzyk8mucyKw",
+      "commit_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
       "forged_X_rejected": "SIGNATURE_ENCODING",
       "stage": "w_finalize"
     },
     "w_import": {
       "forged_E_rejected": "SIGNATURE_ENCODING",
-      "imported_source_ref": "NiQGCPqvRKUYJKJfKFPd6QMMHZQzXFyoLUZ3FsW5U14",
+      "imported_source_ref": "FR0yQeSzleO__osno2AxytR-sv5Per_t7n5ZC3ti4yg",
       "stage": "w_import"
     },
     "w_no_replay": {
@@ -2860,7 +2860,7 @@
       "stage": "w_no_replay"
     },
     "w_plan": {
-      "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+      "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
       "stage": "w_plan"
     },
     "w_prepare": {
@@ -2872,7 +2872,7 @@
       "stage": "w_settle"
     },
     "x_accept": {
-      "acceptance_ref": "QyuXAbHsaDKfbGdgIVIgHTqmluqpcCVjv_iruKxw_84",
+      "acceptance_ref": "VphCcLew567jOHn3m2CkDp6sa-h2Q6RoAXXpYRsQ2z0",
       "stage": "x_accept"
     },
     "x_challenge": {
@@ -2926,10 +2926,10 @@
         },
         "sequence": "4"
       },
-      "signature": "BqDXCt0Dart9K9-J-znvsn6SNQZevpvgKsaSTedXU6BQrFcdpJk_hoyP3EJQtNlxGBVath_jaEoYuFzUPeyqBw"
+      "signature": "MWWH_i4IWZiy194FUJ7q6oof4K2HbB8psKpGwITe3xVEwH7yjf4zEVuI0CK80UFAXjT9Rihv7SLJ4VmM5JlyAw"
     },
     "response": {
-      "fact_id": "f4dshUXXhA1jVQaSXHkx_OSTva0cyFTtse89Dnw_KLY",
+      "fact_id": "959psVdP-2hhmB8KfMSGKoPvKOPj7vL_JNwdXwXBh4U",
       "historical": false,
       "idempotent": false,
       "status": "SUCCEEDED"
@@ -2948,8 +2948,8 @@
         "exp": "220",
         "iat": "100",
         "issuer": "pilot-e",
-        "kid": "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM",
-        "sig": "O2kxMXkuxnJPOeocppfVB0JeRIV4QO7LufAYkRf5JO-06TL5aEq1sXHl-fa9DsnydKC_SD03JevpLogVeA4xAQ"
+        "kid": "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM",
+        "sig": "PKiOJqlEKr271wc34Xy0xD7EtV3eASnLeVXqLLbn4ZptqyqbrnGgkWsfl3wwQBxIJtPFVo17VGOxPL2mPcJXAQ"
       },
       "data": {
         "batch_id": "batch-a",
@@ -2984,16 +2984,16 @@
         "payload": {
           "accept_seq": "1",
           "accepted_at": "106",
-          "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
-          "commit_record_ref": "IhYrDlrnSGa084Kfp5Ko44daCDYlNL-Xkzyk8mucyKw",
+          "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
+          "commit_record_ref": "AWjEK1YiBNMoUGM8lMF_i3SXCXT94htQh_6NPBRhUJ0",
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -3002,14 +3002,14 @@
             }
           },
           "dispatch_before": "220",
-          "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
-          "proof_ref": "OE0JB-qJwU46xkl_aOQAu8zj_DwQR8AlQ7sMEkiPDBs",
+          "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+          "proof_ref": "hO8yeGmlKZQJoTe4GE6hwsqkId5-9jYTufPZJ_Gp8Cc",
           "review_refs": []
         },
         "refs": [
-          "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
-          "OE0JB-qJwU46xkl_aOQAu8zj_DwQR8AlQ7sMEkiPDBs",
-          "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+          "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+          "hO8yeGmlKZQJoTe4GE6hwsqkId5-9jYTufPZJ_Gp8Cc",
+          "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8"
         ],
         "scope": {
           "domain": "lab",
@@ -3020,13 +3020,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-x",
-        "kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+        "kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "Acceptance",
         "version": "2.6"
       },
-      "sig": "LD2WZxqN5bxbhO-8rla7zgRuoYg1nkzRGIAHTPLpjpkY4aNosLOl2IwHaqF3RiYvhkB0siIccYW3g_jSoJ_UBw"
+      "sig": "dwYRI6uhg92pU-XO9TPlnzbOjcaCFByRhWQn5614moOIBOC61KNXErp0Fmr5q9xUCzZdmDf4eWFJ6kPR7ZLMCA"
     },
     "authorization": {
       "body": {
@@ -3038,26 +3038,42 @@
         "deps": [
           {
             "key": [
-              "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+              "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
             ],
             "namespace": "KEY",
-            "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "revision": "1"
           },
           {
             "key": [
-              "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+              "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
             ],
             "namespace": "KEY",
-            "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "revision": "1"
           },
           {
             "key": [
-              "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+              "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
             ],
             "namespace": "KEY",
-            "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+            ],
+            "namespace": "KEY",
+            "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+            ],
+            "namespace": "KEY",
+            "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "revision": "1"
           },
           {
@@ -3068,7 +3084,7 @@
               "AAAAAAAAAAAAAAAAAAAAKQ"
             ],
             "namespace": "TASK",
-            "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+            "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
             "revision": "1"
           },
           {
@@ -3080,7 +3096,7 @@
               "unit-a"
             ],
             "namespace": "UNIT",
-            "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+            "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
             "revision": "3"
           },
           {
@@ -3209,23 +3225,7 @@
               "industrial"
             ],
             "namespace": "POLICY",
-            "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-            ],
-            "namespace": "KEY",
-            "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-            ],
-            "namespace": "KEY",
-            "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+            "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "revision": "1"
           }
         ],
@@ -3234,13 +3234,13 @@
         "id": "AAAAAAAAAAAAAAAAAAGSWg",
         "payload": {
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -3262,13 +3262,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-u",
-        "kid": "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74",
+        "kid": "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "Authorization",
         "version": "2.6"
       },
-      "sig": "W8gTo_01VqN1l1Mn7fCMB8IvBw9MMkkNoF6zytHj1ERh4G6WKhuxyh7rGt3ZaxTvknX6IxKe911nbPlh_T2VCg"
+      "sig": "BH5rXyY5PnQlJD7PZjdQSxwlX3kL9YrblkGi0Yf7HDoR10-S2kGeDgY9RSAddtYuLtkJeK5QUJhqdwE0FhHaDw"
     },
     "challenge": {
       "body": {
@@ -3280,19 +3280,19 @@
         "iat": "105",
         "id": "AAAAAAAAAAAAAAAAAAGaLg",
         "payload": {
-          "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
+          "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
           "holder": "pilot-h",
-          "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+          "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
           "nonce": "FqBW-Uy935DP3qRybHIEEJSnrrYfPmV95vdIlDqSHcY",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-          "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
+          "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
           "purpose": "COMMIT",
-          "request_ref": "_78keGLW5gC3NWnD0GPANVK8ur1psIvGftGOQ0HZens",
+          "request_ref": "UBGkPNpNle-toc8V1HUigzzFDrMIjx8CbZq_7q41Ubc",
           "session_id": "AAAAAAAAAAAAAAAAAAACwg"
         },
         "refs": [
-          "_78keGLW5gC3NWnD0GPANVK8ur1psIvGftGOQ0HZens",
-          "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+          "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
+          "UBGkPNpNle-toc8V1HUigzzFDrMIjx8CbZq_7q41Ubc"
         ],
         "scope": {
           "domain": "lab",
@@ -3303,13 +3303,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-x",
-        "kid": "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8",
+        "kid": "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "Challenge",
         "version": "2.6"
       },
-      "sig": "YCEYp5vbq5clPtAY2F_CfQyTIG-KDcW6Ueig5sSBdYL-X2yQ8TziI8sxr_5rthQFyeRJvQy4-BgV283TUUMTAQ"
+      "sig": "OamVew8WnPcSHM-3WmeCe2YOba8E5ekE1-mx83UFj1h2Q0r5Oe8MO9caoHAgnbFyDYGqiFMP3YYxGR8DJYIFAA"
     },
     "challenge_request": {
       "body": {
@@ -3321,14 +3321,14 @@
         "iat": "105",
         "id": "AAAAAAAAAAAAAAAAAAGaLQ",
         "payload": {
-          "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
+          "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
           "attempt_id": "AAAAAAAAAAAAAAAAAAACwQ",
           "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-          "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
+          "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
           "purpose": "COMMIT"
         },
         "refs": [
-          "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+          "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU"
         ],
         "scope": {
           "domain": "lab",
@@ -3339,13 +3339,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-h",
-        "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "ChallengeRequest",
         "version": "2.6"
       },
-      "sig": "UP5hnW3e05dA9HvNuceiqS48QDDUjaMt2yUIr25YpgB0vaJwR3_UnexzOKH18qzRVkv8Kstthad44iB1wr9ODg"
+      "sig": "GloEZ_E-3H8TfLDbE7_heCA0fr_M4IE6Id7lwYZqsHZbYlpA8_XJl9v37_B8X_x1hyzVgD1Rf3rAbBXLE7tlCQ"
     },
     "issue": {
       "body": {
@@ -3355,26 +3355,42 @@
         "deps": [
           {
             "key": [
-              "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+              "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
             ],
             "namespace": "KEY",
-            "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "revision": "1"
           },
           {
             "key": [
-              "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+              "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
             ],
             "namespace": "KEY",
-            "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "revision": "1"
           },
           {
             "key": [
-              "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+              "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
             ],
             "namespace": "KEY",
-            "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+            ],
+            "namespace": "KEY",
+            "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+            ],
+            "namespace": "KEY",
+            "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "revision": "1"
           },
           {
@@ -3385,7 +3401,7 @@
               "AAAAAAAAAAAAAAAAAAAAKQ"
             ],
             "namespace": "TASK",
-            "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+            "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
             "revision": "1"
           },
           {
@@ -3397,7 +3413,7 @@
               "unit-a"
             ],
             "namespace": "UNIT",
-            "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+            "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
             "revision": "3"
           },
           {
@@ -3526,23 +3542,7 @@
               "industrial"
             ],
             "namespace": "POLICY",
-            "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-            ],
-            "namespace": "KEY",
-            "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-            ],
-            "namespace": "KEY",
-            "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+            "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "revision": "1"
           }
         ],
@@ -3550,15 +3550,15 @@
         "iat": "104",
         "id": "AAAAAAAAAAAAAAAAAAGWQw",
         "payload": {
-          "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
+          "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -3569,7 +3569,7 @@
           "review_refs": []
         },
         "refs": [
-          "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw"
+          "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8"
         ],
         "scope": {
           "domain": "lab",
@@ -3580,13 +3580,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-h",
-        "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "IssueRequest",
         "version": "2.6"
       },
-      "sig": "nCFytwbTunKN5GgXHFiNdDX__wFDu4n0feQHl_s0bfYQFMCtEIUmAP1E33iMBPWecLBMVkwCEHbtvLcWGSbsCw"
+      "sig": "goVg5mQgl96tA5hrteua7i85H0_JJqGkCDHN9PpF7s0Dk8RIFCPdVLYeJB-pCow2Z5RM3X0x4FPjomkl6rCdCA"
     },
     "permit": {
       "body": {
@@ -3597,26 +3597,42 @@
         "deps": [
           {
             "key": [
-              "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA"
+              "3srzCnaaQeFRic5wHqdaA0ZPe5Fh_unHn28d-OYpOks"
             ],
             "namespace": "KEY",
-            "ref": "52lpEDu509afPy9emcJFohNFWrWLbOrTOCeS_MKo3lM",
+            "ref": "GDx-vg-dtr36mYzKpB-xEj0gpXXa7Zw4nzsCQjiD8Tk",
             "revision": "1"
           },
           {
             "key": [
-              "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4"
+              "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4"
             ],
             "namespace": "KEY",
-            "ref": "Prm5Rph9t5QzYsldGaKXFHSrRyL7t2J1P0QikHqGa-I",
+            "ref": "14t8k_hAcCdaxzVn_zUoiQ9Kd6ipd7GydvyCmhfK7po",
             "revision": "1"
           },
           {
             "key": [
-              "8tMxveQvZlNCQnucOynpAh1t9ep8gMD3XfsHe5KIJ74"
+              "LRa0ZwftnjyFFEbLDvaBsLeJCdN2956KogETBGnL0Mc"
             ],
             "namespace": "KEY",
-            "ref": "o1IxYV-UruTWyZ-pIIXk3sxIWnBtENG1ruE3Jeng5QA",
+            "ref": "WAJx9MFr8E5TWxm9tGyz0lq0-RgCYocs7JhtYupJ8Z4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg"
+            ],
+            "namespace": "KEY",
+            "ref": "NjWWy6cwJdHdC9qZmR5vMrjCCCZ0CTyxF3dwh_ni9_U",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "ZOi2sQLDhydKngc9H3IGdnddzsGzkyD583k6RtMtApM"
+            ],
+            "namespace": "KEY",
+            "ref": "zLvNr0DoH7Ceu-26Ufutks7SF3hmpdN0oHHAyDuRbyY",
             "revision": "1"
           },
           {
@@ -3627,7 +3643,7 @@
               "AAAAAAAAAAAAAAAAAAAAKQ"
             ],
             "namespace": "TASK",
-            "ref": "HRc3SuzO5ykTdTRF_b5gxtfLyBu9WEKQTmpaeZVlKR4",
+            "ref": "ZGXfsLa9UZLbHxJyVU9EdupKdHWOosomB9kxWZzUeBI",
             "revision": "1"
           },
           {
@@ -3639,7 +3655,7 @@
               "unit-a"
             ],
             "namespace": "UNIT",
-            "ref": "PxPF3gQw4wHrgHAZd7rUJQ8UwDYtcl5VM3c_0maWtyg",
+            "ref": "Y2cSdIQxQPk0eG7QNKqmDBGXEhE5GKz2Ka-JjAk0oAc",
             "revision": "3"
           },
           {
@@ -3768,23 +3784,7 @@
               "industrial"
             ],
             "namespace": "POLICY",
-            "ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "sT_LQ24-CJzuSXAsOjjy2eohmbUm-I0g-yHgpyS4YaM"
-            ],
-            "namespace": "KEY",
-            "ref": "YG7vsx-L2EdhIfukv8wb14lxEoZspulk-a5FinM3HpA",
-            "revision": "1"
-          },
-          {
-            "key": [
-              "uSzIMYW_6_-XqdpVp9oQEWI7rpOlPodce-0GChuSIz8"
-            ],
-            "namespace": "KEY",
-            "ref": "enh_ihd0WAn5ZE9o4m1RwdBxvusjawWqguRTXyyXe2k",
+            "ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "revision": "1"
           }
         ],
@@ -3792,15 +3792,15 @@
         "iat": "104",
         "id": "AAAAAAAAAAAAAAAAAAGWRA",
         "payload": {
-          "authorization_ref": "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw",
+          "authorization_ref": "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8",
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -3813,7 +3813,7 @@
           "review_refs": []
         },
         "refs": [
-          "0kP85jeEcgRj3hBb6OkOzBNqkN8Wfj7fabLEId0xdYw"
+          "rqDBS7nHcV5b24Ou2VSJLPh2XphZk_1aKAPkzt40pz8"
         ],
         "scope": {
           "domain": "lab",
@@ -3824,13 +3824,13 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-g",
-        "kid": "1H9RX2uSUX02Wcaq02qjbRK-MYYxAjFxE23JTtLThYA",
+        "kid": "5ZTfJWbrAuPrbE5nO88KYjn2T84L5ndOToFM5ibMcm4",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "Permit",
         "version": "2.6"
       },
-      "sig": "8L72Rst_bMAnl1MeA81-xU6xKLA0OBV_u6_0xxwZk_DyiXsO804lD4ppnA4TZ7NXNXRmMqFftAKeht1QsSRyCA"
+      "sig": "L6-r_FaSH7M-ZAMLTPIAr8-_gHSFs4f3xtQR9JWmcXL4nJHVh14pDCyleEbW5_p4Ms_v12sJIKUJp8PD43_DBg"
     },
     "proof": {
       "body": {
@@ -3843,15 +3843,15 @@
         "id": "AAAAAAAAAAAAAAAAAAGeFw",
         "payload": {
           "attempt_id": "AAAAAAAAAAAAAAAAAAACwQ",
-          "challenge_ref": "_7eSR14uxdyeF6QsOyOKqw5HiHnBkrI2hRe7xzhm9bk",
+          "challenge_ref": "I9qruoWg59I0uYT3WPyP0bZOQkDA9MBUW-WO8OO1D3s",
           "ctx": {
-            "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
-            "basis_ref": "NHimORWuAhrMQCWoksG4v93NC5aHQEiof67qQX2LrlM",
+            "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
+            "basis_ref": "Ixihz2wXCYVTd10YLVgGIWzAQzTz6b6K9h4KD_g65g4",
             "executor": "pilot-x",
             "holder": "pilot-h",
-            "holder_kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+            "holder_kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
             "operation_id": "AAAAAAAAAAAAAAAAAAAAKg",
-            "policy_ref": "9wxK-vLbDbxCTCA54OIe2lS_XQGgu3Nn3VRW2B8qXUU",
+            "policy_ref": "n53hkAwH8DmIw3o-1O6gHppqcWNHM23sz9xiA7Ah0yg",
             "principal": "principal",
             "scope": {
               "domain": "lab",
@@ -3860,12 +3860,12 @@
             }
           },
           "nonce": "FqBW-Uy935DP3qRybHIEEJSnrrYfPmV95vdIlDqSHcY",
-          "permit_ref": "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c",
+          "permit_ref": "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU",
           "session_id": "AAAAAAAAAAAAAAAAAAACwg"
         },
         "refs": [
-          "_7eSR14uxdyeF6QsOyOKqw5HiHnBkrI2hRe7xzhm9bk",
-          "hR0DGTh8rlfxepKvvQfITi0kTPE4979Otn7p0x4sW7c"
+          "I9qruoWg59I0uYT3WPyP0bZOQkDA9MBUW-WO8OO1D3s",
+          "McEGRnrM8RlwuJeaWxE4pBXnJbgsugB8RE1F7S7SnCU"
         ],
         "scope": {
           "domain": "lab",
@@ -3876,30 +3876,30 @@
       "protected": {
         "alg": "Ed25519",
         "issuer": "pilot-h",
-        "kid": "1z97JfMb7vykcnh4XLwzYSC0rSZvJSlywGh78P-08k4",
+        "kid": "NrBfT5IX2XwI5V_GHEez8bEnMgzJkKO9YJd9Kq4oeGg",
         "profile": "IND-DEMO-1",
         "proto": "ZJJ-AAP",
         "type": "CommitProof",
         "version": "2.6"
       },
-      "sig": "AI-DoyJQ_xwB_uLv-T0Cw9HvdgEgGdwdD-Aom5ekTH1VXFUwi3j75A8v4Y6iX0l-wKdlRkL5Fkvp3JfQLWhFBQ"
+      "sig": "0mCdh73zno9zxnU5mrU0Mz_qF7h92scFJPH6q07YiwQlbxHH66kpUB_IOUuSaQsGQymuWmXcXwhurb8O4SrmBg"
     }
   },
   "signer_key_custody": "phase18 Linux users own 0600 keys; runner sudo may administer/sign",
   "stage_pids": {
-    "bootstrap": 2120,
-    "claim": 2395,
-    "no_redispatch": 2405,
-    "settle": 2404,
-    "tool": 2398
+    "bootstrap": 2349,
+    "claim": 2623,
+    "no_redispatch": 2634,
+    "settle": 2632,
+    "tool": 2626
   },
   "task_id": "AAAAAAAAAAAAAAAAAAAAKQ",
   "tool": {
     "fact": {
-      "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
+      "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
       "destination": "ind-release-bin",
       "dispatch_attempt": "AAAAAAAAAAAAAAAAAAKb-w",
-      "effect_id": "ind-ba83fa99318f71f9882403aa7319b1db",
+      "effect_id": "ind-a8771143661256e1f2a08fc57ba557eb",
       "final_seq": "1",
       "finalized_at": "110",
       "ledger_id": "ledger1",
@@ -3909,7 +3909,7 @@
       "tool": "line-sort-sim",
       "tool_version": "1"
     },
-    "ledger_origin": "i4Ulp9_JLUYL6MlhQWAH8oPKQ6gEeECaKHIiY60mCtg",
+    "ledger_origin": "3OawHtDkxP4rsJ5BbLkSwwffI67QjTO0D_av81YSxbg",
     "signed_final": {
       "kind": "TOOL_FINAL",
       "profile": "IND-DEMO-1",
@@ -3919,15 +3919,15 @@
         "tenant": "tenant-1"
       },
       "value": {
-        "action_hash": "gJN4k4xG9TI2C2zHES3bjIdERBxCZObDh3VjzLXtNKE",
+        "action_hash": "2EJj-G5_MIzZveEoWn3Pj_f_MGcOSA39HQKNdpK8m7Q",
         "attestation": {
           "issuer": "pilot-tool",
-          "kid": "NJqCb9VQs20N6lXPe61QFBwIWT2fZSKSDL8ICyS_du8",
-          "sig": "T9gdF8NPZiT7JcEg1XvnbfO4m3tFLWW7e0mE_FkdzeJg3uJjl4jGO61r9irnt0DUJGJ_d-DDUmfLFWuJKLUDAQ"
+          "kid": "A1RuYQwKETVJKmwTdWMel9UH0rzO6QQME11o3wg4APs",
+          "sig": "5SGlDpxsvpBKMkVvL9XwBVlFEte8Zy-Ly2QlCdatcvhLwpHK99RMYJtiiE_mptkiFjhQ7as3aa83m31uGZqpBg"
         },
         "destination": "ind-release-bin",
         "dispatch_attempt": "AAAAAAAAAAAAAAAAAAKb-w",
-        "effect_id": "ind-ba83fa99318f71f9882403aa7319b1db",
+        "effect_id": "ind-a8771143661256e1f2a08fc57ba557eb",
         "exp": "231",
         "final_seq": "1",
         "finalized_at": "110",
@@ -3946,7 +3946,7 @@
   "tool_certificate": {
     "claim": {
       "ledger_head": "gPhQnDXFL-H1pWyLx1MyoRF_Z7SIjWO6ipec3KfJIYA",
-      "ledger_origin": "i4Ulp9_JLUYL6MlhQWAH8oPKQ6gEeECaKHIiY60mCtg",
+      "ledger_origin": "3OawHtDkxP4rsJ5BbLkSwwffI67QjTO0D_av81YSxbg",
       "record": {
         "kind": "TOOL_TRUST",
         "profile": "IND-DEMO-1",
@@ -3962,9 +3962,9 @@
           "exp": "2000",
           "iat": "90",
           "issuer": "pilot-tool",
-          "kid": "NJqCb9VQs20N6lXPe61QFBwIWT2fZSKSDL8ICyS_du8",
+          "kid": "A1RuYQwKETVJKmwTdWMel9UH0rzO6QQME11o3wg4APs",
           "ledger_id": "ledger1",
-          "public_key": "_Tazf_QmVzOMM2rJCRkm8Bsmkl24uHtCcGyTn3uP9IU",
+          "public_key": "wOD65aczri3k1F8VeoqKqm2gpyJCGHApHtEzZWPHoLw",
           "tool": "line-sort-sim",
           "tool_version": "1"
         },
@@ -3972,9 +3972,9 @@
       },
       "revision": "1"
     },
-    "root_kid": "uJbz8HgLOVi3mA0g-VGkh3S_Gp6JlUBumo9dyl3nKAI",
-    "signature": "z1QN9sRgQSUNGbHOynYU4jD1Tea1vuFs3F06V3SmH0S2qqbAICiOy47y8OfTlMnhjn0h6VNOeTqb4_kAkfmCDw"
+    "root_kid": "n_rUze0xV7eLPqah9eE0ODudefoBAn2z1f4W2mVgngs",
+    "signature": "COj-Q5PZBDqPDIx5gOcW8Ok8Sfe-AViQO-wO3mp0P8olHwf9WfMj3rWNQHdqvnQzSVS4S3I2pSXLdafMPdShAg"
   },
-  "tool_public": "_Tazf_QmVzOMM2rJCRkm8Bsmkl24uHtCcGyTn3uP9IU",
-  "w_delivery_public": "WbkYfVadd8NjjUgwhEy49zA3cwcuYvuyFEXX70r-M9w"
+  "tool_public": "wOD65aczri3k1F8VeoqKqm2gpyJCGHApHtEzZWPHoLw",
+  "w_delivery_public": "26_xbKEZaBbIUhmwOPqin9aVVGLqkpZIQNS2HVCvbIc"
 }
