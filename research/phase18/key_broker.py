@@ -51,7 +51,7 @@ def decode_packet(raw_line,role,pub):
                 type(b.get('refs')) is list and type(b.get('deps')) is list,
                 'BROKER_FIELDS')
     elif role=='E':
-        require(len(value)==8 and value[:5]==['ZJJ-SOURCE-v1','2.6','IND-DEMO-1',
+        require(len(value)==7 and value[:5]==['ZJJ-SOURCE-v1','2.6','IND-DEMO-1',
             'IND_EVIDENCE',{'domain':'lab','tenant':'tenant-1','scenario':'industrial'}],
             'BROKER_SOURCE')
         # The source may sign only an evidence record bound to its own E kid.
