@@ -8,8 +8,11 @@ The latter is explicitly a research candidate, not an executable drop-in for R2.
 
 - IND: `research/phase17/process_flow.py` + `research/phase18/process_flow.py`
   + `research/phase14/verifier.py` + `research/phase16/industrial_delivery.py`.
-- MED: `research/phase14/verifier.py` + `research/phase14/process_flow.py`,
-  fixture-isolated signer and simulator, not Phase18 role custody.
+- MED: original Phase14 verifier plus competition-extended
+  `research/phase17/process_flow.py` / `research/phase18/process_flow.py`,
+  with an explicit signed V clinical review and Phase16 shared simulated
+  delivery ledger. On competition branch this is a 26-stage scoped pipeline;
+  original research branch is unchanged.
 - PAY: `research/phase15/pay_accept.py` +
   `research/phase15/process_flow.py`, its independent source-history/
   RequiredDeps resolver, without common signer broker or W/Tool outbox.
@@ -87,7 +90,7 @@ must never silently substitute for original R2 Acceptance or tool authority.
 | A — completed initial slice | Cross-profile broker rules and sequence/floor clock | New negative tests + Phase14/15/18 regression |
 | B — next P0 | Finalize-time current signing under W transaction, DENY/dependency fences | Nonzero-elapsed IND success, expiry/revoke/denial/race negative tests, signed independent audit |
 | C | Remove industrial-specific broker/Tool gateway assumptions; one W ledger core | Existing IND regression preserved, no profile action bypass |
-| D | MED then PAY adapters onto common W + outbox | Each one accept/claim/settle/single simulated effect + missing-review/deny/replay tests |
+| D | MED scoped Phase18 path implemented; PAY still separate | MED 26 stages incl. required V review, signed delivery/recovery, one simulated effect. PAY must migrate next |
 | E | Unified demo, reproducible security matrix and competition documents | All three through exact same core service and same source, audit output reproducible |
 
 ## 5. Competition acceptance gates (separate from 39 official)

@@ -11,7 +11,8 @@ unchanged. Do not merge this branch into `main` as an R2 conformance release.
 | Item | State | Evidence / limitation |
 |---|---|---|
 | IND-Demo-1 pre-existing Phase18 industrial execution loop | existing scoped PASS, rechecked on competition branch | 25 process stages, Linux DAC role keys, dedicated W/Tool signature, one SQLite simulated effect |
-| MED-DEMO-1 / PAY-1 legacy local verifier-only path | existing scoped tests, rechecked | NOT yet using same deployed W, broker custody and tool outbox |
+| MED-DEMO-1 Phase18 clinical reviewer + execution candidate | 26-step scoped PASS on competition branch | reuses role broker, W acceptance, signed gateway and single simulated tool fact; still fixed lab times |
+| PAY-1 legacy local verifier-only path | existing scoped regression only | NOT yet migrated to unified W, role broker custody or common outbox |
 | Signed C clock sequence + durable lower floor | implemented | `competition/core/trusted_clock.py`, bounded interval/replay/rollback/transaction regressions |
 | Cross-profile restricted signing broker | partially implemented | IND/MED role bindings, PAY X, profile scopes; PAY H/G/U/V governance not enrolled |
 | PREPARE -> X Sign -> FINALIZE with real elapsed time | **BLOCKED** | legacy Phase14 requires identical times; `test_acceptance_gap.py` records this deliberately RED business capability |
