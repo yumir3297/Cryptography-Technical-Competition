@@ -31,10 +31,10 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p research_evidence/phase18
-          python -m research.phase18.process_flow --output "$GITHUB_WORKSPACE/.phase18_lab" 2>&1 | tee research_evidence/phase18/industrial_isolated_loop.txt
+          python -m research.phase18.process_flow --output "/tmp/zjj_phase18_ind_${GITHUB_RUN_ID}" 2>&1 | tee research_evidence/phase18/industrial_isolated_loop.txt
       - name: Verify Linux DAC access, broker denials and single durable effect
         env:
-          PHASE18_LAB_PATH: ${{ github.workspace }}/.phase18_lab
+          PHASE18_LAB_PATH: /tmp/zjj_phase18_ind_${{ github.run_id }}
         run: |
           set -o pipefail
           python -m unittest research.phase18.test_isolated_signers -v 2>&1 | tee research_evidence/phase18/test_isolated_signers.txt
@@ -44,7 +44,7 @@ jobs:
           python -m research.formal39.run_formal39 2>&1 | tee research_evidence/phase18/original39.txt
       - name: Freeze public-only evidence and candidate ZIP
         run: |
-          python -m research.phase18.build_report --input "$GITHUB_WORKSPACE/.phase18_lab" | tee research_evidence/phase18/build_report_stdout.txt
+          python -m research.phase18.build_report --input "/tmp/zjj_phase18_ind_${GITHUB_RUN_ID}" | tee research_evidence/phase18/build_report_stdout.txt
           if find research_evidence/phase18 -name '*.key' | grep -q .; then echo 'LEAKED_KEY' >&2; exit 1; fi
       - uses: actions/upload-artifact@v4
         if: always()
@@ -57,7 +57,7 @@ jobs:
       - name: Clean local privileged signer key sandbox
         if: always()
         run: |
-          sudo -n rm -rf "$GITHUB_WORKSPACE/.phase18_lab"
+          sudo -n rm -rf "/tmp/zjj_phase18_ind_${GITHUB_RUN_ID}"
       - name: Publish sanitized evidence to research branch
         if: success()
         run: |
