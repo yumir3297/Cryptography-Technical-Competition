@@ -46,6 +46,10 @@ def setup_isolated_users(d):
         require(file.is_file() and (file.stat().st_mode&0o777)==0o600,'KEY_MODE_BEFORE')
         sudo('chown',ROLE_USERS[r],file)
         sudo('chmod','0600',file)
+    # Root owns the signer directory itself: W cannot unlink/replace a role key.
+    # Role owners retain read-only access to their own private key file.
+    sudo('chown','root:root',keys)
+    sudo('chmod','0711',keys)
     # WTOOL signer is correctly owned by W; C/E/X/TOOL remain delegated.
     require((keys/'WTOOL.key').stat().st_uid==os.geteuid(),'WTOOL_NOT_LOCAL')
     check=check_permissions(d)
@@ -56,7 +60,7 @@ def setup_isolated_users(d):
 
 def check_permissions(d):
     d=Path(d).resolve();dir_=d/'signers'
-    require((dir_.stat().st_mode&0o777)==0o711,'SIGNERS_DIR_MODE')
+    require((dir_.stat().st_mode&0o777)==0o711 and dir_.stat().st_uid==0,'SIGNERS_DIR_MODE')
     out={'unprivileged_W_cannot_read':True,'other_roles_cannot_read':True,
          'roles_verified':len(ROLE_USERS),'same_ci_runner_has_privileged_sudo':True}
     for role,user in ROLE_USERS.items():
