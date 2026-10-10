@@ -56,7 +56,8 @@ class LinuxSignerBoundary(unittest.TestCase):
 
     def test_minimal_ind_closure_with_remote_signers(self):
         a=self.r['readonly_audit']
-        self.assertEqual(self.r['stage_count'],25)
+        self.assertEqual(self.r['stage_count'],
+                         26 if self.witness['profile']=='MED-DEMO-1' else 25)
         self.assertEqual(a['W_accept_count'],1)
         self.assertEqual(a['W_call_count'],1)
         self.assertEqual(a['W_settlement_count'],1)
@@ -64,7 +65,9 @@ class LinuxSignerBoundary(unittest.TestCase):
         self.assertTrue(a['recovery_no_second_effect'])
         self.assertTrue(a['forged_E_rejected'] and a['forged_X_rejected'] and a['forged_W_rejected'])
         signers={x['role'] for x in self.r['public_signer_receipts']}
-        self.assertTrue({'C','E','H','G','X','U','TOOL'}.issubset(signers))
+        required={'C','E','H','G','X','U','TOOL'}
+        if self.witness['profile']=='MED-DEMO-1':required.add('V')
+        self.assertTrue(required.issubset(signers))
         self.assertTrue(all(x['signature_verified'] for x in self.r['public_signer_receipts']))
 
     def test_db_effect_unique(self):
