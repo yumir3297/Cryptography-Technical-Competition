@@ -45,7 +45,16 @@ GitHub Actions: `.github/workflows/competition-security-baseline.yml`.
 The known-gap test succeeds when the legacy path **rejects** an elapsed-time
 acceptance; that test is NOT evidence that elapsed-time acceptance works.
 
-Next delivery gate: change acceptance construction to happen under FINALIZE's
-current guarded W transaction, invoke external X signer on that frozen final
-commit, then atomically accept. Never fix `TIME_CHANGED` by merely deleting it
-or backdating the acceptance. See migration contract for exact sequencing.
+Current local P-01–P-03 slice: `competition/core/acceptance.py` now performs
+R2 durable W acceptance before X signs the original committed Core. It uses a
+real advancing host-clock Provider, current event/window/identity checks and
+frozen receipt recovery. This is IND acceptance/receipt only; claim remains
+blocked and PR3 tools/three-profile W are not implemented. The legacy
+TIME_CHANGED test remains a known-gap detector for unchanged research code.
+See [acceptance sequence](docs/acceptance-sequence.md) and run:
+
+```text
+python -m competition.run_time_slice --output competition/evidence/time-slice-20261010-final
+```
+
+The Windows run does not prove Linux DAC isolation or external time trust.

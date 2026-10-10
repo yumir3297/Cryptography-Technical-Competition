@@ -21,74 +21,42 @@ The latter is explicitly a research candidate, not an executable drop-in for R2.
 
 ## 2. Stable common API target
 
-```python
-class CoreService:
-    def prepare(self, profile: str, request, trusted_sources) -> PrepareTicket: ...
-    def accept(self, ticket: PrepareTicket, current_time, external_x_signer) -> AcceptedFact: ...
-    def claim(self, operation_id: str, attempt_id: str, current_time) -> DispatchFact: ...
-    def deliver(self, dispatch_fact: DispatchFact, tool_gateway) -> ToolFact: ...
-    def settle(self, tool_fact: ToolFact, current_time) -> SettlementFact: ...
-    def audit(self, operation_id: str) -> AuditBundle: ...
+The frozen application contract is COMP-APP-MIN-1.0: prepare, accept, claim,
+execute_once, query_attempt, settle, status, audit. Core owns identity, time,
+dependencies, deny decisions, unique acceptance, reservation and recovery.
+Adapters own business validation, dependency descriptions and simulated tools;
+none may override a shared false/unknown verdict. Caller cannot supply an
+attempt id or decision timestamp. After started, only query_attempt is legal.
 
-class ProfileAdapter:
-    profile: str
-    def validate_action(self, action): ...
-    def resolve_required_deps(self, trusted_snapshot, action): ...
-    def required_approvals(self, trusted_snapshot, action): ...
-    def resource_claim(self, action): ...
-    def tool_simulator(self): ...
-```
+The local IND slice implements prepare/accept, receipt completion and authenticated
+application status. claim is conservative refusal; delivery/settlement/audit and
+three-profile shared W remain future waves. It adds one-use H identity challenges
+rather than treating a ticket as caller authentication.
 
-Mandatory shared ownership: key/role/purpose verifier, authenticated clock,
-trusted C/E state, DENY search, signed dependencies, consistent authorization
-guard, SQLite W acceptance/nonce/intent/flight single transaction, durable
-outbox, tool-side unique attempt/effect record and immutable audit provenance.
+## 3. Default R2 acceptance sequence
 
-Profile modules **may not** override a false shared signature, DENY, clock,
-nonce, concurrency or replay decision. Dependencies must be rebuilt from
-trusted C-source snapshots; caller-supplied Permit/deps is not an oracle.
+Use [acceptance-sequence.md](acceptance-sequence.md) as the concrete local
+contract. W checks fresh time/dependencies/current grants, freezes and durably
+commits the original COMMIT/Core/Refs and one reservation first. Then X reads
+that committed Core and signs it under a bounded current W guard. W rechecks
+receipt publication time/current X and saves exact signature bytes. Signature
+failure after COMMIT means pending receipt with reservation retained, not rollback.
+Claim requires a legal saved receipt and PR3's further current dispatch checks.
+An unknown commit ACK requires original-state lookup, never a new action.
 
-## 3. Required acceptance sequence (not yet implemented)
-
-1. PREPARE validates current grants/sources, identifies missing approvals and
-   returns a non-authorizing ticket. No resources, nonce or intent consumed.
-2. FINALIZE opens one serialized W decision transaction. Obtain a **new** C
-   authenticated time interval and verify its freshness/uncertainty and durable
-   lower floor. Rebuild and check *all* RequiredDeps, required reviews, every
-   applicable DENY (including existing history), authority and revoke state.
-3. Under the same W isolation boundary, compute the **final** COMMIT and
-   accepted_at from FINALIZE's guarded logical point, using current resource
-   revisions; it is not PREPARE's timestamp or a client-supplied timestamp.
-4. Ask the independent role-scoped X signer to sign that exact frozen Acceptance
-   with bounded timeout. Verify strict Ed25519/domain/kid/role/scope/refs and
-   validate the unchanged official wire Schema. X failure => rollback/no accept.
-5. Before committing, recheck all required current controls and signed time
-   window. Any uncertain interval, changed revision, expired grant, missing
-   witness or lost signer response => rollback/no accept (or indeterminate on
-   unknown database commit). The accepted point must be explicitly defined as
-   the W guarded logical decision within this atomic transaction.
-6. Persist acceptance, unique intent/nonce tombstones, resource reservations,
-   immutable COMMIT/Acceptance bytes and audit fact in one W transaction.
-   Recovery reads the stored decision; no second signing/acceptance based on
-   the same attempt. No dispatch before committed acceptance.
-7. Claim once, persist one signed W outbox packet, and let profile simulator
-   persist once by W/attempt/operation binding. Lost tool ACK returns the
-   immutable original fact. Settle once and read-only audit across both stores.
-
-**Nontrivial protocol detail:** physical wall-clock time during sign/commit,
-authoritative time interval coverage and revocations during a long-lived
-transaction are NOT solved by this plan alone. The implementation must bind
-the final guarded point to authenticated C time, reject stale sample/races and
-require bounded signer latency; otherwise keep the operation unaccepted.
-The 0.2 observation side channel may later authenticate historical facts but
-must never silently substitute for original R2 Acceptance or tool authority.
+accepted_at is the final logical ACCEPT_GUARD lo, not physical disk time. The
+real signature generation time is separately evidenced; the original Core iat
+is historical accepted_at. Same-W control revision locking plus time age/health
+checks support only the stated trusted-host logical guard. They do not prove
+external hardware physical-time revocation freedom. Long-term Observation and
+independent time facilities remain research/post-competition work.
 
 ## 4. Incremental code migration and exit criteria
 
 | Wave | Change | Real exit evidence |
 |---|---|---|
 | A — completed initial slice | Cross-profile broker rules and sequence/floor clock | New negative tests + Phase14/15/18 regression |
-| B — next P0 | Finalize-time current signing under W transaction, DENY/dependency fences | Nonzero-elapsed IND success, expiry/revoke/denial/race negative tests, signed independent audit |
+| B — next P0 | Local IND durable-accept/frozen receipt slice; full approvals/DENY and three-profile migration pending | Nonzero-elapsed IND success, expiry/revoke/denial/race negative tests, signed independent audit |
 | C | Remove industrial-specific broker/Tool gateway assumptions; one W ledger core | Existing IND regression preserved, no profile action bypass |
 | D | MED scoped Phase18 path implemented; PAY still separate | MED 26 stages incl. required V review, signed delivery/recovery, one simulated effect. PAY must migrate next |
 | E | Unified demo, reproducible security matrix and competition documents | All three through exact same core service and same source, audit output reproducible |
