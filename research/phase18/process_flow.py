@@ -101,6 +101,8 @@ class RemoteEd25519:
                   'research.phase18.key_broker','--role',self.role,
                   '--directory',self.directory,check=False,input=payload+'\n')
         if result.returncode:
+            # Broker reports only a denial code or Python import failure; never secret bytes.
+            sys.stderr.write('ROLE_BROKER_'+self.role+':'+result.stderr[-700:]+'\\n')
             raise ProtocolError('BROKER_REJECTED_'+self.role)
         obj=json.loads(result.stdout)
         require(set(obj)=={'signature','role','kid','pid','euid'} and
