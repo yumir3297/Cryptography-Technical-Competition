@@ -1,0 +1,26 @@
+{
+  "contract": "ZJJ-TIME-RESEARCH/0.2",
+  "conclusion": "PROTOCOL_RULES_CLOSED_UNDER_A1_A6",
+  "conditional_safety": [
+    "current interval gate and aged-sample rule",
+    "immutable accepted fact and no new execution rights",
+    "precomputed signature plus current W publication CAS",
+    "trusted frozen query/fact/archive/status witness",
+    "exact committed publication bytes required at receive",
+    "new authorized observer can attest after original receipt expiry"
+  ],
+  "premises_not_implemented_here": [
+    "trustworthy event clock and total sample age",
+    "real atomic durable W CAS/read/publication adapter",
+    "C current authorization intersection and fixed observer mapping",
+    "full historical authorization graph and actual original durable commit",
+    "independent anti-rollback highwater and continuous ledger governance",
+    "signature/hash cryptographic assumptions and real key protection"
+  ],
+  "bounded_progress": "Only with one stable authorization/history period and sufficient current finite window for all steps.",
+  "physical_deadline": "Requires tool effect gate/common authority order and hardware duration/stop guarantees; not provided by observation alone.",
+  "official_39": "NOT_RUN",
+  "product_66": "NOT_EXECUTED_HERE",
+  "q01_q02": "NOT_CLOSED_BY_THIS_RESEARCH",
+  "merge_status": "RESEARCH_BRANCH_ONLY"
+}

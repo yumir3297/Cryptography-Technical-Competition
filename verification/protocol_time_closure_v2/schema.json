@@ -1,0 +1,434 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:zjj:time-research:0.2",
+  "title": "Research candidate query/package; not R2",
+  "$comment": "Original Core and COMMIT additionally require the selected original R2 schema and semantics; authority/continuity/publication require trusted inputs.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Query"
+    },
+    {
+      "$ref": "#/$defs/Package"
+    }
+  ],
+  "$defs": {
+    "N": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)$",
+      "maxLength": 19
+    },
+    "Positive": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*$",
+      "maxLength": 19
+    },
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]{0,63}$"
+    },
+    "Profile": {
+      "enum": [
+        "PAY-1",
+        "IND-DEMO-1",
+        "MED-DEMO-1"
+      ]
+    },
+    "B16": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{22}$"
+    },
+    "B32": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{43}$"
+    },
+    "B64": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{86}$"
+    },
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "$ref": "#/$defs/Id"
+        },
+        "tenant": {
+          "$ref": "#/$defs/Id"
+        },
+        "scenario": {
+          "enum": [
+            "payment",
+            "industrial",
+            "medical"
+          ]
+        }
+      },
+      "required": [
+        "domain",
+        "tenant",
+        "scenario"
+      ],
+      "additionalProperties": false
+    },
+    "Interval": {
+      "type": "object",
+      "properties": {
+        "lo": {
+          "$ref": "#/$defs/N"
+        },
+        "hi": {
+          "$ref": "#/$defs/N"
+        }
+      },
+      "required": [
+        "lo",
+        "hi"
+      ],
+      "additionalProperties": false
+    },
+    "Query": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-TIME-RESEARCH"
+            },
+            "version": {
+              "const": "0.2"
+            },
+            "profile": {
+              "$ref": "#/$defs/Profile"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "AcceptanceObservationQuery"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "operation_id": {
+              "$ref": "#/$defs/B16"
+            },
+            "session_id": {
+              "$ref": "#/$defs/B16"
+            },
+            "nonce": {
+              "$ref": "#/$defs/B32"
+            },
+            "attempt_id": {
+              "$ref": "#/$defs/B16"
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "operation_id",
+            "session_id",
+            "nonce",
+            "attempt_id"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false
+    },
+    "Fact": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/$defs/Profile"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/B16"
+        },
+        "action_hash": {
+          "$ref": "#/$defs/B32"
+        },
+        "ledger_origin": {
+          "$ref": "#/$defs/Id"
+        },
+        "accept_seq": {
+          "$ref": "#/$defs/Positive"
+        },
+        "accepted_at": {
+          "$ref": "#/$defs/N"
+        },
+        "commit_record_ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "original_acceptance_ref": {
+          "$ref": "#/$defs/B32"
+        },
+        "original_core_digest": {
+          "$ref": "#/$defs/B32"
+        }
+      },
+      "required": [
+        "profile",
+        "scope",
+        "operation_id",
+        "action_hash",
+        "ledger_origin",
+        "accept_seq",
+        "accepted_at",
+        "commit_record_ref",
+        "original_acceptance_ref",
+        "original_core_digest"
+      ],
+      "additionalProperties": false
+    },
+    "Snapshot": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "ACCEPTED",
+            "EFFECT_UNKNOWN",
+            "SUCCEEDED",
+            "FAILED_CONFIRMED",
+            "HALTED"
+          ]
+        },
+        "status_seq": {
+          "$ref": "#/$defs/Positive"
+        },
+        "observed_time": {
+          "$ref": "#/$defs/Interval"
+        }
+      },
+      "required": [
+        "status",
+        "status_seq",
+        "observed_time"
+      ],
+      "additionalProperties": false
+    },
+    "Observation": {
+      "type": "object",
+      "properties": {
+        "protected": {
+          "type": "object",
+          "properties": {
+            "proto": {
+              "const": "ZJJ-TIME-RESEARCH"
+            },
+            "version": {
+              "const": "0.2"
+            },
+            "profile": {
+              "$ref": "#/$defs/Profile"
+            },
+            "alg": {
+              "const": "Ed25519"
+            },
+            "type": {
+              "const": "AcceptanceObservation"
+            },
+            "issuer": {
+              "$ref": "#/$defs/Id"
+            },
+            "kid": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "proto",
+            "version",
+            "profile",
+            "alg",
+            "type",
+            "issuer",
+            "kid"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/B16"
+            },
+            "scope": {
+              "$ref": "#/$defs/Scope"
+            },
+            "iat": {
+              "$ref": "#/$defs/N"
+            },
+            "exp": {
+              "$ref": "#/$defs/N"
+            },
+            "aud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Id"
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true,
+              "x-zjj-order": "strict lexicographic Enc bytes"
+            },
+            "query_ref": {
+              "$ref": "#/$defs/B32"
+            },
+            "query_nonce": {
+              "$ref": "#/$defs/B32"
+            },
+            "fact": {
+              "$ref": "#/$defs/Fact"
+            },
+            "fact_id": {
+              "$ref": "#/$defs/B32"
+            },
+            "snapshot": {
+              "$ref": "#/$defs/Snapshot"
+            },
+            "control_revision": {
+              "$ref": "#/$defs/Positive"
+            },
+            "ledger_epoch": {
+              "$ref": "#/$defs/Positive"
+            },
+            "history_anchor_ref": {
+              "$ref": "#/$defs/B32"
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "iat",
+            "exp",
+            "aud",
+            "query_ref",
+            "query_nonce",
+            "fact",
+            "fact_id",
+            "snapshot",
+            "control_revision",
+            "ledger_epoch",
+            "history_anchor_ref"
+          ],
+          "additionalProperties": false
+        },
+        "sig": {
+          "$ref": "#/$defs/B64"
+        }
+      },
+      "required": [
+        "protected",
+        "body",
+        "sig"
+      ],
+      "additionalProperties": false
+    },
+    "Archive": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "ZJJ-CORE-ARCHIVE-PROPOSED-2"
+        },
+        "original_core": {
+          "type": "object",
+          "properties": {
+            "protected": {
+              "type": "object"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "protected",
+            "body"
+          ],
+          "additionalProperties": false
+        },
+        "commit": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "format",
+        "original_core",
+        "commit"
+      ],
+      "additionalProperties": false
+    },
+    "Package": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "ZJJ-TIME-PACKAGE-PROPOSED-2"
+        },
+        "observation": {
+          "$ref": "#/$defs/Observation"
+        },
+        "archive": {
+          "$ref": "#/$defs/Archive"
+        }
+      },
+      "required": [
+        "format",
+        "observation",
+        "archive"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

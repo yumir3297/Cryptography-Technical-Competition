@@ -1,0 +1,701 @@
+{
+  "domain": {
+    "trusted_event_time": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "query_and_observer_exp": 4,
+    "control_revisions": [
+      0,
+      1,
+      2
+    ],
+    "key_generations": [
+      0,
+      1
+    ],
+    "historical_acceptances": 1,
+    "server_query_transactions": 1,
+    "client_query_bindings": [
+      [
+        "query-0-ref",
+        "nonce-0",
+        "attempt-0",
+        "session-0"
+      ],
+      [
+        "query-1-ref",
+        "nonce-1",
+        "attempt-1",
+        "session-1"
+      ]
+    ],
+    "status_seq": [
+      0,
+      1
+    ],
+    "premises": [
+      "authentic current C mapping",
+      "trustworthy event interval",
+      "linearizable protected W publication and nonce CAS",
+      "authentic exact W publication lookup",
+      "authenticated W read snapshot",
+      "correct historic durable acceptance and original fact",
+      "cryptographic authenticity assumed; no real signatures here"
+    ],
+    "limits": "Finite safety abstraction; no fairness, liveness, database, network, real clock or device proof."
+  },
+  "invariants": [
+    "publication rechecks all current gates and control revision",
+    "pending query nonce consumed by exactly one publication",
+    "receive binds exact published bytes and expected current query",
+    "published response immutable; retransmission exact",
+    "fact/accepted/reserved/dispatch counters never change",
+    "expiry prevents successful publication/receive and introduces no execution",
+    "independently advanced W status does not change frozen signed snapshot"
+  ],
+  "cas_model": {
+    "states": 58304,
+    "transitions": 398096,
+    "violations": [],
+    "coverage": {
+      "successful_receive_reachable": true,
+      "receive_of_older_authenticated_status_snapshot_reachable": true
+    }
+  },
+  "legacy_without_CAS": {
+    "states": 794,
+    "transitions": 1961,
+    "violations": [
+      {
+        "errors": [
+          "publication crossed control revision"
+        ],
+        "trace": [
+          {
+            "event": "observe-read",
+            "after": {
+              "now": 0,
+              "revision": 0,
+              "generation": 0,
+              "delegation_active": true,
+              "requester_active": true,
+              "observer_scope": true,
+              "observer_purpose": true,
+              "continuous": true,
+              "archive": true,
+              "status_seq": 0,
+              "snapshot": {
+                "read_at": 0,
+                "status_seq": 0,
+                "revision": 0,
+                "generation": 0,
+                "fact": [
+                  "original-core-bytes",
+                  "original-commit-ref",
+                  0,
+                  "scope-A",
+                  "op-A"
+                ],
+                "query": [
+                  "query-0-ref",
+                  "nonce-0",
+                  "attempt-0",
+                  "session-0"
+                ]
+              },
+              "candidate": null,
+              "published": null,
+              "pending_nonce": true,
+              "fact": [
+                "original-core-bytes",
+                "original-commit-ref",
+                0,
+                "scope-A",
+                "op-A"
+              ],
+              "accepted": 1,
+              "reserved": 1,
+              "dispatch": 0
+            }
+          },
+          {
+            "event": "renew-control-grant",
+            "after": {
+              "now": 0,
+              "revision": 2,
+              "generation": 0,
+              "delegation_active": true,
+              "requester_active": true,
+              "observer_scope": true,
+              "observer_purpose": true,
+              "continuous": true,
+              "archive": true,
+              "status_seq": 0,
+              "snapshot": {
+                "read_at": 0,
+                "status_seq": 0,
+                "revision": 0,
+                "generation": 0,
+                "fact": [
+                  "original-core-bytes",
+                  "original-commit-ref",
+                  0,
+                  "scope-A",
+                  "op-A"
+                ],
+                "query": [
+                  "query-0-ref",
+                  "nonce-0",
+                  "attempt-0",
+                  "session-0"
+                ]
+              },
+              "candidate": null,
+              "published": null,
+              "pending_nonce": true,
+              "fact": [
+                "original-core-bytes",
+                "original-commit-ref",
+                0,
+                "scope-A",
+                "op-A"
+              ],
+              "accepted": 1,
+              "reserved": 1,
+              "dispatch": 0
+            }
+          },
+          {
+            "event": "sign-candidate",
+            "after": {
+              "now": 0,
+              "revision": 2,
+              "generation": 0,
+              "delegation_active": true,
+              "requester_active": true,
+              "observer_scope": true,
+              "observer_purpose": true,
+              "continuous": true,
+              "archive": true,
+              "status_seq": 0,
+              "snapshot": {
+                "read_at": 0,
+                "status_seq": 0,
+                "revision": 0,
+                "generation": 0,
+                "fact": [
+                  "original-core-bytes",
+                  "original-commit-ref",
+                  0,
+                  "scope-A",
+                  "op-A"
+                ],
+                "query": [
+                  "query-0-ref",
+                  "nonce-0",
+                  "attempt-0",
+                  "session-0"
+                ]
+              },
+              "candidate": {
+                "snapshot": {
+                  "read_at": 0,
+                  "status_seq": 0,
+                  "revision": 0,
+                  "generation": 0,
+                  "fact": [
+                    "original-core-bytes",
+                    "original-commit-ref",
+                    0,
+                    "scope-A",
+                    "op-A"
+                  ],
+                  "query": [
+                    "query-0-ref",
+                    "nonce-0",
+                    "attempt-0",
+                    "session-0"
+                  ]
+                },
+                "sign_at": 0,
+                "exp": 4
+              },
+              "published": null,
+              "pending_nonce": true,
+              "fact": [
+                "original-core-bytes",
+                "original-commit-ref",
+                0,
+                "scope-A",
+                "op-A"
+              ],
+              "accepted": 1,
+              "reserved": 1,
+              "dispatch": 0
+            }
+          },
+          {
+            "event": "publish-without-revision-CAS",
+            "after": {
+              "now": 0,
+              "revision": 2,
+              "generation": 0,
+              "delegation_active": true,
+              "requester_active": true,
+              "observer_scope": true,
+              "observer_purpose": true,
+              "continuous": true,
+              "archive": true,
+              "status_seq": 0,
+              "snapshot": {
+                "read_at": 0,
+                "status_seq": 0,
+                "revision": 0,
+                "generation": 0,
+                "fact": [
+                  "original-core-bytes",
+                  "original-commit-ref",
+                  0,
+                  "scope-A",
+                  "op-A"
+                ],
+                "query": [
+                  "query-0-ref",
+                  "nonce-0",
+                  "attempt-0",
+                  "session-0"
+                ]
+              },
+              "candidate": {
+                "snapshot": {
+                  "read_at": 0,
+                  "status_seq": 0,
+                  "revision": 0,
+                  "generation": 0,
+                  "fact": [
+                    "original-core-bytes",
+                    "original-commit-ref",
+                    0,
+                    "scope-A",
+                    "op-A"
+                  ],
+                  "query": [
+                    "query-0-ref",
+                    "nonce-0",
+                    "attempt-0",
+                    "session-0"
+                  ]
+                },
+                "sign_at": 0,
+                "exp": 4
+              },
+              "published": {
+                "candidate": {
+                  "snapshot": {
+                    "read_at": 0,
+                    "status_seq": 0,
+                    "revision": 0,
+                    "generation": 0,
+                    "fact": [
+                      "original-core-bytes",
+                      "original-commit-ref",
+                      0,
+                      "scope-A",
+                      "op-A"
+                    ],
+                    "query": [
+                      "query-0-ref",
+                      "nonce-0",
+                      "attempt-0",
+                      "session-0"
+                    ]
+                  },
+                  "sign_at": 0,
+                  "exp": 4
+                },
+                "publish_at": 0,
+                "response": "(Snapshot(read_at=0, status_seq=0, revision=0, generation=0, fact=('original-core-bytes', 'original-commit-ref', 0, 'scope-A', 'op-A'), query=('query-0-ref', 'nonce-0', 'attempt-0', 'session-0')), 0, 4)"
+              },
+              "pending_nonce": false,
+              "fact": [
+                "original-core-bytes",
+                "original-commit-ref",
+                0,
+                "scope-A",
+                "op-A"
+              ],
+              "accepted": 1,
+              "reserved": 1,
+              "dispatch": 0
+            }
+          }
+        ],
+        "trace_length": 4
+      }
+    ],
+    "shortest_by_BFS": true
+  },
+  "delegation_ABA_counterexample": {
+    "trace": [
+      {
+        "event": "observe-read",
+        "after": {
+          "now": 0,
+          "revision": 0,
+          "generation": 0,
+          "delegation_active": true,
+          "requester_active": true,
+          "observer_scope": true,
+          "observer_purpose": true,
+          "continuous": true,
+          "archive": true,
+          "status_seq": 0,
+          "snapshot": {
+            "read_at": 0,
+            "status_seq": 0,
+            "revision": 0,
+            "generation": 0,
+            "fact": [
+              "original-core-bytes",
+              "original-commit-ref",
+              0,
+              "scope-A",
+              "op-A"
+            ],
+            "query": [
+              "query-0-ref",
+              "nonce-0",
+              "attempt-0",
+              "session-0"
+            ]
+          },
+          "candidate": null,
+          "published": null,
+          "pending_nonce": true,
+          "fact": [
+            "original-core-bytes",
+            "original-commit-ref",
+            0,
+            "scope-A",
+            "op-A"
+          ],
+          "accepted": 1,
+          "reserved": 1,
+          "dispatch": 0
+        }
+      },
+      {
+        "event": "sign-candidate",
+        "after": {
+          "now": 0,
+          "revision": 0,
+          "generation": 0,
+          "delegation_active": true,
+          "requester_active": true,
+          "observer_scope": true,
+          "observer_purpose": true,
+          "continuous": true,
+          "archive": true,
+          "status_seq": 0,
+          "snapshot": {
+            "read_at": 0,
+            "status_seq": 0,
+            "revision": 0,
+            "generation": 0,
+            "fact": [
+              "original-core-bytes",
+              "original-commit-ref",
+              0,
+              "scope-A",
+              "op-A"
+            ],
+            "query": [
+              "query-0-ref",
+              "nonce-0",
+              "attempt-0",
+              "session-0"
+            ]
+          },
+          "candidate": {
+            "snapshot": {
+              "read_at": 0,
+              "status_seq": 0,
+              "revision": 0,
+              "generation": 0,
+              "fact": [
+                "original-core-bytes",
+                "original-commit-ref",
+                0,
+                "scope-A",
+                "op-A"
+              ],
+              "query": [
+                "query-0-ref",
+                "nonce-0",
+                "attempt-0",
+                "session-0"
+              ]
+            },
+            "sign_at": 0,
+            "exp": 4
+          },
+          "published": null,
+          "pending_nonce": true,
+          "fact": [
+            "original-core-bytes",
+            "original-commit-ref",
+            0,
+            "scope-A",
+            "op-A"
+          ],
+          "accepted": 1,
+          "reserved": 1,
+          "dispatch": 0
+        }
+      },
+      {
+        "event": "revoke-delegation",
+        "after": {
+          "now": 0,
+          "revision": 1,
+          "generation": 0,
+          "delegation_active": false,
+          "requester_active": true,
+          "observer_scope": true,
+          "observer_purpose": true,
+          "continuous": true,
+          "archive": true,
+          "status_seq": 0,
+          "snapshot": {
+            "read_at": 0,
+            "status_seq": 0,
+            "revision": 0,
+            "generation": 0,
+            "fact": [
+              "original-core-bytes",
+              "original-commit-ref",
+              0,
+              "scope-A",
+              "op-A"
+            ],
+            "query": [
+              "query-0-ref",
+              "nonce-0",
+              "attempt-0",
+              "session-0"
+            ]
+          },
+          "candidate": {
+            "snapshot": {
+              "read_at": 0,
+              "status_seq": 0,
+              "revision": 0,
+              "generation": 0,
+              "fact": [
+                "original-core-bytes",
+                "original-commit-ref",
+                0,
+                "scope-A",
+                "op-A"
+              ],
+              "query": [
+                "query-0-ref",
+                "nonce-0",
+                "attempt-0",
+                "session-0"
+              ]
+            },
+            "sign_at": 0,
+            "exp": 4
+          },
+          "published": null,
+          "pending_nonce": true,
+          "fact": [
+            "original-core-bytes",
+            "original-commit-ref",
+            0,
+            "scope-A",
+            "op-A"
+          ],
+          "accepted": 1,
+          "reserved": 1,
+          "dispatch": 0
+        }
+      },
+      {
+        "event": "regrant-delegation",
+        "after": {
+          "now": 0,
+          "revision": 2,
+          "generation": 0,
+          "delegation_active": true,
+          "requester_active": true,
+          "observer_scope": true,
+          "observer_purpose": true,
+          "continuous": true,
+          "archive": true,
+          "status_seq": 0,
+          "snapshot": {
+            "read_at": 0,
+            "status_seq": 0,
+            "revision": 0,
+            "generation": 0,
+            "fact": [
+              "original-core-bytes",
+              "original-commit-ref",
+              0,
+              "scope-A",
+              "op-A"
+            ],
+            "query": [
+              "query-0-ref",
+              "nonce-0",
+              "attempt-0",
+              "session-0"
+            ]
+          },
+          "candidate": {
+            "snapshot": {
+              "read_at": 0,
+              "status_seq": 0,
+              "revision": 0,
+              "generation": 0,
+              "fact": [
+                "original-core-bytes",
+                "original-commit-ref",
+                0,
+                "scope-A",
+                "op-A"
+              ],
+              "query": [
+                "query-0-ref",
+                "nonce-0",
+                "attempt-0",
+                "session-0"
+              ]
+            },
+            "sign_at": 0,
+            "exp": 4
+          },
+          "published": null,
+          "pending_nonce": true,
+          "fact": [
+            "original-core-bytes",
+            "original-commit-ref",
+            0,
+            "scope-A",
+            "op-A"
+          ],
+          "accepted": 1,
+          "reserved": 1,
+          "dispatch": 0
+        }
+      },
+      {
+        "event": "publish-without-revision-CAS",
+        "after": {
+          "now": 0,
+          "revision": 2,
+          "generation": 0,
+          "delegation_active": true,
+          "requester_active": true,
+          "observer_scope": true,
+          "observer_purpose": true,
+          "continuous": true,
+          "archive": true,
+          "status_seq": 0,
+          "snapshot": {
+            "read_at": 0,
+            "status_seq": 0,
+            "revision": 0,
+            "generation": 0,
+            "fact": [
+              "original-core-bytes",
+              "original-commit-ref",
+              0,
+              "scope-A",
+              "op-A"
+            ],
+            "query": [
+              "query-0-ref",
+              "nonce-0",
+              "attempt-0",
+              "session-0"
+            ]
+          },
+          "candidate": {
+            "snapshot": {
+              "read_at": 0,
+              "status_seq": 0,
+              "revision": 0,
+              "generation": 0,
+              "fact": [
+                "original-core-bytes",
+                "original-commit-ref",
+                0,
+                "scope-A",
+                "op-A"
+              ],
+              "query": [
+                "query-0-ref",
+                "nonce-0",
+                "attempt-0",
+                "session-0"
+              ]
+            },
+            "sign_at": 0,
+            "exp": 4
+          },
+          "published": {
+            "candidate": {
+              "snapshot": {
+                "read_at": 0,
+                "status_seq": 0,
+                "revision": 0,
+                "generation": 0,
+                "fact": [
+                  "original-core-bytes",
+                  "original-commit-ref",
+                  0,
+                  "scope-A",
+                  "op-A"
+                ],
+                "query": [
+                  "query-0-ref",
+                  "nonce-0",
+                  "attempt-0",
+                  "session-0"
+                ]
+              },
+              "sign_at": 0,
+              "exp": 4
+            },
+            "publish_at": 0,
+            "response": "(Snapshot(read_at=0, status_seq=0, revision=0, generation=0, fact=('original-core-bytes', 'original-commit-ref', 0, 'scope-A', 'op-A'), query=('query-0-ref', 'nonce-0', 'attempt-0', 'session-0')), 0, 4)"
+          },
+          "pending_nonce": false,
+          "fact": [
+            "original-core-bytes",
+            "original-commit-ref",
+            0,
+            "scope-A",
+            "op-A"
+          ],
+          "accepted": 1,
+          "reserved": 1,
+          "dispatch": 0
+        }
+      }
+    ],
+    "trace_length": 5,
+    "errors": [
+      "publication crossed control revision"
+    ],
+    "meaning": "Role/task delegation was revoked and newly granted; an old revision candidate must be discarded."
+  },
+  "passed": true
+}

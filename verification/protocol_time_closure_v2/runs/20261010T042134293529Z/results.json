@@ -1,0 +1,93 @@
+{
+  "contract": "ZJJ-TIME-RESEARCH/0.2",
+  "generated_at_utc": "2026-10-10T04:21:39.015465+00:00",
+  "passed": true,
+  "candidate_tests": {
+    "run": 33,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "schema_regeneration_equal": true,
+  "independent_node_vector_crosscheck": {
+    "passed": true,
+    "checks": 61,
+    "profiles": [
+      "PAY-1",
+      "IND-DEMO-1",
+      "MED-DEMO-1"
+    ],
+    "node": "v24.14.1",
+    "limits": "Positive vector signing/hash checks plus tamper/domain negatives; not authority, full schema, subgroup-rejection parity or complete protocol interoperability."
+  },
+  "finite_exploration": {
+    "states": 58304,
+    "transitions": 398096,
+    "violations": 0,
+    "legacy_counterexample_events": 4,
+    "domain": "See interleavings.json; one historical fact and one server query transaction."
+  },
+  "signed_candidate_vectors": {
+    "profiles": [
+      "PAY-1",
+      "IND-DEMO-1",
+      "MED-DEMO-1"
+    ],
+    "original_signature_present": false,
+    "original_receipt_exp": "1000",
+    "current_query_time": "1100",
+    "current_observer_public_test_seed": "3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "first_model": {
+    "passed": true,
+    "tests": 27,
+    "states": 5544,
+    "transitions": 41502,
+    "violations": 0,
+    "results": "verification/protocol_time_closure_lab/runs/20261010T042138342158Z/results.json"
+  },
+  "official_39_status": {
+    "NOT_RUN": 39
+  },
+  "executed_official_cases": 0,
+  "supplemental_22_status": "NOT_RUN",
+  "product_66_executed_here": 0,
+  "source_sha256": {
+    "system_dev/v26/01_core_contract.md": "519931403fcc1d3085df227ff2639cf32e00aa8cbf79856633b2b128e64cb299",
+    "system_dev/v26/04_tool_final_recovery.md": "74969ea98534a1fd4b150b93e4677f51e440d20ba2dcaeac2a2ae51e7d3094d7",
+    "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md": "c1ddb0ad84d4974842ea1fe9e5e085b8cc211d048f37d344112291dbbd433304",
+    "system_dev/v26/06_time_observation_candidate_contract.md": "3103131ee7e8f7dc46771164d8ca80a9170a8c0852dbdcb84618e7be8aa4e5ba",
+    "system_dev/v26/contracts/industrial.schema.json": "36c325808a01d5afb51f27872df4fdc7c40907aa56b023a10bd5a949e4ad768d",
+    "system_dev/v26/contracts/medical.schema.json": "033df4601364abcb2bf9f4673d43804150da47e598b71cfceb0ec090366b7ac2",
+    "system_dev/v26/contracts/pay1.schema.json": "84f57ba485abe56b94141dc8d27968c56ecad50fb50095565939b02fd2f8833e",
+    "system_dev/v26/semantic_cases.json": "43cb3de4492c290f9ebcd6570db2e59e1865ede33fcd58190ac6e7f688b507da",
+    "verification/protocol_time_closure_lab/model.py": "82f53de55002fcef02fad9c35267e11b4645a5cb65c98a19039e72c9040998f8",
+    "verification/protocol_time_closure_lab/test_model.py": "98c15dc2fe1c471a895f8f67f5c1303c20e269b7b132fc85b997fb12b88fb214",
+    "verification/protocol_time_closure_v2/build_schema.py": "f57f7e9b9eaf5155a02dc148dddb99db8ce972488b544f755fa647451047b9de",
+    "verification/protocol_time_closure_v2/check_vectors.mjs": "8790e4255ca1bfb10dbc679de2bc06f10e5b22c9583ebe551b38035a5daab0b9",
+    "verification/protocol_time_closure_v2/codec.py": "b65eb9ec9674a47b71265d8cede75a0dffaa4ec15358203c02825b30a8895f65",
+    "verification/protocol_time_closure_v2/fixtures.py": "2f3932dbf2f1f0a864bf358e7bb8eced699c12b7455c94fa268d1f9970061b4e",
+    "verification/protocol_time_closure_v2/interleavings.py": "d425b1140ef1e489fa082c4e64c33cd7120e249045e6500f892e7182603f90ec",
+    "verification/protocol_time_closure_v2/observation.py": "2f015e3a5df4249ef21e4e78b8a754f4a8d1906ba72977cf338511f2824f236a",
+    "verification/protocol_time_closure_v2/README.md": "8fc5540e2975810a53e73f46e89e0e0729c064d8ba6beab0cf3d0bcf209a1a8a",
+    "verification/protocol_time_closure_v2/requirements.txt": "b6906d232a72bee40de84c9f7af2d7a6376fbaeb1ffc84abbff9735dadcc984e",
+    "verification/protocol_time_closure_v2/run_all.py": "0fc8fa5298d9d53626e19f04c416a878744238586651b3d170508f5fb8c43576",
+    "verification/protocol_time_closure_v2/schema.json": "34808dd26786eda5d0710d9501b4677b5b2bc9fe603251104115b7e4ddc3c938",
+    "verification/protocol_time_closure_v2/test_codec.py": "4425fb53498c802248bb8f3a8d10f3ecf67a0a2f6a95b62f8b54b1bc8f0ac846",
+    "verification/protocol_time_closure_v2/test_observation.py": "4d7d19f988cc7a03b98b911527aaa745908303a926f2bbfacc845125971be5c3"
+  },
+  "environment": {
+    "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26340-SP0",
+    "dependencies": {
+      "cryptography": "50.0.0",
+      "jsonschema": "4.26.0"
+    }
+  },
+  "limits": [
+    "Conditional candidate-rule checks, not official R2 conformance or product implementation.",
+    "Trusted C current authorization intersection and W authenticated history/read/publication are explicit input premises.",
+    "Independent anti-rollback highwater/continuity, real clock, database CAS/durability and historical full-graph audit are not implemented.",
+    "No second implementation, real network, devices, unbounded liveness or complete security proof."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": 61,
+  "profiles": [
+    "PAY-1",
+    "IND-DEMO-1",
+    "MED-DEMO-1"
+  ],
+  "node": "v24.14.1",
+  "limits": "Positive vector signing/hash checks plus tamper/domain negatives; not authority, full schema, subgroup-rejection parity or complete protocol interoperability."
+}

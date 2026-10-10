@@ -89,7 +89,7 @@ def commit(s, clock, *, permit_exp=120, deps_current=True, resource_free=True, o
         return s
     f = Fact(clock.lo, clock.hi, clock.lo + original_ttl, permit_exp,
              f'model-core-{clock.lo}-{clock.hi}')
-    return replace(s, fact=f, accepts=1, reserved=1, mode='PENDING', floor=clock.hi)
+    return replace(s, fact=f, accepts=1, reserved=1, mode='PENDING', floor=clock.lo)
 
 
 def sign_original(s, clock, *, original_key_active=None):
@@ -129,7 +129,7 @@ def claim(s, clock, *, deps_current=True):
         return replace(s, mode='CANCELLED', reserved=0)
     if g != 'T':
         return s
-    return replace(s, mode='STARTED', calls=1, floor=clock.hi)
+    return replace(s, mode='STARTED', calls=1, floor=clock.lo)
 
 
 def successors(s):

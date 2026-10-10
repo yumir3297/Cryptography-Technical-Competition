@@ -5,7 +5,9 @@ on:
     branches: [research/protocol-time-closure-20261010]
     paths:
       - 'verification/protocol_time_closure_lab/**'
+      - 'verification/protocol_time_closure_v2/**'
       - 'system_dev/v26/**'
+      - 'docs/research/**'
       - '.github/workflows/protocol-time-research.yml'
   workflow_dispatch:
 
@@ -20,12 +22,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install research checker dependencies
+        run: python -m pip install -r verification/protocol_time_closure_v2/requirements.txt
       - name: Run bounded research model
-        run: python verification/protocol_time_closure_lab/run_all.py
+        run: python verification/protocol_time_closure_v2/run_all.py
       - name: Upload research evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: protocol-time-research-${{ github.sha }}
-          path: verification/protocol_time_closure_lab/runs/
+          path: |
+            verification/protocol_time_closure_lab/runs/
+            verification/protocol_time_closure_v2/runs/
           if-no-files-found: error

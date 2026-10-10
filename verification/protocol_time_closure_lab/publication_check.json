@@ -1,5 +1,6 @@
 {
   "baseline_commit": "0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c",
+  "parent_commit": "4cfd2d9d3ab73f8b87e22dc3d9a90cea39051a87",
   "branch": "research/protocol-time-closure-20261010",
   "passed": true,
   "baseline_git_blobs_checked": 37,
@@ -7,6 +8,18 @@
   "direct_research_links_checked": [
     {
       "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "docs/research/2026-10-10-协议时间补全_条件证明与关闭报告.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "system_dev/v26/06_time_observation_candidate_contract.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
+      "target": "verification/protocol_time_closure_v2/README.md"
+    },
+    {
+      "source": "docs/research/2026-10-10-协议时间研究_分支入口.md",
       "target": "docs/research/2026-10-10-协议时间补全_研究简报.md"
     },
     {
@@ -30,84 +43,36 @@
       "target": "verification/protocol_time_closure_lab/README.md"
     },
     {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md"
+      "source": "docs/research/2026-10-10-协议时间补全_二轮反例审查.md",
+      "target": "docs/research/2026-10-10-协议时间补全_二轮设计.md"
     },
     {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "docs/research/2026-10-10-协议时间补全_事务来源.md"
+      "source": "docs/research/2026-10-10-协议时间补全_二轮反例审查.md",
+      "target": "system_dev/v26/06_time_observation_candidate_contract.md"
     },
     {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "docs/research/2026-10-10-协议时间补全_授权来源.md"
+      "source": "docs/research/2026-10-10-协议时间补全_条件证明与关闭报告.md",
+      "target": "system_dev/v26/06_time_observation_candidate_contract.md"
     },
     {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "system_dev/v26/01_core_contract.md"
+      "source": "docs/research/2026-10-10-协议时间补全_条件证明与关闭报告.md",
+      "target": "verification/protocol_time_closure_v2/LATEST"
     },
     {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "system_dev/docs/14_协议符合性补全合同.md"
+      "source": "docs/research/2026-10-10-协议时间补全_条件证明与关闭报告.md",
+      "target": "verification/protocol_time_closure_v2/README.md"
     },
     {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "system_dev/v26/04_tool_final_recovery.md"
+      "source": "docs/research/2026-10-10-协议时间补全_条件证明与关闭报告.md",
+      "target": "docs/research/2026-10-10-协议时间补全_二轮反例审查.md"
     },
     {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "system_dev/v26/semantic_cases.json"
+      "source": "docs/research/2026-10-10-协议时间补全_条件证明与关闭报告.md",
+      "target": "docs/research/2026-10-10-协议时间补全_二轮合同审查.md"
     },
     {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "docs/research/2026-10-10-协议时间补全_基线审查.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "verification/protocol_time_closure_lab/README.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_研究简报.md",
-      "target": "verification/protocol_time_closure_lab/temporal_cases.json"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "system_dev/v26/01_core_contract.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "system_dev/v26/04_tool_final_recovery.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "system_dev/v26/03_industrial_medical_profiles.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "system_dev/v26/02_pay1_profile.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "system_dev/docs/14_协议符合性补全合同.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "docs/证决界_v2.6_R1_协议质疑审查_2026-10-07.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "system_dev/v26/semantic_cases.json"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "verification/protocol_time_closure_lab/model.py"
-    },
-    {
-      "source": "docs/research/2026-10-10-协议时间补全_基线审查.md",
-      "target": "verification/protocol_time_closure_lab/test_model.py"
+      "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
+      "target": "system_dev/v26/06_time_observation_candidate_contract.md"
     },
     {
       "source": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md",
@@ -138,36 +103,61 @@
       "target": "docs/research/2026-10-10-协议时间补全_基线审查.md"
     },
     {
-      "source": "verification/protocol_time_closure_lab/README.md",
+      "source": "system_dev/v26/06_time_observation_candidate_contract.md",
       "target": "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md"
     },
     {
-      "source": "verification/protocol_time_closure_lab/README.md",
-      "target": "docs/research/2026-10-10-协议时间补全_研究简报.md"
+      "source": "verification/protocol_time_closure_v2/README.md",
+      "target": "system_dev/v26/06_time_observation_candidate_contract.md"
+    },
+    {
+      "source": "verification/protocol_time_closure_v2/README.md",
+      "target": "docs/research/2026-10-10-协议时间补全_二轮设计.md"
+    },
+    {
+      "source": "verification/protocol_time_closure_v2/README.md",
+      "target": "docs/research/2026-10-10-协议时间补全_条件证明与关闭报告.md"
     }
   ],
-  "readonly_context_link_exception": "system_dev/docs/14_协议符合性补全合同.md retains historical full-package links; see research entrance.",
-  "fresh_run": "verification/protocol_time_closure_lab/runs/20261010T031351028570Z",
-  "original_39_status": "NOT_RUN",
-  "supplemental_22_status": "NOT_RUN",
+  "fresh_run": "verification/protocol_time_closure_v2/runs/20261010T042134293529Z",
+  "official_39_status": "NOT_RUN",
+  "product_66_executed_here": 0,
+  "conditional_closure": "See 0.2 contract A1-A6 and closure report.",
   "source_sha256": {
-    "docs/research/2026-10-10-协议时间研究_分支入口.md": "ac0eb08f4827da93274a0cc1a8e22cb7f6c8b50d3fa504f91195d8868780b6d4",
-    "docs/research/2026-10-10-协议时间补全_研究简报.md": "632489d1c1542a8ca2bf1d27a8ea78325f8164e391cc5cc822af1eb5d8849464",
-    "docs/research/2026-10-10-协议时间补全_事务来源.md": "1665836092e99e04b5d95c22a8b88def5b39a49d45d485d7bfd1d06451a7aace",
-    "docs/research/2026-10-10-协议时间补全_授权来源.md": "67dff7038596fc0380c7d6b8e8f3453199f44bff5cebaf4caefbbcaeb79e66f7",
-    "docs/research/2026-10-10-协议时间补全_基线审查.md": "ded07a09affe719a4fddf7a97845d4b8b606e1f6bf8afdf4ab66bfa25a8300da",
-    "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md": "09a1db309beacf42a4128baaa8f4f6123d215adad71a9f50c25809563b4940aa",
-    "system_dev/docs/14_协议符合性补全合同.md": "5f0899f992d82d7bc32ca2ca3e06b06cea5c859397f441b67c72ebf868d8345d",
-    "verification/protocol_time_closure_lab/model.py": "e86f13f9495b81f1edae05c39bc749d1ea6dca5838ffe21692e4e544e1fecb04",
-    "verification/protocol_time_closure_lab/test_model.py": "b9e769055909c8875470a8967bb336a43909922f711a87fd0ef83697da2d7473",
-    "verification/protocol_time_closure_lab/run_all.py": "6f059dfcfe73174999f11277e30d5a05f2e39446524d5f18d41a5334a059586e",
-    "verification/protocol_time_closure_lab/README.md": "52a6922c2a98958e04c868490cbe36225a4559cc431931e018ebe97429df19cb",
-    "verification/protocol_time_closure_lab/temporal_cases.json": "8457f73a38a3cad1726184807184e7301db51a1dbfb20aab01abc1dfe38c64a0",
-    ".github/workflows/protocol-time-research.yml": "3098462e401bbd54cfb485aa1ff4e28d0209943b3a0543c1fc776509a907ff37",
-    "verification/protocol_time_closure_lab/runs/20261010T031351028570Z/results.json": "2a56d56a60ac5e3d3c0b72974899ac509baaa4254a466cf1abfd9f0feb3eb520",
-    "verification/protocol_time_closure_lab/runs/20261010T031351028570Z/tests.txt": "2775f8aea573a735ed465659a42c28fcae4524baf0cff1d8e26eccea19292554"
+    "docs/research/2026-10-10-协议时间研究_分支入口.md": "53ee5a5d817bb633478e2d27a034d2b25b26bd3a9d1b5547f7a5635ee80f5583",
+    "docs/research/2026-10-10-协议时间补全_二轮设计.md": "00c8d341ed7a541218d41ec1cc6f56659b2027fc2276cef1b88a0a232f3e9c1d",
+    "docs/research/2026-10-10-协议时间补全_二轮反例审查.md": "3de0e2e5c1b379c1556c2c730390a2d55c40f24a1e58d6d2e09ce713ed2b7e11",
+    "docs/research/2026-10-10-协议时间补全_二轮合同审查.md": "9612697a4ad866a2021259e55f45273e3be84c3c3822a0adc65c9b5044afb590",
+    "docs/research/2026-10-10-协议时间补全_条件证明与关闭报告.md": "c077147e212f6369177440f04bcdb3de409375a294d24e7376dab1e8a52d0d25",
+    "system_dev/v26/05_time_acceptance_recovery_PROPOSED.md": "c1ddb0ad84d4974842ea1fe9e5e085b8cc211d048f37d344112291dbbd433304",
+    "system_dev/v26/06_time_observation_candidate_contract.md": "3103131ee7e8f7dc46771164d8ca80a9170a8c0852dbdcb84618e7be8aa4e5ba",
+    "verification/protocol_time_closure_lab/model.py": "82f53de55002fcef02fad9c35267e11b4645a5cb65c98a19039e72c9040998f8",
+    "verification/protocol_time_closure_lab/test_model.py": "98c15dc2fe1c471a895f8f67f5c1303c20e269b7b132fc85b997fb12b88fb214",
+    "verification/protocol_time_closure_v2/build_schema.py": "f57f7e9b9eaf5155a02dc148dddb99db8ce972488b544f755fa647451047b9de",
+    "verification/protocol_time_closure_v2/check_vectors.mjs": "8790e4255ca1bfb10dbc679de2bc06f10e5b22c9583ebe551b38035a5daab0b9",
+    "verification/protocol_time_closure_v2/closure_matrix.json": "b6d9ccb9a95223ed46d308310fe7aa5a739d1993b1ec00d6d7d768c53ed2f256",
+    "verification/protocol_time_closure_v2/codec.py": "b65eb9ec9674a47b71265d8cede75a0dffaa4ec15358203c02825b30a8895f65",
+    "verification/protocol_time_closure_v2/fixtures.py": "2f3932dbf2f1f0a864bf358e7bb8eced699c12b7455c94fa268d1f9970061b4e",
+    "verification/protocol_time_closure_v2/interleavings.py": "d425b1140ef1e489fa082c4e64c33cd7120e249045e6500f892e7182603f90ec",
+    "verification/protocol_time_closure_v2/LATEST": "4f9c8beb009e2b499bf8ac107a7f7c95c63863cc562a4151085b09fac863fece",
+    "verification/protocol_time_closure_v2/observation.py": "2f015e3a5df4249ef21e4e78b8a754f4a8d1906ba72977cf338511f2824f236a",
+    "verification/protocol_time_closure_v2/README.md": "8fc5540e2975810a53e73f46e89e0e0729c064d8ba6beab0cf3d0bcf209a1a8a",
+    "verification/protocol_time_closure_v2/requirements.txt": "b6906d232a72bee40de84c9f7af2d7a6376fbaeb1ffc84abbff9735dadcc984e",
+    "verification/protocol_time_closure_v2/run_all.py": "0fc8fa5298d9d53626e19f04c416a878744238586651b3d170508f5fb8c43576",
+    "verification/protocol_time_closure_v2/schema.json": "34808dd26786eda5d0710d9501b4677b5b2bc9fe603251104115b7e4ddc3c938",
+    "verification/protocol_time_closure_v2/test_codec.py": "4425fb53498c802248bb8f3a8d10f3ecf67a0a2f6a95b62f8b54b1bc8f0ac846",
+    "verification/protocol_time_closure_v2/test_observation.py": "4d7d19f988cc7a03b98b911527aaa745908303a926f2bbfacc845125971be5c3",
+    ".github/workflows/protocol-time-research.yml": "2c68b8a67fbd102e932b207fd8efa9f9ec9e8da4d9c59b2c76c69a4d582134e2",
+    "verification/protocol_time_closure_v2/runs/20261010T042134293529Z/first_model_stdout.txt": "d5f0ab5c8ac5b95832479c399df340111da1bfdf58a8be25810b5304d099aa99",
+    "verification/protocol_time_closure_v2/runs/20261010T042134293529Z/interleavings.json": "8b0ea5ec5486a97bedb085750a8e6edd97d619ceb3b1ac15640c706c0342b41d",
+    "verification/protocol_time_closure_v2/runs/20261010T042134293529Z/node_crosscheck.json": "4476a7c6b2b72ce6eadd1a0ab946054afdcd1e45b402c09db63dcb1b2f72267d",
+    "verification/protocol_time_closure_v2/runs/20261010T042134293529Z/results.json": "7553114f9594999a18ad383842e4093ee387f265d1544d56a7e9120896bb15e0",
+    "verification/protocol_time_closure_v2/runs/20261010T042134293529Z/tests.txt": "2176ba73567a1926b99f1508b1083e3476c22316842b14c269dc2d29979848f3",
+    "verification/protocol_time_closure_v2/runs/20261010T042134293529Z/vectors.json": "eb1d190d5ea05f3c55b242a924d3cfb85e1a5657e868a049a9085b2563ff9f38",
+    "verification/protocol_time_closure_lab/runs/20261010T042138342158Z/results.json": "5c4e733584519b21fd8e4a7407ad2a58d83b1abdb2d4b47f7bd06675a2912a41",
+    "verification/protocol_time_closure_lab/runs/20261010T042138342158Z/tests.txt": "3f78130dfaabf5dcbebc14f58ea03b815208e23463c19cfe347000c3785d005b"
   },
   "limits": [
-    "Publication consistency check, not protocol or implementation certification."
+    "Consistency of publication only; historical runs retain their original input hashes."
   ]
 }

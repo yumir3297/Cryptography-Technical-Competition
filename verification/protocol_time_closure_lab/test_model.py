@@ -32,6 +32,8 @@ class TimeClosureTests(unittest.TestCase):
     def test_commit_before_expiry_and_later_sign(self):
         s = commit(State(), Interval(100, 101), permit_exp=120)
         self.assertEqual(s.fact.accepted_at, 100)
+        self.assertEqual(s.floor, 100)  # upper uncertainty bound is not a known time lower bound
+        self.assertTrue(sign_original(s, Interval(100, 100), original_key_active=True))
         self.assertTrue(sign_original(s, Interval(125, 126), original_key_active=True))
         self.assertEqual(s.fact.accepted_at, 100)
 
