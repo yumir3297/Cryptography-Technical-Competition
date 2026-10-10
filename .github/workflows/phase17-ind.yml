@@ -60,6 +60,9 @@ jobs:
           git add research_archives/ZJJ_CORE_2_6_R2_Phase17_Industrial_Minimum_20261010.zip
           if ! git diff --cached --quiet; then
             git commit -m 'evidence(phase17): minimum IND closure, signer boundaries and audits'
+            # Disposable CI checkout: drop uncommitted derived formal39 report edits
+            # after committing ONLY the vetted Phase17 public evidence and archive.
+            git reset --hard HEAD
             git pull --rebase origin research/zjj-core-phase13-handoff-20261009
             git push origin HEAD:research/zjj-core-phase13-handoff-20261009
           fi
