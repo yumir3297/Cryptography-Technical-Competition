@@ -14,6 +14,7 @@ from research.phase8.scene_authority import SceneAuthority, ROLES, PROFILES, _js
 from research.reference_executor.wire import require, ProtocolError, b64, canonical, digest, rec_ref, sortset, envelope, raw, action_hash, strict_verify
 from research.strict_v26.upstream_schema import UpstreamSchema
 from competition.core.event_clock import checked_event_clock, require_window, MAX_AGE_NS, AGE_MARGIN_NS
+from competition.profiles.scene_bindings import bound_scene
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -50,6 +51,7 @@ class CurrentTimeGuards:
 
 
 class IndustrialAcceptanceW(CurrentTimeGuards, VerifierOnlySceneW):
+    _bound = bound_scene
     def __init__(self, path, *, root_public, actors, clock):
         super().__init__(path, 'IND-DEMO-1', root_public=root_public, actors=actors)
         self.clock = clock
@@ -68,6 +70,13 @@ class IndustrialAcceptanceW(CurrentTimeGuards, VerifierOnlySceneW):
                 CREATE TABLE IF NOT EXISTS comp_read_nonce(nonce TEXT PRIMARY KEY,operation_id TEXT NOT NULL,expires INTEGER NOT NULL,used INTEGER NOT NULL DEFAULT 0);
                 CREATE TABLE IF NOT EXISTS comp_accept_nonce(nonce TEXT PRIMARY KEY,ticket_id TEXT NOT NULL,expires INTEGER NOT NULL,used INTEGER NOT NULL DEFAULT 0);
             ''')
+        from competition.core.industrial_authorization_bridge import IndustrialAuthorizationState
+        from competition.core.authorization import AuthorizationService
+        self.authorization_store=IndustrialAuthorizationState(self)
+        self.authorization_service=AuthorizationService(self.authorization_store)
+
+    def publish_review(self, message):
+        return self.authorization_service.publish_review(self.profile,message)
 
     def _disabled(self, *args, **kwargs):
         raise ProtocolError('LEGACY_ENTRY_DISABLED')
@@ -83,6 +92,7 @@ class IndustrialAcceptanceW(CurrentTimeGuards, VerifierOnlySceneW):
 
     def _verify_signed_chain(self, c, op, now):
         event = self._events.current
+        self.authorization_service.verifier.verify(c,self.profile,op,event)
         action = op['action']; ah = action_hash(self.profile, action)
         policy = self.current(c, 'POLICY', self.scope_key())['record']
         task = self.current(c, 'TASK', self.scope_key() + [op['task_id']])['record']
@@ -207,6 +217,7 @@ class IndustrialAcceptanceW(CurrentTimeGuards, VerifierOnlySceneW):
                 require_window({'iat': str(ticket['prepared_at']), 'exp': str(ticket['expires'])}, final_event)
                 with self.event_guard(final_event):
                     self._windows(c, op, final_event)
+                    authorization = self.authorization_service.verifier.verify(c,self.profile,op,final_event)
                 event = final_event
                 commit = plan['commit']; cv = commit['value']; deadline = op['permit']['body']['payload']['dispatch_before']
                 cv.update({'accepted_at': str(event['lo']), 'trusted_time': {'lo': str(event['lo']), 'hi': str(event['hi'])}, 'dispatch_before': deadline})
@@ -215,7 +226,8 @@ class IndustrialAcceptanceW(CurrentTimeGuards, VerifierOnlySceneW):
                 core_schema = copy.deepcopy(self.schema.defs['Acceptance']); core_schema['required'].remove('sig'); del core_schema['properties']['sig']
                 Draft202012Validator({'$defs': self.schema.defs, **core_schema}).validate(core)
                 self.schema.validate(commit, 'Record_COMMIT')
-                frozen = {'commit': commit, 'core': core, 'acceptance_ref': objref(core), 'commit_ref': rec_ref(commit), 'accept_time_witness': event}
+                authorization['w_seq']=c.execute('INSERT INTO a_journal(kind,profile,operation_id,blob) VALUES(?,?,?,?)',('ACCEPT_AUTHORIZATION',self.profile,oid,_json(authorization))).lastrowid
+                frozen = {'commit': commit, 'core': core, 'acceptance_ref': objref(core), 'commit_ref': rec_ref(commit), 'accept_time_witness': event, 'authorization_witness':authorization}
                 self._write_accept(c, op, plan, frozen)
                 c.execute('INSERT INTO comp_acceptance(operation_id,ticket_id,request_ref,frozen_json) VALUES(?,?,?,?)', (oid, ticket_id, ticket['request_ref'], _json(frozen)))
         # A durable fact already exists here; no signing failure can roll it back.

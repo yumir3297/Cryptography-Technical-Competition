@@ -1,7 +1,7 @@
 # Competition Edition: single common security core + three profile adapters
 
-**Status (2026-10-10): implementation migration plan; not a claim of a deployed
-unified W.** Baseline Phase18 `3633db63` and protocol time study `afc00bd2`.
+**Status (2026-10-11): common authorization implemented and consumed by IND
+actual acceptance; complete three-profile business W still pending.** Baseline Phase18 `3633db63` and protocol time study `afc00bd2`.
 The latter is explicitly a research candidate, not an executable drop-in for R2.
 
 ## 1. Existing code map
@@ -32,6 +32,13 @@ The local IND slice implements prepare/accept, receipt completion and authentica
 application status. claim is conservative refusal; delivery/settlement/audit and
 three-profile shared W remain future waves. It adds one-use H identity challenges
 rather than treating a ticket as caller authentication.
+
+A-01..04 now provide CommonGuard/TrustedState/ScopedSignerBroker and three
+trusted derivation adapters. DENY publications and IND actual acceptance share
+one SQLite transaction order. [authorization-contract.md](authorization-contract.md)
+defines current APIs, source binding and medical read-before-candidate ACL.
+PAY all roles are enrolled in this competition path; historical Phase18 broker
+tests intentionally retain their original PAY-H-unregistered expectations.
 
 ## 3. Default R2 acceptance sequence
 

@@ -133,4 +133,6 @@ def initialize(folder, *, label='DEMO_NORMAL', proof_ttl=30):
     clock = ClockClient(folder / 'C.key', folder / 'c-clock.sqlite')
     x = ReceiptSigner(folder / 'X.key', folder / 'w.sqlite')
     w = IndustrialAcceptanceW(folder / 'w.sqlite', root_public=issuer.root_public, actors=actors, clock=clock)
+    coverage={'profile':profile,'scope':scope,'operation_id':action['operation_id'],'ctx':ctx,'action':action,'purposes':sortset(['EXECUTE']+required),'revision':'1','complete':True,'refs':[]}
+    w.authorization_store.initialize_coverage({'claim':coverage,'signature':b64(root.sign(canonical(['COMP-APP-DENY-COVERAGE-v1',coverage])))})
     return IndustrialRun(folder, issuer, actors, clock, x, w, op)

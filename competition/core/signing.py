@@ -14,6 +14,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from research.reference_executor.wire import b64, raw, canonical, require, ProtocolError, digest, keyid
 from competition.core.event_clock import DOMAIN, STAGES
+from research.phase18.key_broker import PROFILE_SCOPES
 
 
 class RestrictedProcess:
@@ -100,7 +101,7 @@ def worker(role, key_file, database):
             value = json.loads(line)
             if role == 'C':
                 require(set(value) == {'profile', 'scope', 'operation_id', 'stage', 'request_ref'}, 'CLOCK_FIELDS')
-                require(value['profile'] == 'IND-DEMO-1' and value['scope'] == {'domain': 'lab', 'tenant': 'tenant-1', 'scenario': 'industrial'} and value['stage'] in STAGES, 'CLOCK_BINDING')
+                require(value['profile'] in PROFILE_SCOPES and value['scope'] == PROFILE_SCOPES[value['profile']] and value['stage'] in STAGES, 'CLOCK_BINDING')
                 with closing(sqlite3.connect(database, isolation_level=None)) as c:
                     c.execute('BEGIN IMMEDIATE')
                     seq = c.execute('SELECT seq FROM source_sequence WHERE id=1').fetchone()[0] + 1

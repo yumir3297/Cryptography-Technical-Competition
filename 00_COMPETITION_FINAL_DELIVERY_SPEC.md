@@ -55,7 +55,7 @@ UI 展示内容必须来源于这些已写入数据库/签名的实际记录；�
 | 工业 IND 最小模拟闭环 | Phase 18：25 阶段、Linux DAC 角色隔离、签名派发、工具 ACK 丢失恢复、1 接受/1 派发/1 结算/1 模拟效果 | **PASS_SCOPED**（固定实验时刻，不是生产证明） |
 | MED 最小模拟闭环 | 竞赛分支：26 阶段，含 V 角色真实签名 `CLINICAL_REVIEW`，复用 Phase 18 签名隔离 + Phase 16 交付；新 E 来源绑定修复 | **PASS_SCOPED**（固定实验时刻、尚未共同 CoreService） |
 | PAY 可验证接受 / RequiredDeps 复算 | Phase 15：外部 X 验签、风险审核、缺依赖/缺 X KEY/ROLE 拒绝、事务及模拟工具验收 | **PASS_SCOPED**（独立软件路径、尚未同核心集成） |
-| 角色 Broker | `research/phase18/key_broker.py` 支持 IND/MED 固定角色与范围，并有 PAY X 的受限绑定 | **PARTIAL**；PAY H/G/U/V 尚未可信注册/接入 |
+| 角色 Broker | 原Phase18实验保留；竞赛ScopedSignerBroker、TrustedState提供三Profile随机身份/PoP/C登记、PAY H/G/X/U/V、实际业务范围过滤与公共验签 | **PASS_SCOPED**公共授权路径；Windows同用户bootstrap，不证明Linux DAC；工具交付身份仍PR3 |
 | 可信区间 / 不回退时间地板 | `competition/core/trusted_clock.py` 以及签名、超界、回退、重放/回滚测试 | **PASS_UNIT_ONLY**；尚未接入 Phase14/15 接受路径 |
 | 真实时间 PREPARE→签署→FINALIZE | 旧路径要求时刻相等；`competition/tests/test_acceptance_gap.py` 证明跨 1 秒会被拒绝 | **BLOCKED**；旧拒绝测试通过**不是**新正向路径成功 |
 | 独立竞赛三 Profile 服务 | 目前有复用实现片段 / 进程流水线；没有一个完整统一入口和同一 W 后端 | **NOT_IMPLEMENTED** |

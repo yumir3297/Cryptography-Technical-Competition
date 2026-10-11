@@ -4,7 +4,7 @@ import time
 from research.reference_executor.wire import require, canonical, raw, strict_verify, number
 
 DOMAIN = 'ZJJ-COMP-EVENT-CLOCK-v1'
-STAGES = frozenset({'PREPARE', 'ACCEPT_GUARD', 'RECEIPT_SIGN_GUARD', 'RECEIPT_PUBLISH', 'CLAIM_GUARD', 'STATUS_READ'})
+STAGES = frozenset({'PREPARE', 'ACCEPT_GUARD', 'RECEIPT_SIGN_GUARD', 'RECEIPT_PUBLISH', 'CLAIM_GUARD', 'STATUS_READ', 'AUTHZ_GUARD', 'AUTHZ_READ', 'DENY_PUBLISH', 'CONTROL_PUBLISH'})
 MAX_AGE_NS = 2_000_000_000
 AGE_MARGIN_NS = 25_000_000
 

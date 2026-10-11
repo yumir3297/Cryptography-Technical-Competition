@@ -10,15 +10,22 @@ unchanged. Do not merge this branch into `main` as an R2 conformance release.
 
 ## Current scope and evidence
 
+Local update 2026-10-11: the common A authorization path and fixed PAY roster are
+implemented in `core/authorization.py`, `core/trusted_state.py` and
+`core/signer_broker.py`; IND actual prepare/accept shares its DENY transaction.
+See [authorization-contract.md](docs/authorization-contract.md). Common guard T
+is an application authorization fact; MED/PAY business acceptance/delivery still
+await PR3. The historical rows below identify the original experiments.
+
 | Item | State | Evidence / limitation |
 |---|---|---|
 | IND-Demo-1 pre-existing Phase18 industrial execution loop | existing scoped PASS, rechecked on competition branch | 25 process stages, Linux DAC role keys, dedicated W/Tool signature, one SQLite simulated effect |
 | MED-DEMO-1 Phase18 clinical reviewer + execution candidate | 26-step scoped PASS on competition branch | reuses role broker, W acceptance, signed gateway and single simulated tool fact; still fixed lab times |
 | PAY-1 legacy local verifier-only path | existing scoped regression only | NOT yet migrated to unified W, role broker custody or common outbox |
 | Signed C clock sequence + durable lower floor | implemented | `competition/core/trusted_clock.py`, bounded interval/replay/rollback/transaction regressions |
-| Cross-profile restricted signing broker | partially implemented | IND/MED role bindings, PAY X, profile scopes; PAY H/G/U/V governance not enrolled |
+| Cross-profile competition signing broker | implemented scoped | Fresh actual PoP/C enrollment, PAY H/G/X/U/V, complete role/purpose/scope/business filtering; Windows same-user bootstrap remains trusted, Linux DAC not proven in this run |
 | PREPARE -> X Sign -> FINALIZE with real elapsed time | **BLOCKED** | legacy Phase14 requires identical times; `test_acceptance_gap.py` records this deliberately RED business capability |
-| Unified CoreService / three adapters | DESIGNED, NOT implemented | `docs/unified-core-migration.md` |
+| Shared authorization guard / three derivation adapters | implemented scoped; full CoreService pending | Common current identity/signatures/Review/DENY/Deps/source/ACL; actual IND acceptance connected, MED/PAY resource/dispatch/settle future |
 | Original 39 full official obligations | **0 FULL PASS / 39 BLOCKED** | unchanged original adjudicator; competition tests are not official substitutes |
 
 The new clock adapter is not yet wired into legacy Phase14/15 W acceptance; the protected research clock code is preserved byte-for-byte so its original evidence hashes remain valid.
