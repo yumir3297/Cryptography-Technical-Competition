@@ -1,7 +1,7 @@
 # ZJJ-CORE Competition Edition｜最终交付目标、剩余修复与本地端对齐规范
 
 > **这是竞赛开发的优先阅读入口（对齐版 v1.1 本地实施，2026-10-10）。**
-> **当前状态：TARGET / HANDOFF；IND 时间/冻结回执局部实现，其余仍待实施；不是已全部实现的承诺，也不是正式 R2 协议修订。**
+> **当前状态：TARGET / HANDOFF；本地P/A及三Profile公共W、模拟工具恢复纵切已实现，UI/净环境和21组完整验收仍待S/T；不是已全部实现的承诺，也不是正式 R2 协议修订。**
 > 开发基线：`competition/zjj-core-final-20261010`，起始核对提交 `f5ace604034ff212a3ebba625ed394769cb0a13c`。  
 > 研究基线：Phase 18 `3633db637c52bb0429c0b61af426d4c7eced5097`；时间研究 `afc00bd23e89c13487a6aa8a368b573c9a21f2df`。  
 > 相关：[`competition/README.md`](competition/README.md) · [统一核心迁移设计](competition/docs/unified-core-migration.md) · [研究 PR #1](https://github.com/yumir3297/Cryptography-Technical-Competition/pull/1) · [竞赛 PR #2](https://github.com/yumir3297/Cryptography-Technical-Competition/pull/2)。

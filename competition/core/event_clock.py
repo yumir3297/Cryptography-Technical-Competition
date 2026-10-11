@@ -4,9 +4,17 @@ import time
 from research.reference_executor.wire import require, canonical, raw, strict_verify, number
 
 DOMAIN = 'ZJJ-COMP-EVENT-CLOCK-v1'
-STAGES = frozenset({'PREPARE', 'ACCEPT_GUARD', 'RECEIPT_SIGN_GUARD', 'RECEIPT_PUBLISH', 'CLAIM_GUARD', 'STATUS_READ', 'AUTHZ_GUARD', 'AUTHZ_READ', 'DENY_PUBLISH', 'CONTROL_PUBLISH'})
+STAGES = frozenset({'PREPARE', 'ACCEPT_GUARD', 'RECEIPT_SIGN_GUARD', 'RECEIPT_PUBLISH', 'CLAIM_GUARD', 'STATUS_READ', 'AUTHZ_GUARD', 'AUTHZ_READ', 'DENY_PUBLISH', 'CONTROL_PUBLISH', 'TOOL_FINAL_AUTH', 'SETTLE_GUARD', 'EXECUTE_GUARD', 'QUERY_GUARD', 'CANCEL_GUARD', 'AUDIT_READ', 'WORKER_CHALLENGE'})
 MAX_AGE_NS = 2_000_000_000
 AGE_MARGIN_NS = 25_000_000
+
+def refresh_event_age(event):
+    """Final bounded interval after verification, without reusing a consumed sample."""
+    cl=event['sample']['claim'];age=time.monotonic_ns()-int(cl['monotonic_ns'])
+    require(0<=age<=MAX_AGE_NS-AGE_MARGIN_NS,'CLOCK_UNKNOWN')
+    lo=event['lo'];hi=int(cl['hi'])+(int(cl['wall_ns'])+age+AGE_MARGIN_NS)//1_000_000_000-lo
+    require(lo<=hi and hi-lo<=2,'CLOCK_UNKNOWN')
+    return {**event,'hi':hi,'age_upper_bound_ns':age+AGE_MARGIN_NS}
 
 
 def checked_event_clock(c, packet, root_pub, instance_id, profile, scope, operation_id, stage, request_ref):

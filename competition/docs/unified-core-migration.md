@@ -1,7 +1,9 @@
 # Competition Edition: single common security core + three profile adapters
 
-**Status (2026-10-11): common authorization implemented and consumed by IND
-actual acceptance; complete three-profile business W still pending.** Baseline Phase18 `3633db63` and protocol time study `afc00bd2`.
+**Status (2026-10-11): common authorization and three-profile business W,
+signed simulators and query-only recovery implemented locally.** See
+[w-transaction-contract.md](w-transaction-contract.md); UI/Linux delivery and
+complete competition groups remain S/T. Baseline Phase18 `3633db63` and protocol time study `afc00bd2`.
 The latter is explicitly a research candidate, not an executable drop-in for R2.
 
 ## 1. Existing code map

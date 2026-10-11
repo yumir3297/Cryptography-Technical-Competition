@@ -13,9 +13,11 @@ unchanged. Do not merge this branch into `main` as an R2 conformance release.
 Local update 2026-10-11: the common A authorization path and fixed PAY roster are
 implemented in `core/authorization.py`, `core/trusted_state.py` and
 `core/signer_broker.py`; IND actual prepare/accept shares its DENY transaction.
-See [authorization-contract.md](docs/authorization-contract.md). Common guard T
-is an application authorization fact; MED/PAY business acceptance/delivery still
-await PR3. The historical rows below identify the original experiments.
+See [authorization-contract.md](docs/authorization-contract.md). PR3 adds the
+three-Profile `core/common_w.py` transaction and separate signed simulator
+ledgers; see [w-transaction-contract.md](docs/w-transaction-contract.md).
+Common guard T remains an authorization fact; only CommonW creates COMMIT.
+The historical rows below identify the original experiments.
 
 | Item | State | Evidence / limitation |
 |---|---|---|
@@ -55,8 +57,8 @@ acceptance; that test is NOT evidence that elapsed-time acceptance works.
 Current local P-01–P-03 slice: `competition/core/acceptance.py` now performs
 R2 durable W acceptance before X signs the original committed Core. It uses a
 real advancing host-clock Provider, current event/window/identity checks and
-frozen receipt recovery. This is IND acceptance/receipt only; claim remains
-blocked and PR3 tools/three-profile W are not implemented. The legacy
+frozen receipt recovery. That historical class covers IND acceptance/receipt
+and still blocks claim; new CommonW implements the PR3 three-profile path. The legacy
 TIME_CHANGED test remains a known-gap detector for unchanged research code.
 See [acceptance sequence](docs/acceptance-sequence.md) and run:
 
