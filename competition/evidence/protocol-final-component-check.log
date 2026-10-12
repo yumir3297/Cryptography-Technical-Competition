@@ -1,0 +1,20 @@
+test_defaults_reconstruct_real_schema_and_required_reviews (competition.tests.test_scene_authorization_adapter.SceneAdapterTests.test_defaults_reconstruct_real_schema_and_required_reviews) ... ok
+test_frozen_cutoff_cannot_be_in_current_future (competition.tests.test_scene_authorization_adapter.SceneAdapterTests.test_frozen_cutoff_cannot_be_in_current_future) ... ok
+test_h_u_same_subject_remains_legal (competition.tests.test_scene_authorization_adapter.SceneAdapterTests.test_h_u_same_subject_remains_legal) ... ok
+test_ind_authenticated_defect_cannot_release (competition.tests.test_scene_authorization_adapter.SceneAdapterTests.test_ind_authenticated_defect_cannot_release) ... ok
+test_med_read_denial_precedes_source_read (competition.tests.test_scene_authorization_adapter.SceneAdapterTests.test_med_read_denial_precedes_source_read) ... ok
+test_med_signature_cannot_cover_tampered_patient (competition.tests.test_scene_authorization_adapter.SceneAdapterTests.test_med_signature_cannot_cover_tampered_patient) ... ok
+test_original_identity_current_window_is_rechecked (competition.tests.test_scene_authorization_adapter.SceneAdapterTests.test_original_identity_current_window_is_rechecked) ... ok
+test_action_payee_cannot_override_signed_source (competition.tests.test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_action_payee_cannot_override_signed_source) ... ok
+test_cutoff_cannot_be_after_trusted_event (competition.tests.test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_cutoff_cannot_be_after_trusted_event) ... ok
+test_declared_current_source_dependency_is_accepted (competition.tests.test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_declared_current_source_dependency_is_accepted) ... ok
+test_event_interval_must_fit_source_window (competition.tests.test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_event_interval_must_fit_source_window) ... ok
+test_fresh_signed_sources_derive_three_original_risk_routes (competition.tests.test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_fresh_signed_sources_derive_three_original_risk_routes) ... ok
+test_holder_and_finance_may_share_subject_without_extra_basis_role (competition.tests.test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_holder_and_finance_may_share_subject_without_extra_basis_role) ... ok
+test_signed_source_must_allow_required_reviewer (competition.tests.test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_signed_source_must_allow_required_reviewer) ... ok
+test_source_dependency_must_match_exact_current_revision (competition.tests.test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_source_dependency_must_match_exact_current_revision) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 11.153s
+
+OK

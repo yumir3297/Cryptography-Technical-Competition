@@ -2,9 +2,9 @@
 import copy
 import os
 
-from research.reference_executor.wire import b64, canonical, digest, rec_ref, require, sortset
-from research.strict_v26.pay_history import scope_check
-from research.strict_v26.upstream_schema import UpstreamSchema
+from competition.support.wire import b64, canonical, digest, rec_ref, require, sortset
+from competition.support.pay_records import scope_check
+from competition.support.schema import UpstreamSchema
 from pathlib import Path
 
 

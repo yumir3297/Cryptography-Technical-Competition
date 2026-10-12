@@ -1,0 +1,2645 @@
+{
+  "subcase_id": "C-EXEC-04/IND-DEMO-1/x_revoke_after_accept",
+  "scenario": "x_revoke_after_accept",
+  "status": "PASS",
+  "expected": "COMMITTED_RECEIPT_PENDING",
+  "actual": "COMMITTED_RECEIPT_PENDING",
+  "before": {
+    "accepts": 0,
+    "calls": 0,
+    "settlements": 0,
+    "reserved": 0,
+    "spent": 0
+  },
+  "after": {
+    "accepts": 1,
+    "calls": 0,
+    "settlements": 0,
+    "reserved": 1,
+    "spent": 0
+  },
+  "prepared_at": 1791623817,
+  "child_exit_code": null,
+  "frozen_preserved": true,
+  "result": {
+    "observation_code": "COMMITTED_RECEIPT_PENDING",
+    "acceptance_state": "COMMITTED",
+    "status_seq": 25,
+    "frozen": {
+      "accept_time_witness": {
+        "age_upper_bound_ns": 28586700,
+        "hi": 1791623817,
+        "lo": 1791623817,
+        "sample": {
+          "claim": {
+            "epoch": "1",
+            "healthy": true,
+            "hi": "1791623817",
+            "instance_id": "rI-tgR-4_RvyuizSQcgbnw",
+            "lo": "1791623817",
+            "monotonic_ns": "4907362438400",
+            "operation_id": "btorR3cNoHBteoK6j9OfGA",
+            "profile": "IND-DEMO-1",
+            "provider_id": "local-c",
+            "request_ref": "3XofRWmEtAKwuD7MNymvDCCckMDutzc3Ovt2w3qy6F8",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "sequence": "3",
+            "stage": "ACCEPT_GUARD",
+            "wall_ns": "1791623817399469200"
+          },
+          "signature": "L8vj0u52TxfHNQGgOUGtyU8-SUdatXhf3WW78ROusCbBlxT5J6y1JK4bKFPCB1aWzQQLfYI_0ZFWLhVAcKETAw"
+        },
+        "sequence": 3,
+        "stage": "ACCEPT_GUARD"
+      },
+      "acceptance_ref": "3mOf_bsAi_MM-ZJ7XoZC3cXZUvRkJtB0nq4ACLrbaEs",
+      "commit": {
+        "kind": "COMMIT",
+        "profile": "IND-DEMO-1",
+        "scope": {
+          "domain": "lab",
+          "scenario": "industrial",
+          "tenant": "tenant-1"
+        },
+        "value": {
+          "accept_seq": "1",
+          "accepted_at": "1791623817",
+          "action": {
+            "destination": "ind-release-bin",
+            "executor": "demo-x",
+            "holder": "demo-h",
+            "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+            "operation_id": "btorR3cNoHBteoK6j9OfGA",
+            "payload": {
+              "batch_id": "batch-a",
+              "inspection_cycle": "1",
+              "line_id": "demo-line-a",
+              "phase": "INITIAL",
+              "route": "RELEASE",
+              "station_id": "demo-check-1",
+              "unit_id": "unit-a"
+            },
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "tool": "line-sort-sim",
+            "tool_version": "1"
+          },
+          "authorization_ref": "SFNksgLzlo8EdtWq_h3hiAyKgaES-I1NN-Ura6xO_XM",
+          "behavior_after": {
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "ref": "BugsQ-nDoyD1sS-qO-j15eMonL9PM29z8Yt_Cq5KH4k",
+            "revision": "2",
+            "row": {
+              "accepted_count": "1",
+              "count_cap": "32",
+              "inflight": [
+                "btorR3cNoHBteoK6j9OfGA"
+              ]
+            }
+          },
+          "behavior_before": {
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk",
+            "revision": "1",
+            "row": {
+              "accepted_count": "0",
+              "count_cap": "32",
+              "inflight": []
+            }
+          },
+          "checked_deps": [
+            {
+              "key": [
+                "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+              ],
+              "namespace": "KEY",
+              "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+              ],
+              "namespace": "KEY",
+              "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+              ],
+              "namespace": "KEY",
+              "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+              ],
+              "namespace": "KEY",
+              "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+              ],
+              "namespace": "KEY",
+              "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "UFuWAmrOOgCl8Z8AiLKxEQ"
+              ],
+              "namespace": "TASK",
+              "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-e",
+                "SOURCE"
+              ],
+              "namespace": "ROLE",
+              "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-g",
+                "ISSUER"
+              ],
+              "namespace": "ROLE",
+              "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-g",
+                "READER"
+              ],
+              "namespace": "ROLE",
+              "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-h",
+                "HOLDER"
+              ],
+              "namespace": "ROLE",
+              "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-h",
+                "READER"
+              ],
+              "namespace": "ROLE",
+              "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-line-a",
+                "unit-a"
+              ],
+              "namespace": "UNIT",
+              "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco",
+              "revision": "2"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-u",
+                "LINE_OPERATOR"
+              ],
+              "namespace": "ROLE",
+              "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-u",
+                "READER"
+              ],
+              "namespace": "ROLE",
+              "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-x",
+                "EXECUTOR"
+              ],
+              "namespace": "ROLE",
+              "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "demo-x",
+                "READER"
+              ],
+              "namespace": "ROLE",
+              "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "principal"
+              ],
+              "namespace": "BEHAVIOR",
+              "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk",
+              "revision": "1"
+            },
+            {
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial"
+              ],
+              "namespace": "POLICY",
+              "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+              "revision": "1"
+            }
+          ],
+          "credential_witnesses": [
+            {
+              "key_grant_ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A",
+              "key_revision": "1",
+              "kid": "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg",
+              "public_key": "hyjwAw2Gu7vbKDZkzhmUnk-RsJ5eCJs33KndXEWFKOc",
+              "role": "EXECUTOR",
+              "role_grant_ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE",
+              "role_revision": "1",
+              "subject": "demo-x",
+              "verified_at_seq": "1"
+            },
+            {
+              "key_grant_ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs",
+              "key_revision": "1",
+              "kid": "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw",
+              "public_key": "b1DY-yN1GzwReBkcROCRohu7am2Tk8SgvD9NrBI52Kk",
+              "role": "ISSUER",
+              "role_grant_ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc",
+              "role_revision": "1",
+              "subject": "demo-g",
+              "verified_at_seq": "1"
+            },
+            {
+              "key_grant_ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI",
+              "key_revision": "1",
+              "kid": "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak",
+              "public_key": "IksdMZpToPKCUfAZORuVDTU61q2koZxXmDENfKob13U",
+              "role": "SOURCE",
+              "role_grant_ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w",
+              "role_revision": "1",
+              "subject": "demo-e",
+              "verified_at_seq": "1"
+            },
+            {
+              "key_grant_ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o",
+              "key_revision": "1",
+              "kid": "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE",
+              "public_key": "NrKCHhCMVfJjyKfUElRLJWbA53q9QdIf53vxZM9sSFg",
+              "role": "LINE_OPERATOR",
+              "role_grant_ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0",
+              "role_revision": "1",
+              "subject": "demo-u",
+              "verified_at_seq": "1"
+            },
+            {
+              "key_grant_ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ",
+              "key_revision": "1",
+              "kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+              "public_key": "lJMbmgg9Xe5cMVOaaXvRqxk-ZDSfCyCIb_KS7SG3_zA",
+              "role": "HOLDER",
+              "role_grant_ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo",
+              "role_revision": "1",
+              "subject": "demo-h",
+              "verified_at_seq": "1"
+            }
+          ],
+          "ctx": {
+            "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+            "basis_ref": "hRPsVYLrS1F3xDU-3Oh7MV8pP9fLf0SZ9M7We_Q1wug",
+            "executor": "demo-x",
+            "holder": "demo-h",
+            "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+            "operation_id": "btorR3cNoHBteoK6j9OfGA",
+            "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            }
+          },
+          "dispatch_before": "1791623935",
+          "frozen_tool_request": {
+            "destination": "ind-release-bin",
+            "executor": "demo-x",
+            "holder": "demo-h",
+            "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+            "operation_id": "btorR3cNoHBteoK6j9OfGA",
+            "payload": {
+              "batch_id": "batch-a",
+              "inspection_cycle": "1",
+              "line_id": "demo-line-a",
+              "phase": "INITIAL",
+              "route": "RELEASE",
+              "station_id": "demo-check-1",
+              "unit_id": "unit-a"
+            },
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "industrial",
+              "tenant": "tenant-1"
+            },
+            "tool": "line-sort-sim",
+            "tool_version": "1"
+          },
+          "permit_ref": "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ",
+          "proof_ref": "3XofRWmEtAKwuD7MNymvDCCckMDutzc3Ovt2w3qy6F8",
+          "reservation_ids": [
+            "AAAAAAAAAAAAAAAAAAADIQ"
+          ],
+          "reservation_plan": [
+            {
+              "amount": "1",
+              "capacity_before": "8",
+              "key": [
+                "lab",
+                "tenant-1",
+                "industrial",
+                "route-capacity",
+                "demo-line-a",
+                "ind-release-bin",
+                "unit"
+              ],
+              "reservation_id": "AAAAAAAAAAAAAAAAAAADIQ",
+              "reserved_after": "1",
+              "reserved_before": "0",
+              "revision_after": "2",
+              "revision_before": "1",
+              "spent_after": "0",
+              "spent_before": "0",
+              "unit": "UNIT"
+            }
+          ],
+          "review_refs": [],
+          "scene_after": {
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "namespace": "UNIT",
+            "ref": "YeoZ5Codnq_Ney32KilLCNBDrPbfHLb0tugCGQsqomo",
+            "revision": "3",
+            "row": {
+              "evidence_ref": "psZdTjcJycHdk47b1A6AR0y5YeEbdZbC8m2twJevK24",
+              "inspection_cycle": "1",
+              "operation_id": "btorR3cNoHBteoK6j9OfGA",
+              "phase": "INITIAL",
+              "predecessor_commit_ref": "",
+              "predecessor_operation_id": "",
+              "state": "ACCEPTED",
+              "unit_ref": "0T7e0TxE_DDNH8_gMDqQs2mllyuHPhZFBKa6FLR5KZA"
+            }
+          },
+          "scene_before": {
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "namespace": "UNIT",
+            "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco",
+            "revision": "2",
+            "row": {
+              "evidence_ref": "psZdTjcJycHdk47b1A6AR0y5YeEbdZbC8m2twJevK24",
+              "inspection_cycle": "1",
+              "operation_id": "",
+              "phase": "INITIAL",
+              "predecessor_commit_ref": "",
+              "predecessor_operation_id": "",
+              "state": "READY",
+              "unit_ref": "0T7e0TxE_DDNH8_gMDqQs2mllyuHPhZFBKa6FLR5KZA"
+            }
+          },
+          "signing_public_key": "hyjwAw2Gu7vbKDZkzhmUnk-RsJ5eCJs33KndXEWFKOc",
+          "taskflight": {
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "UFuWAmrOOgCl8Z8AiLKxEQ"
+            ],
+            "operation_id": "btorR3cNoHBteoK6j9OfGA"
+          },
+          "trusted_time": {
+            "hi": "1791623817",
+            "lo": "1791623817"
+          }
+        },
+        "version": "2.6"
+      },
+      "commit_ref": "o5gJgaM5JCzLRNrhwHOK9foN6M1RKcK0NoGY8ZXi0Fs",
+      "core": {
+        "body": {
+          "aud": [
+            "demo-g",
+            "demo-h",
+            "demo-u"
+          ],
+          "deps": [],
+          "exp": "1791624717",
+          "iat": "1791623817",
+          "id": "e3qvJxosOsHcTE3MMmj44Q",
+          "payload": {
+            "accept_seq": "1",
+            "accepted_at": "1791623817",
+            "authorization_ref": "SFNksgLzlo8EdtWq_h3hiAyKgaES-I1NN-Ura6xO_XM",
+            "commit_record_ref": "o5gJgaM5JCzLRNrhwHOK9foN6M1RKcK0NoGY8ZXi0Fs",
+            "ctx": {
+              "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+              "basis_ref": "hRPsVYLrS1F3xDU-3Oh7MV8pP9fLf0SZ9M7We_Q1wug",
+              "executor": "demo-x",
+              "holder": "demo-h",
+              "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+              "operation_id": "btorR3cNoHBteoK6j9OfGA",
+              "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+              "principal": "principal",
+              "scope": {
+                "domain": "lab",
+                "scenario": "industrial",
+                "tenant": "tenant-1"
+              }
+            },
+            "dispatch_before": "1791623935",
+            "permit_ref": "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ",
+            "proof_ref": "3XofRWmEtAKwuD7MNymvDCCckMDutzc3Ovt2w3qy6F8",
+            "review_refs": []
+          },
+          "refs": [
+            "3XofRWmEtAKwuD7MNymvDCCckMDutzc3Ovt2w3qy6F8",
+            "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ",
+            "SFNksgLzlo8EdtWq_h3hiAyKgaES-I1NN-Ura6xO_XM"
+          ],
+          "scope": {
+            "domain": "lab",
+            "scenario": "industrial",
+            "tenant": "tenant-1"
+          }
+        },
+        "protected": {
+          "alg": "Ed25519",
+          "issuer": "demo-x",
+          "kid": "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg",
+          "profile": "IND-DEMO-1",
+          "proto": "ZJJ-AAP",
+          "type": "Acceptance",
+          "version": "2.6"
+        }
+      }
+    },
+    "acceptance": null,
+    "receipt_error": "REVOKED",
+    "receipt_witness": null
+  },
+  "input": {
+    "action": {
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "industrial"
+      },
+      "operation_id": "btorR3cNoHBteoK6j9OfGA",
+      "principal": "principal",
+      "holder": "demo-h",
+      "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+      "executor": "demo-x",
+      "tool": "line-sort-sim",
+      "tool_version": "1",
+      "destination": "ind-release-bin",
+      "payload": {
+        "line_id": "demo-line-a",
+        "station_id": "demo-check-1",
+        "unit_id": "unit-a",
+        "batch_id": "batch-a",
+        "inspection_cycle": "1",
+        "phase": "INITIAL",
+        "route": "RELEASE"
+      }
+    },
+    "task_id": "UFuWAmrOOgCl8Z8AiLKxEQ",
+    "scene_key": [
+      "lab",
+      "tenant-1",
+      "industrial",
+      "demo-line-a",
+      "unit-a"
+    ],
+    "assessment": {
+      "version": "2.6",
+      "profile": "IND-DEMO-1",
+      "kind": "ASSESSMENT",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "industrial"
+      },
+      "value": {
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "operation_id": "btorR3cNoHBteoK6j9OfGA",
+        "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+        "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+        "task_ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g",
+        "evidence_refs": [
+          "psZdTjcJycHdk47b1A6AR0y5YeEbdZbC8m2twJevK24"
+        ],
+        "cutoff": "1791623815",
+        "history_mode": "DISABLED",
+        "result": "MATCH",
+        "required_reviews": [],
+        "iat": "1791623815",
+        "exp": "1791623935",
+        "decision_package_ref": "nC0kalRmK0GvoXrkSqc5MQ-j7IDb6tDsrFEG7O1gzuY",
+        "method": "ind-fixed-v1",
+        "label": "DEMO_NORMAL",
+        "proposed_route": "RELEASE"
+      }
+    },
+    "basis": {
+      "version": "2.6",
+      "profile": "IND-DEMO-1",
+      "kind": "BASIS",
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "industrial"
+      },
+      "value": {
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "operation_id": "btorR3cNoHBteoK6j9OfGA",
+        "action": {
+          "scope": {
+            "domain": "lab",
+            "tenant": "tenant-1",
+            "scenario": "industrial"
+          },
+          "operation_id": "btorR3cNoHBteoK6j9OfGA",
+          "principal": "principal",
+          "holder": "demo-h",
+          "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+          "executor": "demo-x",
+          "tool": "line-sort-sim",
+          "tool_version": "1",
+          "destination": "ind-release-bin",
+          "payload": {
+            "line_id": "demo-line-a",
+            "station_id": "demo-check-1",
+            "unit_id": "unit-a",
+            "batch_id": "batch-a",
+            "inspection_cycle": "1",
+            "phase": "INITIAL",
+            "route": "RELEASE"
+          }
+        },
+        "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+        "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+        "task_ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g",
+        "evidence_refs": [
+          "psZdTjcJycHdk47b1A6AR0y5YeEbdZbC8m2twJevK24"
+        ],
+        "assessment_ref": "5BthbXUMMpBafOT2glklqiV6uxzD3LPuu_Lfh4k-YnM",
+        "required_reviews": [],
+        "deps": [
+          {
+            "namespace": "KEY",
+            "key": [
+              "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+            ],
+            "revision": "1",
+            "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+            ],
+            "revision": "1",
+            "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+            ],
+            "revision": "1",
+            "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+            ],
+            "revision": "1",
+            "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+            ],
+            "revision": "1",
+            "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs"
+          },
+          {
+            "namespace": "TASK",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "UFuWAmrOOgCl8Z8AiLKxEQ"
+            ],
+            "revision": "1",
+            "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-e",
+              "SOURCE"
+            ],
+            "revision": "1",
+            "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "ISSUER"
+            ],
+            "revision": "1",
+            "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "HOLDER"
+            ],
+            "revision": "1",
+            "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4"
+          },
+          {
+            "namespace": "UNIT",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "revision": "2",
+            "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "LINE_OPERATOR"
+            ],
+            "revision": "1",
+            "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "EXECUTOR"
+            ],
+            "revision": "1",
+            "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE"
+          },
+          {
+            "namespace": "BEHAVIOR",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "revision": "1",
+            "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk"
+          },
+          {
+            "namespace": "POLICY",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial"
+            ],
+            "revision": "1",
+            "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0"
+          }
+        ],
+        "iat": "1791623815",
+        "exp": "1791623935"
+      }
+    },
+    "ctx": {
+      "scope": {
+        "domain": "lab",
+        "tenant": "tenant-1",
+        "scenario": "industrial"
+      },
+      "operation_id": "btorR3cNoHBteoK6j9OfGA",
+      "principal": "principal",
+      "holder": "demo-h",
+      "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+      "executor": "demo-x",
+      "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+      "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+      "basis_ref": "hRPsVYLrS1F3xDU-3Oh7MV8pP9fLf0SZ9M7We_Q1wug"
+    },
+    "deps": [
+      {
+        "namespace": "KEY",
+        "key": [
+          "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+        ],
+        "revision": "1",
+        "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ"
+      },
+      {
+        "namespace": "KEY",
+        "key": [
+          "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+        ],
+        "revision": "1",
+        "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI"
+      },
+      {
+        "namespace": "KEY",
+        "key": [
+          "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+        ],
+        "revision": "1",
+        "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o"
+      },
+      {
+        "namespace": "KEY",
+        "key": [
+          "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+        ],
+        "revision": "1",
+        "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A"
+      },
+      {
+        "namespace": "KEY",
+        "key": [
+          "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+        ],
+        "revision": "1",
+        "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs"
+      },
+      {
+        "namespace": "TASK",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "UFuWAmrOOgCl8Z8AiLKxEQ"
+        ],
+        "revision": "1",
+        "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-e",
+          "SOURCE"
+        ],
+        "revision": "1",
+        "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-g",
+          "ISSUER"
+        ],
+        "revision": "1",
+        "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-g",
+          "READER"
+        ],
+        "revision": "1",
+        "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-h",
+          "HOLDER"
+        ],
+        "revision": "1",
+        "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-h",
+          "READER"
+        ],
+        "revision": "1",
+        "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4"
+      },
+      {
+        "namespace": "UNIT",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-line-a",
+          "unit-a"
+        ],
+        "revision": "2",
+        "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-u",
+          "LINE_OPERATOR"
+        ],
+        "revision": "1",
+        "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-u",
+          "READER"
+        ],
+        "revision": "1",
+        "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-x",
+          "EXECUTOR"
+        ],
+        "revision": "1",
+        "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE"
+      },
+      {
+        "namespace": "ROLE",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "demo-x",
+          "READER"
+        ],
+        "revision": "1",
+        "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE"
+      },
+      {
+        "namespace": "BEHAVIOR",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial",
+          "principal"
+        ],
+        "revision": "1",
+        "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk"
+      },
+      {
+        "namespace": "POLICY",
+        "key": [
+          "lab",
+          "tenant-1",
+          "industrial"
+        ],
+        "revision": "1",
+        "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0"
+      }
+    ],
+    "required": [],
+    "at": 1791623815,
+    "reviews": [],
+    "authorization": {
+      "protected": {
+        "proto": "ZJJ-AAP",
+        "version": "2.6",
+        "profile": "IND-DEMO-1",
+        "alg": "Ed25519",
+        "type": "Authorization",
+        "issuer": "demo-u",
+        "kid": "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+      },
+      "body": {
+        "id": "mhsxczKoezy4kNQtgaZ1cg",
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "iat": "1791623815",
+        "exp": "1791623935",
+        "aud": [
+          "demo-g",
+          "demo-h",
+          "demo-x"
+        ],
+        "refs": [],
+        "deps": [
+          {
+            "namespace": "KEY",
+            "key": [
+              "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+            ],
+            "revision": "1",
+            "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+            ],
+            "revision": "1",
+            "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+            ],
+            "revision": "1",
+            "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+            ],
+            "revision": "1",
+            "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+            ],
+            "revision": "1",
+            "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs"
+          },
+          {
+            "namespace": "TASK",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "UFuWAmrOOgCl8Z8AiLKxEQ"
+            ],
+            "revision": "1",
+            "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-e",
+              "SOURCE"
+            ],
+            "revision": "1",
+            "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "ISSUER"
+            ],
+            "revision": "1",
+            "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "HOLDER"
+            ],
+            "revision": "1",
+            "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4"
+          },
+          {
+            "namespace": "UNIT",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "revision": "2",
+            "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "LINE_OPERATOR"
+            ],
+            "revision": "1",
+            "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "EXECUTOR"
+            ],
+            "revision": "1",
+            "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE"
+          },
+          {
+            "namespace": "BEHAVIOR",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "revision": "1",
+            "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk"
+          },
+          {
+            "namespace": "POLICY",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial"
+            ],
+            "revision": "1",
+            "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0"
+          }
+        ],
+        "payload": {
+          "ctx": {
+            "scope": {
+              "domain": "lab",
+              "tenant": "tenant-1",
+              "scenario": "industrial"
+            },
+            "operation_id": "btorR3cNoHBteoK6j9OfGA",
+            "principal": "principal",
+            "holder": "demo-h",
+            "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+            "executor": "demo-x",
+            "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+            "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+            "basis_ref": "hRPsVYLrS1F3xDU-3Oh7MV8pP9fLf0SZ9M7We_Q1wug"
+          },
+          "review_refs": [],
+          "purpose": "EXECUTE",
+          "verdict": "APPROVE"
+        }
+      },
+      "sig": "kpGvYy9rWnUXMfoROfvtGC7AStsYNwKYh2bkmEyab-bSmx9L-OXvHwMVGT3el1-pe172xQuB3mMZTLxP184MBw"
+    },
+    "issue": {
+      "protected": {
+        "proto": "ZJJ-AAP",
+        "version": "2.6",
+        "profile": "IND-DEMO-1",
+        "alg": "Ed25519",
+        "type": "IssueRequest",
+        "issuer": "demo-h",
+        "kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+      },
+      "body": {
+        "id": "nwwtQiKZ_-2tQT13yqRfAg",
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "iat": "1791623815",
+        "exp": "1791623935",
+        "aud": [
+          "demo-g"
+        ],
+        "refs": [
+          "SFNksgLzlo8EdtWq_h3hiAyKgaES-I1NN-Ura6xO_XM"
+        ],
+        "deps": [
+          {
+            "namespace": "KEY",
+            "key": [
+              "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+            ],
+            "revision": "1",
+            "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+            ],
+            "revision": "1",
+            "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+            ],
+            "revision": "1",
+            "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+            ],
+            "revision": "1",
+            "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+            ],
+            "revision": "1",
+            "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs"
+          },
+          {
+            "namespace": "TASK",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "UFuWAmrOOgCl8Z8AiLKxEQ"
+            ],
+            "revision": "1",
+            "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-e",
+              "SOURCE"
+            ],
+            "revision": "1",
+            "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "ISSUER"
+            ],
+            "revision": "1",
+            "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "HOLDER"
+            ],
+            "revision": "1",
+            "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4"
+          },
+          {
+            "namespace": "UNIT",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "revision": "2",
+            "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "LINE_OPERATOR"
+            ],
+            "revision": "1",
+            "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "EXECUTOR"
+            ],
+            "revision": "1",
+            "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE"
+          },
+          {
+            "namespace": "BEHAVIOR",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "revision": "1",
+            "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk"
+          },
+          {
+            "namespace": "POLICY",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial"
+            ],
+            "revision": "1",
+            "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0"
+          }
+        ],
+        "payload": {
+          "ctx": {
+            "scope": {
+              "domain": "lab",
+              "tenant": "tenant-1",
+              "scenario": "industrial"
+            },
+            "operation_id": "btorR3cNoHBteoK6j9OfGA",
+            "principal": "principal",
+            "holder": "demo-h",
+            "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+            "executor": "demo-x",
+            "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+            "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+            "basis_ref": "hRPsVYLrS1F3xDU-3Oh7MV8pP9fLf0SZ9M7We_Q1wug"
+          },
+          "review_refs": [],
+          "authorization_ref": "SFNksgLzlo8EdtWq_h3hiAyKgaES-I1NN-Ura6xO_XM"
+        }
+      },
+      "sig": "8nfYL-uVmlAN6fbaWL6wGIYTJPkHGWBmQAIH-4L2LT-wJNYTn6Xe8m0Lr9ywZ1l33b-YB92xOHdLSj3bXOxUDw"
+    },
+    "permit": {
+      "protected": {
+        "proto": "ZJJ-AAP",
+        "version": "2.6",
+        "profile": "IND-DEMO-1",
+        "alg": "Ed25519",
+        "type": "Permit",
+        "issuer": "demo-g",
+        "kid": "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+      },
+      "body": {
+        "id": "jG8kCD0CO4aThEEBeF1gvg",
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "iat": "1791623815",
+        "exp": "1791623935",
+        "aud": [
+          "demo-h",
+          "demo-x"
+        ],
+        "refs": [
+          "SFNksgLzlo8EdtWq_h3hiAyKgaES-I1NN-Ura6xO_XM"
+        ],
+        "deps": [
+          {
+            "namespace": "KEY",
+            "key": [
+              "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+            ],
+            "revision": "1",
+            "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+            ],
+            "revision": "1",
+            "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+            ],
+            "revision": "1",
+            "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+            ],
+            "revision": "1",
+            "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+            ],
+            "revision": "1",
+            "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs"
+          },
+          {
+            "namespace": "TASK",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "UFuWAmrOOgCl8Z8AiLKxEQ"
+            ],
+            "revision": "1",
+            "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-e",
+              "SOURCE"
+            ],
+            "revision": "1",
+            "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "ISSUER"
+            ],
+            "revision": "1",
+            "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "HOLDER"
+            ],
+            "revision": "1",
+            "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4"
+          },
+          {
+            "namespace": "UNIT",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "revision": "2",
+            "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "LINE_OPERATOR"
+            ],
+            "revision": "1",
+            "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "EXECUTOR"
+            ],
+            "revision": "1",
+            "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE"
+          },
+          {
+            "namespace": "BEHAVIOR",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "revision": "1",
+            "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk"
+          },
+          {
+            "namespace": "POLICY",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial"
+            ],
+            "revision": "1",
+            "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0"
+          }
+        ],
+        "payload": {
+          "ctx": {
+            "scope": {
+              "domain": "lab",
+              "tenant": "tenant-1",
+              "scenario": "industrial"
+            },
+            "operation_id": "btorR3cNoHBteoK6j9OfGA",
+            "principal": "principal",
+            "holder": "demo-h",
+            "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+            "executor": "demo-x",
+            "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+            "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+            "basis_ref": "hRPsVYLrS1F3xDU-3Oh7MV8pP9fLf0SZ9M7We_Q1wug"
+          },
+          "review_refs": [],
+          "authorization_ref": "SFNksgLzlo8EdtWq_h3hiAyKgaES-I1NN-Ura6xO_XM",
+          "max_uses": "1",
+          "dispatch_before": "1791623935"
+        }
+      },
+      "sig": "jFiFgeobLVvtSb_ewRn3zjw3vkYBp6ZlatyU9ZKCD-eWsj50IWhu_yxTDZEund1KgkVtL_eTbWQH2tv_5eu-DQ"
+    },
+    "challenge_request": {
+      "protected": {
+        "proto": "ZJJ-AAP",
+        "version": "2.6",
+        "profile": "IND-DEMO-1",
+        "alg": "Ed25519",
+        "type": "ChallengeRequest",
+        "issuer": "demo-h",
+        "kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+      },
+      "body": {
+        "id": "v-7I4MDhbKtOOES8G2JeTg",
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "iat": "1791623815",
+        "exp": "1791623845",
+        "aud": [
+          "demo-x"
+        ],
+        "refs": [
+          "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ"
+        ],
+        "deps": [
+          {
+            "namespace": "KEY",
+            "key": [
+              "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+            ],
+            "revision": "1",
+            "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+            ],
+            "revision": "1",
+            "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+            ],
+            "revision": "1",
+            "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+            ],
+            "revision": "1",
+            "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+            ],
+            "revision": "1",
+            "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs"
+          },
+          {
+            "namespace": "TASK",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "UFuWAmrOOgCl8Z8AiLKxEQ"
+            ],
+            "revision": "1",
+            "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-e",
+              "SOURCE"
+            ],
+            "revision": "1",
+            "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "ISSUER"
+            ],
+            "revision": "1",
+            "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "HOLDER"
+            ],
+            "revision": "1",
+            "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4"
+          },
+          {
+            "namespace": "UNIT",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "revision": "2",
+            "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "LINE_OPERATOR"
+            ],
+            "revision": "1",
+            "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "EXECUTOR"
+            ],
+            "revision": "1",
+            "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE"
+          },
+          {
+            "namespace": "BEHAVIOR",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "revision": "1",
+            "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk"
+          },
+          {
+            "namespace": "POLICY",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial"
+            ],
+            "revision": "1",
+            "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0"
+          }
+        ],
+        "payload": {
+          "purpose": "COMMIT",
+          "operation_id": "btorR3cNoHBteoK6j9OfGA",
+          "permit_ref": "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ",
+          "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+          "attempt_id": "_NJ4hRylTofDnxml-LzYRg"
+        }
+      },
+      "sig": "wKpUd4Ad1Z3M8msFptnv7QKiXcmQ3wkDp0L8v0e-dj2xopjGM4IPuS3_F2ZXqteK7PQDFSBCrCsncMxjGbs_Bw"
+    },
+    "challenge": {
+      "protected": {
+        "proto": "ZJJ-AAP",
+        "version": "2.6",
+        "profile": "IND-DEMO-1",
+        "alg": "Ed25519",
+        "type": "Challenge",
+        "issuer": "demo-x",
+        "kid": "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+      },
+      "body": {
+        "id": "dlmKtyPc3gwttdw04uS1EQ",
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "iat": "1791623815",
+        "exp": "1791623845",
+        "aud": [
+          "demo-h"
+        ],
+        "refs": [
+          "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ",
+          "Ssqs_347xgwS1ThjPxitsMd3H4SR9YdU4nu2ZTRGQ4c"
+        ],
+        "deps": [
+          {
+            "namespace": "KEY",
+            "key": [
+              "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+            ],
+            "revision": "1",
+            "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+            ],
+            "revision": "1",
+            "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+            ],
+            "revision": "1",
+            "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+            ],
+            "revision": "1",
+            "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+            ],
+            "revision": "1",
+            "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs"
+          },
+          {
+            "namespace": "TASK",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "UFuWAmrOOgCl8Z8AiLKxEQ"
+            ],
+            "revision": "1",
+            "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-e",
+              "SOURCE"
+            ],
+            "revision": "1",
+            "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "ISSUER"
+            ],
+            "revision": "1",
+            "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "HOLDER"
+            ],
+            "revision": "1",
+            "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4"
+          },
+          {
+            "namespace": "UNIT",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "revision": "2",
+            "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "LINE_OPERATOR"
+            ],
+            "revision": "1",
+            "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "EXECUTOR"
+            ],
+            "revision": "1",
+            "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE"
+          },
+          {
+            "namespace": "BEHAVIOR",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "revision": "1",
+            "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk"
+          },
+          {
+            "namespace": "POLICY",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial"
+            ],
+            "revision": "1",
+            "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0"
+          }
+        ],
+        "payload": {
+          "purpose": "COMMIT",
+          "operation_id": "btorR3cNoHBteoK6j9OfGA",
+          "permit_ref": "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ",
+          "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+          "holder": "demo-h",
+          "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+          "session_id": "tGNBhM5yhXgBfQF15ZbHIg",
+          "nonce": "l-4NCk3lNJ4qB_U5VhHHJ_bkO5oCRbjqbtAPe_lt2Lo",
+          "request_ref": "Ssqs_347xgwS1ThjPxitsMd3H4SR9YdU4nu2ZTRGQ4c"
+        }
+      },
+      "sig": "fYYKaO2YSvOkxEr2XtBPG6g6TIUOm1r1IUbipwYGE6XJNkfDNA8cmak4T0HDrwgL0bdoI1ByQ4H8ZmFOhH4qAQ"
+    },
+    "proof": {
+      "protected": {
+        "proto": "ZJJ-AAP",
+        "version": "2.6",
+        "profile": "IND-DEMO-1",
+        "alg": "Ed25519",
+        "type": "CommitProof",
+        "issuer": "demo-h",
+        "kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+      },
+      "body": {
+        "id": "wIB6Y9ThTmh_KPfqoZsVwQ",
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "iat": "1791623815",
+        "exp": "1791623845",
+        "aud": [
+          "demo-x"
+        ],
+        "refs": [
+          "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ",
+          "R7pRWHP0pn5GT56ac8kVmPVot8GpMDjsCeCueJclo3I"
+        ],
+        "deps": [
+          {
+            "namespace": "KEY",
+            "key": [
+              "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk"
+            ],
+            "revision": "1",
+            "ref": "Y0gqnJwuL8af9s9IlkSVlQLdPQa7ful9-fkJhFCihUQ"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak"
+            ],
+            "revision": "1",
+            "ref": "OeDMYxtqIPRN3pF-667Nd2uBQ1aJ3SGgesBszRSyUtI"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE"
+            ],
+            "revision": "1",
+            "ref": "RWz7qfaJtfw-mauwUMbgfFanmtvp9R-nMEykypIdx3o"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg"
+            ],
+            "revision": "1",
+            "ref": "0onBrGR5fjPu6Auog2-h74UMNxw5pkiTQk_Di06xk0A"
+          },
+          {
+            "namespace": "KEY",
+            "key": [
+              "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw"
+            ],
+            "revision": "1",
+            "ref": "BNvephTJ6S3dnc0kseWK6_GbB9z7O81SEPmuhjQIiAs"
+          },
+          {
+            "namespace": "TASK",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "UFuWAmrOOgCl8Z8AiLKxEQ"
+            ],
+            "revision": "1",
+            "ref": "5VR6BfZzmy7Rz7GbU9rnUpbMXjaze-fgmVZAx9Ftx9g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-e",
+              "SOURCE"
+            ],
+            "revision": "1",
+            "ref": "qkdwVv6RTFnWqD-dd5raiIzeD_xcq1sPbP46DQuuo3w"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "ISSUER"
+            ],
+            "revision": "1",
+            "ref": "Lx8QXCVZdIy6_W8w38I_di2d3RlTCpwflwoEf7NfXdc"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-g",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "1pDY2TWUrMvrceEuDZr0a6cQ2TI8rs_CTeT7ek3WX3g"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "HOLDER"
+            ],
+            "revision": "1",
+            "ref": "P7BRTo0qX5BAjcMRi4cKWJ50Qjq8nczCVZPyn6B-awo"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-h",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "g6wkVFoTe31AW9nAwvuPzu8X74aLI375kWNPnQwAfQ4"
+          },
+          {
+            "namespace": "UNIT",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-line-a",
+              "unit-a"
+            ],
+            "revision": "2",
+            "ref": "lGHLq1q03-avUMmhKZ06Gzb-j82iecDqhy6jeTSsBco"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "LINE_OPERATOR"
+            ],
+            "revision": "1",
+            "ref": "Jvy6orTzb5RJGC-_czGDCe7hO-kff9GaGzqtGMpmTL0"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-u",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "NsjndOZCsBgEA6qa3igTtz76vJnPcBBZcrB80uKWfhQ"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "EXECUTOR"
+            ],
+            "revision": "1",
+            "ref": "rG9nfVa6xK7OZ08Th3xYW9XD8eQDr7KIlJVpxbmTpVE"
+          },
+          {
+            "namespace": "ROLE",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "demo-x",
+              "READER"
+            ],
+            "revision": "1",
+            "ref": "ky2JxjBPwj95T69R-Tf1ddpGbTo4QwwEqgDBpupaClE"
+          },
+          {
+            "namespace": "BEHAVIOR",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial",
+              "principal"
+            ],
+            "revision": "1",
+            "ref": "G-eHAmEBcmFWxmeg5fKZklCLg27O18y_bB1YYGDlYLk"
+          },
+          {
+            "namespace": "POLICY",
+            "key": [
+              "lab",
+              "tenant-1",
+              "industrial"
+            ],
+            "revision": "1",
+            "ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0"
+          }
+        ],
+        "payload": {
+          "ctx": {
+            "scope": {
+              "domain": "lab",
+              "tenant": "tenant-1",
+              "scenario": "industrial"
+            },
+            "operation_id": "btorR3cNoHBteoK6j9OfGA",
+            "principal": "principal",
+            "holder": "demo-h",
+            "holder_kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+            "executor": "demo-x",
+            "action_hash": "_DN3MmUItzY4HmD_Q_Yn-OKs92YKDRXthRUaGcLOB9M",
+            "policy_ref": "duaABKlslq0uSQD4T7yf36TV5xCXqOskd4UjaUDhlu0",
+            "basis_ref": "hRPsVYLrS1F3xDU-3Oh7MV8pP9fLf0SZ9M7We_Q1wug"
+          },
+          "permit_ref": "I8nNVYCBBiT9_CA834W9_fu4RoUG1yOg7Ua3hNN8zBQ",
+          "challenge_ref": "R7pRWHP0pn5GT56ac8kVmPVot8GpMDjsCeCueJclo3I",
+          "session_id": "tGNBhM5yhXgBfQF15ZbHIg",
+          "nonce": "l-4NCk3lNJ4qB_U5VhHHJ_bkO5oCRbjqbtAPe_lt2Lo",
+          "attempt_id": "_NJ4hRylTofDnxml-LzYRg"
+        }
+      },
+      "sig": "WgK9ulGphFMiE7EL8yLFIVFU3-pTeyP04slO61kFXEE1jbwWiAoJDOO6laCzvGhMItaZWpYlwog1o1ELOFv8Cg"
+    },
+    "acceptance": null,
+    "commit_record": null
+  },
+  "prepared_time_witness": {
+    "lo": 1791623817,
+    "hi": 1791623817,
+    "sequence": 1,
+    "age_upper_bound_ns": 29488600,
+    "sample": {
+      "claim": {
+        "profile": "IND-DEMO-1",
+        "scope": {
+          "domain": "lab",
+          "tenant": "tenant-1",
+          "scenario": "industrial"
+        },
+        "operation_id": "btorR3cNoHBteoK6j9OfGA",
+        "stage": "PREPARE",
+        "request_ref": "3XofRWmEtAKwuD7MNymvDCCckMDutzc3Ovt2w3qy6F8",
+        "provider_id": "local-c",
+        "epoch": "1",
+        "instance_id": "rI-tgR-4_RvyuizSQcgbnw",
+        "sequence": "1",
+        "wall_ns": "1791623817218283300",
+        "monotonic_ns": "4907181251600",
+        "lo": "1791623817",
+        "hi": "1791623817",
+        "healthy": true
+      },
+      "signature": "cQppBUQdGZN3vYlXZMEU8HjR8YG4tv1ppPYZSuRdprrZrO6Dhn4xLrrZ6sJT64ZJdKoCXv2lL4EmbA-v6R_-Bw"
+    },
+    "stage": "PREPARE"
+  },
+  "public_roster": {
+    "H": {
+      "name": "demo-h",
+      "kid": "DO8W16gA5lsI4-J4Mo2QEUCi1syP3_6omKAnYstg_Pk",
+      "pub": "lJMbmgg9Xe5cMVOaaXvRqxk-ZDSfCyCIb_KS7SG3_zA",
+      "roles": [
+        "HOLDER"
+      ],
+      "purposes": [
+        "ChallengeRequest",
+        "CommitProof",
+        "IssueRequest",
+        "READ",
+        "StatusQuery"
+      ]
+    },
+    "G": {
+      "name": "demo-g",
+      "kid": "RVn3gt4-Ir9zRPcLvu90D1CChqGRpPAARNSI6XH8ynw",
+      "pub": "b1DY-yN1GzwReBkcROCRohu7am2Tk8SgvD9NrBI52Kk",
+      "roles": [
+        "ISSUER"
+      ],
+      "purposes": [
+        "Permit",
+        "READ",
+        "Result"
+      ]
+    },
+    "X": {
+      "name": "demo-x",
+      "kid": "RMoyiABTkh_O_Z6_BIq41Wk-hl9vQEBZ5W2ZwpevCTg",
+      "pub": "hyjwAw2Gu7vbKDZkzhmUnk-RsJ5eCJs33KndXEWFKOc",
+      "roles": [
+        "EXECUTOR"
+      ],
+      "purposes": [
+        "Acceptance",
+        "Challenge",
+        "READ",
+        "Result"
+      ]
+    },
+    "U": {
+      "name": "demo-u",
+      "kid": "K529i3lR6UMKL90eXQedP8DfCqzqpU6RE841oRCdqfE",
+      "pub": "NrKCHhCMVfJjyKfUElRLJWbA53q9QdIf53vxZM9sSFg",
+      "roles": [
+        "LINE_OPERATOR"
+      ],
+      "purposes": [
+        "Authorization",
+        "READ"
+      ]
+    },
+    "V": {
+      "name": "demo-v",
+      "kid": "ErgS1S1CqwEDau1tEhioC18C-9jOqrDa0CEGiba_azM",
+      "pub": "NBKrzqnCMS_1Ct-8eSFejYcsYfo7rRAWcAmzqR2GQ0M",
+      "roles": [
+        "QUALITY_REVIEWER"
+      ],
+      "purposes": [
+        "READ",
+        "Review"
+      ]
+    },
+    "E": {
+      "name": "demo-e",
+      "kid": "ER1-YeK-rRd6RjY35gq7B9v8b0IsBlVaEib4o0vbFak",
+      "pub": "IksdMZpToPKCUfAZORuVDTU61q2koZxXmDENfKob13U",
+      "roles": [
+        "SOURCE"
+      ],
+      "purposes": [
+        "READ",
+        "SOURCE"
+      ]
+    }
+  }
+}

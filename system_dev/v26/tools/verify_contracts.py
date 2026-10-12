@@ -21,7 +21,7 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 BASE=Path(__file__).resolve().parents[1]
 ROOT=BASE.parents[1]
 sys.path.insert(0,str(ROOT))
-from verification.protocol_v25_reference.wire import verify_raw, L
+from competition.support.wire import strict_verify as verify_raw, L
 from build_contracts import PROFILES, TYPES, build
 
 def enc(v):
@@ -92,12 +92,12 @@ def main():
         if not ok:raise AssertionError(name)
     schemas={}
     for profile,(_,stem) in PROFILES.items():
-        schema=json.loads((BASE/'contracts'/f'{stem}.schema.json').read_text(encoding='utf-8'))
+        schema=json.loads((BASE/'contracts'/f'{stem}.schema.json').read_text(encoding='utf-8',newline='\n'))
         require(schema==build(profile),profile+':deterministic-schema')
         Draft202012Validator.check_schema(schema);schemas[profile]=schema
         if profile=='IND-DEMO-1':
             # Independent normative anchor, not sampled from the generator.
-            norm=(BASE/'03_industrial_medical_profiles.md').read_text(encoding='utf-8')
+            norm=(BASE/'03_industrial_medical_profiles.md').read_text(encoding='utf-8',newline='\n')
             package_id=re.search(r'package_id:"([^"]+)"',norm).group(1)
             require(schema['$defs']['Record_IND_PACKAGE']['properties']['value']['properties']['package_id']['const']==package_id,'IND-DEMO-1:normative-package-id')
         validator=Draft202012Validator(schema)
@@ -182,14 +182,14 @@ def main():
         require(ok,'strict-reject-'+name)
     out=BASE/'vectors';out.mkdir(exist_ok=True)
     dataset={'contract':'ZJJ-CORE-2.6-R2','test_seed':SEED.hex(),'public_key':b64(PK),'envelopes':envelopes,'records':records,'actions':actions,'tool_evidence':tool_evidence,'scope':'Public structural samples and cryptographic vectors only. Placeholder references do not form valid authorization graphs or real authority snapshots; no protocol action may be accepted from these samples.'}
-    path=out/'wire_vectors.json';path.write_text(json.dumps(dataset,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    path=out/'wire_vectors.json';path.write_text(json.dumps(dataset,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
     proc=subprocess.run(['node',str(BASE/'tools/check_vectors.mjs'),str(path)],capture_output=True,text=True,encoding='utf-8',check=False)
     require(proc.returncode==0,'node-cross-language-bytes-and-crypto')
     node=json.loads(proc.stdout)
     require(node['checked']==len(envelopes)+len(records)+len(actions)+len(tool_evidence),'node-vector-count')
-    sources=list((BASE/'contracts').glob('*.json'))+list((BASE/'tools').glob('*.py'))+[BASE/'tools/check_vectors.mjs']+list(BASE.glob('0*.md'))+[path,BASE/'README.md',BASE/'semantic_cases.json',ROOT/'system_dev/contracts/pay1.schema.json',ROOT/'verification/protocol_v25_reference/wire.py']
-    report={'date':'2026-10-07','generated_at_utc':datetime.now(timezone.utc).isoformat(),'contract':'ZJJ-CORE-2.6-R2','checks_passed':len(checks),'checks':checks,'envelope_vectors':len(envelopes),'record_vectors':len(records),'action_vectors':len(actions),'tool_evidence_vectors':len(tool_evidence),'node':node,'environment':{'python':sys.version,'platform':platform.platform(),'jsonschema':importlib.metadata.version('jsonschema')},'source_sha256':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},'strict_point_check_source':'verification/protocol_v25_reference/wire.py.verify_raw (same mathematical acceptance, no v2.5 message validator used)','limits':['Node comparison checks bytes/hashes/deterministic signing, not JS schema or strict-subgroup rejection.','No handler, registered authority, whole business trajectory, transaction or tool is tested.','No full protocol implementation, independent security audit or formal proof claimed.']}
-    (BASE/'verification_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    sources=list((BASE/'contracts').glob('*.json'))+list((BASE/'tools').glob('*.py'))+[BASE/'tools/check_vectors.mjs']+list(BASE.glob('0*.md'))+[path,BASE/'README.md',BASE/'semantic_cases.json',BASE/'tools/pay-record-base.schema.json',ROOT/'competition/support/wire.py']
+    report={'date':'2026-10-12','generated_at_utc':datetime.now(timezone.utc).isoformat(),'contract':'ZJJ-CORE-2.6-R2','checks_passed':len(checks),'checks':checks,'envelope_vectors':len(envelopes),'record_vectors':len(records),'action_vectors':len(actions),'tool_evidence_vectors':len(tool_evidence),'node':node,'environment':{'python':sys.version,'platform':platform.platform(),'jsonschema':importlib.metadata.version('jsonschema')},'source_sha256':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},'strict_point_check_source':'competition/support/wire.py.strict_verify','limits':['Node comparison checks bytes/hashes/deterministic signing, not JS schema or strict-subgroup rejection.','No handler, registered authority, whole business trajectory, transaction or tool is tested.','No full protocol implementation, independent security audit or formal proof claimed.']}
+    (BASE/'verification_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
     print(json.dumps({'checks_passed':len(checks),'envelopes':len(envelopes),'records':len(records),'actions':len(actions),'tool_evidence':len(tool_evidence),'node_checked':node['checked']},ensure_ascii=False))
 
 if __name__=='__main__':main()

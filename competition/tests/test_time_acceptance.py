@@ -9,7 +9,7 @@ import time
 import unittest
 from pathlib import Path
 
-from research.reference_executor.wire import ProtocolError, rec_ref, canonical, b64, raw, strict_verify
+from competition.support.wire import ProtocolError, rec_ref, canonical, b64, raw, strict_verify
 
 
 class IndustrialTimeAcceptance(unittest.TestCase):

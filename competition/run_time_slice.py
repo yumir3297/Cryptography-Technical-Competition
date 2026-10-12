@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 from types import SimpleNamespace
 
-from research.reference_executor.wire import raw, b64
+from competition.support.wire import raw, b64
 from competition.core.acceptance import IndustrialAcceptanceW
 from competition.core.signing import ClockClient
 from competition.profiles.industrial_seed import initialize, public_roster
@@ -27,7 +27,7 @@ def demo(output):
     import hashlib
     import subprocess
     import sys
-    from research.reference_executor.wire import ProtocolError, rec_ref, canonical, strict_verify
+    from competition.support.wire import ProtocolError, rec_ref, canonical, strict_verify
     output = Path(output).resolve(); output.mkdir(parents=True, exist_ok=True)
     run_id = 'time-' + str(time.time_ns())
     private = Path('.runtime') / run_id

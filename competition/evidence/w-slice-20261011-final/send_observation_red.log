@@ -1,0 +1,15 @@
+test_process_start_alone_does_not_prove_execution_packet_was_sent (competition.tests.test_w_final_regressions.FinalRegressionTests.test_process_start_alone_does_not_prove_execution_packet_was_sent) ... FAIL
+
+======================================================================
+FAIL: test_process_start_alone_does_not_prove_execution_packet_was_sent (competition.tests.test_w_final_regressions.FinalRegressionTests.test_process_start_alone_does_not_prove_execution_packet_was_sent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_final_regressions.py", line 58, in test_process_start_alone_does_not_prove_execution_packet_was_sent
+    counts=self.run.w.counts();self.assertEqual(counts['execution_sends_observed'],0)
+                               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0
+
+----------------------------------------------------------------------
+Ran 1 test in 14.422s
+
+FAILED (failures=1)

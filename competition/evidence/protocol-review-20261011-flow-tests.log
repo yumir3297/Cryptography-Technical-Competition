@@ -1,0 +1,1898 @@
+test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample (competition.tests.test_common_w.SharedWTests.test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample) ... ERROR
+test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample (competition.tests.test_common_w.SharedWTests.test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample) ... ERROR
+test_full_chain_exec_query_and_once_settlement_three_profiles (competition.tests.test_common_w.SharedWTests.test_full_chain_exec_query_and_once_settlement_three_profiles) ... ERROR
+test_full_chain_exec_query_and_once_settlement_three_profiles (competition.tests.test_common_w.SharedWTests.test_full_chain_exec_query_and_once_settlement_three_profiles) ... ERROR
+test_ownership_loss_blocks_claim_and_cancel_without_releasing_others (competition.tests.test_common_w.SharedWTests.test_ownership_loss_blocks_claim_and_cancel_without_releasing_others) ... ERROR
+test_ownership_loss_blocks_claim_and_cancel_without_releasing_others (competition.tests.test_common_w.SharedWTests.test_ownership_loss_blocks_claim_and_cancel_without_releasing_others) ... ERROR
+test_status_and_audit_are_current_authenticated_reads_with_zero_execution (competition.tests.test_common_w.SharedWTests.test_status_and_audit_are_current_authenticated_reads_with_zero_execution) ... ERROR
+test_status_and_audit_are_current_authenticated_reads_with_zero_execution (competition.tests.test_common_w.SharedWTests.test_status_and_audit_are_current_authenticated_reads_with_zero_execution) ... ERROR
+test_three_profiles_share_real_acceptance_and_pending_outbox_transaction (competition.tests.test_common_w.SharedWTests.test_three_profiles_share_real_acceptance_and_pending_outbox_transaction) ... ERROR
+test_three_profiles_share_real_acceptance_and_pending_outbox_transaction (competition.tests.test_common_w.SharedWTests.test_three_profiles_share_real_acceptance_and_pending_outbox_transaction) ... ERROR
+test_unsigned_worker_cannot_claim_committed_operation (competition.tests.test_common_w.SharedWTests.test_unsigned_worker_cannot_claim_committed_operation) ... ERROR
+test_unsigned_worker_cannot_claim_committed_operation (competition.tests.test_common_w.SharedWTests.test_unsigned_worker_cannot_claim_committed_operation) ... ERROR
+test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance (competition.tests.test_w_recovery.WRecoveryTests.test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance) ... ERROR
+test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance (competition.tests.test_w_recovery.WRecoveryTests.test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance) ... ERROR
+test_bad_final_does_not_halt_but_authenticated_contradiction_does (competition.tests.test_w_recovery.WRecoveryTests.test_bad_final_does_not_halt_but_authenticated_contradiction_does) ... ERROR
+test_bad_final_does_not_halt_but_authenticated_contradiction_does (competition.tests.test_w_recovery.WRecoveryTests.test_bad_final_does_not_halt_but_authenticated_contradiction_does) ... ERROR
+test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement (competition.tests.test_w_recovery.WRecoveryTests.test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement) ... ERROR
+test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement (competition.tests.test_w_recovery.WRecoveryTests.test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement) ... ERROR
+test_three_profiles_lost_ack_query_same_fact_without_new_exec (competition.tests.test_w_recovery.WRecoveryTests.test_three_profiles_lost_ack_query_same_fact_without_new_exec) ... ERROR
+test_three_profiles_lost_ack_query_same_fact_without_new_exec (competition.tests.test_w_recovery.WRecoveryTests.test_three_profiles_lost_ack_query_same_fact_without_new_exec) ... ERROR
+test_unknown_query_preserves_resource_flight_and_creates_no_effect (competition.tests.test_w_recovery.WRecoveryTests.test_unknown_query_preserves_resource_flight_and_creates_no_effect) ... ERROR
+test_unknown_query_preserves_resource_flight_and_creates_no_effect (competition.tests.test_w_recovery.WRecoveryTests.test_unknown_query_preserves_resource_flight_and_creates_no_effect) ... ERROR
+test_final_claim_must_check_current_worker_expiry (competition.tests.test_w_final_regressions.FinalRegressionTests.test_final_claim_must_check_current_worker_expiry) ... ERROR
+test_final_claim_must_check_current_worker_expiry (competition.tests.test_w_final_regressions.FinalRegressionTests.test_final_claim_must_check_current_worker_expiry) ... ERROR
+test_process_start_alone_does_not_prove_execution_packet_was_sent (competition.tests.test_w_final_regressions.FinalRegressionTests.test_process_start_alone_does_not_prove_execution_packet_was_sent) ... ERROR
+test_process_start_alone_does_not_prove_execution_packet_was_sent (competition.tests.test_w_final_regressions.FinalRegressionTests.test_process_start_alone_does_not_prove_execution_packet_was_sent) ... ERROR
+test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction (competition.tests.test_w_final_regressions.FinalRegressionTests.test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction) ... ERROR
+test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction (competition.tests.test_w_final_regressions.FinalRegressionTests.test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction) ... ERROR
+test_unknown_settle_preserves_durable_halted_state (competition.tests.test_w_final_regressions.FinalRegressionTests.test_unknown_settle_preserves_durable_halted_state) ... ERROR
+test_unknown_settle_preserves_durable_halted_state (competition.tests.test_w_final_regressions.FinalRegressionTests.test_unknown_settle_preserves_durable_halted_state) ... ERROR
+test_bad_signatures_binding_and_request_conflicts_have_no_second_effect (competition.tests.test_common_tool.CommonToolTests.test_bad_signatures_binding_and_request_conflicts_have_no_second_effect) ... ERROR
+test_bad_signatures_binding_and_request_conflicts_have_no_second_effect (competition.tests.test_common_tool.CommonToolTests.test_bad_signatures_binding_and_request_conflicts_have_no_second_effect) ... ERROR
+test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected (competition.tests.test_common_tool.CommonToolTests.test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected) ... ERROR
+test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected (competition.tests.test_common_tool.CommonToolTests.test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected) ... ERROR
+test_missing_or_corrupt_ledger_refuses_continuity (competition.tests.test_common_tool.CommonToolTests.test_missing_or_corrupt_ledger_refuses_continuity) ... ERROR
+test_missing_or_corrupt_ledger_refuses_continuity (competition.tests.test_common_tool.CommonToolTests.test_missing_or_corrupt_ledger_refuses_continuity) ... ERROR
+test_query_requires_w_signature_and_never_accepts_execution_flags (competition.tests.test_common_tool.CommonToolTests.test_query_requires_w_signature_and_never_accepts_execution_flags) ... ERROR
+test_query_requires_w_signature_and_never_accepts_execution_flags (competition.tests.test_common_tool.CommonToolTests.test_query_requires_w_signature_and_never_accepts_execution_flags) ... ERROR
+test_query_uses_new_window_after_original_dispatch_expiry (competition.tests.test_common_tool.CommonToolTests.test_query_uses_new_window_after_original_dispatch_expiry) ... ERROR
+test_query_uses_new_window_after_original_dispatch_expiry (competition.tests.test_common_tool.CommonToolTests.test_query_uses_new_window_after_original_dispatch_expiry) ... ERROR
+test_real_child_commit_exit_98_query_recovers_same_fact (competition.tests.test_common_tool.CommonToolTests.test_real_child_commit_exit_98_query_recovers_same_fact) ... ERROR
+test_real_child_commit_exit_98_query_recovers_same_fact (competition.tests.test_common_tool.CommonToolTests.test_real_child_commit_exit_98_query_recovers_same_fact) ... ERROR
+test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) ... 
+  test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='PAY-1') ... ERROR
+  test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='IND-DEMO-1') ... ERROR
+  test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='MED-DEMO-1') ... ERROR
+test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) ... ERROR
+test_tool_decision_after_dispatch_expiry_rolls_back_every_effect (competition.tests.test_common_tool.CommonToolTests.test_tool_decision_after_dispatch_expiry_rolls_back_every_effect) ... ERROR
+test_tool_decision_after_dispatch_expiry_rolls_back_every_effect (competition.tests.test_common_tool.CommonToolTests.test_tool_decision_after_dispatch_expiry_rolls_back_every_effect) ... ERROR
+test_unknown_query_never_creates_effect_or_failed_final (competition.tests.test_common_tool.CommonToolTests.test_unknown_query_never_creates_effect_or_failed_final) ... ERROR
+test_unknown_query_never_creates_effect_or_failed_final (competition.tests.test_common_tool.CommonToolTests.test_unknown_query_never_creates_effect_or_failed_final) ... ERROR
+test_committed_receipt_is_signed_by_actual_other_process (competition.tests.test_common_receipt.CommonReceiptTests.test_committed_receipt_is_signed_by_actual_other_process) ... ERROR
+test_committed_receipt_is_signed_by_actual_other_process (competition.tests.test_common_receipt.CommonReceiptTests.test_committed_receipt_is_signed_by_actual_other_process) ... ERROR
+test_original_business_constraints_are_checked_in_child (competition.tests.test_common_receipt.CommonReceiptTests.test_original_business_constraints_are_checked_in_child) ... ERROR
+test_original_business_constraints_are_checked_in_child (competition.tests.test_common_receipt.CommonReceiptTests.test_original_business_constraints_are_checked_in_child) ... ERROR
+test_revoked_expired_and_bad_c_certificate_cannot_sign (competition.tests.test_common_receipt.CommonReceiptTests.test_revoked_expired_and_bad_c_certificate_cannot_sign) ... ERROR
+test_revoked_expired_and_bad_c_certificate_cannot_sign (competition.tests.test_common_receipt.CommonReceiptTests.test_revoked_expired_and_bad_c_certificate_cannot_sign) ... ERROR
+test_uncommitted_or_modified_core_cannot_be_signed (competition.tests.test_common_receipt.CommonReceiptTests.test_uncommitted_or_modified_core_cannot_be_signed) ... ERROR
+test_uncommitted_or_modified_core_cannot_be_signed (competition.tests.test_common_receipt.CommonReceiptTests.test_uncommitted_or_modified_core_cannot_be_signed) ... ERROR
+test_bad_signature_or_wrong_stage_cannot_consume_time (competition.tests.test_event_clock.EventClockSafety.test_bad_signature_or_wrong_stage_cannot_consume_time) ... ERROR
+test_bad_signature_or_wrong_stage_cannot_consume_time (competition.tests.test_event_clock.EventClockSafety.test_bad_signature_or_wrong_stage_cannot_consume_time) ... ERROR
+test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false (competition.tests.test_event_clock.EventClockSafety.test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false) ... ERROR
+test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false (competition.tests.test_event_clock.EventClockSafety.test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false) ... ERROR
+test_new_sequence_cannot_make_old_sample_fresh (competition.tests.test_event_clock.EventClockSafety.test_new_sequence_cannot_make_old_sample_fresh) ... ERROR
+test_new_sequence_cannot_make_old_sample_fresh (competition.tests.test_event_clock.EventClockSafety.test_new_sequence_cannot_make_old_sample_fresh) ... ERROR
+test_new_sequence_cannot_move_below_persistent_floor (competition.tests.test_event_clock.EventClockSafety.test_new_sequence_cannot_move_below_persistent_floor) ... ERROR
+test_new_sequence_cannot_move_below_persistent_floor (competition.tests.test_event_clock.EventClockSafety.test_new_sequence_cannot_move_below_persistent_floor) ... ERROR
+test_overwide_authenticated_interval_is_unknown (competition.tests.test_event_clock.EventClockSafety.test_overwide_authenticated_interval_is_unknown) ... ERROR
+test_overwide_authenticated_interval_is_unknown (competition.tests.test_event_clock.EventClockSafety.test_overwide_authenticated_interval_is_unknown) ... ERROR
+test_previous_provider_instance_is_unknown_after_restart (competition.tests.test_event_clock.EventClockSafety.test_previous_provider_instance_is_unknown_after_restart) ... ERROR
+test_previous_provider_instance_is_unknown_after_restart (competition.tests.test_event_clock.EventClockSafety.test_previous_provider_instance_is_unknown_after_restart) ... ERROR
+test_valid_current_sample_persists_floor_and_replay_is_rejected (competition.tests.test_event_clock.EventClockSafety.test_valid_current_sample_persists_floor_and_replay_is_rejected) ... ERROR
+test_valid_current_sample_persists_floor_and_replay_is_rejected (competition.tests.test_event_clock.EventClockSafety.test_valid_current_sample_persists_floor_and_replay_is_rejected) ... ERROR
+
+======================================================================
+ERROR: test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample (competition.tests.test_common_w.SharedWTests.test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_w.py", line 12, in setUp
+    self.run=self.module.initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpq4jllj05\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample (competition.tests.test_common_w.SharedWTests.test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpq4jllj05'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpq4jllj05'
+
+======================================================================
+ERROR: test_full_chain_exec_query_and_once_settlement_three_profiles (competition.tests.test_common_w.SharedWTests.test_full_chain_exec_query_and_once_settlement_three_profiles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_w.py", line 12, in setUp
+    self.run=self.module.initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmprz0cuk3b\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_full_chain_exec_query_and_once_settlement_three_profiles (competition.tests.test_common_w.SharedWTests.test_full_chain_exec_query_and_once_settlement_three_profiles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmprz0cuk3b'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmprz0cuk3b'
+
+======================================================================
+ERROR: test_ownership_loss_blocks_claim_and_cancel_without_releasing_others (competition.tests.test_common_w.SharedWTests.test_ownership_loss_blocks_claim_and_cancel_without_releasing_others)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_w.py", line 12, in setUp
+    self.run=self.module.initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpkrlm412p\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_ownership_loss_blocks_claim_and_cancel_without_releasing_others (competition.tests.test_common_w.SharedWTests.test_ownership_loss_blocks_claim_and_cancel_without_releasing_others)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpkrlm412p'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpkrlm412p'
+
+======================================================================
+ERROR: test_status_and_audit_are_current_authenticated_reads_with_zero_execution (competition.tests.test_common_w.SharedWTests.test_status_and_audit_are_current_authenticated_reads_with_zero_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_w.py", line 12, in setUp
+    self.run=self.module.initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpl9okss01\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_status_and_audit_are_current_authenticated_reads_with_zero_execution (competition.tests.test_common_w.SharedWTests.test_status_and_audit_are_current_authenticated_reads_with_zero_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpl9okss01'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpl9okss01'
+
+======================================================================
+ERROR: test_three_profiles_share_real_acceptance_and_pending_outbox_transaction (competition.tests.test_common_w.SharedWTests.test_three_profiles_share_real_acceptance_and_pending_outbox_transaction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_w.py", line 12, in setUp
+    self.run=self.module.initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp242akl35\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_three_profiles_share_real_acceptance_and_pending_outbox_transaction (competition.tests.test_common_w.SharedWTests.test_three_profiles_share_real_acceptance_and_pending_outbox_transaction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp242akl35'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp242akl35'
+
+======================================================================
+ERROR: test_unsigned_worker_cannot_claim_committed_operation (competition.tests.test_common_w.SharedWTests.test_unsigned_worker_cannot_claim_committed_operation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_w.py", line 12, in setUp
+    self.run=self.module.initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp8jzao2fl\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_unsigned_worker_cannot_claim_committed_operation (competition.tests.test_common_w.SharedWTests.test_unsigned_worker_cannot_claim_committed_operation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp8jzao2fl'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp8jzao2fl'
+
+======================================================================
+ERROR: test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance (competition.tests.test_w_recovery.WRecoveryTests.test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_recovery.py", line 14, in setUp
+    self.run=initialize(Path(self.tmp.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp6g4cjof9\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance (competition.tests.test_w_recovery.WRecoveryTests.test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp6g4cjof9'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp6g4cjof9'
+
+======================================================================
+ERROR: test_bad_final_does_not_halt_but_authenticated_contradiction_does (competition.tests.test_w_recovery.WRecoveryTests.test_bad_final_does_not_halt_but_authenticated_contradiction_does)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_recovery.py", line 14, in setUp
+    self.run=initialize(Path(self.tmp.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpnrdvyef8\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_bad_final_does_not_halt_but_authenticated_contradiction_does (competition.tests.test_w_recovery.WRecoveryTests.test_bad_final_does_not_halt_but_authenticated_contradiction_does)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpnrdvyef8'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpnrdvyef8'
+
+======================================================================
+ERROR: test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement (competition.tests.test_w_recovery.WRecoveryTests.test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_recovery.py", line 14, in setUp
+    self.run=initialize(Path(self.tmp.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr1v7ml2m\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement (competition.tests.test_w_recovery.WRecoveryTests.test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr1v7ml2m'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr1v7ml2m'
+
+======================================================================
+ERROR: test_three_profiles_lost_ack_query_same_fact_without_new_exec (competition.tests.test_w_recovery.WRecoveryTests.test_three_profiles_lost_ack_query_same_fact_without_new_exec)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_recovery.py", line 14, in setUp
+    self.run=initialize(Path(self.tmp.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp4o9oxja1\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_three_profiles_lost_ack_query_same_fact_without_new_exec (competition.tests.test_w_recovery.WRecoveryTests.test_three_profiles_lost_ack_query_same_fact_without_new_exec)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp4o9oxja1'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp4o9oxja1'
+
+======================================================================
+ERROR: test_unknown_query_preserves_resource_flight_and_creates_no_effect (competition.tests.test_w_recovery.WRecoveryTests.test_unknown_query_preserves_resource_flight_and_creates_no_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_recovery.py", line 14, in setUp
+    self.run=initialize(Path(self.tmp.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr0_i1wq5\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_unknown_query_preserves_resource_flight_and_creates_no_effect (competition.tests.test_w_recovery.WRecoveryTests.test_unknown_query_preserves_resource_flight_and_creates_no_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr0_i1wq5'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr0_i1wq5'
+
+======================================================================
+ERROR: test_final_claim_must_check_current_worker_expiry (competition.tests.test_w_final_regressions.FinalRegressionTests.test_final_claim_must_check_current_worker_expiry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_final_regressions.py", line 13, in setUp
+    self.run=initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpqcbtz5zu\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_final_claim_must_check_current_worker_expiry (competition.tests.test_w_final_regressions.FinalRegressionTests.test_final_claim_must_check_current_worker_expiry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpqcbtz5zu'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpqcbtz5zu'
+
+======================================================================
+ERROR: test_process_start_alone_does_not_prove_execution_packet_was_sent (competition.tests.test_w_final_regressions.FinalRegressionTests.test_process_start_alone_does_not_prove_execution_packet_was_sent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_final_regressions.py", line 13, in setUp
+    self.run=initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpce5lnkt9\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_process_start_alone_does_not_prove_execution_packet_was_sent (competition.tests.test_w_final_regressions.FinalRegressionTests.test_process_start_alone_does_not_prove_execution_packet_was_sent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpce5lnkt9'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpce5lnkt9'
+
+======================================================================
+ERROR: test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction (competition.tests.test_w_final_regressions.FinalRegressionTests.test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_final_regressions.py", line 13, in setUp
+    self.run=initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpfq5gpyfb\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction (competition.tests.test_w_final_regressions.FinalRegressionTests.test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpfq5gpyfb'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpfq5gpyfb'
+
+======================================================================
+ERROR: test_unknown_settle_preserves_durable_halted_state (competition.tests.test_w_final_regressions.FinalRegressionTests.test_unknown_settle_preserves_durable_halted_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_final_regressions.py", line 13, in setUp
+    self.run=initialize(Path(self.folder.name));self.addCleanup(self.run.close)
+             ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\w_seed.py", line 140, in initialize
+    base = initialize_authorization(folder, **authorization_kwargs)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 100, in initialize
+    f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+                                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpre4_w5nx\\IND-DEMO-1-H.key'
+
+======================================================================
+ERROR: test_unknown_settle_preserves_durable_halted_state (competition.tests.test_w_final_regressions.FinalRegressionTests.test_unknown_settle_preserves_durable_halted_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpre4_w5nx'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpre4_w5nx'
+
+======================================================================
+ERROR: test_bad_signatures_binding_and_request_conflicts_have_no_second_effect (competition.tests.test_common_tool.CommonToolTests.test_bad_signatures_binding_and_request_conflicts_have_no_second_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 112, in test_bad_signatures_binding_and_request_conflicts_have_no_second_effect
+    ledger, _, packet, w, _ = self.fixture()
+                              ~~~~~~~~~~~~^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp_oki177z\\PAY-1'
+
+======================================================================
+ERROR: test_bad_signatures_binding_and_request_conflicts_have_no_second_effect (competition.tests.test_common_tool.CommonToolTests.test_bad_signatures_binding_and_request_conflicts_have_no_second_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp_oki177z'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp_oki177z'
+
+======================================================================
+ERROR: test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected (competition.tests.test_common_tool.CommonToolTests.test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 165, in test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected
+    ledger, _, packet, w, _=self.fixture()
+                            ~~~~~~~~~~~~^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpitnia6v_\\PAY-1'
+
+======================================================================
+ERROR: test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected (competition.tests.test_common_tool.CommonToolTests.test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpitnia6v_'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpitnia6v_'
+
+======================================================================
+ERROR: test_missing_or_corrupt_ledger_refuses_continuity (competition.tests.test_common_tool.CommonToolTests.test_missing_or_corrupt_ledger_refuses_continuity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 147, in test_missing_or_corrupt_ledger_refuses_continuity
+    ledger, _, _, _, _ = self.fixture()
+                         ~~~~~~~~~~~~^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpxaoratee\\PAY-1'
+
+======================================================================
+ERROR: test_missing_or_corrupt_ledger_refuses_continuity (competition.tests.test_common_tool.CommonToolTests.test_missing_or_corrupt_ledger_refuses_continuity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpxaoratee'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpxaoratee'
+
+======================================================================
+ERROR: test_query_requires_w_signature_and_never_accepts_execution_flags (competition.tests.test_common_tool.CommonToolTests.test_query_requires_w_signature_and_never_accepts_execution_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 155, in test_query_requires_w_signature_and_never_accepts_execution_flags
+    ledger, gateway, packet, w, _ = self.fixture()
+                                    ~~~~~~~~~~~~^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpga1n0jhb\\PAY-1'
+
+======================================================================
+ERROR: test_query_requires_w_signature_and_never_accepts_execution_flags (competition.tests.test_common_tool.CommonToolTests.test_query_requires_w_signature_and_never_accepts_execution_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpga1n0jhb'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpga1n0jhb'
+
+======================================================================
+ERROR: test_query_uses_new_window_after_original_dispatch_expiry (competition.tests.test_common_tool.CommonToolTests.test_query_uses_new_window_after_original_dispatch_expiry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 138, in test_query_uses_new_window_after_original_dispatch_expiry
+    ledger, _, packet, w, _ = self.fixture(ttl=3)
+                              ~~~~~~~~~~~~^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpe9cktwtl\\PAY-1'
+
+======================================================================
+ERROR: test_query_uses_new_window_after_original_dispatch_expiry (competition.tests.test_common_tool.CommonToolTests.test_query_uses_new_window_after_original_dispatch_expiry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpe9cktwtl'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpe9cktwtl'
+
+======================================================================
+ERROR: test_real_child_commit_exit_98_query_recovers_same_fact (competition.tests.test_common_tool.CommonToolTests.test_real_child_commit_exit_98_query_recovers_same_fact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 126, in test_real_child_commit_exit_98_query_recovers_same_fact
+    ledger, gateway, packet, w, _ = self.fixture(crash=True)
+                                    ~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpirrx6y9_\\PAY-1'
+
+======================================================================
+ERROR: test_real_child_commit_exit_98_query_recovers_same_fact (competition.tests.test_common_tool.CommonToolTests.test_real_child_commit_exit_98_query_recovers_same_fact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpirrx6y9_'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpirrx6y9_'
+
+======================================================================
+ERROR: test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='PAY-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 76, in test_three_profiles_persist_actual_payload_and_immutable_fact
+    ledger, _, packet, w, tool = self.fixture(profile)
+                                 ~~~~~~~~~~~~^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp28fanp02\\PAY-1'
+
+======================================================================
+ERROR: test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='IND-DEMO-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 76, in test_three_profiles_persist_actual_payload_and_immutable_fact
+    ledger, _, packet, w, tool = self.fixture(profile)
+                                 ~~~~~~~~~~~~^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp28fanp02\\IND-DEMO-1'
+
+======================================================================
+ERROR: test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='MED-DEMO-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 76, in test_three_profiles_persist_actual_payload_and_immutable_fact
+    ledger, _, packet, w, tool = self.fixture(profile)
+                                 ~~~~~~~~~~~~^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp28fanp02\\MED-DEMO-1'
+
+======================================================================
+ERROR: test_three_profiles_persist_actual_payload_and_immutable_fact (competition.tests.test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp28fanp02'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp28fanp02'
+
+======================================================================
+ERROR: test_tool_decision_after_dispatch_expiry_rolls_back_every_effect (competition.tests.test_common_tool.CommonToolTests.test_tool_decision_after_dispatch_expiry_rolls_back_every_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 93, in test_tool_decision_after_dispatch_expiry_rolls_back_every_effect
+    ledger,_,packet,_,_=self.fixture(ttl=2);original=ledger._counts;calls=[]
+                        ~~~~~~~~~~~~^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp1xpl0krt\\PAY-1'
+
+======================================================================
+ERROR: test_tool_decision_after_dispatch_expiry_rolls_back_every_effect (competition.tests.test_common_tool.CommonToolTests.test_tool_decision_after_dispatch_expiry_rolls_back_every_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp1xpl0krt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp1xpl0krt'
+
+======================================================================
+ERROR: test_unknown_query_never_creates_effect_or_failed_final (competition.tests.test_common_tool.CommonToolTests.test_unknown_query_never_creates_effect_or_failed_final)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 104, in test_unknown_query_never_creates_effect_or_failed_final
+    ledger, _, packet, w, _ = self.fixture()
+                              ~~~~~~~~~~~~^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 31, in fixture
+    folder.mkdir(exist_ok=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 722, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmph7h_h4nh\\PAY-1'
+
+======================================================================
+ERROR: test_unknown_query_never_creates_effect_or_failed_final (competition.tests.test_common_tool.CommonToolTests.test_unknown_query_never_creates_effect_or_failed_final)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmph7h_h4nh'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmph7h_h4nh'
+
+======================================================================
+ERROR: test_committed_receipt_is_signed_by_actual_other_process (competition.tests.test_common_receipt.CommonReceiptTests.test_committed_receipt_is_signed_by_actual_other_process)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_receipt.py", line 27, in setUp
+    self.keypath=self.folder/'X.key';self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()))
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp_me4z0w1\\X.key'
+
+======================================================================
+ERROR: test_committed_receipt_is_signed_by_actual_other_process (competition.tests.test_common_receipt.CommonReceiptTests.test_committed_receipt_is_signed_by_actual_other_process)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp_me4z0w1'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp_me4z0w1'
+
+======================================================================
+ERROR: test_original_business_constraints_are_checked_in_child (competition.tests.test_common_receipt.CommonReceiptTests.test_original_business_constraints_are_checked_in_child)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_receipt.py", line 27, in setUp
+    self.keypath=self.folder/'X.key';self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()))
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmprsfvyqd6\\X.key'
+
+======================================================================
+ERROR: test_original_business_constraints_are_checked_in_child (competition.tests.test_common_receipt.CommonReceiptTests.test_original_business_constraints_are_checked_in_child)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmprsfvyqd6'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmprsfvyqd6'
+
+======================================================================
+ERROR: test_revoked_expired_and_bad_c_certificate_cannot_sign (competition.tests.test_common_receipt.CommonReceiptTests.test_revoked_expired_and_bad_c_certificate_cannot_sign)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_receipt.py", line 27, in setUp
+    self.keypath=self.folder/'X.key';self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()))
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr69hv1zb\\X.key'
+
+======================================================================
+ERROR: test_revoked_expired_and_bad_c_certificate_cannot_sign (competition.tests.test_common_receipt.CommonReceiptTests.test_revoked_expired_and_bad_c_certificate_cannot_sign)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr69hv1zb'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpr69hv1zb'
+
+======================================================================
+ERROR: test_uncommitted_or_modified_core_cannot_be_signed (competition.tests.test_common_receipt.CommonReceiptTests.test_uncommitted_or_modified_core_cannot_be_signed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_receipt.py", line 27, in setUp
+    self.keypath=self.folder/'X.key';self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()))
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmph4c1bhvq\\X.key'
+
+======================================================================
+ERROR: test_uncommitted_or_modified_core_cannot_be_signed (competition.tests.test_common_receipt.CommonReceiptTests.test_uncommitted_or_modified_core_cannot_be_signed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmph4c1bhvq'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmph4c1bhvq'
+
+======================================================================
+ERROR: test_bad_signature_or_wrong_stage_cannot_consume_time (competition.tests.test_event_clock.EventClockSafety.test_bad_signature_or_wrong_stage_cannot_consume_time)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_event_clock.py", line 24, in setUp
+    self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption()))
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpt22z3ahb\\C.key'
+
+======================================================================
+ERROR: test_bad_signature_or_wrong_stage_cannot_consume_time (competition.tests.test_event_clock.EventClockSafety.test_bad_signature_or_wrong_stage_cannot_consume_time)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpt22z3ahb'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpt22z3ahb'
+
+======================================================================
+ERROR: test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false (competition.tests.test_event_clock.EventClockSafety.test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_event_clock.py", line 24, in setUp
+    self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption()))
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpz6103jmf\\C.key'
+
+======================================================================
+ERROR: test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false (competition.tests.test_event_clock.EventClockSafety.test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpz6103jmf'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpz6103jmf'
+
+======================================================================
+ERROR: test_new_sequence_cannot_make_old_sample_fresh (competition.tests.test_event_clock.EventClockSafety.test_new_sequence_cannot_make_old_sample_fresh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_event_clock.py", line 24, in setUp
+    self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption()))
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp__jfy2nd\\C.key'
+
+======================================================================
+ERROR: test_new_sequence_cannot_make_old_sample_fresh (competition.tests.test_event_clock.EventClockSafety.test_new_sequence_cannot_make_old_sample_fresh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp__jfy2nd'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp__jfy2nd'
+
+======================================================================
+ERROR: test_new_sequence_cannot_move_below_persistent_floor (competition.tests.test_event_clock.EventClockSafety.test_new_sequence_cannot_move_below_persistent_floor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_event_clock.py", line 24, in setUp
+    self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption()))
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpfhom4n49\\C.key'
+
+======================================================================
+ERROR: test_new_sequence_cannot_move_below_persistent_floor (competition.tests.test_event_clock.EventClockSafety.test_new_sequence_cannot_move_below_persistent_floor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpfhom4n49'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpfhom4n49'
+
+======================================================================
+ERROR: test_overwide_authenticated_interval_is_unknown (competition.tests.test_event_clock.EventClockSafety.test_overwide_authenticated_interval_is_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_event_clock.py", line 24, in setUp
+    self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption()))
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp037k95iu\\C.key'
+
+======================================================================
+ERROR: test_overwide_authenticated_interval_is_unknown (competition.tests.test_event_clock.EventClockSafety.test_overwide_authenticated_interval_is_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp037k95iu'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmp037k95iu'
+
+======================================================================
+ERROR: test_previous_provider_instance_is_unknown_after_restart (competition.tests.test_event_clock.EventClockSafety.test_previous_provider_instance_is_unknown_after_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_event_clock.py", line 24, in setUp
+    self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption()))
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpxl27olzs\\C.key'
+
+======================================================================
+ERROR: test_previous_provider_instance_is_unknown_after_restart (competition.tests.test_event_clock.EventClockSafety.test_previous_provider_instance_is_unknown_after_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpxl27olzs'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpxl27olzs'
+
+======================================================================
+ERROR: test_valid_current_sample_persists_floor_and_replay_is_rejected (competition.tests.test_event_clock.EventClockSafety.test_valid_current_sample_persists_floor_and_replay_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_event_clock.py", line 24, in setUp
+    self.keypath.write_bytes(self.key.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption()))
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpzf3we_gq\\C.key'
+
+======================================================================
+ERROR: test_valid_current_sample_persists_floor_and_replay_is_rejected (competition.tests.test_event_clock.EventClockSafety.test_valid_current_sample_persists_floor_and_replay_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 631, in _rmtree_unsafe
+    os.rmdir(path)
+    ~~~~~~~~^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpzf3we_gq'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 635, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\���\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] �ܾ����ʡ�: 'C:\\Users\\���\\AppData\\Local\\Packages\\sandbox.{6738a98e-0a44-4b9a-b755-5613953955ae}\\AC\\Temp\\tmpzf3we_gq'
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.340s
+
+FAILED (errors=72)

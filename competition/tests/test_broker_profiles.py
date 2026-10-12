@@ -4,7 +4,7 @@ import json
 import unittest
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
-from research.phase18.key_broker import (
+from competition.support.broker_policy import (
     decode_packet, canonical, keyid, ProtocolError,
     PROFILE_SCOPES, SOURCE_TYPES,
 )

@@ -2,7 +2,7 @@
 import copy
 import json
 from competition.core.trusted_state import enc
-from research.reference_executor.wire import require
+from competition.support.wire import require
 
 class WState:
     def __init__(self, source, overlay=None):

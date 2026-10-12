@@ -1,0 +1,28 @@
+{
+  "kind": "independent_readonly_scoped_W_simulator_verification",
+  "passed": true,
+  "build_commit": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+  "verifier_checkout_commit": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+  "source_mode": "git_recorded_commit",
+  "source_digest": "8ca936398db087a0f5072ad28ea079141aa7424f49ba050a3b4a5e8f5d4b4ea2",
+  "run_id": "w-1791692706578605200",
+  "case_count": 22,
+  "checks": 5168,
+  "verified_signatures": 3498,
+  "verified_C_time_packets": 1538,
+  "external_manifest_pin_verified": true,
+  "limits": [
+    "Historical signatures, references and independent ledger equality; no current-time authorization re-created by audit.",
+    "Run trust roots must be pinned externally for adversarial audit; embedded roots alone prove package consistency.",
+    "No complete R2 AUDITBundle or whole-disk rollback guarantee."
+  ],
+  "source_checkout_crlf_paths": [
+    "competition/core/__init__.py",
+    "competition/core/trusted_clock.py",
+    "competition/tests/__init__.py",
+    "competition/tests/test_acceptance_gap.py",
+    "competition/tests/test_broker_profiles.py",
+    "competition/tests/test_clock_guard.py",
+    "competition/tests/test_med_required_review.py"
+  ]
+}

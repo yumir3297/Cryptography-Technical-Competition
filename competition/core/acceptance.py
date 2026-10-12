@@ -9,10 +9,10 @@ from contextlib import contextmanager
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
-from research.phase14.verifier import VerifierOnlySceneW
-from research.phase8.scene_authority import SceneAuthority, ROLES, PROFILES, _json, _rec
-from research.reference_executor.wire import require, ProtocolError, b64, canonical, digest, rec_ref, sortset, envelope, raw, action_hash, strict_verify
-from research.strict_v26.upstream_schema import UpstreamSchema
+from competition.support.scene_verifier import VerifierOnlySceneW
+from competition.support.scene_authority import SceneAuthority, ROLES, PROFILES, _json, _rec
+from competition.support.wire import require, ProtocolError, b64, canonical, digest, rec_ref, sortset, envelope, raw, action_hash, strict_verify
+from competition.support.schema import UpstreamSchema
 from competition.core.event_clock import checked_event_clock, require_window, MAX_AGE_NS, AGE_MARGIN_NS
 from competition.profiles.scene_bindings import bound_scene
 
@@ -41,7 +41,7 @@ class CurrentTimeGuards:
         k, r = SceneAuthority._credential(self, c, alias, role, purpose, action)
         for row in (k, r):
             require_window(row['record']['value'], event)
-        # Retain the real registered proof of possession, without Phase11's 106 constant.
+        # Retain the real registered proof of possession, without a fixed-time fixture constant.
         saved = c.execute('SELECT grant FROM verified_enrollment WHERE kid=?', (self.actors[alias].kid,)).fetchone()
         require(saved is not None and json.loads(saved[0]) == k['record'], 'POP_REQUIRED')
         return k, r

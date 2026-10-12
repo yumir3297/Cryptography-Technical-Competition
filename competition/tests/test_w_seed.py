@@ -7,8 +7,8 @@ import unittest
 from pathlib import Path
 
 from competition.core.trusted_state import PROFILE_SCOPES, prefix
-from research.reference_executor.wire import canonical, raw, keyid, strict_verify, action_hash
-from research.phase6.trusted_final import verify_certificate
+from competition.support.wire import canonical, raw, keyid, strict_verify, action_hash
+from competition.support.tool_final import verify_certificate
 
 
 class WSeedTests(unittest.TestCase):

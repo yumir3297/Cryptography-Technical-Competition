@@ -1,0 +1,19 @@
+{
+  "signatures": {
+    "prepare": "(self, p, op, identity)",
+    "accept": "(self, p, ticket, proof, *, crash_after_commit=False)",
+    "claim": "(self, p, oid, proof)",
+    "execute_once": "(self, p, oid, proof)",
+    "query_attempt": "(self, p, oid, proof)",
+    "settle": "(self, p, oid, response, proof)",
+    "status": "(self, p, oid, proof)",
+    "audit": "(self, p, oid, proof)",
+    "challenge_accept": "(self, p, ticket)",
+    "challenge_worker": "(self, p, oid, purpose)",
+    "challenge_read": "(self, p, oid, purpose='STATUS')",
+    "cancel": "(self, p, oid, proof)",
+    "complete_receipt": "(self, p, oid)"
+  },
+  "identity_proof_keyword_is_not_actual_prepare_parameter": true,
+  "scope": "Introspection only; actual parameter is identity."
+}

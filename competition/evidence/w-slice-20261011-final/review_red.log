@@ -1,0 +1,53 @@
+test_final_claim_must_check_current_worker_expiry (competition.tests.test_w_final_regressions.FinalRegressionTests.test_final_claim_must_check_current_worker_expiry) ... FAIL
+test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction (competition.tests.test_w_final_regressions.FinalRegressionTests.test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction) ... ERROR
+test_unknown_settle_preserves_durable_halted_state (competition.tests.test_w_final_regressions.FinalRegressionTests.test_unknown_settle_preserves_durable_halted_state) ... FAIL
+test_tool_decision_after_dispatch_expiry_rolls_back_every_effect (competition.tests.test_common_tool.CommonToolTests.test_tool_decision_after_dispatch_expiry_rolls_back_every_effect) ... FAIL
+
+======================================================================
+ERROR: test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction (competition.tests.test_w_final_regressions.FinalRegressionTests.test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_final_regressions.py", line 24, in test_stale_checkpoint_cannot_hide_a_trusted_immutable_fact_contradiction
+    result=self.run.w.settle(p,oid,contradiction,self.run.worker_proof(p,oid,'SETTLE'))
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\core\common_w.py", line 344, in settle
+    record,fid,contradiction=self._verify_final(c,p,oid,frozen,response,event)
+                             ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\core\common_w.py", line 322, in _verify_final
+    if int(cl['high_water'])<tool['high_water']:raise ProtocolError('LEDGER_STALE_UNKNOWN')
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+research.reference_executor.wire.ProtocolError: LEDGER_STALE_UNKNOWN
+
+======================================================================
+FAIL: test_final_claim_must_check_current_worker_expiry (competition.tests.test_w_final_regressions.FinalRegressionTests.test_final_claim_must_check_current_worker_expiry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_final_regressions.py", line 43, in test_final_claim_must_check_current_worker_expiry
+    with self.assertRaises(ProtocolError):self.run.w.claim(p,oid,proof)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+======================================================================
+FAIL: test_unknown_settle_preserves_durable_halted_state (competition.tests.test_w_final_regressions.FinalRegressionTests.test_unknown_settle_preserves_durable_halted_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_w_final_regressions.py", line 49, in test_unknown_settle_preserves_durable_halted_state
+    self.assertEqual(returned['state'],'HALTED')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'UNKNOWN' != 'HALTED'
+- UNKNOWN
++ HALTED
+
+
+======================================================================
+FAIL: test_tool_decision_after_dispatch_expiry_rolls_back_every_effect (competition.tests.test_common_tool.CommonToolTests.test_tool_decision_after_dispatch_expiry_rolls_back_every_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_tool.py", line 99, in test_tool_decision_after_dispatch_expiry_rolls_back_every_effect
+    with self.assertRaises(ProtocolError):ledger.execute_once(packet)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 46.840s
+
+FAILED (failures=3, errors=1)

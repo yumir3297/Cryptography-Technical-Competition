@@ -1,0 +1,14 @@
+test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance (competition.tests.test_w_recovery.WRecoveryTests.test_actual_w_exit_after_commit_recovers_exact_frozen_acceptance) ... ok
+test_bad_final_does_not_halt_but_authenticated_contradiction_does (competition.tests.test_w_recovery.WRecoveryTests.test_bad_final_does_not_halt_but_authenticated_contradiction_does) ... ok
+test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement (competition.tests.test_w_recovery.WRecoveryTests.test_eight_claims_and_eight_settlements_create_one_attempt_effect_settlement) ... ok
+test_three_profiles_lost_ack_query_same_fact_without_new_exec (competition.tests.test_w_recovery.WRecoveryTests.test_three_profiles_lost_ack_query_same_fact_without_new_exec) ... ok
+test_unknown_query_preserves_resource_flight_and_creates_no_effect (competition.tests.test_w_recovery.WRecoveryTests.test_unknown_query_preserves_resource_flight_and_creates_no_effect) ... ok
+test_existing_w_is_never_reset_by_initialization (competition.tests.test_w_seed.WSeedTests.test_existing_w_is_never_reset_by_initialization) ... ok
+test_forks_rebuild_real_signed_chains_and_preserve_source_records (competition.tests.test_w_seed.WSeedTests.test_forks_rebuild_real_signed_chains_and_preserve_source_records) ... ok
+test_fresh_worker_and_tool_credentials_bind_original_public_scopes (competition.tests.test_w_seed.WSeedTests.test_fresh_worker_and_tool_credentials_bind_original_public_scopes) ... ok
+test_holder_read_proof_signs_current_status_claim (competition.tests.test_w_seed.WSeedTests.test_holder_read_proof_signs_current_status_claim) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 128.104s
+
+OK

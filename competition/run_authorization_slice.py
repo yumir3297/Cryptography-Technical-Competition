@@ -6,7 +6,7 @@ import json
 import subprocess
 import time
 from pathlib import Path
-from research.reference_executor.wire import ProtocolError, b64, raw, canonical, strict_verify, sortset
+from competition.support.wire import ProtocolError, b64, raw, canonical, strict_verify, sortset
 from competition.core.trusted_state import PROFILE_SCOPES, prefix
 from competition.profiles.authorization_seed import initialize
 from competition.profiles.industrial_seed import initialize as industrial
@@ -17,7 +17,7 @@ def write(path,value):
     path.write_bytes((json.dumps(value,ensure_ascii=False,indent=2)+'\n').encode('utf-8'))
 
 def build_identity():
-    files=sorted(p for p in (ROOT/'competition').rglob('*') if p.suffix in ('.py','.md') and 'evidence' not in p.parts)
+    files=sorted([p for p in (ROOT/'competition').rglob('*') if p.suffix in ('.py','.md') and 'evidence' not in p.parts] + list((ROOT/'system_dev/v26/contracts').glob('*.json')) + [ROOT/'requirements.txt'])
     rows=[{'path':p.relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in files]
     return {'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_files':rows,'source_digest':hashlib.sha256(json.dumps(rows,sort_keys=True).encode()).hexdigest(),'dirty':subprocess.check_output(['git','status','--short'],cwd=ROOT,text=True).splitlines()}
 

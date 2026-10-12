@@ -3,7 +3,7 @@
 The controller time assertion is a laboratory oracle, *not* an NTP, TEE,
 quorum timestamp, or externally audited trustworthy clock.
 """
-from research.reference_executor.wire import require,canonical,b64,raw,strict_verify,number
+from competition.support.wire import require,canonical,b64,raw,strict_verify,number
 
 DOMAIN='ZJJ-C-TRUSTED-CLOCK-RESEARCH-v1'
 
@@ -16,7 +16,7 @@ def seal(controller,profile,scope,operation_id,purpose,seq,lo,hi):
 def prepare_table(c):
     c.execute('''CREATE TABLE IF NOT EXISTS r2_clock(
                 id INTEGER PRIMARY KEY CHECK(id=1),sequence INTEGER NOT NULL)''')
-    # Legacy research databases have only (id, sequence). Preserve their state.
+    # Legacy clock databases have only (id, sequence). Preserve their state.
     cols={row[1] for row in c.execute('PRAGMA table_info(r2_clock)')}
     if 'time_floor' not in cols:
         c.execute('ALTER TABLE r2_clock ADD COLUMN time_floor INTEGER NOT NULL DEFAULT 0')

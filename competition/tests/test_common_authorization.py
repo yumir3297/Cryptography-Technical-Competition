@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from research.reference_executor.wire import ProtocolError, canonical, b64, digest, msgref, raw, strict_verify
+from competition.support.wire import ProtocolError, canonical, b64, digest, msgref, raw, strict_verify
 from competition.core.trusted_state import PROFILE_SCOPES, prefix, enc, ROLES
 
 
@@ -197,7 +197,7 @@ class CommonAuthorizationTests(unittest.TestCase):
 
     def test_broker_checked_action_must_bind_signed_payload_context(self):
         import copy
-        from research.reference_executor.wire import action_hash
+        from competition.support.wire import action_hash
         for p,op in self.seed.operations.items():
             msg=copy.deepcopy(op['authorization']);msg.pop('sig')
             msg['body']['payload']['ctx']['action_hash']=digest(['different-business-action'])

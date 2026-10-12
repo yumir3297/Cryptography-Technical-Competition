@@ -1,0 +1,41 @@
+{
+  "kind": "competition_protocol_structure_and_flow_review",
+  "build_commit": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+  "runtime_behavior_changed": false,
+  "flow_tests": 35,
+  "flow_tests_passed": true,
+  "observed_boundary_cases": 3,
+  "boundary_role_and_final_signatures_verified": true,
+  "protocol_characters_before": 6100,
+  "protocol_characters_after": 4906,
+  "text_reduction_percent": 19.6,
+  "raw_message_structure_changed": false,
+  "initial_temp_permission_failure_log_preserved": true,
+  "artifact_hashes": [
+    {
+      "path": "competition/evidence/protocol-review-20261011-flow-tests.log",
+      "sha256": "e88ad6e61ee1e5578545660f80b7d60d32146af8e6c840487aa4317937536666"
+    },
+    {
+      "path": "competition/evidence/protocol-review-20261011-flow-tests-workspace.log",
+      "sha256": "ca461ce6f321027a0c2159e251f487c23f0f29808055f82aeedc3880e39fe55c"
+    },
+    {
+      "path": "competition/evidence/protocol-review-20261011-boundaries/IND-DEMO-1-post-claim-revocation.json",
+      "sha256": "847bc676fe4f31de02070e112e3e6ac21601773b37832269314ca087daa5e74b"
+    },
+    {
+      "path": "competition/evidence/protocol-review-20261011-boundaries/MED-DEMO-1-post-claim-revocation.json",
+      "sha256": "693890ada4933794f0aab0cf94278b3f3f812bac235c43a1eef974663f9635ec"
+    },
+    {
+      "path": "competition/evidence/protocol-review-20261011-boundaries/PAY-1-post-claim-revocation.json",
+      "sha256": "42f01da4e6445bf975aa9a35d823f9489591bf8ea4fce5202aa49b17aa6474b6"
+    },
+    {
+      "path": "competition/evidence/protocol-review-20261011-boundaries/report.json",
+      "sha256": "10d01964667c9f1cc5854daf829c2718f9c800b2d20ef6e38affbdb3b5ffd5b3"
+    }
+  ],
+  "conclusion": "Defined competition flow remains validated in the selected tests; post-claim revocation and transient UNKNOWN after settlement are explicit observed behavior; no claim of unrestricted or full R2 safety."
+}

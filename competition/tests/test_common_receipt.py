@@ -10,8 +10,8 @@ from contextlib import closing
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding,PublicFormat,PrivateFormat,NoEncryption
-from research.reference_executor.wire import b64,raw,canonical,keyid,digest,rec_ref,action_hash,strict_verify,ProtocolError,sortset
-from research.phase18.key_broker import PROFILE_SCOPES
+from competition.support.wire import b64,raw,canonical,keyid,digest,rec_ref,action_hash,strict_verify,ProtocolError,sortset
+from competition.support.broker_policy import PROFILE_SCOPES
 
 
 class CommonReceiptTests(unittest.TestCase):

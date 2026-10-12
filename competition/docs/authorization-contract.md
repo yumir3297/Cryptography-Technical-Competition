@@ -1,6 +1,6 @@
 # A-01～04公共授权实现契约
 
-2026-10-11；应用增补 COMP-APP-AUTHZ-1.0；原ZJJ-AAP 2.6消息、Schema、摘要域和数量不变。PAY来源继续用原严格v2.5 Evidence桥。仅competition目录新增/改动，研究代码只读复用。
+2026-10-11；应用增补 COMP-APP-AUTHZ-1.0；原ZJJ-AAP 2.6消息、Schema、摘要域和数量不变。PAY来源继续用原严格v2.5 Evidence桥。所需基础模块位于 competition/support，原研究材料完整保留本地归档。
 
 ## 固定身份与范围
 

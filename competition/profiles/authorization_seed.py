@@ -7,9 +7,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat, PrivateFormat, NoEncryption
-from research.reference_executor.wire import Identity, b64, keyid, canonical, digest, rec_ref, msgref, sortset, action_hash
-from research.conformance39.enrollment_lab import EnrollmentLab
-from research.phase8.scene_authority import SceneAuthority, _rec
+from competition.support.wire import Identity, b64, keyid, canonical, digest, rec_ref, msgref, sortset, action_hash
+from competition.support.enrollment import EnrollmentLab
+from competition.support.scene_authority import SceneAuthority, _rec
 from competition.core.trusted_state import TrustedState, ROLES, TYPES, PROFILE_SCOPES, prefix, enc
 from competition.core.signing import ClockClient
 from competition.core.signer_broker import ScopedSignerBroker

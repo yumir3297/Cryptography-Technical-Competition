@@ -1,6 +1,6 @@
 # v2.6 工业与医疗固定演示 Profile 合同
 
-日期：2026-10-07。状态：协议合同补全；未实现、未运行符合性验收。本文仅冻结协议和受控数据语义，不交付界面、工具实现或部署。不增加十种核心签名消息，不增加核心交互轮次。
+字段合同日期：2026-10-07。本文定义协议和受控数据语义；比赛实际采用范围与运行证据见[三场景交接](../../competition/FINAL_PROTOCOL_HANDOFF.md)及[R2 对照](../../competition/docs/final/r2-application-mapping.md)。不增加十种核心签名消息，不增加核心交互轮次。
 
 规范 Profile 为 `IND-DEMO-1` 与 `MED-DEMO-1`，线版本均为 `2.6`，scope.scenario 分别为 `industrial`、`medical`。它们与 `PAY-1/payment` 并列，不能当作付款 payload 的变体。本文在本目录通用线格式之上规定精确场景值；与旧设计中的“候选/建议/尚待冻结”冲突时，以本文明确列出的本轮取值为新合同，旧材料仍保留其原版本事实。
 
@@ -383,14 +383,14 @@ POLICY.gateway_kid/executor_kid为本轮新增的唯一服务签署钥映射；�
 
 | 本文规则 | 既有明确依据 | 本轮新增/细化取值 |
 |---|---|---|
-| 三场景分别有独立schema/来源/角色/资源，模拟工具 | [场景设计§1–§3](../docs/11_工业流水线与医疗演示场景.md) | Profile由候选名正式冻结；线版本统一2.6，scenario唯一对应 |
-| 完整Action/依据绑定、十消息、一次接受、EXEC-0 | [核心§3–§6](../../docs/证决界_动作授权与接受安全核心协议_v2.6.md) | 不增加核心消息，支撑Record外壳/专用kind/精确payload |
+| 三场景分别有独立schema/来源/角色/资源，模拟工具 | [场景设计§1–§3](../../competition/FINAL_PROTOCOL_HANDOFF.md) | Profile由候选名正式冻结；线版本统一2.6，scenario唯一对应 |
+| 完整Action/依据绑定、十消息、一次接受、EXEC-0 | [核心精确合同](01_core_contract.md) | 不增加核心消息，支撑Record外壳/专用kind/精确payload |
 | 工业意图不含route，医疗不含模板/记录，受控阶段 | 场景设计§2.1、§3.1 | 工业cycle1/2、INITIAL/REINSPECT；医疗单组SUBMIT；C控制推进；失败STOPPED |
 | 工业正常/缺陷/不确定映射及缺陷RELEASE硬拒绝 | 场景设计§2.2（固定判定器为建议） | 正式采用三映射；固定package四组合常量；history DISABLED |
 | 医疗必需领域复核与独立执行授权，合成模板 | 场景设计§3.1–§3.3 | DEMO_A/B→DEMO-ORDER-A/B固定映射；必需恰一CLINICAL_REVIEW；history DISABLED |
 | U/V必须不同登记主体、读权限先于取数据 | 场景设计§2.2、§3.2–§3.3；核心§5 | U/V不能是G/X；H可与U同主体；READER显式资格与精确AUDITOR裁剪 |
-| 来源签名/版本与对象关联，摘要不能替代认证 | 场景设计§2.1、§3.1；核心§3.3；[衔接§5.2](../docs/07_v2.6_协议瘦身与后端衔接.md) | SourceAttestation固定签名域/字段；source/publisher身份；300秒采样TTL、Task900秒 |
-| 独立重建依赖、新增行覆盖、真实持久回执和派发重查 | [符合性补全§2–§4](../docs/14_协议符合性补全合同.md) | UNIT/ENCOUNTER namespace及精确行；COMMIT scene前后见证避免自身更新误失效 |
+| 来源签名/版本与对象关联，摘要不能替代认证 | 场景设计§2.1、§3.1；核心§3.3；[衔接§5.2](../../competition/docs/final/interface-reference.md) | SourceAttestation固定签名域/字段；source/publisher身份；300秒采样TTL、Task900秒 |
+| 独立重建依赖、新增行覆盖、真实持久回执和派发重查 | [符合性补全§2–§4](../../competition/docs/final/r2-application-mapping.md) | UNIT/ENCOUNTER namespace及精确行；COMMIT scene前后见证避免自身更新误失效 |
 | 工业容量及医疗终局结算、未知占用与不重派 | 场景设计§2.3、§3.3；符合性补全§4 | 每目的地8累计槽、每动作1、BEHAVIOR32；spent不自动返还；无reset |
 | 不跨Profile复用，路径/工具固定 | 场景设计§1、§4、SC01/SC02 | 三类路径白名单、工业固定三个目的工位、医疗固定合成账目的地 |
 

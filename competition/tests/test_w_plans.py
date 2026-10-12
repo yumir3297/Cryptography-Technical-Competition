@@ -9,7 +9,7 @@ from pathlib import Path
 
 from competition.core.trusted_state import PROFILE_SCOPES, prefix
 from competition.profiles.authorization_seed import initialize
-from research.reference_executor.wire import ProtocolError, b64, digest, sortset
+from competition.support.wire import ProtocolError, b64, digest, sortset
 
 
 class TransactionPlanTests(unittest.TestCase):

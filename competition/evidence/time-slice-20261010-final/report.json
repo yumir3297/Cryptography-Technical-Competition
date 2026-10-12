@@ -1,0 +1,146 @@
+{
+  "run_id": "time-1791625353857772300",
+  "base_commit": "dbda1cac814306fddcdd508cd9e45b5b62551299",
+  "build_commit": "edc24eba32fcc0665cb230a555bf82f74c86e4d5",
+  "dirty": false,
+  "source_digest": "38b6f23c0a631cdd66ba0e0196a485705a57fc55b794c81c42fd56f8cfd8ef18",
+  "contract_version": "COMP-APP-MIN-1.0",
+  "kind": "IND_time_acceptance_vertical_slice_not_21_group_full_pass",
+  "cases": [
+    {
+      "subcase_id": "C-TIME-01/IND-DEMO-1/elapsed_success",
+      "scenario": "elapsed_success",
+      "status": "PASS",
+      "expected": "ACCEPTED_WITH_RECEIPT",
+      "actual": "ACCEPTED_WITH_RECEIPT",
+      "after": {
+        "accepts": 1,
+        "calls": 0,
+        "settlements": 0,
+        "reserved": 1,
+        "spent": 0
+      },
+      "child_exit_code": null,
+      "frozen_preserved": true
+    },
+    {
+      "subcase_id": "C-TIME-02/IND-DEMO-1/expired_ticket",
+      "scenario": "expired_ticket",
+      "status": "PASS",
+      "expected": "EXPIRED",
+      "actual": "EXPIRED",
+      "after": {
+        "accepts": 0,
+        "calls": 0,
+        "settlements": 0,
+        "reserved": 0,
+        "spent": 0
+      },
+      "child_exit_code": null,
+      "frozen_preserved": true
+    },
+    {
+      "subcase_id": "C-TIME-02/IND-DEMO-1/clock_unknown",
+      "scenario": "clock_unknown",
+      "status": "PASS",
+      "expected": "CLOCK_UNKNOWN",
+      "actual": "CLOCK_UNKNOWN",
+      "after": {
+        "accepts": 0,
+        "calls": 0,
+        "settlements": 0,
+        "reserved": 0,
+        "spent": 0
+      },
+      "child_exit_code": null,
+      "frozen_preserved": true
+    },
+    {
+      "subcase_id": "C-TIME-03/IND-DEMO-1/revoke_before_accept",
+      "scenario": "revoke_before_accept",
+      "status": "PASS",
+      "expected": "REVOKED",
+      "actual": "REVOKED",
+      "after": {
+        "accepts": 0,
+        "calls": 0,
+        "settlements": 0,
+        "reserved": 0,
+        "spent": 0
+      },
+      "child_exit_code": null,
+      "frozen_preserved": true
+    },
+    {
+      "subcase_id": "C-TIME-03/IND-DEMO-1/x_revoke_after_accept",
+      "scenario": "x_revoke_after_accept",
+      "status": "PASS",
+      "expected": "COMMITTED_RECEIPT_PENDING",
+      "actual": "COMMITTED_RECEIPT_PENDING",
+      "after": {
+        "accepts": 1,
+        "calls": 0,
+        "settlements": 0,
+        "reserved": 1,
+        "spent": 0
+      },
+      "child_exit_code": null,
+      "frozen_preserved": true
+    },
+    {
+      "subcase_id": "C-TIME-03/IND-DEMO-1/x_expired_after_accept",
+      "scenario": "x_expired_after_accept",
+      "status": "PASS",
+      "expected": "COMMITTED_RECEIPT_PENDING",
+      "actual": "COMMITTED_RECEIPT_PENDING",
+      "after": {
+        "accepts": 1,
+        "calls": 0,
+        "settlements": 0,
+        "reserved": 1,
+        "spent": 0
+      },
+      "child_exit_code": null,
+      "frozen_preserved": true
+    },
+    {
+      "subcase_id": "C-EXEC-04/IND-DEMO-1/signer_failure",
+      "scenario": "signer_failure",
+      "status": "PASS",
+      "expected": "COMMITTED_RECEIPT_PENDING",
+      "actual": "COMMITTED_RECEIPT_PENDING",
+      "after": {
+        "accepts": 1,
+        "calls": 0,
+        "settlements": 0,
+        "reserved": 1,
+        "spent": 0
+      },
+      "child_exit_code": null,
+      "frozen_preserved": true
+    },
+    {
+      "subcase_id": "C-STATE-01/IND-DEMO-1/post_commit_process_exit",
+      "scenario": "post_commit_process_exit",
+      "status": "PASS",
+      "expected": "ACCEPTED_WITH_RECEIPT",
+      "actual": "ACCEPTED_WITH_RECEIPT",
+      "after": {
+        "accepts": 1,
+        "calls": 0,
+        "settlements": 0,
+        "reserved": 1,
+        "spent": 0
+      },
+      "child_exit_code": 97,
+      "frozen_preserved": true
+    }
+  ],
+  "limits": [
+    "Trusted single-host OS wall/monotonic clock, not independent time attestation.",
+    "C/X separate subprocesses but no Linux DAC proof in this Windows run; bootstrap remains trusted.",
+    "IND acceptance/receipt only; PR3 delivery, tools and three-Profile common W are not implemented.",
+    "Application status projection, not full original R2 signed STATUS when receipt absent.",
+    "Private run keys remain under ignored .runtime; evidence export excludes key contents."
+  ]
+}

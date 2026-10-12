@@ -7,9 +7,9 @@ from pathlib import Path
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
-from research.phase8.scene_authority import SceneAuthority, ROLES, PURPOSES, _json
-from research.reference_executor.wire import Identity, ProtocolError, keyid, rec_ref
-from research.strict_v26.upstream_schema import UpstreamSchema
+from competition.support.scene_authority import SceneAuthority, ROLES, PURPOSES, _json
+from competition.support.wire import Identity, ProtocolError, keyid, rec_ref
+from competition.support.schema import UpstreamSchema
 from competition.core.event_clock import require_window
 
 

@@ -1,0 +1,168 @@
+{
+  "kind": "competition_runtime_dependency_migration",
+  "source_commit": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+  "modules": [
+    {
+      "source": "research/reference_executor/wire.py",
+      "source_sha256": "c240e8b61611d60acbb5aa1b144c92bff2900843fc909aac08ee038c6d9c8e57",
+      "destination": "competition/support/wire.py",
+      "destination_sha256": "c240e8b61611d60acbb5aa1b144c92bff2900843fc909aac08ee038c6d9c8e57",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/strict_v26/upstream_schema.py",
+      "source_sha256": "33840e3a68fc40420366ab1e0cb9dc6c97609160379c4d8a433d6b8655ae6b7a",
+      "destination": "competition/support/schema.py",
+      "destination_sha256": "3592aa2a97e96db33a523d292dbbf74f02917c4a8faaf18a1e28b5f8d95069b7",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/strict_v26/pay_dependencies.py",
+      "source_sha256": "284b3389527195cb18261e0654a1abe188471cea82de966fcd58d5b1bb1f5410",
+      "destination": "competition/support/pay_dependencies.py",
+      "destination_sha256": "b7edae864a9018fefdc996336ef50e559d15b0698467a6bcbee236d2b631c946",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/strict_v26/pay_history.py",
+      "source_sha256": "769a692618978f769cf2903176a5d203699445df825efb7d3201a11a80382729",
+      "destination": "competition/support/pay_records.py",
+      "destination_sha256": "4a616d3fb727fb22cb2317a2ccdae1019802b149bd541ab0bd5258952e5b6768",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/conformance39/enrollment_lab.py",
+      "source_sha256": "42cd136a39f6dad6feb5423fba118e413cb86d292e3cf956fc93c9914d1e230a",
+      "destination": "competition/support/enrollment.py",
+      "destination_sha256": "7c3f9fc11b3d8c56d6b428761098b16b2576b9fc13174d993e7c1a440585d981",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase5/durable_w.py",
+      "source_sha256": "48eeb63c80ed70e2916a380c9ee5bd4789bbabb887f1c1d54c9c1011699a29a6",
+      "destination": "competition/support/durable_pay.py",
+      "destination_sha256": "4da15d7fdbd8e6f90c5da4136dba2074d82f1e474fbee8056b4dccdd4f3e05f8",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase6/trusted_final.py",
+      "source_sha256": "d9e79342f9672cd460e9681d7d55a827e58501eea33e020da4b9badcf1f9cb49",
+      "destination": "competition/support/tool_final.py",
+      "destination_sha256": "a694951db5233539cce5f78b5cda6bc7a6ab2696956a06b2e662dafb8b93104c",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase7/guarded_dispatch.py",
+      "source_sha256": "a7b63ad5dcce2ad3e519ac1ad89bb4730bc369d9f97f7e5a822dea989e9b2ed7",
+      "destination": "competition/support/dispatch_guard.py",
+      "destination_sha256": "aaff46db39f461a85030f1b64e93a035d78911e09db19712cd445412dbcfacd7",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase8/scene_authority.py",
+      "source_sha256": "6433c7afaf84fd36c95bdb410b050b53ea89a290371066bba82e0024a9773bce",
+      "destination": "competition/support/scene_authority.py",
+      "destination_sha256": "854c3cba80a2c067cdbcef941ac3165de4df9cc03cdf8fc75fe2f35d399d7804",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase8/fixtures.py",
+      "source_sha256": "98514763b51c6322a6468cd332119f02565d17580ef570660a4403682bb4f572",
+      "destination": "competition/support/scene_fixtures.py",
+      "destination_sha256": "0fee48766a3430dc2d17f947ed7da0c6364946a51a81fa7ad55373cf66c27dd9",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase11/scene_r2.py",
+      "source_sha256": "bc0b310f60d2c420b5d2acee061354bb743099f0905f23d8b0950c95693328a3",
+      "destination": "competition/support/scene_recovery.py",
+      "destination_sha256": "f3e5ca609828ce5dc8fc3ff4691364cbefd577a268021fd48d727fdea6273ab8",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase11/pay_r2.py",
+      "source_sha256": "724fd6ae4d763988268923a716d199554ae2b10b4e2d54fc43d8877e48dd1bac",
+      "destination": "competition/support/pay_recovery.py",
+      "destination_sha256": "cbace6c0d3430faad616097cab4e4b360214efaf134c3000afcf8ea618595eef",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase11/trusted_clock.py",
+      "source_sha256": "31dfa35add5392172e1008ce2e06325d6f4cd24d36545058e6fe71325b14fc08",
+      "destination": "competition/support/legacy_clock.py",
+      "destination_sha256": "9a268cd60c4adea2b054ce992c0bdd7f35bb6d117e2fecbcab4864a5081c122c",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase12/authority.py",
+      "source_sha256": "993f73006c5ca6fec2baa4fc4d935b5b5cbdec4b2a098fd60274c9285fb37ce9",
+      "destination": "competition/support/authority_guards.py",
+      "destination_sha256": "85e7d782cc04deff584fd9e4ce90cb12dfeb2ce07f6c8cb61306124c00df08a0",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase14/verifier.py",
+      "source_sha256": "6ecfb889b50b8450e9774d4cbab8616092385f144043fe9bdd8f310e7abaa7dd",
+      "destination": "competition/support/scene_verifier.py",
+      "destination_sha256": "ec48d16cf30babca7497cc465f3636b6dfe7cab1a424a0df029f0fd034c22700",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    },
+    {
+      "source": "research/phase18/key_broker.py",
+      "source_sha256": "3159079c22e7ff840c18b09f2c961b5ddd3e0019f4d74ce0cb5258e71766aee8",
+      "destination": "competition/support/broker_policy.py",
+      "destination_sha256": "fc0c7d1715344077943d01ad0e56965d5ad19d3717e75c66e5fdec4d9ced82f9",
+      "changes": "Import namespace and module description only; verification base ROOT no longer imports a study runner."
+    }
+  ],
+  "updated_import_files": [
+    "competition/run_authorization_slice.py",
+    "competition/run_time_slice.py",
+    "competition/run_w_slice.py",
+    "competition/verify_protocol_handoff.py",
+    "competition/verify_w_slice.py",
+    "competition/w_cases.py",
+    "competition/w_cases_races.py",
+    "competition/core/acceptance.py",
+    "competition/core/authorization.py",
+    "competition/core/common_receipt.py",
+    "competition/core/common_w.py",
+    "competition/core/event_clock.py",
+    "competition/core/industrial_authorization_bridge.py",
+    "competition/core/signer_broker.py",
+    "competition/core/signing.py",
+    "competition/core/trusted_clock.py",
+    "competition/core/trusted_state.py",
+    "competition/core/w_state.py",
+    "competition/profiles/authorization_pay.py",
+    "competition/profiles/authorization_scene.py",
+    "competition/profiles/authorization_seed.py",
+    "competition/profiles/industrial_seed.py",
+    "competition/profiles/pay_seed.py",
+    "competition/profiles/scene_bindings.py",
+    "competition/profiles/scene_seed.py",
+    "competition/profiles/w_plans.py",
+    "competition/profiles/w_scenarios.py",
+    "competition/profiles/w_seed.py",
+    "competition/tests/test_acceptance_gap.py",
+    "competition/tests/test_authorization_acceptance.py",
+    "competition/tests/test_broker_profiles.py",
+    "competition/tests/test_clock_guard.py",
+    "competition/tests/test_common_authorization.py",
+    "competition/tests/test_common_receipt.py",
+    "competition/tests/test_common_tool.py",
+    "competition/tests/test_common_w.py",
+    "competition/tests/test_event_clock.py",
+    "competition/tests/test_med_required_review.py",
+    "competition/tests/test_pay_authorization_adapter.py",
+    "competition/tests/test_scene_authorization_adapter.py",
+    "competition/tests/test_time_acceptance.py",
+    "competition/tests/test_w_final_regressions.py",
+    "competition/tests/test_w_plans.py",
+    "competition/tests/test_w_seed.py",
+    "competition/tools/common_tool.py",
+    "competition/docs/final/verify-interface-semantics.py",
+    "competition/docs/final/verify-review-boundaries.py"
+  ],
+  "scope": "Relocation, without changing protocol guard/state behavior."
+}

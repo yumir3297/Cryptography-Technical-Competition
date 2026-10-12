@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "path": "IND-DEMO-1-same-oid.json",
+      "size": 781425,
+      "sha256": "6d950b8c0f205c701b1e48e2598e1da169b49d6e97831828eecc62287de24f5e"
+    },
+    {
+      "path": "MED-DEMO-1-same-oid.json",
+      "size": 781389,
+      "sha256": "75331708b2d6fcedaa331e989a8f7a0225527b7f49aa69dafd0d4a6df6edfddd"
+    },
+    {
+      "path": "PAY-1-same-oid.json",
+      "size": 781326,
+      "sha256": "779804abe9d616f9d7c78d7229e53c4959435587a4eb82015daa27d87a97e4be"
+    },
+    {
+      "path": "report.json",
+      "size": 10043,
+      "sha256": "3032ee6aa50488771851d714165a75b6a7ad5cf10e19d8aca0a9da040cf09ae6"
+    }
+  ]
+}

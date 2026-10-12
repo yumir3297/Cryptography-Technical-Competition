@@ -16,10 +16,10 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from competition.core.event_clock import checked_event_clock, require_window, refresh_event_age
 from competition.core.signing import ClockClient
-from research.phase6.trusted_final import verify_certificate, final_fact_id, final_sign_bytes
-from research.reference_executor.wire import (ProtocolError, require, raw, b64, canonical,
+from competition.support.tool_final import verify_certificate, final_fact_id, final_sign_bytes
+from competition.support.wire import (ProtocolError, require, raw, b64, canonical,
     digest, keyid, strict_verify, action_hash, rec_ref, number, is_id, good_point)
-from research.strict_v26.upstream_schema import UpstreamSchema
+from competition.support.schema import UpstreamSchema
 
 EXEC_DOMAIN = 'COMP-W-TOOL-EXEC-v1'
 QUERY_DOMAIN = 'COMP-W-TOOL-QUERY-v1'

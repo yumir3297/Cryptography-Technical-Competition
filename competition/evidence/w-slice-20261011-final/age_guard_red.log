@@ -1,0 +1,15 @@
+test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample (competition.tests.test_common_w.SharedWTests.test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample) ... FAIL
+
+======================================================================
+FAIL: test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample (competition.tests.test_common_w.SharedWTests.test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_w.py", line 77, in test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample
+    with self.assertRaises(ProtocolError) as error:self.run.w.accept(p,ticket['ticket_id'],proof)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 14.170s
+
+FAILED (failures=1)

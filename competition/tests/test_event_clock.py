@@ -12,7 +12,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat, PublicFormat, NoEncryption
 from competition.core.signing import ClockClient
 from competition.core.event_clock import DOMAIN, checked_event_clock, require_window
-from research.reference_executor.wire import ProtocolError, b64, canonical
+from competition.support.wire import ProtocolError, b64, canonical
 
 
 class EventClockSafety(unittest.TestCase):

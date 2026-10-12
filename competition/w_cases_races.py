@@ -12,7 +12,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 
 from competition.profiles.w_scenarios import register_ind_unit
-from research.reference_executor.wire import ProtocolError, msgref
+from competition.support.wire import ProtocolError, msgref
 
 
 PROFILE = 'IND-DEMO-1'

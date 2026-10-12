@@ -1,0 +1,42 @@
+[
+  {
+    "path": "claims-evidence.md",
+    "sha256": "7ae6464b89ff960b5ee1fb65c8afd8be4c2b68a9f69cee98a497225775cf3d8d"
+  },
+  {
+    "path": "competition-protocol.md",
+    "sha256": "f03f40083ba313f1d4e6036242bf12c55284b6a74424739b2e6ec96b39cc8b54"
+  },
+  {
+    "path": "developer-scope-notes.md",
+    "sha256": "79d67ff38750a0ac1ae953ae3b6718eaea858239596487c4691b7e92d5581cbd"
+  },
+  {
+    "path": "finalization-record.md",
+    "sha256": "dd388daa78160e4e65d504e6916ddede98d1e6b693ee18a7cced01214b187acf"
+  },
+  {
+    "path": "industrial-handoff.md",
+    "sha256": "49210b9dea1648e2a6353111bc82750bfa5af1727c194e0ee35326ad5b193ec3"
+  },
+  {
+    "path": "medical-handoff.md",
+    "sha256": "0b36de463508f2293be71b5172ab3dcdfcb555d3653fe1080a67fed7cc1ea70e"
+  },
+  {
+    "path": "payment-handoff.md",
+    "sha256": "7c46b4ae902e7662bb3ecd099d04308e3d1b5ecf7fea9d587d57c9cdbb5efab6"
+  },
+  {
+    "path": "protocol-review.md",
+    "sha256": "492cf766e8efa65dad7c89167ac21f5c395c87e670278021e30c3a6222f47c54"
+  },
+  {
+    "path": "query-audit-scope.md",
+    "sha256": "e075629ebfffb322ee5c67b5a4b56c4d99d1745ba9d191757c54a35bfff23c57"
+  },
+  {
+    "path": "r2-application-mapping.md",
+    "sha256": "97e4bec6eed0ce5f60683b15f7753f8fa73dec91d82c43f2ecfd5aa546bf970a"
+  }
+]

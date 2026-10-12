@@ -1,8 +1,8 @@
 """Competition copy of original finite bindings; conditional V separation and E action scope.
-Research Phase8 source remains byte-for-byte unchanged.
+Original source provenance is retained in the local archive.
 """
-from research.phase8.scene_authority import ACTION_FIELDS, ROLES, DEST, MAPPING, TEMPLATES
-from research.reference_executor.wire import require, rec_ref
+from competition.support.scene_authority import ACTION_FIELDS, ROLES, DEST, MAPPING, TEMPLATES
+from competition.support.wire import require, rec_ref
 
 def bound_scene(self,c,action,task_id,scene_key,at=102):
     require(set(action)=={'scope','operation_id','principal','holder','holder_kid','executor','tool','tool_version','destination','payload'},'ACTION_FIELDS')

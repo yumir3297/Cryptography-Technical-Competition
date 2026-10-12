@@ -7,10 +7,10 @@ from pathlib import Path
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat, PrivateFormat, NoEncryption
-from research.reference_executor.wire import Identity, b64, keyid, rec_ref, action_hash, sortset, canonical, digest
-from research.phase11.scene_r2 import SceneR2W
-from research.phase8.scene_authority import ROLES, PURPOSES, DEST, MAPPING, _rec, _clone
-from research.conformance39.enrollment_lab import EnrollmentLab
+from competition.support.wire import Identity, b64, keyid, rec_ref, action_hash, sortset, canonical, digest
+from competition.support.scene_recovery import SceneR2W
+from competition.support.scene_authority import ROLES, PURPOSES, DEST, MAPPING, _rec, _clone
+from competition.support.enrollment import EnrollmentLab
 from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
 from competition.core.signing import ClockClient, ReceiptSigner
 

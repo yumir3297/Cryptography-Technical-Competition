@@ -4,7 +4,7 @@ import unittest
 import concurrent.futures
 from pathlib import Path
 from competition.profiles.industrial_seed import initialize
-from research.reference_executor.wire import ProtocolError, sortset
+from competition.support.wire import ProtocolError, sortset
 
 class AuthorizationAcceptanceTests(unittest.TestCase):
     def setUp(self):

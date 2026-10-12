@@ -1,0 +1,11 @@
+{
+  "status": "ASSERTION_FAILED",
+  "profile": "IND-DEMO-1",
+  "scenario": "authenticated_reads",
+  "expected": "NO_ROLE",
+  "actual": "REVOKED",
+  "runtime_behavior": "Correct refusal of a valid pre-signed request after current HOLDER role was revoked.",
+  "cause": "New verification script expected a different existing error code.",
+  "fix": "Change verification expectation only; preserve first output directory; rerun in protocol-handoff-20261011-final.",
+  "stack_origin": "competition/core/trusted_state.py:131 current() active==1 guard"
+}

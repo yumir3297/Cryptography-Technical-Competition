@@ -14,8 +14,8 @@ from competition.core.w_state import WState
 from competition.core.authorization import CommonGuard
 from competition.core.event_clock import require_window, refresh_event_age
 from competition.profiles.w_plans import TransactionPlans
-from research.reference_executor.wire import require, ProtocolError, canonical, b64, raw, digest, rec_ref, msgref, sortset, keyid, action_hash, strict_verify, envelope
-from research.phase6.trusted_final import verify_certificate, final_fact_id, final_fact, final_sign_bytes
+from competition.support.wire import require, ProtocolError, canonical, b64, raw, digest, rec_ref, msgref, sortset, keyid, action_hash, strict_verify, envelope
+from competition.support.tool_final import verify_certificate, final_fact_id, final_fact, final_sign_bytes
 
 WORKER_PURPOSES=('AUDIT','CANCEL','CLAIM','EXECUTE','QUERY','RECEIPT','SETTLE')
 KNOWN_CANCEL={'EXPIRED','REVOKED','STALE','NO_ROLE','DEP_CONFLICT','REVIEW_DENY','STATE_GENESIS_CHANGED','STATE_CONFLICT','ASSESSMENT_MISMATCH'}

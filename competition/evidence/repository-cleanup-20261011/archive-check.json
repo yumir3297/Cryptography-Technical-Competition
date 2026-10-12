@@ -1,0 +1,10 @@
+{
+  "kind": "pre_cleanup_local_archive_verified",
+  "passed": true,
+  "files": 2429,
+  "bytes": 105306715,
+  "source_head": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+  "archive": "local-research-archive/20261011-repository-cleanup",
+  "manifest_sha256": "9d9fe2d2e6418ea17358557833e34b4063801f3bf275ad637121cc647b39ba81",
+  "original_artifacts_verified": 9
+}

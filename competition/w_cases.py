@@ -14,9 +14,9 @@ from contextlib import closing
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding,PublicFormat
-from research.reference_executor.wire import (Identity,ProtocolError,require,b64,raw,canonical,
+from competition.support.wire import (Identity,ProtocolError,require,b64,raw,canonical,
     keyid,digest)
-from research.phase6.trusted_final import final_fact_id,final_sign_bytes
+from competition.support.tool_final import final_fact_id,final_sign_bytes
 from competition.tools.common_tool import ToolGateway
 
 

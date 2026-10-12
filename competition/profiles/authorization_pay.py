@@ -7,11 +7,11 @@ publication closure and real-world source truth are not asserted here.
 """
 from pathlib import Path
 
-from research.reference_executor.wire import require, number, rec_ref, digest, sortset, raw, keyid
-from research.strict_v26.pay_dependencies import TrustedStore, required_pay_deps
-from research.strict_v26.pay_history import (verify_pay_authoritative, parse_policy, parse_task,
+from competition.support.wire import require, number, rec_ref, digest, sortset, raw, keyid
+from competition.support.pay_dependencies import TrustedStore, required_pay_deps
+from competition.support.pay_records import (verify_pay_authoritative, parse_policy, parse_task,
     parse_history, record, fields, bound_time, legacy_dep_structure)
-from research.strict_v26.upstream_schema import UpstreamSchema
+from competition.support.schema import UpstreamSchema
 
 
 class PayAuthorizationAdapter:

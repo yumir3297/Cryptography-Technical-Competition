@@ -1,0 +1,7 @@
+test_process_start_alone_does_not_prove_execution_packet_was_sent (competition.tests.test_w_final_regressions.FinalRegressionTests.test_process_start_alone_does_not_prove_execution_packet_was_sent) ... ok
+test_real_child_commit_exit_98_query_recovers_same_fact (competition.tests.test_common_tool.CommonToolTests.test_real_child_commit_exit_98_query_recovers_same_fact) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 17.322s
+
+OK

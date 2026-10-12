@@ -9,9 +9,9 @@ their current authenticated originals and transitive references are rechecked.
 from pathlib import Path
 
 from competition.core.event_clock import require_window
-from research.phase8.scene_authority import SceneAuthority, PROFILES, ROLES
-from research.reference_executor.wire import action_hash, rec_ref, require, sortset
-from research.strict_v26.upstream_schema import UpstreamSchema
+from competition.support.scene_authority import SceneAuthority, PROFILES, ROLES
+from competition.support.wire import action_hash, rec_ref, require, sortset
+from competition.support.schema import UpstreamSchema
 from competition.profiles.scene_bindings import bound_scene
 
 

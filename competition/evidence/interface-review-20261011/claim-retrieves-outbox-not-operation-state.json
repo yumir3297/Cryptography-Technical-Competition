@@ -1,0 +1,795 @@
+{
+  "repeated_claim": {
+    "profile": "PAY-1",
+    "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+    "attempt_id": "0whmrDoHbNm-4etKwUdK2g",
+    "dispatch_state": "STARTED"
+  },
+  "status": {
+    "profile": "PAY-1",
+    "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+    "acceptance_state": "COMMITTED",
+    "dispatch_state": "SETTLED",
+    "effect_state": "SUCCEEDED",
+    "acceptance": {
+      "body": {
+        "aud": [
+          "auth-payment-g",
+          "auth-payment-h",
+          "auth-payment-u"
+        ],
+        "deps": [],
+        "exp": "1791699139",
+        "iat": "1791698239",
+        "id": "OQPDJ89TuaieRk8dre83-w",
+        "payload": {
+          "accept_seq": "1",
+          "accepted_at": "1791698239",
+          "authorization_ref": "YnZCWmKvFVZ0FaEMPQGOBo8Lfy_1SYI_E3Nbe_Ctaow",
+          "commit_record_ref": "c2ayMbkK2wp3T5KgDBCVgpSIrbIXYvuR1KujTb3YKzM",
+          "ctx": {
+            "action_hash": "lR7UBEpV26Cg64btB-WAUXbMmC70nQW06lgVkzednnU",
+            "basis_ref": "kZfeh7f52M1yScc4sHaEaLdazNQzIRXgPnK5v3aFwVE",
+            "executor": "auth-payment-x",
+            "holder": "auth-payment-h",
+            "holder_kid": "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA",
+            "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+            "policy_ref": "xDRd8TvJJwJlPIknhdRxkegGRY_OTDuLqDfxhrJm2Dc",
+            "principal": "payer",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            }
+          },
+          "dispatch_before": "1791698350",
+          "permit_ref": "fRFT0XUygV1WHm9x23rVJtc35sbJYtpFsU71S_Ox8WU",
+          "proof_ref": "RnRZMp0tcJ_qTDpi9vqRpj9N0j6SEo_m4mDWGYHAMKM",
+          "review_refs": [
+            "KIhCuS8-bPZuuNZitmuPYauBL9qJpSYRxgAXJFOu4ig"
+          ]
+        },
+        "refs": [
+          "KIhCuS8-bPZuuNZitmuPYauBL9qJpSYRxgAXJFOu4ig",
+          "RnRZMp0tcJ_qTDpi9vqRpj9N0j6SEo_m4mDWGYHAMKM",
+          "YnZCWmKvFVZ0FaEMPQGOBo8Lfy_1SYI_E3Nbe_Ctaow",
+          "fRFT0XUygV1WHm9x23rVJtc35sbJYtpFsU71S_Ox8WU"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "payment",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "auth-payment-x",
+        "kid": "OPS4S_pcU3DGsajaMyotcHtwTwdNhUv_R96kalQllOM",
+        "profile": "PAY-1",
+        "proto": "ZJJ-AAP",
+        "type": "Acceptance",
+        "version": "2.6"
+      },
+      "sig": "gR5rjyOYMwmE5Rd0I7gpCX17ETfe6oVWiaUsrsLxQUxkf6H0No8nmeIGorqjZQ0V1MMqN3cAOQ3Sq93OY6GaAw"
+    },
+    "receipt_state": "SIGNED",
+    "attempt_id": "0whmrDoHbNm-4etKwUdK2g",
+    "exec_consumed": true,
+    "queries": 1,
+    "original_envelope": false,
+    "view_kind": "APPLICATION_W_PROJECTION"
+  },
+  "core_request_attempt_id": "xdkv_CjryRczzUpfnWzVWw",
+  "tool_dispatch_attempt_id": "0whmrDoHbNm-4etKwUdK2g",
+  "snapshot": {
+    "profile": "PAY-1",
+    "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+    "operation": {
+      "profile": "PAY-1",
+      "oid": "tK0_9vX2s0EBHmGVol8U8g",
+      "request_ref": "_voM1WP1tIZw-b8YINrhiC1nTxIKEayGSmyg1B6G04k",
+      "intent": "[\"lab\",\"tenant-1\",\"payment\",\"ord\",\"pay\"]",
+      "receipt": {
+        "body": {
+          "aud": [
+            "auth-payment-g",
+            "auth-payment-h",
+            "auth-payment-u"
+          ],
+          "deps": [],
+          "exp": "1791699139",
+          "iat": "1791698239",
+          "id": "OQPDJ89TuaieRk8dre83-w",
+          "payload": {
+            "accept_seq": "1",
+            "accepted_at": "1791698239",
+            "authorization_ref": "YnZCWmKvFVZ0FaEMPQGOBo8Lfy_1SYI_E3Nbe_Ctaow",
+            "commit_record_ref": "c2ayMbkK2wp3T5KgDBCVgpSIrbIXYvuR1KujTb3YKzM",
+            "ctx": {
+              "action_hash": "lR7UBEpV26Cg64btB-WAUXbMmC70nQW06lgVkzednnU",
+              "basis_ref": "kZfeh7f52M1yScc4sHaEaLdazNQzIRXgPnK5v3aFwVE",
+              "executor": "auth-payment-x",
+              "holder": "auth-payment-h",
+              "holder_kid": "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA",
+              "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+              "policy_ref": "xDRd8TvJJwJlPIknhdRxkegGRY_OTDuLqDfxhrJm2Dc",
+              "principal": "payer",
+              "scope": {
+                "domain": "lab",
+                "scenario": "payment",
+                "tenant": "tenant-1"
+              }
+            },
+            "dispatch_before": "1791698350",
+            "permit_ref": "fRFT0XUygV1WHm9x23rVJtc35sbJYtpFsU71S_Ox8WU",
+            "proof_ref": "RnRZMp0tcJ_qTDpi9vqRpj9N0j6SEo_m4mDWGYHAMKM",
+            "review_refs": [
+              "KIhCuS8-bPZuuNZitmuPYauBL9qJpSYRxgAXJFOu4ig"
+            ]
+          },
+          "refs": [
+            "KIhCuS8-bPZuuNZitmuPYauBL9qJpSYRxgAXJFOu4ig",
+            "RnRZMp0tcJ_qTDpi9vqRpj9N0j6SEo_m4mDWGYHAMKM",
+            "YnZCWmKvFVZ0FaEMPQGOBo8Lfy_1SYI_E3Nbe_Ctaow",
+            "fRFT0XUygV1WHm9x23rVJtc35sbJYtpFsU71S_Ox8WU"
+          ],
+          "scope": {
+            "domain": "lab",
+            "scenario": "payment",
+            "tenant": "tenant-1"
+          }
+        },
+        "protected": {
+          "alg": "Ed25519",
+          "issuer": "auth-payment-x",
+          "kid": "OPS4S_pcU3DGsajaMyotcHtwTwdNhUv_R96kalQllOM",
+          "profile": "PAY-1",
+          "proto": "ZJJ-AAP",
+          "type": "Acceptance",
+          "version": "2.6"
+        },
+        "sig": "gR5rjyOYMwmE5Rd0I7gpCX17ETfe6oVWiaUsrsLxQUxkf6H0No8nmeIGorqjZQ0V1MMqN3cAOQ3Sq93OY6GaAw"
+      },
+      "state": "SETTLED",
+      "effect_state": "SUCCEEDED",
+      "observed_fact": {
+        "fact": {
+          "action_hash": "lR7UBEpV26Cg64btB-WAUXbMmC70nQW06lgVkzednnU",
+          "destination": "pay-sim-dest",
+          "dispatch_attempt": "0whmrDoHbNm-4etKwUdK2g",
+          "effect_id": "effect-2049feb476c1ab8701541aca10f1fd11",
+          "final_seq": "1",
+          "finalized_at": "1791698243",
+          "ledger_id": "competition-ledger-pay-1",
+          "no_late_effect": false,
+          "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+          "outcome": "SUCCEEDED",
+          "tool": "pay-sim",
+          "tool_version": "1"
+        },
+        "final_fact_id": "OU4PAGfJs8I_5dukK6J0M-zJQld5Lij31d0aKaDfJ3Y"
+      }
+    },
+    "commit_ref": "c2ayMbkK2wp3T5KgDBCVgpSIrbIXYvuR1KujTb3YKzM",
+    "commit": {
+      "kind": "COMMIT",
+      "profile": "PAY-1",
+      "scope": {
+        "domain": "lab",
+        "scenario": "payment",
+        "tenant": "tenant-1"
+      },
+      "value": {
+        "accept_seq": "1",
+        "accepted_at": "1791698239",
+        "action": {
+          "destination": "pay-sim-dest",
+          "executor": "auth-payment-x",
+          "holder": "auth-payment-h",
+          "holder_kid": "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA",
+          "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+          "payload": {
+            "amount_minor": "2000",
+            "currency": "CNY",
+            "order_id": "ord",
+            "payee": "payee",
+            "payer": "payer",
+            "purpose": "order-settlement",
+            "stage": "pay"
+          },
+          "principal": "payer",
+          "scope": {
+            "domain": "lab",
+            "scenario": "payment",
+            "tenant": "tenant-1"
+          },
+          "tool": "pay-sim",
+          "tool_version": "1"
+        },
+        "authorization_ref": "YnZCWmKvFVZ0FaEMPQGOBo8Lfy_1SYI_E3Nbe_Ctaow",
+        "behavior_after": {
+          "key": [
+            "lab",
+            "tenant-1",
+            "payment",
+            "payer"
+          ],
+          "ref": "EuKcCh5Ow9CL7xKybtIDgSKd-zSdorUs4ytLKh5N1XM",
+          "revision": "2",
+          "row": {
+            "accepted_count": "1",
+            "count_cap": "32",
+            "inflight": [
+              "tK0_9vX2s0EBHmGVol8U8g"
+            ]
+          }
+        },
+        "behavior_before": {
+          "key": [
+            "lab",
+            "tenant-1",
+            "payment",
+            "payer"
+          ],
+          "ref": "s_6Tx8C3-_7zGLwfMqxl06B-ijb2eu6YUn6Rt-XPLj8",
+          "revision": "1",
+          "row": {
+            "accepted_count": "0",
+            "count_cap": "32",
+            "inflight": []
+          }
+        },
+        "checked_deps": [
+          {
+            "key": [
+              "OPS4S_pcU3DGsajaMyotcHtwTwdNhUv_R96kalQllOM"
+            ],
+            "namespace": "KEY",
+            "ref": "jUcj-kG2CugO0mo2ju_gDvX_8y23_sTemFgkbX8Flc0",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "eNx-EYSEx_WKIk-rXR7zrnKxO2lPFAqaAvAAbyHLs2Q"
+            ],
+            "namespace": "KEY",
+            "ref": "1cvaqWJfA18p6xBdMcGjpA8nCBsfpUyGtgMvQxB8LqM",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "gEf115oOD1EBuRnP2aoshauz4QPVsf9mMvjLVvLoKec"
+            ],
+            "namespace": "KEY",
+            "ref": "3weJsseSXBi-MC_fWVMr3ppTVTYJGif5ksh0-3zaG9A",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "auth-payment-e",
+              "SOURCE"
+            ],
+            "namespace": "ROLE",
+            "ref": "S6hfmIC4aN_h0185aF8sgwaizIUZheNYB7k_c2cJ3fM",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "auth-payment-g",
+              "ISSUER"
+            ],
+            "namespace": "ROLE",
+            "ref": "vEJXuiT2qk_0f_uQ-7iT4UU8lVqkC0gH1_26OEjwDW0",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "auth-payment-h",
+              "HOLDER"
+            ],
+            "namespace": "ROLE",
+            "ref": "obYA7kEPKdEf-nhh4LC5s7TYdEqo7ljYYE2QavMkkkg",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "auth-payment-u",
+              "FINANCE"
+            ],
+            "namespace": "ROLE",
+            "ref": "w0eFkYrZxEVgNs_DY64ReQLRCNfPjCAXE2e6LviSdWs",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "auth-payment-v",
+              "ANOMALY"
+            ],
+            "namespace": "ROLE",
+            "ref": "eya1MvngQCqt5oO6U7iOpQHgN1F-jFKq0Etoc1x4Cxk",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "auth-payment-x",
+              "EXECUTOR"
+            ],
+            "namespace": "ROLE",
+            "ref": "14MeBUq2lPl-JdqkhOHQHmnCZq8HSk_06MiJLtefZzI",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "main"
+            ],
+            "namespace": "EXPERIENCE",
+            "ref": "PmIQbAocbSM7u_gdA-Vp2c1RMbUL1yzOixmNChFT_JE",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "ord",
+              "pay"
+            ],
+            "namespace": "ORDER",
+            "ref": "bUPnR9e6CuMYonfKROPb6Aa3MQKeBOGezMajdf4wzpo",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "payer"
+            ],
+            "namespace": "BEHAVIOR",
+            "ref": "s_6Tx8C3-_7zGLwfMqxl06B-ijb2eu6YUn6Rt-XPLj8",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "vjfrodtlj1ChruvS2IinJw"
+            ],
+            "namespace": "TASK",
+            "ref": "PQDzodG5xau5fwnW6D8xQyjFOUxvPZIbWvb71JdZrzk",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment"
+            ],
+            "namespace": "POLICY",
+            "ref": "xDRd8TvJJwJlPIknhdRxkegGRY_OTDuLqDfxhrJm2Dc",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "n7VKXisAjhXo7iwLPcdcNJ9MznYlniIM5zRiLVqnU3o"
+            ],
+            "namespace": "KEY",
+            "ref": "Jtvfs0R5zpQ_DgH5aiur9XTzGrUXIPYC0sarQCCcS1M",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "o9jDKLTnoluvG4XA-CDoCmm6HdYrnBfIjWnPZ3Ztil8"
+            ],
+            "namespace": "KEY",
+            "ref": "Sf42yhg04vvKae86xqC2s0VrBsWECkxJ4h407Cs1HkM",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA"
+            ],
+            "namespace": "KEY",
+            "ref": "rVEoZltUCutF3Enkk7NhN9ARfunZooUkIxqCuvIDaxQ",
+            "revision": "1"
+          }
+        ],
+        "credential_witnesses": [
+          {
+            "key_grant_ref": "1cvaqWJfA18p6xBdMcGjpA8nCBsfpUyGtgMvQxB8LqM",
+            "key_revision": "1",
+            "kid": "eNx-EYSEx_WKIk-rXR7zrnKxO2lPFAqaAvAAbyHLs2Q",
+            "public_key": "aismcC2VMbZtpUJgxSrnVemuMQLG7x-EZ_Fb6QU4Wig",
+            "role": "ISSUER",
+            "role_grant_ref": "vEJXuiT2qk_0f_uQ-7iT4UU8lVqkC0gH1_26OEjwDW0",
+            "role_revision": "1",
+            "subject": "auth-payment-g",
+            "verified_at_seq": "1"
+          },
+          {
+            "key_grant_ref": "3weJsseSXBi-MC_fWVMr3ppTVTYJGif5ksh0-3zaG9A",
+            "key_revision": "1",
+            "kid": "gEf115oOD1EBuRnP2aoshauz4QPVsf9mMvjLVvLoKec",
+            "public_key": "YdKrQ5uUUfoeTgTs4nltp6EyS0clflTG5mde0C8hAyk",
+            "role": "SOURCE",
+            "role_grant_ref": "S6hfmIC4aN_h0185aF8sgwaizIUZheNYB7k_c2cJ3fM",
+            "role_revision": "1",
+            "subject": "auth-payment-e",
+            "verified_at_seq": "1"
+          },
+          {
+            "key_grant_ref": "Jtvfs0R5zpQ_DgH5aiur9XTzGrUXIPYC0sarQCCcS1M",
+            "key_revision": "1",
+            "kid": "n7VKXisAjhXo7iwLPcdcNJ9MznYlniIM5zRiLVqnU3o",
+            "public_key": "dL2If2ZdsWwwpXE_2uFIJ11nAgsHexcmpvgseRTn61o",
+            "role": "FINANCE",
+            "role_grant_ref": "w0eFkYrZxEVgNs_DY64ReQLRCNfPjCAXE2e6LviSdWs",
+            "role_revision": "1",
+            "subject": "auth-payment-u",
+            "verified_at_seq": "1"
+          },
+          {
+            "key_grant_ref": "Sf42yhg04vvKae86xqC2s0VrBsWECkxJ4h407Cs1HkM",
+            "key_revision": "1",
+            "kid": "o9jDKLTnoluvG4XA-CDoCmm6HdYrnBfIjWnPZ3Ztil8",
+            "public_key": "SArZRtYIndU53kA2e9xICpogAoP4wwxzVp8Ouvuqs8o",
+            "role": "ANOMALY",
+            "role_grant_ref": "eya1MvngQCqt5oO6U7iOpQHgN1F-jFKq0Etoc1x4Cxk",
+            "role_revision": "1",
+            "subject": "auth-payment-v",
+            "verified_at_seq": "1"
+          },
+          {
+            "key_grant_ref": "jUcj-kG2CugO0mo2ju_gDvX_8y23_sTemFgkbX8Flc0",
+            "key_revision": "1",
+            "kid": "OPS4S_pcU3DGsajaMyotcHtwTwdNhUv_R96kalQllOM",
+            "public_key": "jlDj1tTG_C0s5Xxf4SiAtg7pzklrvcUX0Xp7MTks86w",
+            "role": "EXECUTOR",
+            "role_grant_ref": "14MeBUq2lPl-JdqkhOHQHmnCZq8HSk_06MiJLtefZzI",
+            "role_revision": "1",
+            "subject": "auth-payment-x",
+            "verified_at_seq": "1"
+          },
+          {
+            "key_grant_ref": "rVEoZltUCutF3Enkk7NhN9ARfunZooUkIxqCuvIDaxQ",
+            "key_revision": "1",
+            "kid": "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA",
+            "public_key": "5jziVm6vOAFUdwTlXJBXUBmpuY9-5LKSr77uqyo6CVI",
+            "role": "HOLDER",
+            "role_grant_ref": "obYA7kEPKdEf-nhh4LC5s7TYdEqo7ljYYE2QavMkkkg",
+            "role_revision": "1",
+            "subject": "auth-payment-h",
+            "verified_at_seq": "1"
+          }
+        ],
+        "ctx": {
+          "action_hash": "lR7UBEpV26Cg64btB-WAUXbMmC70nQW06lgVkzednnU",
+          "basis_ref": "kZfeh7f52M1yScc4sHaEaLdazNQzIRXgPnK5v3aFwVE",
+          "executor": "auth-payment-x",
+          "holder": "auth-payment-h",
+          "holder_kid": "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA",
+          "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+          "policy_ref": "xDRd8TvJJwJlPIknhdRxkegGRY_OTDuLqDfxhrJm2Dc",
+          "principal": "payer",
+          "scope": {
+            "domain": "lab",
+            "scenario": "payment",
+            "tenant": "tenant-1"
+          }
+        },
+        "dispatch_before": "1791698350",
+        "frozen_tool_request": {
+          "destination": "pay-sim-dest",
+          "executor": "auth-payment-x",
+          "holder": "auth-payment-h",
+          "holder_kid": "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA",
+          "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+          "payload": {
+            "amount_minor": "2000",
+            "currency": "CNY",
+            "order_id": "ord",
+            "payee": "payee",
+            "payer": "payer",
+            "purpose": "order-settlement",
+            "stage": "pay"
+          },
+          "principal": "payer",
+          "scope": {
+            "domain": "lab",
+            "scenario": "payment",
+            "tenant": "tenant-1"
+          },
+          "tool": "pay-sim",
+          "tool_version": "1"
+        },
+        "permit_ref": "fRFT0XUygV1WHm9x23rVJtc35sbJYtpFsU71S_Ox8WU",
+        "proof_ref": "RnRZMp0tcJ_qTDpi9vqRpj9N0j6SEo_m4mDWGYHAMKM",
+        "reservation_ids": [
+          "lfulpBuv4Wv3Kn3jX6ppEQ"
+        ],
+        "reservation_plan": [
+          {
+            "amount": "2000",
+            "capacity_before": "10000",
+            "key": [
+              "lab",
+              "tenant-1",
+              "payment",
+              "payer",
+              "CNY"
+            ],
+            "reservation_id": "lfulpBuv4Wv3Kn3jX6ppEQ",
+            "reserved_after": "2000",
+            "reserved_before": "0",
+            "revision_after": "2",
+            "revision_before": "1",
+            "spent_after": "0",
+            "spent_before": "0",
+            "unit": "CNY_MINOR"
+          }
+        ],
+        "review_refs": [
+          "KIhCuS8-bPZuuNZitmuPYauBL9qJpSYRxgAXJFOu4ig"
+        ],
+        "signing_public_key": "jlDj1tTG_C0s5Xxf4SiAtg7pzklrvcUX0Xp7MTks86w",
+        "taskflight": {
+          "key": [
+            "lab",
+            "tenant-1",
+            "payment",
+            "vjfrodtlj1ChruvS2IinJw"
+          ],
+          "operation_id": "tK0_9vX2s0EBHmGVol8U8g"
+        },
+        "trusted_time": {
+          "hi": "1791698239",
+          "lo": "1791698239"
+        }
+      },
+      "version": "2.6"
+    },
+    "acceptance_core": {
+      "body": {
+        "aud": [
+          "auth-payment-g",
+          "auth-payment-h",
+          "auth-payment-u"
+        ],
+        "deps": [],
+        "exp": "1791699139",
+        "iat": "1791698239",
+        "id": "OQPDJ89TuaieRk8dre83-w",
+        "payload": {
+          "accept_seq": "1",
+          "accepted_at": "1791698239",
+          "authorization_ref": "YnZCWmKvFVZ0FaEMPQGOBo8Lfy_1SYI_E3Nbe_Ctaow",
+          "commit_record_ref": "c2ayMbkK2wp3T5KgDBCVgpSIrbIXYvuR1KujTb3YKzM",
+          "ctx": {
+            "action_hash": "lR7UBEpV26Cg64btB-WAUXbMmC70nQW06lgVkzednnU",
+            "basis_ref": "kZfeh7f52M1yScc4sHaEaLdazNQzIRXgPnK5v3aFwVE",
+            "executor": "auth-payment-x",
+            "holder": "auth-payment-h",
+            "holder_kid": "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA",
+            "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+            "policy_ref": "xDRd8TvJJwJlPIknhdRxkegGRY_OTDuLqDfxhrJm2Dc",
+            "principal": "payer",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            }
+          },
+          "dispatch_before": "1791698350",
+          "permit_ref": "fRFT0XUygV1WHm9x23rVJtc35sbJYtpFsU71S_Ox8WU",
+          "proof_ref": "RnRZMp0tcJ_qTDpi9vqRpj9N0j6SEo_m4mDWGYHAMKM",
+          "review_refs": [
+            "KIhCuS8-bPZuuNZitmuPYauBL9qJpSYRxgAXJFOu4ig"
+          ]
+        },
+        "refs": [
+          "KIhCuS8-bPZuuNZitmuPYauBL9qJpSYRxgAXJFOu4ig",
+          "RnRZMp0tcJ_qTDpi9vqRpj9N0j6SEo_m4mDWGYHAMKM",
+          "YnZCWmKvFVZ0FaEMPQGOBo8Lfy_1SYI_E3Nbe_Ctaow",
+          "fRFT0XUygV1WHm9x23rVJtc35sbJYtpFsU71S_Ox8WU"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "payment",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "auth-payment-x",
+        "kid": "OPS4S_pcU3DGsajaMyotcHtwTwdNhUv_R96kalQllOM",
+        "profile": "PAY-1",
+        "proto": "ZJJ-AAP",
+        "type": "Acceptance",
+        "version": "2.6"
+      }
+    },
+    "counts": {
+      "accepts": 1,
+      "outbox": 1,
+      "attempts": 1,
+      "exec_invocations": 1,
+      "execution_sends_observed": 1,
+      "execution_sends_unobserved_upper_bound": 0,
+      "queries": 1,
+      "confirmed_simulated_effects": 1,
+      "settlements": 1,
+      "cancellations": 0,
+      "halts": 0
+    },
+    "resources": [
+      {
+        "profile": "PAY-1",
+        "key": "[\"lab\",\"tenant-1\",\"payment\",\"payer\",\"CNY\"]",
+        "unit": "CNY_MINOR",
+        "capacity": 10000,
+        "reserved": 0,
+        "spent": 2000,
+        "revision": 3
+      }
+    ],
+    "reservations": [
+      {
+        "profile": "PAY-1",
+        "id": "lfulpBuv4Wv3Kn3jX6ppEQ",
+        "oid": "tK0_9vX2s0EBHmGVol8U8g",
+        "key": "[\"lab\",\"tenant-1\",\"payment\",\"payer\",\"CNY\"]",
+        "amount": 2000,
+        "state": "SPENT"
+      }
+    ],
+    "flights": [
+      {
+        "profile": "PAY-1",
+        "key": "[\"lab\",\"tenant-1\",\"payment\",\"vjfrodtlj1ChruvS2IinJw\"]",
+        "oid": "tK0_9vX2s0EBHmGVol8U8g",
+        "active": 0
+      }
+    ],
+    "outbox": {
+      "profile": "PAY-1",
+      "oid": "tK0_9vX2s0EBHmGVol8U8g",
+      "state": "STARTED",
+      "attempt_id": "0whmrDoHbNm-4etKwUdK2g",
+      "exec_marker": 1,
+      "send_observed": 1,
+      "queries": 1
+    },
+    "tool": {
+      "meta": {
+        "profile": "PAY-1",
+        "ledger_id": "competition-ledger-pay-1",
+        "ledger_origin": "JTSwNe5Qp4Pm3R8zDnM8TEvCOQOK4PV1xZ6J242SOeY",
+        "high_water": 1,
+        "ledger_head": "zXvXeN2VsMHQjRQFbZ-o3pV3efIgpEta-55AcVQYUXw"
+      },
+      "requests": [
+        {
+          "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+          "attempt_id": "0whmrDoHbNm-4etKwUdK2g",
+          "request_hash": "3g4yzZoSeq9owCzr-hYPhYQgx7bwcQRVqbD7XN7BF5A",
+          "claim": {
+            "acceptance_ref": "kAcVoW4GUn1BcexMkeYZ4vi883MaXQKTJmUmFNSwxNk",
+            "action": {
+              "destination": "pay-sim-dest",
+              "executor": "auth-payment-x",
+              "holder": "auth-payment-h",
+              "holder_kid": "yJyxJYTBQVnp1LhUR5U3kHeqglavD1gsJcEYL5Q8vWA",
+              "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+              "payload": {
+                "amount_minor": "2000",
+                "currency": "CNY",
+                "order_id": "ord",
+                "payee": "payee",
+                "payer": "payer",
+                "purpose": "order-settlement",
+                "stage": "pay"
+              },
+              "principal": "payer",
+              "scope": {
+                "domain": "lab",
+                "scenario": "payment",
+                "tenant": "tenant-1"
+              },
+              "tool": "pay-sim",
+              "tool_version": "1"
+            },
+            "action_hash": "lR7UBEpV26Cg64btB-WAUXbMmC70nQW06lgVkzednnU",
+            "attempt_id": "0whmrDoHbNm-4etKwUdK2g",
+            "commit_ref": "c2ayMbkK2wp3T5KgDBCVgpSIrbIXYvuR1KujTb3YKzM",
+            "expires": "1791698350",
+            "issued_at": "1791698241",
+            "ledger_id": "competition-ledger-pay-1",
+            "ledger_origin": "JTSwNe5Qp4Pm3R8zDnM8TEvCOQOK4PV1xZ6J242SOeY",
+            "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+            "profile": "PAY-1",
+            "scope": {
+              "domain": "lab",
+              "scenario": "payment",
+              "tenant": "tenant-1"
+            },
+            "tool_trust_ref": "SFzImD3-obURxhrjz83QJe810G5i-on1BPgVmg3mPu0"
+          }
+        }
+      ],
+      "finalfacts": [
+        {
+          "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+          "attempt_id": "0whmrDoHbNm-4etKwUdK2g",
+          "final_seq": 1,
+          "effect_id": "effect-2049feb476c1ab8701541aca10f1fd11",
+          "final_fact_id": "OU4PAGfJs8I_5dukK6J0M-zJQld5Lij31d0aKaDfJ3Y",
+          "fact": {
+            "action_hash": "lR7UBEpV26Cg64btB-WAUXbMmC70nQW06lgVkzednnU",
+            "destination": "pay-sim-dest",
+            "dispatch_attempt": "0whmrDoHbNm-4etKwUdK2g",
+            "effect_id": "effect-2049feb476c1ab8701541aca10f1fd11",
+            "final_seq": "1",
+            "finalized_at": "1791698243",
+            "ledger_id": "competition-ledger-pay-1",
+            "no_late_effect": false,
+            "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+            "outcome": "SUCCEEDED",
+            "tool": "pay-sim",
+            "tool_version": "1"
+          }
+        }
+      ],
+      "effects": {
+        "payments": [
+          {
+            "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+            "attempt_id": "0whmrDoHbNm-4etKwUdK2g",
+            "effect_id": "effect-2049feb476c1ab8701541aca10f1fd11",
+            "payload": {
+              "amount_minor": "2000",
+              "currency": "CNY",
+              "order_id": "ord",
+              "payee": "payee",
+              "payer": "payer",
+              "purpose": "order-settlement",
+              "stage": "pay"
+            },
+            "order_id": "ord",
+            "stage": "pay",
+            "payer": "payer",
+            "payee": "payee",
+            "amount_minor": "2000",
+            "currency": "CNY",
+            "purpose": "order-settlement"
+          }
+        ],
+        "industrial_routes": [],
+        "medical_orders": []
+      },
+      "effect_count": 1
+    },
+    "effect_count": 1
+  }
+}

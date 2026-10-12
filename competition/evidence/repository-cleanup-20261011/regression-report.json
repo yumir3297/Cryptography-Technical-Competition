@@ -1,0 +1,19 @@
+{
+  "kind": "competition_complete_suite_by_verified_segments",
+  "passed": true,
+  "collected_tests": 124,
+  "unique_passed_tests": 124,
+  "segments": [
+    {
+      "log": "competition-regression.log",
+      "passed_tests": 115,
+      "interrupted_before_suite_summary": true
+    },
+    {
+      "log": "competition-regression-resumed.log",
+      "passed_tests": 9,
+      "interrupted_before_suite_summary": false
+    }
+  ],
+  "scope": "124 unique collected tests covered by 115 completed tests before interruption plus a fresh 9-test remainder; not a claim of a single uninterrupted run."
+}

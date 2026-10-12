@@ -1,69 +1,32 @@
-# ZJJ-CORE — Competition Edition (work in progress)
+# 比赛软件开发入口
 
-> **先读交付定义**：[`../00_COMPETITION_FINAL_DELIVERY_SPEC.md`](../00_COMPETITION_FINAL_DELIVERY_SPEC.md) — 最终效果、P0/P1/P2 修复、竞赛验收矩阵和本地端逐项对齐表。
+先读[协议交接](FINAL_PROTOCOL_HANDOFF.md)，接线时使用[真实内部接口对照](docs/final/interface-reference.md)。CommonW 是工业、付款、医疗共用的接受、领取、执行、恢复与结算入口。
 
-This **branch** is an independent competition delivery track started at
-`research/zjj-core-phase13-handoff-20261009`, commit
-`3633db637c52bb0429c0b61af426d4c7eced5097`.
-The research branch, protocol-time study and original 39-case manifest remain
-unchanged. Do not merge this branch into `main` as an R2 conformance release.
+| 目录 | 用途 |
+|---|---|
+| core/ | 当前身份、来源、批准、时间、持久接受、回执和共同 W |
+| profiles/ | 固定三场景的绑定、安全规则及受控初始化 |
+| tools/ | 三个签名模拟工具与独立效果账 |
+| support/ | 运行和测试实际依赖的编码、场景校验及恢复基础模块 |
+| tests/ | 比赛组件、并发、故障恢复与终局回归 |
+| docs/final/ | 比赛协议、接口、场景交接及证据口径 |
+| evidence/ | 不含运行私钥的比赛模拟与核验记录 |
 
-## Current scope and evidence
+从仓库根目录运行：
 
-Local update 2026-10-11: the common A authorization path and fixed PAY roster are
-implemented in `core/authorization.py`, `core/trusted_state.py` and
-`core/signer_broker.py`; IND actual prepare/accept shares its DENY transaction.
-See [authorization-contract.md](docs/authorization-contract.md). PR3 adds the
-three-Profile `core/common_w.py` transaction and separate signed simulator
-ledgers; see [w-transaction-contract.md](docs/w-transaction-contract.md).
-Common guard T remains an authorization fact; only CommonW creates COMMIT.
-The historical rows below identify the original experiments.
-
-| Item | State | Evidence / limitation |
-|---|---|---|
-| IND-Demo-1 pre-existing Phase18 industrial execution loop | existing scoped PASS, rechecked on competition branch | 25 process stages, Linux DAC role keys, dedicated W/Tool signature, one SQLite simulated effect |
-| MED-DEMO-1 Phase18 clinical reviewer + execution candidate | 26-step scoped PASS on competition branch | reuses role broker, W acceptance, signed gateway and single simulated tool fact; still fixed lab times |
-| PAY-1 legacy local verifier-only path | existing scoped regression only | NOT yet migrated to unified W, role broker custody or common outbox |
-| Signed C clock sequence + durable lower floor | implemented | `competition/core/trusted_clock.py`, bounded interval/replay/rollback/transaction regressions |
-| Cross-profile competition signing broker | implemented scoped | Fresh actual PoP/C enrollment, PAY H/G/X/U/V, complete role/purpose/scope/business filtering; Windows same-user bootstrap remains trusted, Linux DAC not proven in this run |
-| PREPARE -> X Sign -> FINALIZE with real elapsed time | **BLOCKED** | legacy Phase14 requires identical times; `test_acceptance_gap.py` records this deliberately RED business capability |
-| Shared authorization guard / three derivation adapters | implemented scoped; full CoreService pending | Common current identity/signatures/Review/DENY/Deps/source/ACL; actual IND acceptance connected, MED/PAY resource/dispatch/settle future |
-| Original 39 full official obligations | **0 FULL PASS / 39 BLOCKED** | unchanged original adjudicator; competition tests are not official substitutes |
-
-The new clock adapter is not yet wired into legacy Phase14/15 W acceptance; the protected research clock code is preserved byte-for-byte so its original evidence hashes remain valid.
-
-The Phase18 lab signer broker remains privileged-runner administered. It
-restricts domain, profile, role and key but does **not** independently approve
-business operations; the current `C` clock is a lab-signed oracle, not a
-demonstrated wall-clock attestation. Tool effects are simulated, not physical,
-medical, or financial. No key material from `/tmp` may be uploaded.
-
-## Reproduce the first patch
-
-```bash
-python -m pip install -r requirements_phase13.txt
+```powershell
+python -m pip install -r requirements.txt
 python -m unittest discover -s competition/tests -v
-python -m unittest research.phase14.test_phase14 research.phase15.test_pay_accept -v
-python -m research.formal39.run_formal39
-# Isolated disposable Ubuntu machine with passwordless sudo only:
-python -m research.phase18.process_flow --output /tmp/zjj_comp_ind
-PHASE18_LAB_PATH=/tmp/zjj_comp_ind python -m unittest research.phase18.test_isolated_signers -v
+python -m competition.run_w_slice --output .runtime/demo-evidence
+python -m competition.verify_w_slice .runtime/demo-evidence --manifest-sha256 <manifest摘要> --report .runtime/demo-verification.json
 ```
 
-GitHub Actions: `.github/workflows/competition-security-baseline.yml`.
-The known-gap test succeeds when the legacy path **rejects** an elapsed-time
-acceptance; that test is NOT evidence that elapsed-time acceptance works.
+输出目录必须是新的路径。运行初始化会生成临时测试角色钥和本地 SQLite 账，保存在被 Git 忽略的 `.runtime/`；公开证据导出器只导出公钥、签名和账投影。演示先经受控初始化与批准构造，再接 CommonW，不能把 fixture 当成外部认证入口。
 
-Current local P-01–P-03 slice: `competition/core/acceptance.py` now performs
-R2 durable W acceptance before X signs the original committed Core. It uses a
-real advancing host-clock Provider, current event/window/identity checks and
-frozen receipt recovery. That historical class covers IND acceptance/receipt
-and still blocks claim; new CommonW implements the PR3 three-profile path. The legacy
-TIME_CHANGED test remains a known-gap detector for unchanged research code.
-See [acceptance sequence](docs/acceptance-sequence.md) and run:
-
-```text
-python -m competition.run_time_slice --output competition/evidence/time-slice-20261010-final
+```powershell
+python competition/docs/final/verify-existing-evidence.py
+python -m competition.verify_repository --report .runtime/repository-check.json
+python system_dev/v26/tools/verify_contracts.py
 ```
 
-The Windows run does not prove Linux DAC isolation or external time trust.
+第一条按证据记录的 Git 提交核对既有 W 22 例和同 ID 3 例，不声称这些旧运行来自整理后的源码。第二条检查当前入口、依赖和材料引用；第三条只检查 Schema、编码和密码向量。三个场景的实际正常、拒绝和恢复路径见各自交接。

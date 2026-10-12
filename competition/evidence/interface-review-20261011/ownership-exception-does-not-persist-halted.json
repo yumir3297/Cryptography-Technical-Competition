@@ -1,0 +1,764 @@
+{
+  "reason": "FLIGHT_OWNERSHIP",
+  "status": {
+    "profile": "MED-DEMO-1",
+    "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+    "acceptance_state": "COMMITTED",
+    "dispatch_state": "PENDING",
+    "effect_state": "NO_ATTEMPT",
+    "acceptance": {
+      "body": {
+        "aud": [
+          "auth-medical-g",
+          "auth-medical-h",
+          "auth-medical-u"
+        ],
+        "deps": [],
+        "exp": "1791699146",
+        "iat": "1791698246",
+        "id": "32YHtO8-rZf_TRxb_SSeuA",
+        "payload": {
+          "accept_seq": "2",
+          "accepted_at": "1791698246",
+          "authorization_ref": "q3bEI1cNZxlHP5321uMvF9vFDhhGFPnnBJSPtPyRHx0",
+          "commit_record_ref": "U4sfHBtwClGb70lq5wP2IAd5lxOJU8ifSLQwCUbi2CA",
+          "ctx": {
+            "action_hash": "J7rDFfNeEVNZiFE_5Wh4kJIEysefXFiisDruAIsmhuM",
+            "basis_ref": "757c6wDGAMPssi5b76dP91bTKe4Oq_IPXIxOHhlgQoE",
+            "executor": "auth-medical-x",
+            "holder": "auth-medical-h",
+            "holder_kid": "8bTBQm8gQQ-OicQh4niHqoiNx1NIfPrS-KpgD2vr85E",
+            "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+            "policy_ref": "OBESkSVV_2nZ1YjWEa_D98Hjt_JlyeiJ5YYT0N0fytY",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            }
+          },
+          "dispatch_before": "1791698350",
+          "permit_ref": "032-T4XtnmqfBZo5-RyPsxKRaOlai1NcdzKQphmuKs0",
+          "proof_ref": "p5xuLT3rEFIKo5hDMOEOgLQQ6bnEPu9Ha-Pt9V6vblI",
+          "review_refs": [
+            "C9fewIGRM7WEn_M9yMyPtAiV5f2wIBRapS2u07KDc4I"
+          ]
+        },
+        "refs": [
+          "032-T4XtnmqfBZo5-RyPsxKRaOlai1NcdzKQphmuKs0",
+          "C9fewIGRM7WEn_M9yMyPtAiV5f2wIBRapS2u07KDc4I",
+          "p5xuLT3rEFIKo5hDMOEOgLQQ6bnEPu9Ha-Pt9V6vblI",
+          "q3bEI1cNZxlHP5321uMvF9vFDhhGFPnnBJSPtPyRHx0"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "auth-medical-x",
+        "kid": "EvP63fXgejMLc5Qd6gr4_rnpgrW25oE0TUKKpDjrk4E",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "Acceptance",
+        "version": "2.6"
+      },
+      "sig": "IU9E6AYakALWDktfXQkLM5fDyO-w7V917vwE1jYSCJludvPtRMTvkyPeTuT31Cic3wXPbObWwsMv_KsTTcedAg"
+    },
+    "receipt_state": "SIGNED",
+    "attempt_id": null,
+    "exec_consumed": false,
+    "queries": 0,
+    "original_envelope": false,
+    "view_kind": "APPLICATION_W_PROJECTION"
+  },
+  "snapshot": {
+    "profile": "MED-DEMO-1",
+    "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+    "operation": {
+      "profile": "MED-DEMO-1",
+      "oid": "QPuo5IbjxYcsgMqCf_WwwA",
+      "request_ref": "APmK2i3ZFH9pKNRjEC_gpkKtHFSqOPsYuD8kflDR3HM",
+      "intent": "[\"lab\",\"tenant-1\",\"medical\",\"patient-a\",\"encounter-a\",\"umcs9ILuWiKumRhUhIp3Ww\",\"SUBMIT\"]",
+      "receipt": {
+        "body": {
+          "aud": [
+            "auth-medical-g",
+            "auth-medical-h",
+            "auth-medical-u"
+          ],
+          "deps": [],
+          "exp": "1791699146",
+          "iat": "1791698246",
+          "id": "32YHtO8-rZf_TRxb_SSeuA",
+          "payload": {
+            "accept_seq": "2",
+            "accepted_at": "1791698246",
+            "authorization_ref": "q3bEI1cNZxlHP5321uMvF9vFDhhGFPnnBJSPtPyRHx0",
+            "commit_record_ref": "U4sfHBtwClGb70lq5wP2IAd5lxOJU8ifSLQwCUbi2CA",
+            "ctx": {
+              "action_hash": "J7rDFfNeEVNZiFE_5Wh4kJIEysefXFiisDruAIsmhuM",
+              "basis_ref": "757c6wDGAMPssi5b76dP91bTKe4Oq_IPXIxOHhlgQoE",
+              "executor": "auth-medical-x",
+              "holder": "auth-medical-h",
+              "holder_kid": "8bTBQm8gQQ-OicQh4niHqoiNx1NIfPrS-KpgD2vr85E",
+              "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+              "policy_ref": "OBESkSVV_2nZ1YjWEa_D98Hjt_JlyeiJ5YYT0N0fytY",
+              "principal": "principal",
+              "scope": {
+                "domain": "lab",
+                "scenario": "medical",
+                "tenant": "tenant-1"
+              }
+            },
+            "dispatch_before": "1791698350",
+            "permit_ref": "032-T4XtnmqfBZo5-RyPsxKRaOlai1NcdzKQphmuKs0",
+            "proof_ref": "p5xuLT3rEFIKo5hDMOEOgLQQ6bnEPu9Ha-Pt9V6vblI",
+            "review_refs": [
+              "C9fewIGRM7WEn_M9yMyPtAiV5f2wIBRapS2u07KDc4I"
+            ]
+          },
+          "refs": [
+            "032-T4XtnmqfBZo5-RyPsxKRaOlai1NcdzKQphmuKs0",
+            "C9fewIGRM7WEn_M9yMyPtAiV5f2wIBRapS2u07KDc4I",
+            "p5xuLT3rEFIKo5hDMOEOgLQQ6bnEPu9Ha-Pt9V6vblI",
+            "q3bEI1cNZxlHP5321uMvF9vFDhhGFPnnBJSPtPyRHx0"
+          ],
+          "scope": {
+            "domain": "lab",
+            "scenario": "medical",
+            "tenant": "tenant-1"
+          }
+        },
+        "protected": {
+          "alg": "Ed25519",
+          "issuer": "auth-medical-x",
+          "kid": "EvP63fXgejMLc5Qd6gr4_rnpgrW25oE0TUKKpDjrk4E",
+          "profile": "MED-DEMO-1",
+          "proto": "ZJJ-AAP",
+          "type": "Acceptance",
+          "version": "2.6"
+        },
+        "sig": "IU9E6AYakALWDktfXQkLM5fDyO-w7V917vwE1jYSCJludvPtRMTvkyPeTuT31Cic3wXPbObWwsMv_KsTTcedAg"
+      },
+      "state": "PENDING",
+      "effect_state": "NO_ATTEMPT",
+      "observed_fact": null
+    },
+    "commit_ref": "U4sfHBtwClGb70lq5wP2IAd5lxOJU8ifSLQwCUbi2CA",
+    "commit": {
+      "kind": "COMMIT",
+      "profile": "MED-DEMO-1",
+      "scope": {
+        "domain": "lab",
+        "scenario": "medical",
+        "tenant": "tenant-1"
+      },
+      "value": {
+        "accept_seq": "2",
+        "accepted_at": "1791698246",
+        "action": {
+          "destination": "med-demo-ledger",
+          "executor": "auth-medical-x",
+          "holder": "auth-medical-h",
+          "holder_kid": "8bTBQm8gQQ-OicQh4niHqoiNx1NIfPrS-KpgD2vr85E",
+          "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+          "payload": {
+            "destination_system": "med-demo-ledger",
+            "encounter_id": "encounter-a",
+            "order_group_id": "umcs9ILuWiKumRhUhIp3Ww",
+            "phase": "SUBMIT",
+            "record_ref": "W2fAk0Nl6rGC3fxjYGQOtD4gJuvBCprJRUamWIrKkBI",
+            "synthetic_patient_id": "patient-a",
+            "template_id": "DEMO-ORDER-A"
+          },
+          "principal": "principal",
+          "scope": {
+            "domain": "lab",
+            "scenario": "medical",
+            "tenant": "tenant-1"
+          },
+          "tool": "med-order-sim",
+          "tool_version": "1"
+        },
+        "authorization_ref": "q3bEI1cNZxlHP5321uMvF9vFDhhGFPnnBJSPtPyRHx0",
+        "behavior_after": {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "principal"
+          ],
+          "ref": "atvf_gasWZtvavZ54sFy1yUWPDZe6xmhcS4hWggi1JI",
+          "revision": "2",
+          "row": {
+            "accepted_count": "1",
+            "count_cap": "32",
+            "inflight": [
+              "QPuo5IbjxYcsgMqCf_WwwA"
+            ]
+          }
+        },
+        "behavior_before": {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "principal"
+          ],
+          "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+          "revision": "1",
+          "row": {
+            "accepted_count": "0",
+            "count_cap": "32",
+            "inflight": []
+          }
+        },
+        "checked_deps": [
+          {
+            "key": [
+              "8bTBQm8gQQ-OicQh4niHqoiNx1NIfPrS-KpgD2vr85E"
+            ],
+            "namespace": "KEY",
+            "ref": "U-uv-rTACeOL33AczZgCj5ILVVx5zOJcqKjh-p3aqU4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "Bo7Ps3J3j4MJ1sVr9RWEcmCUxb3BwhqL6iftRYnz8RU"
+            ],
+            "namespace": "KEY",
+            "ref": "F5RiAkmReqnMb5iCjV8yPXGmwwzDyu84bGU4MEoMrxw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "EvP63fXgejMLc5Qd6gr4_rnpgrW25oE0TUKKpDjrk4E"
+            ],
+            "namespace": "KEY",
+            "ref": "zACbTzGqw6Ug2aGOsupn8zQUhH6CGJpZDP-24xX44KI",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "I4prPhepx24gFqLWwH3SzpmcFgMvQWfpJoo5A5OYG3c"
+            ],
+            "namespace": "KEY",
+            "ref": "QPMu7QXMeP4x0VEbKQZ2Wv32XSLpRQ_kZtwlBbgReaA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "jc-twOoVf85cJaQAD8IrS1PdYFhTuBwWbGbo3xL0zWk"
+            ],
+            "namespace": "KEY",
+            "ref": "4JzcwJSCOcde3c7hZa7Nv3tEZY5rkDkOX0Em6TGOyUA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-e",
+              "SOURCE"
+            ],
+            "namespace": "ROLE",
+            "ref": "HaiNDCfEiU_bFOdHtvgcnbmOCmjze09VP1umGG5LicA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-g",
+              "ISSUER"
+            ],
+            "namespace": "ROLE",
+            "ref": "Sq59EMsPJ6IlNSAWVSKA9ic_9eMgHjuuNG7qu-9yLV8",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-g",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "SLgiwnmUPJ8B3wVxab9_S_MJqA6I58XSqxtw4E4KQi0",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-h",
+              "HOLDER"
+            ],
+            "namespace": "ROLE",
+            "ref": "4CJaNSKmHFG99sZrPFfGH69FDFdj6qVtGg3xb9eFxfg",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-h",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "KScyW1WSZNR0YGHusLEkiuqIBzNH8KBplqrDQhIk9lc",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-u",
+              "MEDICAL_AUTHORIZER"
+            ],
+            "namespace": "ROLE",
+            "ref": "EOQqaHuRaKNO6lMKjvQd72y0B86SnAfuxlcW8QKr9is",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-u",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "sXPrL2w0mF-sVKi-32PkN4e_HdVwAOvzmoge_TyzLnU",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-v",
+              "CLINICAL_REVIEWER"
+            ],
+            "namespace": "ROLE",
+            "ref": "jnTGvqw0Ym1DRGBe0pZ8tzbEAGyFaGz1ZaQOaCnLLG4",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-v",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "eKJpEUSQtn3H98igj79CURgjEy84uxMyb8d4ED9jUog",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-x",
+              "EXECUTOR"
+            ],
+            "namespace": "ROLE",
+            "ref": "jU7BbfTOxDu-dT4dBYdmY9qPQwZfQX1XjuVSXUhEYtA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "auth-medical-x",
+              "READER"
+            ],
+            "namespace": "ROLE",
+            "ref": "isVYYcLG29ZEfthrbe-9_6XOdVF3eD4FXIttobTYOTo",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "patient-a",
+              "encounter-a"
+            ],
+            "namespace": "ENCOUNTER",
+            "ref": "Z2oxGYmTHmbGjHPX7k6c5MJR0V5T0L6Pk2etL8Zt8pc",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "principal"
+            ],
+            "namespace": "BEHAVIOR",
+            "ref": "D7BLB2I1-vS6Pye03xSYPKk0yCR5ceCtpw8JUBs6SkA",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "yOg5f4iwytIWwYSxdvJl3A"
+            ],
+            "namespace": "TASK",
+            "ref": "zDNqgcJY5XFvKMrBYz50MhmzWCZ-xuNt66Jl8g2QIgw",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical"
+            ],
+            "namespace": "POLICY",
+            "ref": "OBESkSVV_2nZ1YjWEa_D98Hjt_JlyeiJ5YYT0N0fytY",
+            "revision": "1"
+          },
+          {
+            "key": [
+              "mSMrSF6pMlnahD1U-Y8q03bURLkdYTzE6r0c_l-pQ6k"
+            ],
+            "namespace": "KEY",
+            "ref": "yahUbkGRZfqBxxgGDowLAj-_57GyfeemC2drfejNZMQ",
+            "revision": "1"
+          }
+        ],
+        "credential_witnesses": [
+          {
+            "key_grant_ref": "4JzcwJSCOcde3c7hZa7Nv3tEZY5rkDkOX0Em6TGOyUA",
+            "key_revision": "1",
+            "kid": "jc-twOoVf85cJaQAD8IrS1PdYFhTuBwWbGbo3xL0zWk",
+            "public_key": "Aa8G9s49FtZ8tbR3RAc1ip8umVnJhw8A-UTDeqXm3Vg",
+            "role": "MEDICAL_AUTHORIZER",
+            "role_grant_ref": "EOQqaHuRaKNO6lMKjvQd72y0B86SnAfuxlcW8QKr9is",
+            "role_revision": "1",
+            "subject": "auth-medical-u",
+            "verified_at_seq": "2"
+          },
+          {
+            "key_grant_ref": "F5RiAkmReqnMb5iCjV8yPXGmwwzDyu84bGU4MEoMrxw",
+            "key_revision": "1",
+            "kid": "Bo7Ps3J3j4MJ1sVr9RWEcmCUxb3BwhqL6iftRYnz8RU",
+            "public_key": "BjVSj0dLSf40KTNP1A8GuN9HrzmG1SMFYCPFkejIX9k",
+            "role": "SOURCE",
+            "role_grant_ref": "HaiNDCfEiU_bFOdHtvgcnbmOCmjze09VP1umGG5LicA",
+            "role_revision": "1",
+            "subject": "auth-medical-e",
+            "verified_at_seq": "2"
+          },
+          {
+            "key_grant_ref": "QPMu7QXMeP4x0VEbKQZ2Wv32XSLpRQ_kZtwlBbgReaA",
+            "key_revision": "1",
+            "kid": "I4prPhepx24gFqLWwH3SzpmcFgMvQWfpJoo5A5OYG3c",
+            "public_key": "6Tof-1Ir7dmCOdoauq68O2xoXyg2lPjSWKBNWKL-FRI",
+            "role": "CLINICAL_REVIEWER",
+            "role_grant_ref": "jnTGvqw0Ym1DRGBe0pZ8tzbEAGyFaGz1ZaQOaCnLLG4",
+            "role_revision": "1",
+            "subject": "auth-medical-v",
+            "verified_at_seq": "2"
+          },
+          {
+            "key_grant_ref": "U-uv-rTACeOL33AczZgCj5ILVVx5zOJcqKjh-p3aqU4",
+            "key_revision": "1",
+            "kid": "8bTBQm8gQQ-OicQh4niHqoiNx1NIfPrS-KpgD2vr85E",
+            "public_key": "uBU7eic8b9huCWhsXYbyY0Uc33o65CnMIO6Tl1bYzXU",
+            "role": "HOLDER",
+            "role_grant_ref": "4CJaNSKmHFG99sZrPFfGH69FDFdj6qVtGg3xb9eFxfg",
+            "role_revision": "1",
+            "subject": "auth-medical-h",
+            "verified_at_seq": "2"
+          },
+          {
+            "key_grant_ref": "yahUbkGRZfqBxxgGDowLAj-_57GyfeemC2drfejNZMQ",
+            "key_revision": "1",
+            "kid": "mSMrSF6pMlnahD1U-Y8q03bURLkdYTzE6r0c_l-pQ6k",
+            "public_key": "TCBT1ZVRiRVBktoNcJyZCFgl5JuhoCFMmy-gIqfSWRM",
+            "role": "ISSUER",
+            "role_grant_ref": "Sq59EMsPJ6IlNSAWVSKA9ic_9eMgHjuuNG7qu-9yLV8",
+            "role_revision": "1",
+            "subject": "auth-medical-g",
+            "verified_at_seq": "2"
+          },
+          {
+            "key_grant_ref": "zACbTzGqw6Ug2aGOsupn8zQUhH6CGJpZDP-24xX44KI",
+            "key_revision": "1",
+            "kid": "EvP63fXgejMLc5Qd6gr4_rnpgrW25oE0TUKKpDjrk4E",
+            "public_key": "Fo1CZ_0vY9sYslpzn5crmaxubaxXDtL7G4iE3_u1BwQ",
+            "role": "EXECUTOR",
+            "role_grant_ref": "jU7BbfTOxDu-dT4dBYdmY9qPQwZfQX1XjuVSXUhEYtA",
+            "role_revision": "1",
+            "subject": "auth-medical-x",
+            "verified_at_seq": "2"
+          }
+        ],
+        "ctx": {
+          "action_hash": "J7rDFfNeEVNZiFE_5Wh4kJIEysefXFiisDruAIsmhuM",
+          "basis_ref": "757c6wDGAMPssi5b76dP91bTKe4Oq_IPXIxOHhlgQoE",
+          "executor": "auth-medical-x",
+          "holder": "auth-medical-h",
+          "holder_kid": "8bTBQm8gQQ-OicQh4niHqoiNx1NIfPrS-KpgD2vr85E",
+          "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+          "policy_ref": "OBESkSVV_2nZ1YjWEa_D98Hjt_JlyeiJ5YYT0N0fytY",
+          "principal": "principal",
+          "scope": {
+            "domain": "lab",
+            "scenario": "medical",
+            "tenant": "tenant-1"
+          }
+        },
+        "dispatch_before": "1791698350",
+        "frozen_tool_request": {
+          "destination": "med-demo-ledger",
+          "executor": "auth-medical-x",
+          "holder": "auth-medical-h",
+          "holder_kid": "8bTBQm8gQQ-OicQh4niHqoiNx1NIfPrS-KpgD2vr85E",
+          "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+          "payload": {
+            "destination_system": "med-demo-ledger",
+            "encounter_id": "encounter-a",
+            "order_group_id": "umcs9ILuWiKumRhUhIp3Ww",
+            "phase": "SUBMIT",
+            "record_ref": "W2fAk0Nl6rGC3fxjYGQOtD4gJuvBCprJRUamWIrKkBI",
+            "synthetic_patient_id": "patient-a",
+            "template_id": "DEMO-ORDER-A"
+          },
+          "principal": "principal",
+          "scope": {
+            "domain": "lab",
+            "scenario": "medical",
+            "tenant": "tenant-1"
+          },
+          "tool": "med-order-sim",
+          "tool_version": "1"
+        },
+        "permit_ref": "032-T4XtnmqfBZo5-RyPsxKRaOlai1NcdzKQphmuKs0",
+        "proof_ref": "p5xuLT3rEFIKo5hDMOEOgLQQ6bnEPu9Ha-Pt9V6vblI",
+        "reservation_ids": [
+          "Z5x8k5dAQHVmVm-m8PCJWQ"
+        ],
+        "reservation_plan": [
+          {
+            "amount": "1",
+            "capacity_before": "8",
+            "key": [
+              "lab",
+              "tenant-1",
+              "medical",
+              "order-capacity",
+              "med-demo-ledger",
+              "order"
+            ],
+            "reservation_id": "Z5x8k5dAQHVmVm-m8PCJWQ",
+            "reserved_after": "1",
+            "reserved_before": "0",
+            "revision_after": "2",
+            "revision_before": "1",
+            "spent_after": "0",
+            "spent_before": "0",
+            "unit": "ORDER"
+          }
+        ],
+        "review_refs": [
+          "C9fewIGRM7WEn_M9yMyPtAiV5f2wIBRapS2u07KDc4I"
+        ],
+        "scene_after": {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "patient-a",
+            "encounter-a"
+          ],
+          "namespace": "ENCOUNTER",
+          "ref": "6TKDP-3EwGbc3y9E_LTnWo-Z5Vl5A3SSkBI4FTVvOxg",
+          "revision": "2",
+          "row": {
+            "encounter_ref": "h269X-DM8ImMasEasF8REkGzqyA02DvR8Aoro3ZDFN4",
+            "evidence_ref": "W2fAk0Nl6rGC3fxjYGQOtD4gJuvBCprJRUamWIrKkBI",
+            "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+            "order_group_id": "umcs9ILuWiKumRhUhIp3Ww",
+            "phase": "SUBMIT",
+            "state": "ACCEPTED"
+          }
+        },
+        "scene_before": {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "patient-a",
+            "encounter-a"
+          ],
+          "namespace": "ENCOUNTER",
+          "ref": "Z2oxGYmTHmbGjHPX7k6c5MJR0V5T0L6Pk2etL8Zt8pc",
+          "revision": "1",
+          "row": {
+            "encounter_ref": "h269X-DM8ImMasEasF8REkGzqyA02DvR8Aoro3ZDFN4",
+            "evidence_ref": "W2fAk0Nl6rGC3fxjYGQOtD4gJuvBCprJRUamWIrKkBI",
+            "operation_id": "",
+            "order_group_id": "umcs9ILuWiKumRhUhIp3Ww",
+            "phase": "SUBMIT",
+            "state": "READY"
+          }
+        },
+        "signing_public_key": "Fo1CZ_0vY9sYslpzn5crmaxubaxXDtL7G4iE3_u1BwQ",
+        "taskflight": {
+          "key": [
+            "lab",
+            "tenant-1",
+            "medical",
+            "yOg5f4iwytIWwYSxdvJl3A"
+          ],
+          "operation_id": "QPuo5IbjxYcsgMqCf_WwwA"
+        },
+        "trusted_time": {
+          "hi": "1791698247",
+          "lo": "1791698246"
+        }
+      },
+      "version": "2.6"
+    },
+    "acceptance_core": {
+      "body": {
+        "aud": [
+          "auth-medical-g",
+          "auth-medical-h",
+          "auth-medical-u"
+        ],
+        "deps": [],
+        "exp": "1791699146",
+        "iat": "1791698246",
+        "id": "32YHtO8-rZf_TRxb_SSeuA",
+        "payload": {
+          "accept_seq": "2",
+          "accepted_at": "1791698246",
+          "authorization_ref": "q3bEI1cNZxlHP5321uMvF9vFDhhGFPnnBJSPtPyRHx0",
+          "commit_record_ref": "U4sfHBtwClGb70lq5wP2IAd5lxOJU8ifSLQwCUbi2CA",
+          "ctx": {
+            "action_hash": "J7rDFfNeEVNZiFE_5Wh4kJIEysefXFiisDruAIsmhuM",
+            "basis_ref": "757c6wDGAMPssi5b76dP91bTKe4Oq_IPXIxOHhlgQoE",
+            "executor": "auth-medical-x",
+            "holder": "auth-medical-h",
+            "holder_kid": "8bTBQm8gQQ-OicQh4niHqoiNx1NIfPrS-KpgD2vr85E",
+            "operation_id": "QPuo5IbjxYcsgMqCf_WwwA",
+            "policy_ref": "OBESkSVV_2nZ1YjWEa_D98Hjt_JlyeiJ5YYT0N0fytY",
+            "principal": "principal",
+            "scope": {
+              "domain": "lab",
+              "scenario": "medical",
+              "tenant": "tenant-1"
+            }
+          },
+          "dispatch_before": "1791698350",
+          "permit_ref": "032-T4XtnmqfBZo5-RyPsxKRaOlai1NcdzKQphmuKs0",
+          "proof_ref": "p5xuLT3rEFIKo5hDMOEOgLQQ6bnEPu9Ha-Pt9V6vblI",
+          "review_refs": [
+            "C9fewIGRM7WEn_M9yMyPtAiV5f2wIBRapS2u07KDc4I"
+          ]
+        },
+        "refs": [
+          "032-T4XtnmqfBZo5-RyPsxKRaOlai1NcdzKQphmuKs0",
+          "C9fewIGRM7WEn_M9yMyPtAiV5f2wIBRapS2u07KDc4I",
+          "p5xuLT3rEFIKo5hDMOEOgLQQ6bnEPu9Ha-Pt9V6vblI",
+          "q3bEI1cNZxlHP5321uMvF9vFDhhGFPnnBJSPtPyRHx0"
+        ],
+        "scope": {
+          "domain": "lab",
+          "scenario": "medical",
+          "tenant": "tenant-1"
+        }
+      },
+      "protected": {
+        "alg": "Ed25519",
+        "issuer": "auth-medical-x",
+        "kid": "EvP63fXgejMLc5Qd6gr4_rnpgrW25oE0TUKKpDjrk4E",
+        "profile": "MED-DEMO-1",
+        "proto": "ZJJ-AAP",
+        "type": "Acceptance",
+        "version": "2.6"
+      }
+    },
+    "counts": {
+      "accepts": 2,
+      "outbox": 2,
+      "attempts": 1,
+      "exec_invocations": 1,
+      "execution_sends_observed": 1,
+      "execution_sends_unobserved_upper_bound": 0,
+      "queries": 1,
+      "confirmed_simulated_effects": 1,
+      "settlements": 1,
+      "cancellations": 0,
+      "halts": 0
+    },
+    "resources": [
+      {
+        "profile": "MED-DEMO-1",
+        "key": "[\"lab\",\"tenant-1\",\"medical\",\"order-capacity\",\"med-demo-ledger\",\"order\"]",
+        "unit": "ORDER",
+        "capacity": 8,
+        "reserved": 1,
+        "spent": 0,
+        "revision": 2
+      }
+    ],
+    "reservations": [
+      {
+        "profile": "MED-DEMO-1",
+        "id": "Z5x8k5dAQHVmVm-m8PCJWQ",
+        "oid": "QPuo5IbjxYcsgMqCf_WwwA",
+        "key": "[\"lab\",\"tenant-1\",\"medical\",\"order-capacity\",\"med-demo-ledger\",\"order\"]",
+        "amount": 1,
+        "state": "RESERVED"
+      }
+    ],
+    "flights": [],
+    "outbox": {
+      "profile": "MED-DEMO-1",
+      "oid": "QPuo5IbjxYcsgMqCf_WwwA",
+      "state": "PENDING",
+      "attempt_id": null,
+      "exec_marker": 0,
+      "send_observed": null,
+      "queries": 0
+    },
+    "tool": {
+      "meta": {
+        "profile": "MED-DEMO-1",
+        "ledger_id": "competition-ledger-med-demo-1",
+        "ledger_origin": "fbuTe0LR8Kz4M2jhQ6gnenj3L3NQrABNPQIysjtwIyU",
+        "high_water": 0,
+        "ledger_head": "KcrXhiMeYQKKRrrj_pFCzPZh7QqmP9zO_vrR1M-ECAs"
+      },
+      "requests": [],
+      "finalfacts": [],
+      "effects": {
+        "payments": [],
+        "industrial_routes": [],
+        "medical_orders": []
+      },
+      "effect_count": 0
+    },
+    "effect_count": 0
+  },
+  "scope": "Explicit trusted test perturbation of a Flight row; not a demonstrated remote corruption attack."
+}

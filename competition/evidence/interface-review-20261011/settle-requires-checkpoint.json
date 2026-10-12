@@ -1,0 +1,30 @@
+{
+  "reason": "LEDGER_CHECKPOINT_UNKNOWN",
+  "before": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 1,
+    "exec_invocations": 1,
+    "execution_sends_observed": 1,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 1,
+    "confirmed_simulated_effects": 1,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0
+  },
+  "after": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 1,
+    "exec_invocations": 1,
+    "execution_sends_observed": 1,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 1,
+    "confirmed_simulated_effects": 1,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0
+  },
+  "scope": "Record wrapper without checkpoint cannot settle."
+}

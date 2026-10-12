@@ -8,7 +8,7 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from competition.core.trusted_clock import (
     seal, prepare_table, checked_clock, consume_clock,
 )
-from research.reference_executor.wire import ProtocolError
+from competition.support.wire import ProtocolError
 
 
 SCOPE = {"domain": "lab", "tenant": "tenant-1", "scenario": "industrial"}

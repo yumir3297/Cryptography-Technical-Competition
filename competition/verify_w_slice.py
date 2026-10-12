@@ -4,8 +4,8 @@ import hashlib
 import json
 import subprocess
 from pathlib import Path
-from research.reference_executor.wire import require, raw, b64, canonical, digest, rec_ref, msgref, strict_verify, action_hash
-from research.phase6.trusted_final import final_fact_id, final_sign_bytes, verify_certificate
+from competition.support.wire import require, raw, b64, canonical, digest, rec_ref, msgref, strict_verify, action_hash
+from competition.support.tool_final import final_fact_id, final_sign_bytes, verify_certificate
 from competition.tools.common_tool import ledger_head, request_hash
 from competition.run_authorization_slice import write
 
@@ -18,14 +18,32 @@ def decode(v):
         except json.JSONDecodeError:pass
     return v
 
-def verify(output,*,expected_root_manifest=None,expected_case_count=22):
+def verify(output,*,expected_root_manifest=None,expected_case_count=22,historical_source=False):
     report=read(output/'report.json');manifest=read(output/'manifest.json');checks=[];sig_count=0;clock_count=0
     def check(label,ok):
         require(bool(ok),'AUDIT_'+label);checks.append(label)
     check('manifest_hashes',all(sha(output/f['path'])==f['sha256'] and (output/f['path']).stat().st_size==f['size'] for f in manifest['files']))
-    check('source_hashes',all(sha(ROOT/f['path'])==f['sha256'] for f in report['build']['source_files']))
+    recorded_commit=report['build']['commit']
+    checkout_crlf_paths=[]
+    if historical_source:
+        def recorded_source_matches(row):
+            path=row['path']
+            content=subprocess.check_output(['git','show',recorded_commit+':'+path],cwd=ROOT)
+            if hashlib.sha256(content).hexdigest()==row['sha256']:
+                return True
+            checkout=content.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n')
+            matched=hashlib.sha256(checkout).hexdigest()==row['sha256']
+            if matched:checkout_crlf_paths.append(path)
+            return matched
+        check('historical_source_hashes',all(recorded_source_matches(f) for f in report['build']['source_files']))
+    else:
+        check('source_hashes',all(sha(ROOT/f['path'])==f['sha256'] for f in report['build']['source_files']))
     check('source_digest',hashlib.sha256(json.dumps(report['build']['source_files'],sort_keys=True).encode()).hexdigest()==report['build']['source_digest'])
-    head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();check('build_commit',head==report['build']['commit'])
+    head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    if historical_source:
+        check('recorded_commit_exists',subprocess.check_output(['git','rev-parse',recorded_commit+'^{commit}'],cwd=ROOT,text=True).strip()==recorded_commit)
+    else:
+        check('build_commit',head==recorded_commit)
     check('all_declared_cases',len(report['cases'])==expected_case_count and report['passed'] and all(c['status']=='PASS' for c in report['cases']))
     if expected_case_count==22:
         expected={(p,n) for p in ('PAY-1','IND-DEMO-1','MED-DEMO-1') for n in ('normal','lost_ack','unknown_query','concurrent_claim_settle','conflicting_final','w_commit_crash')}
@@ -117,8 +135,9 @@ def verify(output,*,expected_root_manifest=None,expected_case_count=22):
             f=effects_by_key[(s['profile'],s['oid'])];check('independent_once_settlement',s['fact_id']==f['final_fact_id'] and s['effect_id']==f['effect_id'] and s['final_seq']==str(f['final_seq']))
         counts=data['counts'];outboxes=tables['w_outbox']
         check('independent_W_counts',counts['accepts']==len(ops) and counts['outbox']==len(outboxes) and counts['attempts']==sum(o['attempt_id'] is not None for o in outboxes) and counts['exec_invocations']==sum(o['exec_marker'] for o in outboxes) and counts['execution_sends_observed']==sum(o['send_observed'] or 0 for o in outboxes) and counts['queries']==sum(o['queries'] for o in outboxes) and counts['settlements']==len(tables['w_settlement']))
-    result={'kind':'independent_readonly_scoped_W_simulator_verification','passed':True,'build_commit':head,'source_digest':report['build']['source_digest'],'run_id':report['run_id'],'case_count':len(report['cases']),'checks':len(checks),'verified_signatures':sig_count,'verified_C_time_packets':clock_count,'external_manifest_pin_verified':bool(expected_root_manifest),'limits':['Historical signatures, references and independent ledger equality; no current-time authorization re-created by audit.','Run trust roots must be pinned externally for adversarial audit; embedded roots alone prove package consistency.','No complete R2 AUDITBundle or whole-disk rollback guarantee.']}
+    result={'kind':'independent_readonly_scoped_W_simulator_verification','passed':True,'build_commit':recorded_commit,'verifier_checkout_commit':head,'source_mode':'git_recorded_commit' if historical_source else 'current_checkout','source_digest':report['build']['source_digest'],'run_id':report['run_id'],'case_count':len(report['cases']),'checks':len(checks),'verified_signatures':sig_count,'verified_C_time_packets':clock_count,'external_manifest_pin_verified':bool(expected_root_manifest),'limits':['Historical signatures, references and independent ledger equality; no current-time authorization re-created by audit.','Run trust roots must be pinned externally for adversarial audit; embedded roots alone prove package consistency.','No complete R2 AUDITBundle or whole-disk rollback guarantee.']}
+    result['source_checkout_crlf_paths']=checkout_crlf_paths
     return result
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('output',type=Path);parser.add_argument('--manifest-sha256');parser.add_argument('--report',type=Path,required=True);args=parser.parse_args();result=verify(args.output,expected_root_manifest=args.manifest_sha256);write(args.report,result);print(json.dumps(result))
+    parser=argparse.ArgumentParser();parser.add_argument('output',type=Path);parser.add_argument('--manifest-sha256');parser.add_argument('--report',type=Path,required=True);parser.add_argument('--historical-source',action='store_true');args=parser.parse_args();result=verify(args.output,expected_root_manifest=args.manifest_sha256,historical_source=args.historical_source);write(args.report,result);print(json.dumps(result))

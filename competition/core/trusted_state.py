@@ -6,10 +6,10 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
-from research.reference_executor.wire import require, ProtocolError, b64, raw, canonical, strict_verify, keyid, rec_ref, digest, sortset, action_hash
-from research.phase18.key_broker import PROFILE_SCOPES
-from research.phase8.scene_authority import ROLES as SCENE_ROLES
-from research.strict_v26.upstream_schema import UpstreamSchema
+from competition.support.wire import require, ProtocolError, b64, raw, canonical, strict_verify, keyid, rec_ref, digest, sortset, action_hash
+from competition.support.broker_policy import PROFILE_SCOPES
+from competition.support.scene_authority import ROLES as SCENE_ROLES
+from competition.support.schema import UpstreamSchema
 from competition.core.event_clock import checked_event_clock, require_window
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -198,7 +198,7 @@ class TrustedState:
         require(json.loads(row['context'])==cl['ctx']==ctx and cl['complete'] is True and json.loads(row['purposes'])==cl['purposes']==sortset(['EXECUTE']+required),'DENY_COVERAGE_UNKNOWN')
         records=c.execute('SELECT * FROM a_publication WHERE profile=? AND operation_id=? AND basis_ref=? ORDER BY seq',(profile,ctx['operation_id'],ctx['basis_ref'])).fetchall()
         require(row['revision']==1+len(records),'DENY_COVERAGE_UNKNOWN')
-        from research.reference_executor.wire import envelope, msgref
+        from competition.support.wire import envelope, msgref
         for index, publication in enumerate(records):
             message=json.loads(publication['message']); payload=message['body']['payload']
             alias='V' if message['protected']['type']=='Review' else 'U'; who=self.actors[profile][alias]

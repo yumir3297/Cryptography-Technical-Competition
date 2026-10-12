@@ -2,13 +2,13 @@
 
 The common W authenticates/guards the request first, then applies these proposed
 transitions in its own transaction. This module never publishes, signs, reserves,
-dispatches, changes source timestamps, or initializes a research authority.
+dispatches, changes source timestamps, or initializes a trusted authority.
 """
 from copy import deepcopy
 
 from competition.core.event_clock import require_window
-from research.phase18.key_broker import PROFILE_SCOPES
-from research.reference_executor.wire import digest, number, require, sortset
+from competition.support.broker_policy import PROFILE_SCOPES
+from competition.support.wire import digest, number, require, sortset
 
 
 SCENES = {'IND-DEMO-1': 'UNIT', 'MED-DEMO-1': 'ENCOUNTER'}

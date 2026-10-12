@@ -2,7 +2,7 @@
 import copy
 import json
 from jsonschema import ValidationError
-from research.reference_executor.wire import require, ProtocolError, envelope, msgref, rec_ref, action_hash, sortset, digest
+from competition.support.wire import require, ProtocolError, envelope, msgref, rec_ref, action_hash, sortset, digest
 from competition.core.event_clock import require_window
 from competition.core.trusted_state import ROLES, TYPES, PROFILE_SCOPES, prefix, enc
 

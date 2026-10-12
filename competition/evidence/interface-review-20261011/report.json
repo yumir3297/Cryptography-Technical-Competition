@@ -1,0 +1,48 @@
+{
+  "kind": "internal_interface_semantics_review",
+  "confirmed_cases": 7,
+  "cases": [
+    {
+      "case": "actual-signatures",
+      "confirmed": true,
+      "evidence": "actual-signatures.json"
+    },
+    {
+      "case": "invalid-tool-response-label",
+      "confirmed": true,
+      "evidence": "invalid-tool-response-label.json"
+    },
+    {
+      "case": "bare-record-is-not-settle-response",
+      "confirmed": true,
+      "evidence": "bare-record-is-not-settle-response.json"
+    },
+    {
+      "case": "settle-requires-checkpoint",
+      "confirmed": true,
+      "evidence": "settle-requires-checkpoint.json"
+    },
+    {
+      "case": "claim-retrieves-outbox-not-operation-state",
+      "confirmed": true,
+      "evidence": "claim-retrieves-outbox-not-operation-state.json"
+    },
+    {
+      "case": "audit-authenticates-holder-not-worker",
+      "confirmed": true,
+      "evidence": "audit-authenticates-holder-not-worker.json"
+    },
+    {
+      "case": "ownership-exception-does-not-persist-halted",
+      "confirmed": true,
+      "evidence": "ownership-exception-does-not-persist-halted.json"
+    }
+  ],
+  "passed": true,
+  "build_commit": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+  "common_w_sha256": "ec52e999fadd43066af981f8584ce9fd9bdb611a4adf16a61a9cd0753e3182fb",
+  "limits": [
+    "Selected internal method cases; no HTTP adapter or complete R2 conformance assertion.",
+    "Controlled malformed response and ledger perturbation remain explicitly identified."
+  ]
+}

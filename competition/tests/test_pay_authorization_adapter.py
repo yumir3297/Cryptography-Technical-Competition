@@ -7,8 +7,8 @@ from types import SimpleNamespace
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
-from research.reference_executor.wire import b64, canonical, digest, keyid, rec_ref, ProtocolError
-from research.strict_v26.pay_dependencies import _parse_keygrant, _parse_rolegrant
+from competition.support.wire import b64, canonical, digest, keyid, rec_ref, ProtocolError
+from competition.support.pay_dependencies import _parse_keygrant, _parse_rolegrant
 
 
 SCOPE = {'domain': 'lab', 'tenant': 'tenant-1', 'scenario': 'payment'}

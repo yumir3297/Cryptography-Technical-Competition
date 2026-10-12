@@ -1,0 +1,35 @@
+{
+  "result": {
+    "state": "UNKNOWN",
+    "operation_id": "tK0_9vX2s0EBHmGVol8U8g",
+    "reservation_retained": true,
+    "final_fact_id": null
+  },
+  "before": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 1,
+    "exec_invocations": 1,
+    "execution_sends_observed": 1,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 1,
+    "confirmed_simulated_effects": 1,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0
+  },
+  "after": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 1,
+    "exec_invocations": 1,
+    "execution_sends_observed": 1,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 1,
+    "confirmed_simulated_effects": 1,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0
+  },
+  "scope": "Bare TOOL_FINAL lacks response.record; current method takes the unknown branch."
+}

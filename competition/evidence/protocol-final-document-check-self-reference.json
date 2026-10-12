@@ -1,0 +1,5 @@
+{
+  "status": "CHECKER_ASSERTION_FAILED",
+  "cause": "Document links the report being produced by this checker; target did not exist yet.",
+  "correction": "Validate generated-report link after successfully writing the report; validate all other targets immediately."
+}

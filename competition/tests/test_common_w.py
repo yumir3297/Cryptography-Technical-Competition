@@ -38,13 +38,13 @@ class SharedWTests(unittest.TestCase):
         counts=self.run.w.counts();self.assertEqual((counts['attempts'],counts['exec_invocations'],counts['confirmed_simulated_effects'],counts['settlements']),(3,3,3,3))
 
     def test_unsigned_worker_cannot_claim_committed_operation(self):
-        from research.reference_executor.wire import ProtocolError
+        from competition.support.wire import ProtocolError
         p='PAY-1';self.accept(p);oid=self.run.operations[p]['action']['operation_id']
         with self.assertRaises(ProtocolError):self.run.w.claim(p,oid,None)
         self.assertEqual(self.run.w.counts()['attempts'],0)
 
     def test_ownership_loss_blocks_claim_and_cancel_without_releasing_others(self):
-        from research.reference_executor.wire import ProtocolError
+        from competition.support.wire import ProtocolError
         p='IND-DEMO-1';self.accept(p);oid=self.run.operations[p]['action']['operation_id']
         with self.run.store.tx() as c:c.execute('DELETE FROM w_flight WHERE profile=? AND oid=?',(p,oid))
         self.run.base.update_role(p,'G',False)
@@ -55,7 +55,7 @@ class SharedWTests(unittest.TestCase):
         self.assertEqual(self.run.w.counts()['attempts'],0)
 
     def test_status_and_audit_are_current_authenticated_reads_with_zero_execution(self):
-        from research.reference_executor.wire import ProtocolError
+        from competition.support.wire import ProtocolError
         for p in self.run.operations:
             self.accept(p);oid=self.run.operations[p]['action']['operation_id'];before=self.run.w.counts()
             self.assertIsNone(self.run.w.status(p,oid,self.run.read_proof(p,oid))['attempt_id'])
@@ -66,7 +66,7 @@ class SharedWTests(unittest.TestCase):
 
     def test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample(self):
         import time
-        from research.reference_executor.wire import ProtocolError
+        from competition.support.wire import ProtocolError
         p='PAY-1';op=self.run.operations[p];ticket=self.run.w.prepare(p,op,self.run.identity_proof(p,op))
         proof=self.run.accept_proof(p,ticket['ticket_id']);verify=self.run.w.guard.verify;calls=[]
         def delayed(*args):

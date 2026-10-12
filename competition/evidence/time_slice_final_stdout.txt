@@ -1,0 +1,8 @@
+elapsed_success: PASS
+expired_ticket: PASS
+clock_unknown: PASS
+revoke_before_accept: PASS
+x_revoke_after_accept: PASS
+x_expired_after_accept: PASS
+signer_failure: PASS
+post_commit_process_exit: PASS

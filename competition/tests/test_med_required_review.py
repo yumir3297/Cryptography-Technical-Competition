@@ -3,12 +3,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from research.phase8.fixtures import build_scene, prepare_approved
-from research.phase12.authority import HardenedSceneW
-from research.phase14.verifier import VerifierOnlySceneW
-from research.phase11.trusted_clock import seal
-from research.phase6.trusted_final import Controller
-from research.reference_executor.wire import ProtocolError
+from competition.support.scene_fixtures import build_scene, prepare_approved
+from competition.support.authority_guards import HardenedSceneW
+from competition.support.scene_verifier import VerifierOnlySceneW
+from competition.support.legacy_clock import seal
+from competition.support.tool_final import Controller
+from competition.support.wire import ProtocolError
 
 
 class MedRequiredReviewSafety(unittest.TestCase):

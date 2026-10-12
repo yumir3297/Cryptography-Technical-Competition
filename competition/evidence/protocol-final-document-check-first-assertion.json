@@ -1,0 +1,7 @@
+{
+  "status": "CHECKER_ASSERTION_FAILED",
+  "href": "../../../system_dev/v26/contracts/",
+  "target_exists": true,
+  "cause": "New checker incorrectly required directory references to be files.",
+  "correction": "Accept existing file or directory link targets; protocol reference unchanged."
+}

@@ -1,8 +1,8 @@
 """Read-only authenticated legacy IND rows; common publications use the same W DB."""
 import json
 from competition.core.trusted_state import TrustedState, PROFILE_SCOPES
-from research.phase8.scene_authority import _rowkey
-from research.reference_executor.wire import require, raw, canonical, strict_verify, rec_ref, keyid
+from competition.support.scene_authority import _rowkey
+from competition.support.wire import require, raw, canonical, strict_verify, rec_ref, keyid
 
 class IndustrialAuthorizationState(TrustedState):
     def __init__(self, owner):

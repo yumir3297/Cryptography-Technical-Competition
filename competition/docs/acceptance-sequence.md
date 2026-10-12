@@ -51,7 +51,7 @@ An ACK timeout is COMMIT_UNKNOWN at the client, never proof of rollback.
 `claim` conservatively rejects pending receipts. Even with a saved receipt it
 returns DISPATCH_NOT_IMPLEMENTED. No tool/outbox delivery is implemented by
 this patch. Legacy prepare/finalize/claim/cancel/settle and initialization
-mutation entrypoints are disabled on this adapter; source research remains intact.
+mutation entrypoints are disabled on this adapter; the original source is retained in the local archive.
 
 ## Time Provider and truth values
 

@@ -6,8 +6,8 @@ original ZJJ-STATE-v1 namespace/key/revision/value construction in the store.
 """
 import os
 
-from research.phase8.scene_authority import PROFILES, DEST, MAPPING, TEMPLATES, _rec
-from research.reference_executor.wire import b64, canonical, rec_ref, require, sortset
+from competition.support.scene_authority import PROFILES, DEST, MAPPING, TEMPLATES, _rec
+from competition.support.wire import b64, canonical, rec_ref, require, sortset
 
 
 def build_scene(profile, actors, scope, now, label=None):

@@ -1,7 +1,7 @@
 """Event-bound C samples for a trusted single host; no external clock attestation."""
 import time
 
-from research.reference_executor.wire import require, canonical, raw, strict_verify, number
+from competition.support.wire import require, canonical, raw, strict_verify, number
 
 DOMAIN = 'ZJJ-COMP-EVENT-CLOCK-v1'
 STAGES = frozenset({'PREPARE', 'ACCEPT_GUARD', 'RECEIPT_SIGN_GUARD', 'RECEIPT_PUBLISH', 'CLAIM_GUARD', 'STATUS_READ', 'AUTHZ_GUARD', 'AUTHZ_READ', 'DENY_PUBLISH', 'CONTROL_PUBLISH', 'TOOL_FINAL_AUTH', 'SETTLE_GUARD', 'EXECUTE_GUARD', 'QUERY_GUARD', 'CANCEL_GUARD', 'AUDIT_READ', 'WORKER_CHALLENGE'})

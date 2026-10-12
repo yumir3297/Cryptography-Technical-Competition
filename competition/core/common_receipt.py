@@ -16,11 +16,11 @@ from contextlib import closing
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding,PublicFormat
-from research.reference_executor.wire import (ProtocolError,require,b64,raw,canonical,
+from competition.support.wire import (ProtocolError,require,b64,raw,canonical,
     keyid,action_hash,envelope,good_point)
 from competition.core.trusted_state import TrustedState,PublicActor,PROFILE_SCOPES
 from competition.core.event_clock import require_window
-from research.strict_v26.upstream_schema import UpstreamSchema
+from competition.support.schema import UpstreamSchema
 
 
 class _ReadonlyCredentials(TrustedState):

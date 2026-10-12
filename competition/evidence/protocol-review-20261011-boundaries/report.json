@@ -1,0 +1,23 @@
+{
+  "kind": "confirmed_competition_execution_boundaries",
+  "cases": [
+    {
+      "profile": "IND-DEMO-1",
+      "evidence": "IND-DEMO-1-post-claim-revocation.json",
+      "confirmed": true
+    },
+    {
+      "profile": "PAY-1",
+      "evidence": "PAY-1-post-claim-revocation.json",
+      "confirmed": true
+    },
+    {
+      "profile": "MED-DEMO-1",
+      "evidence": "MED-DEMO-1-post-claim-revocation.json",
+      "confirmed": true
+    }
+  ],
+  "case_count": 3,
+  "all_expected_boundaries_confirmed": true,
+  "classification": "Observed behavior boundaries; not new R2 conformance or immediate-revocation guarantees."
+}

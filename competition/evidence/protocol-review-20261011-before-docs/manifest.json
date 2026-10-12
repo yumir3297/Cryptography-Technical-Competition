@@ -1,0 +1,37 @@
+[
+  {
+    "file": "claims-evidence.md",
+    "sha256": "42f56fc4ed9160f9e2976bf430afc44902a71878819f68f0724f2198f44233aa",
+    "characters": 3664
+  },
+  {
+    "file": "competition-protocol.md",
+    "sha256": "aaa4014978f527c50681d9ca33071fd6902dace2d8aa5da30b919062cb7583fd",
+    "characters": 6100
+  },
+  {
+    "file": "finalization-record.md",
+    "sha256": "da3d6f1d8e72cdb41214e2ad67c03ae96532a6fc152ee89cdee1d2893c95db3d",
+    "characters": 2945
+  },
+  {
+    "file": "industrial-handoff.md",
+    "sha256": "06bd825f05bac7d816346b2d3af6371b86d1a79c3f163503a1e1a78852a1389a",
+    "characters": 3270
+  },
+  {
+    "file": "medical-handoff.md",
+    "sha256": "59264f2b3db967a7151f9e941dfedd27a99072338ddf4c6b6f9fa8d866e7f686",
+    "characters": 3091
+  },
+  {
+    "file": "payment-handoff.md",
+    "sha256": "4f98551aacce00ca0194cd9691235f44f6ca8308404956438dcdef5c4839ac98",
+    "characters": 3132
+  },
+  {
+    "file": "query-audit-scope.md",
+    "sha256": "07f8cb34fd1619e047a9ec721a30b3a0881da8d7d9134c39f2f86c25e4f1e5d9",
+    "characters": 2435
+  }
+]

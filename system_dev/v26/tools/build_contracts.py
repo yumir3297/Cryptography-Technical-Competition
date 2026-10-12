@@ -118,7 +118,7 @@ def build(profile):
     if scene=='payment':
         record_values['POLICY']=obj(**common_policy,destination=idt,currency=const('CNY'),method=const('order-match-v1'),risk_method=const('history-int-v2'),partition=idt,count_cap=pos,**times)
         record_values['PAY_TASK']=obj(task_id=b16,task_revision=pos,principal=idt,holder=idt,holder_kid=h,order_id=idt,stage=idt,payer=idt,allowed_payees=arr(idt,1),max_amount_minor=pos,executor=idt,destination=idt,policy_ref=h,**times)
-        old=json.loads((ROOT/'system_dev/contracts/pay1.schema.json').read_text(encoding='utf-8'))['$defs']
+        old=json.loads((BASE/'tools/pay-record-base.schema.json').read_text(encoding='utf-8',newline='\n'))['$defs']
         def old_copy(name):
             target='V25_'+name
             if target in d: return
@@ -178,7 +178,7 @@ def main():
     folder=BASE/'contracts'; folder.mkdir(exist_ok=True)
     for profile,(scene,stem) in PROFILES.items():
         s=build(profile)
-        (folder/(stem+'.schema.json')).write_text(json.dumps(s,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        (folder/(stem+'.schema.json')).write_text(json.dumps(s,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
         defs=localize(s['$defs']); paths={}
         prefix='/zjj/2.6'+('' if scene=='payment' else '/'+scene)
         for route,typ,out in [('issue','IssueRequest',['Result']),('challenge','ChallengeRequest',['Challenge','Result']),('commit','CommitProof',['Result']),('status','StatusQuery',['Result'])]:
@@ -186,7 +186,7 @@ def main():
             content=lambda schema:{'application/json':{'schema':schema}}
             paths[prefix+'/'+route]={'post':{'operationId':stem+'_'+route,'description':'Fixed profile/type/aud; TLS 1.3; no 0-RTT. Authenticated body controls outcome, HTTP 200 does not grant permission. No product service supplied.','requestBody':{'required':True,'content':content(bundle([typ]))},'responses':{'200':{'description':'Signed response; verify binding, signature and current or historical role as specified.','content':content(bundle(out))},'400':{'description':'Malformed or unauthenticated transport input; no business outcome asserted'},'413':{'description':'Byte/object limits exceeded'},'415':{'description':'Unsupported content type'},'503':{'description':'Communication outcome unknown'}}}}
         api={'openapi':'3.1.1','info':{'title':profile+' protocol transport','version':'2.6-R2'},'paths':paths,'components':{'schemas':defs}}
-        (folder/(stem+'.openapi.json')).write_text(json.dumps(api,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        (folder/(stem+'.openapi.json')).write_text(json.dumps(api,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
     print('Generated 3 structural schemas and 3 protocol-only OpenAPI contracts.')
 
 if __name__=='__main__': main()

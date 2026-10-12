@@ -1,0 +1,144 @@
+{
+  "files": [
+    {
+      "path": "competition_tests.log",
+      "sha256": "af413dd085ca5be057546d7ce418f66f281d5162f75ee5ca37177358076e6e1c",
+      "size": 13082
+    },
+    {
+      "path": "IND-DEMO-1-accept_first.json",
+      "sha256": "fe1487edc3bd12b262239df440151670a6d0581478379840c320fdac72464535",
+      "size": 140093
+    },
+    {
+      "path": "IND-DEMO-1-concurrent.json",
+      "sha256": "f5f1b7a7579c217e61a44db12c5173f2bb25e971e75b95b4395bbee43e50e34d",
+      "size": 140091
+    },
+    {
+      "path": "IND-DEMO-1-deny_first.json",
+      "sha256": "625955a3c3d8b5502c5f3714405dbca122810e521b91d2046765cea9ca6e3c65",
+      "size": 87737
+    },
+    {
+      "path": "IND-DEMO-1-full_signed_chain.json",
+      "sha256": "37dbdaae65392788977a3c4f45037a1bff719d3204e65ffe03311b9efd8c48c6",
+      "size": 425459
+    },
+    {
+      "path": "IND-DEMO-1-hidden_deny.json",
+      "sha256": "498c6e0e7c06904e8dbbc046d180d85f072149439eb63e5b69444f0faaa6dae4",
+      "size": 376886
+    },
+    {
+      "path": "IND-DEMO-1-missing_dependency.json",
+      "sha256": "081bf3b40c6168fd7e2f87473b35faa0938bbac5c904c57f0a047e930a01f58c",
+      "size": 361832
+    },
+    {
+      "path": "IND-DEMO-1-missing_review.json",
+      "sha256": "5d5a17c9613e79592dfd98af6d03078d180829e324185fb9bffb9be0a5b16128",
+      "size": 353340
+    },
+    {
+      "path": "IND-DEMO-1-stale_source.json",
+      "sha256": "25b6b71f2ba8621f511a6fb5d327c2cdaff1b6f23fea15c2c0b19534949faabc",
+      "size": 364252
+    },
+    {
+      "path": "IND-DEMO-1-wrong_subject.json",
+      "sha256": "1a7809a713eca637a6d80bd9de5bd51321e1394543210a4d48f5bcca0c561b7c",
+      "size": 362085
+    },
+    {
+      "path": "independent_review.md",
+      "sha256": "5facdf01707037859ca5c1b1bde2c25ef3f0851e8e4f6bc5f3f94577c45a5114",
+      "size": 1778
+    },
+    {
+      "path": "MED-DEMO-1-current_acl_before_candidate_detail.json",
+      "sha256": "a0248d79a54c5a98f66d5248a54da17b9abf1b756ec3784b098d71aa44353645",
+      "size": 364942
+    },
+    {
+      "path": "MED-DEMO-1-full_signed_chain.json",
+      "sha256": "847d8b73aad54b8e627945cc993fa5dbefd2b11ce9ecb75b28a15849d37d6ee0",
+      "size": 524585
+    },
+    {
+      "path": "MED-DEMO-1-hidden_deny.json",
+      "sha256": "6292c5b86b47c46e7d1d57dfd9912270663a4ed33fa0e98073632540eb53ecc4",
+      "size": 403510
+    },
+    {
+      "path": "MED-DEMO-1-missing_dependency.json",
+      "sha256": "4849fe2a0c75fcfce2011d211faf3c8c11f19d7586c61ed7872713e8d5d3d980",
+      "size": 361215
+    },
+    {
+      "path": "MED-DEMO-1-missing_review.json",
+      "sha256": "332e748acc82abacc2ff2e4daaba8d6f0d36dd4aebe8239081c82a393a6b1e35",
+      "size": 352810
+    },
+    {
+      "path": "MED-DEMO-1-stale_source.json",
+      "sha256": "85afd74c9de8b80ce7f381e1ef7fc03609a9ff75c8ebbeab6002d6e191824c09",
+      "size": 368388
+    },
+    {
+      "path": "MED-DEMO-1-wrong_subject.json",
+      "sha256": "5233a4332286e235bbff75ec300d73425ae8682a0c2fa55964289d6652564668",
+      "size": 361470
+    },
+    {
+      "path": "original_regressions.log",
+      "sha256": "ea08545d67967d159b7b2b7b01ff5e8eac313f754fe9600c507160911e0b66b2",
+      "size": 10587
+    },
+    {
+      "path": "PAY-1-full_signed_chain.json",
+      "sha256": "3e742bf242a4927a16e9c600f913a446bc847a485aec5b6ff255f9b56821647f",
+      "size": 453759
+    },
+    {
+      "path": "PAY-1-hidden_deny.json",
+      "sha256": "aca276133c7367ae2994edeb0ae8e23afff878a598bb94148aafc6f292e67ec3",
+      "size": 374311
+    },
+    {
+      "path": "PAY-1-missing_dependency.json",
+      "sha256": "559309a2e8afdd7b03bab850260a53f38313e3fae90c0bac970c8d0a9104723d",
+      "size": 346519
+    },
+    {
+      "path": "PAY-1-missing_review.json",
+      "sha256": "e87f2dbc9e2cc30a16f72060e62046823bd806ff9baf3624d64a43c828489629",
+      "size": 339560
+    },
+    {
+      "path": "PAY-1-stale_source.json",
+      "sha256": "44fecda2ceefe65fe50c2c72b60c2854826a350aa7b78ca71ce9987f0a3dd6e2",
+      "size": 351505
+    },
+    {
+      "path": "PAY-1-wrong_subject.json",
+      "sha256": "7e5bc77d2846c5de9c83f6761ffa474c7efee163d7aa8b5ef487db660990c3b1",
+      "size": 346774
+    },
+    {
+      "path": "report.json",
+      "sha256": "4085049dc13f318ac5eb792bcf9ec53aa9e33dfe0baca96390319b0ec02fe071",
+      "size": 10568
+    },
+    {
+      "path": "review_green.log",
+      "sha256": "f96b141a21f021fc50e63390bd7a9f0078bec63629d1f66b0bb44b52ef4c1f5a",
+      "size": 737
+    },
+    {
+      "path": "review_red.log",
+      "sha256": "c97e11eff88eefff45b43868392f907aad6e15bcf1c558c77f8e626edbb02211",
+      "size": 4373
+    }
+  ]
+}

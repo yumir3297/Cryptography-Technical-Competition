@@ -1,0 +1,95 @@
+{
+  "kind": "competition_protocol_delivery_document_check",
+  "passed": true,
+  "build_commit": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+  "canonical_documents": 11,
+  "local_copies": 11,
+  "checked_links": 272,
+  "document_pairs": [
+    {
+      "repository": "competition/docs/final/competition-protocol.md",
+      "repository_sha256": "2a1a291c2a296289123203632a0fe61ea8b112f0170138fd1591d4ed0b71107d",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\14_比赛版协议说明.md",
+      "local_sha256": "9872cf25ce851e33662711f722b4d202bf4e92df260d6c676ef931622a550e6d",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/query-audit-scope.md",
+      "repository_sha256": "732fe71eb2c02983757e829d9779480bfb659a59629f1923c154cb4512b9ee03",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\15_查询与审计比赛口径.md",
+      "local_sha256": "1e5a6aec5efda933fcd4b9177d328ca898f6d58705764a874e36864b508b4143",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/industrial-handoff.md",
+      "repository_sha256": "49210b9dea1648e2a6353111bc82750bfa5af1727c194e0ee35326ad5b193ec3",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\16_工业场景协议开发交接.md",
+      "local_sha256": "57f294c2e320519e129a113c96a78f2ba5ebd8aff4df2cc08442b7fea6568dc8",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/payment-handoff.md",
+      "repository_sha256": "7c46b4ae902e7662bb3ecd099d04308e3d1b5ecf7fea9d587d57c9cdbb5efab6",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\17_付款场景协议开发交接.md",
+      "local_sha256": "ee585e9cc7061ad7652c1b4d0de2511470f07fb65d83f667891ec95805395c8d",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/medical-handoff.md",
+      "repository_sha256": "0b36de463508f2293be71b5172ab3dcdfcb555d3653fe1080a67fed7cc1ea70e",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\18_医疗场景协议开发交接.md",
+      "local_sha256": "8b97ee52d45c49092c60628083c27abe6ad8361225d2563f947f07404a9620e4",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/claims-evidence.md",
+      "repository_sha256": "7ae6464b89ff960b5ee1fb65c8afd8be4c2b68a9f69cee98a497225775cf3d8d",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\19_声明与实际证据对应清单.md",
+      "local_sha256": "48c25b2e0697dc2d84c289d09f76068763df9f902086ef7e9d9cf9b97af4860f",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/finalization-record.md",
+      "repository_sha256": "3de5f56a6ccff2f9a3e8783d251c3b2a0ea630c3b415ee1ac395a574d38d082e",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\20_协议收尾交付记录.md",
+      "local_sha256": "aea2dd6ff37c2d45128d6cdeab6fc7bb06ee764f39fddd9a2bbf8c786893e259",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/r2-application-mapping.md",
+      "repository_sha256": "33c36a6686678ab54f30305231a05649ea5d04a4998ae6dbdbd4b42d885fd06d",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\21_原R2与比赛应用对照.md",
+      "local_sha256": "e31e2415f731beb9a634f68cfe4f20cf80aecd92b43fb6ed1b88283d6ca32b56",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/developer-scope-notes.md",
+      "repository_sha256": "7076f031daaf02d2f22f03879ec4cac1bf65b3ea945503fa66150906044f68f1",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\22_比赛范围开发注释.md",
+      "local_sha256": "7c1561bd633ef14e830d87a634feb7d1bb534fed52915063f08dd99463c03326",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/protocol-review.md",
+      "repository_sha256": "492cf766e8efa65dad7c89167ac21f5c395c87e670278021e30c3a6222f47c54",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\23_协议复检记录.md",
+      "local_sha256": "5c41a0bd8e06a6f8be5e2adc50cd871e2044ccd3f8a3141f2452144936a14542",
+      "same_text_after_link_relocation": true
+    },
+    {
+      "repository": "competition/docs/final/interface-reference.md",
+      "repository_sha256": "ae91610ec224d29f77ded755829c62fc5afd7adb9b26a2b47925b4e6ab6a8d1f",
+      "local_copy": "D:\\桌面\\密码学技能竞赛\\docs\\competition-final-20261010\\24_当前内部接口与返回值对照.md",
+      "local_sha256": "bc9ffe76193f405bf846bcd60727ac7284c2a162f0ec429c77497b91334df4a3",
+      "same_text_after_link_relocation": true
+    }
+  ],
+  "runtime_and_original_evidence_bound_files_unchanged": true,
+  "supplementary_execution_bound_source_rows_verified": 57,
+  "supplementary_cases": 6,
+  "related_component_tests": 15,
+  "original_W_manifests_preserved": true,
+  "initial_assertion_record_preserved": true,
+  "scenes_terminal_states_verified": true,
+  "scope": "Text/copy/link/record checks; no new tool effects or full R2 conformance assertion."
+}

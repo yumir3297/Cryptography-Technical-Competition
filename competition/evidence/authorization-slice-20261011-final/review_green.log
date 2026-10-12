@@ -1,0 +1,8 @@
+test_source_current_business_scope_cannot_be_hidden_by_rebased_valid_chain (competition.tests.test_common_authorization.CommonAuthorizationTests.test_source_current_business_scope_cannot_be_hidden_by_rebased_valid_chain) ... ok
+test_broker_checked_action_must_bind_signed_payload_context (competition.tests.test_common_authorization.CommonAuthorizationTests.test_broker_checked_action_must_bind_signed_payload_context) ... ok
+test_ind_without_review_does_not_require_independent_v_subject (competition.tests.test_common_authorization.CommonAuthorizationTests.test_ind_without_review_does_not_require_independent_v_subject) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 23.224s
+
+OK

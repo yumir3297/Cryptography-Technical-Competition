@@ -12,9 +12,9 @@ from pathlib import Path
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
-from research.reference_executor.wire import b64, raw, canonical, require, ProtocolError, digest, keyid
+from competition.support.wire import b64, raw, canonical, require, ProtocolError, digest, keyid
 from competition.core.event_clock import DOMAIN, STAGES
-from research.phase18.key_broker import PROFILE_SCOPES
+from competition.support.broker_policy import PROFILE_SCOPES
 
 
 class RestrictedProcess:

@@ -1,7 +1,7 @@
 """Trusted fixed-roster signer filtering; bootstrap owns keys, W owns only publics."""
 import copy
 from jsonschema import Draft202012Validator
-from research.reference_executor.wire import require, b64, canonical, keyid, envelope, action_hash
+from competition.support.wire import require, b64, canonical, keyid, envelope, action_hash
 from competition.core.event_clock import require_window
 from competition.core.trusted_state import ROLES, TYPES, PROFILE_SCOPES
 

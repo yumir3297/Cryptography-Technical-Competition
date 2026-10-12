@@ -3,7 +3,7 @@ import copy
 import tempfile
 import unittest
 from pathlib import Path
-from research.reference_executor.wire import canonical,b64,digest
+from competition.support.wire import canonical,b64,digest
 from competition.profiles.w_seed import initialize
 from competition import w_cases
 
@@ -27,7 +27,7 @@ class FinalRegressionTests(unittest.TestCase):
 
     def test_final_claim_must_check_current_worker_expiry(self):
         import time
-        from research.reference_executor.wire import ProtocolError
+        from competition.support.wire import ProtocolError
         p='PAY-1';oid,_=w_cases.accept_operation(self.run,p)
         certificate=copy.deepcopy(self.run.worker_certificate);expiry=int(time.time())+2
         certificate['claim']['exp']=str(expiry)

@@ -1,0 +1,49 @@
+test_source_current_business_scope_cannot_be_hidden_by_rebased_valid_chain (competition.tests.test_common_authorization.CommonAuthorizationTests.test_source_current_business_scope_cannot_be_hidden_by_rebased_valid_chain) ... FAIL
+test_broker_checked_action_must_bind_signed_payload_context (competition.tests.test_common_authorization.CommonAuthorizationTests.test_broker_checked_action_must_bind_signed_payload_context) ... FAIL
+test_ind_without_review_does_not_require_independent_v_subject (competition.tests.test_common_authorization.CommonAuthorizationTests.test_ind_without_review_does_not_require_independent_v_subject) ... ERROR
+
+======================================================================
+ERROR: test_ind_without_review_does_not_require_independent_v_subject (competition.tests.test_common_authorization.CommonAuthorizationTests.test_ind_without_review_does_not_require_independent_v_subject)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_authorization.py", line 209, in test_ind_without_review_does_not_require_independent_v_subject
+    run=self.seed_module.initialize(Path(self.folder.name)/'no-review-overlap',ind_label='DEMO_NORMAL',names={(p,'U'):'same-optional-subject',(p,'V'):'same-optional-subject'})
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_seed.py", line 126, in initialize
+    derived=run.service.verifier.adapters[p].derive(c,op,event)
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\profiles\authorization_scene.py", line 92, in derive
+    policy, task, evidence, scene, required, deps = reader._bound(
+                                                    ~~~~~~~~~~~~~^
+        c, action, op['task_id'], op['scene_key'], event['lo'],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\research\phase8\scene_authority.py", line 316, in _bound
+    require(len({self.actors[x].name for x in ('G','X','U','V')})==4,'SUBJECT_SEPARATION')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\����\����ѧ���ܾ���\competition-runtime\research\reference_executor\wire.py", line 43, in require
+    if not cond:raise ProtocolError(code)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+research.reference_executor.wire.ProtocolError: SUBJECT_SEPARATION
+
+======================================================================
+FAIL: test_source_current_business_scope_cannot_be_hidden_by_rebased_valid_chain (competition.tests.test_common_authorization.CommonAuthorizationTests.test_source_current_business_scope_cannot_be_hidden_by_rebased_valid_chain)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_authorization.py", line 195, in test_source_current_business_scope_cannot_be_hidden_by_rebased_valid_chain
+    with self.assertRaises(ProtocolError) as cm:self.seed.service.verifier.adapters[p].derive(c,op,event)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+======================================================================
+FAIL: test_broker_checked_action_must_bind_signed_payload_context (competition.tests.test_common_authorization.CommonAuthorizationTests.test_broker_checked_action_must_bind_signed_payload_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\����\����ѧ���ܾ���\competition-runtime\competition\tests\test_common_authorization.py", line 204, in test_broker_checked_action_must_bind_signed_payload_context
+    with self.assertRaises(ProtocolError) as cm:self.seed.broker.sign(p,'U',msg,op['action'])
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 20.467s
+
+FAILED (failures=2, errors=1)

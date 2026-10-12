@@ -4,7 +4,7 @@ import json
 import os
 
 from competition.core.trusted_state import prefix
-from research.reference_executor.wire import b64, canonical, rec_ref, require, sortset
+from competition.support.wire import b64, canonical, rec_ref, require, sortset
 
 
 def register_ind_unit(run, *, unit_id='unit-b', batch_id='batch-b', principal='principal-b'):
