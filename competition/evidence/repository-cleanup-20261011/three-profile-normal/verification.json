@@ -1,0 +1,20 @@
+{
+  "kind": "independent_readonly_scoped_W_simulator_verification",
+  "passed": true,
+  "build_commit": "a034821f462970e7535b3504b0278ad173401ebd",
+  "verifier_checkout_commit": "a034821f462970e7535b3504b0278ad173401ebd",
+  "source_mode": "current_checkout",
+  "source_digest": "343ae49c81984e1a2daa520db02c11bd91b8430dd51e98a6b84c7a0fdb73c133",
+  "run_id": "cleanup-normal-1791770992006617300",
+  "case_count": 3,
+  "checks": 724,
+  "verified_signatures": 489,
+  "verified_C_time_packets": 219,
+  "external_manifest_pin_verified": true,
+  "limits": [
+    "Historical signatures, references and independent ledger equality; no current-time authorization re-created by audit.",
+    "Run trust roots must be pinned externally for adversarial audit; embedded roots alone prove package consistency.",
+    "No complete R2 AUDITBundle or whole-disk rollback guarantee."
+  ],
+  "source_checkout_crlf_paths": []
+}

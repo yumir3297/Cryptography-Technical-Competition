@@ -18,3 +18,5 @@
 - [当前目录与材料](competition/evidence/repository-cleanup-20261011/materials-check.json)：当前依赖、文档链接、11 份本地交接副本和原 W 证据文件核对。
 - [消息与编码检查](system_dev/v26/verification_report.json)：371 项 Python 检查、70 项 Node 字节/密码交叉核对。
 - [既有 W 历史核验](competition/evidence/cleanup-protocol-final-20261011-w-verification.json)和[同 ID 历史核验](competition/evidence/cleanup-protocol-final-20261011-same-oid-verification.json)：外部 manifest pin、原签名与账对应通过；原源码按记录提交及被摘要精确确认的 Windows CRLF 检出字节核对。
+
+- [整理后三场景正常路径](competition/evidence/repository-cleanup-20261011/three-profile-normal/report.json)：工业、付款、医疗各自一次接受/attempt/发送/模拟效果/结算，查询再认证及重复结算不增效果；[独立核验](competition/evidence/repository-cleanup-20261011/three-profile-normal/verification.json) 724 项通过。源码构建 a034821，外部 manifest pin 为 `9782b1a4ac5eba26edb984afb63edb508c5964f7df90d0021d0cab9c3533fcf0`。
