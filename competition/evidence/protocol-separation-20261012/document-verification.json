@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "kind": "documentation_separation_no_runtime_change",
+  "document_version": "CORE-SPEC-1.3",
+  "wire_unchanged": "ZJJ-CORE-COMP-1",
+  "core_scenario_terms": 0,
+  "rule_groups_checked": 15,
+  "protected_code_schema_and_original_evidence_files": 301,
+  "documents": 36,
+  "links": 490,
+  "mirrors": 16,
+  "method_signatures": 10,
+  "archived_source_files": 110,
+  "previous_evidence_source_matches_archive": true,
+  "new_runtime_tests_run": 0,
+  "previous_regression_identity": "137/137, COMP-PROTOCOL-FINAL-1.2 code remediation; original evidence preserved",
+  "errors": []
+}

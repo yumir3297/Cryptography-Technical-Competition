@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat, PrivateFormat, NoEncryption
+from competition.support.schema import COMPETITION_PROTO
 from competition.support.wire import Identity, b64, keyid, canonical, digest, rec_ref, msgref, sortset, action_hash
 from competition.support.enrollment import EnrollmentLab
 from competition.support.scene_authority import SceneAuthority, _rec
@@ -57,8 +58,10 @@ class AuthorizationRun:
     def sign(self,profile,alias,typ,payload,*,refs=(),deps=(),aud=('H','G','X'),iat=None,exp=None):
         op=self.operations[profile]; now=int(op['basis']['value']['iat']) if iat is None else iat
         who=self.actors[profile][alias]; end=now+120 if exp is None else exp
-        unsigned={'protected':{'proto':'ZJJ-AAP','version':'2.6','profile':profile,'alg':'Ed25519','type':typ,'issuer':who.name,'kid':who.kid},'body':{'id':b64(os.urandom(16)),'scope':PROFILE_SCOPES[profile],'iat':str(now),'exp':str(end),'aud':sortset([self.actors[profile][a].name for a in aud]),'refs':sortset(list(refs)),'deps':sortset(list(deps)),'payload':copy.deepcopy(payload)}}
-        return self.broker.sign(profile,alias,unsigned,op['action'])
+        unsigned={'protected':{'proto':COMPETITION_PROTO,'version':'2.6','profile':profile,'alg':'Ed25519','type':typ,'issuer':who.name,'kid':who.kid},'body':{'id':b64(os.urandom(16)),'scope':PROFILE_SCOPES[profile],'iat':str(now),'exp':str(end),'aud':sortset([self.actors[profile][a].name for a in aud]),'refs':sortset(list(refs)),'deps':sortset(list(deps)),'payload':copy.deepcopy(payload)}}
+        claim=self.broker.challenge(profile,alias,unsigned,op['action'])
+        proof={'claim':claim,'signature':b64(who.key.sign(canonical(['COMP-APP-SIGN-CALL-v1',claim])))}
+        return self.broker.sign(profile,alias,unsigned,op['action'],caller_proof=proof)
 
     def resign_chain(self,profile,op,*,keep_permit_deps=True):
         # Construct genuine downstream signatures after a legitimate signer

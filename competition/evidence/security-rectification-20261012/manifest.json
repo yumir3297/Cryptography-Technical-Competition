@@ -1,0 +1,85 @@
+{
+  "kind": "competition_software_security_validation",
+  "files": [
+    {
+      "path": "adversarial.json",
+      "size": 306559,
+      "sha256": "77cacd91d09c8dbab70144b51b5c06c78392e8b4947801a9926a35940015607e"
+    },
+    {
+      "path": "competition-tests.log",
+      "size": 22689,
+      "sha256": "c529036e48739ed4220e27f4f2f1abefc551ac56df638032e9a50ceaba24c38e"
+    },
+    {
+      "path": "document-verification.json",
+      "size": 199,
+      "sha256": "3f8418455594bec930d316ab76af784bee16957cc409da33d21690cca5567002"
+    },
+    {
+      "path": "report.json",
+      "size": 25922,
+      "sha256": "0fe1caa00d2dda4f89078350f1885bfd1d536c1cb9d19c42057bf085c8bb8fd8"
+    },
+    {
+      "path": "schema-verification.json",
+      "size": 1541,
+      "sha256": "44fbd8533f60f26ab57034ef4e16df80afc432a22d00bc639129779ee821c9a1"
+    },
+    {
+      "path": "signed-approval-comparison.json",
+      "size": 561575,
+      "sha256": "6cd404a12f351a2395405adb764f833208b81f9000875563ba8efcdc04373084"
+    },
+    {
+      "path": "validation-summary.json",
+      "size": 2570,
+      "sha256": "40f597ca8b04b46299fb5d9ee0358a1b39d4920dca0affba3b884055f92f1608"
+    },
+    {
+      "path": "w-slice/IND-DEMO-1-lost-ack.json",
+      "size": 506040,
+      "sha256": "4b46331e3cd9ede2ac6492222964829677be2197a42b649b28b2677dfcedf023"
+    },
+    {
+      "path": "w-slice/IND-DEMO-1-normal.json",
+      "size": 556361,
+      "sha256": "12c1280d760008ad520150513e48e74afca173c769eb4bfef8de3b54cd881aed"
+    },
+    {
+      "path": "w-slice/manifest.json",
+      "size": 20454,
+      "sha256": "1d62b23403f52cc0525a436f94fbc8da7ef3c6a5e90114a17778a5f0ff4287fe"
+    },
+    {
+      "path": "w-slice/MED-DEMO-1-lost-ack.json",
+      "size": 504958,
+      "sha256": "124f10bea5077b20547efb42be25fc7e961823ed70b35dac41e5b0c2374e2f0e"
+    },
+    {
+      "path": "w-slice/MED-DEMO-1-normal.json",
+      "size": 555027,
+      "sha256": "21d09060492830b43f2f9076db0484ddec5f23bafb1e31235d09c75c094d80e7"
+    },
+    {
+      "path": "w-slice/PAY-1-lost-ack.json",
+      "size": 474235,
+      "sha256": "0b79bf22391b6481f38b9f420b91175cbc979f030840d71decf8e84d42b162d5"
+    },
+    {
+      "path": "w-slice/PAY-1-normal.json",
+      "size": 520820,
+      "sha256": "d010d928bce1f3ab2f61d3dc277fefc4af8bfec2bc3811ad472be100e06e488d"
+    },
+    {
+      "path": "w-slice/report.json",
+      "size": 20208,
+      "sha256": "fef6fb70a4dfa00f8841c95dd2876cb87c83405df81598f5e0e1d83a10134198"
+    },
+    {
+      "path": "w-verification.json",
+      "size": 901,
+      "sha256": "c8ef9ea085cc8022c3db2ac56714537f9ddbcb36747114b14c6bf24c00736394"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "kind": "documentation_separation_validation",
+  "files": [
+    {
+      "path": "document-source-manifest.json",
+      "size": 5415,
+      "sha256": "6f978ddf7c9dd5783495af003882c5e4a84da917a28b856b64376757bfb007b6"
+    },
+    {
+      "path": "document-verification.json",
+      "size": 615,
+      "sha256": "31974eb47152a54de4d011a6c91f6ddcfb9d479592b132f9631a77c6cf473da0"
+    },
+    {
+      "path": "repository-check.json",
+      "size": 481,
+      "sha256": "eff92c30c37b8bf54d0d55d7adda73103a0650c298957155e087a8337e760eb1"
+    },
+    {
+      "path": "summary.json",
+      "size": 1022,
+      "sha256": "bb0b10d2d1e1f007c1465d7f05f4e7c29b7b6a595cc28b480f6744d79e5a5878"
+    }
+  ]
+}

@@ -3,6 +3,7 @@
 No remote tool is atomic with W. A persisted EXEC-0 consumption can therefore
 remain unknown forever; recovery authenticates queries of that same attempt.
 """
+from competition.support.schema import COMPETITION_PROTO
 import copy
 import json
 import os
@@ -22,6 +23,7 @@ KNOWN_CANCEL={'EXPIRED','REVOKED','STALE','NO_ROLE','DEP_CONFLICT','REVIEW_DENY'
 
 class CommonW:
     def __init__(self,state,delivery_key,worker_certificate,x_signers,tool_gateways):
+        require(state.protocol==COMPETITION_PROTO,'W_PROTOCOL_BINDING')
         self.source=state; self.state=WState(state); self.guard=CommonGuard(self.state); self.plans=TransactionPlans(self.state)
         self.delivery_key=delivery_key; self.worker_certificate=worker_certificate; self.x_signers=x_signers; self.tool_gateways=tool_gateways
         self._clock_lock=threading.RLock()
@@ -45,7 +47,7 @@ class CommonW:
             CREATE TABLE IF NOT EXISTS w_evidence(seq INTEGER PRIMARY KEY AUTOINCREMENT,profile TEXT,oid TEXT,kind TEXT,blob TEXT);
             ''')
             saved=c.execute("SELECT blob FROM a_journal WHERE kind='W_BOOTSTRAP' ORDER BY seq LIMIT 1").fetchone()
-            boot={'worker':worker_certificate,'delivery_public':b64(delivery_key.public_key().public_bytes_raw())}
+            boot={'protocol':COMPETITION_PROTO,'worker':worker_certificate,'delivery_public':b64(delivery_key.public_key().public_bytes_raw())}
             if saved:require(json.loads(saved[0])==boot,'W_BOOTSTRAP_CONFLICT')
             else:
                 self._worker_grant(None)
@@ -180,7 +182,7 @@ class CommonW:
                 cv['trusted_time']['hi']=str(event['hi'])
                 cref=rec_ref(commit);xp=self.source.actors[p]['X']
                 payload={k:cv[k] for k in ('ctx','permit_ref','proof_ref','authorization_ref','review_refs','accept_seq','accepted_at','dispatch_before')};payload['commit_record_ref']=cref
-                core={'protected':{'proto':'ZJJ-AAP','version':'2.6','profile':p,'alg':'Ed25519','type':'Acceptance','issuer':xp.name,'kid':xp.kid},'body':{'id':b64(os.urandom(16)),'scope':PROFILE_SCOPES[p],'iat':str(event['lo']),'exp':str(event['lo']+900),'aud':sortset([self.source.actors[p][a].name for a in ('H','G','U')]),'refs':sortset(rr+[pr,fr,ar]),'deps':[],'payload':payload}}
+                core={'protected':{'proto':COMPETITION_PROTO,'version':'2.6','profile':p,'alg':'Ed25519','type':'Acceptance','issuer':xp.name,'kid':xp.kid},'body':{'id':b64(os.urandom(16)),'scope':PROFILE_SCOPES[p],'iat':str(event['lo']),'exp':str(event['lo']+900),'aud':sortset([self.source.actors[p][a].name for a in ('H','G','U')]),'refs':sortset(rr+[pr,fr,ar]),'deps':[],'payload':payload}}
                 frozen={'op':op,'plan':plan,'commit':commit,'commit_ref':cref,'acceptance_core':core,'accepted_at':event['lo'],'x_public':b64(xp.pub),'x_kid':xp.kid,'time_witness':event,'guard':guarded,'tool_certificate':json.loads(toolrow['certificate'])}
                 c.execute('UPDATE w_meta SET accept_seq=? WHERE id=1',(seq,));c.execute('INSERT INTO w_operation VALUES(?,?,?,?,?,NULL,?,?,NULL)',(p,oid,t['request_ref'],enc(plan['intent']),enc(frozen),'PENDING','NO_ATTEMPT'))
                 c.execute('INSERT INTO w_intent VALUES(?,?,?)',(p,enc(plan['intent']),oid));c.execute('INSERT INTO w_reservation VALUES(?,?,?,?,?,?)',(p,rid,oid,enc(plan['resource_key']),plan['amount'],'RESERVED'))
@@ -203,7 +205,7 @@ class CommonW:
                 signed=self.x_signers[p].sign(p,oid,frozen['acceptance_core'])
                 require({k:v for k,v in signed.items() if k!='sig'}==frozen['acceptance_core'],'FROZEN_RECEIPT_CONFLICT')
                 event=self._event(c,p,oid,'RECEIPT_PUBLISH',frozen['commit_ref']);self.source.credential(c,p,'X',ROLES[p]['X'],'Acceptance',frozen['op']['action'],event);require_window(signed['body'],event)
-                self.source.schemas[p].validate(signed,'Acceptance');who=self.source.actors[p]['X'];envelope(signed,{who.kid:who},now=event['lo'])
+                self.source.schemas[p].validate(signed,'Acceptance');who=self.source.actors[p]['X'];envelope(signed,{who.kid:who},now=event['lo'],proto=COMPETITION_PROTO)
                 event=self._end_event(event);require_window(signed['body'],event);self.source.credential(c,p,'X',ROLES[p]['X'],'Acceptance',frozen['op']['action'],event)
                 c.execute('UPDATE w_operation SET receipt=? WHERE profile=? AND oid=?',(enc(signed),p,oid));self._journal(c,'W_RECEIPT',p,oid,{'acceptance':signed,'event':event,'signature_generation_observation':{'pid':self.x_signers[p].info['pid'],'wall_ns':self.x_signers[p].last_generated_wall_ns,'rpc_deadline_seconds':'1.5','kind':'LOCAL_PROCESS_OBSERVATION'}})
             except (ProtocolError,TimeoutError,OSError) as exc:
