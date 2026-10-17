@@ -36,12 +36,18 @@ class AuthorizationRun:
     service: object
     broker: object
     operations: dict
+    # Optional remote signer: (profile, role, domain, claim) -> base64 signature.
+    # When unset, the controlled demonstration signs locally with its own keys.
+    signer: object = None
 
     def close(self): self.clock.close()
     def clone(self,profile): return json.loads(json.dumps(self.operations[profile]))
+    def signature(self,profile,role,domain,claim):
+        if self.signer is not None:return self.signer(profile,role,domain,claim)
+        return b64(self.actors[profile][role].key.sign(canonical([domain,claim])))
     def identity_proof(self,profile,op,stage='GUARD'):
         cl=self.store.challenge(profile,op,stage)
-        return {'claim':cl,'signature':b64(self.actors[profile]['H'].key.sign(canonical(['COMP-APP-AUTHZ-IDENTITY-v1',cl])))}
+        return {'claim':cl,'signature':self.signature(profile,'H','COMP-APP-AUTHZ-IDENTITY-v1',cl)}
 
     def publish(self,profile,ns,key,record,active=True,enrollment=None):
         with self.store.db() as c:
