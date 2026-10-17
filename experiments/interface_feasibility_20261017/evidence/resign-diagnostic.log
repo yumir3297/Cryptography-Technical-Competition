@@ -1,0 +1,30 @@
+test_E3_frozen_full_request_replay_and_resign_conflict (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_frozen_full_request_replay_and_resign_conflict) ... ERROR
+
+======================================================================
+ERROR: test_E3_frozen_full_request_replay_and_resign_conflict (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_frozen_full_request_replay_and_resign_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/experiments/interface_feasibility_20261017/test_probe.py", line 139, in test_E3_frozen_full_request_replay_and_resign_conflict
+    self.run.base.resign_chain(P,changed,keep_permit_deps=False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/authorization_seed.py", line 70, in resign_chain
+    op['authorization']=self.sign(profile,'U','Authorization',{'ctx':ctx,'review_refs':rr,'purpose':'EXECUTE','verdict':'APPROVE'},refs=rr,deps=deps)
+                        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/authorization_seed.py", line 64, in sign
+    return self.broker.sign(profile,alias,unsigned,op['action'],caller_proof=proof)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/signer_broker.py", line 16, in checked
+    try:return fn(*args,**kwargs)
+               ~~^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/signer_broker.py", line 69, in sign
+    require(ctx['action_hash']==action_hash(profile,action) and all(ctx[k]==action[k] for k in ('scope','operation_id','principal','holder','holder_kid','executor')),'BROKER_ACTION_BINDING')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 43, in require
+    if not cond:raise ProtocolError(code)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+competition.support.wire.ProtocolError: BROKER_ACTION_BINDING
+
+----------------------------------------------------------------------
+Ran 1 test in 5.095s
+
+FAILED (errors=1)

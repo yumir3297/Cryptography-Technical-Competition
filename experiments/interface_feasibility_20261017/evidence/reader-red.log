@@ -1,0 +1,15 @@
+test_E1_reader_revocation_precedes_evidence_access (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_reader_revocation_precedes_evidence_access) ... FAIL
+
+======================================================================
+FAIL: test_E1_reader_revocation_precedes_evidence_access (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_reader_revocation_precedes_evidence_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/experiments/interface_feasibility_20261017/test_probe.py", line 256, in test_E1_reader_revocation_precedes_evidence_access
+    self.assertNotIn('EVIDENCE',reads)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AssertionError: 'EVIDENCE' unexpectedly found in ['KEY', 'ROLE', 'TASK', 'POLICY', 'KEY', 'ROLE', 'KEY', 'ROLE', 'EVIDENCE', 'POLICY', 'KEY', 'ROLE']
+
+----------------------------------------------------------------------
+Ran 1 test in 2.542s
+
+FAILED (failures=1)

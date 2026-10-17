@@ -1,0 +1,1555 @@
+test_acceptance_gap (unittest.loader._FailedTest.test_acceptance_gap) ... ERROR
+test_authorization_acceptance (unittest.loader._FailedTest.test_authorization_acceptance) ... ERROR
+test_control_clock_scope_for_all_profiles (test_broker_profiles.RoleBrokerProfiles.test_control_clock_scope_for_all_profiles) ... ok
+test_cross_profile_scope_rejected (test_broker_profiles.RoleBrokerProfiles.test_cross_profile_scope_rejected) ... ok
+test_ind_and_med_and_pay_x_accepted_with_real_keys (test_broker_profiles.RoleBrokerProfiles.test_ind_and_med_and_pay_x_accepted_with_real_keys) ... ok
+test_ind_and_med_source_attestations (test_broker_profiles.RoleBrokerProfiles.test_ind_and_med_source_attestations) ... ok
+test_pay_unenrolled_issuer_rejected (test_broker_profiles.RoleBrokerProfiles.test_pay_unenrolled_issuer_rejected) ... ok
+test_result_only_for_pay_x (test_broker_profiles.RoleBrokerProfiles.test_result_only_for_pay_x) ... ok
+test_unknown_domain_denied (test_broker_profiles.RoleBrokerProfiles.test_unknown_domain_denied) ... ok
+test_wrong_role_and_kid_rejected (test_broker_profiles.RoleBrokerProfiles.test_wrong_role_and_kid_rejected) ... ok
+test_candidate_ingress (unittest.loader._FailedTest.test_candidate_ingress) ... ERROR
+test_failed_transaction_does_not_consume_floor_or_seq (test_clock_guard.SignedClockSafety.test_failed_transaction_does_not_consume_floor_or_seq) ... ok
+test_replay_rejected (test_clock_guard.SignedClockSafety.test_replay_rejected) ... ok
+test_schema_migrates_existing_sequence_without_reset (test_clock_guard.SignedClockSafety.test_schema_migrates_existing_sequence_without_reset) ... ok
+test_signed_elapsed_time_increases_without_equal_instant (test_clock_guard.SignedClockSafety.test_signed_elapsed_time_increases_without_equal_instant) ... ok
+test_tampered_signed_interval_rejected (test_clock_guard.SignedClockSafety.test_tampered_signed_interval_rejected) ... ok
+test_time_rollback_rejected_even_with_new_sequence (test_clock_guard.SignedClockSafety.test_time_rollback_rejected_even_with_new_sequence) ... ok
+test_unbounded_interval_fails_closed (test_clock_guard.SignedClockSafety.test_unbounded_interval_fails_closed) ... ok
+test_common_authorization (unittest.loader._FailedTest.test_common_authorization) ... ERROR
+test_common_receipt (unittest.loader._FailedTest.test_common_receipt) ... ERROR
+test_bad_signatures_binding_and_request_conflicts_have_no_second_effect (test_common_tool.CommonToolTests.test_bad_signatures_binding_and_request_conflicts_have_no_second_effect) ... ERROR
+test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected (test_common_tool.CommonToolTests.test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected) ... ERROR
+test_missing_or_corrupt_ledger_refuses_continuity (test_common_tool.CommonToolTests.test_missing_or_corrupt_ledger_refuses_continuity) ... ERROR
+test_query_requires_w_signature_and_never_accepts_execution_flags (test_common_tool.CommonToolTests.test_query_requires_w_signature_and_never_accepts_execution_flags) ... ERROR
+test_query_uses_new_window_after_original_dispatch_expiry (test_common_tool.CommonToolTests.test_query_uses_new_window_after_original_dispatch_expiry) ... ERROR
+test_real_child_commit_exit_98_query_recovers_same_fact (test_common_tool.CommonToolTests.test_real_child_commit_exit_98_query_recovers_same_fact) ... ERROR
+test_three_profiles_persist_actual_payload_and_immutable_fact (test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) ... 
+  test_three_profiles_persist_actual_payload_and_immutable_fact (test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='PAY-1') ... ERROR
+  test_three_profiles_persist_actual_payload_and_immutable_fact (test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='IND-DEMO-1') ... ERROR
+  test_three_profiles_persist_actual_payload_and_immutable_fact (test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='MED-DEMO-1') ... ERROR
+test_tool_decision_after_dispatch_expiry_rolls_back_every_effect (test_common_tool.CommonToolTests.test_tool_decision_after_dispatch_expiry_rolls_back_every_effect) ... ERROR
+test_unknown_query_never_creates_effect_or_failed_final (test_common_tool.CommonToolTests.test_unknown_query_never_creates_effect_or_failed_final) ... ERROR
+test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample (test_common_w.SharedWTests.test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample) ... FAIL
+test_full_chain_exec_query_and_once_settlement_three_profiles (test_common_w.SharedWTests.test_full_chain_exec_query_and_once_settlement_three_profiles) ... FAIL
+test_ownership_loss_blocks_claim_and_cancel_without_releasing_others (test_common_w.SharedWTests.test_ownership_loss_blocks_claim_and_cancel_without_releasing_others) ... FAIL
+test_status_and_audit_are_current_authenticated_reads_with_zero_execution (test_common_w.SharedWTests.test_status_and_audit_are_current_authenticated_reads_with_zero_execution) ... FAIL
+test_three_profiles_share_real_acceptance_and_pending_outbox_transaction (test_common_w.SharedWTests.test_three_profiles_share_real_acceptance_and_pending_outbox_transaction) ... FAIL
+test_unsigned_worker_cannot_claim_committed_operation (test_common_w.SharedWTests.test_unsigned_worker_cannot_claim_committed_operation) ... FAIL
+test_bad_signature_or_wrong_stage_cannot_consume_time (test_event_clock.EventClockSafety.test_bad_signature_or_wrong_stage_cannot_consume_time) ... ok
+test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false (test_event_clock.EventClockSafety.test_interval_crossing_expiry_is_unknown_and_expired_lo_is_false) ... ok
+test_new_sequence_cannot_make_old_sample_fresh (test_event_clock.EventClockSafety.test_new_sequence_cannot_make_old_sample_fresh) ... ok
+test_new_sequence_cannot_move_below_persistent_floor (test_event_clock.EventClockSafety.test_new_sequence_cannot_move_below_persistent_floor) ... ok
+test_overwide_authenticated_interval_is_unknown (test_event_clock.EventClockSafety.test_overwide_authenticated_interval_is_unknown) ... ok
+test_previous_provider_instance_is_unknown_after_restart (test_event_clock.EventClockSafety.test_previous_provider_instance_is_unknown_after_restart) ... ok
+test_valid_current_sample_persists_floor_and_replay_is_rejected (test_event_clock.EventClockSafety.test_valid_current_sample_persists_floor_and_replay_is_rejected) ... ok
+test_med_required_review (unittest.loader._FailedTest.test_med_required_review) ... ERROR
+test_action_payee_cannot_override_signed_source (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_action_payee_cannot_override_signed_source) ... FAIL
+test_cutoff_cannot_be_after_trusted_event (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_cutoff_cannot_be_after_trusted_event) ... FAIL
+test_declared_current_source_dependency_is_accepted (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_declared_current_source_dependency_is_accepted) ... FAIL
+test_event_interval_must_fit_source_window (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_event_interval_must_fit_source_window) ... FAIL
+test_fresh_signed_sources_derive_three_original_risk_routes (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_fresh_signed_sources_derive_three_original_risk_routes) ... FAIL
+test_holder_and_finance_may_share_subject_without_extra_basis_role (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_holder_and_finance_may_share_subject_without_extra_basis_role) ... FAIL
+test_signed_source_must_allow_required_reviewer (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_signed_source_must_allow_required_reviewer) ... FAIL
+test_source_dependency_must_match_exact_current_revision (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_source_dependency_must_match_exact_current_revision) ... FAIL
+test_rectification (unittest.loader._FailedTest.test_rectification) ... ERROR
+test_scene_authorization_adapter (unittest.loader._FailedTest.test_scene_authorization_adapter) ... ERROR
+test_accept_identity_challenge_is_one_use (test_time_acceptance.IndustrialTimeAcceptance.test_accept_identity_challenge_is_one_use) ... FAIL
+test_clock_unavailable_cannot_accept (test_time_acceptance.IndustrialTimeAcceptance.test_clock_unavailable_cannot_accept) ... FAIL
+test_cross_one_real_second_accepts_current_time_then_signs_original_core (test_time_acceptance.IndustrialTimeAcceptance.test_cross_one_real_second_accepts_current_time_then_signs_original_core) ... FAIL
+test_current_policy_removal_denies_status (test_time_acceptance.IndustrialTimeAcceptance.test_current_policy_removal_denies_status) ... FAIL
+test_current_x_grant_expiry_cannot_change_original_core_or_release (test_time_acceptance.IndustrialTimeAcceptance.test_current_x_grant_expiry_cannot_change_original_core_or_release) ... FAIL
+test_current_x_revocation_after_accept_leaves_original_pending (test_time_acceptance.IndustrialTimeAcceptance.test_current_x_revocation_after_accept_leaves_original_pending) ... FAIL
+test_expired_ticket_leaves_no_acceptance (test_time_acceptance.IndustrialTimeAcceptance.test_expired_ticket_leaves_no_acceptance) ... FAIL
+test_hard_exit_after_commit_recovers_without_second_accept_or_reservation (test_time_acceptance.IndustrialTimeAcceptance.test_hard_exit_after_commit_recovers_without_second_accept_or_reservation) ... FAIL
+test_legacy_mutation_entrypoints_are_closed (test_time_acceptance.IndustrialTimeAcceptance.test_legacy_mutation_entrypoints_are_closed) ... FAIL
+test_original_request_retry_requires_current_holder_identity (test_time_acceptance.IndustrialTimeAcceptance.test_original_request_retry_requires_current_holder_identity) ... FAIL
+test_reader_expiry_is_rechecked_at_final_acceptance_event (test_time_acceptance.IndustrialTimeAcceptance.test_reader_expiry_is_rechecked_at_final_acceptance_event) ... FAIL
+test_recovery_keeps_exact_commit_core_refs_and_one_reservation (test_time_acceptance.IndustrialTimeAcceptance.test_recovery_keeps_exact_commit_core_refs_and_one_reservation) ... FAIL
+test_revocation_before_accept_leaves_no_acceptance (test_time_acceptance.IndustrialTimeAcceptance.test_revocation_before_accept_leaves_no_acceptance) ... FAIL
+test_signer_failure_preserves_acceptance_and_blocks_claim (test_time_acceptance.IndustrialTimeAcceptance.test_signer_failure_preserves_acceptance_and_blocks_claim) ... FAIL
+test_status_is_authenticated_and_does_not_sign_or_accept (test_time_acceptance.IndustrialTimeAcceptance.test_status_is_authenticated_and_does_not_sign_or_accept) ... FAIL
+test_ticket_alone_does_not_authenticate_acceptance (test_time_acceptance.IndustrialTimeAcceptance.test_ticket_alone_does_not_authenticate_acceptance) ... FAIL
+test_unsigned_outer_action_cannot_change_signed_context (test_time_acceptance.IndustrialTimeAcceptance.test_unsigned_outer_action_cannot_change_signed_context) ... FAIL
+test_x_signature_cannot_authenticate_holder_acceptance (test_time_acceptance.IndustrialTimeAcceptance.test_x_signature_cannot_authenticate_holder_acceptance) ... FAIL
+test_eight_claims_share_one_attempt_and_later_revoke_cannot_cancel (test_w_acceptance_races.AcceptanceRaceTests.test_eight_claims_share_one_attempt_and_later_revoke_cannot_cancel) ... FAIL
+test_eight_distinct_valid_permits_for_same_intent_have_one_accept (test_w_acceptance_races.AcceptanceRaceTests.test_eight_distinct_valid_permits_for_same_intent_have_one_accept) ... FAIL
+test_independent_intents_and_behavior_rows_compete_for_last_resource (test_w_acceptance_races.AcceptanceRaceTests.test_independent_intents_and_behavior_rows_compete_for_last_resource) ... FAIL
+test_revoked_claim_races_cancellation_and_only_cancel_releases (test_w_acceptance_races.AcceptanceRaceTests.test_revoked_claim_races_cancellation_and_only_cancel_releases) ... FAIL
+test_w_final_regressions (unittest.loader._FailedTest.test_w_final_regressions) ... ERROR
+test_w_plans (unittest.loader._FailedTest.test_w_plans) ... ERROR
+test_w_recovery (unittest.loader._FailedTest.test_w_recovery) ... ERROR
+test_w_seed (unittest.loader._FailedTest.test_w_seed) ... ERROR
+
+======================================================================
+ERROR: test_acceptance_gap (unittest.loader._FailedTest.test_acceptance_gap)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_acceptance_gap
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_acceptance_gap.py", line 8, in <module>
+    from competition.support.scene_verifier import VerifierOnlySceneW
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/scene_verifier.py", line 11, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_authorization_acceptance (unittest.loader._FailedTest.test_authorization_acceptance)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_authorization_acceptance
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_authorization_acceptance.py", line 6, in <module>
+    from competition.profiles.industrial_seed import initialize
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_candidate_ingress (unittest.loader._FailedTest.test_candidate_ingress)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_candidate_ingress
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_candidate_ingress.py", line 5, in <module>
+    from competition.profiles.pay_seed import build_pay
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_common_authorization (unittest.loader._FailedTest.test_common_authorization)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_common_authorization
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_authorization.py", line 9, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES, prefix, enc, ROLES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_common_receipt (unittest.loader._FailedTest.test_common_receipt)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_common_receipt
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_receipt.py", line 13, in <module>
+    from competition.support.schema import COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_bad_signatures_binding_and_request_conflicts_have_no_second_effect (test_common_tool.CommonToolTests.test_bad_signatures_binding_and_request_conflicts_have_no_second_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 112, in test_bad_signatures_binding_and_request_conflicts_have_no_second_effect
+    ledger, _, packet, w, _ = self.fixture()
+                              ^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected (test_common_tool.CommonToolTests.test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 165, in test_final_fact_and_effect_rows_are_immutable_and_partial_loss_is_rejected
+    ledger, _, packet, w, _=self.fixture()
+                            ^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_missing_or_corrupt_ledger_refuses_continuity (test_common_tool.CommonToolTests.test_missing_or_corrupt_ledger_refuses_continuity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 146, in test_missing_or_corrupt_ledger_refuses_continuity
+    from competition.tools.common_tool import create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_query_requires_w_signature_and_never_accepts_execution_flags (test_common_tool.CommonToolTests.test_query_requires_w_signature_and_never_accepts_execution_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 155, in test_query_requires_w_signature_and_never_accepts_execution_flags
+    ledger, gateway, packet, w, _ = self.fixture()
+                                    ^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_query_uses_new_window_after_original_dispatch_expiry (test_common_tool.CommonToolTests.test_query_uses_new_window_after_original_dispatch_expiry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 138, in test_query_uses_new_window_after_original_dispatch_expiry
+    ledger, _, packet, w, _ = self.fixture(ttl=3)
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_real_child_commit_exit_98_query_recovers_same_fact (test_common_tool.CommonToolTests.test_real_child_commit_exit_98_query_recovers_same_fact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 126, in test_real_child_commit_exit_98_query_recovers_same_fact
+    ledger, gateway, packet, w, _ = self.fixture(crash=True)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_three_profiles_persist_actual_payload_and_immutable_fact (test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='PAY-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 76, in test_three_profiles_persist_actual_payload_and_immutable_fact
+    ledger, _, packet, w, tool = self.fixture(profile)
+                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_three_profiles_persist_actual_payload_and_immutable_fact (test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='IND-DEMO-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 76, in test_three_profiles_persist_actual_payload_and_immutable_fact
+    ledger, _, packet, w, tool = self.fixture(profile)
+                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_three_profiles_persist_actual_payload_and_immutable_fact (test_common_tool.CommonToolTests.test_three_profiles_persist_actual_payload_and_immutable_fact) (profile='MED-DEMO-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 76, in test_three_profiles_persist_actual_payload_and_immutable_fact
+    ledger, _, packet, w, tool = self.fixture(profile)
+                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_tool_decision_after_dispatch_expiry_rolls_back_every_effect (test_common_tool.CommonToolTests.test_tool_decision_after_dispatch_expiry_rolls_back_every_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 93, in test_tool_decision_after_dispatch_expiry_rolls_back_every_effect
+    ledger,_,packet,_,_=self.fixture(ttl=2);original=ledger._counts;calls=[]
+                        ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_unknown_query_never_creates_effect_or_failed_final (test_common_tool.CommonToolTests.test_unknown_query_never_creates_effect_or_failed_final)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 104, in test_unknown_query_never_creates_effect_or_failed_final
+    ledger, _, packet, w, _ = self.fixture()
+                              ^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_tool.py", line 29, in fixture
+    from competition.tools.common_tool import CommonToolLedger, ToolGateway, create_tool_database
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tools/common_tool.py", line 22, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+======================================================================
+ERROR: test_med_required_review (unittest.loader._FailedTest.test_med_required_review)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_med_required_review
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_med_required_review.py", line 8, in <module>
+    from competition.support.scene_verifier import VerifierOnlySceneW
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/scene_verifier.py", line 11, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_rectification (unittest.loader._FailedTest.test_rectification)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_rectification
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_rectification.py", line 6, in <module>
+    from competition.profiles.authorization_seed import initialize
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/authorization_seed.py", line 10, in <module>
+    from competition.support.schema import COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_scene_authorization_adapter (unittest.loader._FailedTest.test_scene_authorization_adapter)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_scene_authorization_adapter
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_scene_authorization_adapter.py", line 12, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_w_final_regressions (unittest.loader._FailedTest.test_w_final_regressions)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_w_final_regressions
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_final_regressions.py", line 7, in <module>
+    from competition.profiles.w_seed import initialize
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_seed.py", line 17, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_w_plans (unittest.loader._FailedTest.test_w_plans)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_w_plans
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_plans.py", line 10, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES, prefix
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_w_recovery (unittest.loader._FailedTest.test_w_recovery)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_w_recovery
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_recovery.py", line 6, in <module>
+    from competition.profiles.w_seed import initialize
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_seed.py", line 17, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_w_seed (unittest.loader._FailedTest.test_w_seed)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_w_seed
+Traceback (most recent call last):
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_seed.py", line 9, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES, prefix
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+FAIL: test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample (test_common_w.SharedWTests.test_delayed_final_acceptance_guard_cannot_publish_a_stale_time_sample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 9, in setUp
+    try:self.module=importlib.import_module('competition.profiles.w_seed')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_seed.py", line 17, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 10, in setUp
+    except ModuleNotFoundError:self.fail('Missing common W runtime/transaction path')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing common W runtime/transaction path
+
+======================================================================
+FAIL: test_full_chain_exec_query_and_once_settlement_three_profiles (test_common_w.SharedWTests.test_full_chain_exec_query_and_once_settlement_three_profiles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 9, in setUp
+    try:self.module=importlib.import_module('competition.profiles.w_seed')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_seed.py", line 17, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 10, in setUp
+    except ModuleNotFoundError:self.fail('Missing common W runtime/transaction path')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing common W runtime/transaction path
+
+======================================================================
+FAIL: test_ownership_loss_blocks_claim_and_cancel_without_releasing_others (test_common_w.SharedWTests.test_ownership_loss_blocks_claim_and_cancel_without_releasing_others)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 9, in setUp
+    try:self.module=importlib.import_module('competition.profiles.w_seed')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_seed.py", line 17, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 10, in setUp
+    except ModuleNotFoundError:self.fail('Missing common W runtime/transaction path')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing common W runtime/transaction path
+
+======================================================================
+FAIL: test_status_and_audit_are_current_authenticated_reads_with_zero_execution (test_common_w.SharedWTests.test_status_and_audit_are_current_authenticated_reads_with_zero_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 9, in setUp
+    try:self.module=importlib.import_module('competition.profiles.w_seed')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_seed.py", line 17, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 10, in setUp
+    except ModuleNotFoundError:self.fail('Missing common W runtime/transaction path')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing common W runtime/transaction path
+
+======================================================================
+FAIL: test_three_profiles_share_real_acceptance_and_pending_outbox_transaction (test_common_w.SharedWTests.test_three_profiles_share_real_acceptance_and_pending_outbox_transaction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 9, in setUp
+    try:self.module=importlib.import_module('competition.profiles.w_seed')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_seed.py", line 17, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 10, in setUp
+    except ModuleNotFoundError:self.fail('Missing common W runtime/transaction path')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing common W runtime/transaction path
+
+======================================================================
+FAIL: test_unsigned_worker_cannot_claim_committed_operation (test_common_w.SharedWTests.test_unsigned_worker_cannot_claim_committed_operation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 9, in setUp
+    try:self.module=importlib.import_module('competition.profiles.w_seed')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_seed.py", line 17, in <module>
+    from competition.core.trusted_state import PROFILE_SCOPES
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_common_w.py", line 10, in setUp
+    except ModuleNotFoundError:self.fail('Missing common W runtime/transaction path')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing common W runtime/transaction path
+
+======================================================================
+FAIL: test_action_payee_cannot_override_signed_source (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_action_payee_cannot_override_signed_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 72, in setUp
+    self.build = importlib.import_module('competition.profiles.pay_seed').build_pay
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 75, in setUp
+    self.fail('Missing PAY business seed/authorization adapter APIs')
+AssertionError: Missing PAY business seed/authorization adapter APIs
+
+======================================================================
+FAIL: test_cutoff_cannot_be_after_trusted_event (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_cutoff_cannot_be_after_trusted_event)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 72, in setUp
+    self.build = importlib.import_module('competition.profiles.pay_seed').build_pay
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 75, in setUp
+    self.fail('Missing PAY business seed/authorization adapter APIs')
+AssertionError: Missing PAY business seed/authorization adapter APIs
+
+======================================================================
+FAIL: test_declared_current_source_dependency_is_accepted (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_declared_current_source_dependency_is_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 72, in setUp
+    self.build = importlib.import_module('competition.profiles.pay_seed').build_pay
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 75, in setUp
+    self.fail('Missing PAY business seed/authorization adapter APIs')
+AssertionError: Missing PAY business seed/authorization adapter APIs
+
+======================================================================
+FAIL: test_event_interval_must_fit_source_window (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_event_interval_must_fit_source_window)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 72, in setUp
+    self.build = importlib.import_module('competition.profiles.pay_seed').build_pay
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 75, in setUp
+    self.fail('Missing PAY business seed/authorization adapter APIs')
+AssertionError: Missing PAY business seed/authorization adapter APIs
+
+======================================================================
+FAIL: test_fresh_signed_sources_derive_three_original_risk_routes (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_fresh_signed_sources_derive_three_original_risk_routes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 72, in setUp
+    self.build = importlib.import_module('competition.profiles.pay_seed').build_pay
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 75, in setUp
+    self.fail('Missing PAY business seed/authorization adapter APIs')
+AssertionError: Missing PAY business seed/authorization adapter APIs
+
+======================================================================
+FAIL: test_holder_and_finance_may_share_subject_without_extra_basis_role (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_holder_and_finance_may_share_subject_without_extra_basis_role)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 72, in setUp
+    self.build = importlib.import_module('competition.profiles.pay_seed').build_pay
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 75, in setUp
+    self.fail('Missing PAY business seed/authorization adapter APIs')
+AssertionError: Missing PAY business seed/authorization adapter APIs
+
+======================================================================
+FAIL: test_signed_source_must_allow_required_reviewer (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_signed_source_must_allow_required_reviewer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 72, in setUp
+    self.build = importlib.import_module('competition.profiles.pay_seed').build_pay
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 75, in setUp
+    self.fail('Missing PAY business seed/authorization adapter APIs')
+AssertionError: Missing PAY business seed/authorization adapter APIs
+
+======================================================================
+FAIL: test_source_dependency_must_match_exact_current_revision (test_pay_authorization_adapter.PayAuthorizationAdapterTests.test_source_dependency_must_match_exact_current_revision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 72, in setUp
+    self.build = importlib.import_module('competition.profiles.pay_seed').build_pay
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/pay_seed.py", line 7, in <module>
+    from competition.support.schema import UpstreamSchema
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_pay_authorization_adapter.py", line 75, in setUp
+    self.fail('Missing PAY business seed/authorization adapter APIs')
+AssertionError: Missing PAY business seed/authorization adapter APIs
+
+======================================================================
+FAIL: test_accept_identity_challenge_is_one_use (test_time_acceptance.IndustrialTimeAcceptance.test_accept_identity_challenge_is_one_use)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_clock_unavailable_cannot_accept (test_time_acceptance.IndustrialTimeAcceptance.test_clock_unavailable_cannot_accept)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_cross_one_real_second_accepts_current_time_then_signs_original_core (test_time_acceptance.IndustrialTimeAcceptance.test_cross_one_real_second_accepts_current_time_then_signs_original_core)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_current_policy_removal_denies_status (test_time_acceptance.IndustrialTimeAcceptance.test_current_policy_removal_denies_status)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_current_x_grant_expiry_cannot_change_original_core_or_release (test_time_acceptance.IndustrialTimeAcceptance.test_current_x_grant_expiry_cannot_change_original_core_or_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_current_x_revocation_after_accept_leaves_original_pending (test_time_acceptance.IndustrialTimeAcceptance.test_current_x_revocation_after_accept_leaves_original_pending)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_expired_ticket_leaves_no_acceptance (test_time_acceptance.IndustrialTimeAcceptance.test_expired_ticket_leaves_no_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_hard_exit_after_commit_recovers_without_second_accept_or_reservation (test_time_acceptance.IndustrialTimeAcceptance.test_hard_exit_after_commit_recovers_without_second_accept_or_reservation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_legacy_mutation_entrypoints_are_closed (test_time_acceptance.IndustrialTimeAcceptance.test_legacy_mutation_entrypoints_are_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_original_request_retry_requires_current_holder_identity (test_time_acceptance.IndustrialTimeAcceptance.test_original_request_retry_requires_current_holder_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_reader_expiry_is_rechecked_at_final_acceptance_event (test_time_acceptance.IndustrialTimeAcceptance.test_reader_expiry_is_rechecked_at_final_acceptance_event)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_recovery_keeps_exact_commit_core_refs_and_one_reservation (test_time_acceptance.IndustrialTimeAcceptance.test_recovery_keeps_exact_commit_core_refs_and_one_reservation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_revocation_before_accept_leaves_no_acceptance (test_time_acceptance.IndustrialTimeAcceptance.test_revocation_before_accept_leaves_no_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_signer_failure_preserves_acceptance_and_blocks_claim (test_time_acceptance.IndustrialTimeAcceptance.test_signer_failure_preserves_acceptance_and_blocks_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_status_is_authenticated_and_does_not_sign_or_accept (test_time_acceptance.IndustrialTimeAcceptance.test_status_is_authenticated_and_does_not_sign_or_accept)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_ticket_alone_does_not_authenticate_acceptance (test_time_acceptance.IndustrialTimeAcceptance.test_ticket_alone_does_not_authenticate_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_unsigned_outer_action_cannot_change_signed_context (test_time_acceptance.IndustrialTimeAcceptance.test_unsigned_outer_action_cannot_change_signed_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_x_signature_cannot_authenticate_holder_acceptance (test_time_acceptance.IndustrialTimeAcceptance.test_x_signature_cannot_authenticate_holder_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 18, in setUp
+    self.seed_module = importlib.import_module('competition.profiles.industrial_seed')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/industrial_seed.py", line 14, in <module>
+    from competition.core.acceptance import CurrentTimeGuards, IndustrialAcceptanceW, objref
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/acceptance.py", line 11, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_time_acceptance.py", line 20, in setUp
+    self.fail('Missing real-time industrial initializer/acceptance path')
+AssertionError: Missing real-time industrial initializer/acceptance path
+
+======================================================================
+FAIL: test_eight_claims_share_one_attempt_and_later_revoke_cannot_cancel (test_w_acceptance_races.AcceptanceRaceTests.test_eight_claims_share_one_attempt_and_later_revoke_cannot_cancel)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_acceptance_races.py", line 13, in setUp
+    self.cases = importlib.import_module('competition.w_cases_races')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/w_cases_races.py", line 14, in <module>
+    from competition.profiles.w_scenarios import register_ind_unit
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_scenarios.py", line 6, in <module>
+    from competition.core.trusted_state import prefix
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_acceptance_races.py", line 15, in setUp
+    self.fail('Missing reusable actual race case exports')
+AssertionError: Missing reusable actual race case exports
+
+======================================================================
+FAIL: test_eight_distinct_valid_permits_for_same_intent_have_one_accept (test_w_acceptance_races.AcceptanceRaceTests.test_eight_distinct_valid_permits_for_same_intent_have_one_accept)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_acceptance_races.py", line 13, in setUp
+    self.cases = importlib.import_module('competition.w_cases_races')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/w_cases_races.py", line 14, in <module>
+    from competition.profiles.w_scenarios import register_ind_unit
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_scenarios.py", line 6, in <module>
+    from competition.core.trusted_state import prefix
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_acceptance_races.py", line 15, in setUp
+    self.fail('Missing reusable actual race case exports')
+AssertionError: Missing reusable actual race case exports
+
+======================================================================
+FAIL: test_independent_intents_and_behavior_rows_compete_for_last_resource (test_w_acceptance_races.AcceptanceRaceTests.test_independent_intents_and_behavior_rows_compete_for_last_resource)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_acceptance_races.py", line 13, in setUp
+    self.cases = importlib.import_module('competition.w_cases_races')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/w_cases_races.py", line 14, in <module>
+    from competition.profiles.w_scenarios import register_ind_unit
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_scenarios.py", line 6, in <module>
+    from competition.core.trusted_state import prefix
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_acceptance_races.py", line 15, in setUp
+    self.fail('Missing reusable actual race case exports')
+AssertionError: Missing reusable actual race case exports
+
+======================================================================
+FAIL: test_revoked_claim_races_cancellation_and_only_cancel_releases (test_w_acceptance_races.AcceptanceRaceTests.test_revoked_claim_races_cancellation_and_only_cancel_releases)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_acceptance_races.py", line 13, in setUp
+    self.cases = importlib.import_module('competition.w_cases_races')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yumir/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/w_cases_races.py", line 14, in <module>
+    from competition.profiles.w_scenarios import register_ind_unit
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/w_scenarios.py", line 6, in <module>
+    from competition.core.trusted_state import prefix
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 12, in <module>
+    from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 4, in <module>
+    from jsonschema import Draft202012Validator
+ModuleNotFoundError: No module named 'jsonschema'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_w_acceptance_races.py", line 15, in setUp
+    self.fail('Missing reusable actual race case exports')
+AssertionError: Missing reusable actual race case exports
+
+----------------------------------------------------------------------
+Ran 79 tests in 0.355s
+
+FAILED (failures=36, errors=23)

@@ -1,0 +1,44 @@
+test_E1_authentication_and_task_binding (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_authentication_and_task_binding) ... ok
+test_E1_malicious_fields_and_inputs_rejected_before_allocation (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_malicious_fields_and_inputs_rejected_before_allocation) ... ok
+test_E1_revoked_holder_role_and_key_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_revoked_holder_role_and_key_rejected) ... ok
+test_E1_sources_and_original_schema (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_sources_and_original_schema) ... ok
+test_E1_tampered_authenticated_task_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_tampered_authenticated_task_rejected) ... ok
+test_E1_tool_configuration_required (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_tool_configuration_required) ... ok
+test_E2_guard_hash_chain_and_E4_industrial_end_to_end (experiments.interface_feasibility_20261017.test_probe.Probe.test_E2_guard_hash_chain_and_E4_industrial_end_to_end) ... ok
+test_E2_missing_U_V_tampered_action_and_bad_signature_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E2_missing_U_V_tampered_action_and_bad_signature_rejected) ... ok
+test_E3_E4_real_W_commit_crash_and_restart_from_frozen_request (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_E4_real_W_commit_crash_and_restart_from_frozen_request) ... ok
+test_E3_frozen_full_request_replay_and_resign_conflict (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_frozen_full_request_replay_and_resign_conflict) ... ERROR
+test_E3_new_request_id_cannot_repeat_same_business_effect (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_new_request_id_cannot_repeat_same_business_effect) ... ok
+test_E3_real_process_exit_after_allocation_restores_same_id (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_real_process_exit_after_allocation_restores_same_id) ... ok
+test_E3_retries_conflicts_and_concurrent_allocation (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_retries_conflicts_and_concurrent_allocation) ... ok
+test_E4_tool_commit_lost_ack_queries_same_fact (experiments.interface_feasibility_20261017.test_probe.Probe.test_E4_tool_commit_lost_ack_queries_same_fact) ... ok
+test_E4_unknown_tool_result_keeps_reservation_and_no_effect (experiments.interface_feasibility_20261017.test_probe.Probe.test_E4_unknown_tool_result_keeps_reservation_and_no_effect) ... ok
+
+======================================================================
+ERROR: test_E3_frozen_full_request_replay_and_resign_conflict (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_frozen_full_request_replay_and_resign_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/experiments/interface_feasibility_20261017/test_probe.py", line 139, in test_E3_frozen_full_request_replay_and_resign_conflict
+    self.run.base.resign_chain(P,changed,keep_permit_deps=False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/authorization_seed.py", line 70, in resign_chain
+    op['authorization']=self.sign(profile,'U','Authorization',{'ctx':ctx,'review_refs':rr,'purpose':'EXECUTE','verdict':'APPROVE'},refs=rr,deps=deps)
+                        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/authorization_seed.py", line 64, in sign
+    return self.broker.sign(profile,alias,unsigned,op['action'],caller_proof=proof)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/signer_broker.py", line 16, in checked
+    try:return fn(*args,**kwargs)
+               ~~^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/signer_broker.py", line 69, in sign
+    require(ctx['action_hash']==action_hash(profile,action) and all(ctx[k]==action[k] for k in ('scope','operation_id','principal','holder','holder_kid','executor')),'BROKER_ACTION_BINDING')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 43, in require
+    if not cond:raise ProtocolError(code)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+competition.support.wire.ProtocolError: BROKER_ACTION_BINDING
+
+----------------------------------------------------------------------
+Ran 15 tests in 65.322s
+
+FAILED (errors=1)

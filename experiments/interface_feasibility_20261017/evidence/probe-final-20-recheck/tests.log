@@ -1,0 +1,25 @@
+test_E1_authentication_and_task_binding (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_authentication_and_task_binding) ... ok
+test_E1_expired_auth_and_substituted_proposal_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_expired_auth_and_substituted_proposal_rejected) ... ok
+test_E1_malicious_fields_and_inputs_rejected_before_allocation (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_malicious_fields_and_inputs_rejected_before_allocation) ... ok
+test_E1_reader_revocation_precedes_evidence_access (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_reader_revocation_precedes_evidence_access) ... ok
+test_E1_revoked_executor_role_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_revoked_executor_role_rejected) ... ok
+test_E1_revoked_holder_key_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_revoked_holder_key_rejected) ... ok
+test_E1_revoked_holder_role_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_revoked_holder_role_rejected) ... ok
+test_E1_sources_and_original_schema (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_sources_and_original_schema) ... ok
+test_E1_tampered_authenticated_task_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_tampered_authenticated_task_rejected) ... ok
+test_E1_tool_configuration_required (experiments.interface_feasibility_20261017.test_probe.Probe.test_E1_tool_configuration_required) ... ok
+test_E2_guard_hash_chain_and_E4_industrial_end_to_end (experiments.interface_feasibility_20261017.test_probe.Probe.test_E2_guard_hash_chain_and_E4_industrial_end_to_end) ... ok
+test_E2_missing_U_V_tampered_action_and_bad_signature_rejected (experiments.interface_feasibility_20261017.test_probe.Probe.test_E2_missing_U_V_tampered_action_and_bad_signature_rejected) ... ok
+test_E3_E4_real_W_commit_crash_and_restart_from_frozen_request (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_E4_real_W_commit_crash_and_restart_from_frozen_request) ... ok
+test_E3_frozen_full_request_replay_and_resign_conflict (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_frozen_full_request_replay_and_resign_conflict) ... ok
+test_E3_new_request_id_cannot_repeat_same_business_effect (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_new_request_id_cannot_repeat_same_business_effect) ... ok
+test_E3_real_process_exit_after_allocation_restores_same_id (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_real_process_exit_after_allocation_restores_same_id) ... ok
+test_E3_real_process_exit_after_full_op_persist_restores_exact_request (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_real_process_exit_after_full_op_persist_restores_exact_request) ... ok
+test_E3_retries_conflicts_and_concurrent_allocation (experiments.interface_feasibility_20261017.test_probe.Probe.test_E3_retries_conflicts_and_concurrent_allocation) ... ok
+test_E4_tool_commit_lost_ack_queries_same_fact (experiments.interface_feasibility_20261017.test_probe.Probe.test_E4_tool_commit_lost_ack_queries_same_fact) ... ok
+test_E4_unknown_tool_result_keeps_reservation_and_no_effect (experiments.interface_feasibility_20261017.test_probe.Probe.test_E4_unknown_tool_result_keeps_reservation_and_no_effect) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 76.492s
+
+OK

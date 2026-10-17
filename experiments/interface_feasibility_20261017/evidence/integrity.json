@@ -1,0 +1,10 @@
+{
+  "baseline": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+  "tracked_files_checked": 350,
+  "changed_original_files": [],
+  "checked_sets": [
+    "competition (including existing evidence)",
+    "system_dev (including R2 schemas)",
+    "all other baseline tracked files"
+  ]
+}
