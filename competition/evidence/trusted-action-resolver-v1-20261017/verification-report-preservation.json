@@ -1,0 +1,17 @@
+[
+  {
+    "historical_path": "system_dev/v26/verification_report.json",
+    "new_run_saved_as": "generated-contract-report.json",
+    "historical_sha256_restored": "78a3f32486ba34996031d6f2725f9464d4e2de36d2cdd86e217dcc7d6114bde3"
+  },
+  {
+    "historical_path": "competition/evidence/cleanup-protocol-final-20261011-w-verification.json",
+    "new_run_saved_as": "generated-historical-w-verification.json",
+    "historical_sha256_restored": "9614dca3db0fb6f0a5351609538074a89869bf5e32d5246a3921804634d4f7bc"
+  },
+  {
+    "historical_path": "competition/evidence/cleanup-protocol-final-20261011-same-oid-verification.json",
+    "new_run_saved_as": "generated-historical-same-oid-verification.json",
+    "historical_sha256_restored": "9db3a8002eacc696f2724020f1cdd6c9a6c345d437c49d53e8d2332b1584adff"
+  }
+]

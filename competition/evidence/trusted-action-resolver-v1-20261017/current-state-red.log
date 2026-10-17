@@ -1,0 +1,18 @@
+test_new_requests_use_W_current_state_while_cached_request_stays_frozen (competition.tests.test_action_resolver.ActionResolverTests.test_new_requests_use_W_current_state_while_cached_request_stays_frozen) ... FAIL
+
+======================================================================
+FAIL: test_new_requests_use_W_current_state_while_cached_request_stays_frozen (competition.tests.test_action_resolver.ActionResolverTests.test_new_requests_use_W_current_state_while_cached_request_stays_frozen)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_action_resolver.py", line 273, in test_new_requests_use_W_current_state_while_cached_request_stays_frozen
+    self.reject(lambda:self.resolve({**self.proposal,'request_id':'after-commit'}),'STALE')
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_action_resolver.py", line 52, in reject
+    with self.assertRaises(ProtocolError) as cm:call()
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 8.637s
+
+FAILED (failures=1)
