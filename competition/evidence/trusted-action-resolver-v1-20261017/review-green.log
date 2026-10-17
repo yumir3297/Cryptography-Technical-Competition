@@ -1,0 +1,7 @@
+test_short_valid_package_bounds_assessment_lifetime (competition.tests.test_action_resolver.ActionResolverTests.test_short_valid_package_bounds_assessment_lifetime) ... ok
+test_delayed_first_freeze_does_not_persist_stale_event (competition.tests.test_action_resolver.ActionResolverTests.test_delayed_first_freeze_does_not_persist_stale_event) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 11.164s
+
+OK

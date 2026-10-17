@@ -1,0 +1,20 @@
+{
+  "cwd": "/private/tmp/zjj-interface-feasibility-20261017",
+  "baseline": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+  "python": "3.14.7",
+  "cryptography": "50.0.2",
+  "jsonschema": "4.26.0",
+  "logs": {
+    "full-regression-01.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest discover -s competition/tests -v",
+    "full-regression-final.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest discover -s competition/tests -v",
+    "full-regression-release.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest discover -s competition/tests -v",
+    "application-first.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest competition.tests.test_action_resolver -v",
+    "contracts.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python system_dev/v26/tools/verify_contracts.py",
+    "existing-evidence.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python competition/docs/final/verify-existing-evidence.py",
+    "current-state-red.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest competition.tests.test_action_resolver.ActionResolverTests.test_new_requests_use_W_current_state_while_cached_request_stays_frozen -v",
+    "current-state-green.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest competition.tests.test_action_resolver.ActionResolverTests.test_new_requests_use_W_current_state_while_cached_request_stays_frozen competition.tests.test_time_acceptance.IndustrialTimeAcceptance.test_signer_failure_preserves_acceptance_and_blocks_claim -v",
+    "review-red.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest competition.tests.test_action_resolver.ActionResolverTests.test_short_valid_package_bounds_assessment_lifetime competition.tests.test_action_resolver.ActionResolverTests.test_delayed_first_freeze_does_not_persist_stale_event -v",
+    "review-green.log": "env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest competition.tests.test_action_resolver.ActionResolverTests.test_short_valid_package_bounds_assessment_lifetime competition.tests.test_action_resolver.ActionResolverTests.test_delayed_first_freeze_does_not_persist_stale_event -v"
+  },
+  "log_redirection": "Each log command uses > /private/tmp/zjj-resolver-feature-evidence-20261017/<log-name> 2>&1. Earlier source revisions intentionally failed; final sources are fingerprinted separately."
+}
