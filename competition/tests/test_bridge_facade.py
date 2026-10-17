@@ -1,10 +1,11 @@
-"""Same-process bridge shell: a minimal-input facade over the unchanged core.
+"""Same-process bridge shell: explicit challenge/signature separation.
 
-The tests assert two things: the concrete shell satisfies the abstract
-``CompetitionFacade`` contract, and a caller needs nothing beyond a profile and
-an operation id to drive acceptance, one execution, settlement and an
-authenticated status read for all three profiles.
+The tests assert the concrete shell satisfies the abstract ``CompetitionFacade``
+contract; that a caller-supplied Action and context drive the whole path; and
+that signatures genuinely come from the caller -- a wrong-key proof and a
+replayed challenge are both rejected.
 """
+import copy
 import os
 import tempfile
 import unittest
@@ -12,11 +13,36 @@ from pathlib import Path
 
 from competition.bridge.contract import CompetitionFacade
 from competition.bridge.facade import TrustedFacade
+from competition.support.wire import b64, canonical
+
+
+class ExternalSigner:
+    """A stand-in external caller that owns keys and answers challenges itself."""
+
+    def __init__(self, run):
+        self._run = run
+
+    def guard(self, profile, claim):
+        return self._sign(self._run.actors[profile]['H'].key, 'COMP-APP-AUTHZ-IDENTITY-v1', claim)
+
+    def accept(self, profile, claim):
+        return self._sign(self._run.actors[profile]['H'].key, 'COMP-APP-ACCEPT-v1', claim)
+
+    def worker(self, claim):
+        return self._sign(self._run.worker_key, 'COMP-W-WORKER-v1', claim)
+
+    def read(self, profile, claim):
+        return self._sign(self._run.actors[profile]['H'].key, 'COMP-W-READ-v1', claim)
+
+    @staticmethod
+    def _sign(key, domain, claim):
+        return {'claim': claim, 'signature': b64(key.sign(canonical([domain, claim])))}
 
 
 class BridgeFacadeTests(unittest.TestCase):
     seed = None
     facade = None
+    signer = None
 
     @classmethod
     def setUpClass(cls):
@@ -42,34 +68,68 @@ class BridgeFacadeTests(unittest.TestCase):
         if type(self).seed is None:
             type(self).seed = initialize(Path(self.folder.name) / 'w')
             type(self).facade = TrustedFacade(type(self).seed)
+            type(self).signer = ExternalSigner(type(self).seed)
+
+    def _build(self, profile):
+        base = self.seed.operations[profile]
+        return self.facade.build_op(profile, copy.deepcopy(base['action']),
+                                    base['task_id'], base['scene_key'])
 
     def test_shell_satisfies_the_abstract_contract(self):
         self.assertIsInstance(self.facade, CompetitionFacade)
 
-    def test_candidate_ingress_accepts_a_trusted_corpus_action(self):
+    def test_build_op_uses_the_supplied_action(self):
         profile = 'PAY-1'
-        action = self.seed.operations[profile]['action']
-        self.assertEqual(self.facade.submit(profile, action), action)
-        with self.assertRaises(Exception):
-            self.facade.submit(profile, {**action, 'scope': {'domain': 'lab', 'tenant': 'tenant-1',
-                                                             'scenario': 'industrial'}})
+        base = self.seed.operations[profile]
+        action = copy.deepcopy(base['action'])
+        op = self.facade.build_op(profile, action, base['task_id'], base['scene_key'])
+        self.assertEqual(op['action']['payload'], action['payload'])
+        self.assertNotEqual(op['action']['operation_id'], action['operation_id'])
+        self.assertEqual(op['task_id'], base['task_id'])
+        self.assertEqual(op['scene_key'], base['scene_key'])
 
-    def test_profile_and_operation_id_drive_the_whole_path(self):
+    def test_profile_action_and_context_drive_the_whole_path(self):
         for profile in ('IND-DEMO-1', 'PAY-1', 'MED-DEMO-1'):
             with self.subTest(profile=profile):
-                ticket = self.facade.prepare(profile)
-                operation_id = ticket['operation_id']
-                accepted = self.facade.accept(profile, operation_id)
+                op = self._build(profile)
+                oid = op['action']['operation_id']
+                guard = self.facade.challenge(profile, op)
+                ticket = self.facade.prepare(profile, op, self.signer.guard(profile, guard))
+                self.assertEqual(ticket['operation_id'], oid)
+                acc = self.facade.challenge_accept(profile, ticket['ticket_id'])
+                accepted = self.facade.accept(profile, ticket['ticket_id'],
+                                              self.signer.accept(profile, acc))
                 self.assertEqual(accepted['acceptance_state'], 'COMMITTED')
-                claimed = self.facade.claim(profile, operation_id)
+                cl = self.facade.challenge_worker(profile, oid, 'CLAIM')
+                claimed = self.facade.claim(profile, oid, self.signer.worker(cl))
                 self.assertEqual(claimed['dispatch_state'], 'STARTED')
-                response = self.facade.execute_once(profile, operation_id)
+                ex = self.facade.challenge_worker(profile, oid, 'EXECUTE')
+                response = self.facade.execute_once(profile, oid, self.signer.worker(ex))
                 self.assertIsNotNone(response.get('record'))
-                settled = self.facade.settle(profile, operation_id)
+                st = self.facade.challenge_worker(profile, oid, 'SETTLE')
+                settled = self.facade.settle(profile, oid, response, self.signer.worker(st))
                 self.assertEqual(settled['state'], 'SETTLED')
-                view = self.facade.status(profile, operation_id)
-                self.assertEqual(view['operation_id'], operation_id)
+                rd = self.facade.challenge_read(profile, oid, 'STATUS')
+                view = self.facade.status(profile, oid, self.signer.read(profile, rd))
+                self.assertEqual(view['operation_id'], oid)
                 self.assertEqual(view['acceptance_state'], 'COMMITTED')
+
+    def test_wrong_signature_is_rejected(self):
+        profile = 'PAY-1'
+        op = self._build(profile)
+        claim = self.facade.challenge(profile, op)
+        # A worker-key signature is the wrong key/domain for the GUARD step.
+        with self.assertRaises(Exception):
+            self.facade.prepare(profile, op, self.signer.worker(claim))
+
+    def test_replayed_challenge_is_rejected(self):
+        profile = 'PAY-1'
+        op = self._build(profile)
+        claim = self.facade.challenge(profile, op)
+        proof = self.signer.guard(profile, claim)
+        self.facade.prepare(profile, op, proof)
+        with self.assertRaises(Exception):
+            self.facade.prepare(profile, op, proof)
 
 
 if __name__ == '__main__':
