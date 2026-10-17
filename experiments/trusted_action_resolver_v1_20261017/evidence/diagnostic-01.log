@@ -1,0 +1,56 @@
+test_signed_task_cannot_override_policy_destination (experiments.trusted_action_resolver_v1_20261017.test_resolver.ResolverCases.test_signed_task_cannot_override_policy_destination) ... ERROR
+test_unapproved_frozen_op_still_cannot_execute (experiments.trusted_action_resolver_v1_20261017.test_resolver.ResolverCases.test_unapproved_frozen_op_still_cannot_execute) ... ERROR
+
+======================================================================
+ERROR: test_signed_task_cannot_override_policy_destination (experiments.trusted_action_resolver_v1_20261017.test_resolver.ResolverCases.test_signed_task_cannot_override_policy_destination)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/experiments/trusted_action_resolver_v1_20261017/test_resolver.py", line 75, in test_signed_task_cannot_override_policy_destination
+    def test_signed_task_cannot_override_policy_destination(self):self.task_mismatch('destination')
+                                                                  ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/experiments/trusted_action_resolver_v1_20261017/test_resolver.py", line 67, in task_mismatch
+    self.run.base.publish(P,'TASK',prefix(P)+[self.adapter.task_id],record)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/authorization_seed.py", line 50, in publish
+    return self.store.publish(cert)
+           ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/core/trusted_state.py", line 97, in publish
+    self.schemas[p].validate(r, 'Record_' + allowed[ns])
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/schema.py", line 29, in validate
+    raise ProtocolError('UPSTREAM_SCHEMA_REJECT:'+def_name+':'+'.'.join(map(str,first.path)))
+competition.support.wire.ProtocolError: UPSTREAM_SCHEMA_REJECT:Record_IND_TASK:value.route_destinations.inspect
+
+======================================================================
+ERROR: test_unapproved_frozen_op_still_cannot_execute (experiments.trusted_action_resolver_v1_20261017.test_resolver.ResolverCases.test_unapproved_frozen_op_still_cannot_execute)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/experiments/trusted_action_resolver_v1_20261017/test_resolver.py", line 138, in test_unapproved_frozen_op_still_cannot_execute
+    self.adapter.freeze(row['key'],bad)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/experiments/interface_feasibility_20261017/adapter.py", line 108, in freeze
+    ref=digest(['COMP-APP-CALL-v1',P,op])
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 82, in digest
+    def digest(value):return b64(hashlib.sha256(canonical(value)).digest())
+                                                ~~~~~~~~~^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 58, in canonical
+    walk(v)
+    ~~~~^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 53, in walk
+    for x in a:walk(x,depth+1)
+               ~~~~^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 50, in walk
+    for x in a.values():walk(x,depth+1)
+                        ~~~~^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 57, in walk
+    else:require(type(a) is bool,'WIRE_TYPE')
+         ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 43, in require
+    if not cond:raise ProtocolError(code)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+competition.support.wire.ProtocolError: WIRE_TYPE
+
+----------------------------------------------------------------------
+Ran 2 tests in 6.884s
+
+FAILED (errors=2)

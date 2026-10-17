@@ -1,0 +1,16 @@
+{
+  "COMMANDS.md": "83d4ad4b0dd104a955c33ee705123a2b373f0b96ae881225ebe9e32b70ff1fbe",
+  "PLAN.md": "2e5b975a572bcef735a29d97535bf52ea1048b5cf305bd991cadd643d5ee0d80",
+  "REPORT.md": "7f746c77f024bc6a9c782748f23a772354f46aa21fbefed5e226c87344d0e248",
+  "RESULTS.md": "6b75d2113fe111def4398f5d92f79f4c82a6c91f535411bc785d29f3f3907cd5",
+  "REVIEW.md": "9f05fd5999338e1eeb2f90ea5e57b6420a92b16b6338e5c4120e5cbcc0324edf",
+  "evidence/core-regression.log": "45a503a65318c7766bd7c933bc04a682ed7b5c22897b5b520711b07bff11f049",
+  "evidence/diagnostic-01.log": "7686fd082eee50a18f7af2bdd3a021925dc2c4f6a05825454a34f120b7b003ec",
+  "evidence/integrity.json": "041ae03f5f951a934f31a42c8a302fea003abeb996f2004f2f7979e4ebe9ba71",
+  "evidence/run-01/results.json.gz": "cf1a69f5dc078a2bca2d7318a293bbaa75761b95239191defde309bf57eeb166",
+  "evidence/run-01/tests.log": "52206e7b879ced6d962cc0455c1fdecf0302f102312d720a0d3107ac6fff3b00",
+  "evidence/run-02/results.json.gz": "47ffafb12520480747afba46a7a363371c4061f5fa982e0a4a390929351135d5",
+  "evidence/run-02/tests.log": "3afa9f659435029738b03ac9f8422ce115220b4b7614a11070c7cd8f345563e7",
+  "run_validation.py": "999310d4a433ba25e6b4f7fb924f4e2c28c1121c758d93867592a00ec6d4ec64",
+  "test_resolver.py": "3b8bc72229e0eeef26d02175ff26b07b9c34eb7f1f7f7f3fa61c25ba8e46872e"
+}
