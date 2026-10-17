@@ -10,7 +10,8 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat,
 from competition.support.schema import COMPETITION_PROTO
 from competition.support.wire import Identity, b64, keyid, canonical, digest, rec_ref, msgref, sortset, action_hash
 from competition.support.enrollment import EnrollmentLab
-from competition.support.scene_authority import SceneAuthority, _rec
+from competition.support.scene_base import SceneReadMixin
+from competition.support.scene_contract import _rec
 from competition.core.trusted_state import TrustedState, ROLES, TYPES, PROFILE_SCOPES, prefix, enc
 from competition.core.signing import ClockClient
 from competition.core.signer_broker import ScopedSignerBroker
@@ -117,7 +118,7 @@ def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None):
                 for role in [ROLES[p][alias]]+(['READER'] if p!='PAY-1' and alias!='E' else []):
                     key=prefix(p)+[who.name,role]
                     with store.db() as c: old=c.execute('SELECT revision FROM a_current WHERE profile=? AND namespace=? AND key=?',(p,'ROLE',enc(key))).fetchone()
-                    constraints={'payer_set':['payer'],'max_amount_minor':'100000'} if p=='PAY-1' else SceneAuthority._role_constraints(type('RoleView',(),{'profile':p})(),alias,role)
+                    constraints={'payer_set':['payer'],'max_amount_minor':'100000'} if p=='PAY-1' else SceneReadMixin._role_constraints(type('RoleView',(),{'profile':p})(),alias,role)
                     rv={'subject':who.name,'role':role,'epoch':str(old[0]+1 if old else 1),'scope_set':[PROFILE_SCOPES[p]],'tool_set':['pay-sim' if p=='PAY-1' else 'line-sort-sim' if p=='IND-DEMO-1' else 'med-order-sim'],'destination_set':['pay-sim-dest'] if p=='PAY-1' else ['med-demo-ledger'] if p=='MED-DEMO-1' else sortset(['ind-release-bin','ind-quarantine-bin','ind-inspection-bay']),'constraints':constraints,'iat':str(now),'exp':str(exp)}
                     run.publish(p,'ROLE',key,_rec(p,'ROLE_GRANT',PROFILE_SCOPES[p],rv))
             corpus=build_pay(roster,PROFILE_SCOPES[p],now,mode=pay_mode) if p=='PAY-1' else build_scene(p,roster,PROFILE_SCOPES[p],now,label=ind_label if p=='IND-DEMO-1' else None)

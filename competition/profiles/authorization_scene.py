@@ -9,21 +9,16 @@ their current authenticated originals and transitive references are rechecked.
 from pathlib import Path
 
 from competition.core.event_clock import require_window
-from competition.support.scene_authority import SceneAuthority, PROFILES, ROLES
+from competition.support.scene_base import SceneReadMixin
+from competition.support.scene_contract import PROFILES, ROLES
 from competition.support.wire import action_hash, rec_ref, require, sortset
 from competition.support.schema import UpstreamSchema
 from competition.profiles.scene_bindings import bound_scene
 
 
-class _BoundReader:
+class _BoundReader(SceneReadMixin):
     """Bind only original read/verify methods; never initialize a legacy W."""
     _bound = bound_scene
-    _deps = SceneAuthority._deps
-    _depend = SceneAuthority._depend
-    _scene_current = SceneAuthority._scene_current
-    _state_ref = SceneAuthority._state_ref
-    scope_key = SceneAuthority.scope_key
-    role_key = SceneAuthority.role_key
 
     def __init__(self, store, profile, actors, scope, event, schema):
         self.store, self.profile, self.actors = store, profile, actors
@@ -66,7 +61,7 @@ class _BoundReader:
     def verify_evidence(self, c, record, at):
         require_window(record['value']['attestation'], self.event)
         self.windows.append(record['value']['attestation'])
-        return SceneAuthority.verify_evidence(self, c, record, at)
+        return SceneReadMixin.verify_evidence(self, c, record, at)
 
 
 class SceneAuthorizationAdapter:

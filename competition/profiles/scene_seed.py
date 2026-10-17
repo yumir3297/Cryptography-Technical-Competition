@@ -6,7 +6,7 @@ original ZJJ-STATE-v1 namespace/key/revision/value construction in the store.
 """
 import os
 
-from competition.support.scene_authority import PROFILES, DEST, MAPPING, TEMPLATES, _rec
+from competition.support.scene_contract import PROFILES, DEST, MAPPING, TEMPLATES, _rec
 from competition.support.wire import b64, canonical, rec_ref, require, sortset
 
 

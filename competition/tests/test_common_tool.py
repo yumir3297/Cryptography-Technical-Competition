@@ -9,7 +9,7 @@ from pathlib import Path
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat, PrivateFormat, NoEncryption
-from competition.support.tool_final import Controller, final_fact_id, final_sign_bytes
+from competition.support.final_fact import Controller, final_fact_id, final_sign_bytes
 from competition.support.broker_policy import PROFILE_SCOPES
 from competition.support.wire import ProtocolError, action_hash, b64, canonical, digest, keyid, rec_ref, strict_verify, raw
 from competition.core.signing import ClockClient

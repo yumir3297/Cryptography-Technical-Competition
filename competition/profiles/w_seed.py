@@ -17,8 +17,8 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat,
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.authorization_seed import initialize as initialize_authorization
 from competition.profiles.w_plans import TransactionPlans
-from competition.support.tool_final import Controller
-from competition.support.scene_authority import _rec
+from competition.support.final_fact import Controller
+from competition.support.scene_contract import _rec
 from competition.support.wire import action_hash, b64, canonical, keyid, rec_ref, require, sortset
 
 

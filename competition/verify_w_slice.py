@@ -5,9 +5,9 @@ import json
 import subprocess
 from pathlib import Path
 from competition.support.wire import require, raw, b64, canonical, digest, rec_ref, msgref, strict_verify, action_hash
-from competition.support.tool_final import final_fact_id, final_sign_bytes, verify_certificate
+from competition.support.final_fact import final_fact_id, final_sign_bytes, verify_certificate
 from competition.tools.common_tool import ledger_head, request_hash
-from competition.run_authorization_slice import write
+from competition.support.artifact import write
 
 ROOT=Path(__file__).resolve().parents[1]
 def read(path):return json.loads(path.read_text(encoding='utf-8'))

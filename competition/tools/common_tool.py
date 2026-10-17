@@ -16,7 +16,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from competition.core.event_clock import checked_event_clock, require_window, refresh_event_age
 from competition.core.signing import ClockClient
-from competition.support.tool_final import verify_certificate, final_fact_id, final_sign_bytes
+from competition.support.final_fact import verify_certificate, final_fact_id, final_sign_bytes
 from competition.support.wire import (ProtocolError, require, raw, b64, canonical,
     digest, keyid, strict_verify, action_hash, rec_ref, number, is_id, good_point)
 from competition.support.schema import UpstreamSchema

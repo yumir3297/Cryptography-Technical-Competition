@@ -8,7 +8,7 @@ from pathlib import Path
 
 from competition.support.wire import require, ProtocolError, b64, raw, canonical, strict_verify, keyid, rec_ref, digest, sortset, action_hash
 from competition.support.broker_policy import PROFILE_SCOPES
-from competition.support.scene_authority import ROLES as SCENE_ROLES
+from competition.support.scene_contract import ROLES as SCENE_ROLES
 from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
 from competition.core.event_clock import checked_event_clock, require_window
 

@@ -4,7 +4,7 @@ import hashlib
 import json
 import time
 from pathlib import Path
-from competition.run_authorization_slice import build_identity, write
+from competition.support.artifact import build_identity, write
 from competition.profiles.w_seed import initialize
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition import w_cases
@@ -18,7 +18,7 @@ def public_ledgers(run):
     return {'root_public':b64(run.store.root_public),'roster':{p:{a:{'subject':w.name,'kid':w.kid,'public_key':b64(w.pub)} for a,w in roster.items()} for p,roster in run.store.actors.items()},'worker_certificate':run.worker_certificate,'tables':tables,'tools':{p:w_cases.tool_snapshot(run,p) for p in PROFILE_SCOPES}}
 
 def normal(run,p):
-    from competition.support.tool_final import final_fact_id
+    from competition.support.final_fact import final_fact_id
     op=run.operations[p];ticket=run.w.prepare(p,op,run.identity_proof(p,op));time.sleep(1.05)
     accepted=run.w.accept(p,ticket['ticket_id'],run.accept_proof(p,ticket['ticket_id']));oid=op['action']['operation_id']
     elapsed=int(accepted['acceptance']['body']['payload']['accepted_at'])-ticket['time_witness']['lo']

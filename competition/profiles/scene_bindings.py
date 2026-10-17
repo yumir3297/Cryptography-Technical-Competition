@@ -1,7 +1,7 @@
 """Competition copy of original finite bindings; conditional V separation and E action scope.
 Original source provenance is retained in the local archive.
 """
-from competition.support.scene_authority import ACTION_FIELDS, ROLES, DEST, MAPPING, TEMPLATES
+from competition.support.scene_contract import ACTION_FIELDS, ROLES, DEST, MAPPING, TEMPLATES
 from competition.support.wire import require, rec_ref
 
 def bound_scene(self,c,action,task_id,scene_key,at=102):

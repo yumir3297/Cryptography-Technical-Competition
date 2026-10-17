@@ -8,7 +8,7 @@ from pathlib import Path
 
 from competition.core.trusted_state import PROFILE_SCOPES, prefix
 from competition.support.wire import canonical, raw, keyid, strict_verify, action_hash
-from competition.support.tool_final import verify_certificate
+from competition.support.final_fact import verify_certificate
 
 
 class WSeedTests(unittest.TestCase):

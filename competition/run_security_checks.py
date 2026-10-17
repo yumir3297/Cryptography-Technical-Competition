@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from competition.profiles.w_seed import initialize
 from competition.run_w_slice import normal, public_ledgers, evaluate
-from competition.run_authorization_slice import write, build_identity
+from competition.support.artifact import build_identity, write
 from competition.w_cases import accept_operation, tool_snapshot, lost_ack
 from competition.core.candidate_ingress import CandidateIngress
 from competition.support.wire import ProtocolError, require, canonical, b64
