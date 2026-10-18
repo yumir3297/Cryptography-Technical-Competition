@@ -29,6 +29,16 @@ status/audit 不接受、预占、补签、领取、调用工具或结算。允�
 
 固定演示读取主体为当前 H。MED 来源/候选资料读取另有前置 ACL 和裁剪投影验证；完整 H audit 与只获脱敏状态的普通 AUDITOR 是不同权限。当前本地 audit 不作为面向普通 AUDITOR 的医疗裁剪接口。
 
+## 只读观察面（外部程序展示流）
+
+受信端另开一条**只读**观察面，供外部程序订阅"每一步"的推进；它不属于协议消息，也不是状态/审计投影的替代。
+
+- **发布**：核心每个关键步骤在其**自身事务内**向独立表 `a_observe_event` 追加一条展示事件——事务提交才可见、回滚即消失，因此不谎报状态；入口层的候选提交、装配、挑战请求与签名往返作为 `source='ENTRY'` 的**非权威流程事件** best-effort 发布，明确标为 `flow=true`。核心 `a_journal` 不被改写，也不含观察事件的步骤名。
+- **读取**：只读连接（URI `mode=ro` + `PRAGMA query_only`），只 `SELECT`；不写业务表、不消耗 nonce、不推进时钟、不触发 `status`/`audit` 或工具。读取本身不新增任何事实。
+- **事件形状**：`{seq, kind, stage, source, profile, operation_id, lanes, trusted_time, refs, status_label, detail}`，统一标注 `view_kind=OBSERVATION_PROJECTION`、`original_envelope=false`、`signed=false`、`not_evidence=true`。不含业务 payload、患者/付款原始字段、nonce、session_id、签名或私钥；`seq` 为订阅游标。
+- **路由**（`GET`，需专用 `observer` 会话侧）：`/api/observe/stream`（SSE，`id`/`data` 帧、空闲心跳）、`/api/observe/events`、`/api/observe/operations`、`/api/observe/operations/{oid}`。
+- **边界**：观察面不授予任何执行权，不成为"第四条消息"，不签名，不作为证据对象；不能由观察事件推断尚未提交的决策。任一投影在导出前再过一遍禁导检查（`export.forbidden_secrets`），不通过则丢弃该条。
+
 ## 离线核验的信任与保证
 
 验证者使用外部固定的 manifest 摘要，对既有证据文件及其原源码文件逐一核摘要，再核原签名、引用、动作和独立 W/工具账对应。外部 pin 应来自受信交接记录；本次两个值如下，包内自附公钥/manifest 仅能证明内部一致性，不能自行建立权威身份。

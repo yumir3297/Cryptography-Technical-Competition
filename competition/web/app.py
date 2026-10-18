@@ -27,8 +27,9 @@ import json
 import time
 
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 
+from competition.server.observe import ObservationFeed
 from competition.server.roster import DENY_STATUS
 from competition.server.service import STEPS, TrustedService
 from competition.support.wire import ProtocolError, require
@@ -70,9 +71,23 @@ def _side(step):
     return STEPS[step][2]
 
 
+def _int_param(request, name, default):
+    """One non-negative integer query parameter, or a refusal naming the rule."""
+    raw = request.query_params.get(name)
+    if raw is None or raw == '':
+        return default
+    try:
+        value = int(raw)
+    except ValueError:
+        raise ProtocolError('WEB_FIELDS')
+    require(value >= 0, 'WEB_FIELDS')
+    return value
+
+
 def make_app(service, sessions):
     """Build the trusted entry over one initialized service and its callers."""
     app = FastAPI(title='zjj-trusted', description='ZJJ-CORE trusted entry')
+    feed = ObservationFeed(service.run.store.path)
 
     @app.get('/healthz')
     def healthz():
@@ -103,9 +118,16 @@ def make_app(service, sessions):
             # Submitting is what asks the trusted side to gather a fresh approval
             # chain, so it is the one call held to the side that proposes.
             sessions.authorize(_token(request), 'H')
-            return JSONResponse(content=service.submit(body['profile'], body['intent']))
+            result = service.submit(body['profile'], body['intent'])
         except ProtocolError as exc:
             return _deny(exc.code)
+        operation_id = result['operation_id']
+        feed.publish('CANDIDATE_SUBMITTED', body['profile'], operation_id,
+                     {'stage': '外部提交候选动作', 'lanes': ['外部调用方'],
+                      'detail': {'profile': body['profile']}})
+        feed.publish('CHAIN_ASSEMBLED', body['profile'], operation_id,
+                     {'stage': 'Resolver 装配完整动作/依据/用途', 'lanes': ['受信编排器']})
+        return JSONResponse(content=result)
 
     @app.post('/api/challenge')
     async def challenge(request: Request):
@@ -119,14 +141,18 @@ def make_app(service, sessions):
             # the table, and cannot mistake one for another.  The profile comes
             # from the operation the entry holds, so a caller handed an id it did
             # not create still knows where the endpoint is.
-            return JSONResponse(content={'operation_id': body['operation_id'],
-                                         'step': body['step'],
-                                         'profile': service.profile_of(body['operation_id']),
-                                         'claim': claim,
-                                         'role': _side(body['step']),
-                                         'domain': STEPS[body['step']][3]})
+            profile = service.profile_of(body['operation_id'])
         except ProtocolError as exc:
             return _deny(exc.code)
+        feed.publish('STEP_CHALLENGED', profile, body['operation_id'],
+                     {'stage': '请求某步挑战', 'lanes': ['受信编排器'],
+                      'detail': {'step': body['step'], 'role': _side(body['step'])}})
+        return JSONResponse(content={'operation_id': body['operation_id'],
+                                     'step': body['step'],
+                                     'profile': profile,
+                                     'claim': claim,
+                                     'role': _side(body['step']),
+                                     'domain': STEPS[body['step']][3]})
 
     @app.post('/api/prove')
     async def prove(request: Request):
@@ -134,10 +160,70 @@ def make_app(service, sessions):
             body = await _json(request, ('operation_id', 'step', 'proof'))
             require(body['step'] in STEPS, 'STEP')
             sessions.authorize(_token(request), _side(body['step']))
-            return JSONResponse(content=service.prove(body['operation_id'], body['step'],
-                                                      body['proof']))
+            result = service.prove(body['operation_id'], body['step'], body['proof'])
+            profile = service.profile_of(body['operation_id'])
         except ProtocolError as exc:
             return _deny(exc.code)
+        feed.publish('STEP_PROVED', profile, body['operation_id'],
+                     {'stage': '某角色签名并交回', 'lanes': ['编排器', '签署端'],
+                      'detail': {'step': body['step'], 'role': _side(body['step'])}})
+        return JSONResponse(content=result)
+
+    # -- read-only observation face ----------------------------------------
+    # The observer side drives nothing; it may only read these four routes.
+    @app.get('/api/observe/events')
+    def observe_events(request: Request):
+        try:
+            sessions.authorize(_token(request), 'observer')
+            after = _int_param(request, 'after', 0)
+            limit = _int_param(request, 'limit', 500)
+            require(limit <= 1000, 'WEB_LIMIT')
+            events = feed.events(after, limit=limit,
+                                 profile=request.query_params.get('profile') or None,
+                                 operation_id=request.query_params.get('operation_id') or None)
+        except ProtocolError as exc:
+            return _deny(exc.code)
+        return JSONResponse(content={'events': events,
+                                     'last': events[-1]['seq'] if events else after})
+
+    @app.get('/api/observe/stream')
+    def observe_stream(request: Request):
+        try:
+            sessions.authorize(_token(request), 'observer')
+            after = _int_param(request, 'after', 0)
+            header = request.headers.get('last-event-id')
+            if header:
+                try:
+                    after = max(after, int(header))
+                except ValueError:
+                    pass
+        except ProtocolError as exc:
+            return _deny(exc.code)
+        return StreamingResponse(feed.stream(after), media_type='text/event-stream',
+                                 headers={'cache-control': 'no-store'})
+
+    @app.get('/api/observe/operations')
+    def observe_operations(request: Request):
+        try:
+            sessions.authorize(_token(request), 'observer')
+            limit = _int_param(request, 'limit', 500)
+            require(limit <= 1000, 'WEB_LIMIT')
+            operations = feed.operations(profile=request.query_params.get('profile') or None,
+                                         state=request.query_params.get('state') or None,
+                                         limit=limit)
+        except ProtocolError as exc:
+            return _deny(exc.code)
+        return JSONResponse(content={'operations': operations})
+
+    @app.get('/api/observe/operations/{operation_id}')
+    def observe_operation(operation_id: str, request: Request):
+        try:
+            sessions.authorize(_token(request), 'observer')
+            view = feed.snapshot(operation_id)
+            require(view is not None, 'OPERATION_UNKNOWN')
+        except ProtocolError as exc:
+            return _deny(exc.code)
+        return JSONResponse(content=view)
 
     # -- what every authenticated caller may read --------------------------
     @app.get('/api/package')

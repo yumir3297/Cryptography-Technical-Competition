@@ -100,6 +100,7 @@ class AuthorizationService:
             if self._consumer is not None:
                 result['consumer_result']=self._consumer(c,result)
             seq=c.execute('INSERT INTO a_journal(kind,profile,operation_id,blob) VALUES(?,?,?,?)',('AUTHORIZED_GUARD',profile,result['operation_id'],enc({'op':op,'result':result}))).lastrowid
+            self.store.observe(c,'AUTHORIZED_GUARD',profile,result['operation_id'],{'stage':'完整授权链核验通过','lanes':['Resolver'],'detail':{'decision':result['decision'],'required_reviews':result['required_reviews']}})
             result['w_seq']=seq
             c.execute('INSERT INTO a_guard_fact VALUES(?,?,?,?,?)',(profile,result['operation_id'],request_ref,seq,enc(result)))
         return result
@@ -122,6 +123,7 @@ class AuthorizationService:
             if old:return {'seq':old[0],'existing':True}
             seq=c.execute('INSERT INTO a_journal(kind,profile,operation_id,blob) VALUES(?,?,?,?)',('PUBLICATION',profile,ctx['operation_id'],enc({'message':message,'event':event,'previous_revision':row['revision'],'credential_witnesses':credentials}))).lastrowid
             c.execute('INSERT INTO a_publication VALUES(?,?,?,?,?,?,?,?)',(profile,ctx['operation_id'],ctx['basis_ref'],p['purpose'],msgref(message),enc(message),p['verdict'],seq))
+            self.store.observe(c,'PUBLICATION',profile,ctx['operation_id'],{'stage':'V/U 批准或否决发布','lanes':['签署端'],'detail':{'role':alias,'purpose':p['purpose'],'verdict':p['verdict']}})
             require(c.execute('UPDATE a_deny_range SET revision=revision+1 WHERE profile=? AND operation_id=? AND basis_ref=? AND revision=?',(profile,ctx['operation_id'],ctx['basis_ref'],row['revision'])).rowcount==1,'COVERAGE_RACE')
             return {'seq':seq,'revision':row['revision']+1,'ref':msgref(message)}
 

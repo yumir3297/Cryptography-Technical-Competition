@@ -42,8 +42,9 @@ SESSION_DOMAIN = 'ZJJ-SESSION-v1'
 CHALLENGE_TTL = 60
 SESSION_TTL = 900
 # The sides of the flow a caller may be allowed to drive; the same names
-# ``competition.server.service.STEPS`` gives each step's signing role.
-SIDES = ('H', 'worker')
+# ``competition.server.service.STEPS`` gives each step's signing role.  ``observer``
+# is the read-only side: it drives no step, it may only read the observation face.
+SIDES = ('H', 'worker', 'observer')
 CALLER_FIELDS = frozenset({'name', 'public_key', 'sides'})
 CLAIM_FIELDS = frozenset({'caller', 'kid', 'nonce', 'iat', 'exp', 'domain'})
 
