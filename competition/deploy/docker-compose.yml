@@ -87,6 +87,12 @@ services:
       interval: 2s
       timeout: 5s
       retries: 60
+      # The entry assembles the chain once and then waits on a person for the
+      # four roles that sign inside it.  That wait is not a fault, so it is not
+      # allowed to count as one: without a start period as long as the chain
+      # window, compose would call the entry unhealthy while somebody is still
+      # reading the page, and everything that depends on it would refuse to start.
+      start_period: 1900s
     restart: "no"
 
   caller-h:
@@ -147,6 +153,8 @@ services:
       ZJJ_AGENT_TOKEN: ${ZJJ_AGENT_TOKEN:?set ZJJ_AGENT_TOKEN}
       ZJJ_INTERNAL_TOKEN: ${ZJJ_INTERNAL_TOKEN:?set ZJJ_INTERNAL_TOKEN}
       ZJJ_STATUS_POLL_MS: "1000"
+      # The entry may still be waiting on a person; wait as long as its window.
+      ZJJ_AGENT_START_TIMEOUT: "1900"
     volumes:
       - zjj-agent:/agent
       - zjj-callers:/callers
@@ -157,6 +165,8 @@ services:
       interval: 2s
       timeout: 5s
       retries: 60
+      # Not serving yet is the normal state while the entry waits on a person.
+      start_period: 1900s
     restart: "no"
 
   caller-observer:
@@ -180,8 +190,11 @@ services:
       context: ../..
       dockerfile: competition/deploy/viewer.Dockerfile
     depends_on:
+      # The page may come up while the entry is still waiting on a person: the
+      # viewer is a gateway to read routes, not a step, and waiting for health
+      # here would hold it until somebody answers the chain.
       trusted:
-        condition: service_healthy
+        condition: service_started
     environment:
       ZJJ_NAME: caller-observer
       ZJJ_ENTRY: http://trusted:8000

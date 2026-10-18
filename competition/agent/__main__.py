@@ -32,6 +32,11 @@ def main():
     port = int(os.environ.get('ZJJ_AGENT_PORT', '8090'))
     interval = float(os.environ.get('ZJJ_STATUS_POLL_MS', '1000')) / 1000.0
     grace = float(os.environ.get('ZJJ_STATUS_GRACE', '300'))
+    # How long this gateway waits for the entry's session.  The entry assembles
+    # the chain once and waits on a person for the four roles that sign inside
+    # it, so "not serving yet" is the normal state for as long as somebody takes
+    # to read the page.  A deployment sets this to its own chain window.
+    start_timeout = float(os.environ.get('ZJJ_AGENT_START_TIMEOUT', '600'))
     agent_token = os.environ.get('ZJJ_AGENT_TOKEN', '')
     internal_token = os.environ.get('ZJJ_INTERNAL_TOKEN', '')
     if not agent_token or not internal_token:
@@ -40,7 +45,7 @@ def main():
     key_path, _line = enroll(keys, name, ['H'], callers)
     journal = Journal(database, grace=grace, now=time.time)
     service = GatewayService(entry, key_path, endpoints, journal, now=time.time)
-    service.start()
+    service.start(timeout=start_timeout)
     print('agent gateway on %s:%d; caller %s; db %s'
           % (host, port, name, database), flush=True)
     try:
