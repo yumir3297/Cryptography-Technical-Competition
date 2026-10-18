@@ -28,10 +28,11 @@ from fastapi.responses import JSONResponse
 from competition.client.host import MAX_REQUEST_LINE, answer
 from competition.client.keys import propose_purposes, propose_subject
 from competition.client.package import check, validate_package
+# The refusal status and body shape are one wire fact shared with the transport
+# that reads them, so they live with the endpoint wire, not here.
+from competition.server.roster import DENY_STATUS
 from competition.support.wire import ProtocolError, b64, require
 
-# A refused request answers with this one rule name, under this one status.
-DENY_STATUS = 403
 # One package carries every endpoint's public facts and the certificates behind
 # them; generous, and still bounded.
 MAX_PACKAGE_BODY = 1 << 22

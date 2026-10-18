@@ -36,6 +36,10 @@ ENDPOINTS = ALIASES + ('tool', 'worker')
 ENTRY_FIELDS = frozenset({'role', 'subject', 'public_key', 'kid', 'purposes'})
 # One answer line carries one signature and its envelope: generous, not unbounded.
 MAX_REPLY = 1 << 16
+# The endpoint's HTTP face refuses a request with this status and a
+# ``{"deny": <rule>}`` body, naming the same rule the line protocol refuses
+# under.  Shared by both sides of that wire, so there is one definition of it.
+DENY_STATUS = 403
 
 
 def key_file_name(profile, role):
@@ -180,6 +184,49 @@ class SocketTransport:
         return answer
 
 
+class HTTPTransport:
+    """Reach one endpoint over its own HTTP face, one request per call.
+
+    The same discipline as :class:`SocketTransport`: the call connects, asks and
+    disconnects, so the trusted side holds no endpoint lifetime and a refused or
+    dead endpoint simply fails this call.  The request body is the line
+    protocol's own object, so an endpoint answers with the same envelope
+    whichever transport carried it.
+
+    A refusal comes back under the endpoint's own rule name -- carried through
+    unchanged rather than flattened into one code -- because "this endpoint
+    refused that domain" and "this endpoint did not answer" are different facts
+    and the trusted side acts on both.
+    """
+
+    def __init__(self, url, *, timeout=30.0):
+        self.url = str(url).rstrip('/')
+        self.timeout = timeout
+
+    def request(self, message):
+        # Imported here so the roster itself stays free of an HTTP client; the
+        # trusted side only needs one when it actually speaks this transport.
+        import httpx
+        payload = json.dumps(message, ensure_ascii=False, sort_keys=True).encode('utf-8')
+        try:
+            reply = httpx.post(self.url + '/sign', content=payload, timeout=self.timeout)
+        except httpx.HTTPError:
+            raise ProtocolError('ENDPOINT_UNAVAILABLE')
+        if reply.status_code == DENY_STATUS:
+            try:
+                code = reply.json().get('deny')
+            except (ValueError, AttributeError):
+                raise ProtocolError('ENDPOINT_ANSWER')
+            raise ProtocolError(code if type(code) is str else 'ENDPOINT_ANSWER')
+        require(reply.status_code == 200, 'ENDPOINT_ANSWER')
+        try:
+            answer = reply.json()
+        except ValueError:
+            raise ProtocolError('ENDPOINT_ANSWER')
+        require(type(answer) is dict and type(answer.get('signature')) is str, 'ENDPOINT_ANSWER')
+        return answer
+
+
 class RemoteKey:
     """The private half of a roster actor, replaced by one call to its endpoint.
 
@@ -236,17 +283,28 @@ class Fleet:
     the X receipt child process and each tool process read their own credential
     straight off disk, so the trusted side needs a *path*, never a key -- and how
     to reach each endpoint for a signature.
+
+    ``base_url`` decides that last fact.  With one, each endpoint is reached over
+    HTTP at the port its roster place implies; without one, over the unix socket
+    beside its key file.  Everything else is shared, so a deployment picks a
+    transport and no other rule changes.
     """
 
-    def __init__(self, entries, root, transport_for=None):
+    def __init__(self, entries, root, transport_for=None, base_url=None):
         self.entries = list(entries)
         self.root = Path(root)
-        self._transport_for = transport_for if transport_for is not None else self.socket_transport
+        self.base_url = None if base_url is None else str(base_url).rstrip('/')
+        if transport_for is not None:
+            self._transport_for = transport_for
+        elif self.base_url is not None:
+            self._transport_for = self.http_transport
+        else:
+            self._transport_for = self.socket_transport
 
     @classmethod
-    def read(cls, root, manifest, transport_for=None):
+    def read(cls, root, manifest, transport_for=None, base_url=None):
         """Read a manifest and the directory the endpoints wrote their keys into."""
-        return cls(read_manifest(manifest), root, transport_for)
+        return cls(read_manifest(manifest), root, transport_for, base_url)
 
     def find(self, role, profile=None):
         """The one endpoint with this role, and this profile unless it is the worker."""
@@ -265,6 +323,15 @@ class Fleet:
     def socket_transport(self, entry):
         """The endpoint's own signing socket, at the convention beside its key."""
         return SocketTransport(self.socket_path(entry))
+
+    def endpoint_url(self, entry):
+        """Where that endpoint's HTTP face answers, from the one port rule."""
+        require(self.base_url is not None, 'FLEET_TRANSPORT')
+        return '%s:%d' % (self.base_url, endpoint_port(entry.profile, entry.role))
+
+    def http_transport(self, entry):
+        """The endpoint's own HTTP face, at the port its roster place implies."""
+        return HTTPTransport(self.endpoint_url(entry))
 
     def transport_for(self, entry):
         return self._transport_for(entry)

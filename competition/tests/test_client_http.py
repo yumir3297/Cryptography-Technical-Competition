@@ -20,13 +20,11 @@ import socket
 import subprocess
 import sys
 import tempfile
-import threading
 import time
 import unittest
 from pathlib import Path
 
 import httpx
-import uvicorn
 
 from competition.client.host import MAX_REQUEST_LINE, answer
 from competition.client.keys import generate
@@ -37,56 +35,13 @@ from competition.profiles.w_seed import initialize
 from competition.server.package import public_package
 from competition.server.roster import ALIASES, HTTP_PORT_BASE, endpoint_port
 from competition.support.wire import ProtocolError, b64, canonical, keyid, raw, strict_verify
+from competition.tests.endpoint_face import Face, body, free_port
 
 TEMP_ROOT = Path(__file__).resolve().parents[3] / 'tmp'
 TEMP_ROOT.mkdir(exist_ok=True)
 ROOT = Path(__file__).resolve().parents[2]
 SIGN_CALL = 'COMP-APP-SIGN-CALL-v1'
 WORKER = 'COMP-W-WORKER-v1'
-
-
-def free_port():
-    """One free local port, asked of the kernel rather than guessed."""
-    with socket.socket() as probe:
-        probe.bind(('127.0.0.1', 0))
-        return probe.getsockname()[1]
-
-
-def body(**request):
-    return json.dumps(request, ensure_ascii=False).encode('utf-8')
-
-
-class Face:
-    """One endpoint's face on a real port, served until :meth:`close`."""
-
-    def __init__(self, app):
-        config = uvicorn.Config(app, host='127.0.0.1', port=free_port(),
-                                log_level='warning', access_log=False)
-        self.base = 'http://127.0.0.1:%d' % config.port
-        self._server = uvicorn.Server(config)
-        self._thread = threading.Thread(target=self._server.run, daemon=True)
-        self._thread.start()
-        self.await_ready()
-
-    def await_ready(self, timeout=30.0):
-        deadline = time.monotonic() + timeout
-        while time.monotonic() < deadline:
-            try:
-                if httpx.get(self.base + '/healthz', timeout=1.0).status_code == 200:
-                    return
-            except httpx.HTTPError:
-                time.sleep(0.02)
-        raise AssertionError('endpoint did not answer within %ss' % timeout)
-
-    def get(self, path):
-        return httpx.get(self.base + path, timeout=5.0)
-
-    def post(self, path, payload):
-        return httpx.post(self.base + path, content=payload, timeout=5.0)
-
-    def close(self):
-        self._server.should_exit = True
-        self._thread.join(timeout=10)
 
 
 class HttpFaceTests(unittest.TestCase):

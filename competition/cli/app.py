@@ -20,9 +20,10 @@ ROOT = Path(__file__).resolve().parents[2]
 
 HELP = """\
 命令：
-  init [dir] [manifest [endpoints_dir]]
+  init [dir] [manifest [endpoints_dir [base_url]]]
                     建立受信运行并启动可信端（默认 .runtime/server）；
-                    给了 manifest 则用各端上交的公钥（外部密钥模式）
+                    给了 manifest 则用各端上交的公钥（外部密钥模式）；
+                    给了 base_url 则各端走 HTTP（否则走 key 旁的 unix socket）
   profiles          列出三个固定 Profile
   intent            列出各 Profile 允许的业务意图字段
   use <profile>     选择当前 Profile
@@ -87,7 +88,11 @@ class Session:
 
     # -- session ------------------------------------------------------------
     def cmd_init(self, args):
-        """init [dir] [manifest [endpoints_dir]] —— 给了 manifest 就走外部密钥模式。"""
+        """init [dir] [manifest [endpoints_dir [base_url]]] —— 给了 manifest 就走外部密钥模式。
+
+        给了 base_url 则各端按 roster 位置推出的端口走 HTTP，否则沿用 key 旁边的
+        unix socket；除传输外其余规则一致。
+        """
         from competition.profiles.w_seed import initialize
         folder = Path(args[0]).resolve() if args else ROOT / '.runtime' / 'server'
         fleet = None
@@ -95,7 +100,8 @@ class Session:
             from competition.server.roster import Fleet
             manifest = Path(args[1]).resolve()
             endpoints = Path(args[2]).resolve() if len(args) > 2 else manifest.parent
-            fleet = Fleet.read(endpoints, manifest)
+            base_url = args[3] if len(args) > 3 else None
+            fleet = Fleet.read(endpoints, manifest, base_url=base_url)
         self.run = initialize(folder, fleet=fleet)
         self.signer = LocalSigner(self.run)
         self.service = TrustedService(self.run, self.signer)
