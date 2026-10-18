@@ -22,7 +22,9 @@ import unittest
 from pathlib import Path
 
 from competition.client.host import MAX_REQUEST_LINE, answer, decode_request, serve_connection, serve_unix
-from competition.client.signer import ROLE_DOMAINS, RoleSigner, role_key_path
+from competition.client.signer import (
+    CHAIN_DOMAIN, ROLE_DOMAINS, SOURCE_DOMAIN, RoleSigner, role_key_path,
+)
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.w_seed import initialize
 from competition.server.service import (
@@ -128,10 +130,12 @@ class RoleSignerScopeTests(unittest.TestCase):
                 client.sign(profile, 'worker', domain, {'profile': profile})
             self.assertEqual(caught.exception.code, 'CLIENT_DOMAIN')
 
-    def test_e_signs_nothing_at_all(self):
+    def test_e_signs_no_approval_domain_at_all(self):
+        # E signs no approval in the chain; the only domains it may sign are its
+        # own source evidence and the envelope that carries it in PAY-1.
         profile = 'PAY-1'
         client = self.client(profile, 'E')
-        self.assertEqual(client.domains, frozenset())
+        self.assertEqual(client.domains, frozenset({CHAIN_DOMAIN, SOURCE_DOMAIN}))
         for domain in (GUARD_DOMAIN, ACCEPT_DOMAIN, READ_DOMAIN, WORKER_DOMAIN, SIGN_CALL_DOMAIN):
             with self.assertRaises(ProtocolError) as caught:
                 client.sign(profile, 'E', domain, {'profile': profile})
@@ -297,12 +301,14 @@ class TrustedServiceSigningTests(unittest.TestCase):
         self.assertEqual(after['settlements'] - before['settlements'], len(PROFILE_SCOPES))
         self.assertEqual(after['confirmed_simulated_effects'] - before['confirmed_simulated_effects'],
                          len(PROFILE_SCOPES))
-        # Every allowed (role, domain) pair was answered by the client that owns
-        # it, and nothing outside the whitelist was ever asked for.
-        expected = {(role, domain) for role, domains in ROLE_DOMAINS.items() for domain in domains}
-        self.assertEqual({(role, domain) for _, role, domain in self.clients.calls}, expected)
-        self.assertTrue(all(domain in ROLE_DOMAINS[role]
-                            for _, role, domain in self.clients.calls))
+        # Every request stayed inside the whitelist, and the run exercised every
+        # step and caller-proof domain an approval flow actually uses.
+        whitelist = {(role, domain) for role, domains in ROLE_DOMAINS.items() for domain in domains}
+        answered = {(role, domain) for _, role, domain in self.clients.calls}
+        self.assertTrue(answered <= whitelist)
+        self.assertEqual(answered, {('H', GUARD_DOMAIN), ('H', ACCEPT_DOMAIN), ('H', READ_DOMAIN),
+                                    ('worker', WORKER_DOMAIN)}
+                         | {(role, SIGN_CALL_DOMAIN) for role in ('H', 'U', 'V', 'G', 'X')})
 
     def test_another_roles_key_is_rejected_by_the_trusted_side(self):
         # The client is willing to answer -- it signs with a real roster key --
