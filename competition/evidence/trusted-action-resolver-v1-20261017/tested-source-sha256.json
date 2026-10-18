@@ -1,0 +1,9 @@
+{
+  "competition/application/__init__.py": "5c55284f889211caa57b0086d9360ce90fe9bb957c68d43b03d3ab0e0707ad44",
+  "competition/application/candidate_proposal.py": "e62066f21e877d5bf2d362804fa3e0cec89073d2832293a35b3c21363f3b8178",
+  "competition/application/operation_orchestrator.py": "69c1f392cb9e51e46a7b5721e78a286d045a862a2cc5e60dcbe80082d931ebd3",
+  "competition/application/request_store.py": "7ba7f360d2d3069b39a984164e176f6df8bfb8619abb8544677e3a8b3cd47201",
+  "competition/application/trusted_action_resolver.py": "17550e3fd2c481f682dbbf7167fbc31a479edbde45ba842ef03cabf5c7f0d736",
+  "competition/tests/resolver_fixtures.py": "940218b50a8ee2b30f193765ae6d1d74219fe09773f5ef32542491095458d19e",
+  "competition/tests/test_action_resolver.py": "2e554935050afdf185b5c298da0e6cb182296a4f663b63e89f153074470c2f8a"
+}

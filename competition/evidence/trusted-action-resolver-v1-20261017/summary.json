@@ -1,0 +1,21 @@
+{
+  "baseline": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+  "final_tests": 159,
+  "original_tests": 137,
+  "application_tests": 22,
+  "seconds": 488.176,
+  "exit_code": 0,
+  "passed": true,
+  "contracts_checks": 371,
+  "original_tracked_files_unchanged": 350,
+  "independent_review": "no remaining important issue after three application fixes",
+  "intermediate_full_run_error": "CLOCK_UNKNOWN in original time test; cause not identified; targeted and final full re-run pass",
+  "ci": "not asserted; inspect PR checks",
+  "limits": [
+    "IND internal library only",
+    "simulated participants and tools",
+    "no DelegationProof",
+    "no external HTTP/MCP entry",
+    "no real identity provider or device verification"
+  ]
+}

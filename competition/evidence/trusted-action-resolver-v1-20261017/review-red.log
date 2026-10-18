@@ -1,0 +1,38 @@
+test_short_valid_package_bounds_assessment_lifetime (competition.tests.test_action_resolver.ActionResolverTests.test_short_valid_package_bounds_assessment_lifetime) ... ERROR
+test_delayed_first_freeze_does_not_persist_stale_event (competition.tests.test_action_resolver.ActionResolverTests.test_delayed_first_freeze_does_not_persist_stale_event) ... FAIL
+
+======================================================================
+ERROR: test_short_valid_package_bounds_assessment_lifetime (competition.tests.test_action_resolver.ActionResolverTests.test_short_valid_package_bounds_assessment_lifetime)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_action_resolver.py", line 256, in test_short_valid_package_bounds_assessment_lifetime
+    row=self.resolve()
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_action_resolver.py", line 39, in resolve
+    return self.resolver.resolve(proposal,self.auth(proposal))
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/application/trusted_action_resolver.py", line 117, in resolve
+    derived = self.business.derive(c, draft, event)
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/profiles/authorization_scene.py", line 106, in derive
+    require(exp <= min(int(value['exp']) for value in reader.windows), 'EXPIRED')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/support/wire.py", line 43, in require
+    if not cond:raise ProtocolError(code)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+competition.support.wire.ProtocolError: EXPIRED
+
+======================================================================
+FAIL: test_delayed_first_freeze_does_not_persist_stale_event (competition.tests.test_action_resolver.ActionResolverTests.test_delayed_first_freeze_does_not_persist_stale_event)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_action_resolver.py", line 266, in test_delayed_first_freeze_does_not_persist_stale_event
+    self.reject(lambda:self.workflow.freeze_approved(row['key'],op),'CLOCK_UNKNOWN')
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/zjj-interface-feasibility-20261017/competition/tests/test_action_resolver.py", line 52, in reject
+    with self.assertRaises(ProtocolError) as cm:call()
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 8.521s
+
+FAILED (failures=1, errors=1)

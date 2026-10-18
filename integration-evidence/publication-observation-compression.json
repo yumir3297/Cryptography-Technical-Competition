@@ -1,0 +1,35 @@
+[
+  {
+    "original": "integration-evidence/deployment-joint-final/child-clock-observations.jsonl",
+    "compressed": "integration-evidence/deployment-joint-final/child-clock-observations.jsonl.gz",
+    "original_sha256": "e0f56964cec36f9c05de3c18e7a2deba7d17f81c580a02490574d7739d721811",
+    "gzip_sha256": "e4845a35c115a80c8a168a2a481b0f9dcdbfd3c3433f41ff57b5e83d808ea33e",
+    "original_bytes": 21284964,
+    "gzip_bytes": 1238196,
+    "lossless_verified": true,
+    "published": false,
+    "retained": "original local delivery only"
+  },
+  {
+    "original": "integration-evidence/deployment-joint-release/child-clock-observations.jsonl",
+    "compressed": "integration-evidence/deployment-joint-release/child-clock-observations.jsonl.gz",
+    "original_sha256": "4b5d020319ddb8569a1b9581ad940a1d4baa5dd890db8653667d9de562c75b0f",
+    "gzip_sha256": "acc4bb795d32e7df805a7c70e737399cf423248b281672b50516daf9d75e4c94",
+    "original_bytes": 22067989,
+    "gzip_bytes": 1283762,
+    "lossless_verified": true,
+    "published": false,
+    "retained": "original local delivery only"
+  },
+  {
+    "original": "integration-evidence/publication-joint-20261018/child-clock-observations.jsonl",
+    "compressed": "integration-evidence/publication-joint-20261018/child-clock-observations.jsonl.gz",
+    "original_sha256": "475e90ca1f99f68320e3e5dd48d23b259fbac91b4e7166990bafe8b3ba1ba037",
+    "gzip_sha256": "b5ff5cf7e95d50e46921797f690ea7364639fe23b5dc9c2b04cc095ce183d84a",
+    "original_bytes": 22045178,
+    "gzip_bytes": 1283943,
+    "lossless_verified": true,
+    "published": false,
+    "retained": "original local delivery only"
+  }
+]

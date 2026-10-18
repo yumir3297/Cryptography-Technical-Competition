@@ -1,5 +1,11 @@
 # ZJJ-CORE 安全协议与比赛模拟软件
 
+**统一交付入口：[工业全流程主展示与三场景本地补充演示](competition/docs/final/unified-competition-delivery-20261018.md)。** 本提交收束 PR #5、#6、#7，开发方只需审阅和集成这一份完整修改。
+
+工业提供受信单机中的候选、审批签署、接受、模拟执行、结算和重启恢复全流程；工业、付款、医疗三个场景的可信本地 CLI 作为补充演示。两种入口共用核心、保持隔离，PAY/MED 不声明已提供工业新版公开服务。
+
+工业实现细节：[如何解决、其他影响、补全方案、实验代码与结果](competition/docs/final/ind-complete-delivery-20261018.md)。
+
 本仓库用于密码学技术竞赛的软件开发与演示。agent 提出动作，独立的受信验证、必要批准和执行约束决定动作能否产生模拟效果。工业、付款、医疗共用接受与执行核心。
 
 - [共同安全协议](competition/docs/final/competition-protocol.md)

@@ -1,0 +1,46 @@
+{
+  "status": "verified_for_publication",
+  "publication_branch": "feature/zjj-core-ind-complete-20261018",
+  "base_sha": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+  "final_deployment_python_hashes_match": true,
+  "matched_python_files": 108,
+  "regression": "publication-joint-20261018/results.json",
+  "public_audit": "publication-public-audit.json",
+  "remote_before": "publication-remote-before.json",
+  "scope": "IND local service and industrial simulator; no PAY/MED public ingress, hardware, production deployment or merge claim",
+  "tests": 208,
+  "failures": 0,
+  "errors": 0,
+  "elapsed_seconds": 569.296,
+  "sources_unchanged": true,
+  "guard_semantics_modified": false,
+  "contracts_checks": 371,
+  "node_samples": 70,
+  "live_checks": 12,
+  "actual_counts": {
+    "accepts": 1,
+    "attempts": 1,
+    "exec_consumptions": 1,
+    "effects": 1,
+    "settlements": 1
+  },
+  "observation_kinds": [
+    {
+      "kind": "CLOCK_SAMPLE_ERROR",
+      "test": "test_time_acceptance.IndustrialTimeAcceptance.test_clock_unavailable_cannot_accept",
+      "code": "CLOCK_UNKNOWN"
+    }
+  ],
+  "public_audit_signatures": 15,
+  "public_audit_negative_controls": 3,
+  "history_observations_losslessly_compressed": false,
+  "source_derived_from": [
+    "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+    "63c5da6e6985d5d28102f1c905f2451abf7133a5"
+  ],
+  "git_parent": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+  "publication_commits": "runtime/tests first, documentation/public evidence second",
+  "publication_view": "sanitized result records and logs; original signed bundles retained locally",
+  "raw_observations_published": false,
+  "local_signature_audit_record_only": true
+}

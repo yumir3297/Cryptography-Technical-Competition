@@ -1,0 +1,11 @@
+{
+  "repository": "yumir3297/Cryptography-Technical-Competition",
+  "baseline_branch": "competition/zjj-core-final-20261010",
+  "baseline_sha": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+  "feature_branch": "feature/trusted-action-resolver-v1",
+  "preserved_experiment_heads": {
+    "experiment/trusted-action-feasibility-20261017": "4b301f9cbdc61440a9f5ee7e79b7e0af70628f8c",
+    "experiment/trusted-action-resolver-v1-20261017": "202f34e75f0b6e13ec49c58a313f0c32ab9e3095"
+  },
+  "merge_authorized": false
+}

@@ -1,0 +1,15 @@
+test_wrong_receipt_signer_key_is_rejected_before_serving (competition.tests.test_local_deployment.LocalDeploymentTests.test_wrong_receipt_signer_key_is_rejected_before_serving) ... FAIL
+
+======================================================================
+FAIL: test_wrong_receipt_signer_key_is_rejected_before_serving (competition.tests.test_local_deployment.LocalDeploymentTests.test_wrong_receipt_signer_key_is_rejected_before_serving)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 80, in test_wrong_receipt_signer_key_is_rejected_before_serving
+    with self.assertRaises(ProtocolError) as caught:
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 3.319s
+
+FAILED (failures=1)

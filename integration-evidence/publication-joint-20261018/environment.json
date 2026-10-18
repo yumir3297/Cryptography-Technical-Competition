@@ -1,0 +1,13 @@
+{
+  "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "cryptography": "50.0.2",
+  "jsonschema": "4.26.0",
+  "PYTHONHOME_unset": true,
+  "monotonic": {
+    "implementation": "mach_absolute_time()",
+    "monotonic": true,
+    "adjustable": false,
+    "resolution": 4.166666666666666e-08
+  }
+}

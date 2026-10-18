@@ -1,0 +1,7 @@
+{
+  "path": "competition/evidence/unified-operation-20261017/historical-output-excerpts.json",
+  "original_sha256": "db0921eaa36bb40d528cde2b22a1360f7979cedaaf4db9ffba465eb6b9958d3a",
+  "kind": "historical_excerpt_summary",
+  "original_published": false,
+  "reason": "Mixed historical excerpts contain local metadata/packets. Original retained locally; historical findings remain in the clock report."
+}

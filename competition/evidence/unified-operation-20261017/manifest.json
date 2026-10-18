@@ -1,0 +1,66 @@
+{
+  "baseline-integrity.json": {
+    "sha256": "3eb4150eac3bdb333c2ec7cb7652fe1739d73b638b3760a7f972b2237ce158b9",
+    "bytes": 312
+  },
+  "clock-audit.json": {
+    "sha256": "27221cd995a0a4eeaf201be8729fcdbcb710a22c93f4f9b7fee71809cd078ef8",
+    "bytes": 191
+  },
+  "contracts.log": {
+    "sha256": "35873afd02dfe6c275ae647a6994f8f4a0c99c72d862188d6bce161ae88f2690",
+    "bytes": 109
+  },
+  "environment.json": {
+    "sha256": "9828a39e50efb325d347232891c98c2886e6597ac3294eec4bc7f634f1607605",
+    "bytes": 382
+  },
+  "historical-evidence.log": {
+    "sha256": "b6c425763cfc81f18128778c4f6f967e10a4a6e0e8288ad453b443669a1eccb1",
+    "bytes": 2258
+  },
+  "historical-output-excerpts.json": {
+    "sha256": "63307232feee3bed54fbd98cd3958cc3b2055242c2f2f0d06036cd4c36b5d2c8",
+    "bytes": 404
+  },
+  "independent-review.md": {
+    "sha256": "27908b6313f8d2947f97e4b7f7726aee3a262256dd57e9566e99ab5b0cf68d37",
+    "bytes": 1639
+  },
+  "joint-final-results.json": {
+    "sha256": "7197aa93391026900a3e9811bdf1f56881cbbe907f74e491b5224f1fde731799",
+    "bytes": 374
+  },
+  "joint-final.log": {
+    "sha256": "dcee89d18152cbcadb6fadf4ff97595972870d5991bdf834c6bd5215c7ebbcdf",
+    "bytes": 32711
+  },
+  "public-demo-summary.json": {
+    "sha256": "1216088cc8c63e8f09f4b5ef28a582c19f54b07a9c54d327f480737db15679c6",
+    "bytes": 528
+  },
+  "public-demo-verification.json": {
+    "sha256": "f0e6e543ca0fb54ba7c0cc4e5ab6b4413562983a1867252a8bbb35084bc37ac1",
+    "bytes": 591
+  },
+  "remote-state.json": {
+    "sha256": "7171e6bbf245669fd2f43b4f03ceb28b34244f385f68ef43f0a20463c08dee4c",
+    "bytes": 42790
+  },
+  "repository-check.json": {
+    "sha256": "b962b12a7fe6b1ccbf752c1e27dd1b1800ea85517c39f41be4324ecdd7f4d908",
+    "bytes": 464
+  },
+  "summary.json": {
+    "sha256": "e0b8845864009722a0899cd5d7cf88408bd702d8af50e83893c6e457bfebf7d5",
+    "bytes": 1184
+  },
+  "tested-source-after.json": {
+    "sha256": "2c0cc1a571c1705949ce90608996c1db9f13f5290085b228713278d2e6476f34",
+    "bytes": 11262
+  },
+  "tested-source-before.json": {
+    "sha256": "2c0cc1a571c1705949ce90608996c1db9f13f5290085b228713278d2e6476f34",
+    "bytes": 11262
+  }
+}

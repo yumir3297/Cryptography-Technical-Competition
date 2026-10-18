@@ -1,0 +1,357 @@
+{
+  "kind": "sanitized_publication_policy",
+  "date": "2026-10-18",
+  "protocol_runtime_and_experiment_sources_changed": false,
+  "published": [
+    "protocol and application source",
+    "experiment programs",
+    "redacted test logs",
+    "result summaries and original SHA256 provenance",
+    "four-part integration documentation"
+  ],
+  "not_published": [
+    "private keys/tokens/runtime databases",
+    "local paths/configuration",
+    "full signed authentication/identity/ledger bundles",
+    "raw clock packets and archives"
+  ],
+  "verification_limit": "Recorded local signature checks remain historical results. Public summaries do not reproduce the original signed audit. Run the supplied experiments with new synthetic identities to create independent evidence.",
+  "transformed": [
+    {
+      "path": "competition/docs/final/trusted-action-resolver-v1-results.md",
+      "original_sha256": "b8f59e6a2006a3c783ee9ee43ab5ab624ee9051a864453baa835ac9b8a5851d8",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/baseline-integrity.json",
+      "original_sha256": "5d0fd2b2eb5730f0b86e6d5bb5015eed7b6028a309c3797d69c543ed3040a4cb",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/clock-audit.json",
+      "original_sha256": "17f407122ba6391d2292b7d70fe8da00ab804acb9b6bcb56601f65c443e6a5b7",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/environment.json",
+      "original_sha256": "07c747d6241dff1d41d6336f204b4b72d176e6960a22c85428a1c51af3ccc1a1",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/historical-output-excerpts.json",
+      "original_sha256": "db0921eaa36bb40d528cde2b22a1360f7979cedaaf4db9ffba465eb6b9958d3a",
+      "action": "replace mixed excerpts with provenance summary"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/joint-final-results.json",
+      "original_sha256": "75fe53f1e96c6a7cc0142a4fbee8ae0008108a847163acc5dad89463ac0f8f07",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/public-demo-verification.json",
+      "original_sha256": "3cf27874fc2311b01705be5e4161bc12ad3e51026f264406e17e7682b25bded3",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/public-demo.json",
+      "original_sha256": "9dfb857354dacd317946fa8ef2af06dc91f184299510354b53ae00f743f5dbe1",
+      "export_path": "competition/evidence/unified-operation-20261017/public-demo-summary.json",
+      "action": "replace full bundle with explicit result summary"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/remote-state.json",
+      "original_sha256": "21c80c2837e767fcfc2239d601b8ed433735ca815bf2e0c5a45976a7e9f49888",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/summary.json",
+      "original_sha256": "92feed7027e86e190f21c68c134d1052dcb0c810c20725f39f5a2e3cfe9600c9",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/tested-source-after.json",
+      "original_sha256": "5372dc5ff4723e0005cdccf28ff8f34ba50120d80348d1712426e31277fc5303",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "competition/evidence/unified-operation-20261017/tested-source-before.json",
+      "original_sha256": "5372dc5ff4723e0005cdccf28ff8f34ba50120d80348d1712426e31277fc5303",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-config-first.log",
+      "original_sha256": "d6bd35e6729fda61708b3d83a96ba44a6601431752f7a59dfbb3aa87f670fd7b",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-export-check.json",
+      "original_sha256": "7b453136179f6f898e6070f329645d599f83a3c171b3380a0af861239263a6c8",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-final-source-sha256.json",
+      "original_sha256": "541a0b14d352ab315f93eb6758d668c7edbaa1a59accc121c4c6bf6e8ab65b97",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-final/environment.json",
+      "original_sha256": "07c747d6241dff1d41d6336f204b4b72d176e6960a22c85428a1c51af3ccc1a1",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-final/results.json",
+      "original_sha256": "f68f438369e40d83e82eeadfe5a5af86d80407cb11896fdbe555cca9c4234829",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-final/source-after.json",
+      "original_sha256": "769fcd55bffda950178a7dcbdcb24aa8650dda7097b9470bf919b458eab460ab",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-final/source-before.json",
+      "original_sha256": "769fcd55bffda950178a7dcbdcb24aa8650dda7097b9470bf919b458eab460ab",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-release/environment.json",
+      "original_sha256": "07c747d6241dff1d41d6336f204b4b72d176e6960a22c85428a1c51af3ccc1a1",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-release/results.json",
+      "original_sha256": "dcab353089a87413dd66b228128378fe78580232818e4e5d3cc5b50fb0956706",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-release/source-after.json",
+      "original_sha256": "e5521ebbb673bc945014e1031d59069108bff3db6209f0ee43854905902e33f2",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-release/source-before.json",
+      "original_sha256": "e5521ebbb673bc945014e1031d59069108bff3db6209f0ee43854905902e33f2",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-01/offline-audit.json",
+      "original_sha256": "123b0db8e240dba08cd99a10b9d25f1af62512efb4ab8cf54e40537bab09ecda",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-01/public-evidence.json",
+      "original_sha256": "937b19ae16b2cf24ec82d1f11f2adec295cda0abeee822523993071d73bde193",
+      "export_path": "integration-evidence/deployment-live-01/public-evidence-summary.json",
+      "action": "replace full bundle with explicit result summary"
+    },
+    {
+      "path": "integration-evidence/deployment-live-01/results.json",
+      "original_sha256": "1a5642d26290a06c3304ccbbdc788cca7956eee0a1e9294765b77baf9c8bdbfd",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-01/source-after.json",
+      "original_sha256": "2890ff82026ad8f6a41ed10581dd55044e00ce4390145fc8180d937ce13003cf",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-01/source-before.json",
+      "original_sha256": "2890ff82026ad8f6a41ed10581dd55044e00ce4390145fc8180d937ce13003cf",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-handoff.log",
+      "original_sha256": "23165e08082310762c663f74cf48cd278bd0120f27bfaa319ae0978a609872c6",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-handoff/expiry-diagnosis.json",
+      "original_sha256": "b5cb27e2d818f5dfd5140a1e77b8eba643f72e09407cc41545aafadc95975b2c",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-handoff/failure.json",
+      "original_sha256": "2ae91fdc81db17147efa17b876fd3a5d418b6dfbe95b57c8adebc2f827ea5b8c",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-handoff/source-before.json",
+      "original_sha256": "4d3302f0a48b6ea938ad7657ffc5aebc1f351b95f075833358b4ce775a921361",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-ready/offline-audit.json",
+      "original_sha256": "5e125269fb5baa94eb58f6a81c1f5bfffaea15ff94e0d09901fb00687fde1fac",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-ready/public-evidence.json",
+      "original_sha256": "c87a7ff3c529eabde77b13ee70b15217fd1d60afbe89759469b8afdf7f0982d1",
+      "export_path": "integration-evidence/deployment-live-ready/public-evidence-summary.json",
+      "action": "replace full bundle with explicit result summary"
+    },
+    {
+      "path": "integration-evidence/deployment-live-ready/results.json",
+      "original_sha256": "1a5642d26290a06c3304ccbbdc788cca7956eee0a1e9294765b77baf9c8bdbfd",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-ready/source-after.json",
+      "original_sha256": "4d3302f0a48b6ea938ad7657ffc5aebc1f351b95f075833358b4ce775a921361",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-ready/source-before.json",
+      "original_sha256": "4d3302f0a48b6ea938ad7657ffc5aebc1f351b95f075833358b4ce775a921361",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-release/offline-audit.json",
+      "original_sha256": "14603e217567d75a52112c5344c878997f00612fed323e78e9eb923bd376c47e",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-release/public-evidence.json",
+      "original_sha256": "006cb4d12ab038af63f60bb335f1a09fad11131b4b7df0b28b95958a4a1825fe",
+      "export_path": "integration-evidence/deployment-live-release/public-evidence-summary.json",
+      "action": "replace full bundle with explicit result summary"
+    },
+    {
+      "path": "integration-evidence/deployment-live-release/results.json",
+      "original_sha256": "1a5642d26290a06c3304ccbbdc788cca7956eee0a1e9294765b77baf9c8bdbfd",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-release/source-after.json",
+      "original_sha256": "133219d26398c33e17579948ad20e90c6adc26fcbaf0c546aac95d90e8d6ead6",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-live-release/source-before.json",
+      "original_sha256": "133219d26398c33e17579948ad20e90c6adc26fcbaf0c546aac95d90e8d6ead6",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-post-test-formatting.json",
+      "original_sha256": "9d2a4a2108b6f2ad1ec416aeb3666c119dcfb0306d56c04ac809e19a53a28ba1",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-preflight-handoff.json",
+      "original_sha256": "fdbb9ab3cedbb8c12379ec9d759de3cd075da7403c497e3da170999d7f636af1",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-preflight-ready.json",
+      "original_sha256": "89e2d69e2a5c4371c57ab3153ff6dd7e457b1593ab831145d28a6ff71c89407c",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-preflight-release.json",
+      "original_sha256": "d72b453a994af39e884361fc841189a0b7e32325860dfb6b9c6ac1a5da0d8378",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-red.log",
+      "original_sha256": "2ef5ec724a7987c4a4ee50de5689694905936bf7ed7e31db728aa5f217e011db",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-review-red.log",
+      "original_sha256": "f8c4b567429f6e3fe2008ce7588e86692651324493a5644b0e7de17d1285255c",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/deployment-x-key-red.log",
+      "original_sha256": "26d8a808a9d76cd7339f807a5cb5893b242293d6f1877b87023f7d1a8310097a",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/github-docs-check-20261018.json",
+      "original_sha256": "1608cb33f6a35c26067e2732faa5ca5afff46f72e9e4cebf98f6a5940d97fe70",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/joint-rerun-02/results.json",
+      "original_sha256": "93b442972ee96d8075c20207c8e93405995f8c1225176991ed351bb56d4b2ffd",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/p2-focused-20261018/tests.log",
+      "original_sha256": "55036911e9f1bfe906a60b654385338d66c08e22840cc9bc1935a1f4d72ff690",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/p2-transport-rerun-20261018/results.json",
+      "original_sha256": "689aa8a2adf78e3064a39348edcb8f7bbf23d6218565f436700297084f5faf1d",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/publication-joint-20261018/environment.json",
+      "original_sha256": "07c747d6241dff1d41d6336f204b4b72d176e6960a22c85428a1c51af3ccc1a1",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/publication-joint-20261018/results.json",
+      "original_sha256": "43d2925016bdc2157c963ce823b53e8694769a1e5b0f2640391367e0f86208aa",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/publication-joint-20261018/source-after.json",
+      "original_sha256": "d95cc7780538f55830f27a5400fd55c5df7a7b36c28bbd94c69f4af7d39be3f5",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    },
+    {
+      "path": "integration-evidence/publication-joint-20261018/source-before.json",
+      "original_sha256": "d95cc7780538f55830f27a5400fd55c5df7a7b36c28bbd94c69f4af7d39be3f5",
+      "action": "redact unsigned metadata only; do not publish altered signed packets"
+    }
+  ],
+  "excluded": [
+    {
+      "path": "integration-evidence/deployment-joint-final/child-clock-observations.jsonl.gz",
+      "original_sha256": "e4845a35c115a80c8a168a2a481b0f9dcdbfd3c3433f41ff57b5e83d808ea33e",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    },
+    {
+      "path": "integration-evidence/deployment-joint-release/child-clock-observations.jsonl.gz",
+      "original_sha256": "acc4bb795d32e7df805a7c70e737399cf423248b281672b50516daf9d75e4c94",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    },
+    {
+      "path": "integration-evidence/deployment-live-01/public-settlement.json",
+      "original_sha256": "4b280eed7d1386eabd76e0d9a37028847f627884b46bc7ca82cad32be8e2fedb",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    },
+    {
+      "path": "integration-evidence/deployment-live-01/public-tool-certificate.json",
+      "original_sha256": "7c41dff218dc3a014f895cde86c2da40f8e86e12b6ac8dbad1bfc262668dcaff",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    },
+    {
+      "path": "integration-evidence/deployment-live-ready/public-settlement.json",
+      "original_sha256": "0f79cbb42bf36608858e57ed55ac5e60d910af80e752f51dcacd4caf1f4d32f6",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    },
+    {
+      "path": "integration-evidence/deployment-live-ready/public-tool-certificate.json",
+      "original_sha256": "b5360e658cbee8ba8adc816ede0ed4f247f4017b5688d4475447081562ac6795",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    },
+    {
+      "path": "integration-evidence/deployment-live-release/public-settlement.json",
+      "original_sha256": "9daa8a12b6606670cbd5dd499facc19adb7822ef804935cc3c2d56bd295cd8a6",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    },
+    {
+      "path": "integration-evidence/deployment-live-release/public-tool-certificate.json",
+      "original_sha256": "903e18cfeeceb2c945799f704f155e0a23adfa1ca7aeff2ecee5d5a6921c5107",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    },
+    {
+      "path": "integration-evidence/publication-joint-20261018/child-clock-observations.jsonl.gz",
+      "original_sha256": "b5ff5cf7e95d50e46921797f690ea7364639fe23b5dc9c2b04cc095ce183d84a",
+      "reason": "Raw packet/archive or full identity/ledger material retained locally only"
+    }
+  ]
+}
