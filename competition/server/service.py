@@ -191,3 +191,29 @@ class TrustedService:
         settled = self.step(operation_id, 'settle')
         view = self.step(operation_id, 'status')
         return {'operation_id': operation_id, 'settled': settled, 'status': view}
+
+    # -- 身份面: 登记 / 持钥证明（POP） -------------------------------------
+    # Appended last on purpose: another face edits this file concurrently.
+    def _registry(self):
+        """The lazily built in-memory enrollment registry for this run."""
+        if getattr(self, '_identity_registry', None) is None:
+            from competition.server.identity import IdentityRegistry
+            self._identity_registry = IdentityRegistry(self.run)
+        return self._identity_registry
+
+    def enroll(self, profile, subject):
+        """Open an enrollment for a roster subject; returns the pending tuple.
+
+        The caller gives only ``subject``: public key, key id and purposes are
+        read from the profile roster, never self-reported.  Every hard
+        constraint is left to the black box at :meth:`enroll_register`.
+        """
+        return self._registry().begin(profile, subject)
+
+    def enroll_proof(self, profile, subject, pending, iat, exp):
+        """Local fallback: sign the possession proof with the roster's own key."""
+        return self._registry().possession(profile, subject, pending, iat, exp)
+
+    def enroll_register(self, profile, proof):
+        """Accept an applicant's POP and publish its KEY/ROLE grants."""
+        return self._registry().register(profile, proof)
