@@ -98,7 +98,7 @@ gateway 不把 caller key、完整 audit、acceptance body、COMMIT 值或业务
 python -m competition.deploy.up
 ```
 
-它会构建/启动 `endpoints`、`trusted`、`caddy`、`agent-gateway`、`agent-operator`、`agent-executor`、`demo-agent`，然后启动固定镜像的 DeepSeek Harness。常用开关：
+它会构建/启动 `endpoints`、`trusted`、`caddy`、`agent-gateway`、`agent-operator`、`agent-executor`，然后启动固定镜像的 DeepSeek Harness。常用开关：
 
 ```sh
 python -m competition.deploy.up --no-zjj        # 只跑原核心演示
@@ -136,11 +136,11 @@ python -m competition.verify_repository --report .runtime/repository-check.json
 python -m competition.deploy.up --fresh
 ```
 
-`demo-agent` 应打印 `SETTLED effect=SUCCEEDED` 并以 0 退出；`agent-operator` 日志应出现 `accepted ...`，`agent-executor` 日志应出现 `settled ...`。如果 dsh 容器已经在跑，`up.py` 会跳过重建；要验证容器内插件安装，先 `docker rm -f deepseek-harness` 再跑。
+不再有脚本化的 `demo-agent`：候选由 dsh 里的模型提交。在预设菜单里选 **ZJJ 候选模式**，让它调用 `zjj_propose`；`agent-operator` 日志应出现 `accepted ...`，`agent-executor` 日志应出现 `settled ...`，模型会收到状态投影。如果 dsh 容器已经在跑，`up.py` 会跳过重建；要让它重装插件和预设，先 `docker rm -f deepseek-harness` 再跑。
 
 ## 7. 已知边界
 
-- 受信端每次启动要求全新的 run 目录；trusted 容器重启会明确报错退出，不会悄悄重开旧 W。重跑演示用 `--fresh` 丢卷。
+- 受信端每次启动要求全新的 run 目录；trusted 容器重启会明确报错退出，不会悄悄重开旧 W。重跑用 `--fresh` 丢卷。
 - operator 默认自动 accept，是演示替身；真实审批 UI 属后续。
 - executor 对未知 exec 结果只查询原 attempt 再 settle，不盲重试。
 - 受信端重启后，gateway 只能把旧操作标为 `UNAVAILABLE`，不恢复 op id，也不自动重提。

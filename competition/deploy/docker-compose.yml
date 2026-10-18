@@ -12,9 +12,8 @@
 #   agent-gateway    agent 侧 MCP 入口：只有 propose/status，不 approve/execute
 #   agent-operator   独立 H 侧：prepare/accept（演示替身，真人审批 UI 属后续）
 #   agent-executor   独立 worker 侧：claim/exec/query/settle，不盲目重试
-#   demo-agent       脚本化 MCP 客户端：不依赖模型跑通 propose→settle
 #
-# 用法（一键，起完并看两侧把一遍流程跑完；顺带把 DeepSeek Harness 也起来）：
+# 用法（一键，起完就停：受信端等人在控制台上放行链内签名，然后 agent 从 MCP 入口提交）：
 #   python -m competition.deploy.up              # agent 模式：MCP 端到端 + dsh
 #   python -m competition.deploy.up --no-zjj     # 只起原核心演示，不接 agent 网关
 #   python -m competition.deploy.up --sudo       # docker daemon 权限不足时
@@ -26,7 +25,7 @@
 # 直接驱动 compose 也行（agent 模式需要先准备两个 token 环境变量）：
 #   ZJJ_AGENT_TOKEN=... ZJJ_INTERNAL_TOKEN=... \
 #     docker compose -f competition/deploy/docker-compose.yml up --build \
-#       endpoints trusted caddy agent-gateway agent-operator agent-executor demo-agent
+#       endpoints trusted caddy agent-gateway agent-operator agent-executor
 #
 # 卷，以及为什么受信端读得到端的钥文件：
 #   zjj-run        受信端的运行目录（C.key、W-delivery.key、账库、工具配置）
@@ -268,19 +267,6 @@ services:
     volumes:
       - zjj-executor:/executor
       - zjj-callers:/callers
-    restart: "no"
-
-  demo-agent:
-    build:
-      context: ../..
-      dockerfile: competition/deploy/Dockerfile
-    command: python -m competition.agent.demo --profile PAY-1
-    depends_on:
-      agent-gateway:
-        condition: service_healthy
-    environment:
-      ZJJ_MCP_URL: http://agent-gateway:8090/mcp
-      ZJJ_AGENT_TOKEN: ${ZJJ_AGENT_TOKEN:?set ZJJ_AGENT_TOKEN}
     restart: "no"
 
   caddy:
