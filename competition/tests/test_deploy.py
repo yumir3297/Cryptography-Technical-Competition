@@ -359,10 +359,25 @@ class OrchestrationTests(unittest.TestCase):
         headless = {name: value for name, value in os.environ.items()
                     if name not in ('DISPLAY', 'WAYLAND_DISPLAY')}
         with mock.patch.dict(os.environ, headless, clear=True), \
-                mock.patch.object(up.subprocess, 'run') as run, \
+                mock.patch.object(up.subprocess, 'Popen') as opener, \
                 redirect_stdout(StringIO()):
             self.assertFalse(up.open_pages(['http://127.0.0.1:3080/']))
-        self.assertFalse(run.called)
+        self.assertFalse(opener.called)
+
+    def test_every_address_is_handed_over_without_being_waited_on(self):
+        # The opener may keep running after it hands the address to the browser,
+        # so waiting for it would hang the script once everything is already up.
+        desktop = {'DISPLAY': ':0', 'PATH': os.environ['PATH']}
+        with mock.patch.dict(os.environ, desktop, clear=True), \
+                mock.patch.object(up.shutil, 'which', return_value='/usr/bin/xdg-open'), \
+                mock.patch.object(up.subprocess, 'Popen') as opener, \
+                redirect_stdout(StringIO()):
+            self.assertTrue(up.open_pages(['http://a/', 'http://b/']))
+        self.assertEqual([call.args[0] for call in opener.call_args_list],
+                         [['/usr/bin/xdg-open', 'http://a/'],
+                          ['/usr/bin/xdg-open', 'http://b/']])
+        self.assertTrue(all(call.kwargs.get('start_new_session')
+                            for call in opener.call_args_list))
 
 
 if __name__ == '__main__':

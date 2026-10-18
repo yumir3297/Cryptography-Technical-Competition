@@ -217,7 +217,13 @@ def open_pages(addresses, no_open=False):
         print('  （没找到 xdg-open，自己开上面的地址。）', flush=True)
         return False
     for address in addresses:
-        subprocess.run([opener, address], check=False)
+        # A browser opener may keep running, or hand the address to something
+        # that does, so waiting for it would hang the script after everything is
+        # already up.  Detach it: the page opens, and the run continues -- and a
+        # Ctrl-C afterwards does not reach it.
+        subprocess.Popen([opener, address], stdin=subprocess.DEVNULL,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                         start_new_session=True)
     print('  已经在浏览器里打开了。', flush=True)
     return True
 
