@@ -1,5 +1,8 @@
 # 比赛软件开发入口
 
+> **整合候选（尚未验收）：** [完整比赛交付清单与验收门槛](../COMPETITION_COMPLETE_RELEASE_CANDIDATE.md)。另提供 `python -m competition.server` 本地可信侧 CLI，仅用于模拟演示；简化三字段提案仅限 [IND Trusted Action Resolver](application/README.md)，不可视为三个场景的统一不可信 Agent 入口。
+
+
 先读[共同协议](docs/final/competition-protocol.md)及[比赛开发总交接](docs/final/scenario-integration-handoff.md)，接线时使用[真实内部接口对照](docs/final/interface-reference.md)。CommonW 是工业、付款、医疗共用的接受、领取、执行、恢复与结算入口。
 
 当前比赛说明为 `CORE-SPEC-1.3`；[优化复检](docs/final/optimization-review-20261012.md)说明阶段分类、原观测/认证视图和 EXEC 消费边界。应用包装与诊断是开发接线约定，不由此页推定已经有公开服务。
