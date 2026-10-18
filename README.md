@@ -1,5 +1,8 @@
 # ZJJ-CORE 安全协议与比赛模拟软件
 
+> **整合候选（尚未验收/合并）：** [完整比赛版本交付范围与复现要求](COMPETITION_COMPLETE_RELEASE_CANDIDATE.md)。本分支整合三场景与 IND Resolver，并保留已验证的核心模块；旧分支的测试结果不得替代本分支 CI。
+
+
 本仓库用于密码学技术竞赛的软件开发与演示。agent 提出动作，独立的受信验证、必要批准和执行约束决定动作能否产生模拟效果。工业、付款、医疗共用接受与执行核心。
 
 - [共同安全协议](competition/docs/final/competition-protocol.md)
