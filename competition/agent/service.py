@@ -38,16 +38,8 @@ class GatewayError(Exception):
         super().__init__(self.message)
 
 
-class Denied(GatewayError):
-    """The trusted side explicitly refused the candidate."""
-
-
-class SubmissionUnknown(GatewayError):
-    """The trusted side may have created an operation; do not resubmit."""
-
-
 class OperationUnknown(GatewayError):
-    """No operation with that id is known to this gateway."""
+    """No operation and no submission with that id is known to this gateway."""
 
 
 def _fingerprint(status):
@@ -130,18 +122,27 @@ class GatewayService:
 
     def __init__(self, entry, key_path, endpoints, journal, *,
                  status_grace=None, now=time.time):
+        self.entry = entry
+        self.key_path = key_path
+        self.endpoints = endpoints
         self.caller = Caller(entry, key_path, endpoints)
         self.journal = journal
         self.now = now
         self.status_grace = (journal.grace if status_grace is None else status_grace)
         self._call_lock = threading.RLock()
 
-    def start(self, timeout=600.0):
-        """Open the caller's session, tolerating a list or entry that is still starting."""
+    def start(self, timeout=600.0, caller=None):
+        """Open one caller's session, tolerating a list or entry that is still starting.
+
+        The session this service reads and signs with is opened on first use; a
+        submitter opens its own, so that a submit waiting on a person cannot hold
+        the lock the reads need.
+        """
+        caller = self.caller if caller is None else caller
         deadline = time.monotonic() + timeout
         while True:
             try:
-                return self.caller.start()
+                return caller.start()
             except ProtocolError as exc:
                 if exc.code not in ('ENTRY_UNAVAILABLE', 'SESSION_REQUIRED',
                                     'SESSION_CALLERS', 'SESSION_EXPIRED'):
@@ -151,88 +152,124 @@ class GatewayService:
                 time.sleep(0.5)
 
     def close(self):
+        """Close the journal.
+
+        A submit still in flight is carried by a daemon thread on its own caller:
+        it ends with the process, and whatever it had already written stays.  A
+        submit whose outcome never arrived is the same fact the trusted side
+        leaves behind -- unknown -- and the next reader is told to inspect it.
+        """
         self.journal.close()
 
     # -- propose ------------------------------------------------------------
     def propose(self, profile, intent):
-        """Validate one business intent, submit it, and return its operation handle.
+        """Validate one business intent, reserve it, and let a submitter carry it.
 
-        A duplicate active intent returns the original operation.  A submission
-        whose outcome is unknown is not silently retried: the caller is told to
-        stop and ask an operator, which is the same conservative rule the
-        repository applies to a lost submit answer.
+        The submit itself is not done here.  The trusted side answers a submit
+        only after it has gathered a whole approval chain, and with the waiting
+        room on that chain the answer waits for a person -- longer than any tool
+        call should block.  So this returns what is already known, which is that
+        the intent was taken, and the outcome arrives later on the same feedback
+        channel every other transition uses.
+
+        The handle returned is the intent's own digest: stable, unique across
+        profiles, and the same one a repeat call gets.  Until the trusted side
+        answers it is all the agent has; once it has, the accepted event carries
+        the operation id and the handle resolves to it.
         """
         clean = policy.validate_intent(profile, intent)
         digest = policy.intent_digest(profile, clean)
         row, should_submit = self.journal.begin_submission(profile, digest)
-        if not should_submit:
-            if row['state'] == 'SUBMITTED' and row.get('operation_id'):
-                operation = self.journal.operation(row['operation_id'])
-                return self._proposal(operation or {
-                    'operation_id': row['operation_id'], 'profile': profile,
-                    'state': 'SUBMITTED'}, deduplicated=True)
-            if row['state'] == 'SUBMIT_UNKNOWN':
-                raise SubmissionUnknown(
-                    'SUBMISSION_UNKNOWN',
-                    'a previous submission of this intent may have reached the trusted '
-                    'side; do not resubmit; ask an operator to inspect it',
-                    detail=row.get('detail'))
-            raise SubmissionUnknown(
-                'SUBMISSION_IN_FLIGHT',
-                'an identical submission is in flight; wait for its result')
+        if should_submit:
+            self._start_submit(profile, digest, clean)
+            return self._proposal({'operation_id': digest, 'profile': profile,
+                                   'state': 'PENDING'}, deduplicated=False)
+        if row['state'] == 'SUBMITTED' and row.get('operation_id'):
+            return self._proposal({'operation_id': row['operation_id'], 'profile': profile,
+                                   'state': 'SUBMITTED'}, deduplicated=True)
+        state = 'UNKNOWN' if row['state'] == 'SUBMIT_UNKNOWN' else 'PENDING'
+        return self._proposal({'operation_id': digest, 'profile': profile, 'state': state},
+                              deduplicated=True)
+
+    def _start_submit(self, profile, digest, clean):
+        """Carry one submit off the request thread, on a caller of its own."""
+        thread = threading.Thread(target=self._submit, args=(profile, digest, clean),
+                                  name='zjj-submit-%s' % digest[:8], daemon=True)
+        thread.start()
+
+    def _submit(self, profile, digest, clean):
+        """One background submit; its outcome becomes an event either way."""
+        caller = Caller(self.entry, self.key_path, self.endpoints)
         try:
-            submitted = self._trusted(lambda: self.caller.submit(profile, clean))
-            operation_id = submitted['operation_id']
+            self.start(caller=caller)
+            operation_id = caller.submit(profile, clean)['operation_id']
         except ProtocolError as exc:
-            if exc.code in ('ENTRY_UNAVAILABLE', 'ENTRY_ANSWER'):
-                self.journal.mark_submission_unknown(profile, digest, exc.code)
-                raise SubmissionUnknown(
-                    'SUBMISSION_UNKNOWN',
-                    'the submit answer was not received; do not resubmit; ask an operator '
-                    'to inspect the trusted side', detail=exc.code)
-            self.journal.mark_submission_denied(profile, digest, exc.code)
-            raise Denied(exc.code, _deny_hint(exc.code))
+            unknown = exc.code in ('ENTRY_UNAVAILABLE', 'ENTRY_ANSWER')
+            self._submission_ended(profile, digest,
+                                   'SUBMIT_UNKNOWN' if unknown else 'DENIED', exc.code)
+            return
         except BaseException as exc:
-            self.journal.mark_submission_unknown(profile, digest, type(exc).__name__)
-            raise SubmissionUnknown(
-                'SUBMISSION_UNKNOWN',
-                'the submit call failed before an operation handle was known; do not '
-                'resubmit', detail=type(exc).__name__)
+            self._submission_ended(profile, digest, 'SUBMIT_UNKNOWN', type(exc).__name__)
+            return
         self.journal.mark_submitted(profile, digest, operation_id)
-        status = {
-            'operation_id': operation_id, 'profile': profile, 'state': 'SUBMITTED',
-            'acceptance_state': None, 'dispatch_state': None, 'effect_state': None,
-            'receipt_state': None, 'attempt_id': None, 'exec_consumed': None,
-            'queries': None, 'view_kind': None, 'commit_record_ref': None,
-            'read_at': self.now(),
-        }
-        self.journal.update_status(operation_id, 'SUBMITTED', 'submitted', status)
         self.journal.add_event(
-            operation_id, 'SUBMITTED', 'SUBMITTED',
+            digest, 'SUBMISSION_ACCEPTED', 'SUBMITTED',
             'submitted; waiting for independent approval',
-            dedupe_key='%s:SUBMITTED' % operation_id)
-        return self._proposal({'operation_id': operation_id, 'profile': profile,
-                               'state': 'SUBMITTED'}, deduplicated=False)
+            detail={'profile': profile, 'operation_id': operation_id},
+            dedupe_key='%s:SUBMISSION_ACCEPTED' % digest)
+
+    def _submission_ended(self, profile, digest, state, detail):
+        """Record how a submit ended and say so on the feedback channel.
+
+        A refusal is the trusted side's own rule name and the agent may correct
+        the intent.  Anything else leaves the same unknown the trusted side does:
+        the submit may have been taken, so the intent may not be proposed again,
+        and a person has to look.
+        """
+        if state == 'DENIED':
+            self.journal.mark_submission_denied(profile, digest, detail)
+            summary = 'the trusted side refused this candidate (%s)' % detail
+        else:
+            self.journal.mark_submission_unknown(profile, digest, detail)
+            summary = ('the submit outcome is unknown (%s); do not resubmit; '
+                       'ask an operator to inspect the trusted side' % detail)
+        self.journal.add_event(digest, state, state, summary,
+                               detail={'profile': profile, 'code': detail},
+                               dedupe_key='%s:%s' % (digest, state))
 
     @staticmethod
     def _proposal(operation, *, deduplicated):
+        state = operation.get('state') or 'SUBMITTED'
+        if state == 'PENDING':
+            message = ('the intent is taken; the trusted side is gathering its approval '
+                       'chain and the outcome arrives as a pushed status notice')
+        elif state == 'UNKNOWN':
+            message = ('a previous submission of this intent may have reached the trusted '
+                       'side; do not resubmit; ask an operator to inspect it')
+        elif deduplicated:
+            message = 'this intent already has an operation; use its status'
+        else:
+            message = 'submitted; acceptance and execution are decided elsewhere'
         return {
             'operation_id': operation['operation_id'],
             'profile': operation.get('profile'),
-            'state': operation.get('state') or 'SUBMITTED',
+            'state': state,
             'deduplicated': bool(deduplicated),
-            'message': ('this intent already has an operation; use its status'
-                        if deduplicated else
-                        'submitted; acceptance and execution are decided elsewhere'),
+            'message': message,
         }
 
     # -- read ---------------------------------------------------------------
     def status(self, operation_id):
-        """Return the current authenticated projection, redacted and possibly stale."""
+        """Return the current authenticated projection, redacted and possibly stale.
+
+        The id may be a submission handle as well as an operation id.  Until the
+        trusted side has answered, the handle is all the agent has, and it should
+        not have to wait for the pushed notice to read what is already known --
+        nor should an operation the handle has resolved to become unreadable.
+        """
         operation = self.journal.operation(operation_id)
         if operation is None:
-            raise OperationUnknown('OPERATION_UNKNOWN', 'this gateway did not submit %r'
-                                   % (operation_id,))
+            return self._submission_status(operation_id)
         if operation['terminal'] and operation.get('status'):
             return operation['status']
         try:
@@ -242,6 +279,34 @@ class GatewayService:
         status = redact_status(raw, read_at=self.now())
         self._observe(operation, status)
         return status
+
+    def _submission_status(self, handle):
+        """What is known about a submission whose handle is all the caller has."""
+        submission = self.journal.submission_by_digest(handle)
+        if submission is None:
+            raise OperationUnknown('OPERATION_UNKNOWN', 'this gateway did not submit %r'
+                                   % (handle,))
+        if submission['state'] == 'SUBMITTED' and submission.get('operation_id'):
+            # The trusted side answered while nobody was reading; follow the
+            # handle to the operation it became.
+            return self.status(submission['operation_id'])
+        if submission['state'] == 'DENIED':
+            state, reason = 'DENIED', ('the trusted side refused this candidate (%s); '
+                                       'correct the intent and propose it again'
+                                       % (submission.get('detail') or 'REFUSED'))
+        elif submission['state'] == 'SUBMIT_UNKNOWN':
+            state, reason = 'UNKNOWN', ('the submit outcome is unknown; do not resubmit; '
+                                        'ask an operator to inspect the trusted side')
+        else:
+            state, reason = 'PENDING', ('the trusted side is gathering the approval chain; '
+                                        'the outcome arrives as a pushed status notice')
+        return {
+            'operation_id': handle, 'profile': submission['profile'], 'state': state,
+            'acceptance_state': None, 'dispatch_state': None, 'effect_state': None,
+            'receipt_state': None, 'attempt_id': None, 'exec_consumed': None,
+            'queries': None, 'view_kind': None, 'commit_record_ref': None,
+            'read_at': self.now(), 'reason': reason,
+        }
 
     def refresh(self, operation_id):
         """One poll of one operation; the status call records any transition."""
@@ -383,15 +448,3 @@ class GatewayService:
 def _missing(operation_id):
     raise OperationUnknown('OPERATION_UNKNOWN', 'this gateway did not submit %r'
                            % (operation_id,))
-
-
-def _deny_hint(code):
-    hints = {
-        'PROFILE': 'choose one of IND-DEMO-1, PAY-1, MED-DEMO-1',
-        'INTENT_FIELDS': 'send exactly the business fields named in the zjj_propose description',
-        'INTENT_AMOUNT': 'amount_minor is a positive decimal string',
-        'INTENT_ROUTE': 'route must be RELEASE, QUARANTINE or INSPECT',
-        'BINDING': 'the trusted adapter could not bind these values; use a valid '
-                   'unit/patient/order combination',
-    }
-    return hints.get(code, 'the trusted side refused this candidate; adjust the intent')

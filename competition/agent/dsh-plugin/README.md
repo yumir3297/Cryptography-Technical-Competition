@@ -47,9 +47,15 @@ set it in the container environment.
 
 ## Feedback behavior
 
-- A successful `mcp__zjj__propose` result binds `operation_id -> live Agent`.
+- A successful `mcp__zjj__propose` result binds the handle it returned to the
+  live Agent. That handle is the intent's digest; the trusted side answers it
+  later, because a submit waits for a whole approval chain to be gathered.
 - The plugin polls `/zjj/events`, deduplicates by `seq`, and skips the
   `SUBMITTED` event the tool result already showed.
+- `SUBMISSION_ACCEPTED` carries the real operation id and the binding follows the
+  handle there. That is binding maintenance, so it holds whether or not a
+  deployment narrowed `notify`. `SUBMISSION_UNKNOWN` / `SUBMISSION_DENIED` end
+  the binding.
 - While the agent is `running` it uses `agent.steer`; when idle it uses
   `agent.followup`; with `wakeOnIdle: false` it uses `agent.inject`.
 - Each message is a `user`-role notice with `source.kind: "zjj-feedback"` and a

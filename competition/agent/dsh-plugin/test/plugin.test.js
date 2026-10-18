@@ -167,3 +167,58 @@ test('a disposed agent drops its binding instead of retrying forever', async () 
   await feedback.pollOnce()
   assert.equal(feedback.bindings.get('op-1').done, true)
 })
+
+test('a submission handle follows the accepted event to the operation id', async () => {
+  const agent = fakeAgent('idle')
+  const requests = []
+  const pages = {
+    handle: [{ seq: 1, operation_id: 'handle', kind: 'SUBMISSION_ACCEPTED', state: 'SUBMITTED',
+               summary: 'submitted; waiting for independent approval', created_at: 1,
+               detail: { operation_id: 'op-1', profile: 'PAY-1' } }],
+    'op-1': [{ seq: 2, operation_id: 'op-1', kind: 'ACCEPTED', state: 'ACCEPTED',
+               summary: 'accepted; receipt SIGNED', created_at: 2 }],
+  }
+  const feedback = createFeedback({
+    gatewayUrl: 'http://gateway', token: 't', statePath: path.join(workspace(), 'state.json'),
+  }, {
+    log: {},
+    fetchImpl: async (url) => {
+      const asked = new URL(String(url)).searchParams.get('operation_id')
+      requests.push(asked)
+      return page(pages[asked] ?? [])
+    },
+  })
+  const bound = proposal('handle')
+  bound.agent = agent
+  feedback.onToolResult(bound, bound.result)
+
+  await feedback.pollOnce()
+  // The handle is done and the binding now follows the operation it became.
+  assert.equal(feedback.bindings.get('handle').done, true)
+  assert.equal(feedback.bindings.get('op-1').done, false)
+  assert.match(agent.calls.followup[0].content[0].text, /SUBMISSION_ACCEPTED/)
+
+  await feedback.pollOnce()
+  assert.ok(requests.includes('op-1'))
+  const texts = agent.calls.followup.map((message) => message.content[0].text).join('\n')
+  assert.match(texts, /ACCEPTED: accepted/)
+})
+
+test('a submit that ended unknown stops the binding and is still told', async () => {
+  const agent = fakeAgent('idle')
+  const feedback = createFeedback({
+    gatewayUrl: 'http://gateway', token: 't', statePath: path.join(workspace(), 'state.json'),
+  }, {
+    fetchImpl: async () => page([{ seq: 1, operation_id: 'handle', kind: 'SUBMISSION_UNKNOWN',
+                                   state: 'SUBMIT_UNKNOWN', created_at: 1,
+                                   summary: 'the submit outcome is unknown (ENTRY_UNAVAILABLE)' }]),
+  })
+  const bound = proposal('handle')
+  bound.agent = agent
+  feedback.onToolResult(bound, bound.result)
+  await feedback.pollOnce()
+  assert.equal(feedback.bindings.get('handle').done, true)
+  assert.match(agent.calls.followup[0].content[0].text, /SUBMISSION_UNKNOWN/)
+  await feedback.pollOnce()
+  assert.equal(agent.calls.followup.length, 1)
+})

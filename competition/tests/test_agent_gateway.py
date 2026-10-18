@@ -75,15 +75,23 @@ class GatewayHttpTests(unittest.TestCase):
         proposed = mcp_call(self.stack, 'zjj_propose',
                             {'profile': 'PAY-1', 'intent': PAY_INTENT})
         self.assertFalse(proposed.is_error)
-        operation_id = proposed.structured_content['operation_id']
-        self.assertEqual(proposed.structured_content['state'], 'SUBMITTED')
+        handle = proposed.structured_content['operation_id']
+        self.assertEqual(proposed.structured_content['state'], 'PENDING')
 
         duplicate = mcp_call(self.stack, 'zjj_propose',
                              {'profile': 'PAY-1', 'intent': PAY_INTENT})
         self.assertTrue(duplicate.structured_content['deduplicated'])
-        self.assertEqual(duplicate.structured_content['operation_id'], operation_id)
+        self.assertEqual(duplicate.structured_content['operation_id'], handle)
 
-        before = mcp_call(self.stack, 'zjj_status', {'operation_id': operation_id})
+        # The tool returned before the trusted side answered.  The handle resolves
+        # to the operation the way the pushed notice would tell the agent.
+        operation_id = self.stack.await_submission(handle)
+        accepted = [event for event in self.stack.service.events(operation_id=handle)
+                    if event['kind'] == 'SUBMISSION_ACCEPTED']
+        self.assertEqual(len(accepted), 1)
+        self.assertEqual(accepted[0]['detail']['operation_id'], operation_id)
+
+        before = mcp_call(self.stack, 'zjj_status', {'operation_id': handle})
         self.assertFalse(before.is_error)
         self.assertEqual(before.structured_content['state'], 'SUBMITTED')
 
@@ -102,10 +110,28 @@ class GatewayHttpTests(unittest.TestCase):
         self.assertEqual(settled.structured_content['state'], 'SETTLED')
         self.assertEqual(settled.structured_content['effect_state'], 'SUCCEEDED')
 
+    def test_a_submission_that_has_not_resolved_reads_as_pending(self):
+        # The trusted side has not answered yet: the handle is all the agent has,
+        # and it must read as pending rather than as an unknown operation.
+        row, should_submit = self.stack.journal.begin_submission('PAY-1', 'pending-digest')
+        self.assertTrue(should_submit)
+        self.assertEqual(row['state'], 'SUBMITTING')
+        status = self.stack.service.status('pending-digest')
+        self.assertEqual(status['state'], 'PENDING')
+        self.assertEqual(status['operation_id'], 'pending-digest')
+        self.assertEqual(status['profile'], 'PAY-1')
+
+    def test_a_submission_the_trusted_side_refused_reads_as_denied(self):
+        self.stack.journal.begin_submission('PAY-1', 'denied-digest')
+        self.stack.journal.mark_submission_denied('PAY-1', 'denied-digest', 'BINDING')
+        status = self.stack.service.status('denied-digest')
+        self.assertEqual(status['state'], 'DENIED')
+        self.assertIn('BINDING', status['reason'])
+
     def test_status_never_carries_the_commit_or_business_payload(self):
         proposed = mcp_call(self.stack, 'zjj_propose',
                             {'profile': 'PAY-1', 'intent': dict(PAY_INTENT)})
-        operation_id = proposed.structured_content['operation_id']
+        operation_id = self.stack.await_submission(proposed.structured_content['operation_id'])
         operator = self.stack.caller('operator')
         operator.step(operation_id, 'prepare')
         operator.step(operation_id, 'accept')
@@ -159,7 +185,7 @@ class GatewayDegradedTests(unittest.TestCase):
 
     def test_a_read_failure_keeps_the_last_known_projection(self):
         proposed = self.stack.service.propose('PAY-1', dict(PAY_INTENT))
-        operation_id = proposed['operation_id']
+        operation_id = self.stack.await_submission(proposed['operation_id'])
         operator = self.stack.caller('operator')
         operator.step(operation_id, 'prepare')
         operator.step(operation_id, 'accept')

@@ -16,7 +16,11 @@ class WorkbenchTests(unittest.TestCase):
         self.stack.close()
 
     def propose(self):
-        return self.stack.service.propose('PAY-1', dict(PAY_INTENT))
+        proposal = self.stack.service.propose('PAY-1', dict(PAY_INTENT))
+        # The submit is carried off the request thread; the operation id arrives
+        # the way the pushed notice does.
+        operation_id = self.stack.await_submission(proposal['operation_id'])
+        return dict(proposal, operation_id=operation_id)
 
     def test_the_internal_queue_hands_one_operation_to_each_side(self):
         proposal = self.propose()

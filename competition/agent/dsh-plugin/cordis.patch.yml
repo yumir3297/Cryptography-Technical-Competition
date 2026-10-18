@@ -39,6 +39,9 @@
         requestTimeoutMs: 5000
         wakeOnIdle: true
         notify:
+          - SUBMISSION_ACCEPTED
+          - SUBMISSION_UNKNOWN
+          - SUBMISSION_DENIED
           - ACCEPTED
           - STARTED
           - SETTLED

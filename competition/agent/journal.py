@@ -107,6 +107,19 @@ class Journal:
                 (profile, digest)).fetchone()
         return dict(row) if row else None
 
+    def submission_by_digest(self, digest):
+        """One reservation by its own handle.
+
+        The digest is the stable identity of a business intent, so it is unique
+        across profiles -- it is taken over the profile too -- and it is what the
+        agent is handed before the trusted side has answered.  A caller that only
+        holds that handle can still read what is known about its own submission.
+        """
+        with self._lock:
+            row = self._db.execute('SELECT * FROM submissions WHERE digest=?',
+                                   (digest,)).fetchone()
+        return dict(row) if row else None
+
     def begin_submission(self, profile, digest):
         """Reserve one intent, or return the reservation already made.
 

@@ -3,8 +3,10 @@
  *
  * The MCP tools live in the gateway.  This plugin does only two things:
  *
- * 1. Listen for a successful `mcp__zjj__propose` result and remember which
- *    live Agent submitted which operation id.
+ * 1. Listen for a successful `mcp__zjj__propose` result and remember which live
+ *    Agent submitted which handle.  That handle is the intent's digest; the
+ *    trusted side answers it later, and the accepted event carries the operation
+ *    id the binding then follows.
  * 2. Poll the gateway's bounded feedback log and deliver new trusted status
  *    projections into that Agent's session: `steer` while it is running,
  *    `followup` when it is idle, or `inject` when waking is disabled.
@@ -21,12 +23,17 @@ export const name = 'zjj-agent-feedback'
 export const inject = ['tools']
 
 const DEFAULT_NOTIFY = [
+  'SUBMISSION_ACCEPTED', 'SUBMISSION_UNKNOWN', 'SUBMISSION_DENIED',
   'ACCEPTED', 'STARTED', 'SETTLED', 'HALTED', 'CANCELED',
   'UNAVAILABLE', 'READ_FAILED',
 ]
 const DEFAULT_MAX_EVENTS = 8
 const DEFAULT_MAX_CHARS = 2000
 const TERMINAL_KINDS = new Set(['SETTLED', 'HALTED', 'CANCELED', 'UNAVAILABLE'])
+// A submit ends here, one way or the other.  The handle stops being polled, and
+// what the agent keeps is the notice: accepted with an operation id, or the
+// trusted side's refusal, or the unknown that only a person can resolve.
+const SUBMISSION_END_KINDS = new Set(['SUBMISSION_UNKNOWN', 'SUBMISSION_DENIED'])
 const CONTROL = /[\u0000-\u001f\u007f]/g
 
 function clip(value, limit) {
@@ -194,6 +201,20 @@ export function createFeedback(config, deps = {}) {
     })
   }
 
+  // A submission handle resolves to the operation the trusted side created, and
+  // the binding follows it there.  From then on the events carry the operation
+  // id, so the handle is no longer polled -- and the new binding starts at zero
+  // on purpose, which is what makes it skip the SUBMITTED event the tool result
+  // already showed.
+  function follow(binding, operationId) {
+    const agent = binding.agent
+    const profile = binding.profile
+    binding.done = true
+    bindOne(operationId, profile, agent)
+    log.info?.('[zjj-feedback] submission %s resolved to %s',
+      binding.operationId, operationId)
+  }
+
   function onToolResult(exec, result) {
     if (!exec?.name?.startsWith(options.prefix)) return
     if (result?.isError) return
@@ -260,6 +281,7 @@ export function createFeedback(config, deps = {}) {
           continue
         }
         if (!page) continue
+        let rebind = null
         const events = []
         for (const event of Array.isArray(page.events) ? page.events : []) {
           const seq = Number(event?.seq)
@@ -268,11 +290,20 @@ export function createFeedback(config, deps = {}) {
           state[binding.operationId] = seq
           changed = true
           if (binding.skip.delete(event.kind)) continue
+          // Following the handle is binding maintenance, not a notice: it holds
+          // whether or not a deployment narrowed what the agent is told.
+          if (event.kind === 'SUBMISSION_ACCEPTED') {
+            const accepted = event?.detail?.operation_id
+            if (typeof accepted === 'string' && accepted) rebind = accepted
+          } else if (SUBMISSION_END_KINDS.has(event.kind)) {
+            binding.done = true
+          }
           if (!options.notify.has(event.kind)) continue
           events.push(event)
           if (TERMINAL_KINDS.has(event.kind)) binding.done = true
         }
         if (events.length) deliver(binding, events)
+        if (rebind) follow(binding, rebind)
       }
     } finally {
       if (changed) saveState(options.statePath, state, log)

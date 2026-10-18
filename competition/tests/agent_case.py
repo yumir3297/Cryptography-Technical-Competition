@@ -95,6 +95,27 @@ class AgentStack:
         caller.start()
         return caller
 
+    def await_submission(self, handle, timeout=60.0):
+        """Wait for the background submitter to resolve a handle.
+
+        The submit is carried off the request thread, so a test that needs the
+        operation id waits for it the way a client waits for the pushed notice.
+        Returns the operation id, or raises on the two endings that have none.
+        """
+        import time
+        deadline = time.monotonic() + timeout
+        while True:
+            row = self.journal.submission_by_digest(handle)
+            if row is not None:
+                if row['state'] == 'SUBMITTED' and row.get('operation_id'):
+                    return row['operation_id']
+                if row['state'] in ('SUBMIT_UNKNOWN', 'DENIED'):
+                    raise AssertionError('submission ended %s (%s)'
+                                         % (row['state'], row.get('detail')))
+            if time.monotonic() >= deadline:
+                raise AssertionError('submission %s did not resolve' % handle)
+            time.sleep(0.05)
+
     def close(self):
         for name in ('gateway', 'entry'):
             face = getattr(self, name, None)

@@ -27,7 +27,11 @@ agent 不能 prepare、accept、claim、exec、settle、cancel 或签署。H 侧
 | `PAY-1` | `order_id`, `stage`, `payer`, `payee`, `amount_minor` |
 | `MED-DEMO-1` | `synthetic_patient_id`, `encounter_id`, `template_id` |
 
-返回 `operation_id`、`profile`、`state=SUBMITTED`、`deduplicated` 和一句说明。相同 intent 重复提交会返回同一个 `operation_id`，不会生成第二个操作。字段之外的角色、密钥、批准、permit、scope、tool、`operation_id` 或测试开关一律拒绝。
+返回 `operation_id`、`profile`、`state`、`deduplicated` 和一句说明。**提交不在这里等**：受信端要先把整条批准链装配完才答复，而开着等待室时那是等人在页面上放行，比任何工具调用该阻塞的时间都长。所以这里只返回当时已知的事实——意图已被受理，`state=PENDING`——结果随后走和其它状态变化同一条推送通道。
+
+`operation_id` 此时是**受理句柄**（意图自身的 digest，稳定且跨 profile 唯一）；受信端答复后，`SUBMISSION_ACCEPTED` 事件带上真正的 operation id，句柄从此解析到它。相同 intent 重复提交返回同一个句柄，不会生成第二个操作；已受理则直接返回 operation id。
+
+字段之外的角色、密钥、批准、permit、scope、tool、`operation_id` 或测试开关一律拒绝。
 
 ### `zjj_status(operation_id)`
 
@@ -56,13 +60,16 @@ Authorization: Bearer <ZJJ_AGENT_TOKEN>
 
 返回 `{"events": [...], "next_seq": n}`。事件只含 `seq`、`operation_id`、`kind`、`state`、`summary`、`created_at` 和脱敏后的 `detail`，不含完整 audit。`/zjj/events` 是 agent token 的唯一读接口；`/internal/*` 只接受 internal token，operator/executor 用它领取和释放队列。
 
+受理本身也是事件，走同一条通道：`SUBMISSION_ACCEPTED`（`detail.operation_id` 是真正的 operation id）、`SUBMISSION_UNKNOWN`、`SUBMISSION_DENIED`。这三条的 `operation_id` 是受理句柄，所以拿着句柄就能读到"这条提交后来怎么样了"，不必等推送。
+
 ### 3.2 dsh 插件
 
 `competition/agent/dsh-plugin/` 是零依赖的 Cordis 插件，做三件事：
 
-1. 监听 `tools/result`，只在 `mcp__zjj__propose` 成功时把返回的 `operation_id` 绑定到发起调用的 live `Agent`。
+1. 监听 `tools/result`，只在 `mcp__zjj__propose` 成功时把返回的受理句柄绑定到发起调用的 live `Agent`。
 2. 每 `pollIntervalMs`（默认 1500 ms）拉一次 `/zjj/events`，按 `seq` 去重，游标持久化在 `$DSH_HOME/zjj-feedback-state.json`。首次绑定跳过 `SUBMITTED`，因为 propose 的工具结果已经告诉 agent。
-3. 把新事件拼成一条 `user` 角色的 notice（`source.kind = "zjj-feedback"`、`form = "notice"`），按 agent 状态投递：
+3. 收到 `SUBMISSION_ACCEPTED` 时，把绑定**跟着句柄转到真正的 operation id**（此后拉的是 operation 的事件），并把这条受理通知投给 agent。这一步是绑定维护，不受 `notify` 白名单影响。`SUBMISSION_UNKNOWN` / `SUBMISSION_DENIED` 结束绑定。
+4. 把新事件拼成一条 `user` 角色的 notice（`source.kind = "zjj-feedback"`、`form = "notice"`），按 agent 状态投递：
 
 | agent 状态 | 调用 | 行为 |
 |---|---|---|
@@ -120,6 +127,8 @@ python -m competition.deploy.up --down          # 跑完收摊
 
 端口：gateway `127.0.0.1:8090`，caddy `8080`，dsh `3080`。dsh 容器加入 compose 的 `deploy_default` 网络，用服务名 `agent-gateway:8090` 访问 gateway；gateway 本身只发布在宿主回环上。
 
+调用方等受信端答复的上限是 `ZJJ_CALLER_TIMEOUT`，默认 `WINDOW + 30`（等待室的耐心加一点余量）——提交要等人在页面上放行，比这个早放弃就会把"受信端还在装配"误报成"受信端不在"。
+
 dsh 不重建镜像。`competition/deploy/harness-entrypoint.sh` 把只读挂载的插件复制到 `/root/.dsh/plugins/dsh-zjj-agent`，再用 `dsh plugin --profile web add` 安装进持久 profile；版本标记在 `/root/.dsh/.zjj-plugin-version`，重复启动不会重复安装。没有 `ZJJ_MCP_URL`/`ZJJ_AGENT_TOKEN` 时原 entrypoint 原样执行。
 
 ## 6. 验证
@@ -149,6 +158,8 @@ python -m competition.deploy.up --fresh
 ## 7. 已知边界
 
 - 受信端每次启动要求全新的 run 目录；trusted 容器重启会明确报错退出，不会悄悄重开旧 W。重跑用 `--fresh` 丢卷。
+- 提交在后台线程里进行；gateway 进程在它完成前退出，那条提交就停在"未知"（和受信端丢失答复是同一种事实），不会自动重提。
+- 受理句柄就是意图 digest，所以同一 intent 只有一个句柄，重复提交不会开第二条链。
 - 默认不在 `agent-operator` / `agent-executor` 里替人接受或执行：它们不启动，控制台是唯一推进的地方；`--auto` 才恢复自动调用者。
 - executor 对未知 exec 结果只查询原 attempt 再 settle，不盲重试。
 - 受信端重启后，gateway 只能把旧操作标为 `UNAVAILABLE`，不恢复 op id，也不自动重提。

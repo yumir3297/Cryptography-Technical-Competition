@@ -9,16 +9,25 @@ The credential is loaded the same way an endpoint's is -- its own uid, mode
 ``0600``, nothing else -- because it is the same kind of thing: a process
 credential that proves which party is acting.
 """
+import os
+
 import httpx
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
 from competition.client.signer import load_role_key
-from competition.support.wire import ProtocolError, b64, canonical, keyid, require
+from competition.support.wire import WINDOW, ProtocolError, b64, canonical, keyid, require
 from competition.web.session import SESSION_DOMAIN
 
 # One entry call carries an intent or a proof, and the entry bounds its own side;
 # this is only how long a caller waits before calling the entry unavailable.
-TIMEOUT = 30.0
+#
+# Most calls are answered at once, but one is not: a submit asks the trusted side
+# to gather a fresh approval chain, and with the waiting room on that chain the
+# answer waits for a person -- the room's own patience, which follows ``WINDOW``.
+# A caller that gave up first would call the entry unavailable while it was still
+# assembling, which is a fact about the caller and not about the entry.  So the
+# default is the room's patience plus a margin, and a deployment may set its own.
+TIMEOUT = float(os.environ.get('ZJJ_CALLER_TIMEOUT', str(WINDOW + 30)))
 
 
 class Session:
