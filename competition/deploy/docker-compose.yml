@@ -56,6 +56,10 @@ services:
     environment:
       ZJJ_ENDPOINTS: /endpoints
       ZJJ_ENDPOINT_HOST: 0.0.0.0
+      # 1 时每个链内签名都先报到本端点的等待室，由人在控制台上放行。初始化
+      # 走的是"不必问人"的报备，所以受信端仍然能自己起来；停下的是 agent 每
+      # 提交一条候选所派生的那条链。up.py 把这个值写进 token env 文件。
+      ZJJ_AWAIT_APPROVAL: ${ZJJ_AWAIT_APPROVAL:-0}
     volumes:
       - zjj-endpoints:/endpoints
     healthcheck:

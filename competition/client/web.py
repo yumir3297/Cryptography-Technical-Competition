@@ -133,14 +133,24 @@ def make_app(signer, *, name=None, approval=None):
                 value = json.loads(body)
             except (UnicodeError, json.JSONDecodeError):
                 raise ProtocolError('CLIENT_MALFORMED')
-            require(type(value) is dict and set(value) == {'profile', 'role', 'unsigned', 'action'},
+            require(type(value) is dict
+                    and set(value) == {'profile', 'role', 'unsigned', 'action', 'ask'},
                     'CLIENT_FIELDS')
             # The message is signed by this endpoint's one key or by nothing, so
             # a report naming another profile or role is not this endpoint's to
             # ask about.
             require(value['profile'] == profile and value['role'] == role, 'CLIENT_BINDING')
             require(type(value['unsigned']) is dict and type(value['action']) is dict, 'CLIENT_FIELDS')
+            require(type(value['ask']) is bool, 'CLIENT_FIELDS')
             if approval is None:
+                return JSONResponse(content={'approved': True, 'waited': False})
+            if not value['ask']:
+                # The caller is the trusted side's own bootstrap, and it says
+                # this message is not a person's decision: initialization is the
+                # scripted boundary.  The answer is recorded so the signing call
+                # that follows is answered rather than parked.
+                approval.remember(profile=profile, role=role,
+                                  unsigned=value['unsigned'], action=value['action'])
                 return JSONResponse(content={'approved': True, 'waited': False})
             approved = await run_in_threadpool(approval.preapprove, profile=profile, role=role,
                                                unsigned=value['unsigned'], action=value['action'],

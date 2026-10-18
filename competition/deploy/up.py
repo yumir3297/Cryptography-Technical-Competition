@@ -83,7 +83,7 @@ HARNESS_PORT = 3080
 HARNESS_NETWORK = 'deploy_default'
 
 
-def load_tokens():
+def load_tokens(await_approval=False):
     """Reuse or mint the two gateway tokens, and put them in this process's env.
 
     The agent token reaches dsh; the internal token reaches only the operator and
@@ -91,7 +91,9 @@ def load_tokens():
     under ``.runtime`` keeps a re-run against an already-started dsh container
     consistent instead of rotating the token out from under it.  A small env file
     carries them to ``docker compose``: ``sudo`` resets the environment, so the
-    compose interpolation reads this file instead of inheriting variables.
+    compose interpolation reads this file instead of inheriting variables.  The
+    same file carries whether the endpoints ask a person before they sign, for
+    the same reason.
     """
     stored = {}
     try:
@@ -104,8 +106,9 @@ def load_tokens():
     TOKEN_FILE.parent.mkdir(parents=True, exist_ok=True)
     TOKEN_FILE.write_text(json.dumps({'agent': agent, 'internal': internal}), encoding='utf-8')
     os.chmod(TOKEN_FILE, 0o600)
-    TOKEN_ENV.write_text('ZJJ_AGENT_TOKEN=%s\nZJJ_INTERNAL_TOKEN=%s\n' % (agent, internal),
-                         encoding='utf-8')
+    TOKEN_ENV.write_text(
+        'ZJJ_AGENT_TOKEN=%s\nZJJ_INTERNAL_TOKEN=%s\nZJJ_AWAIT_APPROVAL=%s\n'
+        % (agent, internal, '1' if await_approval else '0'), encoding='utf-8')
     os.chmod(TOKEN_ENV, 0o600)
     os.environ['ZJJ_AGENT_TOKEN'] = agent
     os.environ['ZJJ_INTERNAL_TOKEN'] = internal
@@ -315,8 +318,9 @@ def up_docker(args):
         print('docker daemon 不可达。加 --sudo（daemon 权限不足），或者用 --local 在本机'
               '以普通进程跑同一套入口脚本。', file=sys.stderr, flush=True)
         return 1
-    if not args.no_zjj:
-        load_tokens()
+    # Unconditional: the env file also carries whether the endpoints ask a person
+    # before they sign, and that applies to the core demo too.
+    load_tokens(args.await_approval)
     if args.fresh:
         print('== 丢掉上次的卷', flush=True)
         # The harness is attached to the compose network, so it has to go before
@@ -363,8 +367,9 @@ def up_docker(args):
               'agent 网关在 http://127.0.0.1:8090/healthz（只对宿主回环）；'
               'DeepSeek Harness 在 http://127.0.0.1:%d/。' % HARNESS_PORT, flush=True)
     print('显示页在 http://127.0.0.1:%d/。' % VIEWER_PORT, flush=True)
-    print('受信端初始化是脚本模拟（不代表真人同意），默认不会停在页面上；'
-          '要人逐个放行链内四个角色（G/U/V/X），设 ZJJ_AWAIT_APPROVAL=1。', flush=True)
+    print('受信端初始化是脚本模拟（不代表真人同意），不会停在页面上。'
+          '加 --await-approval 后，agent 每提交一条候选都要在控制台上放行'
+          'G/U/V/X 的链内签名，否则候选进不来。', flush=True)
     if not args.no_zjj and not args.auto:
         print('agent 提交的候选会出现在控制台的「操作」里，接手后用提出方/执行方按钮'
               '逐个推进；没有人替你接受或执行（要自动用 --auto）。', flush=True)
@@ -402,7 +407,8 @@ def up_local(args):
     endpoints = root / 'endpoints'
     callers = root / 'callers'
     callers.mkdir(parents=True, exist_ok=True)
-    env = {**os.environ, 'PYTHONPATH': str(ROOT), 'PYTHONUNBUFFERED': '1'}
+    env = {**os.environ, 'PYTHONPATH': str(ROOT), 'PYTHONUNBUFFERED': '1',
+           'ZJJ_AWAIT_APPROVAL': '1' if args.await_approval else '0'}
     entry = 'http://127.0.0.1:%d' % args.port
     # 控制台在本机模式下直接托管页面：没有 caddy，端口取入口端口的下一个。
     page_port = args.port + 1
@@ -443,11 +449,12 @@ def up_local(args):
                   '构建好再跑本命令，就能在 http://127.0.0.1:%d/ 看到。'
                   '观察面本身已经在跑，控制台的「操作」走它。' % args.viewer_port, flush=True)
 
-        if os.environ.get('ZJJ_AWAIT_APPROVAL', '0') == '1':
-            print('[4/4] 受信端此刻是挂住的，不是坏的。打开页面逐个同意：', flush=True)
+        if args.await_approval:
+            print('[4/4] 初始化仍然自动；但 agent 每提交一条候选，都会在页面上停下，'
+                  '等你放行 G/U/V/X 的链内签名：', flush=True)
             print('      http://127.0.0.1:%d/console/' % page_port, flush=True)
         else:
-            print('[4/4] 受信端会自己初始化（ZJJ_AWAIT_APPROVAL 未开），不用在页面上点头。',
+            print('[4/4] 受信端会自己初始化，候选进来也不问人（--await-approval 未开）。',
                   flush=True)
             print('      页面（H 与 worker 的九步）：http://127.0.0.1:%d/console/' % page_port,
                   flush=True)
@@ -519,6 +526,10 @@ def main(argv=None):
                         help='不起 DeepSeek Harness，只起竞赛这套')
     parser.add_argument('--no-zjj', action='store_true',
                         help='不接 agent 网关，只起原核心演示')
+    parser.add_argument('--await-approval', action='store_true',
+                        default=os.environ.get('ZJJ_AWAIT_APPROVAL', '0') == '1',
+                        help='每次 agent 提交候选，都要在控制台上放行 G/U/V/X 的链内签名，'
+                             '否则候选进不来；初始化仍然自动（也认 ZJJ_AWAIT_APPROVAL=1）')
     parser.add_argument('--auto', action='store_true',
                         help='agent 模式照旧起 operator/executor，让它们自动接受并执行，'
                              '不在控制台上等人')

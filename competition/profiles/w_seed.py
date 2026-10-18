@@ -128,7 +128,7 @@ class WRun:
         return op
 
 
-def _preapprover(fleet):
+def _preapprover(fleet, *, ask=True):
     """Ask the endpoint that owns a key about a signature before it is made.
 
     Every chain signature goes to the endpoint that holds the key, over the same
@@ -137,6 +137,11 @@ def _preapprover(fleet):
     decides with no deadline but their own patience, and the thirty seconds core
     puts on the call are spent on a network round trip rather than on somebody
     reading a page.
+
+    ``ask`` says whether this report is a person's decision.  Initialization is
+    the scripted bootstrap and reports with ``ask=False``: the endpoint records
+    the answer instead of parking, so a chain nobody decided on does not stop a
+    deployment.  Everything a *submission* derives reports with ``ask=True``.
 
     A refusal stops initialization, the way any other refused signature does: the
     endpoint names its rule and this raises it.  Nothing here decides; it only
@@ -152,7 +157,8 @@ def _preapprover(fleet):
         # Longer than the endpoint's own wait, so the side that gives up first is
         # the one holding the request and the failure reads as nobody answering.
         reply = httpx.post(url, json={'profile': profile, 'role': alias,
-                                      'unsigned': unsigned, 'action': action},
+                                      'unsigned': unsigned, 'action': action,
+                                      'ask': ask},
                            timeout=PREAPPROVAL_TIMEOUT + 30.0)
         if reply.status_code == DENY_STATUS:
             try:
@@ -183,6 +189,8 @@ def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kw
             set(resource_capacity) <= set(PROFILE_SCOPES)), 'RESOURCE_SCOPE')
     require(fleet is None or 'roster' not in authorization_kwargs, 'INIT_FLEET')
     resource_capacity = {} if resource_capacity is None else resource_capacity
+    reporting = None
+    bootstrap = None
     if fleet is not None:
         authorization_kwargs['roster'] = fleet.roster()
         # Only a fleet reached over HTTP has a face to report to.  A fleet
@@ -190,12 +198,24 @@ def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kw
         # waiting room in front of it -- that endpoint answers at once -- so
         # there is nothing there to ask, and the old behaviour is left in place.
         if getattr(fleet, 'base_url', None) is not None:
-            authorization_kwargs['preapprover'] = _preapprover(fleet)
+            # Initialization reports too, but says its messages are not a
+            # person's decision: the endpoint records the answer instead of
+            # parking, so the three bootstrap chains are assembled without
+            # stopping.  Reporting starts for real below.
+            bootstrap = _preapprover(fleet, ask=False)
+            reporting = _preapprover(fleet, ask=True)
+    authorization_kwargs['preapprover'] = bootstrap
     names = ['W-worker.key', 'W-delivery.key'] + [profile + suffix for profile in PROFILE_SCOPES
                               for suffix in ('-tool.key', '-tool.sqlite', '-tool.json')]
     if (folder / 'auth-w.sqlite').exists() or any((folder / name).exists() for name in names):
         raise ValueError('New initialization must never reset an existing W or tool ledger')
     base = initialize_authorization(folder, **authorization_kwargs)
+    # Initialization is the scripted bootstrap, not a person's decision -- the
+    # documented boundary says exactly that -- so its three chains are assembled
+    # without asking anybody.  Reporting starts here: from now on, every chain a
+    # *submission* derives is reported to the endpoint that owns each key, and a
+    # person answers outside the signing window.
+    base.preapprover = reporting
     x_signers = {}
     try:
         if fleet is None:

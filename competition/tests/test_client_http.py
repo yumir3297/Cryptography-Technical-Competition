@@ -26,10 +26,12 @@ from pathlib import Path
 
 import httpx
 
+from competition.client.approval import WaitingRoom
 from competition.client.host import MAX_REQUEST_LINE, answer
 from competition.client.keys import generate
 from competition.client.signer import CHAIN_DOMAIN, RoleSigner
 from competition.client.web import make_app
+from competition.core.signer_broker import ScopedSignerBroker
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.w_seed import initialize
 from competition.server.package import public_package
@@ -276,6 +278,36 @@ class ServedEndpointTests(unittest.TestCase):
             process.terminate()
             process.communicate(timeout=10)
         self.assertNotEqual(process.returncode, 0)
+
+
+class RecordedApprovalTests(unittest.TestCase):
+    """What a report can be, and what the endpoint does with each kind.
+
+    A person's decision parks until somebody answers it.  The trusted side's own
+    bootstrap reports the same messages but says they are not a person's
+    decision, so the answer is recorded and the signing call that follows is
+    answered instead of parked -- otherwise initialization, which the documented
+    boundary calls scripted rather than a person's, would stop a deployment on
+    nobody's answer.
+    """
+
+    def room(self):
+        return WaitingRoom(limit=4, timeout=1.0, preapproval_timeout=1.0)
+
+    def test_a_recorded_answer_is_taken_by_exactly_one_signature(self):
+        room = self.room()
+        unsigned, action = {'body': {'id': 'one'}}, {'payload': {'k': 'v'}}
+        room.remember(profile='PAY-1', role='G', unsigned=unsigned, action=action)
+        ref = ScopedSignerBroker.request_ref('PAY-1', 'G', unsigned, action)
+        self.assertTrue(room.take_approved(ref))
+        # One reference is answered by one signature, so the second call is not
+        # the one that was agreed to.
+        self.assertFalse(room.take_approved(ref))
+
+    def test_a_reference_nobody_reported_has_no_answer(self):
+        room = self.room()
+        ref = ScopedSignerBroker.request_ref('PAY-1', 'G', {'a': 'x'}, {'b': 'y'})
+        self.assertFalse(room.take_approved(ref))
 
 
 if __name__ == '__main__':

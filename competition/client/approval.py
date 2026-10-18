@@ -256,6 +256,22 @@ class WaitingRoom:
                 self._approved[ref] = True
         return approved
 
+    def remember(self, *, profile, role, unsigned, action):
+        """Record an approval for one message without asking anybody.
+
+        The trusted side reports every chain message it is about to have signed,
+        and says whether that one is a person's decision.  When it is not --
+        initialization is the scripted boundary, and the documented rule says so
+        -- the signing call that follows still needs an answer, so one is
+        recorded here rather than parked and waited on.  What is recorded is
+        keyed the same way a person's answer is, so the call that follows is
+        answered, not held.
+        """
+        ref = ScopedSignerBroker.request_ref(profile, role, unsigned, action)
+        with self._lock:
+            self._approved[ref] = True
+        return ref
+
     def take_approved(self, ref):
         """Spend the approval for one reference, if there is one.
 

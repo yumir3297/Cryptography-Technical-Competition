@@ -101,6 +101,7 @@ python -m competition.deploy.up
 它会构建/启动 `endpoints`、`trusted`、`caddy`、`console`、`viewer`、`caller-observer`、`agent-gateway`，然后启动固定镜像的 DeepSeek Harness。常用开关：
 
 ```sh
+python -m competition.deploy.up --await-approval  # 每条候选都要人在控制台上放行 G/U/V/X
 python -m competition.deploy.up --auto          # 另外起 operator/executor，自动接受并执行
 python -m competition.deploy.up --no-zjj        # 只跑原核心演示
 python -m competition.deploy.up --local         # 不用 docker，在本机跑同一套入口
@@ -108,6 +109,8 @@ python -m competition.deploy.up --fresh         # 丢掉演示卷重新初始化
 python -m competition.deploy.up --sudo          # docker daemon 需要提权
 python -m competition.deploy.up --down          # 跑完收摊
 ```
+
+`--await-approval`（也认 `ZJJ_AWAIT_APPROVAL=1`）让每次 `zjj_propose` 都停在控制台上：受信端构造这条链时，G/U/V/X 的每个签名都先报到该角色的等待室，由人逐个同意或拒绝；拒绝或无人应答，候选就进不来。**初始化不受影响**——它走的是"不必问人"的报备，所以受信端仍然自己起来。
 
 默认不起 `agent-operator` / `agent-executor`：候选出现在控制台的「操作」里，由人接手后用提出方（`prepare`/`accept`）和执行方（`claim`/`exec`/`query`/`settle`）的按钮逐步推进。`up --auto` 才把这两个自动调用者放回来；一次 `up` 不带 `--auto` 也会停掉上一次遗留的它们。
 
