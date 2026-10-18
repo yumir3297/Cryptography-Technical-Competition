@@ -9,6 +9,21 @@ COMPETITION_PROTO='ZJJ-CORE-COMP-1'
 CONTRACTS={'PAY-1':'pay1','IND-DEMO-1':'industrial','MED-DEMO-1':'medical'}
 UPSTREAM_HEAD='0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c'
 
+# Validating one retained contract file against the jsonschema meta-schema costs
+# about a fifth of a second, and every TrustedState construction builds three of
+# them, so the same immutable file was meta-checked dozens of times per process
+# for an answer that cannot change.  The check is kept -- it is what catches a
+# corrupted or swapped installation -- but done once per file version instead of
+# once per construction.  The parsing itself is not cached: CompetitionSchema
+# edits the definitions it loads.
+CHECKED_SCHEMAS=set()
+
+def _checked_schema(path,schema):
+    status=path.stat();version=(str(path),status.st_mtime_ns,status.st_size)
+    if version not in CHECKED_SCHEMAS:
+        Draft202012Validator.check_schema(schema)
+        CHECKED_SCHEMAS.add(version)
+
 class UpstreamSchema:
     def __init__(self,root,profile):
         require(profile in CONTRACTS,'PROFILE')
@@ -16,7 +31,7 @@ class UpstreamSchema:
         self.path=Path(root)/'system_dev'/'v26'/'contracts'/(CONTRACTS[profile]+'.schema.json')
         if not self.path.is_file():raise ProtocolError('SCHEMA_NOT_INSTALLED')
         self.schema=json.loads(self.path.read_text(encoding='utf-8'))
-        Draft202012Validator.check_schema(self.schema)
+        _checked_schema(self.path,self.schema)
         self.defs=self.schema['$defs']
     def validate(self,value,def_name='Envelope'):
         require(def_name in self.defs,'UNKNOWN_SCHEMA_DEF')
