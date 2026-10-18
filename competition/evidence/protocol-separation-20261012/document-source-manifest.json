@@ -1,0 +1,141 @@
+{
+  "document_version": "CORE-SPEC-1.3",
+  "source_files": [
+    {
+      "path": "00_COMPETITION_FINAL_DELIVERY_SPEC.md",
+      "sha256": "2b73ca01ea9e52c024860f514046138a04c85dbb165c06180ed9b69f21bdf226"
+    },
+    {
+      "path": "competition/docs/acceptance-sequence.md",
+      "sha256": "b275556503c3bebbf2c7312f87cc0f63d2621f4d606ad4cf85eda86f3ef29d39"
+    },
+    {
+      "path": "competition/docs/application-contract.md",
+      "sha256": "720e9db99df76cf8711aabcc10956176cb92ccd80d4bd2322348867827d94bfb"
+    },
+    {
+      "path": "competition/docs/authorization-contract.md",
+      "sha256": "6beae16516a9e7a21f4da3706e2d4263b017f569d67e2a36f688fc9f139e72e4"
+    },
+    {
+      "path": "competition/docs/final/claims-evidence.md",
+      "sha256": "da3f21d4a2b7f50ab06adb4ed77ea707a7cb4764c2731492385b14e294500cfe"
+    },
+    {
+      "path": "competition/docs/final/competition-protocol.md",
+      "sha256": "ca9f80d3a47c9d50948ad94c674751cac7f46841b2b4596cd88b63160f42f663"
+    },
+    {
+      "path": "competition/docs/final/developer-scope-notes.md",
+      "sha256": "2e3a1389b3af1d7ba54226a27835c53950eb12646b5587f5f60e6c174ccd38b3"
+    },
+    {
+      "path": "competition/docs/final/finalization-record.md",
+      "sha256": "a439cdcf7c1f005bacc8c097f91a78a4dd2c8608d327224c3a4d3481a63f7c5f"
+    },
+    {
+      "path": "competition/docs/final/industrial-handoff.md",
+      "sha256": "724821a1c66292d112c00bbbec91bc80044ef553b8f7490ed60a0095080b481c"
+    },
+    {
+      "path": "competition/docs/final/interface-reference.md",
+      "sha256": "3c1518604aa9dc3d5a6471b30026d686dcf193890691005ef399fa96e738d205"
+    },
+    {
+      "path": "competition/docs/final/medical-handoff.md",
+      "sha256": "b00876fd2dcf5fe4af78faf47992b0cc7ac009c976d4fbfca9acc388e2cd4a60"
+    },
+    {
+      "path": "competition/docs/final/optimization-review-20261012.md",
+      "sha256": "a039f9109e28f5f8fc88fe53616a8c01b614c47fde51134eb6d30c1694842dc7"
+    },
+    {
+      "path": "competition/docs/final/payment-handoff.md",
+      "sha256": "fbbb875eb2139ea901c445657aca420e4351dd429194a17eab52429744650276"
+    },
+    {
+      "path": "competition/docs/final/protocol-review.md",
+      "sha256": "d21df0da9f95d05885f1edeb2b7f58c47668022bb0c1cf01b65c02526ce6fd41"
+    },
+    {
+      "path": "competition/docs/final/protocol-separation-record-20261012.md",
+      "sha256": "18b43aef6c144ad6b7a953faab72d2352f2d2baf2fca233a490915fde330dd59"
+    },
+    {
+      "path": "competition/docs/final/query-audit-scope.md",
+      "sha256": "2bc3f5895dfa6561a13f86861c8a9d6b1f6625fe77560fe529003b9432016e90"
+    },
+    {
+      "path": "competition/docs/final/r2-application-mapping.md",
+      "sha256": "a16f85f66dbe08467f3eaa65054f0e2f16778869cf669a2ee0b31e0f0a4966ff"
+    },
+    {
+      "path": "competition/docs/final/rectification-results-20261012.md",
+      "sha256": "acb76119f1be7d689c78e9422ac0e750892464e1d7ee09e2750e9104a9c497f2"
+    },
+    {
+      "path": "competition/docs/final/scenario-integration-handoff.md",
+      "sha256": "99435835ca451bee717e14d56bfba1245bd2c994346dcda5a864f2cdfb692461"
+    },
+    {
+      "path": "competition/docs/final/security-boundaries.md",
+      "sha256": "3b830b715b885392edf2444a6e4aa4f8e3b93d2e5bf2841782afa79df9e56346"
+    },
+    {
+      "path": "competition/docs/unified-core-migration.md",
+      "sha256": "a2b2cf88994469d0f9d5af487b22fa5df82404afa23ec597772c8bd2dd41eedd"
+    },
+    {
+      "path": "competition/docs/w-transaction-contract.md",
+      "sha256": "6b711f8cbeb0c72e7584f9945eda8d52f11f2826a781923ae3a41919c92c5d5e"
+    },
+    {
+      "path": "competition/FINAL_PROTOCOL_HANDOFF.md",
+      "sha256": "b7885784e744a23fcb28a190b6ec186251417e09bbb1b904c10a003fa7a13188"
+    },
+    {
+      "path": "competition/README.md",
+      "sha256": "8172434f093eb26bddb0fd1699a8a5c25e94fa06a5d2c0b22646214a878cdc47"
+    },
+    {
+      "path": "competition/support/README.md",
+      "sha256": "6407e40f1d3c49bbd5ed70fd9052ffac7699684c7415277cb8f6a5a3cfa61218"
+    },
+    {
+      "path": "INSTALL_AND_SCOPE.md",
+      "sha256": "eb1dc9a15e03e2913d879d937a0e673c78a13713e06fccce299928186388dd98"
+    },
+    {
+      "path": "README.md",
+      "sha256": "d37032651af1d9c445cba167b12e97d59b1ab0d6097e8d8df4fc2604368a7956"
+    },
+    {
+      "path": "REPOSITORY_SCOPE.md",
+      "sha256": "0072ed76e0695edb362d6e2b4b00fd809669b1b6c84057aa38607e901e3652f7"
+    },
+    {
+      "path": "system_dev/START_HERE.md",
+      "sha256": "b1857bded82c8e11149dd94abc0ebbf6d486540773e05cb013714e3f4de22e46"
+    },
+    {
+      "path": "system_dev/v26/01_core_contract.md",
+      "sha256": "27ad8783668026a5eb989042142d7be38a5944ac271f312f57162fd01980821d"
+    },
+    {
+      "path": "system_dev/v26/02_pay1_profile.md",
+      "sha256": "fdc99a06b6fbfbba70cb7a6c739e6804d510759c23d05e657fb28e00b995a0b7"
+    },
+    {
+      "path": "system_dev/v26/03_industrial_medical_profiles.md",
+      "sha256": "8479c9327ad54a0c7bdd83b1b1a74dbfdfef435d67a445b41c035455ab632299"
+    },
+    {
+      "path": "system_dev/v26/04_tool_final_recovery.md",
+      "sha256": "74969ea98534a1fd4b150b93e4677f51e440d20ba2dcaeac2a2ae51e7d3094d7"
+    },
+    {
+      "path": "system_dev/v26/README.md",
+      "sha256": "1a2f1629bc739e051993a74b18db377d797a4bc3ae9921e92075ab67e63f4df6"
+    }
+  ]
+}

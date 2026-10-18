@@ -1,0 +1,23 @@
+{
+  "kind": "sanitized_experiment_result",
+  "original_sha256": "937b19ae16b2cf24ec82d1f11f2adec295cda0abeee822523993071d73bde193",
+  "source_bundle_published": false,
+  "omitted": [
+    "local paths/configuration",
+    "identity roster/certificates",
+    "signed temporary authentication packets",
+    "full ledger projections"
+  ],
+  "scope": "Summary of the original local run; not a signed bundle and not independently re-auditable without regenerating the experiment.",
+  "successful": true,
+  "checks": 12,
+  "actual_counts": {
+    "accepts": 1,
+    "attempts": 1,
+    "exec_consumptions": 1,
+    "effects": 1,
+    "settlements": 1
+  },
+  "sources_unchanged": true,
+  "service_stopped_after_acceptance": true
+}

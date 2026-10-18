@@ -1,5 +1,7 @@
 # 协议收尾交付记录（原轮次）
 
+当前共同说明为 CORE-SPEC-1.3，见[分层记录](protocol-separation-record-20261012.md)；此前 1.2 代码修复与验证见[整改记录](rectification-results-20261012.md)。下文保留其原轮次与构建身份。
+
 2026-10-11 · `COMP-PROTOCOL-FINAL-1.0` · 协议设计、完善与所选模拟展示可行性
 
 ## 基线与实际修改

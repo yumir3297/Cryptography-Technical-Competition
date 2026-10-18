@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-18",
+  "scope": "Industrial full local-service demonstration; IND/PAY/MED trusted local CLI supplementary demonstrations",
+  "stable_parent": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+  "runtime_baseline": "c04692b48318de81f143475c99d2212a40fb5c3a",
+  "packaging": "One commit directly based on stable competition branch; supersedes PRs 5, 6 and 7",
+  "source_comparison": {
+    "baseline": "c04692b48318de81f143475c99d2212a40fb5c3a",
+    "tracked_files": 545,
+    "only_changed_existing_files": [
+      "README.md",
+      "competition/deployment/README.md",
+      "competition/docs/final/fusion-experiment-20261018.md"
+    ],
+    "runtime_and_tests_identical": true
+  },
+  "fresh_industrial_live_acceptance": {
+    "successful": true,
+    "checks": 12,
+    "actual_counts": {
+      "accepts": 1,
+      "attempts": 1,
+      "exec_consumptions": 1,
+      "effects": 1,
+      "settlements": 1
+    },
+    "sources_unchanged": true,
+    "service_stopped_after_acceptance": true
+  },
+  "fresh_local_cli_and_boundary_tests": {
+    "tests": 14,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": 20.027,
+    "breakdown": {
+      "three_profile_local_cli_bridge_service": 10,
+      "public_IND_boundary": 4
+    }
+  },
+  "fresh_contract_checks": {
+    "checks_passed": 371,
+    "node_checked": 70
+  },
+  "historical_full_regression": {
+    "sha": "c04692b48318de81f143475c99d2212a40fb5c3a",
+    "tests": 222,
+    "failures": 0,
+    "errors": 0,
+    "ci": "https://github.com/yumir3297/Cryptography-Technical-Competition/actions/runs/39095274458",
+    "fresh_full_suite_this_round": false
+  },
+  "initial_environment_failure": {
+    "code": "DEPLOYMENT_START_FAILED",
+    "host_error": "DEPLOYMENT_UNAVAILABLE",
+    "isolated_loopback_probe": "PermissionError: Operation not permitted",
+    "checks_completed": 0,
+    "resolution": "Authorized loopback binding in a distinct fresh installation; no runtime changes, no guard relaxation",
+    "failed_evidence_retained_locally": true
+  },
+  "evidence_publication": {
+    "raw_public_evidence_sha256": "0d7d6d5f75f435b26b55a4edbe7d6812635a2f141d06260821db8c15f3711a14",
+    "private_keys_tokens_databases_and_replayable_identity_bundles_published": false,
+    "view": "Sanitized counts and results; raw lab evidence retained locally"
+  },
+  "limitations": [
+    "Simulated business effects and role approvals",
+    "Public authenticated proposal lifecycle is IND only",
+    "LocalSigner remains isolated from public HTTP/MCP",
+    "Trusted awake host and persistent original ledgers required",
+    "No complete original R2 39-case conformance assertion"
+  ]
+}

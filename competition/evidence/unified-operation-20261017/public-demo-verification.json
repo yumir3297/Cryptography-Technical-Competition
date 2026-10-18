@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "verified_participant_signatures": 15,
+  "tool_certificate": true,
+  "tool_final_and_checkpoint": true,
+  "original_core_and_commit": true,
+  "same_original_permit": true,
+  "actual_counts": {
+    "accepts": 1,
+    "attempts": 1,
+    "exec_consumptions": 1,
+    "effects": 1,
+    "settlements": 1
+  },
+  "evidence_sha256": "9dfb857354dacd317946fa8ef2af06dc91f184299510354b53ae00f743f5dbe1",
+  "scope": "Offline signatures against exported lab public roster, references and local-ledger facts; not a replay of current authority graph or a source of new authorization"
+}

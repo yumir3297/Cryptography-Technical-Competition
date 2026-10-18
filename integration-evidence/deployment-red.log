@@ -1,0 +1,17 @@
+test_public_runtime_restarts_without_reading_participant_secrets (competition.tests.test_local_deployment.LocalDeploymentTests.test_public_runtime_restarts_without_reading_participant_secrets) ... FAIL
+
+======================================================================
+FAIL: test_public_runtime_restarts_without_reading_participant_secrets (competition.tests.test_local_deployment.LocalDeploymentTests.test_public_runtime_restarts_without_reading_participant_secrets)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 13, in setUp
+    self.assertIsNotNone(importlib.util.find_spec('competition.application.local_runtime'),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         'Missing persistent local deployment bootstrap')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : Missing persistent local deployment bootstrap
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

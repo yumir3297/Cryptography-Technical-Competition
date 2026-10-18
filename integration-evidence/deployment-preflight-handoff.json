@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "profile": "IND-DEMO-1",
+  "host": "127.0.0.1",
+  "redacted_port": true,
+  "task_id": "2Znk6E9IT6IUSOyxBOJbOw",
+  "mode": "local-industrial-simulator",
+  "component_bindings": true
+}

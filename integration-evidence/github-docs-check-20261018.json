@@ -1,0 +1,80 @@
+{
+  "checked_date": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "repository": "yumir3297/Cryptography-Technical-Competition",
+  "method": "Authenticated GitHub connector GET branches + recursive Git trees for every current branch; fetched named documents at pinned commits; all-state PR search.",
+  "branches": [
+    {
+      "branch": "competition/zjj-core-final-20261010",
+      "sha": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+      "tree_truncated": false
+    },
+    {
+      "branch": "dev",
+      "sha": "32370d4e39c2d9cb6f664ce672c0ec8210eee0ae",
+      "tree_truncated": false
+    },
+    {
+      "branch": "experiment/trusted-action-feasibility-20261017",
+      "sha": "4b301f9cbdc61440a9f5ee7e79b7e0af70628f8c",
+      "tree_truncated": false
+    },
+    {
+      "branch": "experiment/trusted-action-resolver-v1-20261017",
+      "sha": "202f34e75f0b6e13ec49c58a313f0c32ab9e3095",
+      "tree_truncated": false
+    },
+    {
+      "branch": "feature/trusted-action-resolver-v1",
+      "sha": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+      "tree_truncated": false
+    },
+    {
+      "branch": "main",
+      "sha": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+      "tree_truncated": false
+    }
+  ],
+  "pr3": {
+    "redacted_url": true,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+    "base": "cc4e36b4e302fcdc53cc809a012c77d8464182af"
+  },
+  "documents": [
+    {
+      "redacted_url": true,
+      "blob_sha": "4fdb82b1bd9c032ac51f05ac2ebfc612a57b186d"
+    },
+    {
+      "redacted_url": true,
+      "blob_sha": "a5e6fe8a3ad5178a7f775f5a80564120a935e1de"
+    },
+    {
+      "redacted_url": true,
+      "blob_sha": "71286a9317d10f61001817de9e1559d9431961b5"
+    },
+    {
+      "redacted_url": true,
+      "blob_sha": "0531a1aecd44eaa6603e09947d42b95bfde65773"
+    },
+    {
+      "redacted_url": true,
+      "blob_sha": "b75315b7bba15de9e084495d007309d9e55a42aa"
+    },
+    {
+      "redacted_url": true,
+      "blob_sha": "f10a911fefec622ebc15b43ff0892ae96f46440f"
+    }
+  ],
+  "newer_local_documents_not_in_current_branch_trees": [
+    "unified-operation-contract.md",
+    "unified-operation-handoff.md",
+    "unified-operation-clock.md",
+    "unified-operation-branches.md",
+    "protocol-completion-optimization-20261018.md"
+  ],
+  "limits": "Checked current remote branch tips and discoverable PRs; not an exhaustive audit of deleted refs or unreachable historical commits. No remote writes."
+}

@@ -9,7 +9,7 @@ from pathlib import Path
 from competition.support.wire import require, ProtocolError, b64, raw, canonical, strict_verify, keyid, rec_ref, digest, sortset, action_hash
 from competition.support.broker_policy import PROFILE_SCOPES
 from competition.support.scene_authority import ROLES as SCENE_ROLES
-from competition.support.schema import UpstreamSchema
+from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
 from competition.core.event_clock import checked_event_clock, require_window
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -37,18 +37,20 @@ class PublicActor:
 
 class TrustedState:
     def __init__(self, path, root_public, actors, clock):
+        self.protocol = COMPETITION_PROTO
         self.path = str(path); self.root_public = bytes(root_public); self.clock = clock
         require(raw(clock.info['public_key'], 32) == self.root_public, 'CLOCK_ROOT')
         require(bool(actors) and set(actors) <= set(PROFILE_SCOPES), 'PROFILE_REGISTRY')
         self.actors = {p: {a: PublicActor.from_actor(v) for a, v in roster.items()} for p, roster in actors.items()}
         require(all(set(r) == set(TYPES) for r in self.actors.values()), 'ROSTER_SET')
-        self.schemas = {p: UpstreamSchema(ROOT, p) for p in PROFILE_SCOPES}
+        self.schemas = {p: CompetitionSchema(ROOT, p) for p in PROFILE_SCOPES}
         with self.db() as c:
             c.executescript('''
               CREATE TABLE IF NOT EXISTS a_current(profile TEXT,namespace TEXT,key TEXT,revision INTEGER,ref TEXT,record TEXT,active INTEGER,certificate TEXT,PRIMARY KEY(profile,namespace,key));
               CREATE TABLE IF NOT EXISTS a_journal(seq INTEGER PRIMARY KEY AUTOINCREMENT,kind TEXT,profile TEXT,operation_id TEXT,blob TEXT);
               CREATE TABLE IF NOT EXISTS a_deny_range(profile TEXT,operation_id TEXT,basis_ref TEXT,revision INTEGER,context TEXT,purposes TEXT,root_certificate TEXT,PRIMARY KEY(profile,operation_id,basis_ref));
               CREATE TABLE IF NOT EXISTS a_publication(profile TEXT,operation_id TEXT,basis_ref TEXT,purpose TEXT,ref TEXT,message TEXT,verdict TEXT,seq INTEGER,PRIMARY KEY(profile,ref));
+              CREATE TABLE IF NOT EXISTS a_sign_call(nonce TEXT PRIMARY KEY,profile TEXT,alias TEXT,request_ref TEXT,expires INTEGER,used INTEGER DEFAULT 0);
               CREATE TABLE IF NOT EXISTS a_identity(nonce TEXT PRIMARY KEY,profile TEXT,operation_id TEXT,request_ref TEXT,stage TEXT,expires INTEGER,used INTEGER DEFAULT 0);
               CREATE TABLE IF NOT EXISTS a_guard_fact(profile TEXT,operation_id TEXT,request_ref TEXT,seq INTEGER,blob TEXT,PRIMARY KEY(profile,operation_id));
             ''')
@@ -206,7 +208,7 @@ class TrustedState:
             require(journal is not None and journal['kind']=='PUBLICATION' and journal['profile']==profile and journal['operation_id']==ctx['operation_id'],'DENY_COVERAGE_UNKNOWN')
             fact=json.loads(journal['blob']); event=fact['event']
             self.schemas[profile].validate(message,'Review' if alias=='V' else 'Authorization')
-            envelope(message,{who.kid:who},now=event['lo']); require_window(message['body'],event)
+            envelope(message,{who.kid:who},now=event['lo'],proto=self.protocol); require_window(message['body'],event)
             strict_verify(self.root_public,raw(event['sample']['signature'],64),canonical(['ZJJ-COMP-EVENT-CLOCK-v1',event['sample']['claim']]))
             require(fact['message']==message and fact['previous_revision']==index+1 and msgref(message)==publication['ref'] and payload['ctx']==ctx and payload['purpose']==publication['purpose'] and payload['verdict']==publication['verdict'] and payload['purpose'] in cl['purposes'] and message['protected']['issuer']==who.name and message['body']['scope']==PROFILE_SCOPES[profile],'DENY_COVERAGE_UNKNOWN')
             sample=event['sample']['claim']

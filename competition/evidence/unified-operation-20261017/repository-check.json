@@ -1,0 +1,17 @@
+{
+  "kind": "competition_repository_scope_check",
+  "passed": true,
+  "python_files": 98,
+  "current_documents": 44,
+  "checked_links": 359,
+  "original_W_evidence_files_unchanged": 35,
+  "research_roots_absent": [
+    "research",
+    "research_archives",
+    "research_evidence",
+    "verification",
+    "docs"
+  ],
+  "workflow_count": 1,
+  "scope": "Current filesystem, imports, references and original artifact bytes; no universal protocol safety assertion."
+}

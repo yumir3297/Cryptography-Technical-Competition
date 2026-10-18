@@ -1,0 +1,517 @@
+{
+  "run_id": "security-1791810749846124700",
+  "build": {
+    "commit": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+    "source_files": [
+      {
+        "path": "competition/core/__init__.py",
+        "sha256": "e0aeddc1ac579459c073a2f0b5b4d330b62dc04c8b1876af0055b138f9b72bd0"
+      },
+      {
+        "path": "competition/core/acceptance.py",
+        "sha256": "e229b764dc3335f187b0af22b7e6f608f583770f07b537ef2f6e1946d7ed97b5"
+      },
+      {
+        "path": "competition/core/authorization.py",
+        "sha256": "24345ffceceb8569cffe5d30d4d03ef57360328cf358528ff3e1af9c6faf35be"
+      },
+      {
+        "path": "competition/core/candidate_ingress.py",
+        "sha256": "6a59d232d6a4b746e39c988c200c9733c0f40c7f4e64956142cc37cdc7ff0956"
+      },
+      {
+        "path": "competition/core/common_receipt.py",
+        "sha256": "dac647e70646dcd0d280943a258bb211f39aad6cbe76992ee930c158daa81890"
+      },
+      {
+        "path": "competition/core/common_w.py",
+        "sha256": "a1eed8d996d87a5dc9189e320feaa209d66cd6d2bd6367570f2171ca52433fd0"
+      },
+      {
+        "path": "competition/core/event_clock.py",
+        "sha256": "13eca01083db9c570bf45e302b0793198292de6168261e3b0069c52c1fe54b24"
+      },
+      {
+        "path": "competition/core/industrial_authorization_bridge.py",
+        "sha256": "ac76539154f9e669396e8e03200808b33cf284226188e6c83f1abc85bf7b1ed7"
+      },
+      {
+        "path": "competition/core/signer_broker.py",
+        "sha256": "c9b747f13ad8ae376f1cda5055985fc514fcb8e278fd831600f2317f6fa01124"
+      },
+      {
+        "path": "competition/core/signing.py",
+        "sha256": "1340735115a09dff5c227e1862ef5bdd6d1de3c7e7534e4a313a44235a0ab6f1"
+      },
+      {
+        "path": "competition/core/trusted_clock.py",
+        "sha256": "ea3105a62a8bfd697bc77118e716208fd04c8eac3e002947ea2d653176327894"
+      },
+      {
+        "path": "competition/core/trusted_state.py",
+        "sha256": "346e78e387f04c072c74e3ebfbe75f7d92d23bc78de12ceeb0443aa3d59f8d74"
+      },
+      {
+        "path": "competition/core/w_state.py",
+        "sha256": "f33cee74eed919a61b69f200a036ded56bef36608cb3d2344b0878df4caded74"
+      },
+      {
+        "path": "competition/docs/acceptance-sequence.md",
+        "sha256": "b275556503c3bebbf2c7312f87cc0f63d2621f4d606ad4cf85eda86f3ef29d39"
+      },
+      {
+        "path": "competition/docs/application-contract.md",
+        "sha256": "720e9db99df76cf8711aabcc10956176cb92ccd80d4bd2322348867827d94bfb"
+      },
+      {
+        "path": "competition/docs/authorization-contract.md",
+        "sha256": "6beae16516a9e7a21f4da3706e2d4263b017f569d67e2a36f688fc9f139e72e4"
+      },
+      {
+        "path": "competition/docs/final/claims-evidence.md",
+        "sha256": "a3407563900dfae156a7d44b57531bcf6c7712c24b9021f051d48b63970886b5"
+      },
+      {
+        "path": "competition/docs/final/competition-protocol.md",
+        "sha256": "ce3a97eba3998beed9ca386c93ba2ecf9bc276803b8da7e6affae06b4831bfb1"
+      },
+      {
+        "path": "competition/docs/final/developer-scope-notes.md",
+        "sha256": "ef3cc627218bd83cd343a9b8aacde276dcb2ef54021095cc9936da4d61663ffc"
+      },
+      {
+        "path": "competition/docs/final/finalization-record.md",
+        "sha256": "e59bbfec156a6795bfeafdfb6a28e4023990e24f8c7fb47dd34651f59b26e643"
+      },
+      {
+        "path": "competition/docs/final/industrial-handoff.md",
+        "sha256": "0d4fce64c4140b03cc72b91d63648d6a0ac55cf2d47fc3ec4c2743acadc512a4"
+      },
+      {
+        "path": "competition/docs/final/interface-reference.md",
+        "sha256": "07aaa2e6234c7df17f0f7c46711e48fa4e68214fef4face6a0c934b47a961b6d"
+      },
+      {
+        "path": "competition/docs/final/medical-handoff.md",
+        "sha256": "0b44ee2f84f9b8ee752c2d0d0675dcbd146ce3af63047c93b40b6579fb82a8e4"
+      },
+      {
+        "path": "competition/docs/final/optimization-review-20261012.md",
+        "sha256": "a039f9109e28f5f8fc88fe53616a8c01b614c47fde51134eb6d30c1694842dc7"
+      },
+      {
+        "path": "competition/docs/final/payment-handoff.md",
+        "sha256": "66e49f9faf240d834131792486a98098d4e89eb7ea17d67656a9dd9b734e928d"
+      },
+      {
+        "path": "competition/docs/final/protocol-review.md",
+        "sha256": "e47f6ca25f2953369f2f383fbcff074ef595c65728e17fd6e3387f75fd8c1063"
+      },
+      {
+        "path": "competition/docs/final/query-audit-scope.md",
+        "sha256": "a0325165dced12f7639e224b4fc2ccd0b5aab34408cd39e23d0e16f9bff40f32"
+      },
+      {
+        "path": "competition/docs/final/r2-application-mapping.md",
+        "sha256": "218e844c0a07727b41e809eddbd8403459823b9bdf02284ed8b4060ff21597c9"
+      },
+      {
+        "path": "competition/docs/final/rectification-results-20261012.md",
+        "sha256": "cc06543de93243edb94ef1c86c51ad8712c4157b6c5e0db43c990b0002c008ba"
+      },
+      {
+        "path": "competition/docs/final/security-boundaries.md",
+        "sha256": "dab81f0c1a335f398eb3c4059f237286d3e0e5ac5982678073fb43bf0af86609"
+      },
+      {
+        "path": "competition/docs/final/verify-existing-evidence.py",
+        "sha256": "6d022e792e6fbc3985b13e541083038f68c926093d692db7d8dae9b6db3e8f6e"
+      },
+      {
+        "path": "competition/docs/final/verify-interface-semantics.py",
+        "sha256": "562f548b99b6eed936a7fe122ca4e009ee2ab9e56fa38799553a6963ec520efd"
+      },
+      {
+        "path": "competition/docs/final/verify-materials.py",
+        "sha256": "a3bed6d8208761a95d4dcd57f92732868fbaeb2bec8e3ca3dab78aff7384434f"
+      },
+      {
+        "path": "competition/docs/final/verify-optimization-semantics.py",
+        "sha256": "7baddce127ad233a4324712ddbc1fd5db4dde4e642d952f2911b47ec3b9ce2eb"
+      },
+      {
+        "path": "competition/docs/final/verify-review-boundaries.py",
+        "sha256": "9ba2edc58a3f8f4a1d22eafe1fdd101a8b40d2e0ae2bede2ea3ce39ffbe72814"
+      },
+      {
+        "path": "competition/docs/unified-core-migration.md",
+        "sha256": "a2b2cf88994469d0f9d5af487b22fa5df82404afa23ec597772c8bd2dd41eedd"
+      },
+      {
+        "path": "competition/docs/w-transaction-contract.md",
+        "sha256": "6b711f8cbeb0c72e7584f9945eda8d52f11f2826a781923ae3a41919c92c5d5e"
+      },
+      {
+        "path": "competition/FINAL_PROTOCOL_HANDOFF.md",
+        "sha256": "27cb114ff527efb4de6cc6ff78715239f15c5b97c58797026967eaafa574aada"
+      },
+      {
+        "path": "competition/profiles/__init__.py",
+        "sha256": "69fb10cfe769b55818fbe2b9f1a05fb7798ba62d31ddbe201d87679679b253f1"
+      },
+      {
+        "path": "competition/profiles/authorization_pay.py",
+        "sha256": "0abf3321f6e48c114fb1d3c6c72e38f94cbad3225f5f186010c456a2ac568036"
+      },
+      {
+        "path": "competition/profiles/authorization_scene.py",
+        "sha256": "282537c0803d46bace7b0a15b4b879068dbdf220fc6ba7cd28b5a09eef7d98c4"
+      },
+      {
+        "path": "competition/profiles/authorization_seed.py",
+        "sha256": "ae1517f68bb4721dc8f3705d39565dc183da49002d80f59d05d50182602add12"
+      },
+      {
+        "path": "competition/profiles/industrial_seed.py",
+        "sha256": "7c02edc1f27eccc8f8aa2feb817a2331eb128452531c558c757dc22085b8f225"
+      },
+      {
+        "path": "competition/profiles/pay_seed.py",
+        "sha256": "2dbca6d7290ae8e7f3cbc739e0a7043cfd3e21bb9d8ad4ebe6565dd0ee5653bd"
+      },
+      {
+        "path": "competition/profiles/scene_bindings.py",
+        "sha256": "86946fab08018191c0379e5c504b866b72335e967ebf98cf2a22d22d8297c6fb"
+      },
+      {
+        "path": "competition/profiles/scene_seed.py",
+        "sha256": "61b4de473e88aa86200e1fa9e91f2523041dd5915a8c07ba57dd51c771760ea3"
+      },
+      {
+        "path": "competition/profiles/w_plans.py",
+        "sha256": "1c101070a30d5c1382fe869f7cb836f3eb74d1dcda22870dde7734ae1c2e209d"
+      },
+      {
+        "path": "competition/profiles/w_scenarios.py",
+        "sha256": "3b3d06643698a9f52eacb9ef9a2222f583d4cdde5e6c100206992614a23c4950"
+      },
+      {
+        "path": "competition/profiles/w_seed.py",
+        "sha256": "008b5cecb1607242d3a7df9ed58ee35d722b9571dec079143801c041b34be85c"
+      },
+      {
+        "path": "competition/README.md",
+        "sha256": "8ebbc5415165fdbca9e92ba781e628cab00dff50400120bd7ca35a0f841292e4"
+      },
+      {
+        "path": "competition/run_authorization_slice.py",
+        "sha256": "0a95a59a94bfb13a490f6bbcdc102418695dc8033b508632de725a932e9f5264"
+      },
+      {
+        "path": "competition/run_security_checks.py",
+        "sha256": "cace25b45d70910f42cf734d07639009f8fad9f43b5a27a6a9f8707351dc4831"
+      },
+      {
+        "path": "competition/run_time_slice.py",
+        "sha256": "52cc3e4fa58f48ff61a84d6e6eac3ecd2e26e642d0d8cea0c3b53cde906f830e"
+      },
+      {
+        "path": "competition/run_w_slice.py",
+        "sha256": "cf26076bd9e68697a3ebb361686eda505edf63cae3e5a318ef1b77b7f230e2eb"
+      },
+      {
+        "path": "competition/support/__init__.py",
+        "sha256": "2084289fe317f23d689d047c340441af1b473327a8eb1e45ce0b87e13cb17fe7"
+      },
+      {
+        "path": "competition/support/authority_guards.py",
+        "sha256": "85e7d782cc04deff584fd9e4ce90cb12dfeb2ce07f6c8cb61306124c00df08a0"
+      },
+      {
+        "path": "competition/support/broker_policy.py",
+        "sha256": "fc0c7d1715344077943d01ad0e56965d5ad19d3717e75c66e5fdec4d9ced82f9"
+      },
+      {
+        "path": "competition/support/dispatch_guard.py",
+        "sha256": "aaff46db39f461a85030f1b64e93a035d78911e09db19712cd445412dbcfacd7"
+      },
+      {
+        "path": "competition/support/durable_pay.py",
+        "sha256": "4da15d7fdbd8e6f90c5da4136dba2074d82f1e474fbee8056b4dccdd4f3e05f8"
+      },
+      {
+        "path": "competition/support/enrollment.py",
+        "sha256": "7c3f9fc11b3d8c56d6b428761098b16b2576b9fc13174d993e7c1a440585d981"
+      },
+      {
+        "path": "competition/support/legacy_clock.py",
+        "sha256": "9a268cd60c4adea2b054ce992c0bdd7f35bb6d117e2fecbcab4864a5081c122c"
+      },
+      {
+        "path": "competition/support/paths.py",
+        "sha256": "4463597fae2efd799fec096ad7edd960f24661f3c832a71037074df8076ec637"
+      },
+      {
+        "path": "competition/support/pay_dependencies.py",
+        "sha256": "b7edae864a9018fefdc996336ef50e559d15b0698467a6bcbee236d2b631c946"
+      },
+      {
+        "path": "competition/support/pay_records.py",
+        "sha256": "4a616d3fb727fb22cb2317a2ccdae1019802b149bd541ab0bd5258952e5b6768"
+      },
+      {
+        "path": "competition/support/pay_recovery.py",
+        "sha256": "cbace6c0d3430faad616097cab4e4b360214efaf134c3000afcf8ea618595eef"
+      },
+      {
+        "path": "competition/support/README.md",
+        "sha256": "6407e40f1d3c49bbd5ed70fd9052ffac7699684c7415277cb8f6a5a3cfa61218"
+      },
+      {
+        "path": "competition/support/scene_authority.py",
+        "sha256": "854c3cba80a2c067cdbcef941ac3165de4df9cc03cdf8fc75fe2f35d399d7804"
+      },
+      {
+        "path": "competition/support/scene_fixtures.py",
+        "sha256": "0fee48766a3430dc2d17f947ed7da0c6364946a51a81fa7ad55373cf66c27dd9"
+      },
+      {
+        "path": "competition/support/scene_recovery.py",
+        "sha256": "f3e5ca609828ce5dc8fc3ff4691364cbefd577a268021fd48d727fdea6273ab8"
+      },
+      {
+        "path": "competition/support/scene_verifier.py",
+        "sha256": "ec48d16cf30babca7497cc465f3636b6dfe7cab1a424a0df029f0fd034c22700"
+      },
+      {
+        "path": "competition/support/schema.py",
+        "sha256": "03337394caec7a2f26f5bf01ae045d67aca390d645e2fa9c1baa68dc4e85ae54"
+      },
+      {
+        "path": "competition/support/tool_final.py",
+        "sha256": "a694951db5233539cce5f78b5cda6bc7a6ab2696956a06b2e662dafb8b93104c"
+      },
+      {
+        "path": "competition/support/wire.py",
+        "sha256": "efa3af90880870e2411840a8a49080221163cef13640369a5732d15535eaa5da"
+      },
+      {
+        "path": "competition/tests/__init__.py",
+        "sha256": "e65105f23fcb9930e2822b7573269643b692063696d39348ba0e15cc0a5cdfcb"
+      },
+      {
+        "path": "competition/tests/test_acceptance_gap.py",
+        "sha256": "b8d9ab0969874d925348a68aa7ce2d0fcecc679610eca129888030502f60dad0"
+      },
+      {
+        "path": "competition/tests/test_authorization_acceptance.py",
+        "sha256": "2378d2b36fd0bf9cb3c7099a5e8c41a8a56b68229b68e5cad9a580aa9435ebab"
+      },
+      {
+        "path": "competition/tests/test_broker_profiles.py",
+        "sha256": "b6c5c5e6f87a5a7940f4741736511ab9ee3a538cd251750b9c1544676d7ebba0"
+      },
+      {
+        "path": "competition/tests/test_candidate_ingress.py",
+        "sha256": "08c597c21121ef9af044d48877acb61512ad7b0bf903cb3b217de3bfc098a6f0"
+      },
+      {
+        "path": "competition/tests/test_clock_guard.py",
+        "sha256": "f64633d7e8dcbac5de69b03404ad1f0ed8768b4d39e09c3b32272bcf4226e759"
+      },
+      {
+        "path": "competition/tests/test_common_authorization.py",
+        "sha256": "c2143ccd70a696e6751a0ae1028aeb06a0396453e4a59b21dd13c7e578c6eeec"
+      },
+      {
+        "path": "competition/tests/test_common_receipt.py",
+        "sha256": "400f0f823fe804a022ecb883b7e5656d7bab73ff42195a00a50d51607a4f1ffa"
+      },
+      {
+        "path": "competition/tests/test_common_tool.py",
+        "sha256": "9e1a0ef55da15c5ddca3f1c8ebdbd0381940aeb783c90f184353debd449560ae"
+      },
+      {
+        "path": "competition/tests/test_common_w.py",
+        "sha256": "2e41045f687cb5792ce9fe98fd36994fd6ac783baa6dc8a681ea40042eef938a"
+      },
+      {
+        "path": "competition/tests/test_event_clock.py",
+        "sha256": "3be4f27f962091e5b1609635f67da1e9e35f1661835f795d72acaf4ef9474676"
+      },
+      {
+        "path": "competition/tests/test_med_required_review.py",
+        "sha256": "fde5f6bb1b739af3e93d775c98829ded9da04499204834c439f0ad0bd33c9043"
+      },
+      {
+        "path": "competition/tests/test_pay_authorization_adapter.py",
+        "sha256": "b64de6201ee532b3698c5a745a658239aa618b84199f2a41c15295c1bdd0743b"
+      },
+      {
+        "path": "competition/tests/test_rectification.py",
+        "sha256": "f4e319443e3371d9a8ee6da40d718ba598b286a497d9a15a51b928d2b15ee66a"
+      },
+      {
+        "path": "competition/tests/test_scene_authorization_adapter.py",
+        "sha256": "0d5b387e218c2ad4cdf77abc697a8001232f9ff18b9bc4c3bd7ebd0c351570fb"
+      },
+      {
+        "path": "competition/tests/test_time_acceptance.py",
+        "sha256": "dc34e74f23c03176ca280496568ea79e32a3298e86aa93a8ac3d1e93b81ee737"
+      },
+      {
+        "path": "competition/tests/test_w_acceptance_races.py",
+        "sha256": "59be8bf7ffb97b26e2c63298566d5432642fbce6b54f02428868c7f025b2a610"
+      },
+      {
+        "path": "competition/tests/test_w_final_regressions.py",
+        "sha256": "a802a72035ce6a9fa9ce47284e2ec98c1de58dc2fb68082beb0110cb83a37de6"
+      },
+      {
+        "path": "competition/tests/test_w_plans.py",
+        "sha256": "63351103d9bf276121364be77b8dd0c711ad714579fed994259fe79f52fb849c"
+      },
+      {
+        "path": "competition/tests/test_w_recovery.py",
+        "sha256": "946e34e512bde8063f9ca866c5d9c69562f5c8a0815af0654564557638481c83"
+      },
+      {
+        "path": "competition/tests/test_w_seed.py",
+        "sha256": "9268e119b39d02538c8e324970caea6f28c1867926515aa761aa72526d0783ad"
+      },
+      {
+        "path": "competition/tools/__init__.py",
+        "sha256": "674b6b4b2f4088ffc515f810fb8626574e1936e6f6a83787424aaf2beadd53bc"
+      },
+      {
+        "path": "competition/tools/common_tool.py",
+        "sha256": "03412782c44a5e33860fc5fafceab99be0f60b21ff839e004b860ff9e30a0df9"
+      },
+      {
+        "path": "competition/verify_protocol_handoff.py",
+        "sha256": "8bf796eb654f473b546a0414c4e3f9eb28f9eb634578f6e7211294b8c0a4d7e4"
+      },
+      {
+        "path": "competition/verify_repository.py",
+        "sha256": "1d7e5629b70fc1ae167c66c14beb3b59fcd39898473846986185d8586f8d32e1"
+      },
+      {
+        "path": "competition/verify_w_slice.py",
+        "sha256": "cdbba015cb67bd8d4c327a25711213b87ad46890fc0cfbafe5b3836eb82bc1c7"
+      },
+      {
+        "path": "competition/w_cases.py",
+        "sha256": "9876a447310b1ea39ec922230228d50a054d24aa2171b11fe02b87a1217a963a"
+      },
+      {
+        "path": "competition/w_cases_races.py",
+        "sha256": "2301ae227b4871234951ac081f220c6782b350046c6f3c63a41f69a32e537ea8"
+      },
+      {
+        "path": "requirements.txt",
+        "sha256": "878d9e7696f7a34c80704560c0e3c63adc2b7c351df2644dd825d9ec11c44002"
+      },
+      {
+        "path": "system_dev/v26/contracts/industrial.openapi.json",
+        "sha256": "367b2605826ea32bb04bbb801c0b076db06261d307494207a9fccb9c66a67a77"
+      },
+      {
+        "path": "system_dev/v26/contracts/industrial.schema.json",
+        "sha256": "36c325808a01d5afb51f27872df4fdc7c40907aa56b023a10bd5a949e4ad768d"
+      },
+      {
+        "path": "system_dev/v26/contracts/medical.openapi.json",
+        "sha256": "74e701ceba8ac380dca8f585ad32d65a3a1ef9a9ed6d3d394199645811690cf2"
+      },
+      {
+        "path": "system_dev/v26/contracts/medical.schema.json",
+        "sha256": "033df4601364abcb2bf9f4673d43804150da47e598b71cfceb0ec090366b7ac2"
+      },
+      {
+        "path": "system_dev/v26/contracts/pay1.openapi.json",
+        "sha256": "e8baaab50a71450e44039f1e43610425681611a68489192336c3250d4e94060c"
+      },
+      {
+        "path": "system_dev/v26/contracts/pay1.schema.json",
+        "sha256": "84f57ba485abe56b94141dc8d27968c56ecad50fb50095565939b02fd2f8833e"
+      }
+    ],
+    "source_digest": "8f32c6d425a646d1ef2e04232e36b0d3f2656d7769c5835664226eb74836df48",
+    "dirty": [
+      " M INSTALL_AND_SCOPE.md",
+      " M README.md",
+      " M competition/FINAL_PROTOCOL_HANDOFF.md",
+      " M competition/README.md",
+      " M competition/core/authorization.py",
+      " M competition/core/common_receipt.py",
+      " M competition/core/common_w.py",
+      " M competition/core/industrial_authorization_bridge.py",
+      " M competition/core/signer_broker.py",
+      " M competition/core/trusted_state.py",
+      " M competition/docs/final/claims-evidence.md",
+      " M competition/docs/final/competition-protocol.md",
+      " M competition/docs/final/developer-scope-notes.md",
+      " M competition/docs/final/finalization-record.md",
+      " M competition/docs/final/industrial-handoff.md",
+      " M competition/docs/final/interface-reference.md",
+      " M competition/docs/final/medical-handoff.md",
+      " M competition/docs/final/payment-handoff.md",
+      " M competition/docs/final/protocol-review.md",
+      " M competition/docs/final/query-audit-scope.md",
+      " M competition/docs/final/r2-application-mapping.md",
+      " M competition/profiles/authorization_seed.py",
+      " M competition/profiles/w_seed.py",
+      " M competition/support/schema.py",
+      " M competition/support/wire.py",
+      " M competition/tests/test_common_receipt.py",
+      "?? competition/core/candidate_ingress.py",
+      "?? competition/docs/final/optimization-review-20261012.md",
+      "?? competition/docs/final/rectification-results-20261012.md",
+      "?? competition/docs/final/security-boundaries.md",
+      "?? competition/docs/final/verify-optimization-semantics.py",
+      "?? competition/evidence/protocol-optimization-20261012/",
+      "?? competition/run_security_checks.py",
+      "?? competition/tests/test_candidate_ingress.py",
+      "?? competition/tests/test_rectification.py"
+    ]
+  },
+  "cases": [
+    {
+      "profile": "IND-DEMO-1",
+      "scenario": "normal",
+      "status": "PASS",
+      "evidence": "IND-DEMO-1-normal.json"
+    },
+    {
+      "profile": "PAY-1",
+      "scenario": "normal",
+      "status": "PASS",
+      "evidence": "PAY-1-normal.json"
+    },
+    {
+      "profile": "MED-DEMO-1",
+      "scenario": "normal",
+      "status": "PASS",
+      "evidence": "MED-DEMO-1-normal.json"
+    },
+    {
+      "profile": "IND-DEMO-1",
+      "scenario": "lost_ack",
+      "status": "PASS",
+      "evidence": "IND-DEMO-1-lost-ack.json"
+    },
+    {
+      "profile": "PAY-1",
+      "scenario": "lost_ack",
+      "status": "PASS",
+      "evidence": "PAY-1-lost-ack.json"
+    },
+    {
+      "profile": "MED-DEMO-1",
+      "scenario": "lost_ack",
+      "status": "PASS",
+      "evidence": "MED-DEMO-1-lost-ack.json"
+    }
+  ],
+  "passed": true
+}

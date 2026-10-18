@@ -1,0 +1,34 @@
+{
+  "base_sha": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+  "run": "recovered-joint-01",
+  "duration_seconds": 559.756,
+  "result": {
+    "tests": 196,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "sources_unchanged": true,
+    "guard_semantics_modified": false
+  },
+  "clock_audit": {
+    "child_observations": 14344,
+    "natural_unhealthy_child_packets": 0,
+    "sources_unchanged": true,
+    "scope": "One bounded recovery run; historical clock attribution remains unresolved"
+  },
+  "demo_counts": {
+    "accepts": 1,
+    "attempts": 1,
+    "exec_consumptions": 1,
+    "effects": 1,
+    "settlements": 1
+  },
+  "remote_mutations": false,
+  "limits": [
+    "Original temporary workspace and full pre-recovery raw evidence were lost; recovered tool excerpts are not original raw logs.",
+    "Historical clock failures without original samples remain unattributed.",
+    "159 original tests retain internal/optional V1 configurations; not all 196 use the new boundary.",
+    "Latest dev 32370d4 is not included or certified by this integration.",
+    "IND lab service only; no PAY/MED simplified adapter, production identity provider or physical device."
+  ]
+}

@@ -1,0 +1,212 @@
+test_W_commit_crash_recovers_same_request_and_receipt (competition.tests.test_action_resolver.ActionResolverTests.test_W_commit_crash_recovers_same_request_and_receipt) ... ok
+test_allocator_retries_collision_and_fails_closed_on_exhaustion (competition.tests.test_action_resolver.ActionResolverTests.test_allocator_retries_collision_and_fails_closed_on_exhaustion) ... ok
+test_authentication_binding_and_unsupported_profile (competition.tests.test_action_resolver.ActionResolverTests.test_authentication_binding_and_unsupported_profile) ... ok
+test_bad_approval_cannot_poison_first_freeze (competition.tests.test_action_resolver.ActionResolverTests.test_bad_approval_cannot_poison_first_freeze) ... ok
+test_cached_retry_checks_policy_acl (competition.tests.test_action_resolver.ActionResolverTests.test_cached_retry_checks_policy_acl) ... ok
+test_cached_retry_checks_reader_action_scope (competition.tests.test_action_resolver.ActionResolverTests.test_cached_retry_checks_reader_action_scope) ... ok
+test_canonical_bytes_and_source_bound_ten_field_action (competition.tests.test_action_resolver.ActionResolverTests.test_canonical_bytes_and_source_bound_ten_field_action) ... ok
+test_concurrent_mapping_and_request_content_conflict (competition.tests.test_action_resolver.ActionResolverTests.test_concurrent_mapping_and_request_content_conflict) ... ok
+test_delayed_first_freeze_does_not_persist_stale_event (competition.tests.test_action_resolver.ActionResolverTests.test_delayed_first_freeze_does_not_persist_stale_event) ... ok
+test_full_chain_retry_commit_and_once_effect (competition.tests.test_action_resolver.ActionResolverTests.test_full_chain_retry_commit_and_once_effect) ... ok
+test_mapping_survives_new_resolver_and_copy_mutation (competition.tests.test_action_resolver.ActionResolverTests.test_mapping_survives_new_resolver_and_copy_mutation) ... ok
+test_new_request_id_cannot_bypass_business_intent_deduplication (competition.tests.test_action_resolver.ActionResolverTests.test_new_request_id_cannot_bypass_business_intent_deduplication) ... ok
+test_new_requests_use_W_current_state_while_cached_request_stays_frozen (competition.tests.test_action_resolver.ActionResolverTests.test_new_requests_use_W_current_state_while_cached_request_stays_frozen) ... ok
+test_reader_revocation_precedes_evidence_read (competition.tests.test_action_resolver.ActionResolverTests.test_reader_revocation_precedes_evidence_read) ... ok
+test_resume_existing_ledgers_and_frozen_request_after_restart (competition.tests.test_action_resolver.ActionResolverTests.test_resume_existing_ledgers_and_frozen_request_after_restart) ... ok
+test_revoked_executor_and_task_holder_mismatch (competition.tests.test_action_resolver.ActionResolverTests.test_revoked_executor_and_task_holder_mismatch) ... ok
+test_same_action_resign_cannot_replace_frozen_request (competition.tests.test_action_resolver.ActionResolverTests.test_same_action_resign_cannot_replace_frozen_request) ... ok
+test_short_valid_package_bounds_assessment_lifetime (competition.tests.test_action_resolver.ActionResolverTests.test_short_valid_package_bounds_assessment_lifetime) ... ok
+test_six_field_changes_and_missing_review_cannot_freeze (competition.tests.test_action_resolver.ActionResolverTests.test_six_field_changes_and_missing_review_cannot_freeze) ... ok
+test_strict_proposal_does_not_allocate_or_sign (competition.tests.test_action_resolver.ActionResolverTests.test_strict_proposal_does_not_allocate_or_sign) ... ok
+test_tool_lost_ack_preserves_core_semantics (competition.tests.test_action_resolver.ActionResolverTests.test_tool_lost_ack_preserves_core_semantics) ... ok
+test_unknown_result_keeps_resources_without_effect (competition.tests.test_action_resolver.ActionResolverTests.test_unknown_result_keeps_resources_without_effect) ... ok
+test_acceptance_and_replacement_have_exactly_one_safe_winner (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_acceptance_and_replacement_have_exactly_one_safe_winner) ... ok
+test_accepted_packet_never_changes_and_recovery_retains_frozen_core (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_accepted_packet_never_changes_and_recovery_retains_frozen_core) ... ok
+test_bad_signature_does_not_replace_current_packet (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_bad_signature_does_not_replace_current_packet) ... ok
+test_bound_entry_rejects_unregistered_signed_action (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_bound_entry_rejects_unregistered_signed_action) ... ok
+test_existing_v1_saved_row_migrates_without_reallocation_or_resigning (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_existing_v1_saved_row_migrates_without_reallocation_or_resigning) ... ok
+test_expired_short_chain_renews_using_original_permit (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_expired_short_chain_renews_using_original_permit) ... ok
+test_final_time_gate_failure_rolls_back_replacement (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_final_time_gate_failure_rolls_back_replacement) ... ok
+test_full_old_packet_cannot_become_current_again (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_full_old_packet_cannot_become_current_again) ... ok
+test_new_signatures_cannot_reuse_challenge_session_nonce_or_attempt (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_new_signatures_cannot_reuse_challenge_session_nonce_or_attempt) ... ok
+test_original_holder_proof_does_not_authenticate_replacement (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_original_holder_proof_does_not_authenticate_replacement) ... ok
+test_original_permit_expiry_cannot_be_extended_by_short_chain (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_original_permit_expiry_cannot_be_extended_by_short_chain) ... ok
+test_published_deny_races_replacement_but_cannot_be_lost_before_acceptance (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_published_deny_races_replacement_but_cannot_be_lost_before_acceptance) ... ok
+test_published_deny_remains_after_approve_and_replacement_attempt (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_published_deny_remains_after_approve_and_replacement_attempt) ... ok
+test_reissued_authorization_or_issue_or_permit_is_rejected (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_reissued_authorization_or_issue_or_permit_is_rejected) ... ok
+test_renewed_packet_lost_tool_ack_recovers_same_attempt_and_one_effect (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_renewed_packet_lost_tool_ack_recovers_same_attempt_and_one_effect) ... ok
+test_replacement_retry_is_idempotent_but_stale_writer_cannot_overwrite (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_replacement_retry_is_idempotent_but_stale_writer_cannot_overwrite) ... ok
+test_revoked_holder_cannot_replace_even_with_previously_signed_packet (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_revoked_holder_cannot_replace_even_with_previously_signed_packet) ... ok
+test_short_only_replacement_preserves_authority_and_blocks_old_ticket (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_short_only_replacement_preserves_authority_and_blocks_old_ticket) ... ok
+test_store_binding_cannot_be_disabled_at_public_startup (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_store_binding_cannot_be_disabled_at_public_startup) ... ok
+test_two_pending_replacements_cannot_both_commit (competition.tests.test_submission_renewal.SubmissionRenewalTests.test_two_pending_replacements_cannot_both_commit) ... ok
+test_approval_pending_and_committed_receipt_pending_are_distinct (competition.tests.test_operation_service.OperationServiceTests.test_approval_pending_and_committed_receipt_pending_are_distinct) ... ok
+test_expired_short_packet_retry_acknowledges_same_version_without_new_submission (competition.tests.test_operation_service.OperationServiceTests.test_expired_short_packet_retry_acknowledges_same_version_without_new_submission) ... ok
+test_extra_transport_fields_and_arbitrary_profiles_are_rejected (competition.tests.test_operation_service.OperationServiceTests.test_extra_transport_fields_and_arbitrary_profiles_are_rejected) ... ok
+test_identity_expiry_during_first_freeze_cannot_mutate_submission (competition.tests.test_operation_service.OperationServiceTests.test_identity_expiry_during_first_freeze_cannot_mutate_submission) ... ok
+test_identity_expiry_during_replacement_rolls_back_version_and_nonce (competition.tests.test_operation_service.OperationServiceTests.test_identity_expiry_during_replacement_rolls_back_version_and_nonce) ... ok
+test_internal_mutators_signer_and_worker_are_not_public_methods (competition.tests.test_operation_service.OperationServiceTests.test_internal_mutators_signer_and_worker_are_not_public_methods) ... ok
+test_public_prepare_and_accept_use_original_holder_authentication (competition.tests.test_operation_service.OperationServiceTests.test_public_prepare_and_accept_use_original_holder_authentication) ... ok
+test_recovery_checks_current_reader_credential_after_acceptance (competition.tests.test_operation_service.OperationServiceTests.test_recovery_checks_current_reader_credential_after_acceptance) ... ok
+test_submit_requires_full_packet_identity_and_version_binding (competition.tests.test_operation_service.OperationServiceTests.test_submit_requires_full_packet_identity_and_version_binding) ... ok
+test_transport_caller_cannot_read_saved_approval_without_holder_proof (competition.tests.test_operation_service.OperationServiceTests.test_transport_caller_cannot_read_saved_approval_without_holder_proof) ... ok
+test_http_auth_origin_and_duplicate_json_fail_before_operation_access (competition.tests.test_operation_transport.OperationTransportTests.test_http_auth_origin_and_duplicate_json_fail_before_operation_access) ... FAIL
+test_http_disconnect_after_commit_and_server_restart_recovers_original_core (competition.tests.test_operation_transport.OperationTransportTests.test_http_disconnect_after_commit_and_server_restart_recovers_original_core) ... FAIL
+test_http_short_renewal_acceptance_and_one_effect (competition.tests.test_operation_transport.OperationTransportTests.test_http_short_renewal_acceptance_and_one_effect) ... FAIL
+test_mcp_stdio_lists_only_allowlist_and_requires_holder_proof (competition.tests.test_operation_transport.OperationTransportTests.test_mcp_stdio_lists_only_allowlist_and_requires_holder_proof) ... FAIL
+
+======================================================================
+FAIL: test_http_auth_origin_and_duplicate_json_fail_before_operation_access (competition.tests.test_operation_transport.OperationTransportTests.test_http_auth_origin_and_duplicate_json_fail_before_operation_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 73, in test_http_auth_origin_and_duplicate_json_fail_before_operation_access
+    self.start()
+    ~~~~~~~~~~^^
+  File "<LOCAL_PATH>", line 32, in start
+    out,err=proc.communicate();self.fail('server failed: '+err)
+                               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: server failed: Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 75, in <module>
+    if __name__=='__main__':main(*sys.argv[1:])
+                            ~~~~^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 26, in main
+    name,*tail=args;sys.argv=[name,*tail];runpy.run_module(name,run_name='__main__')
+                                          ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "<LOCAL_PATH>", line 33, in <module>
+    if __name__=='__main__':main(*sys.argv[1:])
+                            ~~~~^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 27, in main
+    server=create_server(service,Path(token_file).read_text().strip())
+  File "<LOCAL_PATH>", line 89, in create_server
+    server=ThreadingHTTPServer((host,port),Handler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+
+======================================================================
+FAIL: test_http_disconnect_after_commit_and_server_restart_recovers_original_core (competition.tests.test_operation_transport.OperationTransportTests.test_http_disconnect_after_commit_and_server_restart_recovers_original_core)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 105, in test_http_disconnect_after_commit_and_server_restart_recovers_original_core
+    proc=self.start('accept');self.submit_http();ticket=self.ticket_http(self.op)
+  File "<LOCAL_PATH>", line 32, in start
+    out,err=proc.communicate();self.fail('server failed: '+err)
+                               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: server failed: Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 75, in <module>
+    if __name__=='__main__':main(*sys.argv[1:])
+                            ~~~~^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 26, in main
+    name,*tail=args;sys.argv=[name,*tail];runpy.run_module(name,run_name='__main__')
+                                          ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "<LOCAL_PATH>", line 33, in <module>
+    if __name__=='__main__':main(*sys.argv[1:])
+                            ~~~~^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 27, in main
+    server=create_server(service,Path(token_file).read_text().strip())
+  File "<LOCAL_PATH>", line 89, in create_server
+    server=ThreadingHTTPServer((host,port),Handler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+
+======================================================================
+FAIL: test_http_short_renewal_acceptance_and_one_effect (competition.tests.test_operation_transport.OperationTransportTests.test_http_short_renewal_acceptance_and_one_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 87, in test_http_short_renewal_acceptance_and_one_effect
+    self.start();first=self.submit_http();old=self.ticket_http(self.op)
+    ~~~~~~~~~~^^
+  File "<LOCAL_PATH>", line 32, in start
+    out,err=proc.communicate();self.fail('server failed: '+err)
+                               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: server failed: Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 75, in <module>
+    if __name__=='__main__':main(*sys.argv[1:])
+                            ~~~~^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 26, in main
+    name,*tail=args;sys.argv=[name,*tail];runpy.run_module(name,run_name='__main__')
+                                          ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "<LOCAL_PATH>", line 33, in <module>
+    if __name__=='__main__':main(*sys.argv[1:])
+                            ~~~~^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 27, in main
+    server=create_server(service,Path(token_file).read_text().strip())
+  File "<LOCAL_PATH>", line 89, in create_server
+    server=ThreadingHTTPServer((host,port),Handler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+
+======================================================================
+FAIL: test_mcp_stdio_lists_only_allowlist_and_requires_holder_proof (competition.tests.test_operation_transport.OperationTransportTests.test_mcp_stdio_lists_only_allowlist_and_requires_holder_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 120, in test_mcp_stdio_lists_only_allowlist_and_requires_holder_proof
+    self.start()
+    ~~~~~~~~~~^^
+  File "<LOCAL_PATH>", line 32, in start
+    out,err=proc.communicate();self.fail('server failed: '+err)
+                               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: server failed: Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 75, in <module>
+    if __name__=='__main__':main(*sys.argv[1:])
+                            ~~~~^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 26, in main
+    name,*tail=args;sys.argv=[name,*tail];runpy.run_module(name,run_name='__main__')
+                                          ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 234, in run_module
+  File "<frozen runpy>", line 88, in _run_code
+  File "<LOCAL_PATH>", line 33, in <module>
+    if __name__=='__main__':main(*sys.argv[1:])
+                            ~~~~^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 27, in main
+    server=create_server(service,Path(token_file).read_text().strip())
+  File "<LOCAL_PATH>", line 89, in create_server
+    server=ThreadingHTTPServer((host,port),Handler)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+
+----------------------------------------------------------------------
+Ran 56 tests in 258.327s
+
+FAILED (failures=4)

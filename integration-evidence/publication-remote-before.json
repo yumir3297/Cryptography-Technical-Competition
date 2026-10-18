@@ -1,0 +1,22 @@
+{
+  "checked_date": "2026-10-18",
+  "repository": "yumir3297/Cryptography-Technical-Competition",
+  "remote_heads": {
+    "competition/zjj-core-final-20261010": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+    "dev": "ec29d8d0deac11ef48d4aa4e1df7578e11976a0e",
+    "experiment/trusted-action-feasibility-20261017": "4b301f9cbdc61440a9f5ee7e79b7e0af70628f8c",
+    "experiment/trusted-action-resolver-v1-20261017": "202f34e75f0b6e13ec49c58a313f0c32ab9e3095",
+    "feature/trusted-action-resolver-v1": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+    "main": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+    "release/competition-complete-20261018": "86f284bf4787e9990b47b8159cd1e6b9e5824b03"
+  },
+  "old_pr": {
+    "number": 3,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+    "base": "cc4e36b4e302fcdc53cc809a012c77d8464182af"
+  },
+  "relationship": "Old PR head is ancestor of local unified commit 63c5da6; new publication includes both plus deployment. Preserve old commits and close old PR only after replacement exists."
+}

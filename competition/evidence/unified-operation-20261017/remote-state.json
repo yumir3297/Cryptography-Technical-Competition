@@ -1,0 +1,1400 @@
+{
+  "checked_at": "2026-10-17T15:35:46.301228+00:00",
+  "refs": {
+    "origin": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+    "origin/competition/zjj-core-final-20261010": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+    "origin/dev": "32370d4e39c2d9cb6f664ce672c0ec8210eee0ae",
+    "origin/experiment/trusted-action-feasibility-20261017": "4b301f9cbdc61440a9f5ee7e79b7e0af70628f8c",
+    "origin/experiment/trusted-action-resolver-v1-20261017": "202f34e75f0b6e13ec49c58a313f0c32ab9e3095",
+    "origin/feature/trusted-action-resolver-v1": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+    "origin/main": "1aa5a9e36e1558b95972941d5ce7dbf6553da431"
+  },
+  "comparisons": {
+    "origin/main": {
+      "commits_left_right": "1\t0",
+      "merge_base": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+      "files": [
+        {
+          "path": "INSTALL_AND_SCOPE.md",
+          "added": "1",
+          "deleted": "3",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "README.md",
+          "added": "2",
+          "deleted": "9",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/FINAL_PROTOCOL_HANDOFF.md",
+          "added": "5",
+          "deleted": "10",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/README.md",
+          "added": "2",
+          "deleted": "8",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/core/authorization.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/candidate_ingress.py",
+          "added": "0",
+          "deleted": "22",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/common_receipt.py",
+          "added": "4",
+          "deleted": "4",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/common_w.py",
+          "added": "3",
+          "deleted": "5",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/industrial_authorization_bridge.py",
+          "added": "0",
+          "deleted": "6",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/signer_broker.py",
+          "added": "6",
+          "deleted": "59",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/trusted_state.py",
+          "added": "3",
+          "deleted": "5",
+          "kind": "code"
+        },
+        {
+          "path": "competition/docs/final/claims-evidence.md",
+          "added": "1",
+          "deleted": "11",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/competition-protocol.md",
+          "added": "54",
+          "deleted": "62",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/developer-scope-notes.md",
+          "added": "6",
+          "deleted": "12",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/finalization-record.md",
+          "added": "0",
+          "deleted": "2",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/industrial-handoff.md",
+          "added": "1",
+          "deleted": "7",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/interface-reference.md",
+          "added": "4",
+          "deleted": "44",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/medical-handoff.md",
+          "added": "2",
+          "deleted": "8",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/optimization-review-20261012.md",
+          "added": "0",
+          "deleted": "36",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/payment-handoff.md",
+          "added": "1",
+          "deleted": "7",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/protocol-review.md",
+          "added": "0",
+          "deleted": "2",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/protocol-separation-record-20261012.md",
+          "added": "0",
+          "deleted": "37",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/query-audit-scope.md",
+          "added": "3",
+          "deleted": "7",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/r2-application-mapping.md",
+          "added": "3",
+          "deleted": "5",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/rectification-results-20261012.md",
+          "added": "0",
+          "deleted": "48",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/scenario-integration-handoff.md",
+          "added": "0",
+          "deleted": "73",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/security-boundaries.md",
+          "added": "0",
+          "deleted": "49",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/verify-optimization-semantics.py",
+          "added": "0",
+          "deleted": "68",
+          "kind": "code"
+        },
+        {
+          "path": "competition/evidence/protocol-optimization-20261012/document-check.json",
+          "added": "0",
+          "deleted": "70",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/protocol-optimization-20261012/runtime-semantics.json",
+          "added": "0",
+          "deleted": "1366",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/protocol-optimization-20261012/selected-experiment-facts.json",
+          "added": "0",
+          "deleted": "275",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/protocol-separation-20261012/document-source-manifest.json",
+          "added": "0",
+          "deleted": "141",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/protocol-separation-20261012/document-verification.json",
+          "added": "0",
+          "deleted": "18",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/protocol-separation-20261012/manifest.json",
+          "added": "0",
+          "deleted": "25",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/protocol-separation-20261012/repository-check.json",
+          "added": "0",
+          "deleted": "17",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/protocol-separation-20261012/summary.json",
+          "added": "0",
+          "deleted": "31",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/adversarial.json",
+          "added": "0",
+          "deleted": "1664",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/competition-tests.log",
+          "added": "0",
+          "deleted": "142",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/document-verification.json",
+          "added": "0",
+          "deleted": "9",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/manifest.json",
+          "added": "0",
+          "deleted": "85",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/report.json",
+          "added": "0",
+          "deleted": "737",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/schema-verification.json",
+          "added": "0",
+          "deleted": "59",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/signed-approval-comparison.json",
+          "added": "0",
+          "deleted": "5711",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/validation-summary.json",
+          "added": "0",
+          "deleted": "84",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-slice/IND-DEMO-1-lost-ack.json",
+          "added": "0",
+          "deleted": "2775",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-slice/IND-DEMO-1-normal.json",
+          "added": "0",
+          "deleted": "4021",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-slice/MED-DEMO-1-lost-ack.json",
+          "added": "0",
+          "deleted": "2770",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-slice/MED-DEMO-1-normal.json",
+          "added": "0",
+          "deleted": "4011",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-slice/PAY-1-lost-ack.json",
+          "added": "0",
+          "deleted": "2670",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-slice/PAY-1-normal.json",
+          "added": "0",
+          "deleted": "3821",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-slice/manifest.json",
+          "added": "0",
+          "deleted": "515",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-slice/report.json",
+          "added": "0",
+          "deleted": "517",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/security-rectification-20261012/w-verification.json",
+          "added": "0",
+          "deleted": "20",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/profiles/authorization_seed.py",
+          "added": "2",
+          "deleted": "5",
+          "kind": "code"
+        },
+        {
+          "path": "competition/profiles/w_seed.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/run_security_checks.py",
+          "added": "0",
+          "deleted": "163",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/schema.py",
+          "added": "0",
+          "deleted": "15",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/wire.py",
+          "added": "3",
+          "deleted": "4",
+          "kind": "code"
+        },
+        {
+          "path": "competition/tests/test_candidate_ingress.py",
+          "added": "0",
+          "deleted": "41",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_common_receipt.py",
+          "added": "1",
+          "deleted": "2",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_rectification.py",
+          "added": "0",
+          "deleted": "126",
+          "kind": "tests"
+        }
+      ]
+    },
+    "origin/dev": {
+      "commits_left_right": "0\t2",
+      "merge_base": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+      "files": [
+        {
+          "path": "competition/README.md",
+          "added": "1",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/bridge/__init__.py",
+          "added": "7",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/bridge/contract.py",
+          "added": "55",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/bridge/defaults.py",
+          "added": "28",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/bridge/facade.py",
+          "added": "92",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/acceptance.py",
+          "added": "0",
+          "deleted": "342",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/common_w.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/industrial_authorization_bridge.py",
+          "added": "0",
+          "deleted": "38",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/trusted_clock.py",
+          "added": "0",
+          "deleted": "47",
+          "kind": "code"
+        },
+        {
+          "path": "competition/core/trusted_state.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/docs/acceptance-sequence.md",
+          "added": "0",
+          "deleted": "109",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/unified-core-migration.md",
+          "added": "1",
+          "deleted": "1",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/profiles/authorization_scene.py",
+          "added": "4",
+          "deleted": "9",
+          "kind": "code"
+        },
+        {
+          "path": "competition/profiles/authorization_seed.py",
+          "added": "3",
+          "deleted": "2",
+          "kind": "code"
+        },
+        {
+          "path": "competition/profiles/industrial_seed.py",
+          "added": "0",
+          "deleted": "138",
+          "kind": "code"
+        },
+        {
+          "path": "competition/profiles/scene_bindings.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/profiles/scene_seed.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/profiles/w_seed.py",
+          "added": "2",
+          "deleted": "2",
+          "kind": "code"
+        },
+        {
+          "path": "competition/run_authorization_slice.py",
+          "added": "0",
+          "deleted": "118",
+          "kind": "code"
+        },
+        {
+          "path": "competition/run_security_checks.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/run_time_slice.py",
+          "added": "0",
+          "deleted": "132",
+          "kind": "code"
+        },
+        {
+          "path": "competition/run_w_slice.py",
+          "added": "2",
+          "deleted": "2",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/README.md",
+          "added": "7",
+          "deleted": "10",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/support/artifact.py",
+          "added": "44",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/authority_guards.py",
+          "added": "0",
+          "deleted": "91",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/dispatch_guard.py",
+          "added": "0",
+          "deleted": "113",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/durable_pay.py",
+          "added": "0",
+          "deleted": "296",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/final_fact.py",
+          "added": "67",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/legacy_clock.py",
+          "added": "0",
+          "deleted": "34",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/pay_recovery.py",
+          "added": "0",
+          "deleted": "169",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/scene_authority.py",
+          "added": "0",
+          "deleted": "579",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/scene_base.py",
+          "added": "65",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/scene_contract.py",
+          "added": "47",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/scene_fixtures.py",
+          "added": "0",
+          "deleted": "113",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/scene_recovery.py",
+          "added": "0",
+          "deleted": "410",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/scene_verifier.py",
+          "added": "0",
+          "deleted": "185",
+          "kind": "code"
+        },
+        {
+          "path": "competition/support/tool_final.py",
+          "added": "0",
+          "deleted": "277",
+          "kind": "code"
+        },
+        {
+          "path": "competition/tests/test_acceptance_gap.py",
+          "added": "0",
+          "deleted": "49",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_authorization_acceptance.py",
+          "added": "0",
+          "deleted": "49",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_bridge_facade.py",
+          "added": "76",
+          "deleted": "0",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_chain_isolation.py",
+          "added": "95",
+          "deleted": "0",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_clock_guard.py",
+          "added": "0",
+          "deleted": "97",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_common_tool.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_med_required_review.py",
+          "added": "30",
+          "deleted": "37",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_scene_authorization_adapter.py",
+          "added": "80",
+          "deleted": "86",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_time_acceptance.py",
+          "added": "0",
+          "deleted": "223",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_w_seed.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tools/common_tool.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/verify_protocol_handoff.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        },
+        {
+          "path": "competition/verify_w_slice.py",
+          "added": "2",
+          "deleted": "2",
+          "kind": "code"
+        },
+        {
+          "path": "competition/w_cases.py",
+          "added": "1",
+          "deleted": "1",
+          "kind": "code"
+        }
+      ]
+    },
+    "origin/feature/trusted-action-resolver-v1": {
+      "commits_left_right": "0\t1",
+      "merge_base": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+      "files": [
+        {
+          "path": "competition/application/README.md",
+          "added": "5",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/application/__init__.py",
+          "added": "1",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/application/candidate_proposal.py",
+          "added": "17",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/application/operation_orchestrator.py",
+          "added": "36",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/application/request_store.py",
+          "added": "90",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/application/trusted_action_resolver.py",
+          "added": "129",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "competition/docs/final/trusted-action-resolver-v1-plan.md",
+          "added": "29",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/trusted-action-resolver-v1-results.md",
+          "added": "67",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/docs/final/trusted-action-resolver-v1.md",
+          "added": "86",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/README.md",
+          "added": "17",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/application-first.log",
+          "added": "20",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/commands.json",
+          "added": "20",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/contracts.log",
+          "added": "1",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/current-state-green.log",
+          "added": "7",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/current-state-red.log",
+          "added": "18",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/existing-evidence.log",
+          "added": "2",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/full-regression-01.log",
+          "added": "161",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/full-regression-final.log",
+          "added": "184",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/full-regression-release.log",
+          "added": "164",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/generated-contract-report.json",
+          "added": "1604",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/generated-historical-same-oid-verification.json",
+          "added": "28",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/generated-historical-w-verification.json",
+          "added": "28",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/manifest.json",
+          "added": "125",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/original-files-integrity.json",
+          "added": "6",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/publication-boundaries.json",
+          "added": "11",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/red.log",
+          "added": "29",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/repository-check.json",
+          "added": "17",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/review-green.log",
+          "added": "7",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/review-notes.md",
+          "added": "11",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/review-red.log",
+          "added": "38",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/summary.json",
+          "added": "21",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/tested-source-before-current-state-fix.json",
+          "added": "12",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/tested-source-sha256.json",
+          "added": "9",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/evidence/trusted-action-resolver-v1-20261017/verification-report-preservation.json",
+          "added": "17",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "competition/tests/resolver_fixtures.py",
+          "added": "18",
+          "deleted": "0",
+          "kind": "tests"
+        },
+        {
+          "path": "competition/tests/test_action_resolver.py",
+          "added": "279",
+          "deleted": "0",
+          "kind": "tests"
+        }
+      ]
+    },
+    "origin/experiment/trusted-action-feasibility-20261017": {
+      "commits_left_right": "0\t1",
+      "merge_base": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+      "files": [
+        {
+          "path": "experiments/interface_feasibility_20261017/PLAN.md",
+          "added": "16",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/README.md",
+          "added": "84",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/REVIEW.md",
+          "added": "9",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/SHA256SUMS.json",
+          "added": "31",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/adapter.py",
+          "added": "126",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/COMMANDS.md",
+          "added": "92",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/baseline-ready.log",
+          "added": "142",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/baseline.log",
+          "added": "1555",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/cached-acl-red.log",
+          "added": "25",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/freeze-diagnostic.log",
+          "added": "6",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/integrity.json",
+          "added": "10",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/integrity_verification.py",
+          "added": "14",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-20-recheck/results.json",
+          "added": "6593",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-20-recheck/tests.log",
+          "added": "25",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-20/results.json",
+          "added": "5802",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-20/tests.log",
+          "added": "46",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-22/results.json",
+          "added": "6783",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-22/tests.log",
+          "added": "27",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final/results.json",
+          "added": "6516",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final/tests.log",
+          "added": "24",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-first.log",
+          "added": "44",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-verified/results.json",
+          "added": "6573",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-verified/tests.log",
+          "added": "24",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/reader-red.log",
+          "added": "15",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/red.log",
+          "added": "29",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/requirements-lock.txt",
+          "added": "8",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/resign-diagnostic.log",
+          "added": "30",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/lab.py",
+          "added": "47",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/run_probe.py",
+          "added": "61",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/test_probe.py",
+          "added": "274",
+          "deleted": "0",
+          "kind": "code"
+        }
+      ]
+    },
+    "origin/experiment/trusted-action-resolver-v1-20261017": {
+      "commits_left_right": "0\t2",
+      "merge_base": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+      "files": [
+        {
+          "path": "experiments/interface_feasibility_20261017/PLAN.md",
+          "added": "16",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/README.md",
+          "added": "84",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/REVIEW.md",
+          "added": "9",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/SHA256SUMS.json",
+          "added": "31",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/adapter.py",
+          "added": "126",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/COMMANDS.md",
+          "added": "92",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/baseline-ready.log",
+          "added": "142",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/baseline.log",
+          "added": "1555",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/cached-acl-red.log",
+          "added": "25",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/freeze-diagnostic.log",
+          "added": "6",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/integrity.json",
+          "added": "10",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/integrity_verification.py",
+          "added": "14",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-20-recheck/results.json",
+          "added": "6593",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-20-recheck/tests.log",
+          "added": "25",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-20/results.json",
+          "added": "5802",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-20/tests.log",
+          "added": "46",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-22/results.json",
+          "added": "6783",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final-22/tests.log",
+          "added": "27",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final/results.json",
+          "added": "6516",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-final/tests.log",
+          "added": "24",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-first.log",
+          "added": "44",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-verified/results.json",
+          "added": "6573",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/probe-verified/tests.log",
+          "added": "24",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/reader-red.log",
+          "added": "15",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/red.log",
+          "added": "29",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/requirements-lock.txt",
+          "added": "8",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/evidence/resign-diagnostic.log",
+          "added": "30",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/lab.py",
+          "added": "47",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/run_probe.py",
+          "added": "61",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "experiments/interface_feasibility_20261017/test_probe.py",
+          "added": "274",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/COMMANDS.md",
+          "added": "37",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/PLAN.md",
+          "added": "13",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/REPORT.md",
+          "added": "74",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/RESULTS.md",
+          "added": "35",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/REVIEW.md",
+          "added": "10",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/SHA256SUMS.json",
+          "added": "16",
+          "deleted": "0",
+          "kind": "spec/docs"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/evidence/core-regression.log",
+          "added": "142",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/evidence/diagnostic-01.log",
+          "added": "56",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/evidence/integrity.json",
+          "added": "7",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/evidence/run-01/results.json.gz",
+          "added": "-",
+          "deleted": "-",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/evidence/run-01/tests.log",
+          "added": "101",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/evidence/run-02/results.json.gz",
+          "added": "-",
+          "deleted": "-",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/evidence/run-02/tests.log",
+          "added": "52",
+          "deleted": "0",
+          "kind": "evidence"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/run_validation.py",
+          "added": "32",
+          "deleted": "0",
+          "kind": "code"
+        },
+        {
+          "path": "experiments/trusted_action_resolver_v1_20261017/test_resolver.py",
+          "added": "214",
+          "deleted": "0",
+          "kind": "code"
+        }
+      ]
+    }
+  },
+  "remote_mutations": false,
+  "commit_metadata": {
+    "origin": "1aa5a9e36e1558b95972941d5ce7dbf6553da431|2026-10-12T10:11:21+08:00|a034821f462970e7535b3504b0278ad173401ebd",
+    "origin/competition/zjj-core-final-20261010": "cc4e36b4e302fcdc53cc809a012c77d8464182af|2026-10-13T10:49:38+08:00|1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+    "origin/dev": "32370d4e39c2d9cb6f664ce672c0ec8210eee0ae|2026-10-17T19:16:06+08:00|de147378ecb8192a594d5acacc377f5f5a956360",
+    "origin/experiment/trusted-action-feasibility-20261017": "4b301f9cbdc61440a9f5ee7e79b7e0af70628f8c|2026-10-17T11:00:25+08:00|cc4e36b4e302fcdc53cc809a012c77d8464182af",
+    "origin/experiment/trusted-action-resolver-v1-20261017": "202f34e75f0b6e13ec49c58a313f0c32ab9e3095|2026-10-17T11:12:43+08:00|4b301f9cbdc61440a9f5ee7e79b7e0af70628f8c",
+    "origin/feature/trusted-action-resolver-v1": "86f284bf4787e9990b47b8159cd1e6b9e5824b03|2026-10-17T11:56:18+08:00|cc4e36b4e302fcdc53cc809a012c77d8464182af",
+    "origin/main": "1aa5a9e36e1558b95972941d5ce7dbf6553da431|2026-10-12T10:11:21+08:00|a034821f462970e7535b3504b0278ad173401ebd"
+  },
+  "pr3": {
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head_sha": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+    "base_sha": "cc4e36b4e302fcdc53cc809a012c77d8464182af",
+    "source": "GitHub connector get_pr_info, 2026-10-17 recovery run"
+  }
+}

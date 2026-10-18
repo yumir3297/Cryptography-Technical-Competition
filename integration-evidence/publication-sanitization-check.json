@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "tested_runtime_source_files_unchanged": 108,
+  "new_export_files_without_local_paths_or_raw_identity_auth_packets": true,
+  "original_signature_bundles_publicly_reauditable": false,
+  "independent_reproduction": "Run supplied programs with new synthetic installation and identities",
+  "base_published_source_sha": "79c4ceff4b7098dcb15d4161d34e88a22611ecdc"
+}

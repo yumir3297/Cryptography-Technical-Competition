@@ -1,0 +1,19 @@
+test_build_op_uses_the_supplied_action (competition.tests.test_bridge_facade.BridgeFacadeTests.test_build_op_uses_the_supplied_action) ... ok
+test_profile_action_and_context_drive_the_whole_path (competition.tests.test_bridge_facade.BridgeFacadeTests.test_profile_action_and_context_drive_the_whole_path) ... ok
+test_replayed_challenge_is_rejected (competition.tests.test_bridge_facade.BridgeFacadeTests.test_replayed_challenge_is_rejected) ... ok
+test_shell_satisfies_the_abstract_contract (competition.tests.test_bridge_facade.BridgeFacadeTests.test_shell_satisfies_the_abstract_contract) ... ok
+test_wrong_signature_is_rejected (competition.tests.test_bridge_facade.BridgeFacadeTests.test_wrong_signature_is_rejected) ... ok
+test_out_of_order_commands_are_guarded (competition.tests.test_cli_session.CliSessionTests.test_out_of_order_commands_are_guarded) ... ok
+test_session_drives_the_whole_path (competition.tests.test_cli_session.CliSessionTests.test_session_drives_the_whole_path) ... ok
+test_interface_is_challenge_then_proof (competition.tests.test_server_service.ServerServiceTests.test_interface_is_challenge_then_proof) ... ok
+test_local_signer_satisfies_the_protocol (competition.tests.test_server_service.ServerServiceTests.test_local_signer_satisfies_the_protocol) ... ok
+test_wrong_role_proof_is_rejected (competition.tests.test_server_service.ServerServiceTests.test_wrong_role_proof_is_rejected) ... ok
+test_external_ind_service_refuses_unbound_W (competition.tests.test_fusion_boundaries.FusionBoundaryTests.test_external_ind_service_refuses_unbound_W) ... ok
+test_local_demo_and_secure_ind_service_are_distinct_types (competition.tests.test_fusion_boundaries.FusionBoundaryTests.test_local_demo_and_secure_ind_service_are_distinct_types) ... ok
+test_public_api_is_fixed_allowlist_with_no_simulator_signer (competition.tests.test_fusion_boundaries.FusionBoundaryTests.test_public_api_is_fixed_allowlist_with_no_simulator_signer) ... ok
+test_public_runtime_never_imports_local_demo_signer_or_facade (competition.tests.test_fusion_boundaries.FusionBoundaryTests.test_public_runtime_never_imports_local_demo_signer_or_facade) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 20.027s
+
+OK

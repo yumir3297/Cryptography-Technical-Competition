@@ -1,0 +1,20 @@
+test_authentication_binding_and_unsupported_profile (competition.tests.test_action_resolver.ActionResolverTests.test_authentication_binding_and_unsupported_profile) ... ok
+test_bad_approval_cannot_poison_first_freeze (competition.tests.test_action_resolver.ActionResolverTests.test_bad_approval_cannot_poison_first_freeze) ... ok
+test_cached_retry_checks_policy_acl_and_reader_scope (competition.tests.test_action_resolver.ActionResolverTests.test_cached_retry_checks_policy_acl_and_reader_scope) ... ok
+test_canonical_bytes_and_source_bound_ten_field_action (competition.tests.test_action_resolver.ActionResolverTests.test_canonical_bytes_and_source_bound_ten_field_action) ... ok
+test_concurrent_mapping_and_request_content_conflict (competition.tests.test_action_resolver.ActionResolverTests.test_concurrent_mapping_and_request_content_conflict) ... ok
+test_full_chain_retry_commit_and_once_effect (competition.tests.test_action_resolver.ActionResolverTests.test_full_chain_retry_commit_and_once_effect) ... ok
+test_mapping_survives_new_resolver_and_copy_mutation (competition.tests.test_action_resolver.ActionResolverTests.test_mapping_survives_new_resolver_and_copy_mutation) ... ok
+test_new_request_id_cannot_bypass_business_intent_deduplication (competition.tests.test_action_resolver.ActionResolverTests.test_new_request_id_cannot_bypass_business_intent_deduplication) ... ok
+test_reader_revocation_precedes_evidence_read (competition.tests.test_action_resolver.ActionResolverTests.test_reader_revocation_precedes_evidence_read) ... ok
+test_resume_existing_ledgers_and_frozen_request_after_restart (competition.tests.test_action_resolver.ActionResolverTests.test_resume_existing_ledgers_and_frozen_request_after_restart) ... ok
+test_revoked_executor_and_task_holder_mismatch (competition.tests.test_action_resolver.ActionResolverTests.test_revoked_executor_and_task_holder_mismatch) ... ok
+test_same_action_resign_cannot_replace_frozen_request (competition.tests.test_action_resolver.ActionResolverTests.test_same_action_resign_cannot_replace_frozen_request) ... ok
+test_six_field_changes_and_missing_review_cannot_freeze (competition.tests.test_action_resolver.ActionResolverTests.test_six_field_changes_and_missing_review_cannot_freeze) ... ok
+test_strict_proposal_does_not_allocate_or_sign (competition.tests.test_action_resolver.ActionResolverTests.test_strict_proposal_does_not_allocate_or_sign) ... ok
+test_tool_lost_ack_and_unknown_query_preserve_core_semantics (competition.tests.test_action_resolver.ActionResolverTests.test_tool_lost_ack_and_unknown_query_preserve_core_semantics) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 57.849s
+
+OK

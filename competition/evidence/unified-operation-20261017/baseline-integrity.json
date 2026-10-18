@@ -1,0 +1,10 @@
+{
+  "base_sha": "86f284bf4787e9990b47b8159cd1e6b9e5824b03",
+  "base_tracked_files": 386,
+  "modified_existing_files": [
+    "competition/application/operation_orchestrator.py",
+    "competition/application/request_store.py",
+    "competition/core/common_w.py"
+  ],
+  "all_other_baseline_files_unchanged": true
+}

@@ -1,0 +1,13 @@
+{
+  "successful": true,
+  "checks": 12,
+  "actual_counts": {
+    "accepts": 1,
+    "attempts": 1,
+    "exec_consumptions": 1,
+    "effects": 1,
+    "settlements": 1
+  },
+  "sources_unchanged": true,
+  "service_stopped_after_acceptance": true
+}

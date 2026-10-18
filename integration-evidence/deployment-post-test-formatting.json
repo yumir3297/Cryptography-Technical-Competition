@@ -1,0 +1,87 @@
+{
+  "kind": "EOF-only cleanup after successful regression",
+  "tested_files_archived": "deployment-tested-sources.zip",
+  "changes": [
+    {
+      "path": "competition/application/local_runtime.py",
+      "before_sha256": "3d703ed68abfddfc625ccbf699b94e6a69eba9255315869d28879c05f2597b8a",
+      "after_sha256": "8a7ed6c49b39c9b87b7e918e0bff47611f744bb6f076fd945d77fec31efd9935",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": true
+    },
+    {
+      "path": "competition/deployment/README.md",
+      "before_sha256": "4e5215bb99a3a0b139b9b64f9a26a07f5aa4ebc9859d359d4d4ec09e6eb77388",
+      "after_sha256": "491245936d8ad6162d8035105c926c37f59257e19cf6bebe8a776dc8760f9352",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": null
+    },
+    {
+      "path": "competition/deployment/__init__.py",
+      "before_sha256": "b60d6a1edbb6354de0806e00a4b8fdce8c0c3ec576231fda5eb89ca9779af3b8",
+      "after_sha256": "b36baf23b6cffe4a7322ba868da0345f3cbbbfa39c46fbd82d5cdf85bc5c056c",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": true
+    },
+    {
+      "path": "competition/deployment/acceptance.py",
+      "before_sha256": "38c6857c94c6a569a4a1f37321035ccfaab2d91ce9689e3040544a1a564dd532",
+      "after_sha256": "3867a195dff6950933d86a6df5208d76200a378b54c309a207cb56f7b3ba72d3",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": true
+    },
+    {
+      "path": "competition/deployment/provision_demo.py",
+      "before_sha256": "6808de3419db89df32324f490f4dcfc93ee5c1dcaf4f216a8231bf0f33b726d5",
+      "after_sha256": "15e429e7df518299642f57271b3e85508312e9b3c1fa7a9e38653ba60bdf6a02",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": true
+    },
+    {
+      "path": "competition/deployment/tool_probe.py",
+      "before_sha256": "bff34013d00b2b1d7c75c94c0a9cee5be29091f33e65d24e18fe06dc78be673b",
+      "after_sha256": "5dc8d1b73934c007b323815027ea79265003f1cb16a11a7ce5a15c7521f80063",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": true
+    },
+    {
+      "path": "competition/docs/plans/2026-10-18-ind-local-deployment.md",
+      "before_sha256": "e774a0e858b1817d0f805a865f67139058c6d2d630bdee1fb747684ce43bc5b6",
+      "after_sha256": "f61602a9f473f0c7800b294b6a7a04cb6b9c49349fbf3105dd72c1bb81eef281",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": null
+    },
+    {
+      "path": "competition/run_industrial_local.sh",
+      "before_sha256": "7bc7bf78910192870acbddb39ab090a1c506491ba8dc46e56d518c53f124457c",
+      "after_sha256": "073293bac4820d1a6299d59d4482aa382d6c1d44734023e3baa8ba449d6de36e",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": null
+    },
+    {
+      "path": "competition/tests/test_deployment_review.py",
+      "before_sha256": "68e0c52745a9b89990285712cc6a0465038537ee34acae67d0893527a33d66db",
+      "after_sha256": "6459d5003d1978ebe44aee77d63ca3aa7099f22adb75310005a4b933e3155235",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": true
+    },
+    {
+      "path": "competition/tests/test_local_deployment.py",
+      "before_sha256": "18d55650c11c5233298f0976ab5d616ba930e21a850f27e9cf3b1a8e83e57199",
+      "after_sha256": "25a9e4e657faf13b7e697697919d78b04781682538776ead49fe65feae4f4f5e",
+      "removed_bytes": 1,
+      "only_EOF_newlines_removed": true,
+      "same_Python_AST": true
+    }
+  ],
+  "verification": "Only excess trailing LF bytes removed; Python AST unchanged. No behavior edit after the full208 run."
+}

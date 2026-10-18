@@ -1,0 +1,42 @@
+test_changed_tool_delivery_binding_is_rejected (competition.tests.test_local_deployment.LocalDeploymentTests.test_changed_tool_delivery_binding_is_rejected) ... ok
+test_missing_database_is_rejected_without_recreating_it (competition.tests.test_local_deployment.LocalDeploymentTests.test_missing_database_is_rejected_without_recreating_it) ... ok
+test_public_runtime_restarts_without_reading_participant_secrets (competition.tests.test_local_deployment.LocalDeploymentTests.test_public_runtime_restarts_without_reading_participant_secrets) ... ERROR
+test_remote_listen_and_unknown_config_fields_are_rejected (competition.tests.test_local_deployment.LocalDeploymentTests.test_remote_listen_and_unknown_config_fields_are_rejected) ... ok
+test_repeat_provision_never_overwrites_existing_installation (competition.tests.test_local_deployment.LocalDeploymentTests.test_repeat_provision_never_overwrites_existing_installation) ... ok
+test_world_readable_transport_token_is_rejected (competition.tests.test_local_deployment.LocalDeploymentTests.test_world_readable_transport_token_is_rejected) ... FAIL
+
+======================================================================
+ERROR: test_public_runtime_restarts_without_reading_participant_secrets (competition.tests.test_local_deployment.LocalDeploymentTests.test_public_runtime_restarts_without_reading_participant_secrets)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 34, in test_public_runtime_restarts_without_reading_participant_secrets
+    with open_runtime(self.config) as run:
+         ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "<LOCAL_PATH>", line 107, in open_runtime
+    cfg=inspect_config(config_path);state=Path(cfg['runtime_dir'])
+  File "<LOCAL_PATH>", line 59, in inspect_config
+    require(state.is_absolute() and state==path.parent/'runtime','DEPLOYMENT_PATH')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 43, in require
+    if not cond:raise ProtocolError(code)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+competition.support.wire.ProtocolError: DEPLOYMENT_PATH
+
+======================================================================
+FAIL: test_world_readable_transport_token_is_rejected (competition.tests.test_local_deployment.LocalDeploymentTests.test_world_readable_transport_token_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 52, in test_world_readable_transport_token_is_rejected
+    self.assertEqual(caught.exception.code,'DEPLOYMENT_PERMISSIONS')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'DEPLOYMENT_PATH' != 'DEPLOYMENT_PERMISSIONS'
+- DEPLOYMENT_PATH
++ DEPLOYMENT_PERMISSIONS
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 15.319s
+
+FAILED (failures=1, errors=1)
