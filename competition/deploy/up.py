@@ -344,13 +344,8 @@ def up_local(args):
         if page.is_dir():
             console_env['ZJJ_CONSOLE_DIST'] = str(page)
         children.append(spawn(['competition.console'], env, **console_env))
-        print('[3/4] 起两侧调用者，等它们把一遍流程走完', flush=True)
-        demo = [(side, spawn(['competition.deploy.demo'], env, capture=True,
-                             ZJJ_SIDE=side, ZJJ_NAME='caller-' + side.lower(),
-                             ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry,
-                             ZJJ_ENDPOINTS='http://127.0.0.1',
-                             ZJJ_HANDOFF=str(callers / 'demo-operation')))
-                for side in ('H', 'worker')]
+        print('[3/4] 起只读观察者。没有人替流程签字：受信端构造链时会停在', flush=True)
+        print('      角色端等人，等的是页面上的放行。', flush=True)
         observer = spawn(['competition.deploy.observer'], env, capture=True,
                          ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry)
         if DISPLAY.is_dir():
@@ -362,33 +357,34 @@ def up_local(args):
             print('展示页还没构建：cd competition/display && npm install && npm run build；'
                   '构建好再跑本命令，就能在 http://127.0.0.1:%d/ 看到。'
                   % args.viewer_port, flush=True)
-        watched = list(demo) + [(OBSERVER, observer)]
+
+        print('[4/4] 受信端此刻是挂住的，不是坏的。打开页面逐个同意：', flush=True)
+        print('      http://127.0.0.1:%d/console/' % page_port, flush=True)
         deadline = time.monotonic() + args.timeout
-        while any(child.poll() is None for _, child in watched) and time.monotonic() < deadline:
+        while time.monotonic() < deadline:
             for child in children:
                 if child.poll() not in (None, 0):
-                    print('基础设施进程提前退出了，演示跑不下去', file=sys.stderr, flush=True)
+                    print('基础设施进程提前退出了', file=sys.stderr, flush=True)
                     return 1
-            time.sleep(0.2)
-        print('[4/4] 结果', flush=True)
-        failed = False
-        for side, child in demo:
-            output = child.communicate(timeout=30)[0] or ''
-            print('--- caller-%s（退出码 %s）---' % (side.lower(), child.returncode), flush=True)
-            print(output.rstrip() or '(没有输出)', flush=True)
-            failed = failed or child.returncode != 0
-        print('--- caller-observer（退出码 %s）---' % observer.returncode, flush=True)
-        print((observer.communicate(timeout=30)[0] or '').rstrip() or '(没有输出)', flush=True)
-        if failed:
-            print('演示没有跑完。', file=sys.stderr, flush=True)
+            try:
+                urllib.request.urlopen(entry + '/healthz', timeout=3)
+                break
+            except Exception:
+                time.sleep(0.5)
+        else:
+            print('等了 %d 秒，受信端还没起来。' % args.timeout, file=sys.stderr, flush=True)
             return 1
-        print('演示跑完了。运行目录：%s' % root, flush=True)
-        print('受信端入口 %s；控制台页面 http://127.0.0.1:%d/console/（跑完演示即收摊）。'
-              % (entry, page_port), flush=True)
-        if not page.is_dir():
-            print('（页面还没构建：在 competition/console/frontend 里 '
-                  'npm install && npm run build。）', flush=True)
-        print('再跑一遍加 --fresh。', flush=True)
+
+        print('', flush=True)
+        print('受信端已经起来 —— 每个签名都是页面上的人放行的。', flush=True)
+        print('流程还没走：用页面上的步骤按钮走 H 与 worker 的九步。', flush=True)
+        print('页面 http://127.0.0.1:%d/console/；收摊按 Ctrl-C。运行目录：%s'
+              % (page_port, root), flush=True)
+        try:
+            while True:
+                time.sleep(1.0)
+        except KeyboardInterrupt:
+            print('收摊。', flush=True)
         return 0
     finally:
         for child in children:
