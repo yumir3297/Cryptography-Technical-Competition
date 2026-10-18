@@ -10,7 +10,7 @@
 import { computed, reactive, watch } from 'vue'
 
 import { consoleApi, DenyError } from './api'
-import type { ConsoleStatus, Scenario, Side, StepRecord } from './types'
+import type { ConsoleStatus, Pending, Scenario, Side, StepRecord } from './types'
 
 /** The steps the page offers each side.  Buttons, not authority. */
 export const HOLDER_STEPS = ['prepare', 'accept', 'status', 'audit'] as const
@@ -20,6 +20,7 @@ export interface ConsoleState {
   status: ConsoleStatus | null
   scenarios: Scenario[]
   profile: string
+  pending: Pending | null
   intent: Record<string, string>
   operationId: string
   view: Record<string, unknown> | null
@@ -34,6 +35,7 @@ export const state = reactive<ConsoleState>({
   status: null,
   scenarios: [],
   profile: '',
+  pending: null,
   intent: {},
   operationId: '',
   view: null,
@@ -48,6 +50,20 @@ export const state = reactive<ConsoleState>({
 export const currentIntents = computed(
   () => state.scenarios.find((entry) => entry.profile === state.profile)?.intents ?? [],
 )
+
+/** The roles of the scenario currently chosen, in the order the console lists
+ *  them: the two that drive steps first, then the four that sign inside the
+ *  chain.  The page keys its panels on the alias and shows the scenario's own
+ *  name beside it. */
+export const currentRoles = computed(
+  () => state.scenarios.find((entry) => entry.profile === state.profile)?.roles ?? [],
+)
+
+/** What is waiting on one role, from the last read.  A read, not a step: the
+ *  page shows it the same way it shows the roster. */
+export function todosFor(role: string) {
+  return (state.pending?.todos ?? []).filter((todo) => todo.role === role)
+}
 
 // A new scenario is a new operation's worth of fields: keep the ones the chosen
 // scenario takes and drop the rest, so a stale field cannot be submitted.
@@ -95,12 +111,14 @@ export const actions = {
     state.busy = true
     state.error = ''
     try {
-      const [status, scenarios] = await Promise.all([
+      const [status, scenarios, pending] = await Promise.all([
         consoleApi.status(),
         consoleApi.scenarios(),
+        consoleApi.pending(),
       ])
       state.status = status
       state.scenarios = scenarios.profiles
+      state.pending = pending
       // Keep the operator's choice across a refresh; on the first load pick the
       // console's own default profile, falling back to whatever it offers.
       if (!scenarios.profiles.some((entry) => entry.profile === state.profile)) {
@@ -114,6 +132,36 @@ export const actions = {
     } finally {
       state.busy = false
     }
+  },
+
+  async chooseScenario(profile: string): Promise<void> {
+    // The sidebar picks the scenario.  Switching is a read: the watch above
+    // resets the intent fields to the ones the newly chosen scenario takes, and
+    // what is waiting is re-read under that scenario.
+    state.profile = profile
+    state.view = null
+    await actions.refreshPending()
+  },
+
+  async refreshPending(): Promise<void> {
+    // A read of four endpoints rather than a step, so it is not recorded in the
+    // timeline, and a role that is not up yet -- or was started without a waiting
+    // room -- is simply not shown rather than reported as an error.
+    try {
+      state.pending = await consoleApi.pending()
+    } catch {
+      state.pending = null
+    }
+  },
+
+  async decide(role: string, id: string, approve: boolean): Promise<void> {
+    // A decision is a step, so it is recorded the way every other one is.  It
+    // travels to the role's own endpoint; this page carries a yes or a no and
+    // never a signature.
+    await guard(role, approve ? '同意' : '拒绝', () =>
+      consoleApi.decide(state.profile, role, id, approve),
+    )
+    await actions.refreshPending()
   },
 
   async submit(): Promise<void> {

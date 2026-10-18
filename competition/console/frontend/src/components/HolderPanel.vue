@@ -1,28 +1,26 @@
 <script setup lang="ts">
-import { intentLabel, scenarioLabel, stepLabel } from '../constants'
-import { HOLDER_STEPS, actions, currentIntents, state } from '../store'
+import { computed } from 'vue'
+
+import { intentLabel, roleLabel, stepLabel } from '../constants'
+import { HOLDER_STEPS, actions, currentIntents, currentRoles, state } from '../store'
+
+// The scenario's own name for this role (HOLDER in all three), read from the
+// console rather than kept here.
+const roleName = computed(
+  () => currentRoles.value.find((entry) => entry.alias === 'H')?.name ?? 'HOLDER',
+)
 </script>
 
 <template>
   <el-card shadow="never" class="panel">
     <template #header>
       <div class="card-head">
-        <span>提出方（H）</span>
-        <el-tag size="small" type="info">propose / read</el-tag>
+        <span>{{ roleLabel('H') }}</span>
+        <el-tag size="small" type="info">{{ roleName }}</el-tag>
       </div>
     </template>
 
     <el-form label-width="96px" label-position="left">
-      <el-form-item label="场景">
-        <el-select v-model="state.profile" style="width: 100%">
-          <el-option
-            v-for="item in state.scenarios"
-            :key="item.profile"
-            :label="scenarioLabel(item.profile)"
-            :value="item.profile"
-          />
-        </el-select>
-      </el-form-item>
       <el-form-item v-for="key in currentIntents" :key="key" :label="intentLabel(key)">
         <el-input v-model="state.intent[key]" :placeholder="key" clearable />
       </el-form-item>
@@ -54,6 +52,9 @@ import { HOLDER_STEPS, actions, currentIntents, state } from '../store'
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.panel {
+  height: 100%;
 }
 .actions {
   display: flex;

@@ -136,8 +136,9 @@ services:
       dockerfile: competition/deploy/Dockerfile
     command: python -m competition.agent
     depends_on:
+      # 同上：入口会在初始化时等那四个角色的签名，网关不能因它未健康而起不来。
       trusted:
-        condition: service_healthy
+        condition: service_started
     environment:
       ZJJ_ENTRY: http://trusted:8000
       ZJJ_ENDPOINTS: http://endpoints
@@ -208,7 +209,9 @@ services:
       dockerfile: competition/deploy/Dockerfile
     command: python -m competition.console
     depends_on:
-      trusted:
+      # 不依赖受信端：受信端会等那四个"链内签署"的角色，而这个页面正是人回答
+      # 它们的地方。依赖受信端健康会把两者锁死。页面要的是各角色端，不是入口。
+      endpoints:
         condition: service_healthy
     environment:
       ZJJ_CALLERS: /callers
@@ -283,8 +286,10 @@ services:
   caddy:
     image: caddy:2
     depends_on:
+      # 受信端可能还在等批准，而页面此刻已经有用：代理在容器起来时就起，不等
+      # 入口自报健康。人先要的是 /console/。
       trusted:
-        condition: service_healthy
+        condition: service_started
       console:
         condition: service_healthy
     ports:

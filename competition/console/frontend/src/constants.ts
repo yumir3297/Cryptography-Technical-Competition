@@ -52,3 +52,36 @@ export const INTENT_LABELS: Record<string, string> = {
 export function intentLabel(key: string): string {
   return INTENT_LABELS[key] ?? key
 }
+
+/** What each role is, in plain words.  This is only the purpose beside the
+ *  alias: the scenario's own name for the role (LINE_OPERATOR, FINANCE,
+ *  MEDICAL_AUTHORIZER, ...) comes from the console and is shown as it is. */
+export const ROLE_LABELS: Record<string, string> = {
+  H: '提出方',
+  worker: '执行方',
+  G: '签发方',
+  U: '批准人',
+  V: '复核人',
+  X: '效果端',
+}
+
+export const ROLE_DUTIES: Record<string, string> = {
+  H: '提交操作，逐步准备与接受',
+  worker: '领取、执行、查询、结算',
+  G: '签发 Permit',
+  U: '批准 EXECUTE',
+  V: '复核',
+  X: '应答挑战，签执行端回执',
+}
+
+export function roleLabel(alias: string): string {
+  return ROLE_LABELS[alias] ?? alias
+}
+
+export function roleDuty(alias: string): string {
+  return ROLE_DUTIES[alias] ?? ''
+}
+
+/** The roles that drive steps.  The rest sign inside the chain, so a page shows
+ *  them what is waiting rather than a button per step. */
+export const STEPPED_ROLES: readonly string[] = ['H', 'worker']

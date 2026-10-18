@@ -290,10 +290,16 @@ class Fleet:
     transport and no other rule changes.
     """
 
-    def __init__(self, entries, root, transport_for=None, base_url=None):
+    def __init__(self, entries, root, transport_for=None, base_url=None, timeout=None):
         self.entries = list(entries)
         self.root = Path(root)
         self.base_url = None if base_url is None else str(base_url).rstrip('/')
+        # How long one HTTP request to an endpoint may take.  ``None`` keeps
+        # ``HTTPTransport``'s own default, which is what every step's challenge
+        # wants: a network round trip.  A deployment whose chain signatures wait
+        # for a person sets minutes here instead, because what is being waited for
+        # is somebody opening a page.
+        self.timeout = timeout
         if transport_for is not None:
             self._transport_for = transport_for
         elif self.base_url is not None:
@@ -302,9 +308,9 @@ class Fleet:
             self._transport_for = self.socket_transport
 
     @classmethod
-    def read(cls, root, manifest, transport_for=None, base_url=None):
+    def read(cls, root, manifest, transport_for=None, base_url=None, timeout=None):
         """Read a manifest and the directory the endpoints wrote their keys into."""
-        return cls(read_manifest(manifest), root, transport_for, base_url)
+        return cls(read_manifest(manifest), root, transport_for, base_url, timeout)
 
     def find(self, role, profile=None):
         """The one endpoint with this role, and this profile unless it is the worker."""
@@ -322,7 +328,9 @@ class Fleet:
 
     def socket_transport(self, entry):
         """The endpoint's own signing socket, at the convention beside its key."""
-        return SocketTransport(self.socket_path(entry))
+        if self.timeout is None:
+            return SocketTransport(self.socket_path(entry))
+        return SocketTransport(self.socket_path(entry), timeout=self.timeout)
 
     def endpoint_url(self, entry):
         """Where that endpoint's HTTP face answers, from the one port rule."""
@@ -331,7 +339,9 @@ class Fleet:
 
     def http_transport(self, entry):
         """The endpoint's own HTTP face, at the port its roster place implies."""
-        return HTTPTransport(self.endpoint_url(entry))
+        if self.timeout is None:
+            return HTTPTransport(self.endpoint_url(entry))
+        return HTTPTransport(self.endpoint_url(entry), timeout=self.timeout)
 
     def transport_for(self, entry):
         return self._transport_for(entry)

@@ -26,12 +26,25 @@ from competition.deploy import serves
 from competition.profiles.w_seed import initialize
 from competition.server.roster import Fleet, read_manifest
 from competition.server.service import TrustedService
-from competition.support.wire import ProtocolError
+from competition.support.wire import ProtocolError, WINDOW
 from competition.web.app import serve
 from competition.web.session import Sessions, read_callers
 
+# How long one request to an endpoint may take here.  A step's challenge is a
+# network round trip and the transport's own default suits it, but the chain's
+# signatures wait for a person to open a page and answer -- so the side that
+# assembles the chain has to be willing to wait minutes, not seconds.
+#
+# It is deliberately longer than the endpoint's own waiting room
+# (``client.approval.DEFAULT_TIMEOUT``): when one of the two gives up first, it
+# should be the side holding the request, so that a person who is late gets told
+# "nobody answered" rather than a caller that quietly failed a chain.  Both are
+# fractions of the chain window (``support.wire.WINDOW``), and a fifth leaves
+# room for four sixth-sized waits plus assembly.
+CHAIN_TIMEOUT = WINDOW / 5
 
-def wait_for_manifest(path, base_url, timeout=600.0):
+
+def wait_for_manifest(path, base_url, timeout=600.0, sign_timeout=CHAIN_TIMEOUT):
     """The fleet, once every endpoint has published its line."""
     from competition.deploy import expected_manifest
     expected = expected_manifest()
@@ -42,7 +55,8 @@ def wait_for_manifest(path, base_url, timeout=600.0):
         except (ProtocolError, OSError):
             entries = []
         if len(entries) == expected:
-            return Fleet(entries, Path(path).parent, base_url=base_url)
+            return Fleet(entries, Path(path).parent, base_url=base_url,
+                         timeout=sign_timeout)
         time.sleep(0.2)
     raise SystemExit('no complete manifest at %s' % path)
 

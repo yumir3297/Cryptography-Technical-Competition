@@ -17,6 +17,8 @@ from pathlib import Path
 
 from competition.caller import key_file_name, record
 from competition.caller.flow import Caller
+from competition.core.trusted_state import ROLES
+from competition.server.roster import endpoint_port
 from competition.server.service import INTENT_FIELDS
 from competition.support.wire import ProtocolError, is_id, require
 
@@ -24,6 +26,16 @@ from competition.support.wire import ProtocolError, is_id, require
 # them: the same names the entry's caller list decides against.
 SIDES = ('H', 'worker')
 HOLDER, WORKER = 'H', 'worker'
+# Every role a flow needs, in the order a page shows them.  The two that drive
+# steps come first; the four that sign *inside* the assembled chain come after,
+# and they have no steps of their own -- what a page shows them is what waits.
+ROLE_ORDER = ('H', 'worker', 'G', 'U', 'V', 'X')
+# The roles whose signatures wait for a person: the ones a page does not drive
+# step by step.  These are the endpoints a page polls for what is waiting.
+WAITING_ROLES = ('G', 'U', 'V', 'X')
+# The worker is one capability rather than a scenario-bound role, so the trusted
+# side's role table has no name for it; this is the one it is shown under.
+WORKER_NAME = 'WORKER'
 # The profile a first run proposes.  A page may ask for another; the entry is what
 # decides whether a profile is real.
 DEFAULT_PROFILE = 'PAY-1'
@@ -113,15 +125,84 @@ class Console:
         return self._caller(HOLDER).package
 
     def scenarios(self):
-        """The scenarios the trusted side fixes, and the intent each one takes.
+        """The scenarios the trusted side fixes, what each takes, and its roles.
 
-        The field list is the trusted side's own ``INTENT_FIELDS``, read rather
-        than copied: a page builds its form from this instead of keeping a table
-        that could drift from what the entry will accept.  It is a description,
-        not an authority -- a profile the entry does not know is refused there.
+        The field list is the trusted side's own ``INTENT_FIELDS`` and the role
+        names are its own ``ROLES``, both read rather than copied: a page builds
+        its form and its role panels from this instead of keeping a table that
+        could drift.  It is a description, not an authority -- a profile the entry
+        does not know is refused there.
         """
-        return {'profiles': [{'profile': profile, 'intents': list(fields)}
+        return {'profiles': [{'profile': profile, 'intents': list(fields),
+                              'roles': self._roles(profile)}
                              for profile, fields in INTENT_FIELDS.items()]}
+
+    def _roles(self, profile):
+        """One scenario's roles, each as the alias a page keys on and its name."""
+        table = ROLES.get(profile, {})
+        out = []
+        for alias in ROLE_ORDER:
+            if alias == WORKER:
+                out.append({'alias': alias, 'name': WORKER_NAME})
+            elif alias in table:
+                out.append({'alias': alias, 'name': table[alias]})
+        return out
+
+    def pending(self, profile=None):
+        """What waits on the roles that sign inside the chain.
+
+        ``G``, ``U``, ``V`` and ``X`` have no step a page can drive: their
+        signatures are made while the chain is assembled, in one pass.  What the
+        page owes them is therefore a view -- what is waiting, and a yes or a no.
+
+        Each of those roles answers on its own port, so this is one direct read
+        per role, at the port the roster's own rule implies: no discovery, and no
+        trip through the entry -- which matters, because the entry is exactly what
+        is blocked while a chain waits for one of these answers.
+        """
+        profile = profile or self.profile
+        if self.endpoints is None:
+            return {'profile': profile, 'todos': []}
+        todos = []
+        for role in WAITING_ROLES:
+            for ticket in self._waiting(profile, role):
+                todos.append({'role': role, **ticket})
+        return {'profile': profile, 'todos': todos}
+
+    def _waiting(self, profile, role):
+        """The unanswered requests parked at one endpoint; empty if it is not there.
+
+        A role that is still starting, or one started without a waiting room, has
+        nothing to show -- which is not an error a page should report, so it is
+        read as "nothing waiting".
+        """
+        import httpx
+        url = '%s:%d/awaiting' % (self.endpoints, endpoint_port(profile, role))
+        try:
+            reply = httpx.get(url, timeout=2.0)
+            if reply.status_code != 200:
+                return []
+            parked = reply.json().get('tickets', [])
+        except (httpx.HTTPError, ValueError):
+            return []
+        return [ticket for ticket in parked if not ticket.get('answered')]
+
+    def decide(self, profile, role, ticket, approve):
+        """Answer one parked request, at the endpoint that parked it.
+
+        The answer is handed to the role's own endpoint, so the decision and the
+        signature stay in the same process: this carries a yes or a no, and never
+        a signature of its own.
+        """
+        import httpx
+        require(self.endpoints is not None, 'CONSOLE_ENDPOINTS')
+        require(role in WAITING_ROLES, 'CONSOLE_ROLE')
+        require(type(ticket) is str and ticket.isdigit(), 'CONSOLE_TICKET')
+        require(type(approve) is bool, 'CONSOLE_DECIDE')
+        url = '%s:%d/decide' % (self.endpoints, endpoint_port(profile, role))
+        reply = httpx.post(url, json={'id': ticket, 'approve': approve}, timeout=10.0)
+        require(reply.status_code == 200, 'CONSOLE_DECIDE')
+        return reply.json()
 
     def status(self):
         """What a page needs before it can act: the two sessions, no tokens."""

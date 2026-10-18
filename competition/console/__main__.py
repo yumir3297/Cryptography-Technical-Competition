@@ -1,11 +1,21 @@
 """Entry point: ``python -m competition.console``.
 
-Reads where the entry and the endpoints are, enrolls its two callers, waits for
-the entry to answer, and serves the page.  The two credentials are its own and
+Reads where the entry and the endpoints are, enrolls its two callers, serves the
+page, and opens the two sessions behind it.  The two credentials are its own and
 are never printed; the session tokens stay in the process.
+
+The page goes up *before* the sessions are opened, and that order is the point.
+Four of the six roles sign inside the chain that the entry assembles, and their
+endpoints park those signatures until a person answers -- so the entry can be
+blocked waiting on somebody who needs this page open to answer.  Serving first
+and opening the sessions behind it is what keeps the two from deadlocking.  What
+the page shows while it waits is read straight from those endpoints, not through
+the entry, so it works while the entry is blocked.
 """
 import argparse
 import os
+import sys
+import threading
 
 from competition.console.app import serve
 from competition.console.control import DEFAULT_PROFILE, START_TIMEOUT, Console
@@ -36,15 +46,28 @@ def build_parser():
     return parser
 
 
+def open_sessions(console):
+    """Open both sessions and say so.  A failure is reported, not raised.
+
+    This runs behind the page, so an entry that is not up yet -- or one that is
+    blocked on an approval -- must not take the page down with it.
+    """
+    try:
+        opened = console.start()
+    except Exception as exc:  # noqa: BLE001 - report whatever it was, keep serving
+        print('两个会话没能开：%s' % exc, file=sys.stderr, flush=True)
+        return
+    print('两个会话已开：%s' % ', '.join(
+        '%s=%s' % (entry['side'], entry.get('caller')) for entry in opened['sessions']),
+        flush=True)
+
+
 def main(argv=None):
     args = build_parser().parse_args(argv)
     console = Console(args.directory, args.entry, args.endpoints,
                       profile=args.profile, timeout=args.wait)
     print('两个调用者登记在 %s' % console.enroll(), flush=True)
-    opened = console.start()
-    print('两个会话已开：%s' % ', '.join(
-        '%s=%s' % (entry['side'], entry.get('caller')) for entry in opened['sessions']),
-        flush=True)
+    threading.Thread(target=open_sessions, args=(console,), daemon=True).start()
     print('控制台在 http://%s:%d%s/' % (args.host, args.port, '/console'), flush=True)
     serve(args.host, args.port, console, dist=args.dist)
     return 0

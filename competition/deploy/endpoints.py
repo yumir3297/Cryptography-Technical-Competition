@@ -32,6 +32,11 @@ from competition.server.roster import endpoint_port
 DIRECTORY = Path(os.environ.get('ZJJ_ENDPOINTS', '/endpoints'))
 HOST = os.environ.get('ZJJ_ENDPOINT_HOST', '0.0.0.0')
 MANIFEST = DIRECTORY / 'roster.jsonl'
+# The roles whose signatures are a person's decision rather than a step a page
+# drives.  Their endpoints park each request in the waiting room, so a page can
+# show what is being asked and take a yes or a no.  The two roles a page drives
+# step by step are left alone: a person already pressed their button.
+APPROVAL_ROLES = frozenset({'G', 'U', 'V', 'X'})
 
 
 def announce(profile, role):
@@ -49,6 +54,8 @@ def serve_argv(profile, role):
     argv = [sys.executable, '-m', 'competition.client', '--directory', str(DIRECTORY)]
     if profile is not None:
         argv += ['--profile', profile]
+    if role in APPROVAL_ROLES:
+        argv += ['--await-approval']
     return argv + ['--alias', role, '--serve-http', '--host', HOST,
                    '--port', str(endpoint_port(profile, role))]
 

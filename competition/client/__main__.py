@@ -16,7 +16,10 @@ default
 ``--serve-http``
     answer the same requests over HTTP instead of a byte stream.  ``--port``
     defaults to the deterministic port this endpoint's place in the roster
-    implies, so nothing has to be published or discovered.
+    implies, so nothing has to be published or discovered.  ``--await-approval``
+    parks each request until a person answers it, for the roles whose signature
+    is a decision rather than a step: ``GET /awaiting`` shows what is parked and
+    ``POST /decide`` answers it.
 
 The key is never named on the command line: it comes from the conventional file
 ``<directory>/<profile>-<alias>.key`` (``W-worker.key`` for ``worker``,
@@ -64,6 +67,9 @@ def build_parser():
     parser.add_argument('--host', default='127.0.0.1', help='--serve-http 时监听地址')
     parser.add_argument('--port', type=int, default=None,
                         help='--serve-http 时监听端口（默认按 roster 位置推出的那个）')
+    parser.add_argument('--await-approval', action='store_true',
+                        help='--serve-http 时签名前先等人确认：请求停在待批里，'
+                             'GET /awaiting 看，POST /decide 放行')
     return parser
 
 
@@ -99,12 +105,15 @@ def main(argv=None):
         require(args.profile is not None or args.alias == 'worker', 'CLIENT_USAGE')
         require(not (args.serve_http and args.socket), 'CLIENT_USAGE')
         require(args.port is None or 0 < args.port < 65536, 'CLIENT_USAGE')
+        require(not args.await_approval or args.serve_http, 'CLIENT_USAGE')
         signer = RoleSigner.from_directory(args.directory, args.profile, args.alias)
         if args.serve_http:
+            from competition.client.approval import WaitingRoom
             from competition.client.web import serve_http
             from competition.server.roster import endpoint_port
             port = args.port or endpoint_port(args.profile, args.alias)
-            serve_http(args.host, port, signer, name=args.name)
+            approval = WaitingRoom() if args.await_approval else None
+            serve_http(args.host, port, signer, name=args.name, approval=approval)
         elif args.socket is not None:
             require(args.serve, 'CLIENT_USAGE')
             serve_unix(args.socket, signer)

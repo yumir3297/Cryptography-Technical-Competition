@@ -214,21 +214,25 @@ class OrchestrationTests(unittest.TestCase):
     def calls(self):
         return self.log.read_text(encoding='utf-8').splitlines() if self.log.exists() else []
 
-    def test_a_good_run_starts_the_stack_and_watches_the_flow(self):
+    def test_a_good_run_starts_the_stack_and_leaves_the_flow_to_a_person(self):
         self.assertEqual(self.run_up(), 0)
         calls = self.calls()
         self.assertTrue(any(call.endswith('build') for call in calls))
         self.assertTrue(any('up -d' in call for call in calls))
-        for service in up.AGENT_DEMO:
-            self.assertTrue(any('ps --all -q %s' % service in call for call in calls))
-            self.assertTrue(any('logs --no-log-prefix %s' % service in call for call in calls))
-        self.assertTrue(any('ps --all -q %s' % up.OBSERVER in call for call in calls))
-        self.assertTrue(any('logs --no-log-prefix %s' % up.OBSERVER in call for call in calls))
+        for service in ('console', 'viewer', 'agent-gateway', 'agent-executor'):
+            self.assertTrue(
+                any(service in call and 'up -d' in call for call in calls), service)
+        # No scripted end-to-end any more: the four roles that sign inside the
+        # chain are released by a person on the page, so nothing is waited on.
+        # The only container it asks after is the entry, and only to see whether
+        # it exited; the flow itself is not watched.
+        asked = [call for call in calls if 'ps --all -q' in call]
+        self.assertTrue(all('trusted' in call for call in asked), asked)
 
-    def test_the_core_demo_can_run_without_the_agent_gateway(self):
+    def test_the_core_services_can_run_without_the_agent_gateway(self):
         self.assertEqual(self.run_up('--no-zjj'), 0)
         calls = self.calls()
-        self.assertTrue(any('ps --all -q %s' % up.CORE_DEMO[0] in call for call in calls))
+        self.assertTrue(any('caller-h' in call and 'up -d' in call for call in calls))
         self.assertFalse([call for call in calls if 'agent-gateway' in call
                           or 'demo-agent' in call])
 

@@ -36,14 +36,14 @@ from competition.deploy import expected_manifest
 ROOT = Path(__file__).resolve().parents[2]
 COMPOSE = Path(__file__).resolve().parent / 'docker-compose.yml'
 # The services that walk the agent flow: the gateway is served, the operator and
-# executor stay up, and the scripted client proves one operation end to end.
+# executor stay up.
 AGENT_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'viewer', 'caller-observer',
-                  'agent-gateway', 'agent-operator', 'agent-executor', 'demo-agent')
-AGENT_DEMO = ('demo-agent',)
-# The original core demo, kept for --no-zjj and --local.
+                  'agent-gateway', 'agent-operator', 'agent-executor')
+# The original core services, kept for --no-zjj and --local.  ``caller-h`` and
+# ``caller-worker`` still walk their two sides, but they stop where a person has
+# to answer, so they stop there.
 CORE_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'viewer', 'caller-observer',
                  'caller-h', 'caller-worker')
-CORE_DEMO = ('caller-h', 'caller-worker')
 # The watcher that reads the observation face.  It drives no step, so its run is
 # shown for its output and never counted against the demo.
 OBSERVER = 'caller-observer'
@@ -267,34 +267,35 @@ def up_docker(args):
         print('== 构建镜像', flush=True)
         compose(['build'], args.sudo)
     services = list(CORE_SERVICES if args.no_zjj else AGENT_SERVICES)
-    demo = list(CORE_DEMO if args.no_zjj else AGENT_DEMO)
     print('== 起服务（%s）' % ' '.join(services), flush=True)
     compose(['up', '-d', *services], args.sudo)
     if not args.no_deepseek:
         print('== 起 DeepSeek Harness', flush=True)
         start_harness(args)
-    print('== 等演示跑完（最多 %ds）' % args.timeout, flush=True)
-    codes = {service: wait_for_service(service, args.sudo, args.timeout) for service in demo}
-    wait_for_service(OBSERVER, args.sudo, args.timeout)
-    print('== 结果', flush=True)
-    for service in (*demo, OBSERVER):
-        show(service, args.sudo)
-    if any(codes[service] != 0 for service in demo):
-        for service in ('trusted', 'endpoints', 'agent-gateway'):
-            show(service, args.sudo)
-        print('演示没有跑完：%s' % codes, file=sys.stderr, flush=True)
-        print('若受信端是说 run 目录里已有 W，那是初始化只能发生一次：'
-              '要重新跑一遍演示就加 --fresh。', file=sys.stderr, flush=True)
+    # The entry stops and waits: four of the six roles sign inside the chain it
+    # assembles, and their endpoints park those signatures until a person
+    # answers.  So running-but-not-healthy is the normal state here, and a failed
+    # health check says nothing.  What matters is whether it *exited* -- and the
+    # usual reason for that is a run directory that already holds a W, because
+    # initialization happens once.
+    code = wait_for_service('trusted', args.sudo, 5.0)
+    if code is not None and code != 0:
+        show('trusted', args.sudo)
+        print('受信端退出了（%s）。若它说 run 目录里已有 W，那是初始化只能发生一次：'
+              '要重新开始就加 --fresh。' % code, file=sys.stderr, flush=True)
         return 1
+    print('== 服务都起来了', flush=True)
+    show('trusted', args.sudo)
     if args.no_zjj:
-        print('演示跑完了。客户端控制台在 http://127.0.0.1:8080/console/，'
-              '受信端入口在 http://127.0.0.1:8080/healthz；再跑一遍加 --fresh。', flush=True)
+        print('客户端控制台在 http://127.0.0.1:8080/console/，'
+              '受信端入口在 http://127.0.0.1:8080/healthz。', flush=True)
     else:
-        print('演示跑完了。agent 网关在 http://127.0.0.1:8090/healthz（只对宿主回环）；'
-              '客户端控制台在 http://127.0.0.1:8080/console/；'
-              'DeepSeek Harness 在 http://127.0.0.1:%d/；再跑一遍加 --fresh。'
-              % HARNESS_PORT, flush=True)
-    print('展示页在 http://127.0.0.1:%d/。' % VIEWER_PORT, flush=True)
+        print('客户端控制台在 http://127.0.0.1:8080/console/；'
+              'agent 网关在 http://127.0.0.1:8090/healthz（只对宿主回环）；'
+              'DeepSeek Harness 在 http://127.0.0.1:%d/。' % HARNESS_PORT, flush=True)
+    print('显示页在 http://127.0.0.1:%d/。' % VIEWER_PORT, flush=True)
+    print('受信端初始化要等那四个链内角色（G/U/V/X）点头，所以它会停在那儿；'
+          '打开控制台，待办会自己出现，逐个点完它就往下走。', flush=True)
     if args.down:
         print('== 收摊', flush=True)
         compose(['down', '-v'], args.sudo)

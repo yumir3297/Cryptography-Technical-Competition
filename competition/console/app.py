@@ -73,11 +73,31 @@ def make_app(console, *, dist=None):
     def status():
         return console.status()
 
-    # The scenarios the entry fixes, and what each one takes. Descriptive only;
-    # the entry is still what decides whether a profile is real.
+    # The scenarios the entry fixes, what each one takes, and which roles it
+    # needs.  Descriptive only; the entry is still what decides whether a profile
+    # is real.
     @app.get(PREFIX + '/api/scenarios')
     def scenarios():
         return console.scenarios()
+
+    # What waits on the roles that sign inside the chain.  Reading it changes
+    # nothing and drives nothing -- the same kind of read the roster is.  It goes
+    # to those roles' own endpoints, not through the entry, because the entry is
+    # what is blocked while one of them waits for an answer.
+    @app.get(PREFIX + '/api/pending')
+    def pending(profile: str = ''):
+        return console.pending(profile or None)
+
+    # The answer to one waiting request.  A yes or a no travels to the role's own
+    # endpoint, which is where the decision and the signature both live.
+    @app.post(PREFIX + '/api/decide')
+    async def decide(request: Request):
+        try:
+            body = await _json(request, ('profile', 'role', 'id', 'approve'))
+            return await run_in_threadpool(console.decide, body['profile'],
+                                           body['role'], body['id'], body['approve'])
+        except ProtocolError as exc:
+            return _deny(exc.code)
 
     @app.get(PREFIX + '/api/package')
     def package():

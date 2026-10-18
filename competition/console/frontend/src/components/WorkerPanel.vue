@@ -1,14 +1,22 @@
 <script setup lang="ts">
-import { stepLabel } from '../constants'
-import { WORKER_STEPS, actions, state } from '../store'
+import { computed } from 'vue'
+
+import { roleLabel, stepLabel } from '../constants'
+import { WORKER_STEPS, actions, currentRoles, state } from '../store'
+
+// The worker is one capability rather than a scenario-bound role, so the name
+// beside it comes from the console's own role row.
+const roleName = computed(
+  () => currentRoles.value.find((entry) => entry.alias === 'worker')?.name ?? 'WORKER',
+)
 </script>
 
 <template>
   <el-card shadow="never" class="panel">
     <template #header>
       <div class="card-head">
-        <span>执行方（worker）</span>
-        <el-tag size="small" type="warning">claim / execute / settle</el-tag>
+        <span>{{ roleLabel('worker') }}</span>
+        <el-tag size="small" type="warning">{{ roleName }}</el-tag>
       </div>
     </template>
 
@@ -38,6 +46,9 @@ import { WORKER_STEPS, actions, state } from '../store'
 </template>
 
 <style scoped>
+.panel {
+  height: 100%;
+}
 .card-head {
   display: flex;
   align-items: center;
