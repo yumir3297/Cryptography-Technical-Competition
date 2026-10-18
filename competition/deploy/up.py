@@ -268,6 +268,12 @@ def up_docker(args):
         compose(['build'], args.sudo)
     services = list(CORE_SERVICES if args.no_zjj else AGENT_SERVICES)
     print('== 起服务（%s）' % ' '.join(services), flush=True)
+    if 'trusted' in services:
+        # The entry will stop and wait on a person while it assembles the chain,
+        # and the agent side waits for it.  Say where the page is before that
+        # wait, because this command will not return until somebody answers.
+        print('   受信端会停在页面上等人：http://127.0.0.1:8080/console/',
+              flush=True)
     compose(['up', '-d', *services], args.sudo)
     if not args.no_deepseek:
         print('== 起 DeepSeek Harness', flush=True)

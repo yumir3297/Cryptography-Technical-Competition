@@ -141,9 +141,12 @@ services:
       dockerfile: competition/deploy/Dockerfile
     command: python -m competition.agent
     depends_on:
-      # 同上：入口会在初始化时等那四个角色的签名，网关不能因它未健康而起不来。
+      # The entry serves only after the chain's four signing roles have been
+      # answered on the page.  The gateway opens a session against it, so it
+      # waits for it rather than starting into a session it cannot open.  The
+      # entry's start period makes that wait read as "starting", not as failure.
       trusted:
-        condition: service_started
+        condition: service_healthy
     environment:
       ZJJ_ENTRY: http://trusted:8000
       ZJJ_ENDPOINTS: http://endpoints
