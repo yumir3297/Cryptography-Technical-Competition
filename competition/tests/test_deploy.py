@@ -218,6 +218,8 @@ class OrchestrationTests(unittest.TestCase):
         for service in up.DEMO:
             self.assertTrue(any('ps --all -q %s' % service in call for call in calls))
             self.assertTrue(any('logs --no-log-prefix %s' % service in call for call in calls))
+        self.assertTrue(any('ps --all -q %s' % up.OBSERVER in call for call in calls))
+        self.assertTrue(any('logs --no-log-prefix %s' % up.OBSERVER in call for call in calls))
 
     def test_it_leaves_the_stack_up_unless_asked_to_stop(self):
         self.run_up()

@@ -261,6 +261,13 @@ class ObserveFaceTests(unittest.TestCase):
         self.assertIn('"kind": "STEP_PROVED"', lines[1])
         self.assertEqual(lines[2], '')
 
+    # -- the deployment watcher reads the same live stream ------------------
+    def test_the_deployment_watcher_reads_the_live_stream(self):
+        from types import SimpleNamespace
+        from competition.deploy import observer
+        steps = observer.watch(SimpleNamespace(token=self.observer), self.face.base, until=10.0)
+        self.assertGreater(steps, 0)
+
     # -- the entry side is best-effort --------------------------------------
     def test_entry_publish_never_raises(self):
         feed = ObservationFeed('/nonexistent-directory-xyz/observe.sqlite')

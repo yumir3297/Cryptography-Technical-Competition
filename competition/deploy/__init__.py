@@ -9,6 +9,9 @@
 ``caller_h`` / ``caller_worker``
     the two sides of the flow, each with a credential of its own
     (:mod:`competition.deploy.demo`).
+``caller_observer``
+    the watcher: an observer caller that reads the read-only observation face and
+    prints each step without driving any (:mod:`competition.deploy.observer`).
 ``caddy``
     the one external door.
 

@@ -35,6 +35,9 @@ ROOT = Path(__file__).resolve().parents[2]
 COMPOSE = Path(__file__).resolve().parent / 'docker-compose.yml'
 # The two services that walk the flow; the rest stay up and serve.
 DEMO = ('caller-h', 'caller-worker')
+# The watcher that reads the observation face.  It drives no step, so its run is
+# shown for its output and never counted against the demo.
+OBSERVER = 'caller-observer'
 
 # DeepSeek Harness is not part of the competition software and nothing of it is
 # delivered here.  It is the agent workbench this machine is worked from, and it is
@@ -196,8 +199,9 @@ def up_docker(args):
         start_harness(args)
     print('== 等两侧把演示跑完（最多 %ds）' % args.timeout, flush=True)
     codes = {service: wait_for_service(service, args.sudo, args.timeout) for service in DEMO}
+    wait_for_service(OBSERVER, args.sudo, args.timeout)
     print('== 结果', flush=True)
-    for service in DEMO:
+    for service in (*DEMO, OBSERVER):
         show(service, args.sudo)
     if any(codes[service] != 0 for service in DEMO):
         for service in ('trusted', 'endpoints'):
@@ -236,6 +240,7 @@ def up_local(args):
     env = {**os.environ, 'PYTHONPATH': str(ROOT), 'PYTHONUNBUFFERED': '1'}
     entry = 'http://127.0.0.1:%d' % args.port
     children = []
+    observer = None
     try:
         print('[2/4] 起各角色端与受信端（它们自己的日志就在下面）', flush=True)
         children.append(spawn(['competition.deploy.endpoints'], env,
@@ -252,8 +257,11 @@ def up_local(args):
                              ZJJ_ENDPOINTS='http://127.0.0.1',
                              ZJJ_HANDOFF=str(callers / 'demo-operation')))
                 for side in ('H', 'worker')]
+        observer = spawn(['competition.deploy.observer'], env, capture=True,
+                         ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry)
+        watched = list(demo) + [(OBSERVER, observer)]
         deadline = time.monotonic() + args.timeout
-        while any(child.poll() is None for _, child in demo) and time.monotonic() < deadline:
+        while any(child.poll() is None for _, child in watched) and time.monotonic() < deadline:
             for child in children:
                 if child.poll() not in (None, 0):
                     print('基础设施进程提前退出了，演示跑不下去', file=sys.stderr, flush=True)
@@ -266,6 +274,8 @@ def up_local(args):
             print('--- caller-%s（退出码 %s）---' % (side.lower(), child.returncode), flush=True)
             print(output.rstrip() or '(没有输出)', flush=True)
             failed = failed or child.returncode != 0
+        print('--- caller-observer（退出码 %s）---' % observer.returncode, flush=True)
+        print((observer.communicate(timeout=30)[0] or '').rstrip() or '(没有输出)', flush=True)
         if failed:
             print('演示没有跑完。', file=sys.stderr, flush=True)
             return 1
@@ -277,11 +287,18 @@ def up_local(args):
         for child in children:
             if child.poll() is None:
                 child.terminate()
+        if observer is not None and observer.poll() is None:
+            observer.terminate()
         for child in children:
             try:
                 child.wait(timeout=15)
             except subprocess.TimeoutExpired:
                 child.kill()
+        if observer is not None and observer.poll() is None:
+            try:
+                observer.wait(timeout=15)
+            except subprocess.TimeoutExpired:
+                observer.kill()
 
 
 def main(argv=None):

@@ -5,6 +5,7 @@
 #   endpoints      各角色端：19 个签名进程，各一把钥、各一个端口（9100-9118）
 #   caller-h       流程提出方那一侧
 #   caller-worker  流程执行方那一侧
+#   caller-observer 只读观看者：订阅观察面，打印每一步，不驱动任何一步
 #
 # 用法（一键，起完并看两侧把一遍流程跑完；顺带把 DeepSeek Harness 也起来）：
 #   python -m competition.deploy.up              # 用 docker
@@ -112,6 +113,22 @@ services:
       ZJJ_ENDPOINTS: http://endpoints
       ZJJ_CALLERS: /callers
       ZJJ_HANDOFF: /callers/demo-operation
+    volumes:
+      - zjj-callers:/callers
+    restart: "no"
+
+  caller-observer:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.observer
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_NAME: caller-observer
+      ZJJ_ENTRY: http://caddy
+      ZJJ_CALLERS: /callers
     volumes:
       - zjj-callers:/callers
     restart: "no"
