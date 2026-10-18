@@ -341,7 +341,10 @@ def up_docker(args):
     print('== 起服务（%s）' % ' '.join(services), flush=True)
     if 'trusted' in services:
         print('   控制台：http://127.0.0.1:8080/console/', flush=True)
-    compose(['up', '-d', *services], args.sudo)
+    # Not checked: a service that fails its gate makes ``up`` exit non-zero, and
+    # the usual one -- the entry refusing to open a run directory that already
+    # holds a W -- is better reported by the check below, which knows why.
+    compose(['up', '-d', *services], args.sudo, check=False)
     if not args.no_deepseek:
         print('== 起 DeepSeek Harness', flush=True)
         start_harness(args)
@@ -354,8 +357,9 @@ def up_docker(args):
     code = wait_for_service('trusted', args.sudo, 5.0)
     if code is not None and code != 0:
         show('trusted', args.sudo)
-        print('受信端退出了（%s）。若它说 run 目录里已有 W，那是初始化只能发生一次：'
-              '要重新开始就加 --fresh。' % code, file=sys.stderr, flush=True)
+        print('受信端退出了（%s）。最常见的原因是 run 卷里已经有上一次初始化好的 W：'
+              '初始化只能发生一次，重来要加 --fresh（它会丢掉演示卷，agent 的会话卷保留）。'
+              % code, file=sys.stderr, flush=True)
         return 1
     print('== 服务都起来了', flush=True)
     show('trusted', args.sudo)
