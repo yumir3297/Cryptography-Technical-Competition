@@ -51,17 +51,26 @@ CLAIM_FIELDS = frozenset({'caller', 'kid', 'nonce', 'iat', 'exp', 'domain'})
 def read_callers(path):
     """Read the entry's caller allowlist: who may open a session, and for what.
 
-    The key id is re-derived from the public key rather than read from the file,
+    One caller per line, exactly as ``--keygen`` prints it, so a deployment
+    collects the list the same way it collects the endpoint roster:
+    ``>> callers.jsonl`` and no merge step.
+
+    The key id is re-derived from the public key rather than read from the line,
     and the sides must be names this repository actually has -- the same "the
     holder proposes, the table decides" rule the endpoint roster is held to.
     """
-    try:
-        value = json.loads(Path(path).read_text(encoding='utf-8'))
-    except (OSError, UnicodeError, json.JSONDecodeError):
-        raise ProtocolError('SESSION_CALLERS')
-    require(type(value) is list and value, 'SESSION_CALLERS')
     callers, names = {}, set()
-    for entry in value:
+    try:
+        lines = Path(path).read_text(encoding='utf-8').splitlines()
+    except (OSError, UnicodeError):
+        raise ProtocolError('SESSION_CALLERS')
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            entry = json.loads(line)
+        except json.JSONDecodeError:
+            raise ProtocolError('SESSION_CALLERS')
         require(type(entry) is dict and set(entry) == CALLER_FIELDS, 'SESSION_CALLERS')
         require(is_id(entry['name']) and entry['name'] not in names, 'SESSION_CALLERS')
         pub = raw(entry['public_key'], 32)
@@ -74,6 +83,7 @@ def read_callers(path):
         callers[kid] = {'name': entry['name'], 'pub': pub, 'kid': kid,
                         'sides': tuple(sortset(sides))}
         names.add(entry['name'])
+    require(callers, 'SESSION_CALLERS')
     return callers
 
 

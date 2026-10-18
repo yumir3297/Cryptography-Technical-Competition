@@ -59,8 +59,8 @@ def make_callers(folder, specs):
         key = Ed25519PrivateKey.generate()
         keys[name] = key
         entries.append({'name': name, 'public_key': b64(public_of(key)), 'sides': list(sides)})
-    path = folder / 'callers.json'
-    path.write_text(json.dumps(entries), encoding='utf-8')
+    path = folder / 'callers.jsonl'
+    path.write_text(''.join(json.dumps(entry) + '\n' for entry in entries), encoding='utf-8')
     return path, keys
 
 
@@ -76,7 +76,7 @@ class CallerListTests(unittest.TestCase):
     def setUp(self):
         self.folder = tempfile.TemporaryDirectory(dir=TEMP_ROOT)
         self.addCleanup(self.folder.cleanup)
-        self.path = Path(self.folder.name) / 'callers.json'
+        self.path = Path(self.folder.name) / 'callers.jsonl'
 
     def entry(self, **overrides):
         entry = {'name': 'caller-h', 'public_key': b64(public_of(Ed25519PrivateKey.generate())),
@@ -84,43 +84,54 @@ class CallerListTests(unittest.TestCase):
         entry.update(overrides)
         return entry
 
+    def write(self, value):
+        """The list as a deployment writes it: one caller per line."""
+        if isinstance(value, list):
+            text = ''.join(json.dumps(entry) + '\n' for entry in value)
+        else:
+            text = json.dumps(value) + '\n'
+        self.path.write_text(text, encoding='utf-8')
+        return self.path
+
     def code(self, value):
-        self.path.write_text(json.dumps(value), encoding='utf-8')
+        self.write(value)
         with self.assertRaises(ProtocolError) as caught:
             read_callers(self.path)
         return caught.exception.code
 
     def test_a_valid_list_is_read_with_the_kid_re_derived(self):
         entry = self.entry()
-        callers = read_callers(self._write([entry]))
-        self.assertEqual(list(callers), [keyid(raw(entry['public_key'], 32))])
-        self.assertEqual(callers[keyid(raw(entry['public_key'], 32))]['name'], 'caller-h')
-        self.assertEqual(callers[keyid(raw(entry['public_key'], 32))]['sides'], ('H',))
-        self.assertEqual(set(callers[keyid(raw(entry['public_key'], 32))]),
-                         {'name', 'pub', 'kid', 'sides'})
+        kid = keyid(raw(entry['public_key'], 32))
+        callers = read_callers(self.write([entry]))
+        self.assertEqual(list(callers), [kid])
+        self.assertEqual(callers[kid]['name'], 'caller-h')
+        self.assertEqual(callers[kid]['sides'], ('H',))
+        self.assertEqual(set(callers[kid]), {'name', 'pub', 'kid', 'sides'})
 
-    def _write(self, value):
-        self.path.write_text(json.dumps(value), encoding='utf-8')
-        return self.path
+    def test_blank_lines_are_skipped_like_the_roster_manifest(self):
+        entry = self.entry()
+        self.path.write_text('\n' + json.dumps(entry) + '\n\n', encoding='utf-8')
+        self.assertEqual(len(read_callers(self.path)), 1)
 
-    def test_the_key_id_is_never_read_from_the_file(self):
+    def test_the_key_id_is_never_read_from_the_line(self):
         # A self-reported id is not an input: only the public key is, and the id
         # follows from it exactly as it does for an endpoint's manifest line.
         self.assertEqual(self.code([self.entry(kid='not-a-real-kid')]), 'SESSION_CALLERS')
 
     def test_malformed_lists_are_refused(self):
-        cases = (([], 'SESSION_CALLERS'),
-                 ({'name': 'x'}, 'SESSION_CALLERS'),
-                 ([self.entry(sides=[])], 'SESSION_SIDES'),
-                 ([self.entry(sides=['H', 'H'])], 'SESSION_SIDES'),
-                 ([self.entry(sides=['C'])], 'SESSION_SIDES'),
-                 ([self.entry(name='a b')], 'SESSION_CALLERS'),
-                 ([self.entry(), self.entry()], 'SESSION_CALLERS'),
-                 ([self.entry(public_key=b64(bytes(32)))], 'PUBLIC_KEY_POINT'))
+        cases = ([], 'SESSION_CALLERS'), ({'name': 'x'}, 'SESSION_CALLERS')
         for value, code in cases:
             with self.subTest(code=code):
                 self.assertEqual(self.code(value), code)
-        self.path.write_text('not json', encoding='utf-8')
+        for entries, code in (([self.entry(sides=[])], 'SESSION_SIDES'),
+                              ([self.entry(sides=['H', 'H'])], 'SESSION_SIDES'),
+                              ([self.entry(sides=['C'])], 'SESSION_SIDES'),
+                              ([self.entry(name='a b')], 'SESSION_CALLERS'),
+                              ([self.entry(), self.entry()], 'SESSION_CALLERS'),
+                              ([self.entry(public_key=b64(bytes(32)))], 'PUBLIC_KEY_POINT')):
+            with self.subTest(code=code):
+                self.assertEqual(self.code(entries), code)
+        self.path.write_text('not json\n', encoding='utf-8')
         with self.assertRaises(ProtocolError) as caught:
             read_callers(self.path)
         self.assertEqual(caught.exception.code, 'SESSION_CALLERS')

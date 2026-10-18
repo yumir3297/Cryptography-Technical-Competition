@@ -95,10 +95,11 @@ def split_message(data):
 
 
 def load_role_key(path):
-    """Load one role's Ed25519 key, refusing anything its own uid does not own as 0600.
+    """Load one credential -- an endpoint's role key or a caller's session key.
 
-    A role credential is a process credential: a file another user can read, or
-    one this process does not own, is not a key this process may use.
+    Refuses anything its own uid does not own as 0600: a credential is a process
+    credential, so a file another user can read, or one this process does not own,
+    is not a key this process may use.
     """
     require(os.name == 'posix', 'LINUX_ONLY')
     path = Path(path)

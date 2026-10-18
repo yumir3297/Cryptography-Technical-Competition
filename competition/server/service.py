@@ -162,6 +162,16 @@ class TrustedService:
         """Whole-W summary counters (no caller authentication)."""
         return self.facade.counts()
 
+    def profile_of(self, operation_id):
+        """The profile this operation was submitted under.
+
+        A step's signing endpoint is addressed by ``(profile, role)``, so a caller
+        that is handed an operation id rather than a profile still has to learn
+        which profile it belongs to -- and the entry, not the caller, is what
+        knows.
+        """
+        return self._entry(operation_id)['profile']
+
     def _entry(self, operation_id):
         require(operation_id in self._entries, 'OPERATION_UNKNOWN')
         return self._entries[operation_id]

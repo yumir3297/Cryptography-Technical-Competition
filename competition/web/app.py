@@ -117,9 +117,13 @@ def make_app(service, sessions):
             claim = service.challenge(body['operation_id'], body['step'])
             # The step's own signing role and domain travel back with the claim, so
             # a caller knows which endpoint to ask without keeping its own copy of
-            # the table, and cannot mistake one for another.
+            # the table, and cannot mistake one for another.  The profile comes
+            # from the operation the entry holds, so a caller handed an id it did
+            # not create still knows where the endpoint is.
             return JSONResponse(content={'operation_id': body['operation_id'],
-                                         'step': body['step'], 'claim': claim,
+                                         'step': body['step'],
+                                         'profile': service.profile_of(body['operation_id']),
+                                         'claim': claim,
                                          'role': _side(body['step']),
                                          'domain': STEPS[body['step']][3]})
         except ProtocolError as exc:
