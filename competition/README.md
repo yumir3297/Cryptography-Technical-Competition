@@ -1,5 +1,7 @@
 # 比赛软件开发入口
 
+当前 IND 简化提案、受控 ID、短期证明更新、HTTP/MCP 与本机部署的完整交付见[开发接手入口（四项说明与实验证据）](docs/final/ind-complete-delivery-20261018.md)。它替代 PR #3 的待集成版本；PAY/MED 保留原完整 Action 入口。
+
 先读[共同协议](docs/final/competition-protocol.md)及[比赛开发总交接](docs/final/scenario-integration-handoff.md)，接线时使用[真实内部接口对照](docs/final/interface-reference.md)。CommonW 是工业、付款、医疗共用的接受、领取、执行、恢复与结算入口。
 
 当前比赛说明为 `CORE-SPEC-1.3`；[优化复检](docs/final/optimization-review-20261012.md)说明阶段分类、原观测/认证视图和 EXEC 消费边界。应用包装与诊断是开发接线约定，不由此页推定已经有公开服务。

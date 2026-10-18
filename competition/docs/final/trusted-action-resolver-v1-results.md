@@ -1,5 +1,7 @@
 # Trusted Action Resolver V1：验证记录
 
+> 历史阶段记录：以下验证与“未推送”状态按当时保留。当前完整交付、替代关系与最新验证请从[统一交付入口](ind-complete-delivery-20261018.md)阅读。
+
 基线：`competition/zjj-core-final-20261010`，`cc4e36b4e302fcdc53cc809a012c77d8464182af`。本轮应用库、测试和文档均为新增文件。原 350 个受版本控制文件逐字节一致，见 [原文件完整性](../../evidence/trusted-action-resolver-v1-20261017/original-files-integrity.json)。
 
 ## 当前验证范围
@@ -47,19 +49,19 @@ CLOCK_UNKNOWN 的当次原因未定位；没有修改原时间测试或放松核
 
 ## 复现命令与环境
 
-实际工作目录为 `/private/tmp/zjj-interface-feasibility-20261017`；测试使用 Python 3.14.7、cryptography 50.0.2、jsonschema 4.26.0。清除宿主预设 PYTHONHOME 后运行。CI 使用 Python 3.13，结果以 GitHub 实际检查为准。
+实际工作目录为 `<LOCAL_PATH> Python 3.14.7、cryptography 50.0.2、jsonschema 4.26.0。清除宿主预设 PYTHONHOME 后运行。CI 使用 Python 3.13，结果以 GitHub 实际检查为准。
 
 ```sh
-cd /private/tmp/zjj-interface-feasibility-20261017
+cd <LOCAL_PATH>
 # 最终完整回归；测试过程中原始 stdout/stderr 都写入同一个日志。
-env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest discover -s competition/tests -v > /private/tmp/zjj-resolver-feature-evidence-20261017/full-regression-release.log 2>&1
+env -u PYTHONHOME <LOCAL_PATH> -m unittest discover -s competition/tests -v > <LOCAL_PATH> 2>&1
 # 当前状态边界及原失败时间用例的单独复测。
-env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m unittest competition.tests.test_action_resolver.ActionResolverTests.test_new_requests_use_W_current_state_while_cached_request_stays_frozen competition.tests.test_time_acceptance.IndustrialTimeAcceptance.test_signer_failure_preserves_acceptance_and_blocks_claim -v > /private/tmp/zjj-resolver-feature-evidence-20261017/current-state-green.log 2>&1
+env -u PYTHONHOME <LOCAL_PATH> -m unittest competition.tests.test_action_resolver.ActionResolverTests.test_new_requests_use_W_current_state_while_cached_request_stays_frozen competition.tests.test_time_acceptance.IndustrialTimeAcceptance.test_signer_failure_preserves_acceptance_and_blocks_claim -v > <LOCAL_PATH> 2>&1
 # 下列脚本可能写生成报告，请在临时检出中执行并单独保存新报告。
-env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python system_dev/v26/tools/verify_contracts.py > /private/tmp/zjj-resolver-feature-evidence-20261017/contracts.log 2>&1
-env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python competition/docs/final/verify-existing-evidence.py > /private/tmp/zjj-resolver-feature-evidence-20261017/existing-evidence.log 2>&1
+env -u PYTHONHOME <LOCAL_PATH> system_dev/v26/tools/verify_contracts.py > <LOCAL_PATH> 2>&1
+env -u PYTHONHOME <LOCAL_PATH> competition/docs/final/verify-existing-evidence.py > <LOCAL_PATH> 2>&1
 # 只读范围、导入、链接与历史证据检查。
-env -u PYTHONHOME /private/tmp/zjj-interface-py314-20261017/bin/python -m competition.verify_repository --report /private/tmp/zjj-resolver-feature-evidence-20261017/repository-check.json
+env -u PYTHONHOME <LOCAL_PATH> -m competition.verify_repository --report <LOCAL_PATH>
 ```
 
 其他机器：从本功能分支临时检出、安装 requirements.txt 后，使用自身 Python 路径替换以上解释器和临时路径。只跑新增库可用 `python -m unittest competition.tests.test_action_resolver -v`。测试文件和 [test-only fixture](../../tests/resolver_fixtures.py) 随本分支交付；fixture 不得部署成 Agent 自动签署服务。

@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "<LOCAL_PATH>", line 232, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "<LOCAL_PATH>", line 230, in main
+    print(json.dumps(accept(args.config,args.evidence)),flush=True)
+                     ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 95, in accept
+    row=call('propose',{'proposal':proposal,'auth':proposal_auth(proposal)})
+  File "<LOCAL_PATH>", line 70, in call
+    require(status==200 and result.get('ok') is True,'ACCEPTANCE_CALL_FAILED')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 43, in require
+    if not cond:raise ProtocolError(code)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+competition.support.wire.ProtocolError: ACCEPTANCE_CALL_FAILED

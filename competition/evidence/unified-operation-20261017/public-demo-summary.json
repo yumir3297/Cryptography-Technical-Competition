@@ -1,0 +1,13 @@
+{
+  "kind": "sanitized_experiment_result",
+  "original_sha256": "9dfb857354dacd317946fa8ef2af06dc91f184299510354b53ae00f743f5dbe1",
+  "source_bundle_published": false,
+  "omitted": [
+    "local paths/configuration",
+    "identity roster/certificates",
+    "signed temporary authentication packets",
+    "full ledger projections"
+  ],
+  "scope": "Summary of the original local run; not a signed bundle and not independently re-auditable without regenerating the experiment.",
+  "result_record": "public-demo-verification.json"
+}

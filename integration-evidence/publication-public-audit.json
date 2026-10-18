@@ -1,0 +1,17 @@
+{
+  "positive": {
+    "passed": true,
+    "participant_and_receipt_signatures": 15,
+    "root_signed_tool_certificate": true,
+    "signed_final_and_checkpoint": true,
+    "same_commit_core_permit_and_attempt": true,
+    "exported_W_settlement_matches_tool_fact": true,
+    "evidence_sha256": "c87a7ff3c529eabde77b13ee70b15217fd1d60afbe89759469b8afdf7f0982d1",
+    "scope": "Bundled synthetic root/roster, signed evidence and exported W projection; no private-state access, current authorization, independent identity or physical effect claim"
+  },
+  "negative_controls": {
+    "receipt_signature": "rejected",
+    "effect_count": "rejected",
+    "settlement_fact": "rejected"
+  }
+}

@@ -1,0 +1,76 @@
+test_missing_C_sequence_never_recreated (__main__.DeploymentReviewTests.test_missing_C_sequence_never_recreated) ... FAIL
+test_missing_W_acceptance_ledger_never_recreated (__main__.DeploymentReviewTests.test_missing_W_acceptance_ledger_never_recreated) ... /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py:361: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x1097d32e0>
+  obj, end = self.scan_once(s, idx)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+FAIL
+test_missing_request_mapping_never_recreated (__main__.DeploymentReviewTests.test_missing_request_mapping_never_recreated) ... FAIL
+test_missing_tool_request_ledger_never_recreated (__main__.DeploymentReviewTests.test_missing_tool_request_ledger_never_recreated) ... /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py:361: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x1098d6020>
+  obj, end = self.scan_once(s, idx)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+FAIL
+test_wrong_tool_private_key_is_rejected_before_serving (__main__.DeploymentReviewTests.test_wrong_tool_private_key_is_rejected_before_serving) ... <attrs generated methods referencing._core.Resource>:30: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x1098d7010>
+  _setattr = _cached_setattr_get(self)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+FAIL
+
+======================================================================
+FAIL: test_missing_C_sequence_never_recreated (__main__.DeploymentReviewTests.test_missing_C_sequence_never_recreated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 43, in test_missing_C_sequence_never_recreated
+    self.missing_table('c-clock.sqlite','source_sequence')
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 30, in missing_table
+    with self.assertRaises(ProtocolError) as caught:
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+======================================================================
+FAIL: test_missing_W_acceptance_ledger_never_recreated (__main__.DeploymentReviewTests.test_missing_W_acceptance_ledger_never_recreated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 40, in test_missing_W_acceptance_ledger_never_recreated
+    self.missing_table('auth-w.sqlite','w_operation')
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 30, in missing_table
+    with self.assertRaises(ProtocolError) as caught:
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+======================================================================
+FAIL: test_missing_request_mapping_never_recreated (__main__.DeploymentReviewTests.test_missing_request_mapping_never_recreated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 37, in test_missing_request_mapping_never_recreated
+    self.missing_table('auth-w.sqlite','app_request')
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 30, in missing_table
+    with self.assertRaises(ProtocolError) as caught:
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+======================================================================
+FAIL: test_missing_tool_request_ledger_never_recreated (__main__.DeploymentReviewTests.test_missing_tool_request_ledger_never_recreated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 46, in test_missing_tool_request_ledger_never_recreated
+    self.missing_table('IND-DEMO-1-tool.sqlite','tool_requests')
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_PATH>", line 30, in missing_table
+    with self.assertRaises(ProtocolError) as caught:
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+======================================================================
+FAIL: test_wrong_tool_private_key_is_rejected_before_serving (__main__.DeploymentReviewTests.test_wrong_tool_private_key_is_rejected_before_serving)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<LOCAL_PATH>", line 24, in test_wrong_tool_private_key_is_rejected_before_serving
+    with self.assertRaises(ProtocolError) as caught:
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ProtocolError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 22.627s
+
+FAILED (failures=5)

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "participant_and_receipt_signatures": 15,
+  "root_signed_tool_certificate": true,
+  "signed_final_and_checkpoint": true,
+  "same_commit_core_permit_and_attempt": true,
+  "W_settlement_matches_tool_fact": true,
+  "evidence_sha256": "006cb4d12ab038af63f60bb335f1a09fad11131b4b7df0b28b95958a4a1825fe",
+  "scope": "Exported local synthetic root/roster and current owned W row; no independent real-world identity or physical effect claim"
+}

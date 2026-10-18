@@ -1,0 +1,17 @@
+test_missing_C_sequence_never_recreated (competition.tests.test_deployment_review.DeploymentReviewTests.test_missing_C_sequence_never_recreated) ... ok
+test_missing_W_acceptance_ledger_never_recreated (competition.tests.test_deployment_review.DeploymentReviewTests.test_missing_W_acceptance_ledger_never_recreated) ... ok
+test_missing_request_mapping_never_recreated (competition.tests.test_deployment_review.DeploymentReviewTests.test_missing_request_mapping_never_recreated) ... ok
+test_missing_tool_request_ledger_never_recreated (competition.tests.test_deployment_review.DeploymentReviewTests.test_missing_tool_request_ledger_never_recreated) ... ok
+test_wrong_tool_private_key_is_rejected_before_serving (competition.tests.test_deployment_review.DeploymentReviewTests.test_wrong_tool_private_key_is_rejected_before_serving) ... ok
+test_changed_tool_delivery_binding_is_rejected (competition.tests.test_local_deployment.LocalDeploymentTests.test_changed_tool_delivery_binding_is_rejected) ... ok
+test_missing_database_is_rejected_without_recreating_it (competition.tests.test_local_deployment.LocalDeploymentTests.test_missing_database_is_rejected_without_recreating_it) ... ok
+test_public_runtime_restarts_without_reading_participant_secrets (competition.tests.test_local_deployment.LocalDeploymentTests.test_public_runtime_restarts_without_reading_participant_secrets) ... ok
+test_remote_listen_and_unknown_config_fields_are_rejected (competition.tests.test_local_deployment.LocalDeploymentTests.test_remote_listen_and_unknown_config_fields_are_rejected) ... ok
+test_repeat_provision_never_overwrites_existing_installation (competition.tests.test_local_deployment.LocalDeploymentTests.test_repeat_provision_never_overwrites_existing_installation) ... ok
+test_world_readable_transport_token_is_rejected (competition.tests.test_local_deployment.LocalDeploymentTests.test_world_readable_transport_token_is_rejected) ... ok
+test_wrong_receipt_signer_key_is_rejected_before_serving (competition.tests.test_local_deployment.LocalDeploymentTests.test_wrong_receipt_signer_key_is_rejected_before_serving) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 36.131s
+
+OK

@@ -1,0 +1,16 @@
+{
+  "tests": 196,
+  "failures": 0,
+  "errors": 0,
+  "successful": true,
+  "observations": [
+    {
+      "kind": "CLOCK_SAMPLE_ERROR",
+      "test": "test_time_acceptance.IndustrialTimeAcceptance.test_clock_unavailable_cannot_accept",
+      "code": "CLOCK_UNKNOWN",
+      "redacted_samples": true
+    }
+  ],
+  "sources_unchanged": true,
+  "guard_semantics_modified": false
+}

@@ -1,0 +1,45 @@
+{
+  "error": "ACCEPTANCE_CALL_FAILED",
+  "message": "ACCEPTANCE_CALL_FAILED",
+  "checks_completed": [
+    {
+      "check": "actual_loopback_service_started",
+      "passed": true,
+      "details": {
+        "redacted_pid": true,
+        "redacted_url": true,
+        "profile": "IND-DEMO-1",
+        "task_id": "2Znk6E9IT6IUSOyxBOJbOw",
+        "redacted_clock_pid": true,
+        "redacted_receipt_pid": true
+      }
+    },
+    {
+      "check": "second_host_refused",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "transport_authentication_and_private_method_refused",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "http_transcript": [
+    {
+      "method": "status_challenge",
+      "http": 403,
+      "error": "TRANSPORT_AUTH_REQUIRED"
+    },
+    {
+      "method": "complete_receipt",
+      "http": 400,
+      "error": "METHOD_NOT_ALLOWED"
+    },
+    {
+      "method": "propose",
+      "http": 422,
+      "error": "EXPIRED"
+    }
+  ]
+}

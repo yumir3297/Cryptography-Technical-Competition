@@ -1,0 +1,13 @@
+{
+  "cause": "E source attestation expired before candidate request; no window modified",
+  "source_iat": "1792288359",
+  "source_exp": "1792288479",
+  "failure_file_wall_time": "1792288699",
+  "http_error": "EXPIRED",
+  "counts": {
+    "app_request": 0,
+    "w_operation": 0,
+    "w_outbox": 0,
+    "w_settlement": 0
+  }
+}

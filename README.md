@@ -1,5 +1,7 @@
 # ZJJ-CORE 安全协议与比赛模拟软件
 
+IND 统一优化交付：[如何解决、其他影响、补全方案、实验代码与结果](competition/docs/final/ind-complete-delivery-20261018.md)。
+
 本仓库用于密码学技术竞赛的软件开发与演示。agent 提出动作，独立的受信验证、必要批准和执行约束决定动作能否产生模拟效果。工业、付款、医疗共用接受与执行核心。
 
 - [共同安全协议](competition/docs/final/competition-protocol.md)

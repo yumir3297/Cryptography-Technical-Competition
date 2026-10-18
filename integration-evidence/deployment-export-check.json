@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checked_files": 83,
+  "matched_private_contents": 0,
+  "final_source_hashes_match": true,
+  "final_live_source_hashes_match": true,
+  "service_ready_file_absent": true,
+  "runtime_directory_mode": "0o700",
+  "scope": "Actual generated private key bytes/hex/base64 and tokens scanned against public evidence/source patch. Private directories excluded from export."
+}

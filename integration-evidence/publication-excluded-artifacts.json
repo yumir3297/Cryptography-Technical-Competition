@@ -1,0 +1,7 @@
+{
+  "excluded": "deployment-tested-sources.zip",
+  "sha256": "d97a202195c08e8ee726149b83531a7249f0c26fe3f495940b0fba2bd76f561b",
+  "reason": "Historical source archive contains two local workspace path entry names. Automatic approval rejected archive upload; retained only in original local delivery.",
+  "private_material_scan": "No generated key/token matches; the rejected archive is still excluded.",
+  "replacement": "Current Git Python sources directly passed all 208 publication tests; historical source-before hashes and EOF-only change record remain public."
+}
