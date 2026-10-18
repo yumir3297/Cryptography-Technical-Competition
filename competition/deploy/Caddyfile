@@ -1,0 +1,23 @@
+# 唯一对外入口。受信端只在网络内部监听，要访问它就走这里；各角色端不对外。
+{
+	admin off
+}
+
+:80 {
+	handle /api/* {
+		reverse_proxy trusted:8000
+	}
+	handle /session {
+		reverse_proxy trusted:8000
+	}
+	handle /session/* {
+		reverse_proxy trusted:8000
+	}
+	handle /healthz {
+		reverse_proxy trusted:8000
+	}
+	# 界面属于后续软件开发，这里先只说明这个门后面是什么。
+	handle {
+		respond "ZJJ-CORE trusted entry: /api/*" 200
+	}
+}

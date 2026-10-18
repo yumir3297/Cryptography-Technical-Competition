@@ -33,7 +33,7 @@ from competition.server.roster import ALIASES, endpoint_port
 from competition.server.service import TrustedService
 from competition.server.signer import LocalSigner
 from competition.support.wire import ProtocolError, b64, canonical, require
-from competition.tests.endpoint_face import Face, free_port
+from competition.tests.helpers import Face, free_port
 from competition.web.app import make_app as entry_app
 from competition.web.session import Sessions, read_callers
 

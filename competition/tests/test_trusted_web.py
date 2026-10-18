@@ -25,9 +25,6 @@ import time
 import unittest
 from pathlib import Path
 
-from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
-
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.w_seed import initialize
 from competition.server.export import forbidden_secrets
@@ -36,7 +33,7 @@ from competition.server.signer import LocalSigner
 from competition.support.wire import (
     ProtocolError, b64, canonical, keyid, raw, strict_verify,
 )
-from competition.tests.endpoint_face import Face, body
+from competition.tests.helpers import Face, body, caller_of, make_callers, public_of
 from competition.web.app import make_app
 from competition.web.session import (
     CHALLENGE_TTL, SESSION_DOMAIN, SESSION_TTL, Sessions, read_callers,
@@ -44,30 +41,6 @@ from competition.web.session import (
 
 TEMP_ROOT = Path(__file__).resolve().parents[3] / 'tmp'
 TEMP_ROOT.mkdir(exist_ok=True)
-
-
-def public_of(key):
-    return key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
-
-
-def make_callers(folder, specs):
-    """Write one caller credential per spec and the list that names them."""
-    folder = Path(folder)
-    folder.mkdir(parents=True, exist_ok=True)
-    entries, keys = [], {}
-    for name, sides in specs:
-        key = Ed25519PrivateKey.generate()
-        keys[name] = key
-        entries.append({'name': name, 'public_key': b64(public_of(key)), 'sides': list(sides)})
-    path = folder / 'callers.jsonl'
-    path.write_text(''.join(json.dumps(entry) + '\n' for entry in entries), encoding='utf-8')
-    return path, keys
-
-
-def caller_of(key):
-    """One caller key, with the one thing it does: answer its own session."""
-    return {'kid': keyid(public_of(key)),
-            'sign': lambda claim: b64(key.sign(canonical([SESSION_DOMAIN, claim])))}
 
 
 class CallerListTests(unittest.TestCase):

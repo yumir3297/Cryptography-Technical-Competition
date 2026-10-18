@@ -90,11 +90,29 @@ def read_callers(path):
 class Sessions:
     """One entry's pending challenges and live tokens, over its caller list."""
 
-    def __init__(self, callers, *, now=time.time):
+    def __init__(self, callers, *, now=time.time, source=None):
         self.callers = dict(callers)
+        self.source = source
         self.now = now
         self._pending = {}
         self._tokens = {}
+
+    def _known(self, kid):
+        """The caller that holds ``kid``, re-reading the list when it is not there.
+
+        The list is deployment configuration, and a deployment can add a caller to
+        it while it runs -- the same way the roster can enroll a subject later.  It
+        is read again only when a key is unknown, so it costs one small file read
+        on a request that was going to be refused anyway, and it means the entry
+        never has to wait for its callers before it serves.
+        """
+        if kid in self.callers or self.source is None:
+            return self.callers.get(kid)
+        try:
+            self.callers = read_callers(self.source)
+        except ProtocolError:
+            return None
+        return self.callers.get(kid)
 
     def _prune(self, at):
         """Drop what has already expired, so neither table grows without bound.
@@ -117,8 +135,9 @@ class Sessions:
         """
         at = int(self.now())
         self._prune(at)
-        require(kid in self.callers, 'SESSION_CALLER')
-        claim = {'caller': self.callers[kid]['name'], 'kid': kid,
+        caller = self._known(kid)
+        require(caller is not None, 'SESSION_CALLER')
+        claim = {'caller': caller['name'], 'kid': kid,
                  'nonce': b64(os.urandom(32)), 'domain': SESSION_DOMAIN,
                  'iat': str(at), 'exp': str(at + CHALLENGE_TTL)}
         self._pending[claim['nonce']] = claim
@@ -137,7 +156,7 @@ class Sessions:
         pending = self._pending.pop(claim.get('nonce'), None)
         require(pending is not None and claim == pending, 'SESSION_CHALLENGE')
         require(at < int(claim['exp']), 'SESSION_EXPIRED')
-        caller = self.callers.get(claim['kid'])
+        caller = self._known(claim['kid'])
         require(caller is not None, 'SESSION_CALLER')
         strict_verify(caller['pub'], raw(signature, 64), canonical([SESSION_DOMAIN, claim]))
         token = b64(os.urandom(32))

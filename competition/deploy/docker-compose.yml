@@ -1,0 +1,125 @@
+# 单机模拟部署：一台机器，五个服务，一条对外入口。
+#
+#   caddy          唯一对外入口（宿主 8080 → caddy:80）
+#   trusted        受信端：W + 入口（会话、submit/challenge/prove、公开包）
+#   endpoints      各角色端：19 个签名进程，各一把钥、各一个端口（9100-9118）
+#   caller-h       流程提出方那一侧
+#   caller-worker  流程执行方那一侧
+#
+# 用法：
+#   docker compose -f competition/deploy/docker-compose.yml up --build
+#
+# 卷，以及为什么受信端读得到端的钥文件：
+#   zjj-run        受信端的运行目录（C.key、W-delivery.key、账库、工具配置）
+#   zjj-endpoints  各端自生成的钥 + roster.jsonl；受信端**只读**挂载
+#   zjj-callers    各调用者自生成的钥 + callers.jsonl；受信端**只读**挂载
+#
+#   X 回执子进程与工具子进程是从本机文件读凭据的（core/common_receipt.py、
+#   tools/common_tool.py），所以那两个文件必须在受信端读得到。仓库把这里的进程
+#   分离定义为「职责约束和故障复现」而不是权限隔离，并把受信 OS/文件管理者排除在
+#   攻击者之外（docs/final/security-boundaries.md、developer-scope-notes.md N-01）。
+#   这个部署就按那个水平做，不额外叠加设施。
+#
+# 一处已知边界：受信端每次启动都要求一个**全新的** run 目录（initialize 拒绝覆盖
+#   已有的 W），而"重开一个已初始化的 run"这个接口还没有做。所以 trusted 容器重启
+#   会明确报错退出，而不是悄悄重来。要重跑一次演示，用 `down -v` 丢掉演示卷重新
+#   开始；正在运行的 W 其账库不能靠清库来"解决"。
+services:
+  endpoints:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.endpoints
+    environment:
+      ZJJ_ENDPOINTS: /endpoints
+      ZJJ_ENDPOINT_HOST: 0.0.0.0
+    volumes:
+      - zjj-endpoints:/endpoints
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; from competition.server.roster import read_manifest; sys.exit(0 if len(read_manifest('/endpoints/roster.jsonl')) == 22 else 1)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    restart: "no"
+
+  trusted:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.trusted
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_RUN: /run
+      ZJJ_ENDPOINTS: /endpoints
+      ZJJ_CALLERS: /callers/callers.jsonl
+      ZJJ_ENDPOINT_BASE: http://endpoints
+      ZJJ_ENTRY_HOST: 0.0.0.0
+      ZJJ_ENTRY_PORT: "8000"
+    volumes:
+      - zjj-run:/run
+      - zjj-endpoints:/endpoints:ro
+      - zjj-callers:/callers:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    restart: "no"
+
+  caller-h:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.demo
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_SIDE: H
+      ZJJ_NAME: caller-h
+      ZJJ_PROFILE: PAY-1
+      ZJJ_ENTRY: http://caddy
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers
+      ZJJ_HANDOFF: /callers/demo-operation
+    volumes:
+      - zjj-callers:/callers
+    restart: "no"
+
+  caller-worker:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.demo
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_SIDE: worker
+      ZJJ_NAME: caller-worker
+      ZJJ_PROFILE: PAY-1
+      ZJJ_ENTRY: http://caddy
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers
+      ZJJ_HANDOFF: /callers/demo-operation
+    volumes:
+      - zjj-callers:/callers
+    restart: "no"
+
+  caddy:
+    image: caddy:2
+    depends_on:
+      trusted:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    restart: "no"
+
+volumes:
+  zjj-run:
+  zjj-endpoints:
+  zjj-callers:

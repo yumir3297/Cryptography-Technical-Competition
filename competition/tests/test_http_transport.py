@@ -36,7 +36,7 @@ from competition.server.service import TrustedService
 from competition.server.signer import LocalSigner
 from competition.support.artifact import signed_messages_valid
 from competition.support.wire import ProtocolError, canonical, raw, strict_verify
-from competition.tests.endpoint_face import Face, free_port
+from competition.tests.helpers import Face, free_port
 
 TEMP_ROOT = Path(__file__).resolve().parents[3] / 'tmp'
 TEMP_ROOT.mkdir(exist_ok=True)

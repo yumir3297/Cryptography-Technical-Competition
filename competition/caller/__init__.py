@@ -26,6 +26,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
 from competition.client.keys import write_key
+from competition.client.signer import load_role_key
 from competition.support.wire import b64, is_id, require, sortset
 from competition.web.session import SIDES
 
@@ -51,6 +52,28 @@ def generate(folder, name, sides):
     folder.mkdir(parents=True, exist_ok=True)
     key = Ed25519PrivateKey.generate()
     write_key(folder / key_file_name(name), key)
-    return {'name': name,
-            'public_key': b64(key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)),
-            'sides': sortset(sides)}
+    return line(folder, name, sides, key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw))
+
+
+def announce(folder, name, sides):
+    """Make this caller's key if it has none, and return the line the list carries.
+
+    Idempotent on purpose: a deployment restarts its containers, and a restart has
+    to find the same credential rather than a second one.  An existing credential
+    is read back and announced from the key itself, so the line and the key cannot
+    drift apart.
+    """
+    path = Path(folder) / key_file_name(name)
+    if not path.exists():
+        return generate(folder, name, sides)
+    key = load_role_key(path)
+    return line(folder, name, sides, key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw))
+
+
+def line(folder, name, sides, public):
+    """One public allowlist line: no private half, and no self-reported key id."""
+    require(is_id(name), 'CALLER_NAME')
+    require(type(sides) is list and sides and len(set(sides)) == len(sides)
+            and set(sides) <= set(SIDES), 'SESSION_SIDES')
+    require(type(public) is bytes and len(public) == 32, 'CLIENT_KEY_FORMAT')
+    return {'name': name, 'public_key': b64(public), 'sides': sortset(sides)}

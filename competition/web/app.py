@@ -32,7 +32,6 @@ from fastapi.responses import JSONResponse
 from competition.server.roster import DENY_STATUS
 from competition.server.service import STEPS, TrustedService
 from competition.support.wire import ProtocolError, require
-from competition.web.session import Sessions
 
 # One body here is a business intent or a step's proof: small, and bounded anyway.
 MAX_BODY = 1 << 16
@@ -152,8 +151,13 @@ def make_app(service, sessions):
     return app
 
 
-def serve(host, port, service, callers):
-    """Serve the trusted entry until the process is stopped."""
+def serve(host, port, service, sessions):
+    """Serve the trusted entry until the process is stopped.
+
+    Takes the sessions it should use rather than a caller list, because a
+    deployment starts its entry and its callers at the same time and the entry
+    must not have to wait for them.
+    """
     import uvicorn
-    uvicorn.run(make_app(service, Sessions(callers)), host=host, port=port,
+    uvicorn.run(make_app(service, sessions), host=host, port=port,
                 log_level='warning', access_log=False)

@@ -35,7 +35,7 @@ from competition.profiles.w_seed import initialize
 from competition.server.package import public_package
 from competition.server.roster import ALIASES, HTTP_PORT_BASE, endpoint_port
 from competition.support.wire import ProtocolError, b64, canonical, keyid, raw, strict_verify
-from competition.tests.endpoint_face import Face, body, free_port
+from competition.tests.helpers import Face, body, free_port
 
 TEMP_ROOT = Path(__file__).resolve().parents[3] / 'tmp'
 TEMP_ROOT.mkdir(exist_ok=True)
