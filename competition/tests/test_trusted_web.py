@@ -25,6 +25,8 @@ import time
 import unittest
 from pathlib import Path
 
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.w_seed import initialize
 from competition.server.export import forbidden_secrets
