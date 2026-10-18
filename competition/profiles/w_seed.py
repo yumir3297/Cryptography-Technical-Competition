@@ -127,8 +127,15 @@ class WRun:
         return op
 
 
-def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
-    """Create one fresh authenticated three-profile W and three tool ledgers."""
+def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kwargs):
+    """Create one fresh authenticated three-profile W and three tool ledgers.
+
+    With no ``fleet`` the controlled bootstrap makes every key and keeps it: the
+    local fallback, unchanged.  With a ``fleet`` the endpoints made the keys and
+    published only the public halves, so nothing is generated for them here and no
+    role, worker or tool key file is written.  ``W-delivery.key`` is generated
+    either way -- the delivery key is W's own, and W is the trusted side.
+    """
     from competition.core.common_w import CommonW
     from competition.core.common_receipt import CommonReceiptSigner
     from competition.tools.common_tool import create_tool_database, ledger_head, ToolGateway
@@ -136,7 +143,10 @@ def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
     folder = Path(folder).resolve()
     require(resource_capacity is None or (type(resource_capacity) is dict and
             set(resource_capacity) <= set(PROFILE_SCOPES)), 'RESOURCE_SCOPE')
+    require(fleet is None or 'roster' not in authorization_kwargs, 'INIT_FLEET')
     resource_capacity = {} if resource_capacity is None else resource_capacity
+    if fleet is not None:
+        authorization_kwargs['roster'] = fleet.roster()
     names = ['W-worker.key', 'W-delivery.key'] + [profile + suffix for profile in PROFILE_SCOPES
                               for suffix in ('-tool.key', '-tool.sqlite', '-tool.json')]
     if (folder / 'auth-w.sqlite').exists() or any((folder / name).exists() for name in names):
@@ -144,8 +154,15 @@ def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
     base = initialize_authorization(folder, **authorization_kwargs)
     x_signers = {}
     try:
-        worker = Ed25519PrivateKey.generate(); worker_public = _public(worker)
-        _write_key(folder / 'W-worker.key', worker)
+        if fleet is None:
+            # Local fallback (default path): the bootstrap makes the worker key too.
+            worker = Ed25519PrivateKey.generate(); worker_public = _public(worker)
+            _write_key(folder / 'W-worker.key', worker)
+        else:
+            # External mode: the worker endpoint owns the key; only the public and
+            # the way to reach it cross over.
+            worker_entry = fleet.worker()
+            worker = fleet.remote_key(worker_entry); worker_public = worker_entry.pub
         delivery = Ed25519PrivateKey.generate(); delivery_public = _public(delivery)
         _write_key(folder / 'W-delivery.key', delivery)
         now = int(time.time()); exp = now + 1800
@@ -159,9 +176,19 @@ def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
         tools, gateways, tool_keys, configs = {}, {}, {}, {}
         controller = Controller(base.root)
         for profile, op in base.operations.items():
-            tool_key = Ed25519PrivateKey.generate(); public = _public(tool_key)
-            key_path = folder / (profile + '-tool.key')
-            _write_key(key_path, tool_key)
+            if fleet is None:
+                tool_key = Ed25519PrivateKey.generate(); public = _public(tool_key)
+                key_path = folder / (profile + '-tool.key')
+                _write_key(key_path, tool_key)
+                x_key_path = folder / (profile + '-X.key')
+            else:
+                # The tool process and the X receipt child each read their own
+                # credential from their own endpoint directory; the trusted side
+                # keeps only the path and the published public key.
+                tool_entry = fleet.find('tool', profile)
+                tool_key = fleet.remote_key(tool_entry); public = tool_entry.pub
+                key_path = Path(fleet.key_path(tool_entry))
+                x_key_path = fleet.key_path(fleet.find('X', profile))
             database = folder / (profile + '-tool.sqlite')
             ledger_id = 'competition-ledger-' + profile.lower()
             meta = create_tool_database(database, profile, ledger_id)
@@ -186,8 +213,8 @@ def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
             tool_keys[profile] = tool_key
             configs[profile] = str(config_path)
             gateways[profile] = ToolGateway(config_path)
-            x_signers[profile] = CommonReceiptSigner(folder / (profile + '-X.key'),
-                                                    base.store.path, base.store.root_public, profile)
+            x_signers[profile] = CommonReceiptSigner(x_key_path, base.store.path,
+                                                    base.store.root_public, profile)
         w = CommonW(base.store, delivery, worker_certificate, x_signers, gateways)
         planner = TransactionPlans(base.store)
         for profile, op in base.operations.items():

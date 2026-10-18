@@ -111,11 +111,16 @@ def load_role_key(path):
 
 
 class RoleSigner:
-    """Sign with exactly one role key, in exactly the domains that role may sign."""
+    """Sign with exactly one role key, in exactly the domains that role may sign.
+
+    The one endpoint not bound to a profile is the worker: its certificate covers
+    every profile and it answers every profile's step challenges, so it names
+    none.  Every other role is bound to exactly one profile.
+    """
 
     def __init__(self, profile, role, key_path):
-        require(profile in PROFILE_SCOPES, 'CLIENT_PROFILE')
         require(role in ROLE_DOMAINS, 'CLIENT_ROLE')
+        require(role == 'worker' or profile in PROFILE_SCOPES, 'CLIENT_PROFILE')
         self.profile = profile
         self.role = role
         self.domains = ROLE_DOMAINS[role]
@@ -129,16 +134,21 @@ class RoleSigner:
         """Bind to the conventional key file ``folder`` holds for ``(profile, role)``."""
         return cls(profile, role, role_key_path(folder, profile, role))
 
+    def _bound(self, profile, role):
+        """Refuse a request for another role, or a profile this endpoint does not own."""
+        require(role == self.role and (self.profile is None or profile == self.profile),
+                'CLIENT_BINDING')
+
     def sign(self, profile, role, domain, claim):
         """Answer one challenge, or refuse -- never a silent empty answer.
 
         Refuses a request for another profile or role, a domain outside this
         role's whitelist, and a claim that names a profile other than this one.
         """
-        require(profile == self.profile and role == self.role, 'CLIENT_BINDING')
+        self._bound(profile, role)
         require(domain in self.domains, 'CLIENT_DOMAIN')
         require(type(claim) is dict, 'CLIENT_CLAIM')
-        require(claim.get('profile', self.profile) == self.profile, 'CLIENT_BINDING')
+        require(claim.get('profile', profile) == profile, 'CLIENT_BINDING')
         return b64(self.key.sign(canonical([domain, claim])))
 
     def __call__(self, profile, role, domain, claim):
@@ -156,6 +166,7 @@ class RoleSigner:
         inside the tuple; an applicant handed a proof for somebody else's key
         refuses instead of claiming possession it does not have.
         """
+        require(self.profile is not None, 'CLIENT_BINDING')
         require(type(tup) is dict and tup.get('scope') == PROFILE_SCOPES[self.profile],
                 'CLIENT_SCOPE')
         require(tup.get('public_key') == b64(self.public) and tup.get('kid') == self.kid,
@@ -178,7 +189,7 @@ class RoleSigner:
         wrong profile is rejected where it is used, not here.  The one shape this
         client does understand is its own possession proof, and that it checks.
         """
-        require(profile == self.profile and role == self.role, 'CLIENT_BINDING')
+        self._bound(profile, role)
         domain, value = split_message(data)
         require(domain in self.domains, 'CLIENT_DOMAIN')
         if domain == ENROLL_DOMAIN:
@@ -188,7 +199,7 @@ class RoleSigner:
 
     def sign_enrollment(self, profile, role, pending, iat, exp):
         """Sign one possession proof -- and only for a pending about this key."""
-        require(profile == self.profile and role == self.role, 'CLIENT_BINDING')
+        self._bound(profile, role)
         require(type(pending) is dict and set(pending) == {'tuple', 'enrollment_id', 'nonce'},
                 'CLIENT_PENDING')
         self.proves_own_key(pending['tuple'])

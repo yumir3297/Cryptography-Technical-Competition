@@ -62,7 +62,7 @@ def main(argv=None):
         # A roster alias or the worker serves challenges; the tool keeps its own
         # ledger process and reads its own key file.
         require(args.alias != 'tool', 'CLIENT_USAGE')
-        require(args.profile is not None, 'CLIENT_USAGE')
+        require(args.profile is not None or args.alias == 'worker', 'CLIENT_USAGE')
         signer = RoleSigner.from_directory(args.directory, args.profile, args.alias)
         if args.socket is not None:
             require(args.serve, 'CLIENT_USAGE')

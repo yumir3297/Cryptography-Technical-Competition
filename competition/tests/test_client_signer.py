@@ -130,6 +130,22 @@ class RoleSignerScopeTests(unittest.TestCase):
                 client.sign(profile, 'worker', domain, {'profile': profile})
             self.assertEqual(caught.exception.code, 'CLIENT_DOMAIN')
 
+    def test_the_worker_is_the_one_cross_profile_endpoint(self):
+        # One worker certificate covers every profile, so the worker client owns
+        # no profile and answers each of them -- and still nothing else.
+        worker = RoleSigner(None, 'worker', role_key_path(KEYS, 'PAY-1', 'worker'))
+        claim = {'subject': 'competition-worker', 'profiles': sorted(PROFILE_SCOPES)}
+        for profile in PROFILE_SCOPES:
+            with self.subTest(profile=profile):
+                signature = worker.sign(profile, 'worker', WORKER_DOMAIN, claim)
+                strict_verify(worker.public, raw(signature, 64), canonical([WORKER_DOMAIN, claim]))
+        with self.assertRaises(ProtocolError) as caught:
+            worker.sign('PAY-1', 'worker', GUARD_DOMAIN, {'profile': 'PAY-1'})
+        self.assertEqual(caught.exception.code, 'CLIENT_DOMAIN')
+        with self.assertRaises(ProtocolError) as caught:
+            worker.sign('PAY-1', 'H', WORKER_DOMAIN, {'profile': 'PAY-1'})
+        self.assertEqual(caught.exception.code, 'CLIENT_BINDING')
+
     def test_e_signs_no_approval_domain_at_all(self):
         # E signs no approval in the chain; the only domains it may sign are its
         # own source evidence, the envelope that carries it in PAY-1, and its own

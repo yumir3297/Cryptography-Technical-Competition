@@ -20,7 +20,9 @@ ROOT = Path(__file__).resolve().parents[2]
 
 HELP = """\
 命令：
-  init [dir]        建立受信运行并启动可信端（默认 .runtime/server）
+  init [dir] [manifest [endpoints_dir]]
+                    建立受信运行并启动可信端（默认 .runtime/server）；
+                    给了 manifest 则用各端上交的公钥（外部密钥模式）
   profiles          列出三个固定 Profile
   intent            列出各 Profile 允许的业务意图字段
   use <profile>     选择当前 Profile
@@ -84,12 +86,19 @@ class Session:
 
     # -- session ------------------------------------------------------------
     def cmd_init(self, args):
+        """init [dir] [manifest [endpoints_dir]] —— 给了 manifest 就走外部密钥模式。"""
         from competition.profiles.w_seed import initialize
         folder = Path(args[0]).resolve() if args else ROOT / '.runtime' / 'server'
-        self.run = initialize(folder)
+        fleet = None
+        if len(args) > 1:
+            from competition.server.roster import Fleet
+            manifest = Path(args[1]).resolve()
+            endpoints = Path(args[2]).resolve() if len(args) > 2 else manifest.parent
+            fleet = Fleet.read(endpoints, manifest)
+        self.run = initialize(folder, fleet=fleet)
         self.signer = LocalSigner(self.run)
         self.service = TrustedService(self.run, self.signer)
-        print('可信端会话已建立:', folder)
+        print('可信端会话已建立:', folder, '(外部密钥)' if fleet else '(本地兜底密钥)')
 
     def cmd_profiles(self, args):
         for profile in PROFILE_SCOPES:

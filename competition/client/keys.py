@@ -24,19 +24,8 @@ from cryptography.hazmat.primitives.serialization import (
 )
 
 from competition.core.trusted_state import PROFILE_SCOPES, TYPES
-from competition.server.roster import ENDPOINTS
+from competition.server.roster import ENDPOINTS, key_file_name
 from competition.support.wire import b64, keyid, require, sortset
-
-
-def key_file_name(profile, role):
-    """The file an endpoint of this kind owns."""
-    require(role in ENDPOINTS, 'CLIENT_ROLE')
-    require(role == 'worker' or profile in PROFILE_SCOPES, 'CLIENT_PROFILE')
-    if role == 'worker':
-        return 'W-worker.key'
-    if role == 'tool':
-        return profile + '-tool.key'
-    return profile + '-' + role + '.key'
 
 
 def propose_subject(profile, role):
@@ -93,6 +82,8 @@ def generate(folder, profile, role, *, name=None):
     Refuses to replace an existing credential -- the file is created exclusively
     -- and the private half is never returned, logged or transported.
     """
+    require(role in ENDPOINTS, 'CLIENT_ROLE')
+    require(role == 'worker' or profile in PROFILE_SCOPES, 'CLIENT_PROFILE')
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / key_file_name(profile, role)

@@ -38,6 +38,17 @@ ENTRY_FIELDS = frozenset({'role', 'subject', 'public_key', 'kid', 'purposes'})
 MAX_REPLY = 1 << 16
 
 
+def key_file_name(profile, role):
+    """The key file an endpoint of this kind owns."""
+    require(role in ENDPOINTS, 'ROSTER_ROLE')
+    require(role == 'worker' or profile in PROFILE_SCOPES, 'ROSTER_PROFILE')
+    if role == 'worker':
+        return 'W-worker.key'
+    if role == 'tool':
+        return profile + '-tool.key'
+    return profile + '-' + role + '.key'
+
+
 def owner_purposes(alias):
     """What this repository lets a roster alias do; an endpoint may not widen it."""
     require(alias in ALIASES, 'ROSTER_ALIAS')
@@ -192,3 +203,54 @@ def actors(endpoints, transport_for):
         if entry.role in ALIASES:
             roster[entry.profile][entry.role] = RemoteActor(entry, transport_for(entry))
     return roster
+
+
+class Fleet:
+    """Every endpoint the trusted side talks to, and how.
+
+    A manifest is only public keys.  A fleet adds the two deployment facts a
+    public key cannot carry: where each endpoint keeps the file it generated --
+    the X receipt child process and each tool process read their own credential
+    straight off disk, so the trusted side needs a *path*, never a key -- and how
+    to reach each endpoint for a signature.
+    """
+
+    def __init__(self, entries, root, transport_for=None):
+        self.entries = list(entries)
+        self.root = Path(root)
+        self._transport_for = transport_for if transport_for is not None else self.socket_transport
+
+    @classmethod
+    def read(cls, root, manifest, transport_for=None):
+        """Read a manifest and the directory the endpoints wrote their keys into."""
+        return cls(read_manifest(manifest), root, transport_for)
+
+    def find(self, role, profile=None):
+        """The one endpoint with this role, and this profile unless it is the worker."""
+        found = [entry for entry in self.entries
+                 if entry.role == role and (profile is None or entry.profile == profile)]
+        require(len(found) == 1, 'FLEET_ENDPOINT')
+        return found[0]
+
+    def key_path(self, entry):
+        """Where that endpoint keeps the key it generated: a path, never a key."""
+        return str(self.root / key_file_name(entry.profile, entry.role))
+
+    def socket_path(self, entry):
+        return str(self.root / key_file_name(entry.profile, entry.role).replace('.key', '.sock'))
+
+    def socket_transport(self, entry):
+        """The endpoint's own signing socket, at the convention beside its key."""
+        return SocketTransport(self.socket_path(entry))
+
+    def transport_for(self, entry):
+        return self._transport_for(entry)
+
+    def remote_key(self, entry):
+        return RemoteKey(entry, self.transport_for(entry))
+
+    def roster(self):
+        return actors(self.entries, self.transport_for)
+
+    def worker(self):
+        return self.find('worker')

@@ -15,7 +15,10 @@ The whole point of the inversion, in one place:
 import base64
 import json
 import os
+import subprocess
+import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -24,8 +27,8 @@ from competition.client.keys import generate
 from competition.client.signer import CHAIN_DOMAIN, RoleSigner
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.authorization_seed import initialize
-from competition.server.roster import ALIASES, actors, read_entry
-from competition.support.wire import ProtocolError, canonical, load_canonical, raw, strict_verify
+from competition.server.roster import ALIASES, actors, key_file_name, read_entry
+from competition.support.wire import ProtocolError, b64, canonical, load_canonical, raw, strict_verify
 
 TEMP_ROOT = Path(__file__).resolve().parents[3] / 'tmp'
 TEMP_ROOT.mkdir(exist_ok=True)
@@ -164,6 +167,146 @@ class InitializationGuardsTests(unittest.TestCase):
         with self.assertRaises(ProtocolError) as caught:
             initialize(Path(self.work.name) / 'partial-w', roster=partial)
         self.assertEqual(caught.exception.code, 'ROSTER_SET')
+
+
+class FleetEndToEndTests(unittest.TestCase):
+    """Every endpoint a real process, reached over its own socket.
+
+    This is the deployment the other tests describe: ``--keygen`` writes one key
+    per endpoint, each endpoint serves its own signing socket, the trusted side
+    reads only the published publics, and the three normal profiles run end to
+    end -- worker, X receipt and tool included -- with no role key on the trusted
+    side at all.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        from competition.profiles.w_seed import initialize as initialize_w
+        from competition.server.roster import Fleet
+        from competition.server.service import TrustedService
+        from competition.server.signer import LocalSigner
+        cls.work = tempfile.TemporaryDirectory(dir=TEMP_ROOT)
+        cls.env = {k: os.environ.get(k) for k in ('TMP', 'TEMP')}
+        os.environ['TMP'] = os.environ['TEMP'] = str(TEMP_ROOT)
+        root = Path(cls.work.name) / 'endpoints'
+        lines = [generate(root, profile, role) for profile in PROFILE_SCOPES for role in ALIASES]
+        lines.append(generate(root, None, 'worker'))
+        lines += [generate(root, profile, 'tool') for profile in PROFILE_SCOPES]
+        cls.root = root
+        manifest = cls.manifest = Path(cls.work.name) / 'roster.jsonl'
+        manifest.write_text('\n'.join(json.dumps(line, sort_keys=True) for line in lines) + '\n',
+                            encoding='utf-8')
+        cls.processes = []
+        cls.fleet = Fleet.read(root, manifest)
+        try:
+            for entry in cls.fleet.entries:
+                if entry.role == 'tool':
+                    continue  # the tool reads its own key; it serves no challenge host
+                cls.processes.append(_serve_process(root, entry))
+            for entry in cls.fleet.entries:
+                if entry.role != 'tool':
+                    _await_socket(Path(cls.fleet.socket_path(entry)))
+            cls.folder = Path(cls.work.name) / 'w'
+            cls.trusted = initialize_w(cls.folder, fleet=cls.fleet)
+            cls.service = TrustedService(cls.trusted, LocalSigner(cls.trusted))
+        except BaseException:
+            cls.tearDownClass()
+            raise
+
+    @classmethod
+    def tearDownClass(cls):
+        for process in getattr(cls, 'processes', ()):
+            if process.poll() is None:
+                process.terminate()
+                process.wait(timeout=10)
+        if getattr(cls, 'trusted', None) is not None:
+            cls.trusted.close()
+        work = getattr(cls, 'work', None)
+        if work is not None:
+            work.cleanup()
+        for name, value in getattr(cls, 'env', {}).items():
+            if value is None:
+                os.environ.pop(name, None)
+            else:
+                os.environ[name] = value
+        cls.trusted = None
+
+    def test_only_the_root_and_the_delivery_key_are_written_here(self):
+        self.assertEqual({path.name for path in self.folder.glob('*.key')},
+                         {'C.key', 'W-delivery.key'})
+        for profile in PROFILE_SCOPES:
+            for suffix in ('-H.key', '-U.key', '-V.key', '-G.key', '-X.key', '-E.key', '-tool.key'):
+                self.assertFalse((self.folder / (profile + suffix)).exists())
+        self.assertFalse((self.folder / 'W-worker.key').exists())
+
+    def test_the_three_profiles_run_end_to_end_over_the_endpoints(self):
+        before = self.service.counts()
+        for profile in PROFILE_SCOPES:
+            with self.subTest(profile=profile):
+                result = self.service.run_normal(profile)
+                self.assertEqual(result['settled']['state'], 'SETTLED')
+        after = self.service.counts()
+        self.assertEqual(after['accepts'] - before['accepts'], len(PROFILE_SCOPES))
+        self.assertEqual(after['settlements'] - before['settlements'], len(PROFILE_SCOPES))
+
+    def test_the_endpoints_are_still_needed_after_initialization(self):
+        # A fork rebuilds the whole chain, so it only works while every endpoint
+        # keeps serving -- which is exactly the operational requirement.
+        profile = 'MED-DEMO-1'
+        op = self.trusted.fork_operation(profile)
+        verify_chain(self, self.fleet.roster(), profile, op)
+
+    def test_the_workers_certificate_carries_only_the_published_key(self):
+        worker = self.fleet.worker()
+        claim = self.trusted.worker_certificate['claim']
+        self.assertEqual(claim['public_key'], b64(worker.pub))
+        self.assertEqual(claim['kid'], worker.kid)
+
+    def test_each_tool_reads_its_own_credential(self):
+        for profile in PROFILE_SCOPES:
+            with self.subTest(profile=profile):
+                entry = self.fleet.find('tool', profile)
+                config = json.loads((self.folder / (profile + '-tool.json')).read_text())
+                self.assertEqual(config['tool_key_path'], self.fleet.key_path(entry))
+                self.assertFalse((self.folder / (profile + '-tool.key')).exists())
+
+    def test_the_cli_starts_the_trusted_side_from_the_manifest(self):
+        import contextlib
+        import io
+
+        from competition.cli.app import Session
+        session = Session()
+        try:
+            with contextlib.redirect_stdout(io.StringIO()) as buffer:
+                session.cmd_init([str(Path(self.work.name) / 'cli'), str(self.manifest),
+                                  str(self.root)])
+                session.cmd_use(['PAY-1'])
+                session.cmd_auto([])
+        finally:
+            if session.run is not None:
+                session.run.close()
+        self.assertIn('SETTLED', buffer.getvalue())
+        self.assertEqual({path.name for path in (Path(self.work.name) / 'cli').glob('*.key')},
+                         {'C.key', 'W-delivery.key'})
+
+
+def _serve_process(root, entry):
+    """One endpoint as its own process: the client module, serving its socket."""
+    argv = [sys.executable, '-m', 'competition.client', '--directory', str(root)]
+    if entry.profile is not None:
+        argv += ['--profile', entry.profile]
+    argv += ['--alias', entry.role, '--serve', '--socket',
+             str(Path(root) / key_file_name(entry.profile, entry.role).replace('.key', '.sock'))]
+    return subprocess.Popen(argv, cwd=str(Path(__file__).resolve().parents[2]),
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def _await_socket(path, deadline=30.0):
+    limit = time.monotonic() + deadline
+    while not path.exists():
+        if time.monotonic() > limit:
+            raise AssertionError('endpoint socket never appeared: %s' % path)
+        time.sleep(0.02)
 
 
 if __name__ == '__main__':
