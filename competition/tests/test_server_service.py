@@ -1,9 +1,10 @@
-"""Trusted service: the challenge/signature interface, answered locally this round.
+"""Trusted service: the minimal three-message interface, answered locally here.
 
-The tests assert the local fallback satisfies the ``Signer`` protocol; that every
-operation really is "challenge handed out -> proof returned"; and that a proof
-made with the wrong role's key is rejected -- i.e. the interface, not the shell,
-decides what a caller may sign.
+The tests assert the local fallback satisfies the ``Signer`` protocol; that
+``submit`` returns an operation handle plus the first core challenge; that only
+business intent is accepted; that every later move really is "challenge handed
+out -> proof returned"; and that a proof made with the wrong role's key is
+rejected -- i.e. the interface, not the shell, decides what a caller may sign.
 """
 import os
 import tempfile
@@ -43,29 +44,37 @@ class ServerServiceTests(unittest.TestCase):
             type(self).signer = LocalSigner(type(self).trusted_run)
             type(self).service = TrustedService(type(self).trusted_run, type(self).signer)
 
-    def _op(self, profile):
-        base = self.trusted_run.operations[profile]
-        return self.service.build_op(profile, base['action'], base['task_id'], base['scene_key'])
-
     def test_local_signer_satisfies_the_protocol(self):
         self.assertIsInstance(self.signer, Signer)
 
+    def test_submit_returns_operation_and_first_challenge(self):
+        submitted = self.service.submit('PAY-1')
+        self.assertIn('operation_id', submitted)
+        self.assertEqual(submitted['challenge']['profile'], 'PAY-1')
+        self.assertEqual(submitted['challenge']['stage'], 'GUARD')
+
+    def test_intent_takes_only_business_fields(self):
+        # ``tool`` is a bound field, never caller intent.
+        with self.assertRaises(Exception):
+            self.service.submit('PAY-1', {'tool': 'evil'})
+
     def test_interface_is_challenge_then_proof(self):
-        profile = 'PAY-1'
-        op = self._op(profile)
-        claim = self.service.challenge(profile, op)
-        proof = self.service.answer(profile, 'H', GUARD_DOMAIN, claim)
-        ticket = self.service.prepare(profile, op, proof)
-        self.assertEqual(ticket['operation_id'], op['action']['operation_id'])
+        submitted = self.service.submit('PAY-1')
+        operation_id = submitted['operation_id']
+        proof = self.service.answer('PAY-1', 'H', GUARD_DOMAIN, submitted['challenge'])
+        ticket = self.service.prove(operation_id, 'prepare', proof)
+        self.assertEqual(ticket['operation_id'], operation_id)
 
     def test_wrong_role_proof_is_rejected(self):
-        profile = 'IND-DEMO-1'
-        op = self._op(profile)
-        claim = self.service.challenge(profile, op)
+        submitted = self.service.submit('IND-DEMO-1')
         # The worker key is the wrong key/domain for the H GUARD challenge.
-        proof = self.service.answer(profile, 'worker', GUARD_DOMAIN, claim)
+        proof = self.service.answer('IND-DEMO-1', 'worker', GUARD_DOMAIN, submitted['challenge'])
         with self.assertRaises(Exception):
-            self.service.prepare(profile, op, proof)
+            self.service.prove(submitted['operation_id'], 'prepare', proof)
+
+    def test_unknown_operation_is_refused(self):
+        with self.assertRaises(Exception):
+            self.service.challenge('not-an-operation', 'status')
 
 
 if __name__ == '__main__':

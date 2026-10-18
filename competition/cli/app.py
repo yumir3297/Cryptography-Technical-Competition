@@ -1,17 +1,18 @@
-"""Trusted-side interactive CLI over the challenge/signature interface.
+"""Trusted-side interactive CLI over the minimal interface.
 
 Every command maps to one :class:`~competition.server.service.TrustedService`
-call.  Operations that need a signature first request the core's challenge, then
-answer it and pass the proof back -- the same explicit two-step the interface
-exposes.  This round the answer comes from the local fallback signer; when
-external role clients are connected, only the signer changes.
+call.  ``submit`` takes only a profile and (optionally) business intent; every
+later step is the explicit two-move the interface exposes -- request the core's
+challenge, then hand the proof back.  This round the proof comes from the local
+fallback signer; when external role clients are connected, only that changes.
+
+Run it with ``python -m competition.server`` (or ``python -m competition.cli``).
 """
 import json
 from pathlib import Path
 
 from competition.core.trusted_state import PROFILE_SCOPES
-from competition.server.service import (ACCEPT_DOMAIN, GUARD_DOMAIN, READ_DOMAIN,
-                                        TrustedService, WORKER_DOMAIN)
+from competition.server.service import STEPS, INTENT_FIELDS, TrustedService
 from competition.server.signer import LocalSigner
 from competition.support.wire import ProtocolError
 
@@ -21,12 +22,13 @@ HELP = """\
 命令：
   init [dir]        建立受信运行并启动可信端（默认 .runtime/server）
   profiles          列出三个固定 Profile
+  intent            列出各 Profile 允许的业务意图字段
   use <profile>     选择当前 Profile
   show              显示会话状态
-  action            打印当前 Profile 的演示动作
-  build [file]      构造完整请求（Resolver）；默认用演示动作，或从 JSON 文件读取
-  prepare           发起挑战并提交 H 签名，取得 ticket
-  accept            提交接受签名
+  action            打印当前 Profile 的绑定模板动作
+  submit [file]     提交候选（Resolver）；不带文件用绑定语料，或从 JSON 读业务意图
+  prepare           回答 prepare 挑战并取得 ticket
+  accept            回答接受挑战
   claim             领取唯一派发尝试
   exec              消费执行资格并发送工具请求
   query             重新认证查询同一 attempt
@@ -34,7 +36,7 @@ HELP = """\
   cancel            取消尚未领取且当前无效的操作
   status            认证读取单操作投影
   audit             认证读取投影加 commit/证据
-  auto              build->prepare->accept->claim->exec->settle->status 一键跑完
+  auto              submit->prepare->accept->claim->exec->settle->status 一键跑完
   counts            全 W 汇总计数（无调用者认证）
   help              显示本帮助
   quit              退出
@@ -51,10 +53,8 @@ class Session:
         self.service = None
         self.signer = None
         self.profile = None
-        self.op = None
-        self.ticket = None
         self.operation_id = None
-        self.response = None
+        self.prepare_challenge = None
         self.quit = False
 
     # -- guards -------------------------------------------------------------
@@ -67,15 +67,10 @@ class Session:
         if self.profile is None:
             raise RuntimeError('还没有选择 Profile，先运行 use <profile>')
 
-    def _need_op(self):
+    def _need_operation(self):
         self._need_profile()
-        if self.op is None:
-            raise RuntimeError('还没有构造请求，先运行 build')
-
-    def _need_ticket(self):
-        self._need_op()
-        if self.ticket is None:
-            raise RuntimeError('还没有 ticket，先运行 prepare')
+        if self.operation_id is None:
+            raise RuntimeError('还没有提交候选，先运行 submit')
 
     # -- session ------------------------------------------------------------
     def cmd_init(self, args):
@@ -87,8 +82,12 @@ class Session:
         print('可信端会话已建立:', folder)
 
     def cmd_profiles(self, args):
-        for profile, scope in PROFILE_SCOPES.items():
-            print(profile, '=', _dump(scope))
+        for profile in PROFILE_SCOPES:
+            print(profile)
+
+    def cmd_intent(self, args):
+        for profile, fields in INTENT_FIELDS.items():
+            print(profile, '=', _dump(list(fields)))
 
     def cmd_use(self, args):
         self._need_run()
@@ -97,7 +96,8 @@ class Session:
         if args[0] not in PROFILE_SCOPES:
             raise RuntimeError('未知 Profile: %s' % args[0])
         self.profile = args[0]
-        self.op = self.ticket = self.operation_id = self.response = None
+        self.operation_id = None
+        self.prepare_challenge = None
         print('当前 Profile:', self.profile)
 
     def cmd_show(self, args):
@@ -105,89 +105,72 @@ class Session:
             'run': str(self.run.folder) if self.run else None,
             'profile': self.profile,
             'operation_id': self.operation_id,
-            'ticket': self.ticket,
-            'has_op': self.op is not None,
-            'has_response': self.response is not None,
+            'has_pending_challenge': self.prepare_challenge is not None,
         }))
 
     def cmd_action(self, args):
         self._need_profile()
         print(_dump(self.run.operations[self.profile]['action']))
 
-    # -- Resolver -----------------------------------------------------------
-    def cmd_build(self, args):
+    # -- 候选提交 -----------------------------------------------------------
+    def cmd_submit(self, args):
         self._need_profile()
-        base = self.run.operations[self.profile]
-        if args:
-            action = json.loads(Path(args[0]).read_text(encoding='utf-8'))
-        else:
-            action = base['action']
-        self.op = self.service.build_op(self.profile, action, base['task_id'], base['scene_key'])
-        self.operation_id = self.op['action']['operation_id']
-        self.ticket = None
-        self.response = None
+        intent = json.loads(Path(args[0]).read_text(encoding='utf-8')) if args else None
+        submitted = self.service.submit(self.profile, intent)
+        self.operation_id = submitted['operation_id']
+        self.prepare_challenge = submitted['challenge']
         print('operation_id:', self.operation_id)
+        print('prepare 挑战:', _dump(self.prepare_challenge))
 
-    # -- interface: challenge -> answer -> operate --------------------------
+    # -- interface: challenge -> answer -> prove ----------------------------
+    def _drive(self, step):
+        _, _, role, domain = STEPS[step]
+        claim = self.service.challenge(self.operation_id, step)
+        proof = self.service.answer(self.profile, role, domain, claim)
+        return self.service.prove(self.operation_id, step, proof)
+
     def cmd_prepare(self, args):
-        self._need_op()
-        claim = self.service.challenge(self.profile, self.op)
-        print('GUARD 挑战:', _dump(claim))
-        proof = self.service.answer(self.profile, 'H', GUARD_DOMAIN, claim)
-        self.ticket = self.service.prepare(self.profile, self.op, proof)['ticket_id']
-        print('ticket:', self.ticket)
+        self._need_operation()
+        if self.prepare_challenge is None:
+            self.prepare_challenge = self.service.challenge(self.operation_id, 'prepare')
+        print('GUARD 挑战:', _dump(self.prepare_challenge))
+        _, _, role, domain = STEPS['prepare']
+        proof = self.service.answer(self.profile, role, domain, self.prepare_challenge)
+        ticket = self.service.prove(self.operation_id, 'prepare', proof)['ticket_id']
+        self.prepare_challenge = None
+        print('ticket:', ticket)
 
     def cmd_accept(self, args):
-        self._need_ticket()
-        claim = self.service.challenge_accept(self.profile, self.ticket)
-        proof = self.service.answer(self.profile, 'H', ACCEPT_DOMAIN, claim)
-        print('接受:', _dump(self.service.accept(self.profile, self.ticket, proof)))
+        self._need_operation()
+        print('接受:', _dump(self._drive('accept')))
 
     def cmd_claim(self, args):
-        self._need_op()
-        claim = self.service.challenge_worker(self.profile, self.operation_id, 'CLAIM')
-        proof = self.service.answer(self.profile, 'worker', WORKER_DOMAIN, claim)
-        print('领取:', _dump(self.service.claim(self.profile, self.operation_id, proof)))
+        self._need_operation()
+        print('领取:', _dump(self._drive('claim')))
 
     def cmd_exec(self, args):
-        self._need_op()
-        claim = self.service.challenge_worker(self.profile, self.operation_id, 'EXECUTE')
-        proof = self.service.answer(self.profile, 'worker', WORKER_DOMAIN, claim)
-        self.response = self.service.execute_once(self.profile, self.operation_id, proof)
-        print('执行响应:', _dump(self.response))
+        self._need_operation()
+        print('执行响应:', _dump(self._drive('exec')))
 
     def cmd_query(self, args):
-        self._need_op()
-        claim = self.service.challenge_worker(self.profile, self.operation_id, 'QUERY')
-        proof = self.service.answer(self.profile, 'worker', WORKER_DOMAIN, claim)
-        self.response = self.service.query_attempt(self.profile, self.operation_id, proof)
-        print('查询响应:', _dump(self.response))
+        self._need_operation()
+        print('查询响应:', _dump(self._drive('query')))
 
     def cmd_settle(self, args):
-        self._need_op()
-        if self.response is None:
-            raise RuntimeError('还没有工具响应，先运行 exec 或 query')
-        claim = self.service.challenge_worker(self.profile, self.operation_id, 'SETTLE')
-        proof = self.service.answer(self.profile, 'worker', WORKER_DOMAIN, claim)
-        print('结算:', _dump(self.service.settle(self.profile, self.operation_id, self.response, proof)))
+        self._need_operation()
+        print('结算:', _dump(self._drive('settle')))
 
     def cmd_cancel(self, args):
-        self._need_op()
-        claim = self.service.challenge_worker(self.profile, self.operation_id, 'CANCEL')
-        proof = self.service.answer(self.profile, 'worker', WORKER_DOMAIN, claim)
-        print('取消:', _dump(self.service.cancel(self.profile, self.operation_id, proof)))
+        self._need_operation()
+        print('取消:', _dump(self._drive('cancel')))
 
     def cmd_status(self, args):
-        self._need_op()
-        claim = self.service.challenge_read(self.profile, self.operation_id, 'STATUS')
-        proof = self.service.answer(self.profile, 'H', READ_DOMAIN, claim)
-        print('状态:', _dump(self.service.status(self.profile, self.operation_id, proof)))
+        self._need_operation()
+        print('状态:', _dump(self._drive('status')))
 
     def cmd_audit(self, args):
-        self._need_op()
-        claim = self.service.challenge_read(self.profile, self.operation_id, 'AUDIT')
-        proof = self.service.answer(self.profile, 'H', READ_DOMAIN, claim)
-        print('审计:', _dump(self.service.audit(self.profile, self.operation_id, proof)))
+        self._need_operation()
+        print('审计:', _dump(self._drive('audit')))
 
     def cmd_counts(self, args):
         self._need_run()
@@ -197,10 +180,8 @@ class Session:
     def cmd_auto(self, args):
         self._need_profile()
         result = self.service.run_normal(self.profile)
-        self.op = result['op']
         self.operation_id = result['operation_id']
-        self.ticket = result['ticket']['ticket_id']
-        self.response = result['response']
+        self.prepare_challenge = None
         print('operation_id:', self.operation_id)
         print('结算:', _dump(result['settled']))
         print('状态:', _dump(result['status']))
@@ -217,10 +198,11 @@ COMMANDS = {
     'quit': 'cmd_quit', 'exit': 'cmd_quit',
     'init': 'cmd_init',
     'profiles': 'cmd_profiles',
+    'intent': 'cmd_intent',
     'use': 'cmd_use',
     'show': 'cmd_show',
     'action': 'cmd_action',
-    'build': 'cmd_build',
+    'submit': 'cmd_submit',
     'prepare': 'cmd_prepare',
     'accept': 'cmd_accept',
     'claim': 'cmd_claim',
