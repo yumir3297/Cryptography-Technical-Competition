@@ -1,15 +1,36 @@
 # dsh-zjj-agent
 
-Agent-side bundle for ZJJ-CORE. It adds two rows to a DeepSeek Harness profile:
+Agent-side bundle for ZJJ-CORE. It adds three rows to a DeepSeek Harness profile:
 
 1. `@deepseek-ai/dsh-mcp-client`, pointed at the agent gateway's Streamable HTTP
    endpoint, so the model sees `mcp__zjj__*` tools.
 2. This package's feedback plugin, which binds a submitted operation to the
    calling agent and delivers later trusted status projections into that session.
+3. An Agent preset, `zjj` (shown as **ZJJ 候选模式**), whose system prompt is the
+   minimal one plus the tool, flow and profile notes. It names no tool of its
+   own, so a session that picks it has the two MCP tools and nothing that could
+   execute.
 
 The bundle holds no role signer. The tools it exposes are propose, status,
 evidence and feedback only; there is no prepare, accept, claim, exec, settle or
 cancel tool.
+
+## The `zjj` preset
+
+It is a declaration row, not a directory: dsh 0.2 keeps presets in profile
+configuration. It is built on the shipped `minimal` composition in three ways
+and differs in one:
+
+- `complete: true` and `includeRuntimeContext: false`, the same as `minimal`,
+  so the system prompt is exactly the text below and no deployment persona,
+  skill guidance or runtime context snapshot is appended;
+- it adds nothing to the tool list, so the session sees the profile's MCP tools
+  and no shell, file editor or subagent;
+- the prompt is the minimal line plus three sections: what the two tools are,
+  how a candidate moves and what is not permission, and the exact fields each
+  profile takes.
+
+Pick it in the Web UI's preset menu, or name `zjj` as the session's preset.
 
 ## Configuration
 
