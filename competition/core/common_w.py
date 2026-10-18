@@ -119,10 +119,14 @@ class CommonW:
     @staticmethod
     def _view(row):
         return {'profile':row['profile'],'operation_id':row['oid'],'acceptance_state':'COMMITTED','dispatch_state':row['state'],'effect_state':row['effect_state'],'acceptance':json.loads(row['receipt']) if row['receipt'] else None,'receipt_state':'SIGNED' if row['receipt'] else 'PENDING'}
+    def _check_current_submission(self,c,p,op):
+        """Internal component hook. Public service requires RequestBoundW."""
+
     def prepare(self,p,op,identity):
         oid=op['action']['operation_id'];ref=digest(['COMP-APP-CALL-v1',p,op])
         with self.source.tx() as c:
             event=self._event(c,p,oid,'PREPARE',ref);self.source.authenticate(c,p,op,identity,'GUARD',event)
+            self._check_current_submission(c,p,op)
             old=c.execute('SELECT request_ref FROM w_operation WHERE profile=? AND oid=?',(p,oid)).fetchone()
             if old:require(old[0]==ref,'ID_CONFLICT')
             else:self.guard.verify(c,p,op,event)
@@ -147,6 +151,7 @@ class CommonW:
         with self.source.tx() as c:
             t=c.execute('SELECT * FROM w_ticket WHERE profile=? AND ticket_id=?',(p,ticket)).fetchone();require(t is not None,'TICKET_UNKNOWN');op=json.loads(t['op']);oid=t['oid']
             event=self._event(c,p,oid,'ACCEPT_GUARD',t['request_ref']);self._accept_auth(c,p,ticket,proof,op,event)
+            self._check_current_submission(c,p,op)
             old=c.execute('SELECT * FROM w_operation WHERE profile=? AND oid=?',(p,oid)).fetchone()
             if old:require(old['request_ref']==t['request_ref'],'ID_CONFLICT')
             else:
