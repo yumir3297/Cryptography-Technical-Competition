@@ -9,7 +9,17 @@ set -e
 if [ -n "$ZJJ_MCP_URL" ] && [ -n "$ZJJ_AGENT_TOKEN" ]; then
   SOURCE=/opt/zjj-plugin
   TARGET=/root/.dsh/plugins/dsh-zjj-agent
-  VERSION="$(node -p "require('$SOURCE/package.json').version" 2>/dev/null || echo unknown)"
+  # The marker is the content of what gets installed, not just the version: a
+  # prompt or patch edit has to reach an existing container without somebody
+  # remembering to bump a number.
+  VERSION="$(node -e '
+const fs = require("fs"), crypto = require("crypto"), dir = process.argv[1];
+const hash = crypto.createHash("sha256");
+for (const name of ["package.json", "index.js", "cordis.patch.yml"]) {
+  hash.update(fs.readFileSync(dir + "/" + name));
+}
+process.stdout.write(hash.digest("hex").slice(0, 16));
+' "$SOURCE" 2>/dev/null || echo unknown)"
   MARKER=/root/.dsh/.zjj-plugin-version
   PROFILE=/root/.dsh/profiles/web/package.json
   if [ "$(cat "$MARKER" 2>/dev/null || true)" != "$VERSION" ] \
