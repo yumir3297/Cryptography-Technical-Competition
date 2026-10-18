@@ -59,6 +59,10 @@ class WRun:
     def clock(self): return self.base.clock
     @property
     def operations(self): return self.base.operations
+    @property
+    def signer(self): return self.base.signer
+    @signer.setter
+    def signer(self, value): self.base.signer = value
 
     def close(self):
         try:
