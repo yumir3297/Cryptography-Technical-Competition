@@ -5,12 +5,13 @@ page, and opens the two sessions behind it.  The two credentials are its own and
 are never printed; the session tokens stay in the process.
 
 The page goes up *before* the sessions are opened, and that order is the point.
-Four of the six roles sign inside the chain that the entry assembles, and their
-endpoints park those signatures until a person answers -- so the entry can be
-blocked waiting on somebody who needs this page open to answer.  Serving first
-and opening the sessions behind it is what keeps the two from deadlocking.  What
-the page shows while it waits is read straight from those endpoints, not through
-the entry, so it works while the entry is blocked.
+A deployment may put the waiting room in front of the four roles that sign inside
+the chain, and then the entry can be blocked on somebody who needs this page open
+to answer; serving first and opening the sessions behind it keeps the two from
+deadlocking.  The default deployment leaves that room off -- initialization is
+scripted approval, not a person's decision -- so the ordering costs nothing there.
+What the page shows while it waits is read straight from those endpoints, not
+through the entry, so it works while the entry is blocked.
 """
 import argparse
 import os

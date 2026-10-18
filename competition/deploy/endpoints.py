@@ -37,6 +37,18 @@ MANIFEST = DIRECTORY / 'roster.jsonl'
 # show what is being asked and take a yes or a no.  The two roles a page drives
 # step by step are left alone: a person already pressed their button.
 APPROVAL_ROLES = frozenset({'G', 'U', 'V', 'X'})
+# Whether the chain's own signatures stop for a person at all.
+#
+# Off by default.  The controlled initialization is scripted approval, and the
+# project's own boundary notes say what that means: the signatures it produces
+# simulate the roles and are not a collected human consent.  A deployment
+# exercised end to end by an agent therefore has nobody at the page for the four
+# roles that sign *inside* the chain, and asking for an answer there would only
+# stall initialization on a decision nobody is making.
+#
+# A deployment that does want a person to release the chain sets this to 1; then
+# those four endpoints park each report in the waiting room and a page answers it.
+AWAIT_APPROVAL = os.environ.get('ZJJ_AWAIT_APPROVAL', '0') == '1'
 
 
 def announce(profile, role):
@@ -54,7 +66,7 @@ def serve_argv(profile, role):
     argv = [sys.executable, '-m', 'competition.client', '--directory', str(DIRECTORY)]
     if profile is not None:
         argv += ['--profile', profile]
-    if role in APPROVAL_ROLES:
+    if role in APPROVAL_ROLES and AWAIT_APPROVAL:
         argv += ['--await-approval']
     return argv + ['--alias', role, '--serve-http', '--host', HOST,
                    '--port', str(endpoint_port(profile, role))]

@@ -269,11 +269,7 @@ def up_docker(args):
     services = list(CORE_SERVICES if args.no_zjj else AGENT_SERVICES)
     print('== 起服务（%s）' % ' '.join(services), flush=True)
     if 'trusted' in services:
-        # The entry will stop and wait on a person while it assembles the chain,
-        # and the agent side waits for it.  Say where the page is before that
-        # wait, because this command will not return until somebody answers.
-        print('   受信端会停在页面上等人：http://127.0.0.1:8080/console/',
-              flush=True)
+        print('   控制台：http://127.0.0.1:8080/console/', flush=True)
     compose(['up', '-d', *services], args.sudo)
     if not args.no_deepseek:
         print('== 起 DeepSeek Harness', flush=True)
@@ -300,8 +296,8 @@ def up_docker(args):
               'agent 网关在 http://127.0.0.1:8090/healthz（只对宿主回环）；'
               'DeepSeek Harness 在 http://127.0.0.1:%d/。' % HARNESS_PORT, flush=True)
     print('显示页在 http://127.0.0.1:%d/。' % VIEWER_PORT, flush=True)
-    print('受信端初始化要等那四个链内角色（G/U/V/X）点头，所以它会停在那儿；'
-          '打开控制台，待办会自己出现，逐个点完它就往下走。', flush=True)
+    print('受信端初始化是脚本模拟（不代表真人同意），默认不会停在页面上；'
+          '要人逐个放行链内四个角色（G/U/V/X），设 ZJJ_AWAIT_APPROVAL=1。', flush=True)
     if args.down:
         print('== 收摊', flush=True)
         compose(['down', '-v'], args.sudo)
@@ -364,8 +360,14 @@ def up_local(args):
                   '构建好再跑本命令，就能在 http://127.0.0.1:%d/ 看到。'
                   % args.viewer_port, flush=True)
 
-        print('[4/4] 受信端此刻是挂住的，不是坏的。打开页面逐个同意：', flush=True)
-        print('      http://127.0.0.1:%d/console/' % page_port, flush=True)
+        if os.environ.get('ZJJ_AWAIT_APPROVAL', '0') == '1':
+            print('[4/4] 受信端此刻是挂住的，不是坏的。打开页面逐个同意：', flush=True)
+            print('      http://127.0.0.1:%d/console/' % page_port, flush=True)
+        else:
+            print('[4/4] 受信端会自己初始化（ZJJ_AWAIT_APPROVAL 未开），不用在页面上点头。',
+                  flush=True)
+            print('      页面（H 与 worker 的九步）：http://127.0.0.1:%d/console/' % page_port,
+                  flush=True)
         deadline = time.monotonic() + args.timeout
         while time.monotonic() < deadline:
             for child in children:

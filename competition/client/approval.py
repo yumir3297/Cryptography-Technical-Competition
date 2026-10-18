@@ -14,6 +14,14 @@ up at all -- the run is initialized, and every role enrolled, before anybody has
 page to look at.  So the rule is a whitelist on the chain's domain, decided by the
 request itself rather than by who is knocking.
 
+**It is off unless a deployment asks for it.**  The controlled initialization is
+scripted approval, and the project's own boundary notes say what that means: the
+signatures it produces simulate the roles and are not collected human consent.  A
+deployment exercised end to end by an agent therefore leaves this room out
+entirely, and the four endpoints answer their reports at once.  A deployment that
+does want somebody at the page turns it on (`ZJJ_AWAIT_APPROVAL=1`) and those
+endpoints park each report until an answer comes.
+
 Nothing here signs, and nothing here certifies anything.  It holds a request,
 hands a page enough to show *what* is being asked, and takes a yes or a no.  A
 refusal is the page's answer, not a protocol fact: the caller is told nobody
