@@ -207,9 +207,12 @@ class OrchestrationTests(unittest.TestCase):
                     'ZJJ_FAKE_CALLS': str(self.log)}
 
     def run_up(self, *argv, **environment):
+        self.opened = []
         with mock.patch.dict(os.environ, {**self.env, **environment}), \
                 mock.patch.object(up, 'harness_ready', return_value=True), \
-                mock.patch.object(up, 'open_page', return_value=False), \
+                mock.patch.object(up, 'open_pages',
+                                  side_effect=lambda addresses, no_open=False:
+                                  self.opened.append((addresses, no_open))), \
                 mock.patch.object(up, 'TOKEN_FILE',
                                   Path(self.folder.name) / 'agent-tokens.json'), \
                 mock.patch.object(up, 'TOKEN_ENV',
@@ -329,11 +332,37 @@ class OrchestrationTests(unittest.TestCase):
         self.assertIn('rm -f %s' % up.HARNESS_NAME, calls)
         self.assertFalse([call for call in calls if 'volume' in call])
 
+    def test_the_doors_are_opened_for_the_person(self):
+        # Propose, accept and drive, watch: the person needs all three at once,
+        # and one per service would make them collect the addresses themselves.
+        self.assertEqual(self.run_up(), 0)
+        self.assertEqual(self.opened, [(
+            ['http://127.0.0.1:3080/', 'http://127.0.0.1:8080/console/',
+             'http://127.0.0.1:8081/'], False)])
+
+    def test_a_run_without_the_harness_opens_the_two_pages(self):
+        self.assertEqual(self.run_up('--no-deepseek'), 0)
+        self.assertEqual(self.opened, [(
+            ['http://127.0.0.1:8080/console/', 'http://127.0.0.1:8081/'], False)])
+
+    def test_taking_the_deployment_down_opens_nothing(self):
+        self.run_up('--down')
+        self.assertEqual(self.opened, [])
+
+    def test_asking_not_to_open_says_so_rather_than_opening(self):
+        self.assertEqual(self.run_up('--no-open'), 0)
+        self.assertEqual(self.opened, [(
+            ['http://127.0.0.1:3080/', 'http://127.0.0.1:8080/console/',
+             'http://127.0.0.1:8081/'], True)])
+
     def test_a_desktop_is_only_asked_when_there_is_one(self):
         headless = {name: value for name, value in os.environ.items()
                     if name not in ('DISPLAY', 'WAYLAND_DISPLAY')}
-        with mock.patch.dict(os.environ, headless, clear=True):
-            self.assertFalse(up.open_page('http://127.0.0.1:3080/'))
+        with mock.patch.dict(os.environ, headless, clear=True), \
+                mock.patch.object(up.subprocess, 'run') as run, \
+                redirect_stdout(StringIO()):
+            self.assertFalse(up.open_pages(['http://127.0.0.1:3080/']))
+        self.assertFalse(run.called)
 
 
 if __name__ == '__main__':

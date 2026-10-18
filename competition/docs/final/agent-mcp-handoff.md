@@ -111,6 +111,8 @@ python -m competition.deploy.up --down          # 跑完收摊
 
 默认不起 `agent-operator` / `agent-executor`：候选出现在控制台的「操作」里，由人接手后用提出方（`prepare`/`accept`）和执行方（`claim`/`exec`/`query`/`settle`）的按钮逐步推进。`up --auto` 才把这两个自动调用者放回来；一次 `up` 不带 `--auto` 也会停掉上一次遗留的它们。
 
+起完之后，三个地址会一起交给浏览器：agent（`3080`）、控制台（`8080/console/`）、显示页（`8081`）。它不新建对话，只把页面打开；`--no-open` 则只打印地址。
+
 两个 token 由 `up.py` 生成/复用，落在 `.runtime/agent-tokens.json` 和 `.runtime/agent-tokens.env`（0600，已被 Git 忽略）。compose 通过 `--env-file` 读取它们：`sudo` 会重置环境，不能依赖父进程继承。
 
 端口：gateway `127.0.0.1:8090`，caddy `8080`，dsh `3080`。dsh 容器加入 compose 的 `deploy_default` 网络，用服务名 `agent-gateway:8090` 访问 gateway；gateway 本身只发布在宿主回环上。

@@ -198,12 +198,28 @@ def harness_ready(address, timeout=180.0):
     return False
 
 
-def open_page(address):
-    """Hand the address to this machine's desktop, if it has one."""
+def open_pages(addresses, no_open=False):
+    """Hand the deployment's doors to this machine's desktop, if it has one.
+
+    A person needs all of them at once -- the workbench where a candidate is
+    proposed, the console where it is accepted and driven, and the display that
+    shows the same projection -- so they open together rather than one per
+    service.  A machine without a desktop, or one asked not to, is told the
+    addresses instead.
+    """
+    if no_open:
+        return False
     if not (os.environ.get('DISPLAY') or os.environ.get('WAYLAND_DISPLAY')):
+        print('  （这台机器没有桌面可开，自己开上面的地址。）', flush=True)
         return False
     opener = shutil.which('xdg-open')
-    return bool(opener) and subprocess.run([opener, address], check=False).returncode == 0
+    if not opener:
+        print('  （没找到 xdg-open，自己开上面的地址。）', flush=True)
+        return False
+    for address in addresses:
+        subprocess.run([opener, address], check=False)
+    print('  已经在浏览器里打开了。', flush=True)
+    return True
 
 
 def start_harness(args):
@@ -279,12 +295,6 @@ def start_harness(args):
               % HARNESS_NAME, file=sys.stderr, flush=True)
         return
     print('  %s' % address, flush=True)
-    if args.no_open:
-        return
-    if open_page(address):
-        print('  已经在浏览器里打开了。', flush=True)
-    else:
-        print('  （这台机器没有桌面可开，自己开上面的地址。）', flush=True)
 
 
 def stop_harness(sudo):
@@ -352,6 +362,15 @@ def up_docker(args):
     if not args.no_zjj and not args.auto:
         print('agent 提交的候选会出现在控制台的「操作」里，接手后用提出方/执行方按钮'
               '逐个推进；没有人替你接受或执行（要自动用 --auto）。', flush=True)
+    if not args.down:
+        # Three doors, in the order the work goes: propose, accept and drive,
+        # watch.  The harness is only there in agent mode.
+        doors = []
+        if not args.no_deepseek:
+            doors.append('http://127.0.0.1:%d/' % HARNESS_PORT)
+        doors.append('http://127.0.0.1:8080/console/')
+        doors.append('http://127.0.0.1:%d/' % VIEWER_PORT)
+        open_pages(doors, args.no_open)
     if args.down:
         print('== 收摊', flush=True)
         # Same reason as --fresh: detach the harness before removing the network.
@@ -446,6 +465,9 @@ def up_local(args):
         print('流程还没走：用页面上的步骤按钮走 H 与 worker 的九步。', flush=True)
         print('页面 http://127.0.0.1:%d/console/；收摊按 Ctrl-C。运行目录：%s'
               % (page_port, root), flush=True)
+        # The same two doors as the container deployment, on this mode's ports.
+        open_pages(['http://127.0.0.1:%d/console/' % page_port,
+                    'http://127.0.0.1:%d/' % args.viewer_port], args.no_open)
         try:
             while True:
                 time.sleep(1.0)
@@ -495,7 +517,7 @@ def main(argv=None):
                         help='agent 模式照旧起 operator/executor，让它们自动接受并执行，'
                              '不在控制台上等人')
     parser.add_argument('--no-open', action='store_true',
-                        help='不要把 DeepSeek Harness 的地址扔给浏览器')
+                        help='不要把 agent、控制台、显示页的地址扔给浏览器')
     parser.add_argument('--harness-dir', default=str(Path.home() / 'Projects'),
                         help='挂给 DeepSeek Harness 当工作区的宿主机目录（默认 ~/Projects）')
     parser.add_argument('--dir', default=None, help='--local 时的运行目录（默认 .runtime/deploy）')
