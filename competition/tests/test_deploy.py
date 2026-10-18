@@ -38,18 +38,34 @@ import os, sys
 args = sys.argv[1:]
 with open(os.environ['ZJJ_FAKE_CALLS'], 'a') as log:
     log.write(' '.join(args) + '\\n')
+
+def answer(text=''):
+    if text:
+        print(text)
+    sys.exit(0)
+
 if args[:1] == ['info']:
     sys.exit(1 if os.environ.get('ZJJ_FAKE_INFO_FAIL') else 0)
+
+# The harness: by default it is neither up nor pulled, so the script goes and
+# pulls the image and runs it.  Two switches show the two other answers.
+if args[:1] == ['ps']:
+    answer('stub-harness' if os.environ.get('ZJJ_FAKE_HARNESS_UP') else '')
+if args[:1] == ['images']:
+    answer('stub-image' if os.environ.get('ZJJ_FAKE_HARNESS_IMAGE') else '')
+if args[:1] == ['logs']:
+    answer('dsh web: http://127.0.0.1:3079/?token=stub')
+
 if args[:2] == ['inspect', '-f']:
-    print(os.environ.get('ZJJ_FAKE_CALLER_EXIT', '0') if 'ExitCode' in args[2] else 'exited')
-    sys.exit(0)
-if 'logs' in args:
-    print('a line from the stubbed service')
-    sys.exit(0)
-if 'ps' in args:
-    print('stub-container')
-    sys.exit(0)
-sys.exit(0)
+    answer(os.environ.get('ZJJ_FAKE_CALLER_EXIT', '0') if 'ExitCode' in args[2] else 'exited')
+
+if args[:1] == ['compose']:
+    if 'logs' in args:
+        answer('a line from the stubbed service')
+    if 'ps' in args:
+        answer('stub-container')
+
+answer()
 '''
 
 
@@ -186,6 +202,8 @@ class OrchestrationTests(unittest.TestCase):
 
     def run_up(self, *argv, **environment):
         with mock.patch.dict(os.environ, {**self.env, **environment}), \
+                mock.patch.object(up, 'harness_ready', return_value=True), \
+                mock.patch.object(up, 'open_page', return_value=False), \
                 redirect_stdout(StringIO()):
             return up.main(['--timeout', '5', *argv])
 
@@ -227,6 +245,45 @@ class OrchestrationTests(unittest.TestCase):
             code = self.run_up(ZJJ_FAKE_INFO_FAIL='1')
         self.assertEqual(code, 1)
         self.assertIn('--local', buffer.getvalue())
+
+    def test_the_workbench_is_brought_up_beside_the_deployment(self):
+        self.assertEqual(self.run_up(), 0)
+        calls = self.calls()
+        self.assertTrue(any('pull %s' % up.HARNESS_IMAGE in call for call in calls))
+        self.assertTrue(any('run -d --name %s' % up.HARNESS_NAME in call for call in calls))
+        # 只对宿主机的回环开放，而不是对局域网。
+        door = '127.0.0.1:%d:%d' % (up.HARNESS_PORT, up.HARNESS_PORT)
+        self.assertTrue(any(door in call for call in calls))
+        # 数据卷挂上去，否则配置和会话在容器重建时会跟着走。
+        self.assertTrue(any('%s:/root/.dsh' % up.HARNESS_HOME in call for call in calls))
+
+    def test_a_workbench_that_is_already_up_is_not_started_twice(self):
+        self.run_up(ZJJ_FAKE_HARNESS_UP='1')
+        self.assertFalse([call for call in self.calls() if 'run -d' in call
+                          or 'pull' in call])
+
+    def test_an_image_that_is_already_here_is_not_pulled_again(self):
+        self.run_up(ZJJ_FAKE_HARNESS_IMAGE='1')
+        calls = self.calls()
+        self.assertFalse([call for call in calls if call.startswith('pull')])
+        self.assertTrue(any('run -d' in call for call in calls))
+
+    def test_the_workbench_can_be_left_out_entirely(self):
+        self.assertEqual(self.run_up('--no-deepseek'), 0)
+        self.assertFalse([call for call in self.calls()
+                          if up.HARNESS_NAME in call or 'pull' in call])
+
+    def test_stopping_takes_the_workbench_container_but_not_its_volume(self):
+        self.run_up('--down')
+        calls = self.calls()
+        self.assertIn('rm -f %s' % up.HARNESS_NAME, calls)
+        self.assertFalse([call for call in calls if 'volume' in call])
+
+    def test_a_desktop_is_only_asked_when_there_is_one(self):
+        headless = {name: value for name, value in os.environ.items()
+                    if name not in ('DISPLAY', 'WAYLAND_DISPLAY')}
+        with mock.patch.dict(os.environ, headless, clear=True):
+            self.assertFalse(up.open_page('http://127.0.0.1:3080/'))
 
 
 if __name__ == '__main__':

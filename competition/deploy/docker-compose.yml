@@ -6,12 +6,13 @@
 #   caller-h       流程提出方那一侧
 #   caller-worker  流程执行方那一侧
 #
-# 用法（一键，起完并看两侧把一遍流程跑完）：
+# 用法（一键，起完并看两侧把一遍流程跑完；顺带把 DeepSeek Harness 也起来）：
 #   python -m competition.deploy.up              # 用 docker
 #   python -m competition.deploy.up --sudo       # docker daemon 权限不足时
 #   python -m competition.deploy.up --local      # 不用 docker，在本机跑同一套入口脚本
 #   python -m competition.deploy.up --fresh      # 丢掉上次的卷重新开始
 #   python -m competition.deploy.up --down       # 跑完收摊
+#   python -m competition.deploy.up --no-deepseek  # 只起竞赛这套，不起 DeepSeek Harness
 #
 # 直接驱动 compose 也行：
 #   docker compose -f competition/deploy/docker-compose.yml up --build
