@@ -222,6 +222,8 @@ class OrchestrationTests(unittest.TestCase):
         for service in up.AGENT_DEMO:
             self.assertTrue(any('ps --all -q %s' % service in call for call in calls))
             self.assertTrue(any('logs --no-log-prefix %s' % service in call for call in calls))
+        self.assertTrue(any('ps --all -q %s' % up.OBSERVER in call for call in calls))
+        self.assertTrue(any('logs --no-log-prefix %s' % up.OBSERVER in call for call in calls))
 
     def test_the_core_demo_can_run_without_the_agent_gateway(self):
         self.assertEqual(self.run_up('--no-zjj'), 0)

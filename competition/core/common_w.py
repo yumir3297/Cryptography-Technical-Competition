@@ -52,6 +52,7 @@ class CommonW:
             else:
                 self._worker_grant(None)
                 self._journal(c,'W_BOOTSTRAP','', '',boot)
+                self.source.observe(c,'W_BOOTSTRAP','','',{'stage':'W 启动（固定 worker/delivery）','lanes':['W'],'detail':{'purpose':'BOOTSTRAP'}})
 
     def _event(self,c,p,oid,stage,ref):
         with self._clock_lock:return self.source.event(c,p,oid,stage,ref)
@@ -92,6 +93,7 @@ class CommonW:
             if old:require(json.loads(old[0])==cert,'RESOURCE_ALREADY_INITIALIZED');return
             c.execute('INSERT INTO w_resource VALUES(?,?,?,?,0,0,1,?)',(cl['profile'],enc(cl['key']),cl['unit'],int(cl['capacity']),enc(cert)))
             self._journal(c,'W_RESOURCE',cl['profile'],'',cert)
+            self.source.observe(c,'W_RESOURCE',cl['profile'],'',{'stage':'资源登记','lanes':['W'],'detail':{'unit':cl['unit'],'capacity':cl['capacity']}})
     def register_tool(self,p,cert):
         record=verify_certificate(cert,self.source.root_public,p);self.source.schemas[p].validate(record,'Record_TOOL_TRUST');require(record['scope']==PROFILE_SCOPES[p],'TOOL_SCOPE')
         v=record['value'];key=enc([v[k] for k in ('tool','tool_version','destination')])
@@ -100,6 +102,7 @@ class CommonW:
             if old:require(json.loads(old[0])==cert,'TOOL_ALREADY_INITIALIZED');return
             c.execute('INSERT INTO w_tool VALUES(?,?,?,?,0,?,0)',(p,key,enc(cert),cert['claim']['ledger_origin'],cert['claim']['ledger_head']))
             self._journal(c,'W_TOOL',p,'',cert)
+            self.source.observe(c,'W_TOOL',p,'',{'stage':'工具信任登记','lanes':['W'],'detail':{'ledger_origin':cert['claim']['ledger_origin']}})
     def _tool(self,c,p,action,event):
         key=enc([action[k] for k in ('tool','tool_version','destination')]);row=c.execute('SELECT * FROM w_tool WHERE profile=? AND key=?',(p,key)).fetchone()
         require(row is not None,'TOOL_TRUST_UNKNOWN');require(not row['halted'],'TRUSTED_CONTRADICTION')
@@ -127,12 +130,14 @@ class CommonW:
             if old:require(old[0]==ref,'ID_CONFLICT')
             else:self.guard.verify(c,p,op,event)
             ticket=b64(os.urandom(16));c.execute('INSERT INTO w_ticket VALUES(?,?,?,?,?,?)',(p,ticket,oid,ref,enc(op),event['lo']+30))
+            self.source.observe(c,'PREPARED',p,oid,{'stage':'签发准备凭据（ticket）','lanes':['受信编排器'],'trusted_time':{'lo':event['lo'],'hi':event['hi']},'refs':{'request_ref':ref}})
             return {'profile':p,'scope':PROFILE_SCOPES[p],'operation_id':oid,'ticket_id':ticket,'request_ref':ref,'time_witness':event,'expires':str(event['lo']+30)}
     def challenge_accept(self,p,ticket):
         with self.source.tx() as c:
             row=c.execute('SELECT * FROM w_ticket WHERE profile=? AND ticket_id=?',(p,ticket)).fetchone();require(row is not None,'TICKET_UNKNOWN')
             event=self._event(c,p,row['oid'],'ACCEPT_GUARD',row['request_ref']);nonce=b64(os.urandom(32))
             c.execute('INSERT INTO w_nonce VALUES(?,?,?,?,?,?,0)',(p,nonce,row['oid'],'ACCEPT',ticket,event['lo']+30))
+            self.source.observe(c,'CHALLENGE_ISSUED',p,row['oid'],{'stage':'签发接受挑战','lanes':['W'],'refs':{'request_ref':row['request_ref']},'detail':{'purpose':'ACCEPT'}})
             return {'profile':p,'scope':PROFILE_SCOPES[p],'operation_id':row['oid'],'ticket_id':ticket,'nonce':nonce}
     def _accept_auth(self,c,p,ticket,proof,op,event):
         require(type(proof) is dict and set(proof)=={'claim','signature'},'IDENTITY_REQUIRED');cl=proof['claim'];who=self.source.actors[p]['H']
@@ -191,6 +196,7 @@ class CommonW:
                 self._put_witness(c,p,'BEHAVIOR',plan['behavior_after'])
                 if plan['scene_after']:self._put_witness(c,p,plan['scene_after']['namespace'],plan['scene_after'])
                 self._journal(c,'W_COMMIT',p,oid,frozen)
+                self.source.observe(c,'ACCEPT_COMMITTED',p,oid,{'stage':'接受并永久冻结','lanes':['W'],'trusted_time':{'lo':event['lo'],'hi':event['hi']},'refs':{'commit_ref':cref,'action_hash':cv['ctx']['action_hash']},'detail':{'accept_seq':str(seq)}})
         # Explicit controlled fault fixture, never sourced from a wire request.
         if crash_after_commit:os._exit(97)
         return self.complete_receipt(p,oid)
@@ -208,14 +214,17 @@ class CommonW:
                 self.source.schemas[p].validate(signed,'Acceptance');who=self.source.actors[p]['X'];envelope(signed,{who.kid:who},now=event['lo'],proto=COMPETITION_PROTO)
                 event=self._end_event(event);require_window(signed['body'],event);self.source.credential(c,p,'X',ROLES[p]['X'],'Acceptance',frozen['op']['action'],event)
                 c.execute('UPDATE w_operation SET receipt=? WHERE profile=? AND oid=?',(enc(signed),p,oid));self._journal(c,'W_RECEIPT',p,oid,{'acceptance':signed,'event':event,'signature_generation_observation':{'pid':self.x_signers[p].info['pid'],'wall_ns':self.x_signers[p].last_generated_wall_ns,'rpc_deadline_seconds':'1.5','kind':'LOCAL_PROCESS_OBSERVATION'}})
+                self.source.observe(c,'RECEIPT_SIGNED',p,oid,{'stage':'X 已签回执','lanes':['X','W'],'trusted_time':{'lo':event['lo'],'hi':event['hi']},'detail':{'receipt_state':'SIGNED'}})
             except (ProtocolError,TimeoutError,OSError) as exc:
                 self._journal(c,'W_RECEIPT_PENDING',p,oid,{'reason':getattr(exc,'code',type(exc).__name__)})
+                self.source.observe(c,'RECEIPT_PENDING',p,oid,{'stage':'回执待签','lanes':['X','W'],'detail':{'receipt_state':'PENDING','reason':getattr(exc,'code',type(exc).__name__)}})
             return self._view(c.execute('SELECT * FROM w_operation WHERE profile=? AND oid=?',(p,oid)).fetchone())
     def challenge_worker(self,p,oid,purpose):
         require(purpose in WORKER_PURPOSES,'WORKER_PURPOSE')
         with self.source.tx() as c:
             row,frozen=self._operation(c,p,oid);event=self._event(c,p,oid,'WORKER_CHALLENGE',frozen['commit_ref']);self._worker_grant(event);nonce=b64(os.urandom(32))
             c.execute('INSERT INTO w_nonce VALUES(?,?,?,?,?,?,0)',(p,nonce,oid,purpose,frozen['commit_ref'],event['lo']+30))
+            self.source.observe(c,'CHALLENGE_ISSUED',p,oid,{'stage':'签发工人挑战','lanes':['W'],'refs':{'commit_ref':frozen['commit_ref']},'detail':{'purpose':purpose}})
             return {'profile':p,'scope':PROFILE_SCOPES[p],'operation_id':oid,'purpose':purpose,'commit_ref':frozen['commit_ref'],'nonce':nonce}
     def _worker(self,c,p,oid,purpose,proof,event,frozen):
         grant=self._worker_grant(event);require(type(proof) is dict and set(proof)=={'claim','signature'},'WORKER_REQUIRED');cl=proof['claim']
@@ -266,6 +275,7 @@ class CommonW:
             attempt=b64(os.urandom(16));cl={'profile':p,'scope':PROFILE_SCOPES[p],'operation_id':oid,'attempt_id':attempt,'ledger_id':trust['value']['ledger_id'],'ledger_origin':tool['origin'],'action':frozen['op']['action'],'action_hash':action_hash(p,frozen['op']['action']),'commit_ref':frozen['commit_ref'],'acceptance_ref':msgref(json.loads(row['receipt'])),'tool_trust_ref':rec_ref(trust),'issued_at':str(event['lo']),'expires':frozen['commit']['value']['dispatch_before']}
             packet={'claim':cl,'signature':b64(self.delivery_key.sign(canonical(['COMP-W-TOOL-EXEC-v1',cl])))}
             c.execute("UPDATE w_outbox SET state='STARTED',attempt_id=?,packet=? WHERE profile=? AND oid=? AND state='PENDING'",(attempt,enc(packet),p,oid));c.execute("UPDATE w_operation SET state='STARTED',effect_state='UNKNOWN' WHERE profile=? AND oid=?",(p,oid));self._journal(c,'W_CLAIM',p,oid,{'packet':packet,'event':event,'deny_witness':deny})
+            self.source.observe(c,'CLAIMED',p,oid,{'stage':'领取唯一 attempt','lanes':['W','worker'],'trusted_time':{'lo':event['lo'],'hi':event['hi']},'refs':{'attempt_id':attempt,'commit_ref':frozen['commit_ref']},'status_label':'STARTED'})
             return {'profile':p,'operation_id':oid,'attempt_id':attempt,'dispatch_state':'STARTED'}
     def cancel(self,p,oid,proof):
         with self.source.tx() as c:
@@ -277,6 +287,7 @@ class CommonW:
             else:raise ProtocolError('CANCEL_NOT_INVALID')
             event=self._end_event(event);self._finish_worker(c,proof,event)
             self._release(c,p,oid,frozen,'CANCELED');c.execute("UPDATE w_operation SET state='CANCELED',effect_state='NO_EFFECT' WHERE profile=? AND oid=?",(p,oid));c.execute("UPDATE w_outbox SET state='CANCELED' WHERE profile=? AND oid=?",(p,oid));self._journal(c,'W_CANCEL',p,oid,{'reason':reason,'event':event})
+            self.source.observe(c,'CANCELED',p,oid,{'stage':'取消','lanes':['W'],'trusted_time':{'lo':event['lo'],'hi':event['hi']},'refs':{'commit_ref':frozen['commit_ref']},'status_label':'CANCELED','detail':{'reason':reason}})
             return self._view(c.execute('SELECT * FROM w_operation WHERE profile=? AND oid=?',(p,oid)).fetchone())
     def _send(self,p,oid,proof,query):
         purpose='QUERY' if query else 'EXECUTE'
@@ -294,6 +305,7 @@ class CommonW:
                 require_window({'iat':packet['claim']['issued_at'],'exp':packet['claim']['expires']},event)
                 c.execute('UPDATE w_outbox SET exec_marker=1 WHERE profile=? AND oid=?',(p,oid))
             self._journal(c,'W_QUERY_INTENT' if query else 'W_EXEC_INTENT',p,oid,{'packet':packet,'event':event})
+            self.source.observe(c,'QUERY_DISPATCHED' if query else 'EXEC_DISPATCHED',p,oid,{'stage':'查询原 attempt' if query else '消费执行资格并派发','lanes':['worker','工具'],'refs':{'attempt_id':out['attempt_id']},'status_label':'STARTED','detail':{'purpose':purpose}})
         gateway=self.tool_gateways[p]
         try:response=gateway.query(packet) if query else gateway.execute(packet)
         except (ProtocolError,OSError,TimeoutError) as exc:response={'state':'UNKNOWN','record':None,'reason':getattr(exc,'code',type(exc).__name__),'trace':getattr(exc,'trace',{})}
@@ -309,6 +321,7 @@ class CommonW:
                     response={**response,'validation_error':exc.code}
             c.execute('INSERT INTO w_evidence(profile,oid,kind,blob) VALUES(?,?,?,?)',(p,oid,purpose,enc(response)))
             self._journal(c,'W_TOOL_RESPONSE',p,oid,{'purpose':purpose,'response':response})
+            self.source.observe(c,'TOOL_RESPONDED',p,oid,{'stage':'工具响应','lanes':['worker','工具'],'status_label':response.get('state'),'detail':{'purpose':purpose}})
         return response
     def execute_once(self,p,oid,proof):return self._send(p,oid,proof,False)
     def query_attempt(self,p,oid,proof):return self._send(p,oid,proof,True)
@@ -334,6 +347,7 @@ class CommonW:
         if conflict:contradiction=True
         if contradiction:
             c.execute('UPDATE w_tool SET halted=1 WHERE profile=? AND key=?',(p,tool['key']));c.execute("UPDATE w_operation SET state='HALTED' WHERE profile=? AND oid=?",(p,oid));self._journal(c,'W_TRUSTED_CONTRADICTION',p,oid,response)
+            self.source.observe(c,'HALTED',p,oid,{'stage':'可信矛盾 → HALTED','lanes':['W'],'status_label':'HALTED','detail':{'reason':'TRUSTED_CONTRADICTION'}})
             return record,fid,True
         if int(cl['high_water'])<tool['high_water']:raise ProtocolError('LEDGER_STALE_UNKNOWN')
         c.execute('UPDATE w_tool SET high_water=?,head=? WHERE profile=? AND key=?',(int(cl['high_water']),cl['ledger_head'],p,tool['key']))
@@ -355,6 +369,7 @@ class CommonW:
             if existing:return {'state':'SETTLED','operation_id':oid,'final_fact_id':fid,'existing':True}
             require(row['state']=='STARTED','SETTLE_STATE');self._ownership(c,p,oid,frozen);v=record['value'];event=self._end_event(event);require_window(v,event);require_window(frozen['tool_certificate']['claim']['record']['value'],event);self._finish_worker(c,proof,event);self._release(c,p,oid,frozen,'SPENT' if v['outcome']=='SUCCEEDED' else 'RELEASED')
             c.execute('INSERT INTO w_settlement VALUES(?,?,?,?,?,?,?,?)',(p,oid,fid,v['ledger_id'],v['final_seq'],v['effect_id'],v['outcome'],enc(response)));c.execute("UPDATE w_operation SET state='SETTLED',effect_state=? WHERE profile=? AND oid=?",(v['outcome'],p,oid));self._journal(c,'W_SETTLE',p,oid,{'final_fact_id':fid,'record':record,'event':event})
+            self.source.observe(c,'SETTLED',p,oid,{'stage':'一次结算','lanes':['W'],'trusted_time':{'lo':event['lo'],'hi':event['hi']},'refs':{'final_fact_id':fid},'status_label':'SETTLED','detail':{'outcome':v['outcome']}})
             return {'state':'SETTLED','operation_id':oid,'final_fact_id':fid,'existing':False}
     def _release(self,c,p,oid,frozen,target):
         plan=frozen['plan'];amount=plan['amount'];c.execute('UPDATE w_reservation SET state=? WHERE profile=? AND oid=? AND state=?',(target,p,oid,'RESERVED'))
@@ -366,13 +381,14 @@ class CommonW:
         require(purpose in ('STATUS','AUDIT'),'READ_PURPOSE')
         with self.source.tx() as c:
             row,f=self._operation(c,p,oid);event=self._event(c,p,oid,'STATUS_READ' if purpose=='STATUS' else 'AUDIT_READ',f['commit_ref']);self.source.read_permission(c,p,'H',f['op']['action'],event);nonce=b64(os.urandom(32))
-            c.execute('INSERT INTO w_nonce VALUES(?,?,?,?,?,?,0)',(p,nonce,oid,purpose,f['commit_ref'],event['lo']+30));return {'profile':p,'scope':PROFILE_SCOPES[p],'operation_id':oid,'purpose':purpose,'commit_ref':f['commit_ref'],'nonce':nonce}
+            c.execute('INSERT INTO w_nonce VALUES(?,?,?,?,?,?,0)',(p,nonce,oid,purpose,f['commit_ref'],event['lo']+30));self.source.observe(c,'CHALLENGE_ISSUED',p,oid,{'stage':'签发读取挑战','lanes':['W'],'refs':{'commit_ref':f['commit_ref']},'detail':{'purpose':purpose}});return {'profile':p,'scope':PROFILE_SCOPES[p],'operation_id':oid,'purpose':purpose,'commit_ref':f['commit_ref'],'nonce':nonce}
     def _read(self,p,oid,proof,purpose):
         with self.source.tx() as c:
             row,f=self._operation(c,p,oid);event=self._event(c,p,oid,'STATUS_READ' if purpose=='STATUS' else 'AUDIT_READ',f['commit_ref']);require(type(proof) is dict and set(proof)=={'claim','signature'},'IDENTITY_REQUIRED');cl=proof['claim']
             require(set(cl)=={'profile','scope','operation_id','purpose','commit_ref','nonce'} and (cl['profile'],cl['scope'],cl['operation_id'],cl['purpose'],cl['commit_ref'])==(p,PROFILE_SCOPES[p],oid,purpose,f['commit_ref']),'BINDING');who=self.source.actors[p]['H'];strict_verify(who.pub,raw(proof['signature'],64),canonical(['COMP-W-READ-v1',cl]));self.source.credential(c,p,'H',ROLES[p]['H'],'StatusQuery',f['op']['action'],event);self.source.read_permission(c,p,'H',f['op']['action'],event);self._consume_nonce(c,p,cl['nonce'],oid,purpose,f['commit_ref'],event)
             view=self._view(row);out=c.execute('SELECT * FROM w_outbox WHERE profile=? AND oid=?',(p,oid)).fetchone();view.update(attempt_id=out['attempt_id'],exec_consumed=bool(out['exec_marker']),queries=out['queries'],original_envelope=False,view_kind='APPLICATION_W_PROJECTION')
             if purpose=='AUDIT':view.update(commit=f['commit'],time_witness=f['time_witness'],evidence=[json.loads(r[0]) for r in c.execute('SELECT blob FROM w_evidence WHERE profile=? AND oid=? ORDER BY seq',(p,oid))])
+            self.source.observe(c,'READ_PROJECTED',p,oid,{'stage':'认证读取投影','lanes':['受信编排器'],'refs':{'commit_ref':f['commit_ref']},'status_label':view['dispatch_state'],'detail':{'purpose':purpose}})
             return view
     def status(self,p,oid,proof):return self._read(p,oid,proof,'STATUS')
     def audit(self,p,oid,proof):return self._read(p,oid,proof,'AUDIT')

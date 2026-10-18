@@ -13,6 +13,15 @@
     the independent H-side and worker-side callers that drive an operation the
     agent gateway submitted (:mod:`competition.deploy.operator` and
     :mod:`competition.deploy.executor`).
+
+``caller_observer``
+    the watcher: an observer caller that reads the read-only observation face and
+    prints each step without driving any (:mod:`competition.deploy.observer`).
+
+``viewer``
+    the display's gateway: serves the built page and carries the four read routes
+    to the entry for a browser that holds no credential
+    (:mod:`competition.deploy.viewer`).
 ``caddy``
     the one external door.
 

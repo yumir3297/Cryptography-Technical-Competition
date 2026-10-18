@@ -5,7 +5,10 @@
 #   endpoints        各角色端：19 个签名进程，各一把钥、各一个端口（9100-9118）
 #   caller-h         流程提出方那一侧（核心演示；agent 模式下不启动）
 #   caller-worker    流程执行方那一侧（核心演示；agent 模式下不启动）
+#   caller-observer  只读观看者：订阅观察面，打印每一步，不驱动任何一步
 #   console          客户端控制台：以两个调用者身份接入入口，把流程呈现为页面
+#   viewer           观察面展示页：托管 Vue 页面，持 observer 凭据只读转接四个读路由
+#                    （宿主 8081 → viewer:8008）
 #   agent-gateway    agent 侧 MCP 入口：只有 propose/status，不 approve/execute
 #   agent-operator   独立 H 侧：prepare/accept（演示替身，真人审批 UI 属后续）
 #   agent-executor   独立 worker 侧：claim/exec/query/settle，不盲目重试
@@ -151,6 +154,46 @@ services:
       - "127.0.0.1:8090:8090"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    restart: "no"
+
+  caller-observer:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.observer
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_NAME: caller-observer
+      ZJJ_ENTRY: http://caddy
+      ZJJ_CALLERS: /callers
+    volumes:
+      - zjj-callers:/callers
+    restart: "no"
+
+  viewer:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/viewer.Dockerfile
+    depends_on:
+      trusted:
+        condition: service_healthy
+    environment:
+      ZJJ_NAME: caller-observer
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_CALLERS: /callers
+      ZJJ_VIEWER_HOST: 0.0.0.0
+      ZJJ_VIEWER_PORT: "8008"
+    volumes:
+      - zjj-callers:/callers
+    ports:
+      - "127.0.0.1:8081:8008"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8008/healthz', timeout=2)"]
       interval: 2s
       timeout: 5s
       retries: 60
