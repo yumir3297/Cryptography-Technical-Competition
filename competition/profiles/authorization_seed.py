@@ -39,6 +39,12 @@ class AuthorizationRun:
     # Optional remote signer: (profile, role, domain, claim) -> base64 signature.
     # When unset, the controlled demonstration signs locally with its own keys.
     signer: object = None
+    # Optional pre-signature report: (profile, role, unsigned, action) -> None.
+    # When set, every chain signature is reported to the endpoint that owns the
+    # key *before* the signing call is opened, so a person decides outside that
+    # call rather than inside it.  Unset means the old behaviour: the endpoint is
+    # only asked when the call is already open.
+    preapprover: object = None
 
     def close(self): self.clock.close()
     def clone(self,profile): return json.loads(json.dumps(self.operations[profile]))
@@ -66,6 +72,14 @@ class AuthorizationRun:
         op=self.operations[profile]; now=int(op['basis']['value']['iat']) if iat is None else iat
         who=self.actors[profile][alias]; end=now+WINDOW if exp is None else exp
         unsigned={'protected':{'proto':COMPETITION_PROTO,'version':'2.6','profile':profile,'alg':'Ed25519','type':typ,'issuer':who.name,'kid':who.kid},'body':{'id':b64(os.urandom(16)),'scope':PROFILE_SCOPES[profile],'iat':str(now),'exp':str(end),'aud':sortset([self.actors[profile][a].name for a in aud]),'refs':sortset(list(refs)),'deps':sortset(list(deps)),'payload':copy.deepcopy(payload)}}
+        # A person is asked *now*, before the signing call opens.  The call below
+        # gets thirty seconds from core (``a_sign_call.expires``), and nobody can
+        # decide in thirty seconds they did not know were running -- so the asking
+        # happens here, where there is no deadline but a person's own patience,
+        # and the call that follows is answered the moment it opens.  What is
+        # reported is this message, and what is signed is this same one.
+        if self.preapprover is not None:
+            self.preapprover(profile,alias,unsigned,op['action'])
         claim=self.broker.challenge(profile,alias,unsigned,op['action'])
         # The caller proof goes through the same remote-signature seam as the
         # rest of the chain: an external role client answers it, and the local
@@ -107,7 +121,7 @@ class AuthorizationRun:
         cl={'profile':profile,'scope':PROFILE_SCOPES[profile],'operation_id':op['action']['operation_id'],'ctx':op['ctx'],'action':op['action'],'purposes':sortset(['EXECUTE']+op['required']),'revision':'1','complete':True,'refs':[]}
         self.store.initialize_coverage({'claim':cl,'signature':b64(self.root.sign(canonical(['COMP-APP-DENY-COVERAGE-v1',cl])))})
 
-def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None,roster=None):
+def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None,roster=None,preapprover=None):
     """Create one fresh authenticated three-profile corpus.
 
     Two ways to get the role keys, and they differ only in **who made them**:
@@ -142,7 +156,7 @@ def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None,roster=None):
     cfile=folder/'C.key';cfile.write_bytes(root.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(cfile,0o600)
     clock=ClockClient(cfile,folder/'c-clock.sqlite')
     store=TrustedState(folder/'auth-w.sqlite',root.public_key().public_bytes(Encoding.Raw,PublicFormat.Raw),actors,clock)
-    run=AuthorizationRun(folder,root,actors,clock,store,AuthorizationService(store),ScopedSignerBroker(store,actors),{})
+    run=AuthorizationRun(folder,root,actors,clock,store,AuthorizationService(store),ScopedSignerBroker(store,actors),{},preapprover=preapprover)
     try:
         now=int(time.time()); exp=now+WINDOW
         for p,roster in actors.items():

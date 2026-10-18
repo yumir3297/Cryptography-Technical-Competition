@@ -17,6 +17,7 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat,
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.authorization_seed import initialize as initialize_authorization
 from competition.profiles.w_plans import TransactionPlans
+from competition.server.roster import DENY_STATUS
 from competition.support.final_fact import Controller
 from competition.support.scene_contract import _rec
 from competition.support.wire import WINDOW, action_hash, b64, canonical, keyid, rec_ref, require, sortset
@@ -127,6 +128,43 @@ class WRun:
         return op
 
 
+def _preapprover(fleet):
+    """Ask the endpoint that owns a key about a signature before it is made.
+
+    Every chain signature goes to the endpoint that holds the key, over the same
+    HTTP face the signature itself travels on -- but first, before the signing
+    call opens, so the answer is in hand by the time it does.  A person therefore
+    decides with no deadline but their own patience, and the thirty seconds core
+    puts on the call are spent on a network round trip rather than on somebody
+    reading a page.
+
+    A refusal stops initialization, the way any other refused signature does: the
+    endpoint names its rule and this raises it.  Nothing here decides; it only
+    carries what the endpoint said.
+    """
+    import httpx
+
+    from competition.client.approval import PREAPPROVAL_TIMEOUT
+    from competition.support.wire import ProtocolError
+
+    def report(profile, alias, unsigned, action):
+        url = fleet.endpoint_url(fleet.find(alias, profile)) + '/preapprove'
+        # Longer than the endpoint's own wait, so the side that gives up first is
+        # the one holding the request and the failure reads as nobody answering.
+        reply = httpx.post(url, json={'profile': profile, 'role': alias,
+                                      'unsigned': unsigned, 'action': action},
+                           timeout=PREAPPROVAL_TIMEOUT + 30.0)
+        if reply.status_code == DENY_STATUS:
+            try:
+                code = reply.json().get('deny')
+            except (ValueError, AttributeError):
+                raise ProtocolError('PREAPPROVE_ANSWER')
+            raise ProtocolError(code if type(code) is str else 'PREAPPROVE_ANSWER')
+        require(reply.status_code == 200, 'PREAPPROVE_ANSWER')
+
+    return report
+
+
 def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kwargs):
     """Create one fresh authenticated three-profile W and three tool ledgers.
 
@@ -147,6 +185,12 @@ def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kw
     resource_capacity = {} if resource_capacity is None else resource_capacity
     if fleet is not None:
         authorization_kwargs['roster'] = fleet.roster()
+        # Only a fleet reached over HTTP has a face to report to.  A fleet
+        # reached over the socket is the line protocol itself, which has no
+        # waiting room in front of it -- that endpoint answers at once -- so
+        # there is nothing there to ask, and the old behaviour is left in place.
+        if getattr(fleet, 'base_url', None) is not None:
+            authorization_kwargs['preapprover'] = _preapprover(fleet)
     names = ['W-worker.key', 'W-delivery.key'] + [profile + suffix for profile in PROFILE_SCOPES
                               for suffix in ('-tool.key', '-tool.sqlite', '-tool.json')]
     if (folder / 'auth-w.sqlite').exists() or any((folder / name).exists() for name in names):
