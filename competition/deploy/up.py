@@ -20,7 +20,9 @@ The harness is treated the same way on ``--down``: its container goes, its volum
 stays, because the volume is where the API key and the session history live.
 """
 import argparse
+import json
 import os
+import secrets
 import shutil
 import subprocess
 import sys
@@ -33,8 +35,18 @@ from competition.deploy import expected_manifest
 
 ROOT = Path(__file__).resolve().parents[2]
 COMPOSE = Path(__file__).resolve().parent / 'docker-compose.yml'
-# The two services that walk the flow; the rest stay up and serve.
-DEMO = ('caller-h', 'caller-worker')
+# The services that walk the agent flow: the gateway is served, the operator and
+# executor stay up, and the scripted client proves one operation end to end.
+AGENT_SERVICES = ('endpoints', 'trusted', 'caddy', 'agent-gateway',
+                  'agent-operator', 'agent-executor', 'demo-agent')
+AGENT_DEMO = ('demo-agent',)
+# The original core demo, kept for --no-zjj and --local.
+CORE_SERVICES = ('endpoints', 'trusted', 'caddy', 'caller-h', 'caller-worker')
+CORE_DEMO = ('caller-h', 'caller-worker')
+TOKEN_FILE = ROOT / '.runtime' / 'agent-tokens.json'
+TOKEN_ENV = ROOT / '.runtime' / 'agent-tokens.env'
+PLUGIN_DIR = ROOT / 'competition' / 'agent' / 'dsh-plugin'
+BOOTSTRAP = ROOT / 'competition' / 'deploy' / 'harness-entrypoint.sh'
 
 # DeepSeek Harness is not part of the competition software and nothing of it is
 # delivered here.  It is the agent workbench this machine is worked from, and it is
@@ -49,9 +61,46 @@ HARNESS_HOME = 'dsh-home'
 HARNESS_PORT = 3080
 
 
+def load_tokens():
+    """Reuse or mint the two gateway tokens, and put them in this process's env.
+
+    The agent token reaches dsh; the internal token reaches only the operator and
+    executor on the compose network.  Neither is a role key.  Persisting them
+    under ``.runtime`` keeps a re-run against an already-started dsh container
+    consistent instead of rotating the token out from under it.  A small env file
+    carries them to ``docker compose``: ``sudo`` resets the environment, so the
+    compose interpolation reads this file instead of inheriting variables.
+    """
+    stored = {}
+    try:
+        stored = json.loads(TOKEN_FILE.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        stored = {}
+    agent = os.environ.get('ZJJ_AGENT_TOKEN') or stored.get('agent') or secrets.token_urlsafe(32)
+    internal = (os.environ.get('ZJJ_INTERNAL_TOKEN') or stored.get('internal')
+                or secrets.token_urlsafe(32))
+    TOKEN_FILE.parent.mkdir(parents=True, exist_ok=True)
+    TOKEN_FILE.write_text(json.dumps({'agent': agent, 'internal': internal}), encoding='utf-8')
+    os.chmod(TOKEN_FILE, 0o600)
+    TOKEN_ENV.write_text('ZJJ_AGENT_TOKEN=%s\nZJJ_INTERNAL_TOKEN=%s\n' % (agent, internal),
+                         encoding='utf-8')
+    os.chmod(TOKEN_ENV, 0o600)
+    os.environ['ZJJ_AGENT_TOKEN'] = agent
+    os.environ['ZJJ_INTERNAL_TOKEN'] = internal
+    return agent, internal
+
+
 def compose(args, sudo, *, capture=False, check=True):
-    """One ``docker compose`` call against this deployment's file."""
-    argv = (['sudo'] if sudo else []) + ['docker', 'compose', '-f', str(COMPOSE)] + list(args)
+    """One ``docker compose`` call against this deployment's file.
+
+    The token env file is passed explicitly: with ``--sudo`` the compose process
+    runs under a reset environment, so it cannot inherit the two token variables
+    from this process.
+    """
+    argv = (['sudo'] if sudo else []) + ['docker', 'compose']
+    if TOKEN_ENV.exists():
+        argv += ['--env-file', str(TOKEN_ENV)]
+    argv += ['-f', str(COMPOSE)] + list(args)
     return subprocess.run(argv, cwd=str(ROOT), check=check, text=True,
                           capture_output=capture)
 
@@ -148,15 +197,31 @@ def start_harness(args):
                       capture=True, check=False).stdout.strip():
             print('  先拉镜像（社区镜像，第一次要几分钟）。', flush=True)
             docker(['pull', HARNESS_IMAGE], args.sudo)
-        docker(['run', '-d', '--name', HARNESS_NAME,
+        argv = ['run', '-d', '--name', HARNESS_NAME,
                 '--restart', 'unless-stopped',
                 # 只对宿主机的回环开放。想让它对局域网可见，把这个改成 3080:3080，
                 # 并给代理配 PROXY_USERNAME/PROXY_PASSWORD。
                 '-p', '127.0.0.1:%d:%d' % (HARNESS_PORT, HARNESS_PORT),
                 '-v', '%s:/root/.dsh' % HARNESS_HOME,
                 '-v', '%s:/workspace' % args.harness_dir,
-                '-w', '/workspace',
-                HARNESS_IMAGE], args.sudo, capture=True)
+                '-w', '/workspace']
+        if not args.no_zjj:
+            # The dsh container reaches the host's loopback gateway through the
+            # host-gateway alias; it never joins the compose network.
+            token = os.environ.get('ZJJ_AGENT_TOKEN', '')
+            argv += [
+                '--add-host', 'host.docker.internal:host-gateway',
+                '-e', 'ZJJ_MCP_URL=http://host.docker.internal:8090/mcp',
+                '-e', 'ZJJ_GATEWAY_URL=http://host.docker.internal:8090',
+                '-e', 'ZJJ_AGENT_TOKEN=' + token,
+                '-v', '%s:/opt/zjj-plugin:ro' % PLUGIN_DIR,
+                '-v', '%s:/opt/zjj-entrypoint.sh:ro' % BOOTSTRAP,
+                '--entrypoint', '/bin/sh',
+            ]
+        argv.append(HARNESS_IMAGE)
+        if not args.no_zjj:
+            argv.append('/opt/zjj-entrypoint.sh')
+        docker(argv, args.sudo, capture=True)
     address = 'http://127.0.0.1:%d/' % HARNESS_PORT
     if not harness_ready(address):
         print('  容器起来了但迟迟不应答，用 docker logs %s 看它怎么说。'
@@ -183,31 +248,40 @@ def up_docker(args):
         print('docker daemon 不可达。加 --sudo（daemon 权限不足），或者用 --local 在本机'
               '以普通进程跑同一套入口脚本。', file=sys.stderr, flush=True)
         return 1
+    if not args.no_zjj:
+        load_tokens()
     if args.fresh:
         print('== 丢掉上次的卷', flush=True)
         compose(['down', '-v'], args.sudo)
     if not args.no_build:
         print('== 构建镜像', flush=True)
         compose(['build'], args.sudo)
-    print('== 起服务', flush=True)
-    compose(['up', '-d'], args.sudo)
+    services = list(CORE_SERVICES if args.no_zjj else AGENT_SERVICES)
+    demo = list(CORE_DEMO if args.no_zjj else AGENT_DEMO)
+    print('== 起服务（%s）' % ' '.join(services), flush=True)
+    compose(['up', '-d', *services], args.sudo)
     if not args.no_deepseek:
         print('== 起 DeepSeek Harness', flush=True)
         start_harness(args)
-    print('== 等两侧把演示跑完（最多 %ds）' % args.timeout, flush=True)
-    codes = {service: wait_for_service(service, args.sudo, args.timeout) for service in DEMO}
+    print('== 等演示跑完（最多 %ds）' % args.timeout, flush=True)
+    codes = {service: wait_for_service(service, args.sudo, args.timeout) for service in demo}
     print('== 结果', flush=True)
-    for service in DEMO:
+    for service in demo:
         show(service, args.sudo)
-    if any(codes[service] != 0 for service in DEMO):
-        for service in ('trusted', 'endpoints'):
+    if any(codes[service] != 0 for service in demo):
+        for service in ('trusted', 'endpoints', 'agent-gateway'):
             show(service, args.sudo)
         print('演示没有跑完：%s' % codes, file=sys.stderr, flush=True)
         print('若受信端是说 run 目录里已有 W，那是初始化只能发生一次：'
               '要重新跑一遍演示就加 --fresh。', file=sys.stderr, flush=True)
         return 1
-    print('演示跑完了。对外入口在 http://127.0.0.1:8080/healthz；'
-          '再跑一遍加 --fresh。', flush=True)
+    if args.no_zjj:
+        print('演示跑完了。对外入口在 http://127.0.0.1:8080/healthz；'
+              '再跑一遍加 --fresh。', flush=True)
+    else:
+        print('演示跑完了。agent 网关在 http://127.0.0.1:8090/healthz（只对宿主回环）；'
+              'DeepSeek Harness 在 http://127.0.0.1:%d/；再跑一遍加 --fresh。'
+              % HARNESS_PORT, flush=True)
     if args.down:
         print('== 收摊', flush=True)
         compose(['down', '-v'], args.sudo)
@@ -296,6 +370,8 @@ def main(argv=None):
     parser.add_argument('--down', action='store_true', help='跑完就收摊（连卷一起删）')
     parser.add_argument('--no-deepseek', action='store_true',
                         help='不起 DeepSeek Harness，只起竞赛这套')
+    parser.add_argument('--no-zjj', action='store_true',
+                        help='不接 agent 网关/operator/executor/demo-agent，只起原核心演示')
     parser.add_argument('--no-open', action='store_true',
                         help='不要把 DeepSeek Harness 的地址扔给浏览器')
     parser.add_argument('--harness-dir', default=str(Path.home() / 'Projects'),

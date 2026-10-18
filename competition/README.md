@@ -12,6 +12,8 @@
 | support/ | 运行和测试实际依赖的编码、场景校验及恢复基础模块 |
 | bridge/ | 面向前端/桥接的同进程显式接口：挑战与签名分离，调用方持钥自签 |
 | server/ | 可信端：编排器 + Resolver + W；最小接口 `submit / challenge / prove`（本地兜底签名） |
+| agent/ | agent 侧 MCP 入口：只有 `propose` / `status`；状态回推插件在 `agent/dsh-plugin/` |
+| deploy/ | 单机部署：compose、入口、独立 operator/executor、DeepSeek Harness 引导 |
 | cli/ | 可信端可交互 CLI，按 `submit → 发挑战 → 签名 → 回交` 驱动 |
 | tests/ | 比赛组件、并发、故障恢复与终局回归 |
 | docs/final/ | 共同协议、比赛配置、接口、场景交接及证据口径 |
@@ -25,6 +27,7 @@ python -m unittest discover -s competition/tests -v
 python -m competition.run_w_slice --output .runtime/demo-evidence
 python -m competition.verify_w_slice .runtime/demo-evidence --manifest-sha256 <manifest摘要> --report .runtime/demo-verification.json
 python -m competition.server
+python -m competition.deploy.up --fresh   # agent 模式：MCP 端到端 + DeepSeek Harness
 ```
 
 输出目录必须是新的路径。运行初始化会生成临时测试角色钥和本地 SQLite 账，保存在被 Git 忽略的 `.runtime/`；公开证据导出器只导出公钥、签名和账投影。演示先经受控初始化与批准构造，再接 CommonW，不能把 fixture 当成外部认证入口。

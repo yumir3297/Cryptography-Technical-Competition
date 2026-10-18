@@ -1,26 +1,36 @@
-# 单机模拟部署：一台机器，五个服务，一条对外入口。
+# 单机模拟部署：一台机器，一条对外入口，以及 agent 侧接入。
 #
-#   caddy          唯一对外入口（宿主 8080 → caddy:80）
-#   trusted        受信端：W + 入口（会话、submit/challenge/prove、公开包）
-#   endpoints      各角色端：19 个签名进程，各一把钥、各一个端口（9100-9118）
-#   caller-h       流程提出方那一侧
-#   caller-worker  流程执行方那一侧
+#   caddy            唯一对外入口（宿主 8080 → caddy:80）
+#   trusted          受信端：W + 入口（会话、submit/challenge/prove、公开包）
+#   endpoints        各角色端：19 个签名进程，各一把钥、各一个端口（9100-9118）
+#   caller-h         流程提出方那一侧（核心演示；agent 模式下不启动）
+#   caller-worker    流程执行方那一侧（核心演示；agent 模式下不启动）
+#   agent-gateway    agent 侧 MCP 入口：只有 propose/status，不 approve/execute
+#   agent-operator   独立 H 侧：prepare/accept（演示替身，真人审批 UI 属后续）
+#   agent-executor   独立 worker 侧：claim/exec/query/settle，不盲目重试
+#   demo-agent       脚本化 MCP 客户端：不依赖模型跑通 propose→settle
 #
 # 用法（一键，起完并看两侧把一遍流程跑完；顺带把 DeepSeek Harness 也起来）：
-#   python -m competition.deploy.up              # 用 docker
+#   python -m competition.deploy.up              # agent 模式：MCP 端到端 + dsh
+#   python -m competition.deploy.up --no-zjj     # 只起原核心演示，不接 agent 网关
 #   python -m competition.deploy.up --sudo       # docker daemon 权限不足时
 #   python -m competition.deploy.up --local      # 不用 docker，在本机跑同一套入口脚本
 #   python -m competition.deploy.up --fresh      # 丢掉上次的卷重新开始
 #   python -m competition.deploy.up --down       # 跑完收摊
 #   python -m competition.deploy.up --no-deepseek  # 只起竞赛这套，不起 DeepSeek Harness
 #
-# 直接驱动 compose 也行：
-#   docker compose -f competition/deploy/docker-compose.yml up --build
+# 直接驱动 compose 也行（agent 模式需要先准备两个 token 环境变量）：
+#   ZJJ_AGENT_TOKEN=... ZJJ_INTERNAL_TOKEN=... \
+#     docker compose -f competition/deploy/docker-compose.yml up --build \
+#       endpoints trusted caddy agent-gateway agent-operator agent-executor demo-agent
 #
 # 卷，以及为什么受信端读得到端的钥文件：
 #   zjj-run        受信端的运行目录（C.key、W-delivery.key、账库、工具配置）
 #   zjj-endpoints  各端自生成的钥 + roster.jsonl；受信端**只读**挂载
 #   zjj-callers    各调用者自生成的钥 + callers.jsonl；受信端**只读**挂载
+#   zjj-agent      agent-gateway 自己的 caller key + SQLite 事件账
+#   zjj-operator   operator 自己的 caller key
+#   zjj-executor   executor 自己的 caller key
 #
 #   X 回执子进程与工具子进程是从本机文件读凭据的（core/common_receipt.py、
 #   tools/common_tool.py），所以那两个文件必须在受信端读得到。仓库把这里的进程
@@ -116,6 +126,89 @@ services:
       - zjj-callers:/callers
     restart: "no"
 
+  agent-gateway:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.agent
+    depends_on:
+      trusted:
+        condition: service_healthy
+    environment:
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers/callers.jsonl
+      ZJJ_AGENT_KEYS: /agent
+      ZJJ_AGENT_DB: /agent/agent.sqlite
+      ZJJ_AGENT_TOKEN: ${ZJJ_AGENT_TOKEN:?set ZJJ_AGENT_TOKEN}
+      ZJJ_INTERNAL_TOKEN: ${ZJJ_INTERNAL_TOKEN:?set ZJJ_INTERNAL_TOKEN}
+      ZJJ_STATUS_POLL_MS: "1000"
+    volumes:
+      - zjj-agent:/agent
+      - zjj-callers:/callers
+    ports:
+      - "127.0.0.1:8090:8090"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    restart: "no"
+
+  agent-operator:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.operator
+    depends_on:
+      agent-gateway:
+        condition: service_healthy
+    environment:
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers/callers.jsonl
+      ZJJ_OPERATOR_KEYS: /operator
+      ZJJ_GATEWAY: http://agent-gateway:8090
+      ZJJ_INTERNAL_TOKEN: ${ZJJ_INTERNAL_TOKEN:?set ZJJ_INTERNAL_TOKEN}
+      ZJJ_OPERATOR_AUTO: "1"
+    volumes:
+      - zjj-operator:/operator
+      - zjj-callers:/callers
+    restart: "no"
+
+  agent-executor:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.executor
+    depends_on:
+      agent-gateway:
+        condition: service_healthy
+    environment:
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers/callers.jsonl
+      ZJJ_EXECUTOR_KEYS: /executor
+      ZJJ_GATEWAY: http://agent-gateway:8090
+      ZJJ_INTERNAL_TOKEN: ${ZJJ_INTERNAL_TOKEN:?set ZJJ_INTERNAL_TOKEN}
+    volumes:
+      - zjj-executor:/executor
+      - zjj-callers:/callers
+    restart: "no"
+
+  demo-agent:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.agent.demo --profile PAY-1
+    depends_on:
+      agent-gateway:
+        condition: service_healthy
+    environment:
+      ZJJ_MCP_URL: http://agent-gateway:8090/mcp
+      ZJJ_AGENT_TOKEN: ${ZJJ_AGENT_TOKEN:?set ZJJ_AGENT_TOKEN}
+    restart: "no"
+
   caddy:
     image: caddy:2
     depends_on:
@@ -131,3 +224,6 @@ volumes:
   zjj-run:
   zjj-endpoints:
   zjj-callers:
+  zjj-agent:
+  zjj-operator:
+  zjj-executor:

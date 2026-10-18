@@ -9,14 +9,17 @@ RUN useradd --uid "$UID" --create-home --shell /usr/sbin/nologin zjj
 
 WORKDIR /app
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY competition/agent/requirements.txt ./agent-requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt -r agent-requirements.txt
 
 # 契约与 Schema 是运行时从仓库树里读的，所以要带上整棵树而不是一个 wheel。
 COPY competition ./competition
 COPY system_dev ./system_dev
 
 # 卷的挂载点先在镜像里建好并归给 zjj，命名卷才会以这个属主落盘。
-RUN mkdir -p /run /endpoints /callers && chown -R zjj:zjj /run /endpoints /callers /app
+# agent/operator/executor 各自一个卷，所以三个 caller 的私钥不会住在一起。
+RUN mkdir -p /run /endpoints /callers /agent /operator /executor \
+    && chown -R zjj:zjj /run /endpoints /callers /agent /operator /executor /app
 
 ENV PYTHONPATH=/app \
     PYTHONUNBUFFERED=1

@@ -25,6 +25,13 @@ jobs:
           python-version: '3.13'
       - name: Install competition dependencies
         run: python -m pip install -r requirements.txt
+      - name: Install agent gateway dependencies
+        run: python -m pip install -r competition/agent/requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test the dsh feedback plugin
+        run: node --test competition/agent/dsh-plugin/test/*.test.js
       - name: Check current repository scope and references
         run: python -m competition.verify_repository --report .runtime/repository-check.json
       - name: Run competition component and recovery regressions
