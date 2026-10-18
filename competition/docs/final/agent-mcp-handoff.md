@@ -98,9 +98,10 @@ gateway 不把 caller key、完整 audit、acceptance body、COMMIT 值或业务
 python -m competition.deploy.up
 ```
 
-它会构建/启动 `endpoints`、`trusted`、`caddy`、`agent-gateway`、`agent-operator`、`agent-executor`，然后启动固定镜像的 DeepSeek Harness。常用开关：
+它会构建/启动 `endpoints`、`trusted`、`caddy`、`console`、`viewer`、`caller-observer`、`agent-gateway`，然后启动固定镜像的 DeepSeek Harness。常用开关：
 
 ```sh
+python -m competition.deploy.up --auto          # 另外起 operator/executor，自动接受并执行
 python -m competition.deploy.up --no-zjj        # 只跑原核心演示
 python -m competition.deploy.up --local         # 不用 docker，在本机跑同一套入口
 python -m competition.deploy.up --fresh         # 丢掉演示卷重新初始化
@@ -108,9 +109,11 @@ python -m competition.deploy.up --sudo          # docker daemon 需要提权
 python -m competition.deploy.up --down          # 跑完收摊
 ```
 
+默认不起 `agent-operator` / `agent-executor`：候选出现在控制台的「操作」里，由人接手后用提出方（`prepare`/`accept`）和执行方（`claim`/`exec`/`query`/`settle`）的按钮逐步推进。`up --auto` 才把这两个自动调用者放回来；一次 `up` 不带 `--auto` 也会停掉上一次遗留的它们。
+
 两个 token 由 `up.py` 生成/复用，落在 `.runtime/agent-tokens.json` 和 `.runtime/agent-tokens.env`（0600，已被 Git 忽略）。compose 通过 `--env-file` 读取它们：`sudo` 会重置环境，不能依赖父进程继承。
 
-端口：gateway `127.0.0.1:8090`，caddy `8080`，dsh `3080`。dsh 容器通过 `host.docker.internal:8090` 访问 gateway，只加入自己的网络，不加入 compose 网络。
+端口：gateway `127.0.0.1:8090`，caddy `8080`，dsh `3080`。dsh 容器加入 compose 的 `deploy_default` 网络，用服务名 `agent-gateway:8090` 访问 gateway；gateway 本身只发布在宿主回环上。
 
 dsh 不重建镜像。`competition/deploy/harness-entrypoint.sh` 把只读挂载的插件复制到 `/root/.dsh/plugins/dsh-zjj-agent`，再用 `dsh plugin --profile web add` 安装进持久 profile；版本标记在 `/root/.dsh/.zjj-plugin-version`，重复启动不会重复安装。没有 `ZJJ_MCP_URL`/`ZJJ_AGENT_TOKEN` 时原 entrypoint 原样执行。
 
@@ -136,12 +139,12 @@ python -m competition.verify_repository --report .runtime/repository-check.json
 python -m competition.deploy.up --fresh
 ```
 
-不再有脚本化的 `demo-agent`：候选由 dsh 里的模型提交。在预设菜单里选 **ZJJ 候选模式**，让它调用 `zjj_propose`；`agent-operator` 日志应出现 `accepted ...`，`agent-executor` 日志应出现 `settled ...`，模型会收到状态投影。如果 dsh 容器已经在跑，`up.py` 会跳过重建；要让它重装插件和预设，先 `docker rm -f deepseek-harness` 再跑。
+不再有脚本化的 `demo-agent`：候选由 dsh 里的模型提交。在预设菜单里选 **ZJJ 候选模式**，让它调用 `zjj_propose`；候选会出现在控制台 `http://127.0.0.1:8080/console/` 的「操作」里（与页面自己提交的操作是同一个池）。点「接手」，再用提出方的 `prepare`/`accept` 和执行方的 `claim`/`exec`/`query`/`settle` 推进；不接受就不会执行。`--auto` 模式下改为 `agent-operator` 日志出现 `accepted ...`、`agent-executor` 日志出现 `settled ...`，模型会收到状态投影。如果 dsh 容器已经在跑，`up.py` 会跳过重建；要让它重装插件和预设，先 `docker rm -f deepseek-harness` 再跑。
 
 ## 7. 已知边界
 
 - 受信端每次启动要求全新的 run 目录；trusted 容器重启会明确报错退出，不会悄悄重开旧 W。重跑用 `--fresh` 丢卷。
-- operator 默认自动 accept，是演示替身；真实审批 UI 属后续。
+- 默认不在 `agent-operator` / `agent-executor` 里替人接受或执行：它们不启动，控制台是唯一推进的地方；`--auto` 才恢复自动调用者。
 - executor 对未知 exec 结果只查询原 attempt 再 settle，不盲重试。
 - 受信端重启后，gateway 只能把旧操作标为 `UNAVAILABLE`，不恢复 op id，也不自动重提。
 - dsh 插件只投递投影，不把通知当批准；agent 仍以 `zjj_status` 的受信读为准。

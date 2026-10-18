@@ -10,11 +10,13 @@
 #   viewer           观察面展示页：托管 Vue 页面，持 observer 凭据只读转接四个读路由
 #                    （宿主 8081 → viewer:8008）
 #   agent-gateway    agent 侧 MCP 入口：只有 propose/status，不 approve/execute
-#   agent-operator   独立 H 侧：prepare/accept（演示替身，真人审批 UI 属后续）
-#   agent-executor   独立 worker 侧：claim/exec/query/settle，不盲目重试
+#   agent-operator   独立 H 侧：prepare/accept。默认**不起**——控制台是人接手的地方，
+#                    让它跑会抢在人的前面把候选接受掉。up --auto 才起。
+#   agent-executor   独立 worker 侧：claim/exec/query/settle，不盲目重试。同上，默认不起
 #
-# 用法（一键，起完就停：受信端等人在控制台上放行链内签名，然后 agent 从 MCP 入口提交）：
+# 用法（一键：agent 从 MCP 入口提交，候选出现在控制台的「操作」里，人接手后逐个放行）：
 #   python -m competition.deploy.up              # agent 模式：MCP 端到端 + dsh
+#   python -m competition.deploy.up --auto       # 同上，但 operator/executor 自动接受并执行
 #   python -m competition.deploy.up --no-zjj     # 只起原核心演示，不接 agent 网关
 #   python -m competition.deploy.up --sudo       # docker daemon 权限不足时
 #   python -m competition.deploy.up --local      # 不用 docker，在本机跑同一套入口脚本
@@ -25,7 +27,7 @@
 # 直接驱动 compose 也行（agent 模式需要先准备两个 token 环境变量）：
 #   ZJJ_AGENT_TOKEN=... ZJJ_INTERNAL_TOKEN=... \
 #     docker compose -f competition/deploy/docker-compose.yml up --build \
-#       endpoints trusted caddy agent-gateway agent-operator agent-executor
+#       endpoints trusted caddy console viewer caller-observer agent-gateway
 #
 # 卷，以及为什么受信端读得到端的钥文件：
 #   zjj-run        受信端的运行目录（C.key、W-delivery.key、账库、工具配置）
@@ -228,10 +230,15 @@ services:
       # 它们的地方。依赖受信端健康会把两者锁死。页面要的是各角色端，不是入口。
       endpoints:
         condition: service_healthy
+      # 观察面给页面列出实例里的全部操作（含 agent 经 MCP 提交的）。它也是只读
+      # 的，而且比入口更早可用，所以只等它起来，不等它健康。
+      viewer:
+        condition: service_started
     environment:
       ZJJ_CALLERS: /callers
       ZJJ_ENTRY: http://trusted:8000
       ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_OBSERVE: http://viewer:8008
       ZJJ_PROFILE: PAY-1
       ZJJ_CONSOLE_HOST: 0.0.0.0
       ZJJ_CONSOLE_PORT: "8100"

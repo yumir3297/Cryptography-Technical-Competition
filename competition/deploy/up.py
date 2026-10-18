@@ -35,10 +35,16 @@ from competition.deploy import expected_manifest
 
 ROOT = Path(__file__).resolve().parents[2]
 COMPOSE = Path(__file__).resolve().parent / 'docker-compose.yml'
-# The services that walk the agent flow: the gateway is served, the operator and
-# executor stay up.
+# The services that walk the agent flow: the gateway is served, and the two
+# workbench callers the agent boundary used to hand work to are *not*, because
+# the console drives those steps now.  Leaving them up would accept and execute
+# every candidate before a person could look at it, which is exactly the thing
+# the console is there to decide.  ``up --auto`` puts them back.
 AGENT_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'viewer', 'caller-observer',
-                  'agent-gateway', 'agent-operator', 'agent-executor')
+                  'agent-gateway')
+# The same deployment with the automatic workbench callers, for a run that is not
+# meant to stop for a person.
+AUTO_SERVICES = AGENT_SERVICES + ('agent-operator', 'agent-executor')
 # The original core services, kept for --no-zjj and --local.  ``caller-h`` and
 # ``caller-worker`` still walk their two sides, but they stop where a person has
 # to answer, so they stop there.
@@ -304,7 +310,14 @@ def up_docker(args):
     if not args.no_build:
         print('== 构建镜像', flush=True)
         compose(['build'], args.sudo)
-    services = list(CORE_SERVICES if args.no_zjj else AGENT_SERVICES)
+    services = list(CORE_SERVICES if args.no_zjj
+                    else (AUTO_SERVICES if args.auto else AGENT_SERVICES))
+    if not args.no_zjj and not args.auto:
+        # A previous run may have left the two workbench callers up, and ``up``
+        # with an explicit service list does not stop what it was not asked
+        # about.  Left running, they accept and execute every candidate before a
+        # person can look at the console, which is the whole point of the pool.
+        compose(['stop', 'agent-operator', 'agent-executor'], args.sudo, check=False)
     print('== 起服务（%s）' % ' '.join(services), flush=True)
     if 'trusted' in services:
         print('   控制台：http://127.0.0.1:8080/console/', flush=True)
@@ -336,6 +349,9 @@ def up_docker(args):
     print('显示页在 http://127.0.0.1:%d/。' % VIEWER_PORT, flush=True)
     print('受信端初始化是脚本模拟（不代表真人同意），默认不会停在页面上；'
           '要人逐个放行链内四个角色（G/U/V/X），设 ZJJ_AWAIT_APPROVAL=1。', flush=True)
+    if not args.no_zjj and not args.auto:
+        print('agent 提交的候选会出现在控制台的「操作」里，接手后用提出方/执行方按钮'
+              '逐个推进；没有人替你接受或执行（要自动用 --auto）。', flush=True)
     if args.down:
         print('== 收摊', flush=True)
         # Same reason as --fresh: detach the harness before removing the network.
@@ -380,6 +396,7 @@ def up_local(args):
                               ZJJ_ENTRY_HOST='127.0.0.1', ZJJ_ENTRY_PORT=str(args.port)))
         console_env = {'ZJJ_CALLERS': str(callers), 'ZJJ_ENTRY': entry,
                        'ZJJ_ENDPOINTS': 'http://127.0.0.1',
+                       'ZJJ_OBSERVE': 'http://127.0.0.1:%d' % args.viewer_port,
                        'ZJJ_CONSOLE_HOST': '127.0.0.1', 'ZJJ_CONSOLE_PORT': str(page_port)}
         if page.is_dir():
             console_env['ZJJ_CONSOLE_DIST'] = str(page)
@@ -388,15 +405,18 @@ def up_local(args):
         print('      角色端等人，等的是页面上的放行。', flush=True)
         observer = spawn(['competition.deploy.observer'], env, capture=True,
                          ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry)
+        # The viewer runs whether or not the display page was built: its read
+        # routes are what the console lists the instance's operations through,
+        # and that list has nothing to do with whether a page is mounted at ``/``.
+        viewer = spawn(['competition.deploy.viewer'], env,
+                       ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry,
+                       ZJJ_VIEWER_PORT=str(args.viewer_port))
         if DISPLAY.is_dir():
-            viewer = spawn(['competition.deploy.viewer'], env,
-                           ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry,
-                           ZJJ_VIEWER_PORT=str(args.viewer_port))
             print('展示页在 http://127.0.0.1:%d/（只读）。' % args.viewer_port, flush=True)
         else:
             print('展示页还没构建：cd competition/display && npm install && npm run build；'
                   '构建好再跑本命令，就能在 http://127.0.0.1:%d/ 看到。'
-                  % args.viewer_port, flush=True)
+                  '观察面本身已经在跑，控制台的「操作」走它。' % args.viewer_port, flush=True)
 
         if os.environ.get('ZJJ_AWAIT_APPROVAL', '0') == '1':
             print('[4/4] 受信端此刻是挂住的，不是坏的。打开页面逐个同意：', flush=True)
@@ -470,7 +490,10 @@ def main(argv=None):
     parser.add_argument('--no-deepseek', action='store_true',
                         help='不起 DeepSeek Harness，只起竞赛这套')
     parser.add_argument('--no-zjj', action='store_true',
-                        help='不接 agent 网关/operator/executor，只起原核心演示')
+                        help='不接 agent 网关，只起原核心演示')
+    parser.add_argument('--auto', action='store_true',
+                        help='agent 模式照旧起 operator/executor，让它们自动接受并执行，'
+                             '不在控制台上等人')
     parser.add_argument('--no-open', action='store_true',
                         help='不要把 DeepSeek Harness 的地址扔给浏览器')
     parser.add_argument('--harness-dir', default=str(Path.home() / 'Projects'),

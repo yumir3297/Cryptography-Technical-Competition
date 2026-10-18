@@ -57,7 +57,13 @@ if args[:1] == ['logs']:
     answer('dsh web: http://127.0.0.1:3079/?token=stub')
 
 if args[:2] == ['inspect', '-f']:
-    answer(os.environ.get('ZJJ_FAKE_CALLER_EXIT', '0') if 'ExitCode' in args[2] else 'exited')
+    if 'ExitCode' in args[2]:
+        answer(os.environ.get('ZJJ_FAKE_CALLER_EXIT', '0'))
+    if 'Networks' in args[2]:
+        # The harness is on the compose network unless a test says otherwise, so
+        # that "already up" and "up but stale" are two different answers.
+        answer(os.environ.get('ZJJ_FAKE_HARNESS_NET', 'deploy_default') + ' ')
+    answer('exited')
 
 if args[:1] == ['compose']:
     if 'logs' in args:
@@ -219,15 +225,32 @@ class OrchestrationTests(unittest.TestCase):
         calls = self.calls()
         self.assertTrue(any(call.endswith('build') for call in calls))
         self.assertTrue(any('up -d' in call for call in calls))
-        for service in ('console', 'viewer', 'agent-gateway', 'agent-executor'):
+        for service in ('console', 'viewer', 'agent-gateway'):
             self.assertTrue(
                 any(service in call and 'up -d' in call for call in calls), service)
+        # The two workbench callers are not started, and an earlier run's copies
+        # are stopped: the console is where a person accepts and executes, and
+        # they would do both before anybody looked at the pool.
+        self.assertFalse([call for call in calls
+                          if 'agent-executor' in call and 'up -d' in call])
+        self.assertTrue([call for call in calls if ' stop ' in call
+                         and 'agent-operator' in call and 'agent-executor' in call])
         # No scripted end-to-end any more: the four roles that sign inside the
         # chain are released by a person on the page, so nothing is waited on.
         # The only container it asks after is the entry, and only to see whether
         # it exited; the flow itself is not watched.
         asked = [call for call in calls if 'ps --all -q' in call]
         self.assertTrue(all('trusted' in call for call in asked), asked)
+
+    def test_auto_puts_the_two_workbench_callers_back(self):
+        # --auto is the run that is not meant to stop for a person: the callers
+        # that accept and execute on their own are started, and none is stopped.
+        self.assertEqual(self.run_up('--auto'), 0)
+        calls = self.calls()
+        for service in ('agent-operator', 'agent-executor'):
+            self.assertTrue(
+                any(service in call and 'up -d' in call for call in calls), service)
+        self.assertFalse([call for call in calls if ' stop ' in call])
 
     def test_the_core_services_can_run_without_the_agent_gateway(self):
         self.assertEqual(self.run_up('--no-zjj'), 0)
@@ -278,6 +301,16 @@ class OrchestrationTests(unittest.TestCase):
         self.run_up(ZJJ_FAKE_HARNESS_UP='1')
         self.assertFalse([call for call in self.calls() if 'run -d' in call
                           or 'pull' in call])
+
+    def test_a_harness_off_the_compose_network_is_rebuilt(self):
+        # A container started before the harness joined the compose network
+        # cannot resolve the gateway by service name, and it reports the MCP
+        # server as disconnected for as long as it lives.  Its volume keeps the
+        # sessions; the container is what gets recreated.
+        self.run_up(ZJJ_FAKE_HARNESS_UP='1', ZJJ_FAKE_HARNESS_NET='bridge')
+        calls = self.calls()
+        self.assertTrue(any('rm -f %s' % up.HARNESS_NAME in call for call in calls))
+        self.assertTrue(any('run -d --name %s' % up.HARNESS_NAME in call for call in calls))
 
     def test_an_image_that_is_already_here_is_not_pulled_again(self):
         self.run_up(ZJJ_FAKE_HARNESS_IMAGE='1')
