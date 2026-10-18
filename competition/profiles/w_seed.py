@@ -184,9 +184,11 @@ def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kw
             else:
                 # The tool process and the X receipt child each read their own
                 # credential from their own endpoint directory; the trusted side
-                # keeps only the path and the published public key.
+                # keeps only the path and the published public key.  Nothing here
+                # ever signs with a tool key: the tool signs inside its own
+                # process, so there is no key object to hand out.
                 tool_entry = fleet.find('tool', profile)
-                tool_key = fleet.remote_key(tool_entry); public = tool_entry.pub
+                tool_key = None; public = tool_entry.pub
                 key_path = Path(fleet.key_path(tool_entry))
                 x_key_path = fleet.key_path(fleet.find('X', profile))
             database = folder / (profile + '-tool.sqlite')

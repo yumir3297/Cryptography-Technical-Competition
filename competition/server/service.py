@@ -220,6 +220,17 @@ class TrustedService:
         """Accept an applicant's POP and publish its KEY/ROLE grants."""
         return self._registry().register(profile, proof)
 
+    # -- 公开包: 把「你被登记成了什么」发回给各端 --------------------------
+    def package(self):
+        """Assemble the public package every endpoint may check itself against.
+
+        Public facts and the records C already signed, never a private key and
+        never a local path; the module that assembles it documents the rule and
+        the check that enforces it.
+        """
+        from competition.server import package
+        return package.public_package(self.run)
+
     # -- result face: caller retrieves its result with verifiable evidence --
     def result(self, operation_id):
         """Assemble the export bundle for one committed operation.

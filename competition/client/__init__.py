@@ -5,7 +5,7 @@ It hands out a challenge; a role client answers with the signature of
 ``canonical([domain, claim])`` -- but only for the one profile, the one role and
 the handful of domains it was built for.  Everything else is refused loudly.
 
-Four pieces, layered so each can be tested alone:
+Five pieces, layered so each can be tested alone:
 
 ``keys``
     :func:`~competition.client.keys.generate` -- the endpoint makes its own key
@@ -20,9 +20,13 @@ Four pieces, layered so each can be tested alone:
     the line protocol that carries ``{profile, role, domain, claim}`` (or the
     ``raw`` / ``enrollment`` ops) in and ``{signature}`` out, modelled on
     :mod:`competition.support.broker_policy`.
+``package``
+    :func:`~competition.client.package.check` -- the other end of the hand-off:
+    read the trusted side's public package and check that this endpoint was
+    registered as exactly what it announced, and no more.
 ``__main__``
-    the process entry point: generate the credential, or pick the role, load its
-    own 0600 credential, serve.
+    the process entry point: generate the credential, check the registration, or
+    pick the role, load its own 0600 credential, serve.
 
 A client that cannot sign is far less dangerous than one that signs something it
 was never meant to, so every refusal is an exception, never a silent empty

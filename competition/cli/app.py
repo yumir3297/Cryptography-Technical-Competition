@@ -48,6 +48,7 @@ HELP = """\
   result <oid>      取回单操作结果包（公钥/签名/投影，不含私钥）
   export <oid> <dir> 把结果包写到新目录（bundle/chain/manifest）
   verify <dir>      独立核验结果包（manifest 哈希 + 签名链 + 禁导检查）
+  package [file]    组装并打印（或写到新文件）公开包：各端被登记成什么
   help              显示本帮助
   quit              退出
 """
@@ -298,6 +299,16 @@ class Session:
         from competition.server.export import verify_bundle
         print('核验:', _dump(verify_bundle(args[0])))
 
+    # -- 公开包: 各端拿回去自己核对 -----------------------------------------
+    def cmd_package(self, args):
+        self._need_run()
+        package = self.service.package()
+        if args:
+            from competition.server.package import write_package
+            print('已写出:', _dump(write_package(package, args[0])))
+            return
+        print(_dump(package))
+
 
 COMMANDS = {
     'help': 'cmd_help',
@@ -327,6 +338,7 @@ COMMANDS = {
     'result': 'cmd_result',
     'export': 'cmd_export',
     'verify': 'cmd_verify',
+    'package': 'cmd_package',
 }
 
 

@@ -1,10 +1,13 @@
 """Entry point: ``python -m competition.client --directory D --profile P --alias A``.
 
-Three modes:
+Four modes:
 
 ``--keygen``
     generate this endpoint's own key, print the public metadata a roster manifest
     carries, and exit.  The private half stays in ``--directory``.
+``--check-package FILE``
+    read the trusted side's public package and check this endpoint's own
+    registration against the credential it holds, then exit.
 default
     serve: answer exactly one request line and exit -- the broker-style one-shot.
 ``--serve``
@@ -12,8 +15,9 @@ default
     socket instead of stdin.
 
 The key is never named on the command line: it comes from the conventional file
-``<directory>/<profile>-<alias>.key`` (``W-worker.key`` for ``worker``), and the
-client refuses to start unless that file is its own 0600 credential.
+``<directory>/<profile>-<alias>.key`` (``W-worker.key`` for ``worker``,
+``<profile>-tool.key`` for ``tool``), and the client refuses to use it unless it
+is its own 0600 credential.
 
 ``--keygen`` writes the manifest entry to stdout and the path it used to stderr,
 so ``python -m competition.client --keygen ... >> roster.jsonl`` collects a
@@ -24,10 +28,12 @@ import json
 import sys
 from pathlib import Path
 
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+
 from competition.client.host import serve_connection, serve_unix
-from competition.client.keys import ENDPOINTS, generate, key_file_name
-from competition.client.signer import RoleSigner
-from competition.support.wire import ProtocolError, require
+from competition.client.keys import ENDPOINTS, generate, key_file_name, propose_purposes, propose_subject
+from competition.client.signer import RoleSigner, load_role_key
+from competition.support.wire import ProtocolError, keyid, require
 
 
 def build_parser():
@@ -42,12 +48,21 @@ def build_parser():
                         help='本端角色（worker 用 W-worker.key；tool 只生成密钥）')
     parser.add_argument('--keygen', action='store_true',
                         help='只生成本端密钥并打印公钥元数据（manifest 一行），不启动服务')
-    parser.add_argument('--name', default=None, help='--keygen 时替代默认 subject')
+    parser.add_argument('--check-package', default=None,
+                        help='读受信端公开包，核对本端被登记成什么，然后退出')
+    parser.add_argument('--name', default=None, help='--keygen / --check-package 时的 subject')
     parser.add_argument('--serve', action='store_true',
                         help='持续应答直到输入关闭（默认只应答一行）')
     parser.add_argument('--socket', default=None,
                         help='改为监听该 unix socket（需与 --serve 同用）')
     return parser
+
+
+def _own_public(path):
+    """This endpoint's own public key, from the credential it holds as an 0600 file."""
+    key = load_role_key(path)
+    public = key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+    return public, keyid(public)
 
 
 def main(argv=None):
@@ -58,6 +73,16 @@ def main(argv=None):
             metadata = generate(args.directory, args.profile, args.alias, name=args.name)
             sys.stderr.write('key: %s\n' % path)
             print(json.dumps(metadata, ensure_ascii=False, sort_keys=True))
+            return
+        if args.check_package is not None:
+            from competition.client.package import check, read_package
+            require(args.profile is not None or args.alias == 'worker', 'CLIENT_USAGE')
+            public, kid = _own_public(path)
+            facts = check(read_package(args.check_package), args.profile, args.alias,
+                          public=public, kid=kid,
+                          name=args.name or propose_subject(args.profile, args.alias),
+                          purposes=propose_purposes(args.alias))
+            print(json.dumps({'check': 'OK', **facts}, ensure_ascii=False, sort_keys=True))
             return
         # A roster alias or the worker serves challenges; the tool keeps its own
         # ledger process and reads its own key file.
