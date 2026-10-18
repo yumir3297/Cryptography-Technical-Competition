@@ -69,6 +69,12 @@ HARNESS_NAME = 'deepseek-harness'
 HARNESS_IMAGE = 'smanx/deepseek-harness:devtools-0.2.0-rc.2'
 HARNESS_HOME = 'dsh-home'
 HARNESS_PORT = 3080
+# The compose network the deployment's services share.  ``docker compose`` names
+# it after the project, and the project is named after the file's directory
+# (``competition/deploy`` -> ``deploy``).  The harness joins it so it can reach
+# the gateway by service name; the gateway's published port stays on the host
+# loopback, and nothing new is exposed.
+HARNESS_NETWORK = 'deploy_default'
 
 
 def load_tokens():
@@ -216,13 +222,18 @@ def start_harness(args):
                 '-v', '%s:/workspace' % args.harness_dir,
                 '-w', '/workspace']
         if not args.no_zjj:
-            # The dsh container reaches the host's loopback gateway through the
-            # host-gateway alias; it never joins the compose network.
+            # The harness reaches the gateway by service name on the compose
+            # network.  ``host.docker.internal`` used to point at the host's
+            # bridge address, but the gateway publishes on the host loopback
+            # (``127.0.0.1:8090``), which that address cannot reach -- the MCP
+            # client then reports the server as disconnected and the session has
+            # no tools.  Joining the network keeps the published port loopback
+            # only and still lets the harness reach it.
             token = os.environ.get('ZJJ_AGENT_TOKEN', '')
             argv += [
-                '--add-host', 'host.docker.internal:host-gateway',
-                '-e', 'ZJJ_MCP_URL=http://host.docker.internal:8090/mcp',
-                '-e', 'ZJJ_GATEWAY_URL=http://host.docker.internal:8090',
+                '--network', HARNESS_NETWORK,
+                '-e', 'ZJJ_MCP_URL=http://agent-gateway:8090/mcp',
+                '-e', 'ZJJ_GATEWAY_URL=http://agent-gateway:8090',
                 '-e', 'ZJJ_AGENT_TOKEN=' + token,
                 '-v', '%s:/opt/zjj-plugin:ro' % PLUGIN_DIR,
                 '-v', '%s:/opt/zjj-entrypoint.sh:ro' % BOOTSTRAP,
@@ -262,6 +273,9 @@ def up_docker(args):
         load_tokens()
     if args.fresh:
         print('== 丢掉上次的卷', flush=True)
+        # The harness is attached to the compose network, so it has to go before
+        # the network can be removed.  Its volume stays.
+        stop_harness(args.sudo)
         compose(['down', '-v'], args.sudo)
     if not args.no_build:
         print('== 构建镜像', flush=True)
@@ -300,9 +314,9 @@ def up_docker(args):
           '要人逐个放行链内四个角色（G/U/V/X），设 ZJJ_AWAIT_APPROVAL=1。', flush=True)
     if args.down:
         print('== 收摊', flush=True)
+        # Same reason as --fresh: detach the harness before removing the network.
+        stop_harness(args.sudo)
         compose(['down', '-v'], args.sudo)
-        if not args.no_deepseek:
-            stop_harness(args.sudo)
     return 0
 
 
