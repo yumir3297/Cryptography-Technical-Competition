@@ -8,7 +8,7 @@ from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat, PrivateFormat, NoEncryption
 from competition.support.schema import COMPETITION_PROTO
-from competition.support.wire import Identity, b64, keyid, canonical, digest, rec_ref, msgref, sortset, action_hash
+from competition.support.wire import Identity, b64, keyid, canonical, digest, rec_ref, msgref, require, sortset, action_hash
 from competition.support.enrollment import EnrollmentLab
 from competition.support.scene_base import SceneReadMixin
 from competition.support.scene_contract import _rec
@@ -103,14 +103,38 @@ class AuthorizationRun:
         cl={'profile':profile,'scope':PROFILE_SCOPES[profile],'operation_id':op['action']['operation_id'],'ctx':op['ctx'],'action':op['action'],'purposes':sortset(['EXECUTE']+op['required']),'revision':'1','complete':True,'refs':[]}
         self.store.initialize_coverage({'claim':cl,'signature':b64(self.root.sign(canonical(['COMP-APP-DENY-COVERAGE-v1',cl])))})
 
-def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None):
+def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None,roster=None):
+    """Create one fresh authenticated three-profile corpus.
+
+    Two ways to get the role keys, and they differ only in **who made them**:
+
+    * no ``roster`` -- the local fallback.  The controlled bootstrap generates
+      every role key here, writes it beside the trusted state as its own 0600
+      file, and signs with it.  This is the default path and nothing about it
+      changed.
+    * ``roster`` -- the endpoints made their own keys and published only the
+      public halves (``competition.server.roster``).  Nothing is generated and
+      **no role key file is written**: every chain message, source attestation
+      and possession proof in the corpus is signed by asking the endpoint that
+      owns the key.  All endpoints must therefore be reachable while this runs.
+
+    ``C.key`` (the root) stays with the trusted side either way.
+    """
     folder=Path(folder); folder.mkdir(parents=True,exist_ok=True)
     if (folder/'auth-w.sqlite').exists(): raise ValueError('New initialization must never reset an existing W')
+    require(roster is None or names is None,'INIT_ROSTER_NAMES')
     root=Ed25519PrivateKey.generate()
-    actors={p:{a:FreshActor(p,a,(names or {}).get((p,a))) for a in TYPES} for p in PROFILE_SCOPES}
-    for p,r in actors.items():
-        for alias,who in r.items():
-            f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+    if roster is None:
+        # Local fallback (default path): the trusted side generates every role key
+        # and keeps it.  Left exactly as it was.
+        actors={p:{a:FreshActor(p,a,(names or {}).get((p,a))) for a in TYPES} for p in PROFILE_SCOPES}
+        for p,r in actors.items():
+            for alias,who in r.items():
+                f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+    else:
+        # External mode: every role key lives at its own endpoint, so there is
+        # nothing to generate and nothing to write here.
+        actors=roster
     cfile=folder/'C.key';cfile.write_bytes(root.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(cfile,0o600)
     clock=ClockClient(cfile,folder/'c-clock.sqlite')
     store=TrustedState(folder/'auth-w.sqlite',root.public_key().public_bytes(Encoding.Raw,PublicFormat.Raw),actors,clock)

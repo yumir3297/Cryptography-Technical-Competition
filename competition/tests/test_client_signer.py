@@ -23,7 +23,7 @@ from pathlib import Path
 
 from competition.client.host import MAX_REQUEST_LINE, answer, decode_request, serve_connection, serve_unix
 from competition.client.signer import (
-    CHAIN_DOMAIN, ROLE_DOMAINS, SOURCE_DOMAIN, RoleSigner, role_key_path,
+    CHAIN_DOMAIN, ENROLL_DOMAIN, ROLE_DOMAINS, SOURCE_DOMAIN, RoleSigner, role_key_path,
 )
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.w_seed import initialize
@@ -132,10 +132,11 @@ class RoleSignerScopeTests(unittest.TestCase):
 
     def test_e_signs_no_approval_domain_at_all(self):
         # E signs no approval in the chain; the only domains it may sign are its
-        # own source evidence and the envelope that carries it in PAY-1.
+        # own source evidence, the envelope that carries it in PAY-1, and its own
+        # possession proof.
         profile = 'PAY-1'
         client = self.client(profile, 'E')
-        self.assertEqual(client.domains, frozenset({CHAIN_DOMAIN, SOURCE_DOMAIN}))
+        self.assertEqual(client.domains, frozenset({CHAIN_DOMAIN, SOURCE_DOMAIN, ENROLL_DOMAIN}))
         for domain in (GUARD_DOMAIN, ACCEPT_DOMAIN, READ_DOMAIN, WORKER_DOMAIN, SIGN_CALL_DOMAIN):
             with self.assertRaises(ProtocolError) as caught:
                 client.sign(profile, 'E', domain, {'profile': profile})

@@ -52,15 +52,18 @@ ENROLL_DOMAIN = 'ZJJ-ENROLL-v1'
 # and read challenges (and its in-chain caller proofs); every other roster alias
 # signs its own chain messages; the worker answers only the W step challenges.
 # ``E`` signs no approval in this flow -- only its own source evidence, whose shape
-# is the seven-element ``ZJJ-SOURCE-v1`` message or, in PAY-1, an envelope.
+# is the seven-element ``ZJJ-SOURCE-v1`` message or, in PAY-1, an envelope.  Every
+# alias also signs its own possession proof, which :meth:`RoleSigner.sign_raw`
+# accepts only when the tuple really names that key.
 ROLE_DOMAINS = {
-    'H': frozenset({GUARD_DOMAIN, ACCEPT_DOMAIN, READ_DOMAIN, SIGN_CALL_DOMAIN, CHAIN_DOMAIN}),
-    'U': frozenset({SIGN_CALL_DOMAIN, CHAIN_DOMAIN}),
-    'V': frozenset({SIGN_CALL_DOMAIN, CHAIN_DOMAIN}),
-    'G': frozenset({SIGN_CALL_DOMAIN, CHAIN_DOMAIN}),
-    'X': frozenset({SIGN_CALL_DOMAIN, CHAIN_DOMAIN}),
+    'H': frozenset({GUARD_DOMAIN, ACCEPT_DOMAIN, READ_DOMAIN, SIGN_CALL_DOMAIN,
+                    CHAIN_DOMAIN, ENROLL_DOMAIN}),
+    'U': frozenset({SIGN_CALL_DOMAIN, CHAIN_DOMAIN, ENROLL_DOMAIN}),
+    'V': frozenset({SIGN_CALL_DOMAIN, CHAIN_DOMAIN, ENROLL_DOMAIN}),
+    'G': frozenset({SIGN_CALL_DOMAIN, CHAIN_DOMAIN, ENROLL_DOMAIN}),
+    'X': frozenset({SIGN_CALL_DOMAIN, CHAIN_DOMAIN, ENROLL_DOMAIN}),
     'worker': frozenset({WORKER_DOMAIN}),
-    'E': frozenset({SOURCE_DOMAIN, CHAIN_DOMAIN}),
+    'E': frozenset({SOURCE_DOMAIN, CHAIN_DOMAIN, ENROLL_DOMAIN}),
 }
 
 
@@ -146,40 +149,49 @@ class RoleSigner:
         """
         return self.sign(profile, role, domain, claim)
 
+    def proves_own_key(self, tup):
+        """Refuse a possession tuple that is not about this key, in this scope.
+
+        The scope, public key and key id all come back from the trusted side
+        inside the tuple; an applicant handed a proof for somebody else's key
+        refuses instead of claiming possession it does not have.
+        """
+        require(type(tup) is dict and tup.get('scope') == PROFILE_SCOPES[self.profile],
+                'CLIENT_SCOPE')
+        require(tup.get('public_key') == b64(self.public) and tup.get('kid') == self.kid,
+                'CLIENT_KEY_BINDING')
+
     def sign_raw(self, profile, role, data):
         """Sign exactly the canonical bytes a caller hands over, if the domain fits.
 
         This is the seam the in-chain signing paths use: the broker's envelope
-        signature (``competition.core.signer_broker``), ``E``'s source attestation
-        and ``X``'s receipt.  The client re-derives the domain from the payload
-        instead of trusting a label, refuses anything outside its whitelist, and
-        never re-encodes what it was handed.
+        signature (``competition.core.signer_broker``), ``E``'s source attestation,
+        ``X``'s receipt and the possession proof the bootstrap publishes with its
+        grants.  The client re-derives the domain from the payload instead of
+        trusting a label, refuses anything outside its whitelist, and never
+        re-encodes what it was handed.
 
         The ``(profile, role)`` binding is checked here, but the profile a chain
         message names is not: an opaque payload has no shape the client may assume.
         What closes that gap is the trusted side's own roster -- each profile's
         roster holds its own aliases' key ids, so a signature produced for the
-        wrong profile is rejected where it is used, not here.
+        wrong profile is rejected where it is used, not here.  The one shape this
+        client does understand is its own possession proof, and that it checks.
         """
         require(profile == self.profile and role == self.role, 'CLIENT_BINDING')
-        domain, _ = split_message(data)
+        domain, value = split_message(data)
         require(domain in self.domains, 'CLIENT_DOMAIN')
+        if domain == ENROLL_DOMAIN:
+            require(len(value) == 7, 'CLIENT_MESSAGE')
+            self.proves_own_key(value[2])
         return b64(self.key.sign(data))
 
     def sign_enrollment(self, profile, role, pending, iat, exp):
-        """Sign one possession proof -- and only for a pending about this key.
-
-        The scope, public key, key id and window all come back from the trusted
-        side inside ``pending``; an applicant handed a tuple for somebody else's
-        key refuses instead of proving possession it does not have.
-        """
+        """Sign one possession proof -- and only for a pending about this key."""
         require(profile == self.profile and role == self.role, 'CLIENT_BINDING')
         require(type(pending) is dict and set(pending) == {'tuple', 'enrollment_id', 'nonce'},
                 'CLIENT_PENDING')
-        tup = pending['tuple']
-        require(type(tup) is dict and tup.get('scope') == PROFILE_SCOPES[self.profile],
-                'CLIENT_SCOPE')
-        require(tup.get('public_key') == b64(self.public) and tup.get('kid') == self.kid,
-                'CLIENT_KEY_BINDING')
+        self.proves_own_key(pending['tuple'])
         return b64(self.key.sign(enrollment_message(
-            tup, pending['enrollment_id'], pending['nonce'], iat, exp)))
+            tup=pending['tuple'], enrollment_id=pending['enrollment_id'],
+            nonce=pending['nonce'], iat=iat, exp=exp)))

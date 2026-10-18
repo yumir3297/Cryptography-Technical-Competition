@@ -93,7 +93,9 @@ def generate(folder, profile, role, *, name=None):
     Refuses to replace an existing credential -- the file is created exclusively
     -- and the private half is never returned, logged or transported.
     """
-    path = Path(folder) / key_file_name(profile, role)
+    folder = Path(folder)
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / key_file_name(profile, role)
     key = Ed25519PrivateKey.generate()
     write_key(path, key)
     return metadata(profile, role,
