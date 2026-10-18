@@ -1,0 +1,11 @@
+.git
+.gitignore
+__pycache__/
+*.py[cod]
+.runtime/
+tmp/
+*.key
+# The page is built inside the image, so neither its sources' cache nor a local
+# build belongs in the context.
+node_modules/
+competition/console/frontend/dist/

@@ -12,6 +12,11 @@
 | support/ | 运行和测试实际依赖的编码、场景校验及恢复基础模块 |
 | bridge/ | 面向前端/桥接的同进程显式接口：挑战与签名分离，调用方持钥自签 |
 | server/ | 可信端：编排器 + Resolver + W；最小接口 `submit / challenge / prove`（本地兜底签名） |
+| web/ | 受信端 HTTP 入口：会话 + `submit / challenge / prove` + 公开包 |
+| client/ | 外部角色签署端：本地生成密钥，按域白名单应答挑战（`/sign`） |
+| caller/ | 业务调用者：持自己的钥开会话，把每步挑战转给对应角色端签名 |
+| console/ | 客户端控制台：两个调用者 + 面向人的页面（Vue 3 + Element Plus），三场景可选，不是 agent 端 |
+| deploy/ | 单机部署：caddy + 受信端 + 角色端 + 两个调用者 + 控制台 |
 | cli/ | 可信端可交互 CLI，按 `submit → 发挑战 → 签名 → 回交` 驱动 |
 | tests/ | 比赛组件、并发、故障恢复与终局回归 |
 | docs/final/ | 共同协议、比赛配置、接口、场景交接及证据口径 |
@@ -25,7 +30,10 @@ python -m unittest discover -s competition/tests -v
 python -m competition.run_w_slice --output .runtime/demo-evidence
 python -m competition.verify_w_slice .runtime/demo-evidence --manifest-sha256 <manifest摘要> --report .runtime/demo-verification.json
 python -m competition.server
+python -m competition.console   # 客户端控制台：以两个调用者接入入口，页面在 /console/
 ```
+
+控制台是 caller 侧，不是受信端的一部分：它持自己的两个调用者钥（提出方、执行方各一），经受信端入口驱动一遍流程，页面里没有角色私钥、也不产生任何业务签名。单机部署会连它一起起，在 `http://127.0.0.1:8080/console/` 打开。
 
 输出目录必须是新的路径。运行初始化会生成临时测试角色钥和本地 SQLite 账，保存在被 Git 忽略的 `.runtime/`；公开证据导出器只导出公钥、签名和账投影。演示先经受控初始化与批准构造，再接 CommonW，不能把 fixture 当成外部认证入口。
 
