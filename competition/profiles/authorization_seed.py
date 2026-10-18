@@ -149,7 +149,7 @@ def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None,roster=None):
             for alias,who in roster.items():
                 tup={'scope':PROFILE_SCOPES[p],'subject':who.name,'public_key':b64(who.pub),'kid':who.kid,'purposes':sortset(list(who.purposes)),'key_not_before':str(now),'key_not_after':str(exp),'root_generation':'1'}
                 pending={'tuple':tup,'enrollment_id':b64(os.urandom(16)),'nonce':b64(os.urandom(32))}
-                pop=EnrollmentLab.possession(who,pending,iat=now,exp=now+60)
+                pop=EnrollmentLab.possession(who,pending,iat=now,exp=now+WINDOW)
                 kv={'subject':who.name,'public_key':b64(who.pub),'kid':who.kid,'epoch':'1','purposes':tup['purposes'],'iat':str(now),'exp':str(exp),'root_generation':'1','enrollment_ref':digest(['COMP-APP-POP-v1',pop])}
                 run.publish(p,'KEY',[who.kid],_rec(p,'KEY_GRANT',PROFILE_SCOPES[p],kv),enrollment=pop)
                 for role in [ROLES[p][alias]]+(['READER'] if p!='PAY-1' and alias!='E' else []):

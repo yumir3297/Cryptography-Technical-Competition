@@ -30,11 +30,12 @@ from competition.support.wire import (
     ProtocolError, WINDOW, b64, canonical, digest, raw, require, sortset,
 )
 
-# The key window and pending lifetime the bootstrap pre-registration uses.  The
-# key window is the chain window (``support.wire.WINDOW``); the pending lifetime
-# covers the enrollment handshake, which is a machine step and stays short.
+# The key window and pending lifetime the bootstrap pre-registration uses.  Both
+# are the one window (``support.wire.WINDOW``): enrollment is a machine handshake,
+# but it is one per role per scene over twenty-two endpoints, and a fixed minute
+# is not what that costs on a cold start.
 KEY_LIFETIME = WINDOW
-PENDING_TTL = 60
+PENDING_TTL = WINDOW
 
 
 class _RoleView:

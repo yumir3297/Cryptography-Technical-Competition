@@ -14,7 +14,7 @@ from pathlib import Path
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.server.service import STEPS, INTENT_FIELDS, TrustedService
 from competition.server.signer import LocalSigner
-from competition.support.wire import ProtocolError, b64
+from competition.support.wire import ProtocolError, WINDOW, b64
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -281,7 +281,7 @@ class Session:
         if pending is None:
             raise RuntimeError('还没有登记请求，先运行 enroll %s' % subject)
         now = int(time.time())
-        proof = self.service.enroll_proof(self.profile, subject, pending, now, now + 60)
+        proof = self.service.enroll_proof(self.profile, subject, pending, now, now + WINDOW)
         grant = self.service.enroll_register(self.profile, proof)
         self._pendings().pop((self.profile, subject), None)
         print('grant:', _dump(grant))

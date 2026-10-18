@@ -3,7 +3,7 @@ from __future__ import annotations
 import json, os, sqlite3
 from contextlib import contextmanager
 from pathlib import Path
-from competition.support.wire import Identity, ProtocolError, b64, raw, canonical, keyid, digest, strict_verify, require, good_point, is_id, number, rec_ref
+from competition.support.wire import Identity, ProtocolError, WINDOW, b64, raw, canonical, keyid, digest, strict_verify, require, good_point, is_id, number, rec_ref
 
 MAX_KEY_LIFE=31536000
 
@@ -44,8 +44,8 @@ class EnrollmentLab:
         enrollment_id=b64(os.urandom(16));nonce=b64(os.urandom(32))
         with self.db() as c:
             c.execute('INSERT INTO pending(enrollment_id,tuple_json,nonce,created_at,expires) VALUES(?,?,?,?,?)',
-                      (enrollment_id,json.dumps(tup,sort_keys=True),nonce,now,now+60))
-        return {'tuple':tup,'enrollment_id':enrollment_id,'nonce':nonce,'pending_expires':str(now+60)}
+                      (enrollment_id,json.dumps(tup,sort_keys=True),nonce,now,now+WINDOW))
+        return {'tuple':tup,'enrollment_id':enrollment_id,'nonce':nonce,'pending_expires':str(now+WINDOW)}
     @staticmethod
     def possession(applicant: Identity, pending: dict,iat=101,exp=140):
         tup=pending['tuple'];msg=canonical(['ZJJ-ENROLL-v1','2.6',tup,pending['enrollment_id'],pending['nonce'],str(iat),str(exp)])
@@ -74,7 +74,7 @@ class EnrollmentLab:
                     saved=json.loads(row['grant_json']);c.execute('COMMIT');return saved
                 require(int(tup['root_generation'])==self.root_generation,'ROOT_GENERATION')
                 require(row['created_at']<=int(proof['iat'])<int(proof['exp']) and
-                        0<int(proof['exp'])-int(proof['iat'])<=60 and
+                        0<int(proof['exp'])-int(proof['iat'])<=WINDOW and
                         int(proof['exp'])<=row['expires'] and int(proof['iat'])<=now<int(proof['exp']), 'PROOF_TIME')
                 require(int(tup['key_not_before'])<=now<int(tup['key_not_after']), 'KEY_LIFETIME')
                 require(c.execute('SELECT 1 FROM key_grants WHERE kid=?',(tup['kid'],)).fetchone() is None,'KEY_EXISTS')
