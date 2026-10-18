@@ -217,3 +217,22 @@ class TrustedService:
     def enroll_register(self, profile, proof):
         """Accept an applicant's POP and publish its KEY/ROLE grants."""
         return self._registry().register(profile, proof)
+
+    # -- result face: caller retrieves its result with verifiable evidence --
+    def result(self, operation_id):
+        """Assemble the export bundle for one committed operation.
+
+        Reads ``status`` and ``audit`` through the same challenge/sign path as
+        every other step (local fallback or an injected ``Signer``), so the
+        projections carry real H read credentials.
+        """
+        from competition.server import export
+        entry = self._entry(operation_id)
+        status = self.step(operation_id, 'status')
+        audit = self.step(operation_id, 'audit')
+        return export.operation_bundle(self.run, entry['profile'], entry['op'], status, audit)
+
+    def export(self, operation_id, out_dir):
+        """Write the export bundle (public keys, signatures, projections) to disk."""
+        from competition.server import export
+        return export.write_bundle(self.result(operation_id), out_dir)

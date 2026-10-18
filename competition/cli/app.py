@@ -41,6 +41,9 @@ HELP = """\
   identities        列出 roster 的 subject/alias/kid/purposes
   enroll <subject>  为 roster 主体发 pending（tuple + enrollment_id + nonce）
   enroll-register <subject>  本地签 POP 并登记，打印 grant
+  result <oid>      取回单操作结果包（公钥/签名/投影，不含私钥）
+  export <oid> <dir> 把结果包写到新目录（bundle/chain/manifest）
+  verify <dir>      独立核验结果包（manifest 哈希 + 签名链 + 禁导检查）
   help              显示本帮助
   quit              退出
 """
@@ -235,6 +238,25 @@ class Session:
         self._pendings().pop((self.profile, subject), None)
         print('grant:', _dump(grant))
 
+    # -- result face --------------------------------------------------------
+    def cmd_result(self, args):
+        self._need_operation()
+        operation_id = args[0] if args else self.operation_id
+        print('结果包:', _dump(self.service.result(operation_id)))
+
+    def cmd_export(self, args):
+        self._need_run()
+        if len(args) != 2:
+            raise RuntimeError('用法: export <oid> <dir>')
+        report = self.service.export(args[0], args[1])
+        print('已导出:', _dump(report))
+
+    def cmd_verify(self, args):
+        if len(args) != 1:
+            raise RuntimeError('用法: verify <dir>')
+        from competition.server.export import verify_bundle
+        print('核验:', _dump(verify_bundle(args[0])))
+
 
 COMMANDS = {
     'help': 'cmd_help',
@@ -260,6 +282,9 @@ COMMANDS = {
     'identities': 'cmd_identities',
     'enroll': 'cmd_enroll',
     'enroll-register': 'cmd_enroll_register',
+    'result': 'cmd_result',
+    'export': 'cmd_export',
+    'verify': 'cmd_verify',
 }
 
 
