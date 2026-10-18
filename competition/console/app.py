@@ -88,6 +88,14 @@ def make_app(console, *, dist=None):
     def pending(profile: str = ''):
         return console.pending(profile or None)
 
+    # The candidates this instance has been asked to consider, read through the
+    # same observation projection the display page uses.  This is what makes an
+    # operation submitted through MCP visible here: one pool, two callers, one
+    # view -- and the row appears at submission, before anybody accepts it.
+    @app.get(PREFIX + '/api/operations')
+    def operations(limit: int = 50):
+        return console.operations(limit)
+
     # The answer to one waiting request.  A yes or a no travels to the role's own
     # endpoint, which is where the decision and the signature both live.
     @app.post(PREFIX + '/api/decide')

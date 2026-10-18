@@ -45,6 +45,41 @@ DEFAULT_PROFILE = 'PAY-1'
 START_TIMEOUT = 600.0
 
 
+def _candidates(events, limit):
+    """The submitted candidates, each with its latest state, newest first.
+
+    A row exists as soon as somebody submits: the entry publishes
+    ``CANDIDATE_SUBMITTED`` for its own page and for the agent gateway alike, and
+    that is the only signal that reaches the read-only face before anybody
+    accepts.  Acceptance, execution and settlement are later events for the same
+    operation, and the core is what labels them -- ``status_label`` is its own
+    word, where the entry's own events leave it empty.
+    """
+    submitted, latest, labels, stages = {}, {}, {}, {}
+    for event in events:
+        operation_id = event.get('operation_id')
+        if not operation_id:
+            continue
+        if event.get('kind') == 'CANDIDATE_SUBMITTED':
+            submitted[operation_id] = event
+        latest[operation_id] = event
+        if event.get('status_label'):
+            labels[operation_id] = event['status_label']
+            stages[operation_id] = event.get('stage') or ''
+    rows = []
+    for operation_id, first in submitted.items():
+        event = latest.get(operation_id, first)
+        rows.append({
+            'operation_id': operation_id,
+            'profile': event.get('profile') or first.get('profile') or '',
+            'state': labels.get(operation_id, 'SUBMITTED'),
+            'stage': stages.get(operation_id) or event.get('stage') or '',
+            'seq': int(event.get('seq') or 0),
+        })
+    rows.sort(key=lambda row: row['seq'], reverse=True)
+    return rows[:max(1, min(int(limit), 200))]
+
+
 class Console:
     """The holder and worker callers behind one page.
 
@@ -53,11 +88,12 @@ class Console:
     which are one :class:`~competition.caller.flow.Caller` call each.
     """
 
-    def __init__(self, folder, entry, endpoints, *, profile=DEFAULT_PROFILE,
+    def __init__(self, folder, entry, endpoints, *, observe=None, profile=DEFAULT_PROFILE,
                  holder='console-h', worker='console-worker', timeout=START_TIMEOUT):
         self.folder = Path(folder)
         self.entry = str(entry).rstrip('/')
         self.endpoints = None if endpoints is None else str(endpoints).rstrip('/')
+        self.observe = None if observe is None else str(observe).rstrip('/')
         self.profile = profile
         self.timeout = timeout
         self.names = {HOLDER: holder, WORKER: worker}
@@ -203,6 +239,40 @@ class Console:
         reply = httpx.post(url, json={'id': ticket, 'approve': approve}, timeout=10.0)
         require(reply.status_code == 200, 'CONSOLE_DECIDE')
         return reply.json()
+
+    def operations(self, limit=50):
+        """Every candidate this instance has been asked to consider, newest first.
+
+        The entry has one pool: a candidate submitted from this page and one the
+        agent submitted over MCP are the same kind of row.  What makes the agent's
+        visible here before anybody accepts it is the read-only observation face
+        -- the same projection the display page reads -- where a submission shows
+        up as an event.  It is a read: no payload, and no way to drive a step.
+
+        The event routes only walk forward, so the log is read from the start; at
+        a demonstration's scale that is a few pages.  A viewer that is not up yet
+        reads as an empty list rather than as an error a page has to report.
+        """
+        if self.observe is None:
+            return {'operations': []}
+        import httpx
+        events, after = [], 0
+        try:
+            for _ in range(20):
+                reply = httpx.get(self.observe + '/api/observe/events',
+                                  params={'after': after, 'limit': 500}, timeout=3.0)
+                if reply.status_code != 200:
+                    return {'operations': []}
+                page = reply.json()
+                got = page.get('events', [])
+                events.extend(got)
+                last = int(page.get('last') or after)
+                if not got or last <= after:
+                    break
+                after = last
+        except (httpx.HTTPError, ValueError):
+            return {'operations': []}
+        return {'operations': _candidates(events, limit)}
 
     def status(self):
         """What a page needs before it can act: the two sessions, no tokens."""

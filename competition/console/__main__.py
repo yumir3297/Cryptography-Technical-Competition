@@ -32,6 +32,9 @@ def build_parser():
                         help='受信端入口基址，如 http://trusted:8000')
     parser.add_argument('--endpoints', default=os.environ.get('ZJJ_ENDPOINTS', 'http://endpoints'),
                         help='各角色端地址基址，如 http://endpoints')
+    parser.add_argument('--observe', default=os.environ.get('ZJJ_OBSERVE', ''),
+                        help='只读观察面（展示网关）基址，如 http://viewer:8008；'
+                             '给了它，页面才能列出代理也提交过的操作')
     parser.add_argument('--profile', default=os.environ.get('ZJJ_PROFILE', DEFAULT_PROFILE),
                         help='页面默认 Profile')
     parser.add_argument('--host', default=os.environ.get('ZJJ_CONSOLE_HOST', '0.0.0.0'),
@@ -66,6 +69,7 @@ def open_sessions(console):
 def main(argv=None):
     args = build_parser().parse_args(argv)
     console = Console(args.directory, args.entry, args.endpoints,
+                      observe=args.observe or None,
                       profile=args.profile, timeout=args.wait)
     print('两个调用者登记在 %s' % console.enroll(), flush=True)
     threading.Thread(target=open_sessions, args=(console,), daemon=True).start()

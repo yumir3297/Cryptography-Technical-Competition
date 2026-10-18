@@ -10,7 +10,14 @@
 import { computed, reactive, watch } from 'vue'
 
 import { consoleApi, DenyError } from './api'
-import type { ConsoleStatus, Pending, Scenario, Side, StepRecord } from './types'
+import type {
+  ConsoleStatus,
+  OperationRow,
+  Pending,
+  Scenario,
+  Side,
+  StepRecord,
+} from './types'
 
 /** The steps the page offers each side.  Buttons, not authority. */
 export const HOLDER_STEPS = ['prepare', 'accept', 'status', 'audit'] as const
@@ -21,6 +28,7 @@ export interface ConsoleState {
   scenarios: Scenario[]
   profile: string
   pending: Pending | null
+  operations: OperationRow[]
   intent: Record<string, string>
   operationId: string
   view: Record<string, unknown> | null
@@ -36,6 +44,7 @@ export const state = reactive<ConsoleState>({
   scenarios: [],
   profile: '',
   pending: null,
+  operations: [],
   intent: {},
   operationId: '',
   view: null,
@@ -74,6 +83,19 @@ watch(
     state.intent = Object.fromEntries((scenario?.intents ?? []).map((key) => [key, '']))
   },
 )
+
+// The operation being driven belongs to the instance, not to this page's memory:
+// keeping the id across a reload means a status refresh does not lose the handle
+// that was picked out of the shared pool.
+watch(
+  () => state.operationId,
+  (id) => {
+    if (id) window.localStorage.setItem('zjj.operation', id)
+    else window.localStorage.removeItem('zjj.operation')
+  },
+)
+
+state.operationId = window.localStorage.getItem('zjj.operation') ?? ''
 
 function now(): string {
   return new Date().toLocaleTimeString('zh-CN', { hour12: false })
@@ -126,11 +148,23 @@ export const actions = {
         state.profile = scenarios.profiles[0]?.profile ?? ''
       }
       state.pending = state.profile ? await consoleApi.pending(state.profile) : null
+      state.operations = (await consoleApi.operations()).operations
     } catch (error) {
       state.error = codeOf(error)
     } finally {
       state.busy = false
     }
+  },
+
+  // Take one operation out of the instance's pool and make it the one this page
+  // drives.  It may be one this page submitted, or one the agent delivered over
+  // MCP -- the pool is the same, and the entry decides who may do each step.
+  attach(operationId: string): void {
+    const id = operationId.trim()
+    if (!id) return
+    state.operationId = id
+    state.view = null
+    record('H', '接手操作', true, { operation_id: id })
   },
 
   async chooseScenario(profile: string): Promise<void> {
@@ -151,7 +185,11 @@ export const actions = {
       // Ask for the scenario on screen, not whatever the console happens to
       // default to: the entry assembles the chain one scenario at a time, and the
       // two are not the same one for most of the run.
-      const pending = await consoleApi.pending(state.profile)
+      const [pending, operations] = await Promise.all([
+        consoleApi.pending(state.profile),
+        consoleApi.operations(),
+      ])
+      state.operations = operations.operations
       state.pending = pending
       // The scenario a person has to look at moves on its own, as the entry
       // finishes one and starts the next.  Follow it, rather than making them

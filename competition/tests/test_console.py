@@ -19,6 +19,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from competition.caller import CALLER_LIST
@@ -177,6 +178,84 @@ class ConsoleFlowTests(unittest.TestCase):
             self.assertEqual(set(line), {'name', 'public_key', 'sides'})
         self.assertEqual({line['name']: line['sides'] for line in lines},
                          {'console-h': ['H'], 'console-worker': ['worker']})
+
+
+class ConsoleOperationPoolTests(unittest.TestCase):
+    """The page reads the instance's pool, rather than being handed one id.
+
+    An operation the agent submitted over MCP is not something this page was told
+    about.  It appears because the entry holds one pool and the console reads the
+    same read-only projection the display page reads -- so the page can pick a
+    candidate up without the conversation having to carry its id across.
+    """
+
+    EVENTS = [
+        {'seq': 1, 'kind': 'CANDIDATE_SUBMITTED', 'source': 'ENTRY',
+         'profile': 'PAY-1', 'operation_id': 'op-1', 'stage': '外部提交候选动作'},
+        {'seq': 2, 'kind': 'CHAIN_ASSEMBLED', 'source': 'ENTRY',
+         'profile': 'PAY-1', 'operation_id': 'op-1',
+         'stage': 'Resolver 装配完整动作/依据/用途'},
+        {'seq': 3, 'kind': 'CANDIDATE_SUBMITTED', 'source': 'ENTRY',
+         'profile': 'PAY-1', 'operation_id': 'op-2', 'stage': '外部提交候选动作'},
+        # An initialization event carries an operation id too, but nobody
+        # submitted it, so it is not a row a person could pick up.
+        {'seq': 4, 'kind': 'COVERAGE_INITIALIZED', 'source': 'CORE',
+         'profile': 'IND-DEMO-1', 'operation_id': 'chain-1', 'stage': '否决覆盖初始化'},
+        # The core's own label is what the row shows; the entry's events leave it
+        # empty, which is why a fresh candidate reads as SUBMITTED.
+        {'seq': 5, 'kind': 'SETTLED', 'source': 'CORE', 'profile': 'PAY-1',
+         'operation_id': 'op-1', 'stage': '一次结算', 'status_label': 'SETTLED'},
+    ]
+    # Newest first, each with its latest state.
+    EXPECTED = [
+        {'operation_id': 'op-1', 'profile': 'PAY-1', 'state': 'SETTLED',
+         'stage': '一次结算', 'seq': 5},
+        {'operation_id': 'op-2', 'profile': 'PAY-1', 'state': 'SUBMITTED',
+         'stage': '外部提交候选动作', 'seq': 3},
+    ]
+
+    def setUp(self):
+        self.folder = tempfile.TemporaryDirectory(dir=TEMP_ROOT)
+        events = list(self.EVENTS)
+        viewer = FastAPI()
+
+        @viewer.get('/healthz')
+        def healthz():
+            return {'ok': True}
+
+        @viewer.get('/api/observe/events')
+        def read_events(after: int = 0, limit: int = 500):
+            rows = [event for event in events if event['seq'] > after][:limit]
+            return {'events': rows, 'last': rows[-1]['seq'] if rows else after}
+
+        self.viewer = Face(viewer)
+
+    def tearDown(self):
+        self.viewer.close()
+        self.folder.cleanup()
+
+    def console(self, observe):
+        return Console(Path(self.folder.name), 'http://127.0.0.1:1', None, observe=observe)
+
+    def test_the_pool_is_listed_without_being_told_an_id(self):
+        listed = self.console(self.viewer.base).operations()
+        self.assertEqual(listed, {'operations': self.EXPECTED})
+
+    def test_the_page_carries_the_pool_over_its_own_http(self):
+        client = TestClient(console_app(self.console(self.viewer.base)))
+        try:
+            reply = client.get('/console/api/operations')
+            self.assertEqual(reply.status_code, 200, reply.text)
+            self.assertEqual(reply.json(), {'operations': self.EXPECTED})
+        finally:
+            client.close()
+
+    def test_a_viewer_that_is_not_there_is_an_empty_list_not_an_error(self):
+        # The viewer comes up after the console does, in both deployments, so the
+        # list is empty until it answers rather than a failure a page reports.
+        self.assertEqual(self.console('http://127.0.0.1:1').operations(),
+                         {'operations': []})
+        self.assertEqual(self.console(None).operations(), {'operations': []})
 
 
 if __name__ == '__main__':

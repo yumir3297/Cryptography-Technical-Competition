@@ -5,7 +5,14 @@
  * endpoints all answer ``{"deny": <rule>}``, and this carries that name up so the
  * page can show which rule said no rather than "something went wrong".
  */
-import type { ConsoleStatus, Pending, Scenarios, Side, SubmitReply } from './types'
+import type {
+  ConsoleStatus,
+  Operations,
+  Pending,
+  Scenarios,
+  Side,
+  SubmitReply,
+} from './types'
 
 const BASE = '/console'
 
@@ -50,6 +57,9 @@ export const consoleApi = {
 
   pending: (profile: string) =>
     call<Pending>('/api/pending?profile=' + encodeURIComponent(profile)),
+
+  operations: (limit = 50) =>
+    call<Operations>('/api/operations?limit=' + limit),
 
   decide: (profile: string, role: string, id: string, approve: boolean) =>
     call<{ taken: boolean }>(

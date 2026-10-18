@@ -58,6 +58,21 @@ export interface Pending {
   todos: Todo[]
 }
 
+/** One candidate the instance has been asked to consider, as the read-only
+ *  projection shows it.  It carries no payload: the page only needs to pick
+ *  one.  ``state`` is the newest event's kind, ``stage`` its wording. */
+export interface OperationRow {
+  operation_id: string
+  profile: string
+  state: string
+  stage: string
+  seq: number
+}
+
+export interface Operations {
+  operations: OperationRow[]
+}
+
 /** One request the page made, and what came back, kept for the timeline. */
 export interface StepRecord {
   at: string

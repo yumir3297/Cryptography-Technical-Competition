@@ -3,6 +3,7 @@ import { computed, onMounted, onUnmounted } from 'vue'
 import { Refresh } from '@element-plus/icons-vue'
 
 import HolderPanel from './components/HolderPanel.vue'
+import OperationList from './components/OperationList.vue'
 import RolePanel from './components/RolePanel.vue'
 import StepLog from './components/StepLog.vue'
 import StateView from './components/StateView.vue'
@@ -81,6 +82,13 @@ onUnmounted(() => {
           :closable="false"
           class="alert"
         />
+
+        <!-- The instance's pool comes first: an operation the agent submitted
+             over MCP appears here, and picking it is what the panels below then
+             drive.  The page never submits on its own account of it. -->
+        <div class="block">
+          <OperationList />
+        </div>
 
         <el-row :gutter="16">
           <el-col v-for="role in currentRoles" :key="role.alias" :xs="24" :md="8">
