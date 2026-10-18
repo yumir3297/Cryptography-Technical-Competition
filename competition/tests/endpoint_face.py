@@ -50,11 +50,11 @@ class Face:
                 time.sleep(0.02)
         raise AssertionError('endpoint did not answer within %ss' % timeout)
 
-    def get(self, path):
-        return httpx.get(self.base + path, timeout=5.0)
+    def get(self, path, headers=None):
+        return httpx.get(self.base + path, headers=headers, timeout=5.0)
 
-    def post(self, path, payload):
-        return httpx.post(self.base + path, content=payload, timeout=5.0)
+    def post(self, path, payload, headers=None):
+        return httpx.post(self.base + path, content=payload, headers=headers, timeout=5.0)
 
     def close(self):
         self._server.should_exit = True
