@@ -1,0 +1,10 @@
+# The page is built inside its own stage, so nothing a local build left behind
+# should ride into any image.  Both Dockerfiles use the repository root as their
+# build context.
+**/node_modules
+**/dist
+.git
+.runtime
+tmp
+**/__pycache__
+*.py[cod]

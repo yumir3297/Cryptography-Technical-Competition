@@ -1,4 +1,4 @@
-# 单机模拟部署：一台机器，五个服务，一条对外入口。
+# 单机模拟部署：一台机器，七个服务，一条对外入口。
 #
 #   caddy          唯一对外入口（宿主 8080 → caddy:80）
 #   trusted        受信端：W + 入口（会话、submit/challenge/prove、公开包）
@@ -6,6 +6,8 @@
 #   caller-h       流程提出方那一侧
 #   caller-worker  流程执行方那一侧
 #   caller-observer 只读观看者：订阅观察面，打印每一步，不驱动任何一步
+#   viewer         观察面展示页：托管 Vue 页面，持 observer 凭据只读转接四个读路由
+#                  （宿主 8081 → viewer:8008）
 #
 # 用法（一键，起完并看两侧把一遍流程跑完；顺带把 DeepSeek Harness 也起来）：
 #   python -m competition.deploy.up              # 用 docker
@@ -131,6 +133,30 @@ services:
       ZJJ_CALLERS: /callers
     volumes:
       - zjj-callers:/callers
+    restart: "no"
+
+  viewer:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/viewer.Dockerfile
+    depends_on:
+      trusted:
+        condition: service_healthy
+    environment:
+      ZJJ_NAME: caller-observer
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_CALLERS: /callers
+      ZJJ_VIEWER_HOST: 0.0.0.0
+      ZJJ_VIEWER_PORT: "8008"
+    volumes:
+      - zjj-callers:/callers
+    ports:
+      - "127.0.0.1:8081:8008"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8008/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
     restart: "no"
 
   caddy:

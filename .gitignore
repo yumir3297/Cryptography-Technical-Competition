@@ -6,3 +6,5 @@ __pycache__/
 *.py[cod]
 .runtime/
 tmp/
+node_modules/
+competition/display/dist/

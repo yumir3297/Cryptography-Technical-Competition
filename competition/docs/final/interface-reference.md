@@ -151,3 +151,5 @@ GET /api/observe/operations/{operation_id}
 | 边界 | 不授予执行权、非"第四条消息"、不签名、非证据；不能由观察事件推断未提交的决策 |
 
 `a_observe_event.seq` 是单调订阅游标。核心 `a_journal` 保持原字节与行集合不变，观察步骤名不进入其中。
+
+**展示页与观察网关。** 浏览器不能直接是 observer：它不该持有私钥，而 `EventSource` 也无法带 `Authorization` 头。所以部署里另有一个**观察网关**（[`competition/deploy/viewer.py`](../../deploy/viewer.py)），持 `observer` 会话、托管展示页（[`competition/display`](../../display/README.md)）、把上述四条读路由转接给页面，并在令牌过期前重开；其余路径一律 `404`，页面即使被改动也发不出 `submit/challenge/prove`。展示的是同一份投影，口径不变：只读、已脱敏、`not_evidence`。

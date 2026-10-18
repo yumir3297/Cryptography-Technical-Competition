@@ -9,13 +9,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RETIRED = ('research', 'research_archives', 'research_evidence', 'verification', 'docs')
+# Directories that are not this repository's own content: a build artifact, a
+# vendored dependency tree or a byte cache.  They are read by neither the code
+# walk nor the document walk -- a package's own README is not a document of this
+# repository, and its links are not this repository's to keep good.
+SKIPPED = ('evidence', '__pycache__', 'node_modules')
 
 
 def check():
     assert all(not (ROOT / name).exists() for name in RETIRED), 'Research roots must be outside the Git worktree'
     links = 0
     code = list((ROOT / 'competition').rglob('*.py')) + list((ROOT / 'system_dev').rglob('*.py'))
-    code = [p for p in code if not any(x in p.relative_to(ROOT).parts for x in ('evidence', '__pycache__'))]
+    code = [p for p in code if not any(x in p.relative_to(ROOT).parts for x in SKIPPED)]
     for path in code:
         tree = ast.parse(path.read_text(encoding='utf-8-sig'))
         for node in ast.walk(tree):
@@ -30,7 +35,7 @@ def check():
                     target = ROOT.joinpath(*name.split('.'))
                     assert target.with_suffix('.py').is_file() or target.is_dir(), (path, name)
     docs = list(ROOT.glob('*.md')) + list((ROOT / 'competition').rglob('*.md')) + list((ROOT / 'system_dev').rglob('*.md'))
-    docs = [p for p in docs if 'evidence' not in p.relative_to(ROOT).parts]
+    docs = [p for p in docs if not any(x in p.relative_to(ROOT).parts for x in SKIPPED)]
     for path in docs:
         text = re.sub(r'```[\s\S]*?```', '', path.read_text(encoding='utf-8-sig'))
         for href in re.findall(r'\[[^\]]+\]\(([^)]+)\)', text):

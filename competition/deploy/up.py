@@ -1,10 +1,10 @@
 """One command to start the deployment and watch it work.
 
 ``python -m competition.deploy.up``
-    bring up the five services, bring up DeepSeek Harness alongside them, wait for
-    the two sides of the flow to finish, and print what they did.  Everything stays
-    up afterwards; the deployment's door is on the host at 8080, the harness at
-    3080.
+    bring up the deployment, bring up DeepSeek Harness alongside it, wait for the
+    two sides of the flow to finish, and print what they did.  Everything stays up
+    afterwards; the deployment's door is on the host at 8080, the display page at
+    8081, the harness at 3080.
 ``--local``
     run the same entry points as plain processes on this machine, in one
     directory, for a host whose docker daemon is not reachable.  Nothing is
@@ -38,6 +38,12 @@ DEMO = ('caller-h', 'caller-worker')
 # The watcher that reads the observation face.  It drives no step, so its run is
 # shown for its output and never counted against the demo.
 OBSERVER = 'caller-observer'
+# The display's gateway.  It serves the built page and carries the four read
+# routes for the browser; it runs until the deployment is taken down, so it is
+# shown and never waited on.
+VIEWER = 'viewer'
+VIEWER_PORT = 8081
+DISPLAY = ROOT / 'competition' / 'display' / 'dist'
 
 # DeepSeek Harness is not part of the competition software and nothing of it is
 # delivered here.  It is the agent workbench this machine is worked from, and it is
@@ -212,6 +218,7 @@ def up_docker(args):
         return 1
     print('演示跑完了。对外入口在 http://127.0.0.1:8080/healthz；'
           '再跑一遍加 --fresh。', flush=True)
+    print('展示页在 http://127.0.0.1:%d/。' % VIEWER_PORT, flush=True)
     if args.down:
         print('== 收摊', flush=True)
         compose(['down', '-v'], args.sudo)
@@ -241,6 +248,7 @@ def up_local(args):
     entry = 'http://127.0.0.1:%d' % args.port
     children = []
     observer = None
+    viewer = None
     try:
         print('[2/4] 起各角色端与受信端（它们自己的日志就在下面）', flush=True)
         children.append(spawn(['competition.deploy.endpoints'], env,
@@ -259,6 +267,15 @@ def up_local(args):
                 for side in ('H', 'worker')]
         observer = spawn(['competition.deploy.observer'], env, capture=True,
                          ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry)
+        if DISPLAY.is_dir():
+            viewer = spawn(['competition.deploy.viewer'], env,
+                           ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry,
+                           ZJJ_VIEWER_PORT=str(args.viewer_port))
+            print('展示页在 http://127.0.0.1:%d/（只读）。' % args.viewer_port, flush=True)
+        else:
+            print('展示页还没构建：cd competition/display && npm install && npm run build；'
+                  '构建好再跑本命令，就能在 http://127.0.0.1:%d/ 看到。'
+                  % args.viewer_port, flush=True)
         watched = list(demo) + [(OBSERVER, observer)]
         deadline = time.monotonic() + args.timeout
         while any(child.poll() is None for _, child in watched) and time.monotonic() < deadline:
@@ -289,6 +306,8 @@ def up_local(args):
                 child.terminate()
         if observer is not None and observer.poll() is None:
             observer.terminate()
+        if viewer is not None and viewer.poll() is None:
+            viewer.terminate()
         for child in children:
             try:
                 child.wait(timeout=15)
@@ -299,6 +318,11 @@ def up_local(args):
                 observer.wait(timeout=15)
             except subprocess.TimeoutExpired:
                 observer.kill()
+        if viewer is not None and viewer.poll() is None:
+            try:
+                viewer.wait(timeout=15)
+            except subprocess.TimeoutExpired:
+                viewer.kill()
 
 
 def main(argv=None):
@@ -319,6 +343,8 @@ def main(argv=None):
                         help='挂给 DeepSeek Harness 当工作区的宿主机目录（默认 ~/Projects）')
     parser.add_argument('--dir', default=None, help='--local 时的运行目录（默认 .runtime/deploy）')
     parser.add_argument('--port', type=int, default=8000, help='--local 时受信端入口端口')
+    parser.add_argument('--viewer-port', type=int, default=8008,
+                        help='--local 时观察页面网关的端口（docker 走 8081）')
     parser.add_argument('--timeout', type=float, default=600.0, help='等演示跑完的上限秒数')
     args = parser.parse_args(argv)
     print('这一套要 22 个端点凭据，其中 %d 个会起服务。' % (expected_manifest() - 3), flush=True)
