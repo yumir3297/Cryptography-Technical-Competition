@@ -48,7 +48,8 @@ export const consoleApi = {
 
   scenarios: () => call<Scenarios>('/api/scenarios'),
 
-  pending: () => call<Pending>('/api/pending'),
+  pending: (profile: string) =>
+    call<Pending>('/api/pending?profile=' + encodeURIComponent(profile)),
 
   decide: (profile: string, role: string, id: string, approve: boolean) =>
     call<{ taken: boolean }>(

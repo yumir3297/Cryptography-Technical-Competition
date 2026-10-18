@@ -111,22 +111,21 @@ export const actions = {
     state.busy = true
     state.error = ''
     try {
-      const [status, scenarios, pending] = await Promise.all([
+      const [status, scenarios] = await Promise.all([
         consoleApi.status(),
         consoleApi.scenarios(),
-        consoleApi.pending(),
       ])
       state.status = status
       state.scenarios = scenarios.profiles
-      state.pending = pending
-      // Keep the operator's choice across a refresh; on the first load pick the
-      // console's own default profile, falling back to whatever it offers.
+      // Keep the operator's choice across a refresh; on the first load, start
+      // where the work starts.  The entry assembles the chain in the order the
+      // console lists the scenarios, so the first one is where the first request
+      // to a person appears -- landing on the console's own default instead opens
+      // a scene that is still empty and looks like nothing is happening.
       if (!scenarios.profiles.some((entry) => entry.profile === state.profile)) {
-        const chosen =
-          scenarios.profiles.find((entry) => entry.profile === status.profile) ??
-          scenarios.profiles[0]
-        state.profile = chosen ? chosen.profile : ''
+        state.profile = scenarios.profiles[0]?.profile ?? ''
       }
+      state.pending = state.profile ? await consoleApi.pending(state.profile) : null
     } catch (error) {
       state.error = codeOf(error)
     } finally {
@@ -147,8 +146,28 @@ export const actions = {
     // A read of four endpoints rather than a step, so it is not recorded in the
     // timeline, and a role that is not up yet -- or was started without a waiting
     // room -- is simply not shown rather than reported as an error.
+    if (!state.profile) return
     try {
-      state.pending = await consoleApi.pending()
+      // Ask for the scenario on screen, not whatever the console happens to
+      // default to: the entry assembles the chain one scenario at a time, and the
+      // two are not the same one for most of the run.
+      const pending = await consoleApi.pending(state.profile)
+      state.pending = pending
+      // The scenario a person has to look at moves on its own, as the entry
+      // finishes one and starts the next.  Follow it, rather than making them
+      // notice and click the sidebar: an empty page while something waits in
+      // another scenario reads exactly like nothing happening at all.
+      if (!pending.todos.length) {
+        for (const entry of state.scenarios) {
+          if (entry.profile === state.profile) continue
+          const other = await consoleApi.pending(entry.profile)
+          if (other.todos.length) {
+            state.profile = entry.profile
+            state.pending = other
+            break
+          }
+        }
+      }
     } catch {
       state.pending = null
     }
