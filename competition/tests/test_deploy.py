@@ -11,22 +11,46 @@ Three claims:
   credential is announced from that key rather than given a second one, and the
   trusted entry serves before its callers exist rather than waiting for them.
 """
+import os
 import subprocess
 import sys
 import tempfile
 import threading
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
+from io import StringIO
 from pathlib import Path
 from unittest import mock
 
 from competition.deploy import expected_manifest, places, serves
-from competition.deploy import endpoints, trusted
+from competition.deploy import endpoints, trusted, up
 from competition.server.roster import endpoint_port, read_entry, read_manifest
 from competition.support.wire import ProtocolError
 from competition.tests.helpers import caller_of, make_callers, public_of
 
 TEMP_ROOT = Path(__file__).resolve().parents[3] / 'tmp'
 TEMP_ROOT.mkdir(exist_ok=True)
+
+# A stand-in ``docker``: it records what it was asked for and answers the few
+# questions the start script reads back.  No daemon, no containers, no network.
+FAKE_DOCKER = '''#!%s
+import os, sys
+args = sys.argv[1:]
+with open(os.environ['ZJJ_FAKE_CALLS'], 'a') as log:
+    log.write(' '.join(args) + '\\n')
+if args[:1] == ['info']:
+    sys.exit(1 if os.environ.get('ZJJ_FAKE_INFO_FAIL') else 0)
+if args[:2] == ['inspect', '-f']:
+    print(os.environ.get('ZJJ_FAKE_CALLER_EXIT', '0') if 'ExitCode' in args[2] else 'exited')
+    sys.exit(0)
+if 'logs' in args:
+    print('a line from the stubbed service')
+    sys.exit(0)
+if 'ps' in args:
+    print('stub-container')
+    sys.exit(0)
+sys.exit(0)
+'''
 
 
 class SupervisorTests(unittest.TestCase):
@@ -138,6 +162,71 @@ class StartupOrderTests(unittest.TestCase):
         self.assertEqual(opened['caller'], 'caller-h')
         self.assertEqual(sessions.authorize(opened['token'], 'H')['name'], 'caller-h')
         self.assertEqual(public_of(keys['caller-h']), sessions.callers[caller['kid']]['pub'])
+
+
+class OrchestrationTests(unittest.TestCase):
+    """The start script's own logic, with the daemon's answers stubbed.
+
+    A stand-in ``docker`` on the path is the only way to check what the script
+    asks for without a daemon, and what it asks for is the whole of the script:
+    which commands, in which order, and what it says when something refuses.
+    """
+
+    def setUp(self):
+        self.folder = tempfile.TemporaryDirectory(dir=TEMP_ROOT)
+        self.addCleanup(self.folder.cleanup)
+        binary = Path(self.folder.name) / 'bin'
+        binary.mkdir()
+        shim = binary / 'docker'
+        shim.write_text(FAKE_DOCKER % sys.executable, encoding='utf-8')
+        shim.chmod(0o755)
+        self.log = Path(self.folder.name) / 'calls'
+        self.env = {'PATH': '%s:%s' % (binary, os.environ['PATH']),
+                    'ZJJ_FAKE_CALLS': str(self.log)}
+
+    def run_up(self, *argv, **environment):
+        with mock.patch.dict(os.environ, {**self.env, **environment}), \
+                redirect_stdout(StringIO()):
+            return up.main(['--timeout', '5', *argv])
+
+    def calls(self):
+        return self.log.read_text(encoding='utf-8').splitlines() if self.log.exists() else []
+
+    def test_a_good_run_starts_the_stack_and_watches_the_flow(self):
+        self.assertEqual(self.run_up(), 0)
+        calls = self.calls()
+        self.assertTrue(any(call.endswith('build') for call in calls))
+        self.assertTrue(any('up -d' in call for call in calls))
+        for service in up.DEMO:
+            self.assertTrue(any('ps --all -q %s' % service in call for call in calls))
+            self.assertTrue(any('logs --no-log-prefix %s' % service in call for call in calls))
+
+    def test_it_leaves_the_stack_up_unless_asked_to_stop(self):
+        self.run_up()
+        self.assertFalse([call for call in self.calls() if 'down' in call])
+        self.run_up('--down')
+        self.assertTrue([call for call in self.calls() if 'down -v' in call])
+
+    def test_fresh_drops_the_previous_volumes_before_building(self):
+        self.run_up('--fresh', '--no-build')
+        calls = self.calls()
+        self.assertLess(next(i for i, call in enumerate(calls) if 'down -v' in call),
+                        next(i for i, call in enumerate(calls) if 'up -d' in call))
+        self.assertFalse([call for call in calls if call.endswith('build')])
+
+    def test_a_side_that_fails_is_reported_with_the_way_out(self):
+        buffer = StringIO()
+        with redirect_stderr(buffer):
+            code = self.run_up(ZJJ_FAKE_CALLER_EXIT='1')
+        self.assertEqual(code, 1)
+        self.assertIn('--fresh', buffer.getvalue())
+
+    def test_a_daemon_that_does_not_answer_says_what_to_do_instead(self):
+        buffer = StringIO()
+        with redirect_stderr(buffer):
+            code = self.run_up(ZJJ_FAKE_INFO_FAIL='1')
+        self.assertEqual(code, 1)
+        self.assertIn('--local', buffer.getvalue())
 
 
 if __name__ == '__main__':
