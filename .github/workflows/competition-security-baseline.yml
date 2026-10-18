@@ -33,3 +33,20 @@ jobs:
         run: python system_dev/v26/tools/verify_contracts.py
       - name: Verify existing signed simulator evidence against its original source commit
         run: python competition/docs/final/verify-existing-evidence.py
+  fusion-targeted:
+    name: Fusion three-profile and security-boundary checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Assert IND public-service trust boundary
+        run: python -m unittest competition.tests.test_fusion_boundaries -v
+      - name: Test three-profile local CLI and bridge
+        run: python -m unittest competition.tests.test_bridge_facade competition.tests.test_cli_session competition.tests.test_server_service -v
+      - name: Check IND lifecycle and authenticated public service
+        run: python -m unittest competition.tests.test_submission_renewal competition.tests.test_operation_service -v
