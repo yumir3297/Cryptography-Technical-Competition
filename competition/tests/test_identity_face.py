@@ -20,7 +20,7 @@ from pathlib import Path
 from competition.cli.app import Session
 from competition.server.service import TrustedService
 from competition.server.signer import LocalSigner
-from competition.support.wire import ProtocolError, b64, canonical
+from competition.support.wire import ProtocolError, b64, canonical, sortset
 
 
 class IdentityFaceTests(unittest.TestCase):
@@ -139,6 +139,42 @@ class IdentityFaceTests(unittest.TestCase):
         self.service.enroll_register(profile, proof)
         self._reject(profile, proof, 'ENROLLMENT_CONSUMED')
 
+    # -- 3. the applicant may present the key it holds ----------------------
+    def test_a_presented_key_that_is_the_rosters_is_accepted(self):
+        profile, alias = 'PAY-1', 'G'
+        actor = self.run.actors[profile][alias]
+        pending = self.service.enroll(profile, actor.name, b64(actor.pub),
+                                      sortset(list(actor.purposes)))
+        self.assertEqual(pending['tuple']['public_key'], b64(actor.pub))
+        self.assertEqual(pending['tuple']['kid'], actor.kid)
+        grant = self.service.enroll_register(profile, self._proof(profile, actor.name, pending))
+        self.assertEqual(grant['value']['kid'], actor.kid)
+
+    def test_a_presented_key_the_roster_does_not_bind_is_refused(self):
+        profile, alias = 'MED-DEMO-1', 'G'
+        actor, other = self.run.actors[profile][alias], self.run.actors[profile]['V']
+        with self.assertRaises(ProtocolError) as caught:
+            self.service.enroll(profile, actor.name, b64(other.pub), sortset(list(actor.purposes)))
+        self.assertEqual(caught.exception.code, 'ROSTER_BINDING')
+
+    def test_presented_purposes_cannot_widen_the_rosters(self):
+        profile, alias = 'IND-DEMO-1', 'G'
+        actor = self.run.actors[profile][alias]
+        widened = sortset(list(actor.purposes) + ['SOURCE'])
+        with self.assertRaises(ProtocolError) as caught:
+            self.service.enroll(profile, actor.name, b64(actor.pub), widened)
+        self.assertEqual(caught.exception.code, 'ROSTER_BINDING')
+
+    def test_half_a_presented_claim_is_refused(self):
+        profile, alias = 'MED-DEMO-1', 'X'
+        actor = self.run.actors[profile][alias]
+        with self.assertRaises(ProtocolError) as caught:
+            self.service.enroll(profile, actor.name, b64(actor.pub))
+        self.assertEqual(caught.exception.code, 'ENROLL_APPLICANT')
+        with self.assertRaises(ProtocolError) as caught:
+            self.service.enroll(profile, actor.name, purposes=sortset(list(actor.purposes)))
+        self.assertEqual(caught.exception.code, 'ENROLL_APPLICANT')
+
 
 class IdentityCliTests(unittest.TestCase):
     @classmethod
@@ -176,6 +212,57 @@ class IdentityCliTests(unittest.TestCase):
         self.assertIn(subject, out)
         self.assertIn('KEY_GRANT', out)
         self.assertIn('enrollment_id', out)
+
+    def test_session_roster_manifest_drives_enroll(self):
+        session = Session()
+        buffer = io.StringIO()
+        manifest = Path(self.folder.name) / 'roster.jsonl'
+        try:
+            with contextlib.redirect_stdout(buffer):
+                session.cmd_init([str(Path(self.folder.name) / 'w-roster')])
+                session.cmd_use(['MED-DEMO-1'])
+                actor = session.run.actors['MED-DEMO-1']['U']
+                manifest.write_text(line_of('MED-DEMO-1', 'U', actor) + '\n', encoding='utf-8')
+                session.cmd_roster([str(manifest)])
+                session.cmd_enroll([actor.name])
+                session.cmd_enroll_register([actor.name])
+        finally:
+            if session.run is not None:
+                session.run.close()
+        out = buffer.getvalue()
+        self.assertIn(actor.kid, out)
+        self.assertIn('KEY_GRANT', out)
+
+    def test_a_manifest_key_the_roster_does_not_bind_is_refused(self):
+        session = Session()
+        manifest = Path(self.folder.name) / 'mismatched.jsonl'
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                session.cmd_init([str(Path(self.folder.name) / 'w-mismatched')])
+                session.cmd_use(['MED-DEMO-1'])
+                actor = session.run.actors['MED-DEMO-1']['U']
+                other = session.run.actors['MED-DEMO-1']['V']
+                # A line that is perfectly valid as a *manifest* line, but binds
+                # V's key to U's role: the roster, not the manifest, decides names.
+                manifest.write_text(line_of('MED-DEMO-1', 'U', other, subject=actor.name,
+                                            purposes=actor.purposes) + '\n', encoding='utf-8')
+                session.cmd_roster([str(manifest)])
+                with self.assertRaises(ProtocolError) as caught:
+                    session.cmd_enroll([actor.name])
+                self.assertEqual(caught.exception.code, 'ROSTER_BINDING')
+        finally:
+            if session.run is not None:
+                session.run.close()
+
+
+def line_of(profile, role, actor, *, subject=None, purposes=None):
+    """One roster manifest line, built from a run's own public facts."""
+    import json
+    return json.dumps({'profile': profile, 'role': role,
+                       'subject': subject or actor.name,
+                       'public_key': b64(actor.pub), 'kid': actor.kid,
+                       'purposes': sortset(list(purposes if purposes is not None
+                                                else actor.purposes))}, sort_keys=True)
 
 
 if __name__ == '__main__':

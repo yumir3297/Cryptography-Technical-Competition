@@ -1,12 +1,14 @@
 """Identity face: enrollment / proof-of-possession over the trusted W.
 
-The caller supplies only a ``subject``.  Everything else that names the
-principal -- the public key, the key id and the purposes -- is read from the
-profile roster, so a caller can never self-report a role or a key it does not
-hold.  All hard constraints (POP signature, proof/key windows, root generation,
-monotonic row version, ``ROSTER_BINDING``) stay in the black box: this module
-only keeps the in-memory pending table and assembles the ``KEY_GRANT`` /
-``ROLE_GRANT`` records that ``AuthorizationRun.publish`` publishes unchanged.
+The caller supplies a ``subject``, and optionally the public key and purposes it
+believes it holds.  Everything that names the principal is read from the profile
+roster -- which, under the collected-key roster, was itself built from the public
+keys the endpoints published -- so a caller can never self-report a role or a key
+the roster does not already bind to that name.  All hard constraints (POP
+signature, proof/key windows, root generation, monotonic row version,
+``ROSTER_BINDING``) stay in the black box: this module only keeps the in-memory
+pending table and assembles the ``KEY_GRANT`` / ``ROLE_GRANT`` records that
+``AuthorizationRun.publish`` publishes unchanged.
 
 The two-stage shape mirrors ``competition.support.enrollment``: :meth:`begin`
 hands out a pending tuple plus a nonce, the applicant signs the possession
@@ -24,7 +26,9 @@ import time
 from competition.core.trusted_state import PROFILE_SCOPES, ROLES, prefix
 from competition.support.scene_base import SceneReadMixin
 from competition.support.scene_contract import _rec
-from competition.support.wire import ProtocolError, b64, canonical, digest, require, sortset
+from competition.support.wire import (
+    ProtocolError, b64, canonical, digest, raw, require, sortset,
+)
 
 # The key window and pending lifetime the bootstrap pre-registration uses.
 KEY_LIFETIME = 1800
@@ -72,8 +76,23 @@ class IdentityRegistry:
         self._pending = {}
 
     # -- stage 1: hand out a pending tuple for a roster subject -------------
-    def begin(self, profile, subject):
+    def begin(self, profile, subject, public_key=None, purposes=None):
+        """Hand out a pending tuple for a roster subject.
+
+        With no ``public_key`` the tuple is read from the profile roster -- the
+        original path.  An applicant may also present what it holds, and then the
+        roster is the one the collected public keys built: enrollment registers a
+        key W already binds to ``subject``, it never swaps the key behind a name W
+        trusts.  The black box's ``ROSTER_BINDING`` enforces the same fact when
+        the grant is published, so a self-reported key could never have worked;
+        checking it here only says so earlier and more clearly.
+        """
         who = self._actor(profile, subject)
+        if public_key is not None or purposes is not None:
+            require(public_key is not None and purposes is not None, 'ENROLL_APPLICANT')
+            require(raw(public_key, 32) == who.pub, 'ROSTER_BINDING')
+            require(type(purposes) is list and sortset(purposes) == sortset(list(who.purposes)),
+                    'ROSTER_BINDING')
         now = int(time.time())
         tup = {'scope': PROFILE_SCOPES[profile], 'subject': subject,
                'public_key': b64(who.pub), 'kid': who.kid,

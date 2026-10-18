@@ -14,7 +14,7 @@ from pathlib import Path
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.server.service import STEPS, INTENT_FIELDS, TrustedService
 from competition.server.signer import LocalSigner
-from competition.support.wire import ProtocolError
+from competition.support.wire import ProtocolError, b64
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -39,7 +39,9 @@ HELP = """\
   auto              submit->prepare->accept->claim->exec->settle->status 一键跑完
   counts            全 W 汇总计数（无调用者认证）
   identities        列出 roster 的 subject/alias/kid/purposes
-  enroll <subject>  为 roster 主体发 pending（tuple + enrollment_id + nonce）
+  roster [file]     载入并列出 roster manifest（各端上交的公钥，JSON Lines）
+  enroll <subject> [<public_key> <purpose,purpose>]  发 pending
+                    （已载入 manifest 时可只给 subject）
   enroll-register <subject>  本地签 POP 并登记，打印 grant
   result <oid>      取回单操作结果包（公钥/签名/投影，不含私钥）
   export <oid> <dir> 把结果包写到新目录（bundle/chain/manifest）
@@ -61,6 +63,8 @@ class Session:
         self.profile = None
         self.operation_id = None
         self.prepare_challenge = None
+        self.roster_path = None
+        self.roster_entries = None
         self.quit = False
 
     # -- guards -------------------------------------------------------------
@@ -213,12 +217,40 @@ class Session:
                 print(profile, alias, actor.name, actor.kid,
                       json.dumps(sorted(actor.purposes), ensure_ascii=False), sep='\t')
 
+    def cmd_roster(self, args):
+        """载入（或重新列出）roster manifest：各端自生成并上交的公钥。"""
+        if args:
+            from competition.server.roster import read_manifest
+            self.roster_entries = read_manifest(args[0])
+            self.roster_path = str(Path(args[0]).resolve())
+            print('manifest:', self.roster_path)
+        if self.roster_entries is None:
+            raise RuntimeError('用法: roster <manifest.jsonl>')
+        from competition.server.roster import describe
+        print(_dump(describe(self.roster_entries)))
+
+    def _roster_entry(self, subject):
+        """当前 Profile 下该 subject 的 manifest 条目（若已载入）。"""
+        for entry in self.roster_entries or ():
+            if entry.profile == self.profile and entry.subject == subject:
+                return entry
+        return None
+
     def cmd_enroll(self, args):
         self._need_profile()
         if not args:
-            raise RuntimeError('用法: enroll <subject>')
-        pending = self.service.enroll(self.profile, args[0])
-        self._pendings()[(self.profile, args[0])] = pending
+            raise RuntimeError('用法: enroll <subject> [<public_key> <purpose,purpose>]')
+        subject, public_key, purposes = args[0], None, None
+        if len(args) == 3:
+            public_key, purposes = args[1], [p for p in args[2].split(',') if p]
+        elif len(args) != 1:
+            raise RuntimeError('用法: enroll <subject> [<public_key> <purpose,purpose>]')
+        if public_key is None:
+            entry = self._roster_entry(subject)
+            if entry is not None:
+                public_key, purposes = b64(entry.pub), list(entry.purposes)
+        pending = self.service.enroll(self.profile, subject, public_key, purposes)
+        self._pendings()[(self.profile, subject)] = pending
         print('enrollment_id:', pending['enrollment_id'])
         print('nonce:', pending['nonce'])
         print('tuple:', _dump(pending['tuple']))
@@ -280,6 +312,7 @@ COMMANDS = {
     'auto': 'cmd_auto',
     'counts': 'cmd_counts',
     'identities': 'cmd_identities',
+    'roster': 'cmd_roster',
     'enroll': 'cmd_enroll',
     'enroll-register': 'cmd_enroll_register',
     'result': 'cmd_result',

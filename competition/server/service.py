@@ -201,14 +201,16 @@ class TrustedService:
             self._identity_registry = IdentityRegistry(self.run)
         return self._identity_registry
 
-    def enroll(self, profile, subject):
+    def enroll(self, profile, subject, public_key=None, purposes=None):
         """Open an enrollment for a roster subject; returns the pending tuple.
 
-        The caller gives only ``subject``: public key, key id and purposes are
-        read from the profile roster, never self-reported.  Every hard
-        constraint is left to the black box at :meth:`enroll_register`.
+        The caller names the subject and may present the public key and purposes
+        it holds.  A key that is not the one the roster binds to ``subject`` is
+        refused; the key id and purposes actually enrolled are the roster's, never
+        the caller's.  Every hard constraint is left to the black box at
+        :meth:`enroll_register`.
         """
-        return self._registry().begin(profile, subject)
+        return self._registry().begin(profile, subject, public_key, purposes)
 
     def enroll_proof(self, profile, subject, pending, iat, exp):
         """Local fallback: sign the possession proof with the roster's own key."""

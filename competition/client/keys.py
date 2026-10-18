@@ -24,22 +24,14 @@ from cryptography.hazmat.primitives.serialization import (
 )
 
 from competition.core.trusted_state import PROFILE_SCOPES, TYPES
-from competition.support.wire import b64, keyid, require
-
-# Every endpoint that owns a credential: each roster alias, plus the worker and
-# the per-profile tool -- a capability rather than a business role, but still a
-# key generated at the endpoint and published as a public only.
-ENDPOINTS = tuple(sorted(TYPES)) + ('tool', 'worker')
-
-# The purposes the worker's own certificate carries, as
-# ``competition.profiles.w_seed`` writes them.
-WORKER_PURPOSES = ('AUDIT', 'CANCEL', 'CLAIM', 'EXECUTE', 'QUERY', 'RECEIPT', 'SETTLE')
+from competition.server.roster import ENDPOINTS
+from competition.support.wire import b64, keyid, require, sortset
 
 
 def key_file_name(profile, role):
     """The file an endpoint of this kind owns."""
-    require(profile in PROFILE_SCOPES, 'CLIENT_PROFILE')
     require(role in ENDPOINTS, 'CLIENT_ROLE')
+    require(role == 'worker' or profile in PROFILE_SCOPES, 'CLIENT_PROFILE')
     if role == 'worker':
         return 'W-worker.key'
     if role == 'tool':
@@ -50,25 +42,28 @@ def key_file_name(profile, role):
 def propose_subject(profile, role):
     """The subject an endpoint proposes for itself when it announces its key.
 
-    A proposal is a name, never an authority: the trusted side checks it against
-    its own tables before the key can enter a roster.
+    A proposal is a name, never an authority: the trusted side re-derives what a
+    roster alias may do from its own tables before a key can enter a roster.
     """
-    require(profile in PROFILE_SCOPES and role in ENDPOINTS, 'CLIENT_ROLE')
+    require(role in ENDPOINTS, 'CLIENT_ROLE')
     if role == 'worker':
+        # One worker capability serves every profile, so it names no profile.
         return 'competition-worker'
+    require(profile in PROFILE_SCOPES, 'CLIENT_PROFILE')
     if role == 'tool':
         return 'competition-tool-' + profile.lower()
     return 'auth-' + PROFILE_SCOPES[profile]['scenario'] + '-' + role.lower()
 
 
 def propose_purposes(role):
-    """The purposes an endpoint proposes for itself; the trusted side validates."""
+    """The purposes an endpoint proposes for itself; the trusted side validates.
+
+    Only a roster alias has roster purposes.  The worker and the tool hold a
+    capability whose terms come from the certificate the root signs, not from
+    their own manifest line, so they propose none.
+    """
     require(role in ENDPOINTS, 'CLIENT_ROLE')
-    if role == 'worker':
-        return sorted(WORKER_PURPOSES)
-    if role == 'tool':
-        return []
-    return sorted(TYPES[role] + ('READ',))
+    return sortset(list(TYPES[role] + ('READ',))) if role in TYPES else []
 
 
 def write_key(path, key):
@@ -81,11 +76,15 @@ def write_key(path, key):
 
 def metadata(profile, role, public, *, name=None):
     """The public-only manifest entry for one endpoint's key."""
-    require(profile in PROFILE_SCOPES and role in ENDPOINTS, 'CLIENT_ROLE')
+    require(role in ENDPOINTS, 'CLIENT_ROLE')
+    require(role == 'worker' or profile in PROFILE_SCOPES, 'CLIENT_PROFILE')
     require(type(public) is bytes and len(public) == 32, 'CLIENT_KEY_FORMAT')
-    return {'profile': profile, 'role': role, 'subject': name or propose_subject(profile, role),
-            'public_key': b64(public), 'kid': keyid(public),
-            'purposes': propose_purposes(role)}
+    entry = {'role': role, 'subject': name or propose_subject(profile, role),
+             'public_key': b64(public), 'kid': keyid(public),
+             'purposes': propose_purposes(role)}
+    if role != 'worker':
+        entry['profile'] = profile
+    return entry
 
 
 def generate(folder, profile, role, *, name=None):
