@@ -241,11 +241,13 @@ class GatewayService:
     def _proposal(operation, *, deduplicated):
         state = operation.get('state') or 'SUBMITTED'
         if state == 'PENDING':
-            message = ('the intent is taken; the trusted side is gathering its approval '
-                       'chain and the outcome arrives as a pushed status notice')
+            message = ('the intent is taken; this id is a temporary id (a submission '
+                       'handle), not the operation id; the trusted side is gathering its '
+                       'approval chain and the pushed status notice carries both ids')
         elif state == 'UNKNOWN':
             message = ('a previous submission of this intent may have reached the trusted '
-                       'side; do not resubmit; ask an operator to inspect it')
+                       'side; this id is a temporary id, not the operation id; do not '
+                       'resubmit; ask an operator to inspect it')
         elif deduplicated:
             message = 'this intent already has an operation; use its status'
         else:
@@ -298,8 +300,9 @@ class GatewayService:
             state, reason = 'UNKNOWN', ('the submit outcome is unknown; do not resubmit; '
                                         'ask an operator to inspect the trusted side')
         else:
-            state, reason = 'PENDING', ('the trusted side is gathering the approval chain; '
-                                        'the outcome arrives as a pushed status notice')
+            state, reason = 'PENDING', ('this id is a temporary id, not the operation id; '
+                                        'the trusted side is gathering the approval chain '
+                                        'and the outcome arrives as a pushed status notice')
         return {
             'operation_id': handle, 'profile': submission['profile'], 'state': state,
             'acceptance_state': None, 'dispatch_state': None, 'effect_state': None,

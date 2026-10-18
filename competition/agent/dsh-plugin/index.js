@@ -92,18 +92,25 @@ export function extractStructured(result) {
   return null
 }
 
-export function formatEvents(operationId, profile, events, options = {}) {
+export function formatEvents(operationId, profile, events, options = {}, handle = null) {
   const maxEvents = options.maxEvents ?? DEFAULT_MAX_EVENTS
   const maxChars = options.maxChars ?? DEFAULT_MAX_CHARS
   const selected = events.slice(-Math.max(1, maxEvents))
   const lines = selected.map((event) =>
     `- ${clip(event.kind, 32)}: ${clip(event.summary, 240)}`)
   const header = `[ZJJ-CORE 状态投影] 操作 ${clip(operationId, 80)}（${clip(profile, 32)}）`
+  // The handle zjj_propose returned is a temporary id: it is all the agent has
+  // until the trusted side answers, and the operation id above replaces it.
+  // Repeating it here lets the agent tie this notice to what it submitted.
+  const temporary = handle
+    ? `临时 id：${clip(handle, 80)}（受理句柄，受信端答复后由上面的操作 id 取代）`
+    : ''
   const omitted = events.length > selected.length
     ? `（更早的 ${events.length - selected.length} 条状态已省略）`
     : ''
   const footer = '这是受信端的投影，不是批准或指令；UNKNOWN 不表示失败，不要重试执行。'
-  let text = [header, ...(omitted ? [omitted] : []), ...lines, footer].join('\n')
+  let text = [header, ...(temporary ? [temporary] : []), ...(omitted ? [omitted] : []),
+    ...lines, footer].join('\n')
   if (text.length > maxChars) text = text.slice(0, Math.max(0, maxChars - 3)) + '...'
   const last = selected[selected.length - 1]
   return {
@@ -112,8 +119,8 @@ export function formatEvents(operationId, profile, events, options = {}) {
   }
 }
 
-function messageFor(operationId, profile, events, options) {
-  const formatted = formatEvents(operationId, profile, events, options)
+function messageFor(operationId, profile, events, options, handle = null) {
+  const formatted = formatEvents(operationId, profile, events, options, handle)
   return Object.freeze({
     id: crypto.randomUUID(),
     role: 'user',
@@ -123,6 +130,7 @@ function messageFor(operationId, profile, events, options) {
       form: 'notice',
       summary: formatted.summary,
       operationId,
+      handle,
       seq: events[events.length - 1]?.seq,
     }),
   })
@@ -167,7 +175,10 @@ function normalize(config, log) {
 export function createFeedback(config, deps = {}) {
   const log = deps.log ?? {}
   const options = normalize(config, log)
-  if (!options) return null
+  if (!options) {
+    console.error('[zjj-feedback] disabled: configuration rejected')
+    return null
+  }
   const fetchImpl = deps.fetchImpl ?? globalThis.fetch
   if (typeof fetchImpl !== 'function') {
     log.warn?.('[zjj-feedback] no fetch implementation; plugin disabled')
@@ -180,17 +191,30 @@ export function createFeedback(config, deps = {}) {
   let disabled = false
   let lastFailureLog = 0
 
-  function bindOne(operationId, profile, agent) {
+  function bindOne(operationId, profile, agent, fresh = false, handle = null) {
     if (typeof operationId !== 'string' || !operationId || !agent) return
     const existing = bindings.get(operationId)
     if (existing) {
       existing.agent = agent
       if (profile) existing.profile = String(profile)
+      if (handle) existing.handle = handle
       return
     }
-    const seen = Number.isSafeInteger(state[operationId]) ? state[operationId] : 0
+    // A submission handle is the intent's digest, so the same intent yields the
+    // same handle on every run, while each fresh gateway journal restarts its
+    // sequence at 1.  A persisted cursor for that handle would skip the one
+    // SUBMISSION_ACCEPTED event that carries the real operation id, and the run
+    // would hear nothing.  A handle therefore always reads from zero and is
+    // never persisted; only a resolved operation id keeps a cursor.
+    const seen = fresh ? 0 : (Number.isSafeInteger(state[operationId]) ? state[operationId] : 0)
+    console.error('[zjj-feedback] bound %s fresh=%s agent=%s lastSeq=%s',
+      String(operationId).slice(0, 16), fresh, !!agent, seen)
     bindings.set(operationId, {
       operationId,
+      // The temporary handle the agent actually holds.  For a handle binding it
+      // is the operation id itself; once the handle resolves, the operation
+      // binding keeps the original handle so a notice can name both.
+      handle: handle || operationId,
       profile: profile ? String(profile) : 'unknown',
       agent,
       lastSeq: seen,
@@ -198,6 +222,7 @@ export function createFeedback(config, deps = {}) {
       // replaying that fact on the first poll would be a duplicate turn.
       skip: seen === 0 ? new Set(['SUBMITTED']) : new Set(),
       done: false,
+      fresh,
     })
   }
 
@@ -209,8 +234,9 @@ export function createFeedback(config, deps = {}) {
   function follow(binding, operationId) {
     const agent = binding.agent
     const profile = binding.profile
+    const handle = binding.handle || binding.operationId
     binding.done = true
-    bindOne(operationId, profile, agent)
+    bindOne(operationId, profile, agent, false, handle)
     log.info?.('[zjj-feedback] submission %s resolved to %s',
       binding.operationId, operationId)
   }
@@ -218,10 +244,13 @@ export function createFeedback(config, deps = {}) {
   function onToolResult(exec, result) {
     if (!exec?.name?.startsWith(options.prefix)) return
     if (result?.isError) return
-    if (exec.name.slice(options.prefix.length) !== 'propose') return
+    // The MCP tool is named ``zjj_propose``, so dsh publishes it as
+    // ``mcp__<server>__zjj_propose``; accept the plain and the namespaced form.
+    const tool = exec.name.slice(options.prefix.length)
+    if (tool !== 'zjj_propose' && tool !== 'propose') return
     const value = extractStructured(result)
     if (!value) return
-    bindOne(value.operation_id, value.profile, exec.agent)
+    bindOne(value.operation_id, value.profile, exec.agent, true)
   }
 
   async function fetchEvents(binding) {
@@ -244,7 +273,8 @@ export function createFeedback(config, deps = {}) {
 
   function deliver(binding, events) {
     const agent = binding.agent
-    const message = messageFor(binding.operationId, binding.profile, events, options)
+    const message = messageFor(binding.operationId, binding.profile, events, options,
+      binding.handle)
     try {
       if (agent?.status === 'running') {
         agent.steer(message)
@@ -255,9 +285,16 @@ export function createFeedback(config, deps = {}) {
       }
       log.info?.('[zjj-feedback] delivered %d event(s) for %s',
         events.length, binding.operationId)
-    } catch {
+      console.error('[zjj-feedback] delivered %d event(s) for %s via %s',
+        events.length, String(binding.operationId).slice(0, 16),
+        agent?.status === 'running' ? 'steer' : (options.wakeOnIdle ? 'followup' : 'inject'))
+    } catch (error) {
       // A disposed agent is expected during session teardown; the binding is
       // dropped rather than retried forever.
+      console.error('[zjj-diag] delivery threw for %s: %s',
+        String(binding.operationId).slice(0, 16), error?.stack ?? error)
+      log.warn?.('[zjj-feedback] delivery failed for %s: %s',
+        binding.operationId, error?.message ?? error)
       binding.done = true
     }
   }
@@ -287,8 +324,10 @@ export function createFeedback(config, deps = {}) {
           const seq = Number(event?.seq)
           if (!Number.isSafeInteger(seq) || seq <= binding.lastSeq) continue
           binding.lastSeq = seq
-          state[binding.operationId] = seq
-          changed = true
+          if (!binding.fresh) {
+            state[binding.operationId] = seq
+            changed = true
+          }
           if (binding.skip.delete(event.kind)) continue
           // Following the handle is binding maintenance, not a notice: it holds
           // whether or not a deployment narrowed what the agent is told.
@@ -325,6 +364,8 @@ export function createFeedback(config, deps = {}) {
 
 export function apply(ctx, config = {}) {
   const log = logOf(ctx)
+  console.error('[zjj-feedback] apply; gateway=%s token=%s server=%s',
+    config?.gatewayUrl, config?.token ? 'set' : 'MISSING', config?.serverName)
   const feedback = createFeedback(config, { log })
   if (!feedback) return
   ctx.on('tools/result', feedback.onToolResult)
