@@ -20,6 +20,7 @@ tells it which endpoint a step belongs to and which the endpoint confirms.
     the process entry point: make this caller's credential, or drive the one side
     of the flow it was listed for.
 """
+import json
 from pathlib import Path
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
@@ -29,6 +30,10 @@ from competition.client.keys import write_key
 from competition.client.signer import load_role_key
 from competition.support.wire import b64, is_id, require, sortset
 from competition.web.session import SIDES
+
+# The file a deployment collects callers in: one public line per caller, the same
+# way it collects the endpoint roster.
+CALLER_LIST = 'callers.jsonl'
 
 
 def key_file_name(name):
@@ -77,3 +82,22 @@ def line(folder, name, sides, public):
             and set(sides) <= set(SIDES), 'SESSION_SIDES')
     require(type(public) is bytes and len(public) == 32, 'CLIENT_KEY_FORMAT')
     return {'name': name, 'public_key': b64(public), 'sides': sortset(sides)}
+
+
+def record(folder, name, sides):
+    """Make this caller's key if it has none, and put its public line in the list.
+
+    One move, because the credential and the allowlist entry are two halves of the
+    same fact and a deployment that wrote one without the other would announce a
+    key it cannot prove.  Appending is idempotent -- a restart finds the line it
+    wrote -- so ``>> callers.jsonl`` needs no merge step, exactly as the endpoint
+    roster does not.
+    """
+    line_value = announce(folder, name, sides)
+    path = Path(folder) / CALLER_LIST
+    text = json.dumps(line_value, ensure_ascii=False, sort_keys=True)
+    existing = path.read_text(encoding='utf-8') if path.exists() else ''
+    if text + '\n' not in existing:
+        with path.open('a', encoding='utf-8') as stream:
+            stream.write(text + '\n')
+    return path

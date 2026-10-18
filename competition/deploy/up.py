@@ -37,11 +37,11 @@ ROOT = Path(__file__).resolve().parents[2]
 COMPOSE = Path(__file__).resolve().parent / 'docker-compose.yml'
 # The services that walk the agent flow: the gateway is served, the operator and
 # executor stay up, and the scripted client proves one operation end to end.
-AGENT_SERVICES = ('endpoints', 'trusted', 'caddy', 'agent-gateway',
+AGENT_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'agent-gateway',
                   'agent-operator', 'agent-executor', 'demo-agent')
 AGENT_DEMO = ('demo-agent',)
 # The original core demo, kept for --no-zjj and --local.
-CORE_SERVICES = ('endpoints', 'trusted', 'caddy', 'caller-h', 'caller-worker')
+CORE_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'caller-h', 'caller-worker')
 CORE_DEMO = ('caller-h', 'caller-worker')
 TOKEN_FILE = ROOT / '.runtime' / 'agent-tokens.json'
 TOKEN_ENV = ROOT / '.runtime' / 'agent-tokens.env'
@@ -276,10 +276,11 @@ def up_docker(args):
               '要重新跑一遍演示就加 --fresh。', file=sys.stderr, flush=True)
         return 1
     if args.no_zjj:
-        print('演示跑完了。对外入口在 http://127.0.0.1:8080/healthz；'
-              '再跑一遍加 --fresh。', flush=True)
+        print('演示跑完了。客户端控制台在 http://127.0.0.1:8080/console/，'
+              '受信端入口在 http://127.0.0.1:8080/healthz；再跑一遍加 --fresh。', flush=True)
     else:
         print('演示跑完了。agent 网关在 http://127.0.0.1:8090/healthz（只对宿主回环）；'
+              '客户端控制台在 http://127.0.0.1:8080/console/；'
               'DeepSeek Harness 在 http://127.0.0.1:%d/；再跑一遍加 --fresh。'
               % HARNESS_PORT, flush=True)
     if args.down:
@@ -309,9 +310,12 @@ def up_local(args):
     callers.mkdir(parents=True, exist_ok=True)
     env = {**os.environ, 'PYTHONPATH': str(ROOT), 'PYTHONUNBUFFERED': '1'}
     entry = 'http://127.0.0.1:%d' % args.port
+    # 控制台在本机模式下直接托管页面：没有 caddy，端口取入口端口的下一个。
+    page_port = args.port + 1
+    page = ROOT / 'competition' / 'console' / 'frontend' / 'dist'
     children = []
     try:
-        print('[2/4] 起各角色端与受信端（它们自己的日志就在下面）', flush=True)
+        print('[2/4] 起各角色端、受信端与控制台（它们自己的日志就在下面）', flush=True)
         children.append(spawn(['competition.deploy.endpoints'], env,
                               ZJJ_ENDPOINTS=str(endpoints), ZJJ_ENDPOINT_HOST='127.0.0.1'))
         children.append(spawn(['competition.deploy.trusted'], env,
@@ -319,6 +323,12 @@ def up_local(args):
                               ZJJ_CALLERS=str(callers / 'callers.jsonl'),
                               ZJJ_ENDPOINT_BASE='http://127.0.0.1',
                               ZJJ_ENTRY_HOST='127.0.0.1', ZJJ_ENTRY_PORT=str(args.port)))
+        console_env = {'ZJJ_CALLERS': str(callers), 'ZJJ_ENTRY': entry,
+                       'ZJJ_ENDPOINTS': 'http://127.0.0.1',
+                       'ZJJ_CONSOLE_HOST': '127.0.0.1', 'ZJJ_CONSOLE_PORT': str(page_port)}
+        if page.is_dir():
+            console_env['ZJJ_CONSOLE_DIST'] = str(page)
+        children.append(spawn(['competition.console'], env, **console_env))
         print('[3/4] 起两侧调用者，等它们把一遍流程走完', flush=True)
         demo = [(side, spawn(['competition.deploy.demo'], env, capture=True,
                              ZJJ_SIDE=side, ZJJ_NAME='caller-' + side.lower(),
@@ -344,7 +354,11 @@ def up_local(args):
             print('演示没有跑完。', file=sys.stderr, flush=True)
             return 1
         print('演示跑完了。运行目录：%s' % root, flush=True)
-        print('受信端的入口在 %s（容器里那个门是 caddy 的 8080）。' % entry, flush=True)
+        print('受信端入口 %s；控制台页面 http://127.0.0.1:%d/console/（跑完演示即收摊）。'
+              % (entry, page_port), flush=True)
+        if not page.is_dir():
+            print('（页面还没构建：在 competition/console/frontend 里 '
+                  'npm install && npm run build。）', flush=True)
         print('再跑一遍加 --fresh。', flush=True)
         return 0
     finally:

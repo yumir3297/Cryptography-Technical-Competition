@@ -1,10 +1,11 @@
-# 单机模拟部署：一台机器，一条对外入口，以及 agent 侧接入。
+# 单机模拟部署：一台机器，一条对外入口，加上 agent 侧接入和客户端控制台。
 #
 #   caddy            唯一对外入口（宿主 8080 → caddy:80）
 #   trusted          受信端：W + 入口（会话、submit/challenge/prove、公开包）
 #   endpoints        各角色端：19 个签名进程，各一把钥、各一个端口（9100-9118）
 #   caller-h         流程提出方那一侧（核心演示；agent 模式下不启动）
 #   caller-worker    流程执行方那一侧（核心演示；agent 模式下不启动）
+#   console          客户端控制台：以两个调用者身份接入入口，把流程呈现为页面
 #   agent-gateway    agent 侧 MCP 入口：只有 propose/status，不 approve/execute
 #   agent-operator   独立 H 侧：prepare/accept（演示替身，真人审批 UI 属后续）
 #   agent-executor   独立 worker 侧：claim/exec/query/settle，不盲目重试
@@ -155,6 +156,33 @@ services:
       retries: 60
     restart: "no"
 
+  # 控制台是 caller 侧，不是受信端的一部分：它持自己的两个调用者钥（提出方、
+  # 执行方各一），和 demo 的两个调用者共用 callers 卷，但名字不同、互不干扰。
+  # 页面与它的调用都由 caddy 转进来，容器本身不对宿主暴露端口。
+  console:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.console
+    depends_on:
+      trusted:
+        condition: service_healthy
+    environment:
+      ZJJ_CALLERS: /callers
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_PROFILE: PAY-1
+      ZJJ_CONSOLE_HOST: 0.0.0.0
+      ZJJ_CONSOLE_PORT: "8100"
+    volumes:
+      - zjj-callers:/callers
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/console/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    restart: "no"
+
   agent-operator:
     build:
       context: ../..
@@ -213,6 +241,8 @@ services:
     image: caddy:2
     depends_on:
       trusted:
+        condition: service_healthy
+      console:
         condition: service_healthy
     ports:
       - "8080:80"

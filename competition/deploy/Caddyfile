@@ -16,8 +16,16 @@
 	handle /healthz {
 		reverse_proxy trusted:8000
 	}
-	# 界面属于后续软件开发，这里先只说明这个门后面是什么。
+	# 客户端控制台：页面与它自己的调用都在 /console/ 下，控制台自己把页面和 API
+	# 分开，这里只把这一条路径转给 console 容器。
+	handle /console/* {
+		reverse_proxy console:8100
+	}
+	handle /console {
+		redir /console/ 308
+	}
+	# 其它路径去页面；受信端接口只在 /api/* 与 /session* 上。
 	handle {
-		respond "ZJJ-CORE trusted entry: /api/*" 200
+		redir /console/ 302
 	}
 }

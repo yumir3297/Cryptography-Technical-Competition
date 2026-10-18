@@ -1,6 +1,6 @@
 # 安装依赖与比赛运行范围
 
-环境：Python 3.13；依赖见 [requirements.txt](requirements.txt)。Node.js 用于可选的公开编码向量交叉核对，Python 运行与回归不依赖 Node。
+环境：Python 3.13；依赖见 [requirements.txt](requirements.txt)。Node.js 用于可选的公开编码向量交叉核对，以及构建客户端控制台页面（[console/frontend](competition/console/frontend)，Vue 3 + Element Plus）。页面在 Docker 镜像里多阶段构建，Python 运行与回归不依赖 Node。
 
 ```powershell
 python -m pip install -r requirements.txt
