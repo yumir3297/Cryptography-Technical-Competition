@@ -169,6 +169,14 @@ def harness_running(sudo):
                        capture=True, check=False).stdout.split())
 
 
+def harness_networks(sudo):
+    """The networks the harness container is attached to."""
+    text = docker(['inspect', '-f',
+                   '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}',
+                   HARNESS_NAME], sudo, capture=True, check=False).stdout
+    return set(text.split())
+
+
 def harness_ready(address, timeout=180.0):
     """Wait until the harness answers.  Any answer counts, even a refusal: what is
     being waited for is that something is listening, not what it decides."""
@@ -205,9 +213,17 @@ def start_harness(args):
     0.0.0.0 inside the container and forwards to dsh's loopback, which is what
     makes an ordinary ``-p`` mapping work at all.
     """
-    if harness_running(args.sudo):
+    if harness_running(args.sudo) and (
+            args.no_zjj or HARNESS_NETWORK in harness_networks(args.sudo)):
         print('  已经在跑了，跳过。', flush=True)
     else:
+        if harness_running(args.sudo):
+            # A container from before the harness joined the compose network
+            # cannot reach the gateway by service name, and keeps reporting the
+            # MCP server as disconnected even after the gateway is healthy.  Its
+            # volume holds the sessions; the container is what has to be
+            # recreated.
+            print('  现有容器不在 %s 网络上，重建。' % HARNESS_NETWORK, flush=True)
         docker(['rm', '-f', HARNESS_NAME], args.sudo, check=False)
         if not docker(['images', '-q', HARNESS_IMAGE], args.sudo,
                       capture=True, check=False).stdout.strip():
