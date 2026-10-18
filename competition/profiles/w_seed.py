@@ -19,7 +19,7 @@ from competition.profiles.authorization_seed import initialize as initialize_aut
 from competition.profiles.w_plans import TransactionPlans
 from competition.support.final_fact import Controller
 from competition.support.scene_contract import _rec
-from competition.support.wire import action_hash, b64, canonical, keyid, rec_ref, require, sortset
+from competition.support.wire import WINDOW, action_hash, b64, canonical, keyid, rec_ref, require, sortset
 
 
 def _public(key):
@@ -165,7 +165,7 @@ def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kw
             worker = fleet.remote_key(worker_entry); worker_public = worker_entry.pub
         delivery = Ed25519PrivateKey.generate(); delivery_public = _public(delivery)
         _write_key(folder / 'W-delivery.key', delivery)
-        now = int(time.time()); exp = now + 1800
+        now = int(time.time()); exp = now + WINDOW
         worker_claim = {'subject': 'competition-worker', 'kid': keyid(worker_public),
                         'public_key': b64(worker_public), 'profiles': sortset(list(PROFILE_SCOPES)),
                         'scopes': sortset(list(PROFILE_SCOPES.values())),

@@ -17,7 +17,7 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from competition.core.event_clock import checked_event_clock, require_window, refresh_event_age
 from competition.core.signing import ClockClient
 from competition.support.final_fact import verify_certificate, final_fact_id, final_sign_bytes
-from competition.support.wire import (ProtocolError, require, raw, b64, canonical,
+from competition.support.wire import (ProtocolError, WINDOW, require, raw, b64, canonical,
     digest, keyid, strict_verify, action_hash, rec_ref, number, is_id, good_point)
 from competition.support.schema import UpstreamSchema
 
@@ -180,7 +180,7 @@ class CommonToolLedger:
         require(number(cl['issued_at']) and number(cl['expires']) and int(cl['issued_at'])<int(cl['expires']),'TOOL_REQUEST_TIME')
         if query:
             raw(cl['query_id'],16)
-            require(number(cl['iat']) and number(cl['exp']) and 0<int(cl['exp'])-int(cl['iat'])<=900,'TOOL_REQUEST_TIME')
+            require(number(cl['iat']) and number(cl['exp']) and 0<int(cl['exp'])-int(cl['iat'])<=WINDOW,'TOOL_REQUEST_TIME')
         return {k:cl[k] for k in EXEC_FIELDS},request_hash(cl)
 
     def _event(self,c,packet,rh,query,*,check_request=True):
@@ -258,7 +258,7 @@ class CommonToolLedger:
         rec = None
         if fact is not None:
             at = max(event['lo'],int(fact['finalized_at']))
-            exp = min(at+120,int(self.trust['value']['exp']))
+            exp = min(at+WINDOW,int(self.trust['value']['exp']))
             require(at<exp,'TOOL_REQUEST_TIME')
             rec = {'version':'2.6','profile':self.profile,'kind':'TOOL_FINAL','scope':self.scope,
                 'value':{'method':'tool-final-v2',**fact,'iat':str(at),'exp':str(exp),

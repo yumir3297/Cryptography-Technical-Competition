@@ -7,7 +7,7 @@ original ZJJ-STATE-v1 namespace/key/revision/value construction in the store.
 import os
 
 from competition.support.scene_contract import PROFILES, DEST, MAPPING, TEMPLATES, _rec
-from competition.support.wire import b64, canonical, rec_ref, require, sortset
+from competition.support.wire import WINDOW, b64, canonical, rec_ref, require, sortset
 
 
 def build_scene(profile, actors, scope, now, label=None):
@@ -18,7 +18,7 @@ def build_scene(profile, actors, scope, now, label=None):
     rows = []
     new_id = lambda: b64(os.urandom(16))
     task_id, operation_id = new_id(), new_id()
-    starts, expires = str(now), str(now + 1800)
+    starts, expires = str(now), str(now + WINDOW)
 
     def add(namespace, key, kind, value):
         record = _rec(profile, kind, scope, value)
@@ -31,6 +31,9 @@ def build_scene(profile, actors, scope, now, label=None):
         'executor': actors['X'].name, 'executor_kid': actors['X'].kid,
         'source': actors['E'].name, 'readers': sortset({a.name for a in actors.values()}),
         'tool_version': '1', 'controller': 'demo-controller',
+        # These two are fixed by the upstream policy schema, not by the window this
+        # software enforces: the reader compares the record's own iat/exp, which
+        # follow ``support.wire.WINDOW``.  The schema's value is a declaration.
         'history_mode': 'DISABLED', 'evidence_ttl_seconds': '300',
         'task_ttl_seconds': '900', 'behavior_count_cap': '32',
         'iat': starts, 'exp': expires,
@@ -39,7 +42,7 @@ def build_scene(profile, actors, scope, now, label=None):
         'task_id': task_id, 'task_revision': '1', 'principal': 'principal',
         'holder': actors['H'].name, 'holder_kid': actors['H'].kid,
         'executor': actors['X'].name, 'tool_version': '1',
-        'max_inflight': '1', 'iat': starts, 'exp': str(now + 900),
+        'max_inflight': '1', 'iat': starts, 'exp': str(now + WINDOW),
     }
     if profile == 'IND-DEMO-1':
         label = label or 'DEMO_UNCERTAIN'
@@ -131,7 +134,7 @@ def build_scene(profile, actors, scope, now, label=None):
         tool, destination = 'med-order-sim', 'med-demo-ledger'
 
     source = actors['E']
-    attestation = {'issuer': source.name, 'kid': source.kid, 'iat': starts, 'exp': str(now + 120)}
+    attestation = {'issuer': source.name, 'kid': source.kid, 'iat': starts, 'exp': str(now + WINDOW)}
     signature = b64(source.key.sign(canonical([
         'ZJJ-SOURCE-v1', '2.6', profile, PROFILES[profile][1], scope, data, attestation,
     ])))

@@ -8,7 +8,7 @@ from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat, PrivateFormat, NoEncryption
 from competition.support.schema import COMPETITION_PROTO
-from competition.support.wire import Identity, b64, keyid, canonical, digest, rec_ref, msgref, require, sortset, action_hash
+from competition.support.wire import Identity, WINDOW, b64, keyid, canonical, digest, rec_ref, msgref, require, sortset, action_hash
 from competition.support.enrollment import EnrollmentLab
 from competition.support.scene_base import SceneReadMixin
 from competition.support.scene_contract import _rec
@@ -64,7 +64,7 @@ class AuthorizationRun:
 
     def sign(self,profile,alias,typ,payload,*,refs=(),deps=(),aud=('H','G','X'),iat=None,exp=None):
         op=self.operations[profile]; now=int(op['basis']['value']['iat']) if iat is None else iat
-        who=self.actors[profile][alias]; end=now+120 if exp is None else exp
+        who=self.actors[profile][alias]; end=now+WINDOW if exp is None else exp
         unsigned={'protected':{'proto':COMPETITION_PROTO,'version':'2.6','profile':profile,'alg':'Ed25519','type':typ,'issuer':who.name,'kid':who.kid},'body':{'id':b64(os.urandom(16)),'scope':PROFILE_SCOPES[profile],'iat':str(now),'exp':str(end),'aud':sortset([self.actors[profile][a].name for a in aud]),'refs':sortset(list(refs)),'deps':sortset(list(deps)),'payload':copy.deepcopy(payload)}}
         claim=self.broker.challenge(profile,alias,unsigned,op['action'])
         # The caller proof goes through the same remote-signature seam as the
@@ -81,7 +81,11 @@ class AuthorizationRun:
         ar=msgref(op['authorization']); refs=sortset(rr+[ar])
         op['issue']=self.sign(profile,'H','IssueRequest',{'ctx':ctx,'review_refs':rr,'authorization_ref':ar},refs=refs,deps=deps,aud=('G',))
         declared=op.get('permit',{}).get('body',{}).get('deps',deps) if keep_permit_deps else deps
-        exp=int(op['basis']['value']['exp']); short_exp=min(exp,int(op['basis']['value']['iat'])+30)
+        # The COMMIT trio used to be dated thirty seconds out -- fine for a script
+        # placing them back to back, impossible for a person driving a page.  The
+        # chain is assembled before anybody answers, so these three have to be
+        # good for as long as the rest of it.
+        exp=int(op['basis']['value']['exp']); short_exp=exp
         op['permit']=self.sign(profile,'G','Permit',{'ctx':ctx,'review_refs':rr,'authorization_ref':ar,'max_uses':'1','dispatch_before':str(exp)},refs=refs,deps=declared,aud=('H','X'),exp=exp)
         pr=msgref(op['permit']); attempt=b64(os.urandom(16)); session=b64(os.urandom(16)); nonce=b64(os.urandom(32))
         op['challenge_request']=self.sign(profile,'H','ChallengeRequest',{'purpose':'COMMIT','operation_id':ctx['operation_id'],'permit_ref':pr,'action_hash':ctx['action_hash'],'attempt_id':attempt},refs=[pr],deps=deps,aud=('X',),exp=short_exp)
@@ -140,7 +144,7 @@ def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None,roster=None):
     store=TrustedState(folder/'auth-w.sqlite',root.public_key().public_bytes(Encoding.Raw,PublicFormat.Raw),actors,clock)
     run=AuthorizationRun(folder,root,actors,clock,store,AuthorizationService(store),ScopedSignerBroker(store,actors),{})
     try:
-        now=int(time.time()); exp=now+1800
+        now=int(time.time()); exp=now+WINDOW
         for p,roster in actors.items():
             for alias,who in roster.items():
                 tup={'scope':PROFILE_SCOPES[p],'subject':who.name,'public_key':b64(who.pub),'kid':who.kid,'purposes':sortset(list(who.purposes)),'key_not_before':str(now),'key_not_after':str(exp),'root_generation':'1'}
@@ -157,7 +161,7 @@ def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None,roster=None):
             corpus=build_pay(roster,PROFILE_SCOPES[p],now,mode=pay_mode) if p=='PAY-1' else build_scene(p,roster,PROFILE_SCOPES[p],now,label=ind_label if p=='IND-DEMO-1' else None)
             for row in corpus['rows']:run.publish(p,row['namespace'],row['key'],row['record'])
             op={k:corpus[k] for k in ('action','task_id','scene_key')}
-            op['assessment']={'value':{'cutoff':str(now),'iat':str(now),'exp':str(now+120)}}
+            op['assessment']={'value':{'cutoff':str(now),'iat':str(now),'exp':str(now+WINDOW)}}
             with store.tx() as c:
                 event=store.event(c,p,op['action']['operation_id'],'AUTHZ_GUARD','')
                 derived=run.service.verifier.adapters[p].derive(c,op,event)

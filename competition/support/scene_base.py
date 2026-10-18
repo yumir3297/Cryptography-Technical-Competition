@@ -6,7 +6,7 @@ authorization gate; they never publish, sign, reserve or dispatch.  Names and
 behaviour are preserved from the original source.
 """
 from competition.support.scene_contract import PROFILES, EVID_FIELDS, MAPPING, TEMPLATES
-from competition.support.wire import canonical, digest, raw, require, sortset, strict_verify
+from competition.support.wire import WINDOW, canonical, digest, raw, require, sortset, strict_verify
 
 
 class SceneReadMixin:
@@ -45,9 +45,12 @@ class SceneReadMixin:
         d, a = v['data'], v['attestation']; require(set(a) == {'issuer', 'kid', 'iat', 'exp', 'sig'}, 'EVIDENCE_FIELDS')
         e = self.actors['E']; require(a['issuer'] == e.name and a['kid'] == e.kid, 'WRONG_SOURCE')
         self._credential(c, 'E', 'SOURCE', 'SOURCE')
-        require(0 < int(a['exp']) - int(a['iat']) <= 300 and int(a['iat']) <= at < int(a['exp']), 'EXPIRED')
+        # The attestation is one of the windows the scene reader collects, so its
+        # bound follows the chain window (``support.wire.WINDOW``): a shorter one
+        # here would cap the chain no matter what the rest of it said.
+        require(0 < int(a['exp']) - int(a['iat']) <= WINDOW and int(a['iat']) <= at < int(a['exp']), 'EXPIRED')
         observed = int(d['sampled_at'] if self.profile == 'IND-DEMO-1' else d['event_at'])
-        require(observed <= int(d['known_at']) <= int(a['iat']) and int(a['exp']) <= observed + 300, 'EVIDENCE_TIME')
+        require(observed <= int(d['known_at']) <= int(a['iat']) and int(a['exp']) <= observed + WINDOW, 'EVIDENCE_TIME')
         if self.profile == 'IND-DEMO-1':
             require(d['quality_flag'] == 'VALID' and d['label'] in MAPPING, 'CLAIM_FALSE')
         else:

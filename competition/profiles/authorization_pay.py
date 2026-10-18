@@ -7,7 +7,7 @@ publication closure and real-world source truth are not asserted here.
 """
 from pathlib import Path
 
-from competition.support.wire import require, number, rec_ref, digest, sortset, raw, keyid
+from competition.support.wire import WINDOW, require, number, rec_ref, digest, sortset, raw, keyid
 from competition.support.pay_dependencies import TrustedStore, required_pay_deps
 from competition.support.pay_records import (verify_pay_authoritative, parse_policy, parse_task,
     parse_history, record, fields, bound_time, legacy_dep_structure)
@@ -84,7 +84,7 @@ class PayAuthorizationAdapter:
         load('BEHAVIOR', prefix + [action['principal']])
         source = orderrow['record']['value']['source_envelope']
         for at in (lo, hi):
-            bound_time(source['body']['iat'], source['body']['exp'], at, 900)
+            bound_time(source['body']['iat'], source['body']['exp'], at, WINDOW)
         E = self.actors['E']
         require(keyid(E.pub) == E.kid, 'SOURCE_KEY')
         risk, assessment = verify_pay_authoritative(

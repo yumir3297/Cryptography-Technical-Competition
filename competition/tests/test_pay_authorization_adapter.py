@@ -7,7 +7,7 @@ from types import SimpleNamespace
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
-from competition.support.wire import b64, canonical, digest, keyid, rec_ref, ProtocolError
+from competition.support.wire import WINDOW, b64, canonical, digest, keyid, rec_ref, ProtocolError
 from competition.support.pay_dependencies import _parse_keygrant, _parse_rolegrant
 
 
@@ -104,7 +104,10 @@ class PayAuthorizationAdapterTests(unittest.TestCase):
 
     def test_event_interval_must_fit_source_window(self):
         _, _, op, event, adapter = self.run_mode()
-        event.hi = self.now + 120
+        # A whole window past the event is past the source's own exp as well.  This
+        # fixture used to pin two minutes; the window is the knob now, so it has to
+        # reach past whatever that knob is set to.
+        event.hi = self.now + WINDOW
         with self.assertRaises(ProtocolError):
             adapter.derive(None, op, event)
 

@@ -30,7 +30,7 @@ import time
 from pathlib import Path
 
 from competition.support.wire import (
-    ProtocolError, b64, canonical, good_point, is_id, keyid, raw, require, sortset,
+    ProtocolError, WINDOW, b64, canonical, good_point, is_id, keyid, raw, require, sortset,
     strict_verify,
 )
 
@@ -38,9 +38,12 @@ from competition.support.wire import (
 # so a caller can see, in the bytes it is asked to sign, that this is a session
 # and not a business step.
 SESSION_DOMAIN = 'ZJJ-SESSION-v1'
-# How long a challenge stays good, and how long a token does.
+# How long a challenge stays good, and how long a token does.  The challenge is a
+# machine handshake and stays short; the token is what a person drives the page
+# with, so it follows the chain window (``support.wire.WINDOW``) rather than
+# expiring in the middle of an approval.
 CHALLENGE_TTL = 60
-SESSION_TTL = 900
+SESSION_TTL = WINDOW
 # The sides of the flow a caller may be allowed to drive; the same names
 # ``competition.server.service.STEPS`` gives each step's signing role.  ``observer``
 # is the read-only side: it drives no step, it may only read the observation face.

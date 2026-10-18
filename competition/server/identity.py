@@ -27,11 +27,13 @@ from competition.core.trusted_state import PROFILE_SCOPES, ROLES, prefix
 from competition.support.scene_base import SceneReadMixin
 from competition.support.scene_contract import _rec
 from competition.support.wire import (
-    ProtocolError, b64, canonical, digest, raw, require, sortset,
+    ProtocolError, WINDOW, b64, canonical, digest, raw, require, sortset,
 )
 
-# The key window and pending lifetime the bootstrap pre-registration uses.
-KEY_LIFETIME = 1800
+# The key window and pending lifetime the bootstrap pre-registration uses.  The
+# key window is the chain window (``support.wire.WINDOW``); the pending lifetime
+# covers the enrollment handshake, which is a machine step and stays short.
+KEY_LIFETIME = WINDOW
 PENDING_TTL = 60
 
 
