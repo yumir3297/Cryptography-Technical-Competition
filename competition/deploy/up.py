@@ -230,6 +230,14 @@ def start_harness(args):
             # no tools.  Joining the network keeps the published port loopback
             # only and still lets the harness reach it.
             token = os.environ.get('ZJJ_AGENT_TOKEN', '')
+            if not token:
+                # Starting without it would install no bundle and answer 401 on
+                # every MCP call, which reads as "server disconnected" and is
+                # hard to tell from a network fault.  Say it here instead.
+                print('  ZJJ_AGENT_TOKEN 是空的，agent 侧不会安装（MCP 会 401）。'
+                      '先用不带 --no-zjj 的 up 生成 token，再重建容器。',
+                      file=sys.stderr, flush=True)
+                return
             argv += [
                 '--network', HARNESS_NETWORK,
                 '-e', 'ZJJ_MCP_URL=http://agent-gateway:8090/mcp',
