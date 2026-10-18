@@ -38,6 +38,9 @@ HELP = """\
   audit             认证读取投影加 commit/证据
   auto              submit->prepare->accept->claim->exec->settle->status 一键跑完
   counts            全 W 汇总计数（无调用者认证）
+  result <oid>      取回单操作结果包（公钥/签名/投影，不含私钥）
+  export <oid> <dir> 把结果包写到新目录（bundle/chain/manifest）
+  verify <dir>      独立核验结果包（manifest 哈希 + 签名链 + 禁导检查）
   help              显示本帮助
   quit              退出
 """
@@ -192,6 +195,25 @@ class Session:
     def cmd_quit(self, args):
         self.quit = True
 
+    # -- result face --------------------------------------------------------
+    def cmd_result(self, args):
+        self._need_operation()
+        operation_id = args[0] if args else self.operation_id
+        print('结果包:', _dump(self.service.result(operation_id)))
+
+    def cmd_export(self, args):
+        self._need_run()
+        if len(args) != 2:
+            raise RuntimeError('用法: export <oid> <dir>')
+        report = self.service.export(args[0], args[1])
+        print('已导出:', _dump(report))
+
+    def cmd_verify(self, args):
+        if len(args) != 1:
+            raise RuntimeError('用法: verify <dir>')
+        from competition.server.export import verify_bundle
+        print('核验:', _dump(verify_bundle(args[0])))
+
 
 COMMANDS = {
     'help': 'cmd_help',
@@ -214,6 +236,9 @@ COMMANDS = {
     'audit': 'cmd_audit',
     'auto': 'cmd_auto',
     'counts': 'cmd_counts',
+    'result': 'cmd_result',
+    'export': 'cmd_export',
+    'verify': 'cmd_verify',
 }
 
 

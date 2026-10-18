@@ -191,3 +191,22 @@ class TrustedService:
         settled = self.step(operation_id, 'settle')
         view = self.step(operation_id, 'status')
         return {'operation_id': operation_id, 'settled': settled, 'status': view}
+
+    # -- result face: caller retrieves its result with verifiable evidence --
+    def result(self, operation_id):
+        """Assemble the export bundle for one committed operation.
+
+        Reads ``status`` and ``audit`` through the same challenge/sign path as
+        every other step (local fallback or an injected ``Signer``), so the
+        projections carry real H read credentials.
+        """
+        from competition.server import export
+        entry = self._entry(operation_id)
+        status = self.step(operation_id, 'status')
+        audit = self.step(operation_id, 'audit')
+        return export.operation_bundle(self.run, entry['profile'], entry['op'], status, audit)
+
+    def export(self, operation_id, out_dir):
+        """Write the export bundle (public keys, signatures, projections) to disk."""
+        from competition.server import export
+        return export.write_bundle(self.result(operation_id), out_dir)
