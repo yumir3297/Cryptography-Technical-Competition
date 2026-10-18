@@ -1,0 +1,42 @@
+# The agent-facing bundle.  It inserts two rows:
+#   * the in-box MCP client, pointed at the gateway's Streamable HTTP endpoint;
+#   * the feedback plugin, which binds submitted operations to the calling agent
+#     and injects later trusted projections into that session.
+#
+# The gateway and the plugin share one bearer token; the token is not a role key
+# and cannot sign anything.  Keep it out of logs.
+- insert:
+    - id: zjj-agent-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: zjj
+        transport: streamable-http
+        url: !!js process.env.ZJJ_MCP_URL
+        headers:
+          Authorization: !!js '`Bearer ${process.env.ZJJ_AGENT_TOKEN ?? ""}`'
+        toolCallTimeoutMs: 60000
+        maxInstructionBytes: 32768
+        failOnStartupError: false
+        reconnect:
+          enabled: true
+          initialDelayMs: 500
+          maxDelayMs: 30000
+          maxAttempts: 10
+
+    - id: zjj-agent-feedback
+      name: dsh-zjj-agent
+      config:
+        gatewayUrl: !!js process.env.ZJJ_GATEWAY_URL
+        token: !!js process.env.ZJJ_AGENT_TOKEN
+        serverName: zjj
+        pollIntervalMs: 1500
+        requestTimeoutMs: 5000
+        wakeOnIdle: true
+        notify:
+          - ACCEPTED
+          - STARTED
+          - SETTLED
+          - HALTED
+          - CANCELED
+          - UNAVAILABLE
+          - READ_FAILED

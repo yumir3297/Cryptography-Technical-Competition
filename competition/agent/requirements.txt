@@ -1,0 +1,4 @@
+# Agent-facing MCP surface.  The official Python SDK is MIT licensed; it is kept
+# out of the top-level requirements so the competition core can still be installed
+# without the MCP transport and its dependencies.
+mcp==2.3.0

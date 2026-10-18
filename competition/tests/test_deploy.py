@@ -204,6 +204,10 @@ class OrchestrationTests(unittest.TestCase):
         with mock.patch.dict(os.environ, {**self.env, **environment}), \
                 mock.patch.object(up, 'harness_ready', return_value=True), \
                 mock.patch.object(up, 'open_page', return_value=False), \
+                mock.patch.object(up, 'TOKEN_FILE',
+                                  Path(self.folder.name) / 'agent-tokens.json'), \
+                mock.patch.object(up, 'TOKEN_ENV',
+                                  Path(self.folder.name) / 'agent-tokens.env'), \
                 redirect_stdout(StringIO()):
             return up.main(['--timeout', '5', *argv])
 
@@ -215,9 +219,16 @@ class OrchestrationTests(unittest.TestCase):
         calls = self.calls()
         self.assertTrue(any(call.endswith('build') for call in calls))
         self.assertTrue(any('up -d' in call for call in calls))
-        for service in up.DEMO:
+        for service in up.AGENT_DEMO:
             self.assertTrue(any('ps --all -q %s' % service in call for call in calls))
             self.assertTrue(any('logs --no-log-prefix %s' % service in call for call in calls))
+
+    def test_the_core_demo_can_run_without_the_agent_gateway(self):
+        self.assertEqual(self.run_up('--no-zjj'), 0)
+        calls = self.calls()
+        self.assertTrue(any('ps --all -q %s' % up.CORE_DEMO[0] in call for call in calls))
+        self.assertFalse([call for call in calls if 'agent-gateway' in call
+                          or 'demo-agent' in call])
 
     def test_it_leaves_the_stack_up_unless_asked_to_stop(self):
         self.run_up()

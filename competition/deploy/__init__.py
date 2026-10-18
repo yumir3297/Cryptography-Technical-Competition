@@ -9,6 +9,10 @@
 ``caller_h`` / ``caller_worker``
     the two sides of the flow, each with a credential of its own
     (:mod:`competition.deploy.demo`).
+``operator`` / ``executor``
+    the independent H-side and worker-side callers that drive an operation the
+    agent gateway submitted (:mod:`competition.deploy.operator` and
+    :mod:`competition.deploy.executor`).
 ``caddy``
     the one external door.
 
