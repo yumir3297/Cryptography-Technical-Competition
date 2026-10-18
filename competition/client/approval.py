@@ -26,7 +26,7 @@ import threading
 
 from competition.client.host import decode_data, decode_request
 from competition.client.signer import split_message
-from competition.support.wire import ProtocolError, WINDOW, require
+from competition.support.wire import ProtocolError, require
 
 # The one domain whose signatures are a person's decision: the chain's own signing
 # call.  A Permit, an approval, a review and an effect-side challenge all travel
@@ -36,16 +36,19 @@ CHAIN_DOMAIN = 'COMP-APP-SIGN-CALL-v1'
 # time, so a handful is already generous; the bound is here so a page that never
 # answers cannot grow the room without limit.
 MAX_PARKED = 16
-# How long one request waits for an answer.  A page takes a while to open and a
-# person longer, so this is minutes rather than seconds; past it the caller is
-# told, not left hanging.
+# How long one request waits for a person's answer.
 #
-# Derived from the chain's own window (``support.wire.WINDOW``) rather than
-# chosen: the chain asks four roles in sequence, so four waits plus the rest of
-# assembly have to fit inside that one window, and a sixth of it leaves two
-# thirds for the asking.  Set ``ZJJ_WINDOW=30`` and this follows to five seconds
-# by itself -- too short for a person, which is the point of that setting.
-DEFAULT_TIMEOUT = WINDOW / 6
+# It is not derived from the chain window, because a chain signature is not
+# bounded by that: ``core/signer_broker.py`` opens a signing call with thirty
+# seconds on it (``INSERT INTO a_sign_call ... event['lo']+30``), and the endpoint
+# is asked for its caller proof *inside* that window -- so a person has to answer
+# while it is open.  Waiting longer than this would only park the request past the
+# moment core stops accepting the answer, and the failure would read as an expired
+# clock rather than as nobody answering.
+#
+# So this is deliberately below that thirty, and short enough that the endpoint
+# gives up first and says so.
+DEFAULT_TIMEOUT = 25.0
 
 
 def needs_a_person(line):
