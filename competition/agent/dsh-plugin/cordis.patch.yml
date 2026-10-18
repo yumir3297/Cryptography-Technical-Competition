@@ -96,23 +96,21 @@
 
                 ## Profiles
 
-                Send one of these objects as `intent`; every field is required and
-                every value is a string.  These are the values the seeded scene is
-                bound to -- other identifiers are refused by the upstream schema or
-                by the scene binding, so start from these and only change what the
-                profile allows.
+                Send one of these objects as `intent`, copied exactly.  Every
+                field is bound to the seeded scene -- the industrial route
+                follows the evidence label, the medical template follows the
+                record's label, and the payment fields have to equal what the
+                source signed -- so a value you change is refused by the
+                binding, not accepted because a schema allows it.  There is
+                nothing to fill in: pick one profile and send its object as it is.
 
                 - `IND-DEMO-1`:
 
                   ```json
                   {"line_id": "demo-line-a", "station_id": "demo-check-1",
                    "unit_id": "unit-a", "batch_id": "batch-a",
-                   "inspection_cycle": "1", "phase": "INITIAL", "route": "RELEASE"}
+                   "inspection_cycle": "1", "phase": "INITIAL", "route": "INSPECT"}
                   ```
-
-                  `route` is `RELEASE`, `QUARANTINE` or `INSPECT`;
-                  `inspection_cycle` is `"1"` or `"2"`; `phase` is `"INITIAL"` or
-                  `"REINSPECT"`.
 
                 - `PAY-1`:
 
@@ -121,15 +119,11 @@
                    "payee": "payee", "amount_minor": "2000"}
                   ```
 
-                  `amount_minor` is a positive decimal integer, as a string.
-
                 - `MED-DEMO-1`:
 
                   ```json
                   {"synthetic_patient_id": "patient-a", "encounter_id": "encounter-a",
                    "template_id": "DEMO-ORDER-A"}
                   ```
-
-                  `template_id` is `DEMO-ORDER-A` or `DEMO-ORDER-B`.
               complete: true
               includeRuntimeContext: false

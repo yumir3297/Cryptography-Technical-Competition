@@ -98,11 +98,45 @@ class ConsoleFlowTests(unittest.TestCase):
         """One fresh operation on the holder side, and its id."""
         return self.console.submit('PAY-1', None)['operation_id']
 
+    # The exact objects the ZJJ preset hands the model.  Every field is bound to
+    # the seeded scene -- the industrial route follows the evidence label, the
+    # medical template follows the record's own label, the payment fields have to
+    # equal the evidence the source signed -- so the preset shows one object per
+    # profile to copy verbatim.  If one of these stops being accepted, the preset
+    # is telling the model to send something the trusted side refuses, which is
+    # the one thing the preset is there to prevent.
+    PRESET_INTENTS = {
+        'IND-DEMO-1': {'line_id': 'demo-line-a', 'station_id': 'demo-check-1',
+                       'unit_id': 'unit-a', 'batch_id': 'batch-a',
+                       'inspection_cycle': '1', 'phase': 'INITIAL',
+                       'route': 'INSPECT'},
+        'PAY-1': {'order_id': 'ord', 'stage': 'pay', 'payer': 'payer',
+                  'payee': 'payee', 'amount_minor': '2000'},
+        'MED-DEMO-1': {'synthetic_patient_id': 'patient-a',
+                       'encounter_id': 'encounter-a',
+                       'template_id': 'DEMO-ORDER-A'},
+    }
+
+    def test_a_field_the_scene_bound_is_not_the_model_s_to_choose(self):
+        # Which is why the preset shows an object to copy rather than a schema to
+        # fill in: the industrial route follows the seeded evidence label, so
+        # another route the schema allows is still refused by the binding.
+        intent = dict(self.PRESET_INTENTS['IND-DEMO-1'], route='RELEASE')
+        reply = self.client.post('/console/api/submit',
+                                 json={'profile': 'IND-DEMO-1', 'intent': intent})
+        self.assertEqual(reply.status_code, 403, reply.text)
+        self.assertEqual(reply.json()['deny'], 'CLAIM_FALSE')
+
     # -- every scenario, over the console's own HTTP -------------------------
     def test_a_page_drives_every_scenario_over_its_own_http(self):
-        for profile in INTENT_FIELDS:
+        # The objects are the ones the ZJJ preset hands the model, so this also
+        # pins the prompt to what the entry takes: if one stops being accepted,
+        # the preset is telling a session to send something the trusted side
+        # refuses.
+        for profile, intent in self.PRESET_INTENTS.items():
             with self.subTest(profile=profile):
-                submitted = self.client.post('/console/api/submit', json={'profile': profile})
+                submitted = self.client.post('/console/api/submit',
+                                             json={'profile': profile, 'intent': intent})
                 self.assertEqual(submitted.status_code, 200, submitted.text)
                 operation_id = submitted.json()['operation_id']
                 for side, step in (('H', 'prepare'), ('H', 'accept'),
