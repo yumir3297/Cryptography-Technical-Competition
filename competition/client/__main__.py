@@ -13,6 +13,10 @@ default
 ``--serve``
     stay up until the input closes; ``--socket PATH`` moves that input to a unix
     socket instead of stdin.
+``--serve-http``
+    answer the same requests over HTTP instead of a byte stream.  ``--port``
+    defaults to the deterministic port this endpoint's place in the roster
+    implies, so nothing has to be published or discovered.
 
 The key is never named on the command line: it comes from the conventional file
 ``<directory>/<profile>-<alias>.key`` (``W-worker.key`` for ``worker``,
@@ -55,6 +59,11 @@ def build_parser():
                         help='持续应答直到输入关闭（默认只应答一行）')
     parser.add_argument('--socket', default=None,
                         help='改为监听该 unix socket（需与 --serve 同用）')
+    parser.add_argument('--serve-http', action='store_true',
+                        help='改为 HTTP 服务（与 --socket 互斥）')
+    parser.add_argument('--host', default='127.0.0.1', help='--serve-http 时监听地址')
+    parser.add_argument('--port', type=int, default=None,
+                        help='--serve-http 时监听端口（默认按 roster 位置推出的那个）')
     return parser
 
 
@@ -88,8 +97,15 @@ def main(argv=None):
         # ledger process and reads its own key file.
         require(args.alias != 'tool', 'CLIENT_USAGE')
         require(args.profile is not None or args.alias == 'worker', 'CLIENT_USAGE')
+        require(not (args.serve_http and args.socket), 'CLIENT_USAGE')
+        require(args.port is None or 0 < args.port < 65536, 'CLIENT_USAGE')
         signer = RoleSigner.from_directory(args.directory, args.profile, args.alias)
-        if args.socket is not None:
+        if args.serve_http:
+            from competition.client.web import serve_http
+            from competition.server.roster import endpoint_port
+            port = args.port or endpoint_port(args.profile, args.alias)
+            serve_http(args.host, port, signer, name=args.name)
+        elif args.socket is not None:
             require(args.serve, 'CLIENT_USAGE')
             serve_unix(args.socket, signer)
         else:

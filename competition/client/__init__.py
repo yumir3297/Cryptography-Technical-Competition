@@ -20,6 +20,10 @@ Five pieces, layered so each can be tested alone:
     the line protocol that carries ``{profile, role, domain, claim}`` (or the
     ``raw`` / ``enrollment`` ops) in and ``{signature}`` out, modelled on
     :mod:`competition.support.broker_policy`.
+``web``
+    the same protocol over HTTP: one route that hands the request body to the
+    same ``host.answer``, plus the endpoint's own ``/healthz``, ``/identity`` and
+    ``/check-package``.
 ``package``
     :func:`~competition.client.package.check` -- the other end of the hand-off:
     read the trusted side's public package and check that this endpoint was

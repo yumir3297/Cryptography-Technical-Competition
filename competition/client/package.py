@@ -40,15 +40,24 @@ PUBLISH_DOMAIN = 'COMP-APP-C-PUBLISH-v1'
 WORKER_GRANT_DOMAIN = 'COMP-W-WORKER-GRANT-v1'
 
 
+def validate_package(package):
+    """Refuse anything that is not exactly a public package's shape.
+
+    Separate from :func:`read_package` because a package also arrives over the
+    network, not only from a file, and both doors must apply the same rule.
+    """
+    require(type(package) is dict and set(package) == FIELDS, 'PACKAGE_FORMAT')
+    require(package['kind'] == KIND, 'PACKAGE_FORMAT')
+    return package
+
+
 def read_package(path):
     """Read one public package, refusing anything that is not exactly its shape."""
     try:
         package = json.loads(Path(path).read_text(encoding='utf-8'))
     except (OSError, UnicodeError, json.JSONDecodeError):
         raise ProtocolError('PACKAGE_FORMAT')
-    require(type(package) is dict and set(package) == FIELDS, 'PACKAGE_FORMAT')
-    require(package['kind'] == KIND, 'PACKAGE_FORMAT')
-    return package
+    return validate_package(package)
 
 
 def _root_public(package):

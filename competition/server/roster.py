@@ -55,6 +55,29 @@ def owner_purposes(alias):
     return sortset(list(TYPES[alias] + ('READ',)))
 
 
+# The base port each endpoint's HTTP face is reached on.  The port is derived
+# from the endpoint's own place in the roster instead of being published in a
+# hand-kept table, so the endpoint and the trusted side compute the same number
+# from the same rule and nothing has to be discovered or configured.
+HTTP_PORT_BASE = 9100
+
+
+def endpoint_port(profile, role):
+    """The port an endpoint listens on: one deterministic number, no table.
+
+    The tool has no face of its own -- the trusted side runs it as a child
+    process against its own ledger -- so it has no port here.
+    """
+    require(role in ALIASES or role == 'worker', 'ROSTER_ROLE')
+    if role == 'worker':
+        # One worker capability serves every profile, so it names no profile and
+        # takes the one slot before the per-profile aliases.
+        return HTTP_PORT_BASE
+    require(profile in PROFILE_SCOPES, 'ROSTER_PROFILE')
+    return (HTTP_PORT_BASE + 1 + sorted(PROFILE_SCOPES).index(profile) * len(ALIASES)
+            + ALIASES.index(role))
+
+
 @dataclass(frozen=True)
 class Endpoint:
     """One validated manifest line: a public key and the name that goes with it."""
