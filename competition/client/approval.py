@@ -21,12 +21,29 @@ answered, and it is the caller's rule name that travels, not this room's.
 
 The room is deliberately not authority.  It cannot make a signature valid that the
 signer would refuse, and an unanswered request does not become an approval.
+
+**Two ways in, and the difference is when the signing call opens.**
+
+A request may *park*: it has already reached the signing point, the signing call
+is already open with its thirty seconds running, and the room only gets to hold
+it for as long as that call would still accept the answer.  That is
+:meth:`WaitingRoom.park`, and it is the fallback -- what an endpoint does when
+somebody asks it to sign without having asked here first.
+
+Or a caller may *report first*: it hands over the message it is about to have
+signed, before opening anything, and waits for a person with no deadline but the
+person's own patience.  Only when it has an answer does it open the signing call,
+and that call is then answered immediately.  That is
+:meth:`WaitingRoom.preapprove`, and it is the path a deployment should take --
+because a person cannot be asked to decide inside thirty seconds they did not
+know were running.
 """
 import threading
 
 from competition.client.host import decode_data, decode_request
 from competition.client.signer import split_message
-from competition.support.wire import ProtocolError, require
+from competition.core.signer_broker import ScopedSignerBroker
+from competition.support.wire import ProtocolError, WINDOW, require
 
 # The one domain whose signatures are a person's decision: the chain's own signing
 # call.  A Permit, an approval, a review and an effect-side challenge all travel
@@ -49,6 +66,43 @@ MAX_PARKED = 16
 # So this is deliberately below that thirty, and short enough that the endpoint
 # gives up first and says so.
 DEFAULT_TIMEOUT = 25.0
+# How long a *preapproval* waits for a person.  This one is not bounded by the
+# signing call, because nothing has been opened yet: the caller is asking before
+# it opens anything, and will only open the call once it has an answer.  So this
+# is the room's own patience, and it follows the one window the way the rest of
+# the deployment's waits do -- a caller with no page in front of it is told
+# rather than left hanging.  With ``ZJJ_WINDOW=30`` it comes back to a length
+# that no person could answer, which is the point of that setting.
+PREAPPROVAL_TIMEOUT = WINDOW
+
+
+def chain_request_ref(line):
+    """The reference of the chain message one request would sign, or ``None``.
+
+    One answer to two questions at once: whether this request is the chain's own
+    signing call, and which message it is about.  A request that is not that
+    domain, or whose bytes cannot be read, has no reference and is not something
+    a person was asked about -- so it is not a preapproval, and the caller is
+    answered the way it always was.
+
+    The reference is the black box's own (``ScopedSignerBroker.request_ref``),
+    recomputed here rather than kept, so the endpoint and the trusted side are
+    agreeing on one definition and not on a copy of it.
+    """
+    try:
+        request = decode_request(line)
+        if request.get('op', 'challenge') != 'raw':
+            return None
+        # ``split_message`` hands back the whole ``[domain, ...]`` list, and the
+        # signing call's claim is its second element.
+        domain, value = split_message(decode_data(request['data']))
+        if domain != CHAIN_DOMAIN or type(value) is not list or len(value) != 2 \
+                or type(value[1]) is not dict:
+            return None
+        ref = value[1].get('request_ref')
+        return ref if type(ref) is str else None
+    except (ProtocolError, KeyError, TypeError, ValueError, AttributeError):
+        return None
 
 
 def needs_a_person(line):
@@ -90,6 +144,22 @@ class Ticket:
         the way the signing point splits it; the page then sees the domain and the
         message, not an opaque blob.
         """
+        if self.request.get('op') == 'preapprove':
+            # A preapproval is shown as the message itself.  It is in hand -- the
+            # caller handed it over before opening anything -- and it is what a
+            # person is being asked about, where the signing call's own claim
+            # would only carry a reference to it.
+            unsigned = self.request['unsigned']
+            return {'id': self.id,
+                    'answered': self._verdict is not None,
+                    'verdict': self._verdict,
+                    'op': 'preapprove',
+                    'profile': self.request.get('profile'),
+                    'role': self.request.get('role'),
+                    'domain': CHAIN_DOMAIN,
+                    'type': unsigned.get('protected', {}).get('type'),
+                    'request_ref': self.request.get('request_ref'),
+                    'claim': unsigned}
         domain, claim = self._shown()
         return {'id': self.id,
                 'answered': self._verdict is not None,
@@ -131,12 +201,62 @@ class Ticket:
 class WaitingRoom:
     """The room requests park in, and a page's window onto it."""
 
-    def __init__(self, *, limit=MAX_PARKED, timeout=DEFAULT_TIMEOUT):
+    def __init__(self, *, limit=MAX_PARKED, timeout=DEFAULT_TIMEOUT,
+                 preapproval_timeout=PREAPPROVAL_TIMEOUT):
         self.limit = limit
         self.timeout = timeout
+        self.preapproval_timeout = preapproval_timeout
         self._lock = threading.Lock()
         self._tickets = {}
         self._counter = 0
+        # The references a person has approved ahead of the signing call.  A
+        # reference is spent by the one signature it was an answer to, so this is
+        # taken from, not read -- the same one-shot the signing call's own nonce
+        # is.
+        self._approved = {}
+
+    def preapprove(self, *, profile, role, unsigned, action, timeout):
+        """Ask a person about one chain message *before* it is signed.
+
+        The caller hands over what it is about to have signed and waits for an
+        answer.  Nothing is opened here -- the caller's signing call, and the
+        thirty seconds on it, only begin once this returns -- so the wait is
+        bounded by a person's patience rather than by that call.  That is the
+        whole point: the person decides first, and the signature that follows is
+        immediate.
+
+        An approval is remembered against the message's own reference, which is
+        the black box's, so the signing call that follows is recognised as the one
+        that was agreed to rather than matched loosely.
+        """
+        ref = ScopedSignerBroker.request_ref(profile, role, unsigned, action)
+        with self._lock:
+            if len(self._tickets) >= self.limit:
+                raise ProtocolError('CLIENT_ROOM_FULL')
+            self._counter += 1
+            ticket = Ticket(str(self._counter),
+                            {'op': 'preapprove', 'profile': profile, 'role': role,
+                             'unsigned': unsigned, 'request_ref': ref})
+            self._tickets[ticket.id] = ticket
+        try:
+            approved = ticket.wait(timeout)
+        finally:
+            # The page stops showing it either way; a late answer changes nothing.
+            self.drop(ticket.id)
+        if approved:
+            with self._lock:
+                self._approved[ref] = True
+        return approved
+
+    def take_approved(self, ref):
+        """Spend the approval for one reference, if there is one.
+
+        One reference is answered by one signature, so this removes what it
+        returns: a second signing call carrying the same reference is not the one
+        a person agreed to, and is not preapproved.
+        """
+        with self._lock:
+            return self._approved.pop(ref, None) is not None
 
     def park(self, line):
         """Parse one request line and park it; returns the ticket to wait on.

@@ -39,7 +39,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 
-from competition.client.approval import WaitingRoom, needs_a_person
+from competition.client.approval import WaitingRoom, chain_request_ref, needs_a_person
 from competition.client.host import MAX_REQUEST_LINE, answer
 from competition.client.keys import propose_purposes, propose_subject
 from competition.client.package import check, validate_package
@@ -92,22 +92,66 @@ def make_app(signer, *, name=None, approval=None):
         try:
             require(len(body) <= MAX_REQUEST_LINE, 'CLIENT_SIZE')
             line = _line(body)
-            ticket = (approval.park(line)
-                      if approval is not None and needs_a_person(line) else None)
-            if ticket is not None:
-                # Waiting for a person is not work for the event loop, so it waits
-                # in a thread.  An answer that never came is not an approval, and a
-                # no is a no: either way the signing point below is not reached.
-                approved = await run_in_threadpool(ticket.wait, approval.timeout)
-                approval.drop(ticket.id)
-                if approved is None:
-                    return _deny('CLIENT_NO_ANSWER')
-                if not approved:
-                    return _deny('CLIENT_REFUSED')
+            if approval is not None and needs_a_person(line):
+                # The chain's own signing call.  A person was asked before it
+                # opened (``/preapprove``), so the answer is usually already in
+                # hand and the call is answered straight away.  When it is not --
+                # a caller that did not report first -- the request parks the way
+                # it used to, held only as long as the open call would still take
+                # the answer.
+                ref = chain_request_ref(line)
+                if ref is None or not approval.take_approved(ref):
+                    ticket = approval.park(line)
+                    approved = await run_in_threadpool(ticket.wait, approval.timeout)
+                    approval.drop(ticket.id)
+                    if approved is None:
+                        return _deny('CLIENT_NO_ANSWER')
+                    if not approved:
+                        return _deny('CLIENT_REFUSED')
             reply = answer(line, signer)
         except ProtocolError as exc:
             return _deny(exc.code)
         return JSONResponse(content=reply)
+
+    @app.post('/preapprove')
+    async def preapprove(request: Request):
+        """Ask a person about one chain message before its signing call opens.
+
+        The caller hands over the message it is about to have signed, and waits.
+        Nothing is opened by this route: the signing call, with the thirty seconds
+        core puts on it, only begins on the caller's side once this answers.  So a
+        person may take as long as they take, and the signature that follows is
+        immediate.
+
+        An endpoint without a waiting room is an endpoint whose signatures are not
+        a person's decision, so it agrees at once and says nobody was asked.
+        """
+        body = await request.body()
+        try:
+            require(len(body) <= MAX_REQUEST_LINE, 'CLIENT_SIZE')
+            try:
+                value = json.loads(body)
+            except (UnicodeError, json.JSONDecodeError):
+                raise ProtocolError('CLIENT_MALFORMED')
+            require(type(value) is dict and set(value) == {'profile', 'role', 'unsigned', 'action'},
+                    'CLIENT_FIELDS')
+            # The message is signed by this endpoint's one key or by nothing, so
+            # a report naming another profile or role is not this endpoint's to
+            # ask about.
+            require(value['profile'] == profile and value['role'] == role, 'CLIENT_BINDING')
+            require(type(value['unsigned']) is dict and type(value['action']) is dict, 'CLIENT_FIELDS')
+            if approval is None:
+                return JSONResponse(content={'approved': True, 'waited': False})
+            approved = await run_in_threadpool(approval.preapprove, profile=profile, role=role,
+                                               unsigned=value['unsigned'], action=value['action'],
+                                               timeout=approval.preapproval_timeout)
+            if approved is None:
+                return _deny('CLIENT_NO_ANSWER')
+            if not approved:
+                return _deny('CLIENT_REFUSED')
+        except ProtocolError as exc:
+            return _deny(exc.code)
+        return JSONResponse(content={'approved': True, 'waited': True})
 
     @app.get('/awaiting')
     def awaiting():
