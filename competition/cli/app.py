@@ -38,6 +38,9 @@ HELP = """\
   audit             认证读取投影加 commit/证据
   auto              submit->prepare->accept->claim->exec->settle->status 一键跑完
   counts            全 W 汇总计数（无调用者认证）
+  identities        列出 roster 的 subject/alias/kid/purposes
+  enroll <subject>  为 roster 主体发 pending（tuple + enrollment_id + nonce）
+  enroll-register <subject>  本地签 POP 并登记，打印 grant
   help              显示本帮助
   quit              退出
 """
@@ -192,6 +195,46 @@ class Session:
     def cmd_quit(self, args):
         self.quit = True
 
+    # -- 身份面: 登记 / 持钥证明（POP） -------------------------------------
+    # Appended last on purpose: another face edits this file concurrently.
+    def _pendings(self):
+        """The per-session pending enrollments, created on first use."""
+        if not hasattr(self, '_pending'):
+            self._pending = {}
+        return self._pending
+
+    def cmd_identities(self, args):
+        self._need_run()
+        for profile in ([self.profile] if self.profile else sorted(PROFILE_SCOPES)):
+            for alias, actor in sorted(self.run.actors[profile].items()):
+                print(profile, alias, actor.name, actor.kid,
+                      json.dumps(sorted(actor.purposes), ensure_ascii=False), sep='\t')
+
+    def cmd_enroll(self, args):
+        self._need_profile()
+        if not args:
+            raise RuntimeError('用法: enroll <subject>')
+        pending = self.service.enroll(self.profile, args[0])
+        self._pendings()[(self.profile, args[0])] = pending
+        print('enrollment_id:', pending['enrollment_id'])
+        print('nonce:', pending['nonce'])
+        print('tuple:', _dump(pending['tuple']))
+
+    def cmd_enroll_register(self, args):
+        self._need_profile()
+        if not args:
+            raise RuntimeError('用法: enroll-register <subject>')
+        import time
+        subject = args[0]
+        pending = self._pendings().get((self.profile, subject))
+        if pending is None:
+            raise RuntimeError('还没有登记请求，先运行 enroll %s' % subject)
+        now = int(time.time())
+        proof = self.service.enroll_proof(self.profile, subject, pending, now, now + 60)
+        grant = self.service.enroll_register(self.profile, proof)
+        self._pendings().pop((self.profile, subject), None)
+        print('grant:', _dump(grant))
+
 
 COMMANDS = {
     'help': 'cmd_help',
@@ -214,6 +257,9 @@ COMMANDS = {
     'audit': 'cmd_audit',
     'auto': 'cmd_auto',
     'counts': 'cmd_counts',
+    'identities': 'cmd_identities',
+    'enroll': 'cmd_enroll',
+    'enroll-register': 'cmd_enroll_register',
 }
 
 
