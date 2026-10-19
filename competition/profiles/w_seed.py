@@ -89,14 +89,19 @@ class WRun:
         return {'claim': claim, 'signature': b64(self.actors[profile]['H'].key.sign(
             canonical(['COMP-W-READ-v1', claim])))}
 
-    def fork_operation(self, profile, op=None):
+    def fork_operation(self, profile, op=None, *, operation_id=None):
         """Re-derive current business facts and sign a fresh genuine full chain.
 
         Source records and their iat/exp are retained. A fork keeps the original
         assessment cutoff and expiry, so it cannot extend E's authority window.
+
+        ``operation_id`` lets a caller pin the id before assembly -- the entry does
+        that so it can publish the candidate while the chain still waits on a
+        person.  Without one, the fork makes its own, which is the id a replay or
+        a test wants.
         """
         op = copy.deepcopy(op if op is not None else self.operations[profile])
-        op['action']['operation_id'] = b64(os.urandom(16))
+        op['action']['operation_id'] = operation_id or b64(os.urandom(16))
         now = int(time.time())
         frozen = op['assessment']['value']
         op['assessment'] = {'value': {'cutoff': frozen['cutoff'], 'iat': str(now), 'exp': frozen['exp']}}

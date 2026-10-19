@@ -156,6 +156,18 @@ class ObserveFaceTests(unittest.TestCase):
         self.assertTrue(entry and all(event.get('flow') is True and event['source'] == 'ENTRY'
                                       for event in entry))
 
+    def test_a_tool_response_is_not_the_operation_s_state(self):
+        # ``SUCCEEDED`` is the tool's effect outcome.  Publishing it as the
+        # operation's status label would read as "the worker is done" while the
+        # worker still has to settle -- so it belongs in the detail, and the
+        # lifecycle label stays where it was.
+        responded = [event for event in self.events(limit=1000)['events']
+                     if event['kind'] == 'TOOL_RESPONDED']
+        self.assertTrue(responded)
+        for event in responded:
+            self.assertIsNone(event['status_label'])
+            self.assertEqual(event['detail']['effect_state'], 'SUCCEEDED')
+
     def test_the_snapshot_reports_current_state_without_payload(self):
         view = self.observe('/api/observe/operations/' + self.operation_id).json()
         self.assertEqual(view['dispatch_state'], 'SETTLED')

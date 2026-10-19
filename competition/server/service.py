@@ -23,10 +23,11 @@ holding the registered key, and it is proven by the signature carried in every
 the three normal paths run before external role clients are connected.
 """
 import copy
+import os
 
 from competition.bridge.facade import TrustedFacade
 from competition.support.scene_contract import DEST
-from competition.support.wire import require
+from competition.support.wire import b64, require
 
 # The core's challenge signature domains, as the black box defines them.
 GUARD_DOMAIN = 'COMP-APP-AUTHZ-IDENTITY-v1'   # H, TrustedState.challenge(GUARD)
@@ -87,11 +88,19 @@ class TrustedService:
         self._entries = {}
 
     # -- 候选提交: intent -> full Action -> assembled request ---------------
-    def submit(self, profile, intent=None):
+    def submit(self, profile, intent=None, *, announce=None):
         """Assemble the caller's business intent into a signed request.
 
         Returns the operation handle and the first (prepare/GUARD) challenge, so a
         one-shot caller needs no extra round trip.
+
+        ``announce`` is called with the operation id the moment that id exists and
+        the Action has been merged -- *before* the chain is assembled, which with a
+        waiting room means before somebody answers on the page.  Assembling first
+        and reporting after would keep the candidate invisible for exactly as long
+        as a person is deciding, and the page a person answers on is the only place
+        it can be seen.  The callback is optional; a caller that does not want it
+        gets the old behaviour.
         """
         require(profile in INTENT_FIELDS, 'PROFILE')
         base = self.run.operations[profile]
@@ -101,8 +110,14 @@ class TrustedService:
         if destination is not None:
             action['destination'] = destination
         scene_key = scene_key_for(profile, action['scope'], action['payload'])
-        op = self.facade.build_op(profile, action, base['task_id'], scene_key)
-        operation_id = op['action']['operation_id']
+        # Fixed here rather than inside assembly: the id is what a reader keys the
+        # candidate on, and it must be the same one the assembled operation gets.
+        operation_id = b64(os.urandom(16))
+        action['operation_id'] = operation_id
+        if announce is not None:
+            announce(profile, operation_id)
+        op = self.facade.build_op(profile, action, base['task_id'], scene_key,
+                                  operation_id=operation_id)
         self._entries[operation_id] = {'profile': profile, 'op': op,
                                        'ticket': None, 'response': None}
         return {'operation_id': operation_id, 'challenge': self.challenge(operation_id, 'prepare')}

@@ -24,10 +24,12 @@ have no field for either, so a caller naming itself ``H`` is not an input this
 entry can even receive.
 """
 import json
+import threading
 import time
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, StreamingResponse
+from starlette.concurrency import run_in_threadpool
 
 from competition.server.observe import ObservationFeed
 from competition.server.roster import DENY_STATUS
@@ -88,6 +90,17 @@ def make_app(service, sessions):
     """Build the trusted entry over one initialized service and its callers."""
     app = FastAPI(title='zjj-trusted', description='ZJJ-CORE trusted entry')
     feed = ObservationFeed(service.run.store.path)
+    # Chain assembly asks a person at each of G/U/V/X before it signs, and that is
+    # minutes, not milliseconds.  Running it on the event loop would stop the entry
+    # answering anything else for as long as somebody reads the page -- including
+    # the observation reads the page itself polls.  So the three flow routes run on
+    # a worker thread, and one lock keeps them one at a time, which is what the
+    # event loop used to do for them.
+    flow = threading.Lock()
+
+    def flow_call(call, *args, **kwargs):
+        with flow:
+            return call(*args, **kwargs)
 
     @app.get('/healthz')
     def healthz():
@@ -113,19 +126,36 @@ def make_app(service, sessions):
     # -- the minimal interface ---------------------------------------------
     @app.post('/api/submit')
     async def submit(request: Request):
+        # The candidate is reported the moment its id exists, before the chain is
+        # assembled -- and with a waiting room that assembly is a person reading
+        # the page, so reporting it afterwards would hide the candidate for as long
+        # as the person is deciding on it.  A refusal after that point is reported
+        # too, so a candidate that never assembles says why instead of sitting at
+        # SUBMITTED for ever.
+        announced = {}
+
+        def announce(profile, operation_id):
+            announced['profile'] = profile
+            announced['id'] = operation_id
+            feed.publish('CANDIDATE_SUBMITTED', profile, operation_id,
+                         {'stage': '外部提交候选动作', 'lanes': ['外部调用方'],
+                          'detail': {'profile': profile}})
+
         try:
             body = await _json(request, ('profile', 'intent'))
             # Submitting is what asks the trusted side to gather a fresh approval
             # chain, so it is the one call held to the side that proposes.
             sessions.authorize(_token(request), 'H')
-            result = service.submit(body['profile'], body['intent'])
+            result = await run_in_threadpool(flow_call, service.submit,
+                                             body['profile'], body['intent'],
+                                             announce=announce)
         except ProtocolError as exc:
+            if announced.get('id'):
+                feed.publish('CANDIDATE_DENIED', announced['profile'], announced['id'],
+                             {'stage': '候选被拒绝', 'lanes': ['外部调用方'],
+                              'status_label': 'DENIED', 'detail': {'rule': exc.code}})
             return _deny(exc.code)
-        operation_id = result['operation_id']
-        feed.publish('CANDIDATE_SUBMITTED', body['profile'], operation_id,
-                     {'stage': '外部提交候选动作', 'lanes': ['外部调用方'],
-                      'detail': {'profile': body['profile']}})
-        feed.publish('CHAIN_ASSEMBLED', body['profile'], operation_id,
+        feed.publish('CHAIN_ASSEMBLED', body['profile'], result['operation_id'],
                      {'stage': 'Resolver 装配完整动作/依据/用途', 'lanes': ['受信编排器']})
         return JSONResponse(content=result)
 
@@ -135,13 +165,14 @@ def make_app(service, sessions):
             body = await _json(request, ('operation_id', 'step'))
             require(body['step'] in STEPS, 'STEP')
             sessions.authorize(_token(request), _side(body['step']))
-            claim = service.challenge(body['operation_id'], body['step'])
+            claim, profile = await run_in_threadpool(
+                flow_call, lambda: (service.challenge(body['operation_id'], body['step']),
+                                    service.profile_of(body['operation_id'])))
             # The step's own signing role and domain travel back with the claim, so
             # a caller knows which endpoint to ask without keeping its own copy of
             # the table, and cannot mistake one for another.  The profile comes
             # from the operation the entry holds, so a caller handed an id it did
             # not create still knows where the endpoint is.
-            profile = service.profile_of(body['operation_id'])
         except ProtocolError as exc:
             return _deny(exc.code)
         feed.publish('STEP_CHALLENGED', profile, body['operation_id'],
@@ -160,8 +191,10 @@ def make_app(service, sessions):
             body = await _json(request, ('operation_id', 'step', 'proof'))
             require(body['step'] in STEPS, 'STEP')
             sessions.authorize(_token(request), _side(body['step']))
-            result = service.prove(body['operation_id'], body['step'], body['proof'])
-            profile = service.profile_of(body['operation_id'])
+            result, profile = await run_in_threadpool(
+                flow_call, lambda: (service.prove(body['operation_id'], body['step'],
+                                                  body['proof']),
+                                    service.profile_of(body['operation_id'])))
         except ProtocolError as exc:
             return _deny(exc.code)
         feed.publish('STEP_PROVED', profile, body['operation_id'],

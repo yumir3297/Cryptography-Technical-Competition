@@ -321,7 +321,7 @@ class CommonW:
                     response={**response,'validation_error':exc.code}
             c.execute('INSERT INTO w_evidence(profile,oid,kind,blob) VALUES(?,?,?,?)',(p,oid,purpose,enc(response)))
             self._journal(c,'W_TOOL_RESPONSE',p,oid,{'purpose':purpose,'response':response})
-            self.source.observe(c,'TOOL_RESPONDED',p,oid,{'stage':'工具响应','lanes':['worker','工具'],'status_label':response.get('state'),'detail':{'purpose':purpose}})
+            self.source.observe(c,'TOOL_RESPONDED',p,oid,{'stage':'工具响应','lanes':['worker','工具'],'detail':{'purpose':purpose,'effect_state':response.get('state')}})
         return response
     def execute_once(self,p,oid,proof):return self._send(p,oid,proof,False)
     def query_attempt(self,p,oid,proof):return self._send(p,oid,proof,True)

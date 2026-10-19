@@ -25,7 +25,7 @@ class TrustedFacade:
         self._ingress = ingress if ingress is not None else CandidateIngress(ROOT)
 
     # -- assembly: caller Action -> full signed request (the only logic) -----
-    def build_op(self, profile, action, task_id, scene_key):
+    def build_op(self, profile, action, task_id, scene_key, *, operation_id=None):
         """Validate a candidate Action and assemble the full signed request.
 
         The Action passes the strict candidate ingress first; the caller then
@@ -33,12 +33,17 @@ class TrustedFacade:
         field -- the derived basis/assessment/required/deps and the trusted
         approval chain -- is rebuilt by the trusted host, never taken from the
         caller.
+
+        ``operation_id`` pins the id the assembled operation will have.  A caller
+        that wants to report the candidate before assembly passes one; one that
+        does not gets a fresh id from the fork, which is what every other caller
+        of this method does.
         """
         action = self._ingress.parse(profile, canonical(action))
         base = self._run.operations[profile]
         op = {'action': action, 'task_id': task_id, 'scene_key': scene_key,
               'assessment': copy.deepcopy(base['assessment'])}
-        return self._run.fork_operation(profile, op)
+        return self._run.fork_operation(profile, op, operation_id=operation_id)
 
     # -- acceptance ---------------------------------------------------------
     def challenge(self, profile, op):

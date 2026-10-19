@@ -46,6 +46,13 @@ DEFAULT_PROFILE = 'PAY-1'
 START_TIMEOUT = 600.0
 
 
+# The lifecycle states a candidate row may show, in the core's own words.  An
+# event may carry another label -- a tool's effect outcome, say -- and that is not
+# where the operation is, so it is not a word the row shows: only these are.
+LIFECYCLE = frozenset({'SUBMITTED', 'PENDING', 'STARTED', 'SETTLED', 'CANCELED',
+                       'HALTED', 'DENIED'})
+
+
 def _candidates(events, limit):
     """The submitted candidates, each with its latest state, newest first.
 
@@ -55,6 +62,11 @@ def _candidates(events, limit):
     accepts.  Acceptance, execution and settlement are later events for the same
     operation, and the core is what labels them -- ``status_label`` is its own
     word, where the entry's own events leave it empty.
+
+    Only a lifecycle word is taken as the row's state.  An event that carries
+    something else -- the tool's own ``SUCCEEDED``, which is an effect outcome and
+    not a place in the flow -- leaves the last lifecycle word standing, so a row
+    cannot read as finished before it is.
     """
     submitted, latest, labels, stages = {}, {}, {}, {}
     for event in events:
@@ -64,7 +76,7 @@ def _candidates(events, limit):
         if event.get('kind') == 'CANDIDATE_SUBMITTED':
             submitted[operation_id] = event
         latest[operation_id] = event
-        if event.get('status_label'):
+        if event.get('status_label') in LIFECYCLE:
             labels[operation_id] = event['status_label']
             stages[operation_id] = event.get('stage') or ''
     rows = []

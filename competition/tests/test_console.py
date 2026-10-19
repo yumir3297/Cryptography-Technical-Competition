@@ -26,7 +26,7 @@ from competition.caller import CALLER_LIST
 from competition.client.signer import RoleSigner
 from competition.client.web import make_app as endpoint_app
 from competition.console.app import make_app as console_app
-from competition.console.control import Console
+from competition.console.control import Console, _candidates
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.w_seed import initialize
 from competition.server.roster import ALIASES, endpoint_port
@@ -290,6 +290,34 @@ class ConsoleOperationPoolTests(unittest.TestCase):
         self.assertEqual(self.console('http://127.0.0.1:1').operations(),
                          {'operations': []})
         self.assertEqual(self.console(None).operations(), {'operations': []})
+
+    def test_an_effect_outcome_is_not_shown_as_the_row_s_state(self):
+        # Only a lifecycle word may become the row's state.  ``SUCCEEDED`` is what
+        # the tool reported, not where the operation is: a row that has claimed and
+        # run but not settled still reads STARTED.
+        events = [
+            {'seq': 1, 'kind': 'CANDIDATE_SUBMITTED', 'profile': 'PAY-1',
+             'operation_id': 'op-1'},
+            {'seq': 2, 'kind': 'CLAIMED', 'profile': 'PAY-1', 'operation_id': 'op-1',
+             'status_label': 'STARTED', 'stage': '领取唯一 attempt'},
+            {'seq': 3, 'kind': 'TOOL_RESPONDED', 'profile': 'PAY-1', 'operation_id': 'op-1',
+             'status_label': 'SUCCEEDED', 'stage': '工具响应'},
+        ]
+        self.assertEqual(_candidates(events, 10)[0]['state'], 'STARTED')
+        events.append({'seq': 4, 'kind': 'SETTLED', 'profile': 'PAY-1',
+                       'operation_id': 'op-1', 'status_label': 'SETTLED', 'stage': '一次结算'})
+        self.assertEqual(_candidates(events, 10)[0]['state'], 'SETTLED')
+
+    def test_a_candidate_that_was_refused_is_a_row_that_says_so(self):
+        events = [
+            {'seq': 1, 'kind': 'CANDIDATE_SUBMITTED', 'profile': 'PAY-1',
+             'operation_id': 'op-1'},
+            {'seq': 2, 'kind': 'CANDIDATE_DENIED', 'profile': 'PAY-1',
+             'operation_id': 'op-1', 'status_label': 'DENIED', 'stage': '候选被拒绝'},
+        ]
+        rows = _candidates(events, 10)
+        self.assertEqual(rows[0]['state'], 'DENIED')
+        self.assertEqual(rows[0]['stage'], '候选被拒绝')
 
 
 if __name__ == '__main__':
