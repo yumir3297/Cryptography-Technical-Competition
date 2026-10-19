@@ -16,9 +16,10 @@
 - [开发入口与运行命令](competition/README.md)
 - [当前内部接口与返回值](competition/docs/final/interface-reference.md)
 - [协议 1.1 优化与复检](competition/docs/final/optimization-review-20261012.md)
+- [声明与实际证据](competition/docs/final/claims-evidence.md)
+- [竞品与作品指标台账](competition/docs/metrics/竞品与作品指标台账.md)：公开能力、厂商数字、作品证据与待同测指标
 - [安装依赖与运行范围](INSTALL_AND_SCOPE.md)
 - [消息契约、Schema 与公开编码向量](system_dev/v26/README.md)
-- [声明与实际证据](competition/docs/final/claims-evidence.md)
 - [仓库范围与整理记录](REPOSITORY_SCOPE.md)
 
 比赛采用受信单机、固定登记范围和三个签名模拟工具。当前查询与审计是经过认证的本地应用投影；正式 R2 签名响应与应用实现差异在交接材料中分别说明。
