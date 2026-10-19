@@ -5,5 +5,7 @@ import 'element-plus/dist/index.css'
 
 import App from './App.vue'
 import './style.css'
+import { installFlushHooks } from './trace'
 
+installFlushHooks()
 createApp(App).use(ElementPlus, { locale: zhCn }).mount('#app')

@@ -15,6 +15,7 @@ checks every signature again -- this check exists so the caller can tell, not so
 the trusted side can rely on it.
 """
 from competition.server.roster import HTTPTransport, endpoint_port
+from competition.support import trace
 from competition.support.wire import b64, canonical, raw, require, strict_verify
 
 
@@ -49,9 +50,12 @@ class EndpointSigner:
 
     def signature(self, profile, role, domain, claim):
         """One signature, from the endpoint that owns the step, and checked here."""
-        reply = self._transport(self.url(profile, role)).request(
-            {'op': 'challenge', 'profile': profile, 'role': role, 'domain': domain,
-             'claim': claim})
+        with trace.span('endpoint.sign', endpoint=self.url(profile, role), role=role,
+                        domain=domain) as entry:
+            reply = self._transport(self.url(profile, role)).request(
+                {'op': 'challenge', 'profile': profile, 'role': role, 'domain': domain,
+                 'claim': claim})
+            entry['answer'] = reply.get('role') if type(reply) is dict else None
         require(type(reply.get('signature')) is str and reply.get('role') == role
                 and reply.get('domain') == domain, 'CALLER_ANSWER')
         signature = raw(reply['signature'], 64)
@@ -80,8 +84,10 @@ class Caller:
 
     def start(self):
         """Open the session and read the package endpoint answers are checked against."""
-        opened = self.session.open()
-        self.package = self.session.call('GET', '/api/package')
+        with trace.span('entry.session'):
+            opened = self.session.open()
+        with trace.span('entry.package'):
+            self.package = self.session.call('GET', '/api/package')
         return opened
 
     def signers(self):
@@ -108,8 +114,12 @@ class Caller:
 
     def step(self, operation_id, step):
         """One step start to finish: ask, get it signed where it belongs, hand it back."""
-        asked = self.challenge(operation_id, step)
-        proof = self.signers().proof(asked['profile'], asked['role'], asked['domain'],
-                                     asked['claim'])
-        return self.session.call('POST', '/api/prove',
-                                 {'operation_id': operation_id, 'step': step, 'proof': proof})
+        with trace.span('entry.challenge', operation_id=operation_id, step=step):
+            asked = self.challenge(operation_id, step)
+        with trace.span('endpoint.proof', operation_id=operation_id, step=step):
+            proof = self.signers().proof(asked['profile'], asked['role'], asked['domain'],
+                                         asked['claim'])
+        with trace.span('entry.prove', operation_id=operation_id, step=step):
+            return self.session.call('POST', '/api/prove',
+                                     {'operation_id': operation_id, 'step': step,
+                                      'proof': proof})

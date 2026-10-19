@@ -20,6 +20,7 @@ from competition.caller.flow import Caller
 from competition.core.trusted_state import ROLES
 from competition.server.roster import endpoint_port
 from competition.server.service import INTENT_FIELDS
+from competition.support import trace
 from competition.support.wire import ProtocolError, is_id, require
 
 # The two sides of the flow, named the way :mod:`competition.web.session` names
@@ -145,7 +146,8 @@ class Console:
     # -- what the page asks for --------------------------------------------
     def submit(self, profile=None, intent=None):
         """Propose an operation on the side that proposes."""
-        return self._caller(HOLDER).submit(profile or self.profile, intent)
+        with trace.span('console.submit', profile=profile or self.profile):
+            return self._caller(HOLDER).submit(profile or self.profile, intent)
 
     def step(self, side, operation_id, step):
         """Drive one step on the side the page named.
@@ -154,7 +156,8 @@ class Console:
         list decides, and a caller reaching across its side comes back refused
         under the entry's own rule name.
         """
-        return self._caller(side).step(operation_id, step)
+        with trace.span('console.step', side=side, step=step):
+            return self._caller(side).step(operation_id, step)
 
     def package(self):
         """The published package, so a page can show what the roster bound."""
@@ -200,9 +203,14 @@ class Console:
         if self.endpoints is None:
             return {'profile': profile, 'todos': []}
         todos = []
-        for role in WAITING_ROLES:
-            for ticket in self._waiting(profile, role):
-                todos.append({'role': role, **ticket})
+        with trace.span('pending.roles', roles=list(WAITING_ROLES)) as entry:
+            for role in WAITING_ROLES:
+                with trace.span('pending.role', role=role) as role_entry:
+                    found = self._waiting(profile, role)
+                    role_entry['tickets'] = len(found)
+                for ticket in found:
+                    todos.append({'role': role, **ticket})
+            entry['todos'] = len(todos)
         return {'profile': profile, 'todos': todos}
 
     def _waiting(self, profile, role):
@@ -214,13 +222,16 @@ class Console:
         """
         import httpx
         url = '%s:%d/awaiting' % (self.endpoints, endpoint_port(profile, role))
-        try:
-            reply = httpx.get(url, timeout=2.0)
-            if reply.status_code != 200:
+        with trace.span('endpoint.awaiting', role=role) as entry:
+            try:
+                reply = httpx.get(url, timeout=2.0)
+                entry['status'] = reply.status_code
+                if reply.status_code != 200:
+                    return []
+                parked = reply.json().get('tickets', [])
+            except (httpx.HTTPError, ValueError) as exc:
+                entry['error'] = type(exc).__name__
                 return []
-            parked = reply.json().get('tickets', [])
-        except (httpx.HTTPError, ValueError):
-            return []
         return [ticket for ticket in parked if not ticket.get('answered')]
 
     def decide(self, profile, role, ticket, approve):
@@ -236,7 +247,8 @@ class Console:
         require(type(ticket) is str and ticket.isdigit(), 'CONSOLE_TICKET')
         require(type(approve) is bool, 'CONSOLE_DECIDE')
         url = '%s:%d/decide' % (self.endpoints, endpoint_port(profile, role))
-        reply = httpx.post(url, json={'id': ticket, 'approve': approve}, timeout=10.0)
+        with trace.span('endpoint.decide', role=role, ticket=ticket, approve=approve):
+            reply = httpx.post(url, json={'id': ticket, 'approve': approve}, timeout=10.0)
         require(reply.status_code == 200, 'CONSOLE_DECIDE')
         return reply.json()
 
@@ -257,21 +269,25 @@ class Console:
             return {'operations': []}
         import httpx
         events, after = [], 0
-        try:
-            for _ in range(20):
-                reply = httpx.get(self.observe + '/api/observe/events',
-                                  params={'after': after, 'limit': 500}, timeout=3.0)
-                if reply.status_code != 200:
-                    return {'operations': []}
-                page = reply.json()
-                got = page.get('events', [])
-                events.extend(got)
-                last = int(page.get('last') or after)
-                if not got or last <= after:
-                    break
-                after = last
-        except (httpx.HTTPError, ValueError):
-            return {'operations': []}
+        with trace.span('observe.events', observe=self.observe) as entry:
+            try:
+                for _ in range(20):
+                    reply = httpx.get(self.observe + '/api/observe/events',
+                                      params={'after': after, 'limit': 500}, timeout=3.0)
+                    if reply.status_code != 200:
+                        return {'operations': []}
+                    page = reply.json()
+                    got = page.get('events', [])
+                    events.extend(got)
+                    last = int(page.get('last') or after)
+                    if not got or last <= after:
+                        break
+                    after = last
+            except (httpx.HTTPError, ValueError) as exc:
+                entry['error'] = type(exc).__name__
+                return {'operations': []}
+            entry['events'] = len(events)
+            entry['pages'] = after
         return {'operations': _candidates(events, limit)}
 
     def status(self):

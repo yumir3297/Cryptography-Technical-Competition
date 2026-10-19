@@ -10,6 +10,8 @@
 import { computed, reactive, watch } from 'vue'
 
 import { consoleApi, DenyError } from './api'
+import type { CallTrace } from './api'
+import { newTrace, note } from './trace'
 import type {
   ConsoleStatus,
   OperationRow,
@@ -110,18 +112,31 @@ function record(side: string, step: string, ok: boolean, detail: unknown): void 
   state.log.unshift({ at: now(), side, step, ok, detail })
 }
 
-/** Run one call, keep its answer, and keep a refusal under its own rule name. */
-async function guard<T>(side: string, step: string, action: () => Promise<T>): Promise<T | null> {
+/** Run one call, keep its answer, and keep a refusal under its own rule name.
+ *
+ *  The call carries one trace id, and its measured duration is written beside the
+ *  timeline entry: the timeline says a step was refused or passed, and this says
+ *  how long the browser waited for that answer.  A server that took the time is
+ *  then told apart from a browser that waited on its own poll.
+ */
+async function guard<T>(side: string, step: string, action: (trace: CallTrace) => Promise<T>)
+  : Promise<T | null> {
+  const trace: CallTrace = { trace: newTrace() }
+  const started = performance.now()
   state.busy = true
   state.error = ''
   try {
-    const result = await action()
+    const result = await action(trace)
     record(side, step, true, result)
+    note({ kind: 'action', trace: trace.trace, side, step, ok: true,
+           ms: performance.now() - started, call_ms: trace.ms })
     return result
   } catch (error) {
     const code = codeOf(error)
     state.error = code
     record(side, step, false, { deny: code })
+    note({ kind: 'action', trace: trace.trace, side, step, ok: false, deny: code,
+           ms: performance.now() - started, call_ms: trace.ms })
     return null
   } finally {
     state.busy = false
@@ -130,12 +145,14 @@ async function guard<T>(side: string, step: string, action: () => Promise<T>): P
 
 export const actions = {
   async refresh(): Promise<void> {
+    const trace: CallTrace = { trace: newTrace() }
+    const started = performance.now()
     state.busy = true
     state.error = ''
     try {
       const [status, scenarios] = await Promise.all([
-        consoleApi.status(),
-        consoleApi.scenarios(),
+        consoleApi.status(trace),
+        consoleApi.scenarios(trace),
       ])
       state.status = status
       state.scenarios = scenarios.profiles
@@ -147,12 +164,14 @@ export const actions = {
       if (!scenarios.profiles.some((entry) => entry.profile === state.profile)) {
         state.profile = scenarios.profiles[0]?.profile ?? ''
       }
-      state.pending = state.profile ? await consoleApi.pending(state.profile) : null
-      state.operations = (await consoleApi.operations()).operations
+      state.pending = state.profile ? await consoleApi.pending(state.profile, trace) : null
+      state.operations = (await consoleApi.operations(50, trace)).operations
     } catch (error) {
       state.error = codeOf(error)
     } finally {
       state.busy = false
+      note({ kind: 'refresh', trace: trace.trace, ms: performance.now() - started,
+             ok: !state.error })
     }
   },
 
@@ -165,6 +184,7 @@ export const actions = {
     state.operationId = id
     state.view = null
     record('H', '接手操作', true, { operation_id: id })
+    note({ kind: 'attach', operation_id: id })
   },
 
   async chooseScenario(profile: string): Promise<void> {
@@ -181,13 +201,19 @@ export const actions = {
     // timeline, and a role that is not up yet -- or was started without a waiting
     // room -- is simply not shown rather than reported as an error.
     if (!state.profile) return
+    // This runs every three seconds on its own, so only a slow one is written:
+    // what the trace is for is the poll that is still in flight when a person
+    // presses a button, not the page being alive.
+    const trace: CallTrace = { trace: newTrace() }
+    const started = performance.now()
+    let visited = 0
     try {
       // Ask for the scenario on screen, not whatever the console happens to
       // default to: the entry assembles the chain one scenario at a time, and the
       // two are not the same one for most of the run.
       const [pending, operations] = await Promise.all([
-        consoleApi.pending(state.profile),
-        consoleApi.operations(),
+        consoleApi.pending(state.profile, trace),
+        consoleApi.operations(50, trace),
       ])
       state.operations = operations.operations
       state.pending = pending
@@ -198,7 +224,8 @@ export const actions = {
       if (!pending.todos.length) {
         for (const entry of state.scenarios) {
           if (entry.profile === state.profile) continue
-          const other = await consoleApi.pending(entry.profile)
+          visited += 1
+          const other = await consoleApi.pending(entry.profile, trace)
           if (other.todos.length) {
             state.profile = entry.profile
             state.pending = other
@@ -208,6 +235,9 @@ export const actions = {
       }
     } catch {
       state.pending = null
+    } finally {
+      note({ kind: 'poll', trace: trace.trace, ms: performance.now() - started,
+             call_ms: trace.ms, others: visited, ok: !state.error }, true)
     }
   },
 
@@ -215,8 +245,8 @@ export const actions = {
     // A decision is a step, so it is recorded the way every other one is.  It
     // travels to the role's own endpoint; this page carries a yes or a no and
     // never a signature.
-    await guard(role, approve ? '同意' : '拒绝', () =>
-      consoleApi.decide(state.profile, role, id, approve),
+    await guard(role, approve ? '同意' : '拒绝', (trace) =>
+      consoleApi.decide(state.profile, role, id, approve, trace),
     )
     await actions.refreshPending()
   },
@@ -227,7 +257,9 @@ export const actions = {
     const intent = Object.fromEntries(
       Object.entries(state.intent).filter(([, value]) => value !== ''),
     )
-    const reply = await guard('H', 'submit', () => consoleApi.submit(state.profile, intent))
+    const reply = await guard('H', 'submit', (trace) =>
+      consoleApi.submit(state.profile, intent, trace),
+    )
     if (reply) {
       state.operationId = reply.operation_id
       state.view = null
@@ -240,8 +272,8 @@ export const actions = {
       record(side, step, false, { deny: 'CONSOLE_OPERATION' })
       return
     }
-    const reply = await guard(side, step, () =>
-      consoleApi.step(side, state.operationId, step),
+    const reply = await guard(side, step, (trace) =>
+      consoleApi.step(side, state.operationId, step, trace),
     )
     if (reply && (step === 'status' || step === 'audit')) {
       state.view = reply
@@ -249,7 +281,7 @@ export const actions = {
   },
 
   async showPackage(): Promise<void> {
-    const reply = await guard('H', 'package', () => consoleApi.package())
+    const reply = await guard('H', 'package', (trace) => consoleApi.package(trace))
     if (reply !== null) {
       state.packageText = JSON.stringify(reply, null, 2)
       state.packageOpen = true

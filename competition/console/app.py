@@ -17,6 +17,7 @@ Two things shape the surface, the same two the trusted entry is shaped by:
   shows both.  A rule the entry or an endpoint named travels through unchanged.
 """
 import json
+import secrets
 from pathlib import Path
 
 from fastapi import FastAPI, Request
@@ -24,6 +25,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.concurrency import run_in_threadpool
 
+from competition.support import trace
 from competition.support.wire import ProtocolError, require
 
 # One body here is a profile, an intent or one step: small, and bounded anyway.
@@ -59,9 +61,35 @@ async def _json(request, required, optional=()):
     return value
 
 
-def make_app(console, *, dist=None):
+def make_app(console, *, dist=None, tracer=None):
     """Build the console over one enrolled, started console state."""
     app = FastAPI(title='zjj-console', description='ZJJ-CORE 客户端控制台')
+    tracer = tracer if tracer is not None else trace.TraceLog.for_folder(console.folder)
+
+    @app.middleware('http')
+    async def trace_request(request: Request, call_next):
+        """Give every page call an id and one line of its own.
+
+        The id is the page's when it sends one, so a click, the call it caused and
+        the timeline entry it produced can be read as one thing.  Reads are traced
+        too: the page polls, and a poll that takes seconds is the difference
+        between "the step is slow" and "the page is waiting on a read".
+        """
+        if not request.url.path.startswith(PREFIX + '/api'):
+            return await call_next(request)
+        trace_id = (trace.clean_id(request.headers.get('x-zjj-trace'))
+                    or secrets.token_hex(8))
+        with trace.request_trace(tracer, trace_id, request.url.path,
+                                 request.method) as record:
+            record['query'] = dict(request.query_params)
+            try:
+                response = await call_next(request)
+            except Exception as exc:
+                record['error'] = type(exc).__name__
+                raise
+            record['status'] = response.status_code
+            response.headers['x-zjj-trace'] = trace_id
+            return response
 
     @app.get(PREFIX + '/healthz')
     def healthz():
@@ -113,6 +141,24 @@ def make_app(console, *, dist=None):
             return console.package()
         except ProtocolError as exc:
             return _deny(exc.code)
+
+    # What the page itself measured -- a click, a fetch that failed before it left
+    # the browser, how long a reply took to arrive.  The console's own spans say
+    # what the server did; this says what the person waited for.  Nothing here is
+    # authority: it is written to the trace file and answered, and no flow reads it.
+    @app.post(PREFIX + '/api/trace')
+    async def trace_events(request: Request):
+        try:
+            body = await _json(request, ('page', 'events'))
+            require(type(body['page']) is str and len(body['page']) <= 64, 'CONSOLE_TRACE')
+            require(type(body['events']) is list and len(body['events']) <= 64,
+                    'CONSOLE_TRACE')
+            for event in body['events']:
+                require(type(event) is dict, 'CONSOLE_TRACE')
+                trace.write_event(tracer, body['page'], event)
+        except ProtocolError as exc:
+            return _deny(exc.code)
+        return {'taken': True}
 
     # Submitting and stepping reach the entry, which is a network call, so they
     # run off the event loop and let one page's request wait on another.
