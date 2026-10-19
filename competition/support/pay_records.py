@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Mapping
 from competition.support.wire import (
-    ProtocolError, require, canonical, raw, b64, rec_ref, action_hash,
+    ProtocolError, WINDOW, require, canonical, raw, b64, rec_ref, action_hash,
     number, is_id, validset, PROFILE_SCENARIO, strict_verify,
 )
 
@@ -219,7 +219,7 @@ def verify_pay_authoritative(*,scope,action,policy_record,task_record,history_re
     require(h['kid']==__import__('competition.support.wire',fromlist=['keyid']).keyid(source_public_key),'SOURCE_KEY')
     fields(b,{'id','scope','iat','exp','aud','refs','deps','payload'},'SOURCE_FIELDS')
     raw(b['id'],16);scope_check(b['scope']);require(b['scope']==scope,'WRONG_SCOPE')
-    bound_time(b['iat'],b['exp'],now,900)
+    bound_time(b['iat'],b['exp'],now,WINDOW)
     require(validset(b['aud']) and bool(b['aud']) and all(is_id(x) and x in pol['readers'] for x in b['aud']),'SOURCE_AUDIENCE')
     require(validset(b['refs']) and not b['refs'] and validset(b['deps']),'SOURCE_REFS')
     for dep in b['deps']:
@@ -232,7 +232,7 @@ def verify_pay_authoritative(*,scope,action,policy_record,task_record,history_re
     require(int(b['payload']['observed_at'])<=int(b['iat']),'SOURCE_TIME')
     require(int(b['payload']['order_revision'])==order_rev,'STALE')
     risk=history_int_v2(action,task,pol,hist,str(cutoff))
-    expire=min(int(pol['exp']),int(task['exp']),int(hist['exp']),int(b['exp']),now+900)
+    expire=min(int(pol['exp']),int(task['exp']),int(hist['exp']),int(b['exp']),now+WINDOW)
     require(expire>now,'EXPIRED')
     refs={'action_hash':action_hash('PAY-1',action),'policy_ref':rec_ref(policy_record),
           'task_ref':rec_ref(task_record),'evidence_ref':rec_ref(evidence_record),

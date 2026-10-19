@@ -4,7 +4,7 @@ Scope: exact Envelope shell and a subset of payload/role semantics; not the
 full upstream Profile Schema, and not a production cryptography implementation.
 """
 from __future__ import annotations
-import base64, hashlib, json, re
+import base64, hashlib, json, os, re
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey, Ed25519PublicKey
 from cryptography.exceptions import InvalidSignature
 
@@ -15,7 +15,20 @@ I=pow(2,(P-1)//4,P)
 O=(0,1)
 TYPES=('Review','Authorization','IssueRequest','Permit','ChallengeRequest','Challenge','CommitProof','Acceptance','Result','StatusQuery')
 PROFILE_SCENARIO={'PAY-1':'payment','IND-DEMO-1':'industrial','MED-DEMO-1':'medical'}
-LIFETIME={'Review':900,'Authorization':900,'IssueRequest':120,'Permit':120,'ChallengeRequest':30,'Challenge':30,'CommitProof':30,'Acceptance':900,'Result':30,'StatusQuery':30}
+# How long any one message may claim to be good for, and the one number every
+# other window in this software is derived from: enrollments, the worker, tool
+# and role certificates, and the records the profile readers collect all use it,
+# and the waiting rooms take a fraction of it.  The message types used to
+# disagree, and the shortest of them capped a whole chain at two minutes -- but a
+# chain asks four people to approve it, and nobody opens a page and answers
+# inside two minutes.
+#
+# It is the one knob.  ``ZJJ_WINDOW=30`` puts every window back to thirty seconds
+# and the waiting rooms shrink to a sixth of it by themselves, which is what a
+# scripted demo -- one that never waits for a person -- wants.  The default is
+# what a person driving a page needs.
+WINDOW=int(os.environ.get('ZJJ_WINDOW', '1800'))
+LIFETIME={kind:WINDOW for kind in TYPES}
 PAYLOAD_FIELDS={
  'Review':{'ctx','purpose','verdict','reason'},
  'Authorization':{'ctx','review_refs','purpose','verdict'},

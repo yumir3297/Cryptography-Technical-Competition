@@ -16,7 +16,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding,PublicFormat
 from competition.support.wire import (Identity,ProtocolError,require,b64,raw,canonical,
     keyid,digest)
-from competition.support.tool_final import final_fact_id,final_sign_bytes
+from competition.support.final_fact import final_fact_id,final_sign_bytes
 from competition.tools.common_tool import ToolGateway
 
 

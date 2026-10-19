@@ -1,0 +1,31 @@
+# 唯一对外入口。受信端只在网络内部监听，要访问它就走这里；各角色端不对外。
+{
+	admin off
+}
+
+:80 {
+	handle /api/* {
+		reverse_proxy trusted:8000
+	}
+	handle /session {
+		reverse_proxy trusted:8000
+	}
+	handle /session/* {
+		reverse_proxy trusted:8000
+	}
+	handle /healthz {
+		reverse_proxy trusted:8000
+	}
+	# 客户端控制台：页面与它自己的调用都在 /console/ 下，控制台自己把页面和 API
+	# 分开，这里只把这一条路径转给 console 容器。
+	handle /console/* {
+		reverse_proxy console:8100
+	}
+	handle /console {
+		redir /console/ 308
+	}
+	# 其它路径去页面；受信端接口只在 /api/* 与 /session* 上。
+	handle {
+		redir /console/ 302
+	}
+}

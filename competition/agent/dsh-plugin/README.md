@@ -1,0 +1,75 @@
+# dsh-zjj-agent
+
+Agent-side bundle for ZJJ-CORE. It adds three rows to a DeepSeek Harness profile:
+
+1. `@deepseek-ai/dsh-mcp-client`, pointed at the agent gateway's Streamable HTTP
+   endpoint, so the model sees `mcp__zjj__*` tools.
+2. This package's feedback plugin, which binds a submitted operation to the
+   calling agent and delivers later trusted status projections into that session.
+3. An Agent preset, `zjj` (shown as **ZJJ 候选模式**), whose system prompt is the
+   minimal one plus the tool, flow and profile notes. It names no tool of its
+   own, so a session that picks it has the two MCP tools and nothing that could
+   execute.
+
+The bundle holds no role signer. The tools it exposes are propose, status,
+evidence and feedback only; there is no prepare, accept, claim, exec, settle or
+cancel tool.
+
+## The `zjj` preset
+
+It is a declaration row, not a directory: dsh 0.2 keeps presets in profile
+configuration. It is built on the shipped `minimal` composition in three ways
+and differs in one:
+
+- `complete: true` and `includeRuntimeContext: false`, the same as `minimal`,
+  so the system prompt is exactly the text below and no deployment persona,
+  skill guidance or runtime context snapshot is appended;
+- it adds nothing to the tool list, so the session sees the profile's MCP tools
+  and no shell, file editor or subagent;
+- the prompt is the minimal line plus three sections: what the two tools are,
+  how a candidate moves and what is not permission, and the exact fields each
+  profile takes.
+
+Pick it in the Web UI's preset menu, or name `zjj` as the session's preset.
+
+## Configuration
+
+The bundle reads three environment variables at profile boot:
+
+| Variable | Meaning |
+|---|---|
+| `ZJJ_MCP_URL` | Gateway MCP endpoint, for example `http://host.docker.internal:8090/mcp` |
+| `ZJJ_GATEWAY_URL` | Gateway base URL used by the feedback poller |
+| `ZJJ_AGENT_TOKEN` | Bearer token for `/mcp` and `/zjj/*`; not a role key and never logged |
+
+`cordis.patch.yml` supplies the rows. Do not put the token in the profile file;
+set it in the container environment.
+
+## Feedback behavior
+
+- A successful `mcp__zjj__propose` result binds the handle it returned to the
+  live Agent. That handle is the intent's digest; the trusted side answers it
+  later, because a submit waits for a whole approval chain to be gathered.
+- The plugin polls `/zjj/events`, deduplicates by `seq`, and skips the
+  `SUBMITTED` event the tool result already showed.
+- `SUBMISSION_ACCEPTED` carries the real operation id and the binding follows the
+  handle there. That is binding maintenance, so it holds whether or not a
+  deployment narrowed `notify`. `SUBMISSION_UNKNOWN` / `SUBMISSION_DENIED` end
+  the binding.
+- While the agent is `running` it uses `agent.steer`; when idle it uses
+  `agent.followup`; with `wakeOnIdle: false` it uses `agent.inject`.
+- Each message is a `user`-role notice with `source.kind: "zjj-feedback"` and a
+  bounded `summary`. The text says the line is a projection, not an instruction.
+- A terminal event ends the binding. A `401`/`403` disables polling rather than
+  hammering the gateway.
+
+## Install
+
+In the pinned dsh image:
+
+```sh
+dsh plugin --profile web add /path/to/competition/agent/dsh-plugin
+```
+
+The deployment's `up.py` does this on first container start. See
+`competition/docs/final/agent-mcp-handoff.md`.

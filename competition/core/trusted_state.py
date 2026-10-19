@@ -8,7 +8,7 @@ from pathlib import Path
 
 from competition.support.wire import require, ProtocolError, b64, raw, canonical, strict_verify, keyid, rec_ref, digest, sortset, action_hash
 from competition.support.broker_policy import PROFILE_SCOPES
-from competition.support.scene_authority import ROLES as SCENE_ROLES
+from competition.support.scene_contract import ROLES as SCENE_ROLES
 from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
 from competition.core.event_clock import checked_event_clock, require_window
 
@@ -53,6 +53,7 @@ class TrustedState:
               CREATE TABLE IF NOT EXISTS a_sign_call(nonce TEXT PRIMARY KEY,profile TEXT,alias TEXT,request_ref TEXT,expires INTEGER,used INTEGER DEFAULT 0);
               CREATE TABLE IF NOT EXISTS a_identity(nonce TEXT PRIMARY KEY,profile TEXT,operation_id TEXT,request_ref TEXT,stage TEXT,expires INTEGER,used INTEGER DEFAULT 0);
               CREATE TABLE IF NOT EXISTS a_guard_fact(profile TEXT,operation_id TEXT,request_ref TEXT,seq INTEGER,blob TEXT,PRIMARY KEY(profile,operation_id));
+              CREATE TABLE IF NOT EXISTS a_observe_event(seq INTEGER PRIMARY KEY AUTOINCREMENT,source TEXT,kind TEXT,profile TEXT,operation_id TEXT,blob TEXT);
             ''')
 
     @contextmanager
@@ -75,6 +76,20 @@ class TrustedState:
     def event(self, c, profile, oid, stage, request_ref):
         sample = self.clock.sample(profile, PROFILE_SCOPES[profile], oid, stage, request_ref)
         return checked_event_clock(c, sample, self.root_public, self.clock.instance_id, profile, PROFILE_SCOPES[profile], oid, stage, request_ref)
+
+    def observe(self, c, kind, profile, oid, fields, *, source='CORE'):
+        """Append one display-only observation event inside the caller's transaction.
+
+        This is the publish side of the read-only observation face.  It carries
+        no authority: no signature is made, no business payload, nonce, session
+        id or private material is written, and nothing here is evidence.  It is
+        deliberately one INSERT with no validation and no return value, so it can
+        never change a decision or a method's result.  Called on the business
+        transaction's connection it commits and rolls back with that decision --
+        a committed decision is observable, a rolled-back one is not.
+        """
+        c.execute('INSERT INTO a_observe_event(source,kind,profile,operation_id,blob) VALUES(?,?,?,?,?)',
+                  (source, kind, profile, oid, enc(fields)))
 
     @staticmethod
     def row_ref(ns, key, revision, record):
@@ -117,6 +132,7 @@ class TrustedState:
             ref = self.row_ref(ns,key,rev,r)
             c.execute('INSERT INTO a_current VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(profile,namespace,key) DO UPDATE SET revision=excluded.revision,ref=excluded.ref,record=excluded.record,active=excluded.active,certificate=excluded.certificate', (p,ns,enc(key),rev,ref,enc(r),int(cl['active']),enc(certificate)))
             c.execute('INSERT INTO a_journal(kind,profile,operation_id,blob) VALUES(?,?,?,?)',('CONTROL',p,'',enc({'certificate':certificate,'event':event,'revision':rev,'ref':ref})))
+            self.observe(c,'CONTROL_PUBLISHED',p,'',{'stage':'C 发布登记记录','lanes':['C'],'refs':{'ref':ref},'detail':{'namespace':ns,'revision':str(rev),'active':bool(cl['active'])}})
         return ref
 
     @staticmethod
@@ -191,6 +207,7 @@ class TrustedState:
         with self.tx() as c:
             c.execute('INSERT INTO a_deny_range VALUES(?,?,?,?,?,?,?)',(p,cl['operation_id'],cl['ctx']['basis_ref'],1,enc(cl['ctx']),enc(cl['purposes']),enc(certificate)))
             c.execute('INSERT INTO a_journal(kind,profile,operation_id,blob) VALUES(?,?,?,?)',('COVERAGE',p,cl['operation_id'],enc(certificate)))
+            self.observe(c,'COVERAGE_INITIALIZED',p,cl['operation_id'],{'stage':'否决覆盖初始化','lanes':['C'],'refs':{'basis_ref':cl['ctx']['basis_ref']},'detail':{'purpose_count':str(len(cl['purposes']))}})
 
     def deny_witness(self,c,profile,ctx,required):
         row=c.execute('SELECT * FROM a_deny_range WHERE profile=? AND operation_id=? AND basis_ref=?',(profile,ctx['operation_id'],ctx['basis_ref'])).fetchone()

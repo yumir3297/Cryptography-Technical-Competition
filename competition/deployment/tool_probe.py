@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import sys
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-from competition.support.tool_final import verify_certificate
+from competition.support.final_fact import verify_certificate
 from competition.support.wire import b64, raw, keyid, require
 from competition.tools.common_tool import ToolGateway
 

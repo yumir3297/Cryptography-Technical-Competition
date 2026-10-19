@@ -11,7 +11,7 @@ from competition.core.trusted_state import prefix, enc, ROLES, PROFILE_SCOPES
 from competition.core.event_clock import require_window
 from competition.core.w_state import WState
 from competition.profiles.authorization_scene import SceneAuthorizationAdapter
-from competition.support.tool_final import verify_certificate
+from competition.support.final_fact import verify_certificate
 from competition.support.wire import require, raw, canonical, strict_verify, digest, rec_ref, action_hash
 
 PROFILE = 'IND-DEMO-1'

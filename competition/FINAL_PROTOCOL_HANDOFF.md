@@ -16,6 +16,7 @@ ZJJ-CORE 面向 agent 参与的高风险、高后果流程。agent 提出动作�
 | 声明核对与证据引用 | [声明—证据清单](docs/final/claims-evidence.md) |
 | 验证复现、文件与版本 | [原收尾交付记录](docs/final/finalization-record.md) |
 | 当前函数、认证凭据、返回值与幂等接法 | [内部接口对照](docs/final/interface-reference.md) |
+| agent MCP 两个工具与状态回推 | [agent MCP 交接](docs/final/agent-mcp-handoff.md) |
 | 实验结论采纳、优化后的逻辑与书写复检 | [2026-10-12 优化记录](docs/final/optimization-review-20261012.md) |
 | 开发对应、比赛暂不扩展的条件与本轮复检 | [R2 对照](docs/final/r2-application-mapping.md) · [开发注释](docs/final/developer-scope-notes.md) · [复检记录](docs/final/protocol-review.md) |
 

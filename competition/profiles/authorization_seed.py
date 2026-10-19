@@ -8,9 +8,10 @@ from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat, PrivateFormat, NoEncryption
 from competition.support.schema import COMPETITION_PROTO
-from competition.support.wire import Identity, b64, keyid, canonical, digest, rec_ref, msgref, sortset, action_hash
+from competition.support.wire import Identity, WINDOW, b64, keyid, canonical, digest, rec_ref, msgref, require, sortset, action_hash
 from competition.support.enrollment import EnrollmentLab
-from competition.support.scene_authority import SceneAuthority, _rec
+from competition.support.scene_base import SceneReadMixin
+from competition.support.scene_contract import _rec
 from competition.core.trusted_state import TrustedState, ROLES, TYPES, PROFILE_SCOPES, prefix, enc
 from competition.core.signing import ClockClient
 from competition.core.signer_broker import ScopedSignerBroker
@@ -35,12 +36,24 @@ class AuthorizationRun:
     service: object
     broker: object
     operations: dict
+    # Optional remote signer: (profile, role, domain, claim) -> base64 signature.
+    # When unset, the controlled demonstration signs locally with its own keys.
+    signer: object = None
+    # Optional pre-signature report: (profile, role, unsigned, action) -> None.
+    # When set, every chain signature is reported to the endpoint that owns the
+    # key *before* the signing call is opened, so a person decides outside that
+    # call rather than inside it.  Unset means the old behaviour: the endpoint is
+    # only asked when the call is already open.
+    preapprover: object = None
 
     def close(self): self.clock.close()
     def clone(self,profile): return json.loads(json.dumps(self.operations[profile]))
+    def signature(self,profile,role,domain,claim):
+        if self.signer is not None:return self.signer(profile,role,domain,claim)
+        return b64(self.actors[profile][role].key.sign(canonical([domain,claim])))
     def identity_proof(self,profile,op,stage='GUARD'):
         cl=self.store.challenge(profile,op,stage)
-        return {'claim':cl,'signature':b64(self.actors[profile]['H'].key.sign(canonical(['COMP-APP-AUTHZ-IDENTITY-v1',cl])))}
+        return {'claim':cl,'signature':self.signature(profile,'H','COMP-APP-AUTHZ-IDENTITY-v1',cl)}
 
     def publish(self,profile,ns,key,record,active=True,enrollment=None):
         with self.store.db() as c:
@@ -57,10 +70,21 @@ class AuthorizationRun:
 
     def sign(self,profile,alias,typ,payload,*,refs=(),deps=(),aud=('H','G','X'),iat=None,exp=None):
         op=self.operations[profile]; now=int(op['basis']['value']['iat']) if iat is None else iat
-        who=self.actors[profile][alias]; end=now+120 if exp is None else exp
+        who=self.actors[profile][alias]; end=now+WINDOW if exp is None else exp
         unsigned={'protected':{'proto':COMPETITION_PROTO,'version':'2.6','profile':profile,'alg':'Ed25519','type':typ,'issuer':who.name,'kid':who.kid},'body':{'id':b64(os.urandom(16)),'scope':PROFILE_SCOPES[profile],'iat':str(now),'exp':str(end),'aud':sortset([self.actors[profile][a].name for a in aud]),'refs':sortset(list(refs)),'deps':sortset(list(deps)),'payload':copy.deepcopy(payload)}}
+        # A person is asked *now*, before the signing call opens.  The call below
+        # gets thirty seconds from core (``a_sign_call.expires``), and nobody can
+        # decide in thirty seconds they did not know were running -- so the asking
+        # happens here, where there is no deadline but a person's own patience,
+        # and the call that follows is answered the moment it opens.  What is
+        # reported is this message, and what is signed is this same one.
+        if self.preapprover is not None:
+            self.preapprover(profile,alias,unsigned,op['action'])
         claim=self.broker.challenge(profile,alias,unsigned,op['action'])
-        proof={'claim':claim,'signature':b64(who.key.sign(canonical(['COMP-APP-SIGN-CALL-v1',claim])))}
+        # The caller proof goes through the same remote-signature seam as the
+        # rest of the chain: an external role client answers it, and the local
+        # seeded actors only sign when no signer is configured.
+        proof={'claim':claim,'signature':self.signature(profile,alias,'COMP-APP-SIGN-CALL-v1',claim)}
         return self.broker.sign(profile,alias,unsigned,op['action'],caller_proof=proof)
 
     def resign_chain(self,profile,op,*,keep_permit_deps=True):
@@ -71,7 +95,11 @@ class AuthorizationRun:
         ar=msgref(op['authorization']); refs=sortset(rr+[ar])
         op['issue']=self.sign(profile,'H','IssueRequest',{'ctx':ctx,'review_refs':rr,'authorization_ref':ar},refs=refs,deps=deps,aud=('G',))
         declared=op.get('permit',{}).get('body',{}).get('deps',deps) if keep_permit_deps else deps
-        exp=int(op['basis']['value']['exp']); short_exp=min(exp,int(op['basis']['value']['iat'])+30)
+        # The COMMIT trio used to be dated thirty seconds out -- fine for a script
+        # placing them back to back, impossible for a person driving a page.  The
+        # chain is assembled before anybody answers, so these three have to be
+        # good for as long as the rest of it.
+        exp=int(op['basis']['value']['exp']); short_exp=exp
         op['permit']=self.sign(profile,'G','Permit',{'ctx':ctx,'review_refs':rr,'authorization_ref':ar,'max_uses':'1','dispatch_before':str(exp)},refs=refs,deps=declared,aud=('H','X'),exp=exp)
         pr=msgref(op['permit']); attempt=b64(os.urandom(16)); session=b64(os.urandom(16)); nonce=b64(os.urandom(32))
         op['challenge_request']=self.sign(profile,'H','ChallengeRequest',{'purpose':'COMMIT','operation_id':ctx['operation_id'],'permit_ref':pr,'action_hash':ctx['action_hash'],'attempt_id':attempt},refs=[pr],deps=deps,aud=('X',),exp=short_exp)
@@ -93,37 +121,61 @@ class AuthorizationRun:
         cl={'profile':profile,'scope':PROFILE_SCOPES[profile],'operation_id':op['action']['operation_id'],'ctx':op['ctx'],'action':op['action'],'purposes':sortset(['EXECUTE']+op['required']),'revision':'1','complete':True,'refs':[]}
         self.store.initialize_coverage({'claim':cl,'signature':b64(self.root.sign(canonical(['COMP-APP-DENY-COVERAGE-v1',cl])))})
 
-def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None):
+def initialize(folder,*,pay_mode='FLAG',ind_label=None,names=None,roster=None,preapprover=None):
+    """Create one fresh authenticated three-profile corpus.
+
+    Two ways to get the role keys, and they differ only in **who made them**:
+
+    * no ``roster`` -- the local fallback.  The controlled bootstrap generates
+      every role key here, writes it beside the trusted state as its own 0600
+      file, and signs with it.  This is the default path and nothing about it
+      changed.
+    * ``roster`` -- the endpoints made their own keys and published only the
+      public halves (``competition.server.roster``).  Nothing is generated and
+      **no role key file is written**: every chain message, source attestation
+      and possession proof in the corpus is signed by asking the endpoint that
+      owns the key.  All endpoints must therefore be reachable while this runs.
+
+    ``C.key`` (the root) stays with the trusted side either way.
+    """
     folder=Path(folder); folder.mkdir(parents=True,exist_ok=True)
     if (folder/'auth-w.sqlite').exists(): raise ValueError('New initialization must never reset an existing W')
+    require(roster is None or names is None,'INIT_ROSTER_NAMES')
     root=Ed25519PrivateKey.generate()
-    actors={p:{a:FreshActor(p,a,(names or {}).get((p,a))) for a in TYPES} for p in PROFILE_SCOPES}
-    for p,r in actors.items():
-        for alias,who in r.items():
-            f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+    if roster is None:
+        # Local fallback (default path): the trusted side generates every role key
+        # and keeps it.  Left exactly as it was.
+        actors={p:{a:FreshActor(p,a,(names or {}).get((p,a))) for a in TYPES} for p in PROFILE_SCOPES}
+        for p,r in actors.items():
+            for alias,who in r.items():
+                f=folder/(p+'-'+alias+'.key');f.write_bytes(who.key.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(f,0o600)
+    else:
+        # External mode: every role key lives at its own endpoint, so there is
+        # nothing to generate and nothing to write here.
+        actors=roster
     cfile=folder/'C.key';cfile.write_bytes(root.private_bytes(Encoding.Raw,PrivateFormat.Raw,NoEncryption()));os.chmod(cfile,0o600)
     clock=ClockClient(cfile,folder/'c-clock.sqlite')
     store=TrustedState(folder/'auth-w.sqlite',root.public_key().public_bytes(Encoding.Raw,PublicFormat.Raw),actors,clock)
-    run=AuthorizationRun(folder,root,actors,clock,store,AuthorizationService(store),ScopedSignerBroker(store,actors),{})
+    run=AuthorizationRun(folder,root,actors,clock,store,AuthorizationService(store),ScopedSignerBroker(store,actors),{},preapprover=preapprover)
     try:
-        now=int(time.time()); exp=now+1800
+        now=int(time.time()); exp=now+WINDOW
         for p,roster in actors.items():
             for alias,who in roster.items():
                 tup={'scope':PROFILE_SCOPES[p],'subject':who.name,'public_key':b64(who.pub),'kid':who.kid,'purposes':sortset(list(who.purposes)),'key_not_before':str(now),'key_not_after':str(exp),'root_generation':'1'}
                 pending={'tuple':tup,'enrollment_id':b64(os.urandom(16)),'nonce':b64(os.urandom(32))}
-                pop=EnrollmentLab.possession(who,pending,iat=now,exp=now+60)
+                pop=EnrollmentLab.possession(who,pending,iat=now,exp=now+WINDOW)
                 kv={'subject':who.name,'public_key':b64(who.pub),'kid':who.kid,'epoch':'1','purposes':tup['purposes'],'iat':str(now),'exp':str(exp),'root_generation':'1','enrollment_ref':digest(['COMP-APP-POP-v1',pop])}
                 run.publish(p,'KEY',[who.kid],_rec(p,'KEY_GRANT',PROFILE_SCOPES[p],kv),enrollment=pop)
                 for role in [ROLES[p][alias]]+(['READER'] if p!='PAY-1' and alias!='E' else []):
                     key=prefix(p)+[who.name,role]
                     with store.db() as c: old=c.execute('SELECT revision FROM a_current WHERE profile=? AND namespace=? AND key=?',(p,'ROLE',enc(key))).fetchone()
-                    constraints={'payer_set':['payer'],'max_amount_minor':'100000'} if p=='PAY-1' else SceneAuthority._role_constraints(type('RoleView',(),{'profile':p})(),alias,role)
+                    constraints={'payer_set':['payer'],'max_amount_minor':'100000'} if p=='PAY-1' else SceneReadMixin._role_constraints(type('RoleView',(),{'profile':p})(),alias,role)
                     rv={'subject':who.name,'role':role,'epoch':str(old[0]+1 if old else 1),'scope_set':[PROFILE_SCOPES[p]],'tool_set':['pay-sim' if p=='PAY-1' else 'line-sort-sim' if p=='IND-DEMO-1' else 'med-order-sim'],'destination_set':['pay-sim-dest'] if p=='PAY-1' else ['med-demo-ledger'] if p=='MED-DEMO-1' else sortset(['ind-release-bin','ind-quarantine-bin','ind-inspection-bay']),'constraints':constraints,'iat':str(now),'exp':str(exp)}
                     run.publish(p,'ROLE',key,_rec(p,'ROLE_GRANT',PROFILE_SCOPES[p],rv))
             corpus=build_pay(roster,PROFILE_SCOPES[p],now,mode=pay_mode) if p=='PAY-1' else build_scene(p,roster,PROFILE_SCOPES[p],now,label=ind_label if p=='IND-DEMO-1' else None)
             for row in corpus['rows']:run.publish(p,row['namespace'],row['key'],row['record'])
             op={k:corpus[k] for k in ('action','task_id','scene_key')}
-            op['assessment']={'value':{'cutoff':str(now),'iat':str(now),'exp':str(now+120)}}
+            op['assessment']={'value':{'cutoff':str(now),'iat':str(now),'exp':str(now+WINDOW)}}
             with store.tx() as c:
                 event=store.event(c,p,op['action']['operation_id'],'AUTHZ_GUARD','')
                 derived=run.service.verifier.adapters[p].derive(c,op,event)

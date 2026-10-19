@@ -1,0 +1,12 @@
+# Two pages (console, display) are built inside their images, so neither a
+# local build nor a dependency cache belongs in any build context.
+# Both Dockerfiles use the repository root as their context.
+**/node_modules
+**/dist
+.git
+.gitignore
+.runtime
+tmp
+**/__pycache__
+*.py[cod]
+*.key

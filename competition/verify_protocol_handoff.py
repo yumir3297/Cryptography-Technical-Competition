@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 from competition.profiles.w_seed import initialize
-from competition.run_authorization_slice import build_identity, signed_messages_valid, write
+from competition.support.artifact import build_identity, signed_messages_valid, write
 from competition.run_w_slice import public_ledgers
 from competition.support.wire import ProtocolError, raw, canonical, strict_verify
 

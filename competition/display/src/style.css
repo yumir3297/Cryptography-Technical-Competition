@@ -1,0 +1,11 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+/* Element Plus owns the palette; this is only the one face a display needs. */
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

@@ -129,3 +129,27 @@ API 中 attempt_id 是 W 在 claim 生成的工具派发尝试，对应 TOOL_FIN
 仓库整理说明：支持模块导入路径已迁移，既有检查按其原构建身份阅读；当前目录与新增验证见[整理记录](../../../REPOSITORY_SCOPE.md)。
 
 2026-10-12 的选定实验和本轮规范检查见[协议优化复检](optimization-review-20261012.md)。发布材料只引用比赛接线所需事实摘要；完整探索脚本、候选和模型保留本地，候选通过不等于已接入 CommonW。
+
+## 7. 只读观察面（展示接口）
+
+受信端提供一条**只读**观察面，供外部程序订阅每一步的推进。它不是协议消息，也不替代上文 [status/audit 投影](#5-阶段结果与术语接线约定)：
+
+```python
+GET /api/observe/stream?after=<seq>            # SSE：id/data 帧，空闲心跳
+GET /api/observe/events?after=&limit=&profile=&operation_id=
+GET /api/observe/operations?profile=&state=&limit=
+GET /api/observe/operations/{operation_id}
+```
+
+| 维度 | 说明 |
+|---|---|
+| 认证 | 需入口会话，且会话侧为 `observer`；H/worker 会话读观察路由返回 `SESSION_SIDE`，observer 不能驱动任何步骤 |
+| 发布 | 核心步骤在其自身事务内向独立表 `a_observe_event` 追加事件（提交可见/回滚消失）；入口的候选提交、装配、挑战与签名往返为 `source='ENTRY'`、`flow=true` 的非权威事件，best-effort |
+| 事件 | `{seq, kind, stage, source, profile, operation_id, lanes, trusted_time, refs, status_label, detail}` + `view_kind=OBSERVATION_PROJECTION`、`original_envelope=false`、`signed=false`、`not_evidence=true` |
+| 只读 | 只读连接（`mode=ro` + `query_only`），只 `SELECT`；不写业务表、不消耗 nonce、不推进时钟、不触发 status/audit 或工具 |
+| 脱敏 | 不含业务 payload、患者/付款原始字段、nonce、session_id、签名、私钥；导出前再过 `export.forbidden_secrets` |
+| 边界 | 不授予执行权、非"第四条消息"、不签名、非证据；不能由观察事件推断未提交的决策 |
+
+`a_observe_event.seq` 是单调订阅游标。核心 `a_journal` 保持原字节与行集合不变，观察步骤名不进入其中。
+
+**展示页与观察网关。** 浏览器不能直接是 observer：它不该持有私钥，而 `EventSource` 也无法带 `Authorization` 头。所以部署里另有一个**观察网关**（[`competition/deploy/viewer.py`](../../deploy/viewer.py)），持 `observer` 会话、托管展示页（[`competition/display`](../../display/README.md)）、把上述四条读路由转接给页面，并在令牌过期前重开；其余路径一律 `404`，页面即使被改动也发不出 `submit/challenge/prove`。展示的是同一份投影，口径不变：只读、已脱敏、`not_evidence`。

@@ -1,54 +1,47 @@
-"""MED must enforce its current signed review and every applicable denial."""
+"""MED must enforce its current signed review and every applicable denial.
+
+Rewritten for the shared competition core: the case is driven through the real
+``AuthorizationService`` over a signed MED corpus, not the retired scene W.
+"""
 import tempfile
 import unittest
 from pathlib import Path
 
-from competition.support.scene_fixtures import build_scene, prepare_approved
-from competition.support.authority_guards import HardenedSceneW
-from competition.support.scene_verifier import VerifierOnlySceneW
-from competition.support.legacy_clock import seal
-from competition.support.tool_final import Controller
+from competition.profiles.authorization_seed import initialize
 from competition.support.wire import ProtocolError
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 class MedRequiredReviewSafety(unittest.TestCase):
     def setUp(self):
-        self.folder = tempfile.TemporaryDirectory()
+        self.folder = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.folder.cleanup)
-        path = Path(self.folder.name) / "med.sqlite"
-        self.issuer, action, task, scene, _ = build_scene(
-            path, "MED-DEMO-1", authority_class=HardenedSceneW
-        )
-        self.op = prepare_approved(self.issuer, action, task, scene)
-        self.assertEqual(self.op["required"], ["CLINICAL_REVIEW"])
-        self.assertEqual(len(self.op["reviews"]), 1)
-        self.w = VerifierOnlySceneW(
-            path, "MED-DEMO-1", root_public=self.issuer.root_public,
-            actors=self.issuer.actors
-        )
-        self.clock = seal(
-            Controller(self.issuer.controller), "MED-DEMO-1", self.w.scope,
-            action["operation_id"], "PREPARE", 1, 106, 106,
-        )
+        self.run = initialize(Path(self.folder.name) / 'med')
+        self.addCleanup(self.run.close)
+        self.profile = 'MED-DEMO-1'
+        self.assertEqual(self.run.operations[self.profile]['required'], ['CLINICAL_REVIEW'])
 
-    def test_omitted_mandatory_review_never_prepares(self):
-        self.op["reviews"].clear()
+    def test_omitted_mandatory_review_never_authorizes(self):
+        op = self.run.clone(self.profile)
+        op['reviews'] = []
+        proof = self.run.identity_proof(self.profile, op)
+        before = self.run.service.counts()
         with self.assertRaises(ProtocolError) as cm:
-            self.w.prepare_accept(self.op, clock=self.clock)
-        self.assertIn(cm.exception.code, ("REVIEW_REQUIRED", "BINDING"))
-        self.assertEqual(self.w.snapshot()["accepts"], 0)
-        self.assertEqual(self.w.snapshot()["reserved"], 0)
+            self.run.service.guard(self.profile, op, proof)
+        self.assertIn(cm.exception.code, ('REVIEW_REQUIRED', 'BINDING'))
+        self.assertEqual(self.run.service.counts(), before)
 
     def test_stored_applicable_deny_blocks_valid_approval(self):
-        self.issuer.review(
-            self.op, purpose="CLINICAL_REVIEW", verdict="DENY"
-        )
+        op = self.run.clone(self.profile)
+        self.run.deny(self.profile, op, purpose='CLINICAL_REVIEW')
+        proof = self.run.identity_proof(self.profile, op)
+        before = self.run.service.counts()
         with self.assertRaises(ProtocolError) as cm:
-            self.w.prepare_accept(self.op, clock=self.clock)
-        self.assertEqual(cm.exception.code, "REVIEW_DENY")
-        self.assertEqual(self.w.snapshot()["accepts"], 0)
-        self.assertEqual(self.w.snapshot()["reserved"], 0)
+            self.run.service.guard(self.profile, op, proof)
+        self.assertEqual(cm.exception.code, 'REVIEW_DENY')
+        self.assertEqual(self.run.service.counts(), before)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

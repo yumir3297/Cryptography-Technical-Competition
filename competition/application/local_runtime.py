@@ -25,7 +25,7 @@ from competition.core.common_receipt import CommonReceiptSigner
 from competition.core.common_w import CommonW
 from competition.core.signing import ClockClient
 from competition.core.trusted_state import TrustedState, PublicActor
-from competition.support.tool_final import verify_certificate
+from competition.support.final_fact import verify_certificate
 from competition.support.wire import b64, raw, keyid, canonical, strict_verify, require, ProtocolError
 from competition.tools.common_tool import ToolGateway
 

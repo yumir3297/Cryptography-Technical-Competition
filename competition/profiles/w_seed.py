@@ -17,9 +17,10 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat,
 from competition.core.trusted_state import PROFILE_SCOPES
 from competition.profiles.authorization_seed import initialize as initialize_authorization
 from competition.profiles.w_plans import TransactionPlans
-from competition.support.tool_final import Controller
-from competition.support.scene_authority import _rec
-from competition.support.wire import action_hash, b64, canonical, keyid, rec_ref, require, sortset
+from competition.server.roster import DENY_STATUS
+from competition.support.final_fact import Controller
+from competition.support.scene_contract import _rec
+from competition.support.wire import WINDOW, action_hash, b64, canonical, keyid, rec_ref, require, sortset
 
 
 def _public(key):
@@ -59,6 +60,10 @@ class WRun:
     def clock(self): return self.base.clock
     @property
     def operations(self): return self.base.operations
+    @property
+    def signer(self): return self.base.signer
+    @signer.setter
+    def signer(self, value): self.base.signer = value
 
     def close(self):
         try:
@@ -84,14 +89,19 @@ class WRun:
         return {'claim': claim, 'signature': b64(self.actors[profile]['H'].key.sign(
             canonical(['COMP-W-READ-v1', claim])))}
 
-    def fork_operation(self, profile, op=None):
+    def fork_operation(self, profile, op=None, *, operation_id=None):
         """Re-derive current business facts and sign a fresh genuine full chain.
 
         Source records and their iat/exp are retained. A fork keeps the original
         assessment cutoff and expiry, so it cannot extend E's authority window.
+
+        ``operation_id`` lets a caller pin the id before assembly -- the entry does
+        that so it can publish the candidate while the chain still waits on a
+        person.  Without one, the fork makes its own, which is the id a replay or
+        a test wants.
         """
         op = copy.deepcopy(op if op is not None else self.operations[profile])
-        op['action']['operation_id'] = b64(os.urandom(16))
+        op['action']['operation_id'] = operation_id or b64(os.urandom(16))
         now = int(time.time())
         frozen = op['assessment']['value']
         op['assessment'] = {'value': {'cutoff': frozen['cutoff'], 'iat': str(now), 'exp': frozen['exp']}}
@@ -123,8 +133,58 @@ class WRun:
         return op
 
 
-def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
-    """Create one fresh authenticated three-profile W and three tool ledgers."""
+def _preapprover(fleet, *, ask=True):
+    """Ask the endpoint that owns a key about a signature before it is made.
+
+    Every chain signature goes to the endpoint that holds the key, over the same
+    HTTP face the signature itself travels on -- but first, before the signing
+    call opens, so the answer is in hand by the time it does.  A person therefore
+    decides with no deadline but their own patience, and the thirty seconds core
+    puts on the call are spent on a network round trip rather than on somebody
+    reading a page.
+
+    ``ask`` says whether this report is a person's decision.  Initialization is
+    the scripted bootstrap and reports with ``ask=False``: the endpoint records
+    the answer instead of parking, so a chain nobody decided on does not stop a
+    deployment.  Everything a *submission* derives reports with ``ask=True``.
+
+    A refusal stops initialization, the way any other refused signature does: the
+    endpoint names its rule and this raises it.  Nothing here decides; it only
+    carries what the endpoint said.
+    """
+    import httpx
+
+    from competition.client.approval import PREAPPROVAL_TIMEOUT
+    from competition.support.wire import ProtocolError
+
+    def report(profile, alias, unsigned, action):
+        url = fleet.endpoint_url(fleet.find(alias, profile)) + '/preapprove'
+        # Longer than the endpoint's own wait, so the side that gives up first is
+        # the one holding the request and the failure reads as nobody answering.
+        reply = httpx.post(url, json={'profile': profile, 'role': alias,
+                                      'unsigned': unsigned, 'action': action,
+                                      'ask': ask},
+                           timeout=PREAPPROVAL_TIMEOUT + 30.0)
+        if reply.status_code == DENY_STATUS:
+            try:
+                code = reply.json().get('deny')
+            except (ValueError, AttributeError):
+                raise ProtocolError('PREAPPROVE_ANSWER')
+            raise ProtocolError(code if type(code) is str else 'PREAPPROVE_ANSWER')
+        require(reply.status_code == 200, 'PREAPPROVE_ANSWER')
+
+    return report
+
+
+def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kwargs):
+    """Create one fresh authenticated three-profile W and three tool ledgers.
+
+    With no ``fleet`` the controlled bootstrap makes every key and keeps it: the
+    local fallback, unchanged.  With a ``fleet`` the endpoints made the keys and
+    published only the public halves, so nothing is generated for them here and no
+    role, worker or tool key file is written.  ``W-delivery.key`` is generated
+    either way -- the delivery key is W's own, and W is the trusted side.
+    """
     from competition.core.common_w import CommonW
     from competition.core.common_receipt import CommonReceiptSigner
     from competition.tools.common_tool import create_tool_database, ledger_head, ToolGateway
@@ -132,19 +192,49 @@ def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
     folder = Path(folder).resolve()
     require(resource_capacity is None or (type(resource_capacity) is dict and
             set(resource_capacity) <= set(PROFILE_SCOPES)), 'RESOURCE_SCOPE')
+    require(fleet is None or 'roster' not in authorization_kwargs, 'INIT_FLEET')
     resource_capacity = {} if resource_capacity is None else resource_capacity
+    reporting = None
+    bootstrap = None
+    if fleet is not None:
+        authorization_kwargs['roster'] = fleet.roster()
+        # Only a fleet reached over HTTP has a face to report to.  A fleet
+        # reached over the socket is the line protocol itself, which has no
+        # waiting room in front of it -- that endpoint answers at once -- so
+        # there is nothing there to ask, and the old behaviour is left in place.
+        if getattr(fleet, 'base_url', None) is not None:
+            # Initialization reports too, but says its messages are not a
+            # person's decision: the endpoint records the answer instead of
+            # parking, so the three bootstrap chains are assembled without
+            # stopping.  Reporting starts for real below.
+            bootstrap = _preapprover(fleet, ask=False)
+            reporting = _preapprover(fleet, ask=True)
+    authorization_kwargs['preapprover'] = bootstrap
     names = ['W-worker.key', 'W-delivery.key'] + [profile + suffix for profile in PROFILE_SCOPES
                               for suffix in ('-tool.key', '-tool.sqlite', '-tool.json')]
     if (folder / 'auth-w.sqlite').exists() or any((folder / name).exists() for name in names):
         raise ValueError('New initialization must never reset an existing W or tool ledger')
     base = initialize_authorization(folder, **authorization_kwargs)
+    # Initialization is the scripted bootstrap, not a person's decision -- the
+    # documented boundary says exactly that -- so its three chains are assembled
+    # without asking anybody.  Reporting starts here: from now on, every chain a
+    # *submission* derives is reported to the endpoint that owns each key, and a
+    # person answers outside the signing window.
+    base.preapprover = reporting
     x_signers = {}
     try:
-        worker = Ed25519PrivateKey.generate(); worker_public = _public(worker)
-        _write_key(folder / 'W-worker.key', worker)
+        if fleet is None:
+            # Local fallback (default path): the bootstrap makes the worker key too.
+            worker = Ed25519PrivateKey.generate(); worker_public = _public(worker)
+            _write_key(folder / 'W-worker.key', worker)
+        else:
+            # External mode: the worker endpoint owns the key; only the public and
+            # the way to reach it cross over.
+            worker_entry = fleet.worker()
+            worker = fleet.remote_key(worker_entry); worker_public = worker_entry.pub
         delivery = Ed25519PrivateKey.generate(); delivery_public = _public(delivery)
         _write_key(folder / 'W-delivery.key', delivery)
-        now = int(time.time()); exp = now + 1800
+        now = int(time.time()); exp = now + WINDOW
         worker_claim = {'subject': 'competition-worker', 'kid': keyid(worker_public),
                         'public_key': b64(worker_public), 'profiles': sortset(list(PROFILE_SCOPES)),
                         'scopes': sortset(list(PROFILE_SCOPES.values())),
@@ -155,9 +245,21 @@ def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
         tools, gateways, tool_keys, configs = {}, {}, {}, {}
         controller = Controller(base.root)
         for profile, op in base.operations.items():
-            tool_key = Ed25519PrivateKey.generate(); public = _public(tool_key)
-            key_path = folder / (profile + '-tool.key')
-            _write_key(key_path, tool_key)
+            if fleet is None:
+                tool_key = Ed25519PrivateKey.generate(); public = _public(tool_key)
+                key_path = folder / (profile + '-tool.key')
+                _write_key(key_path, tool_key)
+                x_key_path = folder / (profile + '-X.key')
+            else:
+                # The tool process and the X receipt child each read their own
+                # credential from their own endpoint directory; the trusted side
+                # keeps only the path and the published public key.  Nothing here
+                # ever signs with a tool key: the tool signs inside its own
+                # process, so there is no key object to hand out.
+                tool_entry = fleet.find('tool', profile)
+                tool_key = None; public = tool_entry.pub
+                key_path = Path(fleet.key_path(tool_entry))
+                x_key_path = fleet.key_path(fleet.find('X', profile))
             database = folder / (profile + '-tool.sqlite')
             ledger_id = 'competition-ledger-' + profile.lower()
             meta = create_tool_database(database, profile, ledger_id)
@@ -182,8 +284,8 @@ def initialize(folder, *, resource_capacity=None, **authorization_kwargs):
             tool_keys[profile] = tool_key
             configs[profile] = str(config_path)
             gateways[profile] = ToolGateway(config_path)
-            x_signers[profile] = CommonReceiptSigner(folder / (profile + '-X.key'),
-                                                    base.store.path, base.store.root_public, profile)
+            x_signers[profile] = CommonReceiptSigner(x_key_path, base.store.path,
+                                                    base.store.root_public, profile)
         w = CommonW(base.store, delivery, worker_certificate, x_signers, gateways)
         planner = TransactionPlans(base.store)
         for profile, op in base.operations.items():

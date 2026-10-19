@@ -1,0 +1,320 @@
+# 单机模拟部署：一台机器，一条对外入口，加上 agent 侧接入和客户端控制台。
+#
+#   caddy            唯一对外入口（宿主 8080 → caddy:80）
+#   trusted          受信端：W + 入口（会话、submit/challenge/prove、公开包）
+#   endpoints        各角色端：19 个签名进程，各一把钥、各一个端口（9100-9118）
+#   caller-h         流程提出方那一侧（核心演示；agent 模式下不启动）
+#   caller-worker    流程执行方那一侧（核心演示；agent 模式下不启动）
+#   caller-observer  只读观看者：订阅观察面，打印每一步，不驱动任何一步
+#   console          客户端控制台：以两个调用者身份接入入口，把流程呈现为页面
+#   viewer           观察面展示页：托管 Vue 页面，持 observer 凭据只读转接四个读路由
+#                    （宿主 8081 → viewer:8008）
+#   agent-gateway    agent 侧 MCP 入口：只有 propose/status，不 approve/execute
+#   agent-operator   独立 H 侧：prepare/accept。默认**不起**——控制台是人接手的地方，
+#                    让它跑会抢在人的前面把候选接受掉。up --auto 才起。
+#   agent-executor   独立 worker 侧：claim/exec/query/settle，不盲目重试。同上，默认不起
+#
+# 用法（一键：agent 从 MCP 入口提交，候选出现在控制台的「操作」里，人接手后逐个放行）：
+#   python -m competition.deploy.up              # agent 模式：MCP 端到端 + dsh
+#   python -m competition.deploy.up --auto       # 同上，但 operator/executor 自动接受并执行
+#   python -m competition.deploy.up --no-zjj     # 只起原核心演示，不接 agent 网关
+#   python -m competition.deploy.up --sudo       # docker daemon 权限不足时
+#   python -m competition.deploy.up --local      # 不用 docker，在本机跑同一套入口脚本
+#   python -m competition.deploy.up --fresh      # 丢掉上次的卷重新开始
+#   python -m competition.deploy.up --down       # 跑完收摊
+#   python -m competition.deploy.up --no-deepseek  # 只起竞赛这套，不起 DeepSeek Harness
+#
+# 直接驱动 compose 也行（agent 模式需要先准备两个 token 环境变量）：
+#   ZJJ_AGENT_TOKEN=... ZJJ_INTERNAL_TOKEN=... \
+#     docker compose -f competition/deploy/docker-compose.yml up --build \
+#       endpoints trusted caddy console viewer caller-observer agent-gateway
+#
+# 卷，以及为什么受信端读得到端的钥文件：
+#   zjj-run        受信端的运行目录（C.key、W-delivery.key、账库、工具配置）
+#   zjj-endpoints  各端自生成的钥 + roster.jsonl；受信端**只读**挂载
+#   zjj-callers    各调用者自生成的钥 + callers.jsonl；受信端**只读**挂载
+#   zjj-agent      agent-gateway 自己的 caller key + SQLite 事件账
+#   zjj-operator   operator 自己的 caller key
+#   zjj-executor   executor 自己的 caller key
+#
+#   X 回执子进程与工具子进程是从本机文件读凭据的（core/common_receipt.py、
+#   tools/common_tool.py），所以那两个文件必须在受信端读得到。仓库把这里的进程
+#   分离定义为「职责约束和故障复现」而不是权限隔离，并把受信 OS/文件管理者排除在
+#   攻击者之外（docs/final/security-boundaries.md、developer-scope-notes.md N-01）。
+#   这个部署就按那个水平做，不额外叠加设施。
+#
+# 一处已知边界：受信端每次启动都要求一个**全新的** run 目录（initialize 拒绝覆盖
+#   已有的 W），而"重开一个已初始化的 run"这个接口还没有做。所以 trusted 容器重启
+#   会明确报错退出，而不是悄悄重来。要重跑一次演示，用 `down -v` 丢掉演示卷重新
+#   开始；正在运行的 W 其账库不能靠清库来"解决"。
+services:
+  endpoints:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.endpoints
+    environment:
+      ZJJ_ENDPOINTS: /endpoints
+      ZJJ_ENDPOINT_HOST: 0.0.0.0
+      # 1 时每个链内签名都先报到本端点的等待室，由人在控制台上放行。初始化
+      # 走的是"不必问人"的报备，所以受信端仍然能自己起来；停下的是 agent 每
+      # 提交一条候选所派生的那条链。up.py 把这个值写进 token env 文件。
+      ZJJ_AWAIT_APPROVAL: ${ZJJ_AWAIT_APPROVAL:-0}
+    volumes:
+      - zjj-endpoints:/endpoints
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; from competition.server.roster import read_manifest; sys.exit(0 if len(read_manifest('/endpoints/roster.jsonl')) == 22 else 1)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    restart: "no"
+
+  trusted:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.trusted
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_RUN: /run
+      ZJJ_ENDPOINTS: /endpoints
+      ZJJ_CALLERS: /callers/callers.jsonl
+      ZJJ_ENDPOINT_BASE: http://endpoints
+      ZJJ_ENTRY_HOST: 0.0.0.0
+      ZJJ_ENTRY_PORT: "8000"
+    volumes:
+      - zjj-run:/run
+      - zjj-endpoints:/endpoints:ro
+      - zjj-callers:/callers:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+      # The entry assembles the chain once and then waits on a person for the
+      # four roles that sign inside it.  That wait is not a fault, so it is not
+      # allowed to count as one: without a start period as long as the chain
+      # window, compose would call the entry unhealthy while somebody is still
+      # reading the page, and everything that depends on it would refuse to start.
+      start_period: 1900s
+    restart: "no"
+
+  caller-h:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.demo
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_SIDE: H
+      ZJJ_NAME: caller-h
+      ZJJ_PROFILE: PAY-1
+      ZJJ_ENTRY: http://caddy
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers
+      ZJJ_HANDOFF: /callers/demo-operation
+    volumes:
+      - zjj-callers:/callers
+    restart: "no"
+
+  caller-worker:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.demo
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_SIDE: worker
+      ZJJ_NAME: caller-worker
+      ZJJ_PROFILE: PAY-1
+      ZJJ_ENTRY: http://caddy
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers
+      ZJJ_HANDOFF: /callers/demo-operation
+    volumes:
+      - zjj-callers:/callers
+    restart: "no"
+
+  agent-gateway:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.agent
+    depends_on:
+      # The entry serves only after the chain's four signing roles have been
+      # answered on the page.  The gateway opens a session against it, so it
+      # waits for it rather than starting into a session it cannot open.  The
+      # entry's start period makes that wait read as "starting", not as failure.
+      trusted:
+        condition: service_healthy
+    environment:
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers/callers.jsonl
+      ZJJ_AGENT_KEYS: /agent
+      ZJJ_AGENT_DB: /agent/agent.sqlite
+      ZJJ_AGENT_TOKEN: ${ZJJ_AGENT_TOKEN:?set ZJJ_AGENT_TOKEN}
+      ZJJ_INTERNAL_TOKEN: ${ZJJ_INTERNAL_TOKEN:?set ZJJ_INTERNAL_TOKEN}
+      ZJJ_STATUS_POLL_MS: "1000"
+      # The entry may still be waiting on a person; wait as long as its window.
+      ZJJ_AGENT_START_TIMEOUT: "1900"
+    volumes:
+      - zjj-agent:/agent
+      - zjj-callers:/callers
+    ports:
+      - "127.0.0.1:8090:8090"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+      # Not serving yet is the normal state while the entry waits on a person.
+      start_period: 1900s
+    restart: "no"
+
+  caller-observer:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.observer
+    depends_on:
+      endpoints:
+        condition: service_healthy
+    environment:
+      ZJJ_NAME: caller-observer
+      ZJJ_ENTRY: http://caddy
+      ZJJ_CALLERS: /callers
+    volumes:
+      - zjj-callers:/callers
+    restart: "no"
+
+  viewer:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/viewer.Dockerfile
+    depends_on:
+      # The page may come up while the entry is still waiting on a person: the
+      # viewer is a gateway to read routes, not a step, and waiting for health
+      # here would hold it until somebody answers the chain.
+      trusted:
+        condition: service_started
+    environment:
+      ZJJ_NAME: caller-observer
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_CALLERS: /callers
+      ZJJ_VIEWER_HOST: 0.0.0.0
+      ZJJ_VIEWER_PORT: "8008"
+    volumes:
+      - zjj-callers:/callers
+    ports:
+      - "127.0.0.1:8081:8008"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8008/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    restart: "no"
+
+  # 控制台是 caller 侧，不是受信端的一部分：它持自己的两个调用者钥（提出方、
+  # 执行方各一），和 demo 的两个调用者共用 callers 卷，但名字不同、互不干扰。
+  # 页面与它的调用都由 caddy 转进来，容器本身不对宿主暴露端口。
+  console:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.console
+    depends_on:
+      # 不依赖受信端：受信端会等那四个"链内签署"的角色，而这个页面正是人回答
+      # 它们的地方。依赖受信端健康会把两者锁死。页面要的是各角色端，不是入口。
+      endpoints:
+        condition: service_healthy
+      # 观察面给页面列出实例里的全部操作（含 agent 经 MCP 提交的）。它也是只读
+      # 的，而且比入口更早可用，所以只等它起来，不等它健康。
+      viewer:
+        condition: service_started
+    environment:
+      ZJJ_CALLERS: /callers
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_OBSERVE: http://viewer:8008
+      ZJJ_PROFILE: PAY-1
+      ZJJ_CONSOLE_HOST: 0.0.0.0
+      ZJJ_CONSOLE_PORT: "8100"
+    volumes:
+      - zjj-callers:/callers
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/console/healthz', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+    restart: "no"
+
+  agent-operator:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.operator
+    depends_on:
+      agent-gateway:
+        condition: service_healthy
+    environment:
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers/callers.jsonl
+      ZJJ_OPERATOR_KEYS: /operator
+      ZJJ_GATEWAY: http://agent-gateway:8090
+      ZJJ_INTERNAL_TOKEN: ${ZJJ_INTERNAL_TOKEN:?set ZJJ_INTERNAL_TOKEN}
+      ZJJ_OPERATOR_AUTO: "1"
+    volumes:
+      - zjj-operator:/operator
+      - zjj-callers:/callers
+    restart: "no"
+
+  agent-executor:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.executor
+    depends_on:
+      agent-gateway:
+        condition: service_healthy
+    environment:
+      ZJJ_ENTRY: http://trusted:8000
+      ZJJ_ENDPOINTS: http://endpoints
+      ZJJ_CALLERS: /callers/callers.jsonl
+      ZJJ_EXECUTOR_KEYS: /executor
+      ZJJ_GATEWAY: http://agent-gateway:8090
+      ZJJ_INTERNAL_TOKEN: ${ZJJ_INTERNAL_TOKEN:?set ZJJ_INTERNAL_TOKEN}
+    volumes:
+      - zjj-executor:/executor
+      - zjj-callers:/callers
+    restart: "no"
+
+  caddy:
+    image: caddy:2
+    depends_on:
+      # 受信端可能还在等批准，而页面此刻已经有用：代理在容器起来时就起，不等
+      # 入口自报健康。人先要的是 /console/。
+      trusted:
+        condition: service_started
+      console:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    restart: "no"
+
+volumes:
+  zjj-run:
+  zjj-endpoints:
+  zjj-callers:
+  zjj-agent:
+  zjj-operator:
+  zjj-executor:
