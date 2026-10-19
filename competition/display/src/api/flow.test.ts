@@ -21,7 +21,14 @@ describe('stageOf', () => {
   it('lands a named step on that step\'s node, whichever half published it', () => {
     expect(stageOf(event('STEP_CHALLENGED', { step: 'claim' }))).toBe(4)
     expect(stageOf(event('STEP_PROVED', { step: 'settle' }))).toBe(6)
-    expect(stageOf(event('STEP_CHALLENGED', { step: 'audit' }))).toBe(7)
+  })
+
+  it('treats a read as no step of a flow', () => {
+    // A projection is asked for repeatedly while an operation waits, so a read
+    // must not carry the chain to the end.
+    expect(stageOf(event('READ_PROJECTED'))).toBe(-1)
+    expect(stageOf(event('STEP_CHALLENGED', { step: 'status' }))).toBe(-1)
+    expect(stageOf(event('STEP_PROVED', { step: 'audit' }))).toBe(-1)
   })
 
   it('treats registration and bootstrap as no step of a flow', () => {
@@ -57,7 +64,23 @@ describe('progressOf', () => {
 
   it('walks a whole run to the last node', () => {
     const run = ['CANDIDATE_SUBMITTED', 'CHAIN_ASSEMBLED', 'PREPARED', 'ACCEPT_COMMITTED',
-                 'CLAIMED', 'EXEC_DISPATCHED', 'TOOL_RESPONDED', 'SETTLED', 'READ_PROJECTED']
+                 'CLAIMED', 'EXEC_DISPATCHED', 'TOOL_RESPONDED', 'SETTLED']
     expect(progressOf(run.map((kind) => event(kind))).index).toBe(CHAIN.length - 1)
+  })
+
+  it('does not let the reads in between move the chain', () => {
+    // What the agent gateway does while an accepted operation waits: poll the
+    // status projection again and again.  The chain has to stay where the real
+    // steps put it.
+    const accepted = [event('CANDIDATE_SUBMITTED'), event('CHAIN_ASSEMBLED'),
+                      event('PREPARED'), event('ACCEPT_COMMITTED')]
+    const polled = [...accepted]
+    for (let index = 0; index < 5; index += 1) {
+      polled.push(event('CHALLENGE_ISSUED'), event('STEP_CHALLENGED', { step: 'status' }),
+                  event('READ_PROJECTED'), event('STEP_PROVED', { step: 'status' }))
+    }
+    const progress = progressOf(polled)
+    expect(progress.index).toBe(3)
+    expect(progress.index).toBe(progressOf(accepted).index)
   })
 })

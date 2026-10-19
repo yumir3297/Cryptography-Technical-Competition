@@ -50,7 +50,7 @@ const pointerLeft = computed(() => ((Math.max(0, active.value) + 0.5) / CHAIN.le
     </div>
 
     <el-text size="small" type="info">
-      节点按受信端发布的步骤推进（核心步骤 + 入口的挑战/签名往返）；引导类登记事件不计入。
+      节点按受信端发布的步骤推进（核心步骤 + 入口的挑战/签名往返）；登记类事件与状态读取不计入。
     </el-text>
   </div>
 </template>

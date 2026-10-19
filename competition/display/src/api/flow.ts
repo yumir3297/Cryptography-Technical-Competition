@@ -34,8 +34,6 @@ export const CHAIN: ChainNode[] = [
     steps: ['exec', 'query'], kinds: ['EXEC_DISPATCHED', 'QUERY_DISPATCHED', 'TOOL_RESPONDED'] },
   { key: 'settle', label: 'settle 结算', side: 'worker',
     steps: ['settle', 'cancel'], kinds: ['SETTLED', 'CANCELED'] },
-  { key: 'status', label: 'status 读取投影', side: 'H',
-    steps: ['status', 'audit'], kinds: ['READ_PROJECTED'] },
 ]
 
 // Registration and bootstrap events are published to the same face, but they are
@@ -43,6 +41,14 @@ export const CHAIN: ChainNode[] = [
 const BOOTSTRAP = new Set([
   'W_BOOTSTRAP', 'W_RESOURCE', 'W_TOOL', 'CONTROL_PUBLISHED', 'COVERAGE_INITIALIZED',
 ])
+
+// Reads are not steps of the flow.  A status or audit projection is asked for
+// repeatedly -- the agent gateway polls one every second while an operation waits
+// -- and by anybody watching, so counting a read as progress would carry the chain
+// to the end the moment somebody looked.  They are shown in the timeline; they do
+// not move the chain.
+const READ_KINDS = new Set(['READ_PROJECTED'])
+const READ_STEPS = new Set(['status', 'audit'])
 
 const BY_KIND = new Map<string, number>()
 const BY_STEP = new Map<string, number>()
@@ -53,8 +59,9 @@ CHAIN.forEach((node, index) => {
 
 /** The chain node one event lands on, or -1 when it is not a step of the flow. */
 export function stageOf(event: ObservationEvent): number {
-  if (BOOTSTRAP.has(event.kind)) return -1
+  if (BOOTSTRAP.has(event.kind) || READ_KINDS.has(event.kind)) return -1
   const step = event.detail && event.detail['step']
+  if (step && READ_STEPS.has(step)) return -1
   if (step && BY_STEP.has(step)) return BY_STEP.get(step) as number
   return BY_KIND.has(event.kind) ? (BY_KIND.get(event.kind) as number) : -1
 }
