@@ -10,6 +10,7 @@
 
 本仓库用于密码学技术竞赛的软件开发与演示。agent 提出动作，独立的受信验证、必要批准和执行约束决定动作能否产生模拟效果。工业、付款、医疗共用接受与执行核心。
 
+- [研究讨论案（2026-11-20）：高后果 Agent 的人类可定义操作约束与密码学可验证动作边界](competition/docs/discussions/2026-11-20-agent-action-governance-proposal.md)
 - [共同安全协议](competition/docs/final/competition-protocol.md)
 - [比赛配置与三个场景开发总交接](competition/docs/final/scenario-integration-handoff.md)
 - [完整交付入口](competition/FINAL_PROTOCOL_HANDOFF.md)
