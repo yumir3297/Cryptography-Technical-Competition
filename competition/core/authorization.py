@@ -19,7 +19,7 @@ class CommonGuard:
         self.store.schemas[profile].validate(msg,typ)
         require((msg['protected']['profile'],msg['protected']['type'],msg['protected']['issuer'],msg['protected']['kid'],msg['body']['scope']) == (profile,typ,who.name,who.kid,PROFILE_SCOPES[profile]),'MESSAGE_BINDING')
         require(typ in TYPES[alias], 'NO_ROLE')
-        envelope(msg,{who.kid:who},now=event['lo']); require_window(msg['body'],event)
+        envelope(msg,{who.kid:who},now=event['lo'],proto=self.store.protocol); require_window(msg['body'],event)
         self.store.credential(c,profile,alias,ROLES[profile][alias],typ,action,event)
         self.store.read_permission(c,profile,alias,action,event)
         return msg['body']['payload']

@@ -11,7 +11,7 @@ from pathlib import Path
 from competition.core.event_clock import require_window
 from competition.support.scene_authority import SceneAuthority, PROFILES, ROLES, DEST
 from competition.support.wire import action_hash, rec_ref, require, sortset
-from competition.support.schema import UpstreamSchema
+from competition.support.schema import CompetitionSchema, UpstreamSchema, COMPETITION_PROTO
 from competition.profiles.scene_bindings import bound_scene
 
 
@@ -75,7 +75,8 @@ class SceneAuthorizationAdapter:
     def __init__(self, store, profile, actors):
         require(profile in PROFILES, 'PROFILE')
         self.store, self.profile, self.actors = store, profile, actors
-        self.schema = UpstreamSchema(Path(__file__).resolve().parents[2], profile)
+        schema = CompetitionSchema if getattr(store, 'protocol', None) == COMPETITION_PROTO else UpstreamSchema
+        self.schema = schema(Path(__file__).resolve().parents[2], profile)
 
     def release_step(self, c, op, unit, event):
         """Check a modeled future RELEASE using the same current business rules."""

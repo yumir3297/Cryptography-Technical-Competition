@@ -1,6 +1,6 @@
 # 工业任务完成路径 · RELEASE 批次 v1
 
-验证基线为本地 `origin/main` 快照 `1aa5a9e36e1558b95972941d5ce7dbf6553da431`。审查提交 `c7e86dc` 和指定审查报告尚不可用。
+首轮验证基于本地 `origin/main` 快照 `1aa5a9e36e1558b95972941d5ce7dbf6553da431`，定版基于后续比赛交付提交 `cc4e36b4e302fcdc53cc809a012c77d8464182af`。审查提交 `c7e86dc` 和指定审查报告尚不可用。
 
 | 分类 | 基线保证与位置 |
 |---|---|
@@ -11,7 +11,7 @@
 
 ## 接受规则
 
-C 认证的 `IND_TASK.value.completion_model` 可选值为 `release-all-initial-v1`。该值使 allowed_units 成为必须完成 RELEASE 的工件集合。作用域为 INITIAL/cycle 1，每个工件恰出现一次。未声明字段的 Task 使用原授权语义。新字段随 Task RecordRef 进入 Basis 和动作批准链，更新后按原规则重新派生和签署。
+C 认证的 `IND_TASK.value.completion_model` 可选值为 `release-all-initial-v1`。该值使 allowed_units 成为必须完成 RELEASE 的工件集合。作用域为 INITIAL/cycle 1，每个工件恰出现一次。未声明字段的 Task 使用原授权语义。新字段随 Task RecordRef 进入 Basis 和动作批准链，更新后按原规则重新派生和签署。两个新增字段由 `ZJJ-CORE-COMP-1` 的比赛 Schema 定义，原 R2 结构合同文件保持原始字节。
 
 W 先按原入口检查候选动作。它在同一接受事务内读取当前 Task/Policy 和每个必需工件的状态。已完成工件须有本任务同一工件的 W 结算成功记录。其他工件须处于 READY，有当前可验的身份、E 证据及适用的 RELEASE 权限，且没有已消费的阶段意图。候选与其余 READY 工件按固定次序组成一条 RELEASE 路径。每步占一个同一目的地槽位，成功时转为已花费并清除 TaskFlight。W 按当前资源容量减去 SPENT 和所有 RESERVED（含对外工具结果未知的操作），并按 Behavior 剩余累计次数，核验整条路径。候选提交复用原预留、TaskFlight 和 outbox。
 

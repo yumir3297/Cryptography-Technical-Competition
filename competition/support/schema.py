@@ -4,6 +4,8 @@ import json
 from jsonschema import Draft202012Validator
 from competition.support.wire import ProtocolError,require
 
+COMPETITION_PROTO='ZJJ-CORE-COMP-1'
+
 CONTRACTS={'PAY-1':'pay1','IND-DEMO-1':'industrial','MED-DEMO-1':'medical'}
 UPSTREAM_HEAD='0ad0ddc3a1f97a2e6da340337cf9a53426aaa45c'
 
@@ -26,3 +28,23 @@ class UpstreamSchema:
             first=errors[0]
             raise ProtocolError('UPSTREAM_SCHEMA_REJECT:'+def_name+':'+'.'.join(map(str,first.path)))
         return True
+
+
+class CompetitionSchema(UpstreamSchema):
+    """R2 field definitions with an explicit, signed competition protocol id.
+
+    The retained R2 source files are immutable. This view adds the signed
+    competition protocol id and optional industrial completion fields.
+    """
+    def __init__(self,root,profile):
+        super().__init__(root,profile)
+        from competition.support.wire import TYPES
+        for name in TYPES:
+            self.defs[name]['properties']['protected']['properties']['proto']['const'] = COMPETITION_PROTO
+        if profile == 'IND-DEMO-1':
+            self.defs['Record_IND_TASK']['properties']['value']['properties']['completion_model'] = {
+                'const': 'release-all-initial-v1',
+            }
+            self.defs['Record_COMMIT']['properties']['value']['properties']['completion_ref'] = {
+                '$ref': '#/$defs/B32',
+            }

@@ -1,6 +1,8 @@
 # 工业场景协议开发交接
 
-2026-10-11 · `IND-DEMO-1 / lab / tenant-1 / industrial` · 配套[比赛协议](competition-protocol.md)。主展示固定为 INITIAL 阶段、uncertain 标签进入 INSPECT，效果为签名模拟产线路由登记。
+2026-10-12 · `IND-DEMO-1 / lab / tenant-1 / industrial` · 配套 `CORE-SPEC-1.3` [共同安全协议](competition-protocol.md)。主展示固定为 INITIAL 阶段、uncertain 标签进入 INSPECT，效果为签名模拟产线路由登记。
+
+共同协议中的来源、复核、意图及资源规则在本场景的具体值由下文规定；固定登记、调用顺序、状态字段与证据等级先读[比赛开发总交接](scenario-integration-handoff.md)。
 
 ## 输入、来源与必要批准
 
@@ -34,3 +36,7 @@
 开发复用 CommonW 和 line-sort-sim，身份/工具注册由受信配置提供；刷新和回放只读 status/audit 投影。源码位置与调用见[公共 W 开发契约](../w-transaction-contract.md)，读取名称按[查询审计口径](query-audit-scope.md)。二阶段完整演示属于另选路径，需新验证；界面和安装包不属于此次协议收尾。
 
 开发旁注：比赛暂不自动推进复检阶段；已有未决占用时不能直接替换 UNIT/Behavior 的 C genesis。当前 prepare 的调用顺序、领取后撤销及 UNKNOWN 处理见[开发注释](developer-scope-notes.md)，不能靠清库或换工件操作号恢复执行权。
+
+协议接线：新领取的 W 效果 UNKNOWN 与首次 EXEC 未消费可同时成立；原首次执行仍须过守卫，已消费后不重复发送。原工具标签、验证原因与调用后认证视图分开；读取失败不改写工件原事实，归属拒绝不自动称 HALTED。范围内的派发采用领取点撤销边界；完整阶段、状态与原因用语统一采用[当前接口第 5 节](interface-reference.md)，实测依据见[优化复检](optimization-review-20261012.md)。
+
+本轮执行标识升级后，[新的正常路径](../../evidence/security-rectification-20261012/w-slice/IND-DEMO-1-normal.json)与[新的丢应答恢复](../../evidence/security-rectification-20261012/w-slice/IND-DEMO-1-lost-ack.json)分别重跑同一场景。角色批准来自认证签名模拟器，agent 只提交 Action 数据；真人批准采集与主体能力见[安全边界](security-boundaries.md)。不将旧包字节标为新标识。

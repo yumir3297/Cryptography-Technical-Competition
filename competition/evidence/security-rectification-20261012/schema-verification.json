@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "profiles": [
+    {
+      "profile": "IND-DEMO-1",
+      "source_sha256": "36c325808a01d5afb51f27872df4fdc7c40907aa56b023a10bd5a949e4ad768d",
+      "changed_definitions": [
+        "Review",
+        "Authorization",
+        "IssueRequest",
+        "Permit",
+        "ChallengeRequest",
+        "Challenge",
+        "CommitProof",
+        "Acceptance",
+        "Result",
+        "StatusQuery"
+      ],
+      "only_ten_message_proto_constants": true,
+      "original_source_unchanged": true
+    },
+    {
+      "profile": "PAY-1",
+      "source_sha256": "84f57ba485abe56b94141dc8d27968c56ecad50fb50095565939b02fd2f8833e",
+      "changed_definitions": [
+        "Review",
+        "Authorization",
+        "IssueRequest",
+        "Permit",
+        "ChallengeRequest",
+        "Challenge",
+        "CommitProof",
+        "Acceptance",
+        "Result",
+        "StatusQuery"
+      ],
+      "only_ten_message_proto_constants": true,
+      "original_source_unchanged": true
+    },
+    {
+      "profile": "MED-DEMO-1",
+      "source_sha256": "033df4601364abcb2bf9f4673d43804150da47e598b71cfceb0ec090366b7ac2",
+      "changed_definitions": [
+        "Review",
+        "Authorization",
+        "IssueRequest",
+        "Permit",
+        "ChallengeRequest",
+        "Challenge",
+        "CommitProof",
+        "Acceptance",
+        "Result",
+        "StatusQuery"
+      ],
+      "only_ten_message_proto_constants": true,
+      "original_source_unchanged": true
+    }
+  ]
+}

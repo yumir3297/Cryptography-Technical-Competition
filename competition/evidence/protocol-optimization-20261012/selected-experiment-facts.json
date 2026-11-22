@@ -1,0 +1,275 @@
+{
+  "kind": "derived_competition_interface_facts",
+  "build_commit": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+  "source_report_sha256": "d330b1c062dc2435138b3df4ef82e25c12d831baf72048d5a52b2b70e13133bc",
+  "observations": [
+    {
+      "name": "D03-invalid-success-label",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-114804/D03-invalid-success-label.json",
+      "local_source_sha256": "9a3e449a76383001114521e2ebf4110f41f427dc211f913473c114d046580e6e",
+      "facts": {
+        "candidate": {
+          "validation": "REJECTED",
+          "operation_state": "STARTED",
+          "effect": "UNKNOWN",
+          "view_available": true,
+          "view_error": null,
+          "signed_protocol_response": false
+        },
+        "raw_labels": {
+          "state": "SUCCEEDED",
+          "validation_error": "SIGNATURE_ENCODING"
+        },
+        "view_labels": {
+          "dispatch_state": "STARTED",
+          "effect_state": "UNKNOWN",
+          "exec_consumed": true
+        }
+      }
+    },
+    {
+      "name": "D03-historical-claim",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-114804/D03-historical-claim.json",
+      "local_source_sha256": "40fd90cf174b8afa76cef0fa9a6e04d7b6a03b32b57ded29cacc809707d8ea73",
+      "facts": {
+        "candidate": {
+          "validation": "NO_REPORTED_ERROR",
+          "operation_state": "SETTLED",
+          "effect": "SUCCEEDED",
+          "view_available": true,
+          "view_error": null,
+          "signed_protocol_response": false
+        },
+        "raw_labels": {
+          "dispatch_state": "STARTED"
+        },
+        "view_labels": {
+          "dispatch_state": "SETTLED",
+          "effect_state": "SUCCEEDED",
+          "exec_consumed": true
+        }
+      }
+    },
+    {
+      "name": "D03-consumed-exec",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-114804/D03-consumed-exec.json",
+      "local_source_sha256": "095d3e100812334d01c3a68589f2bce93425507e96074c9288d29df558504a4f",
+      "facts": {
+        "candidate": {
+          "validation": "NO_REPORTED_ERROR",
+          "operation_state": "SETTLED",
+          "effect": "SUCCEEDED",
+          "view_available": true,
+          "view_error": null,
+          "signed_protocol_response": false
+        },
+        "raw_labels": {
+          "state": "UNKNOWN",
+          "reason": "EXEC_ALREADY_CONSUMED"
+        },
+        "view_labels": {
+          "dispatch_state": "SETTLED",
+          "effect_state": "SUCCEEDED",
+          "exec_consumed": true
+        }
+      }
+    },
+    {
+      "name": "D03-read-revoked-after-success",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-114804/D03-read-revoked-after-success.json",
+      "local_source_sha256": "4c56be10a1fe283baf3c21d60651d3760877f2cd131de73f7c2b856251fe164a",
+      "facts": {
+        "read_error": "REVOKED",
+        "candidate": {
+          "validation": "NO_REPORTED_ERROR",
+          "operation_state": "UNAVAILABLE",
+          "effect": "UNKNOWN",
+          "view_available": false,
+          "view_error": "REVOKED",
+          "signed_protocol_response": false
+        },
+        "raw_labels": {
+          "state": "SETTLED"
+        }
+      }
+    },
+    {
+      "name": "D02-D03-lost-tool-ack",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-114804/D02-D03-lost-tool-ack.json",
+      "local_source_sha256": "251f18245937766d5df890831ad1787a2d603a705b6dea028745e4acb3401a24",
+      "facts": {
+        "classification": "EFFECT_UNKNOWN",
+        "candidate": {
+          "validation": "NO_REPORTED_ERROR",
+          "operation_state": "SETTLED",
+          "effect": "SUCCEEDED",
+          "view_available": true,
+          "view_error": null,
+          "signed_protocol_response": false
+        },
+        "raw_labels": {
+          "state": "EFFECT_UNKNOWN"
+        },
+        "tool_ack_state": "EFFECT_UNKNOWN",
+        "effect_count": 1,
+        "same_fact_id": true,
+        "view_labels": {
+          "dispatch_state": "SETTLED",
+          "effect_state": "SUCCEEDED",
+          "exec_consumed": true
+        }
+      }
+    },
+    {
+      "name": "D01-D04-distinct-stages-cross-second",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-114804/D01-D04-distinct-stages-cross-second.json",
+      "local_source_sha256": "02ac1beae29afadd9bf39435a76a5634dbaa806d2547d580beabe2d697ab702d",
+      "facts": {
+        "elapsed_seconds": 2,
+        "operation_state": "SETTLED",
+        "effect_count": 1
+      }
+    },
+    {
+      "name": "D05-precheck",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-114804/D05-precheck.json",
+      "local_source_sha256": "ecadec596d3ea35a3d520ea6171919cb21b9ffa142ff145ef80c93d6a640bbc7",
+      "facts": {
+        "operation_state": "STARTED",
+        "effect_count": 0,
+        "response_labels": {
+          "precheck_error": "REVOKED"
+        }
+      }
+    },
+    {
+      "name": "D05-gap",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-114804/D05-gap.json",
+      "local_source_sha256": "258a630e3c848fd260f7f710cda2296f6bca5f859856257c658d430223035f04",
+      "facts": {
+        "operation_state": "SETTLED",
+        "effect_count": 1,
+        "response_labels": {
+          "state": "SUCCEEDED"
+        }
+      }
+    },
+    {
+      "name": "D04-new-nonce-old-source",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-115059/D04-new-nonce-old-source.json",
+      "local_source_sha256": "982cc5406da09aba6c6343b2eb552d742c04ae885043a06969eace00b8b7e01a",
+      "facts": {
+        "reason": "STALE"
+      }
+    },
+    {
+      "name": "D07-deny-after-approve",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-115059/D07-deny-after-approve.json",
+      "local_source_sha256": "41279b06b5ec7c0585a6abc67fc48ad3a6975f9948e4bc2a180f0126a6506335",
+      "facts": {
+        "reasons": [
+          "REVIEW_DENY",
+          "REVIEW_DENY"
+        ]
+      }
+    },
+    {
+      "name": "D02-D07-unknown-coverage",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-115059/D02-D07-unknown-coverage.json",
+      "local_source_sha256": "1de73f461215e2ddb299fdb1391f9610d2395229ed55b1ef6b4e59d211ef8a18",
+      "facts": {
+        "reason": "DENY_COVERAGE_UNKNOWN"
+      }
+    },
+    {
+      "name": "D02-D07-mandatory-review",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-115059/D02-D07-mandatory-review.json",
+      "local_source_sha256": "0ba80e69fb4ea9abe615756fda07abdeae8117876e1754437715e97f10e4322c",
+      "facts": {
+        "reason": "REVIEW_REQUIRED"
+      }
+    },
+    {
+      "name": "D06-halt-then-raise-rolls-back",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-115059/D06-halt-then-raise-rolls-back.json",
+      "local_source_sha256": "1abffa0f16752af55aa1fd6706877e61dfc020c94e9e5981ab5517224f766d43",
+      "facts": {
+        "view_labels": {
+          "dispatch_state": "PENDING",
+          "effect_state": "NO_ATTEMPT",
+          "exec_consumed": false
+        }
+      }
+    },
+    {
+      "name": "D06-D08-unauthenticated-no-write",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-115059/D06-D08-unauthenticated-no-write.json",
+      "local_source_sha256": "1f7adee1fdcbb090c7e68a2d755ff8555d416ad54ff02007a1548891751ed990",
+      "facts": {
+        "reason": "SIGNATURE_ENCODING",
+        "lab_block_rows": 0
+      }
+    },
+    {
+      "name": "D06-D08-persistent-observation",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-115059/D06-D08-persistent-observation.json",
+      "local_source_sha256": "ae6174135f226422c0d167a43378167c98d4ad37fd7242f29be115930db26e14",
+      "facts": {
+        "counts_unchanged": true,
+        "operation_state": "PENDING",
+        "effect_count": 0,
+        "diagnostic_rows": 1
+      }
+    },
+    {
+      "name": "D06-external-observation-is-not-enforcement",
+      "kind": "REAL_RUNTIME",
+      "passed": true,
+      "local_source_identity": "runs/20261012-115059/D06-external-observation-is-not-enforcement.json",
+      "local_source_sha256": "b71d64cba4372b3aabe297b122698145c9c6433170142e1b212fecc014f5b7d3",
+      "facts": {
+        "operation_state": "STARTED",
+        "effect_count": 0,
+        "claim_after_repair": "STARTED"
+      }
+    }
+  ],
+  "selected_observations": 16,
+  "original_grouped_case_counts": {
+    "REAL_COMPONENT": 1,
+    "MODEL": 2,
+    "REAL_RUNTIME": 24
+  },
+  "not_signed_protocol_response": true,
+  "scope": "Derived selected software facts only; original scripts, models, complete records and failed runs remain local."
+}

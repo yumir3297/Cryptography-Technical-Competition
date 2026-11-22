@@ -20,7 +20,7 @@ from competition.support.wire import (ProtocolError,require,b64,raw,canonical,
     keyid,action_hash,envelope,good_point)
 from competition.core.trusted_state import TrustedState,PublicActor,PROFILE_SCOPES
 from competition.core.event_clock import require_window
-from competition.support.schema import UpstreamSchema
+from competition.support.schema import CompetitionSchema, COMPETITION_PROTO
 
 
 class _ReadonlyCredentials(TrustedState):
@@ -87,10 +87,10 @@ def _sign_committed(c,request,key,pub,root_public,profile,origin_wall,origin_mon
     frozen=json.loads(row[0]);require(frozen['acceptance_core']==core,'SIGNER_BINDING')
     h,b=core['protected'],core['body'];scope=PROFILE_SCOPES[profile]
     require((h['proto'],h['version'],h['alg'],h['profile'],h['type'],h['kid'],b['scope'])==
-            ('ZJJ-AAP','2.6','Ed25519',profile,'Acceptance',keyid(pub),scope),'SIGNER_BINDING')
+            (COMPETITION_PROTO,'2.6','Ed25519',profile,'Acceptance',keyid(pub),scope),'SIGNER_BINDING')
     require(frozen['x_kid']==h['kid'] and frozen['x_public']==b64(pub),'SIGNER_BINDING')
     action=frozen['op']['action'];payload=b['payload'];ctx=payload['ctx']
-    schema=UpstreamSchema(Path(__file__).resolve().parents[2],profile)
+    schema=CompetitionSchema(Path(__file__).resolve().parents[2],profile)
     schema.validate(action,'Action')
     require(action['operation_id']==request['operation_id'] and action['scope']==scope
         and action['executor']==h['issuer'] and ctx['action_hash']==action_hash(profile,action)
@@ -108,7 +108,7 @@ def _sign_committed(c,request,key,pub,root_public,profile,origin_wall,origin_mon
     require_window(b,event)
     message=copy.deepcopy(core);message['sig']=b64(key.sign(canonical(['ZJJ-SIG-v1',h,b])))
     schema.validate(message,'Acceptance')
-    envelope(message,{actor.kid:actor},now=now)
+    envelope(message,{actor.kid:actor},now=now,proto=COMPETITION_PROTO)
     return {'message':message,'generated_wall_ns':str(wall)},wall
 
 

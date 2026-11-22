@@ -1,6 +1,8 @@
 # 付款场景协议开发交接
 
-2026-10-11 · `PAY-1 / lab / tenant-1 / payment` · 配套[比赛协议](competition-protocol.md)。展示为合成订单、历史与风险推导后的一次模拟付款登记；所选正常例包含风险复核。
+2026-10-12 · `PAY-1 / lab / tenant-1 / payment` · 配套 `CORE-SPEC-1.3` [共同安全协议](competition-protocol.md)。展示为合成订单、历史与风险推导后的一次模拟付款登记；所选正常例包含风险复核。
+
+共同协议中的来源、复核、意图及资源规则在本场景的具体值由下文规定；固定登记、调用顺序、状态字段与证据等级先读[比赛开发总交接](scenario-integration-handoff.md)。
 
 ## 输入、来源与必要批准
 
@@ -35,3 +37,7 @@ Action 的订单阶段、付款/收款主体、金额币种和任务、来源逐
 复用 CommonW、PayAuthorizationAdapter、TransactionPlans 与 pay-sim；固定来源、账户约束和风险方法由受信端配置。演示金额及容量是合成配置。开发细节查[公共 W 契约](../w-transaction-contract.md)，输出按[查询审计口径](query-audit-scope.md)；界面、安装包和真实资金接入不属于此次协议收尾。
 
 开发旁注：比赛暂不实现付款失败后的自动补偿和超时释放；执行资格已经消费而工具查不到时，预占可能长期保留。领取后撤销与内部状态接法见[开发注释](developer-scope-notes.md)，不能把一次调用 UNKNOWN 变成重新付款的许可。
+
+协议接线：新领取的效果 UNKNOWN 不禁止尚未消费资格的原首次付款；已消费或消费情况不明不重复付款。坏证明附带的 SUCCEEDED 不确认效果，已结算后的旧 claim/重复 EXEC 不覆盖原结算。适用 DENY 不因后续 APPROVE 消失，新依据也不清除已接受业务意图；三项目表达和原因分类采用[当前接口第 5 节](interface-reference.md)，实测依据见[优化复检](optimization-review-20261012.md)。
+
+本轮执行标识升级后，[新的正常路径](../../evidence/security-rectification-20261012/w-slice/PAY-1-normal.json)与[新的丢应答恢复](../../evidence/security-rectification-20261012/w-slice/PAY-1-lost-ack.json)分别重跑同一场景。角色批准来自认证签名模拟器，agent 只提交 Action 数据；真人批准采集与主体能力见[安全边界](security-boundaries.md)。不将旧包字节标为新标识。

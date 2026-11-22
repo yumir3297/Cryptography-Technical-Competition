@@ -66,7 +66,8 @@ def load_canonical(blob):
   for k,v in seq:
    require(k not in d,'DUPLICATE_KEY');d[k]=v
   return d
- try:v=json.loads(blob.decode('utf-8','strict'),object_pairs_hook=pairs,parse_constant=lambda _:(_ for _ in ()).throw(ProtocolError('NUMBER')))
+ try:v=json.loads(blob.decode('utf-8','strict'),object_pairs_hook=pairs,parse_constant=lambda _:(_ for _ in ()).throw(ProtocolError('NUMBER')),parse_int=lambda _:(_ for _ in ()).throw(ProtocolError('NUMBER')),parse_float=lambda _:(_ for _ in ()).throw(ProtocolError('NUMBER')))
+ except RecursionError:raise ProtocolError('LIMIT')
  except (UnicodeError,json.JSONDecodeError):raise ProtocolError('MALFORMED')
  require(canonical(v)==blob,'NONCANONICAL')
  return v
@@ -144,14 +145,14 @@ class Identity:
   sig=b64(self.key.sign(canonical(['ZJJ-SIG-v1',h,b])))
   return {'protected':h,'body':b,'sig':sig}
 
-def envelope(env,registered_keys,now=100):
+def envelope(env,registered_keys,now=100,*,proto='ZJJ-AAP'):
  """Returns valid issuer identity after mandatory structural, temporal, signature checks."""
  require(type(env) is dict and set(env)=={'protected','body','sig'},'FIELDS')
  require(len(canonical(env))<=65536,'LIMIT')
  h,b=env['protected'],env['body']
  require(type(h) is dict and set(h)=={'proto','version','profile','alg','type','issuer','kid'},'FIELDS')
  require(type(b) is dict and set(b)=={'id','scope','iat','exp','aud','refs','deps','payload'},'FIELDS')
- require((h['proto'],h['version'],h['alg'])==('ZJJ-AAP','2.6','Ed25519'),'HEADER')
+ require((h['proto'],h['version'],h['alg'])==(proto,'2.6','Ed25519'),'HEADER')
  profile,kind=h['profile'],h['type']
  require(profile in PROFILE_SCENARIO and kind in TYPES,'TYPE')
  require(is_id(h['issuer']),'ID');raw(h['kid'],32);raw(b['id'],16)

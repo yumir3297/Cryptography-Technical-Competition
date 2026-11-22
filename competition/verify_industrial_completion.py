@@ -6,7 +6,7 @@ from pathlib import Path
 from competition.core.event_clock import require_window
 from competition.profiles.industrial_completion import MODEL, completion_ref
 from competition.support.scene_authority import DEST
-from competition.support.schema import UpstreamSchema
+from competition.support.schema import CompetitionSchema
 from competition.support.wire import (
     ProtocolError, action_hash, canonical, digest, keyid, raw, rec_ref, require, strict_verify,
 )
@@ -27,7 +27,7 @@ def verify(audit, *, c_public, x_public, e_public):
 
 def _verify(audit, c_public, x_public, e_public):
     receipt, commit, evidence = (audit[k] for k in ('acceptance', 'commit', 'completion_basis'))
-    schema = UpstreamSchema(Path(__file__).resolve().parents[1], PROFILE)
+    schema = CompetitionSchema(Path(__file__).resolve().parents[1], PROFILE)
     schema.validate(receipt, 'Acceptance')
     schema.validate(commit, 'Record_COMMIT')
     header, body = receipt['protected'], receipt['body']

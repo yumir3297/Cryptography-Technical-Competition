@@ -3179,9 +3179,6 @@
               "uniqueItems": true,
               "x-zjj-order": "strict lexicographic Enc bytes"
             },
-            "completion_ref": {
-              "$ref": "#/$defs/B32"
-            },
             "scene_before": {
               "$ref": "#/$defs/SceneWitness"
             },
@@ -3867,9 +3864,6 @@
             },
             "exp": {
               "$ref": "#/$defs/N"
-            },
-            "completion_model": {
-              "const": "release-all-initial-v1"
             }
           },
           "required": [

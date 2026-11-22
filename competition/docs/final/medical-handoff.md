@@ -1,6 +1,8 @@
 # 医疗场景协议开发交接
 
-2026-10-11 · `MED-DEMO-1 / lab / tenant-1 / medical` · 配套[比赛协议](competition-protocol.md)。展示为合成患者/就诊记录与固定合成模板的一次医嘱登记，不赋予模板临床含义。
+2026-10-12 · `MED-DEMO-1 / lab / tenant-1 / medical` · 配套 `CORE-SPEC-1.3` [共同安全协议](competition-protocol.md)。展示为合成患者/就诊记录与固定合成模板的一次医嘱登记，不赋予模板临床含义。
+
+共同协议中的来源、复核、意图及资源规则在本场景的具体值由下文规定；固定登记、调用顺序、状态字段与证据等级先读[比赛开发总交接](scenario-integration-handoff.md)。
 
 ## 输入、来源与必要批准
 
@@ -10,7 +12,7 @@
 
 ## 场景安全规则
 
-患者、就诊、医嘱组、资料记录、模板、任务及 ENCOUNTER 当前行精确绑定。patient_set 与 encounter_set 同时满足并核登记关联，避免把某患者的授权用于另次就诊。记录/资格变化使旧 Basis 和批准失效；合法签名仍须当前权限。稳定意图为完整 scope/patient/encounter/order_group/phase，换模板或操作号不重新授予一次登记权。
+患者、就诊、医嘱组、资料记录、模板、任务及 ENCOUNTER 当前行精确绑定。patient_set 与 encounter_set 同时满足并核登记关联，避免把某患者的授权用于另次就诊。在接受与新领取守卫中，记录/资格变化会使旧依据不再满足当前条件；合法签名不代替权限检查。已领取后的变化按领取点边界说明。稳定意图为完整 scope/patient/encounter/order_group/phase，换模板或操作号不重新授予一次登记权。
 
 接受时场景为 READY；医嘱容量、累计次数和 TaskFlight 检查后同步预占并转 ACCEPTED。成功登记终态 REGISTERED，确认无效果失败 STOPPED；未知保留占用。普通 AUDITOR 只按原规则读取裁剪状态；当前演示 H 的完整 audit 投影须保持 H 读取权限，不能直接开放给普通审计主体。
 
@@ -33,3 +35,7 @@
 开发复用 CommonW、SceneAuthorizationAdapter 与 med-order-sim。展示先认证 H、按患者/就诊权限取资料；已裁剪投影标原 Envelope=false。界面刷新只调用认证 status/audit，工具 query 和结算为显式受控步骤。精确字段查[工业医疗合同](../../../system_dev/v26/03_industrial_medical_profiles.md)，实现查[公共 W 契约](../w-transaction-contract.md)。本轮确认的是合成登记流程可行性；临床判断、界面与安装包分别由其责任方处理。
 
 开发旁注：比赛暂不接真实临床执行与撤回设施；已领取登记的操作不能用“撤回批准”按钮宣称即时取消效果。跨服务撤销、UNKNOWN 保留和当前 H 审计权限的接法见[开发注释](developer-scope-notes.md)。
+
+协议接线：新领取的效果 UNKNOWN 不等于首次 EXEC 已消费；仍须按原首次守卫登记，已消费后只按可用权限查询恢复。H 读取不可获取不证明原登记失败，也不能借 worker 冒用 H 权限补视图。诊断先认证，保留绑定和首个原因，裁剪患者资料；诊断不等于 HALTED。统一采用[当前接口第 5 节](interface-reference.md)，领取后撤销的真实竞争窗口见[优化复检](optimization-review-20261012.md)。
+
+本轮执行标识升级后，[新的正常路径](../../evidence/security-rectification-20261012/w-slice/MED-DEMO-1-normal.json)与[新的丢应答恢复](../../evidence/security-rectification-20261012/w-slice/MED-DEMO-1-lost-ack.json)分别重跑同一场景。角色批准来自认证签名模拟器，agent 只提交 Action 数据；真人批准采集与主体能力见[安全边界](security-boundaries.md)。不将旧包字节标为新标识。

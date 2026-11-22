@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "commit_baseline": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+  "protocol": "ZJJ-CORE-COMP-1",
+  "documentation": "COMP-PROTOCOL-FINAL-1.2",
+  "working_tree_uncommitted": true,
+  "full_regression": {
+    "tests": 137,
+    "passed": 137,
+    "seconds": 819.71,
+    "log": "competition-tests.log",
+    "frozen_after_independent_review_fixes": true
+  },
+  "new_regression_tests": 13,
+  "security_demonstrations": {
+    "passed": 13,
+    "normal_profiles": 3,
+    "lost_ack_profiles": 3
+  },
+  "authenticated_status_load": {
+    "requests": 72,
+    "successes": 72,
+    "workers_per_profile": 8,
+    "business_counts_unchanged": true,
+    "clock_unknown_errors": 0
+  },
+  "new_readonly_evidence_verification": {
+    "cases": 6,
+    "checks": 1436,
+    "signatures": 969,
+    "external_manifest_pin_verified": true
+  },
+  "historical_verification": [
+    {
+      "cases": 22,
+      "checks": 5168,
+      "build_commit": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+      "external_manifest_pin_verified": true
+    },
+    {
+      "cases": 3,
+      "checks": 849,
+      "build_commit": "42021274a2f7d6adf35337bb153f05bf89b3e8f9",
+      "external_manifest_pin_verified": true
+    }
+  ],
+  "document_verification": {
+    "passed": true,
+    "documents": 32,
+    "links": 419,
+    "mirrors": 14,
+    "mirror_mode": "same text with valid paths from the mirror directory",
+    "signatures_checked": 10,
+    "errors": []
+  },
+  "schema_verification": "schema-verification.json",
+  "independent_review": {
+    "actionable_findings": 2,
+    "fixed": 2,
+    "findings": [
+      "signing_end_time_revalidation",
+      "deep_json_and_numeric_parser_errors"
+    ],
+    "red_green_verified": true
+  },
+  "preserved_local_records": [
+    "red.log",
+    "red-current-w.log",
+    "red-malformed.log",
+    "red-boot-binding.log",
+    "red-sign-expiry.log",
+    "red-parser.log",
+    "regression-first.log",
+    "regression-final.log",
+    "exploration.log"
+  ],
+  "scope": [
+    "Trusted single host, JSON-only agent and fixed enrolled roles; signed simulated tools.",
+    "Caller proof demonstrates enrolled key possession; trusted bootstrap simulates approval, not human consent collection.",
+    "No new intent-wide pause, instantaneous post-claim revocation, unknown-timeout release or same-intent rehandling generation.",
+    "Old protocol runtime is not automatically migrated; retain original version and ledger identity for its recovery."
+  ],
+  "no_commit_push_or_merge": true
+}

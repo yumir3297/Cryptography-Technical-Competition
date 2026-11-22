@@ -1,0 +1,20 @@
+{
+  "kind": "independent_readonly_scoped_W_simulator_verification",
+  "passed": true,
+  "build_commit": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+  "verifier_checkout_commit": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+  "source_mode": "current_checkout",
+  "source_digest": "8f32c6d425a646d1ef2e04232e36b0d3f2656d7769c5835664226eb74836df48",
+  "run_id": "security-1791810749846124700",
+  "case_count": 6,
+  "checks": 1436,
+  "verified_signatures": 969,
+  "verified_C_time_packets": 432,
+  "external_manifest_pin_verified": true,
+  "limits": [
+    "Historical signatures, references and independent ledger equality; no current-time authorization re-created by audit.",
+    "Run trust roots must be pinned externally for adversarial audit; embedded roots alone prove package consistency.",
+    "No complete R2 AUDITBundle or whole-disk rollback guarantee."
+  ],
+  "source_checkout_crlf_paths": []
+}

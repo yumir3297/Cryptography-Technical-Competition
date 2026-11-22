@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "documents": 32,
+  "links": 419,
+  "mirrors": 14,
+  "mirror_mode": "same text with valid paths from the mirror directory",
+  "signatures_checked": 10,
+  "errors": []
+}

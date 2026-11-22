@@ -4,7 +4,7 @@
 
 沿 C、Resolver、W 和签名模拟工具的真实入口，交付可独立复验的高后果动作授权。C 认证任务和策略，Resolver 从当期受信输入重建动作依据，W 在同一事务中核验审批与当前依赖、判断选定工业任务是否仍有完成路径，并原子提交接受记录和资源承诺。签名回执让评委将判断对应到具体 Task、Policy、动作和 W 状态快照。
 
-基线为已在本地保存的 `origin/main` 快照 `1aa5a9e36e1558b95972941d5ce7dbf6553da431`。本次开发使用独立本地分支 `local/industrial-task-completion-20261122`。交接报告 `CRYPTO_REVIEW_2026-11-22.md` 和报告指向的 `c7e86dc` 在核查的本地位置缺失。附件中的原型结果保留其各自的运行基线。
+首轮验证使用本地 `origin/main` 快照 `1aa5a9e36e1558b95972941d5ce7dbf6553da431`。定版基于其后续比赛交付提交 `cc4e36b4e302fcdc53cc809a012c77d8464182af`，包括独立比赛 wire 标识、签署认证和严格候选入口。定版留在本地分支 `local/industrial-task-completion-20261122`。交接报告 `CRYPTO_REVIEW_2026-11-22.md` 和报告指向的 `c7e86dc` 在核查的本地位置缺失。附件中的原型结果保留其各自的运行基线。
 
 ## 五阶段与定版门槛
 
@@ -28,6 +28,14 @@ python -m unittest -v competition.tests.test_industrial_task_completion
 python -m competition.run_industrial_completion --output .runtime/industrial-completion-demo
 ```
 
-离线命令见[工业任务完成路径](../industrial-task-completion.md)。使用新的输出目录。验证记录须写入本次提交对应的交付记录。
+离线命令见[工业任务完成路径](../industrial-task-completion.md)。使用新的输出目录。
+
+### 2026-11-22 本地证据
+
+- 全仓回归 145 项通过，用时 784.508 秒。运行覆盖三场景共用接受和恢复、比赛签署与候选入口，以及本轮新增工业规则。
+- 工业专项 8 项通过。覆盖完成路径、单步可行但批次无解、Task/Policy 修订、后续工件状态变化、并发与重复请求、允许取消、UNKNOWN 保留承诺及证据修改。
+- 两次真实模拟工具结算均返回 SETTLED。离线命令分别复算 `[unit-a, unit-b]` 和 `[unit-b]`，共同 TaskRef 为 `TR0aJASoLf2grzPhWv6x8JDlNTq92fSW42p5lJxYsCU`。本次输出在 `.runtime/industrial-completion-final`。
+- `acceptance-1.json` SHA-256 为 `8b276401e3d2cb290e506e7a8d21512b838b1e3cb9e33cc14f8bd1a8755a3b39`。`acceptance-2.json` SHA-256 为 `aa425a5484289fbc084171876fa624d5a114ea123fddf829406579df70185b1b`。
+- `python -m competition.verify_repository` 检查通过，包括 344 个文档链接和 35 项历史证据文件摘要。原 R2 向量经 `node system_dev/v26/tools/check_vectors.mjs system_dev/v26/vectors/wire_vectors.json` 核验 70 项。
 
 正式 39 项沿用原清单 Git blob `b0bc9dbeedac135f6520b5e93729f63686d97bb4`。原归档报告记载完整通过为 0/39，选定探针和关联测试按各自口径保留。本轮正式验收状态为未运行。

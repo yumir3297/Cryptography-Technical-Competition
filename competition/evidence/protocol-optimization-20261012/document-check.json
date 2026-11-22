@@ -1,0 +1,70 @@
+{
+  "kind": "protocol_optimization_document_check",
+  "passed": true,
+  "protocol_version": "COMP-PROTOCOL-FINAL-1.1",
+  "build_commit": "1aa5a9e36e1558b95972941d5ce7dbf6553da431",
+  "repo_checks": {
+    "kind": "competition_repository_scope_check",
+    "passed": true,
+    "python_files": 77,
+    "current_documents": 30,
+    "checked_links": 255,
+    "original_W_evidence_files_unchanged": 35,
+    "research_roots_absent": [
+      "research",
+      "research_archives",
+      "research_evidence",
+      "verification",
+      "docs"
+    ],
+    "workflow_count": 1,
+    "scope": "Current filesystem, imports, references and original artifact bytes; no universal protocol safety assertion."
+  },
+  "mirrors": 12,
+  "mirror_links": 170,
+  "actual_method_signatures": 13,
+  "selected_runtime_checks": 4,
+  "runtime_code_and_R2_contracts_unchanged": true,
+  "old_evidence_unchanged": true,
+  "changed_tracked_documents": [
+    "README.md",
+    "competition/FINAL_PROTOCOL_HANDOFF.md",
+    "competition/README.md",
+    "competition/docs/final/claims-evidence.md",
+    "competition/docs/final/competition-protocol.md",
+    "competition/docs/final/developer-scope-notes.md",
+    "competition/docs/final/finalization-record.md",
+    "competition/docs/final/industrial-handoff.md",
+    "competition/docs/final/interface-reference.md",
+    "competition/docs/final/medical-handoff.md",
+    "competition/docs/final/payment-handoff.md",
+    "competition/docs/final/protocol-review.md",
+    "competition/docs/final/query-audit-scope.md",
+    "competition/docs/final/r2-application-mapping.md"
+  ],
+  "manual_semantic_review": [
+    "Unknown distinguished from EXEC consumption",
+    "HALTED does not erase settled history",
+    "No-error-field not treated as full verification",
+    "Read timing and available fields matched to W",
+    "Diagnostic record not permanent enforcement",
+    "Revocation scope at new claim",
+    "Wire and application enums separated"
+  ],
+  "document_hashes": {
+    "competition-protocol.md": "21f369b9295d4df8849fb09190a3cd4537fcd0873161fe7244b53d52d9b5318b",
+    "query-audit-scope.md": "7183353c347b0342be9e2af382964b83efe0e1e4fefa17d232db496d40723fd8",
+    "industrial-handoff.md": "2c52ccf96ba7440bc6c26b09145cafada829371951b86b4dc2d53acefa5fe36d",
+    "payment-handoff.md": "6cbe80b04b8f41441f24f33fc592d919f4b3f77e12de473497c02a0f4a42fc53",
+    "medical-handoff.md": "f5b7ffa51266113c79f2964708b4896402a29be05bb524d09db30b800d486dc3",
+    "interface-reference.md": "033c9d8aa25a3da033fbffe40e1d5e66e05003c6a09f1449de4c9cda2675decb",
+    "r2-application-mapping.md": "5f77ea2c0203d55246108349ecc3a4df8a750d06660afebb473137b5363ab27f",
+    "developer-scope-notes.md": "748f70eadaefad34d597dcc3df09419b6570a9ea4c5da030d7d7ab21fe747598",
+    "claims-evidence.md": "7aebb03456b7a6888b930a8ffaf7dc1b60b3e15555633c07e8b122bd10cb309d",
+    "optimization-review-20261012.md": "a039f9109e28f5f8fc88fe53616a8c01b614c47fde51134eb6d30c1694842dc7"
+  },
+  "limits": [
+    "Selected wording/links/source checks, not proof of universal safety.",
+    "Application wrapper and diagnostic services are handoff conventions, not deployed functionality."
+  ]
+}

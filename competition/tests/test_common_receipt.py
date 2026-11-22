@@ -10,6 +10,7 @@ from contextlib import closing
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding,PublicFormat,PrivateFormat,NoEncryption
+from competition.support.schema import COMPETITION_PROTO
 from competition.support.wire import b64,raw,canonical,keyid,digest,rec_ref,action_hash,strict_verify,ProtocolError,sortset
 from competition.support.broker_policy import PROFILE_SCOPES
 
@@ -31,7 +32,7 @@ class CommonReceiptTests(unittest.TestCase):
              'payload':{'order_id':'order1','stage':'settle','payer':'payer','payee':'payee','amount_minor':'731','currency':'CNY','purpose':'order-settlement'}}
         ctx={k:self.action[k] for k in ('scope','operation_id','principal','holder','holder_kid','executor')}
         ctx.update(action_hash=action_hash(self.profile,self.action),policy_ref=b64(b'p'*32),basis_ref=b64(b'b'*32))
-        self.core={'protected':{'proto':'ZJJ-AAP','version':'2.6','profile':self.profile,'alg':'Ed25519','type':'Acceptance','issuer':'executor','kid':self.kid},
+        self.core={'protected':{'proto':COMPETITION_PROTO,'version':'2.6','profile':self.profile,'alg':'Ed25519','type':'Acceptance','issuer':'executor','kid':self.kid},
             'body':{'id':b64(b'i'*16),'scope':self.scope,'iat':str(now-2),'exp':str(now+120),'aud':['holder'],'refs':[],'deps':[],
              'payload':{'ctx':ctx,'permit_ref':b64(b'P'*32),'proof_ref':b64(b'F'*32),'authorization_ref':b64(b'A'*32),'review_refs':[],
                 'accept_seq':'1','accepted_at':str(now-2),'commit_record_ref':b64(b'C'*32),'dispatch_before':str(now+60)}}}

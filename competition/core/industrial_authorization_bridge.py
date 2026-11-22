@@ -1,5 +1,7 @@
 """Read-only authenticated legacy IND rows; common publications use the same W DB."""
 import json
+from competition.support.schema import UpstreamSchema
+from competition.core.trusted_state import ROOT
 from competition.core.trusted_state import TrustedState, PROFILE_SCOPES
 from competition.support.scene_authority import _rowkey
 from competition.support.wire import require, raw, canonical, strict_verify, rec_ref, keyid
@@ -8,6 +10,10 @@ class IndustrialAuthorizationState(TrustedState):
     def __init__(self, owner):
         self.owner=owner
         super().__init__(owner.path,owner.root_public,{owner.profile:owner.actors},owner.clock)
+        # This component is deliberately the retained R2 IND time slice.
+        # It cannot be used as a CommonW competition state/variant.
+        self.protocol='ZJJ-AAP'
+        self.schemas={p:UpstreamSchema(ROOT,p) for p in PROFILE_SCOPES}
 
     def publish(self,*args,**kwargs):
         # Existing authenticated C publication path owns current_row. Do not
