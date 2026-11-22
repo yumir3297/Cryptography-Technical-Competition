@@ -1,4 +1,4 @@
-# 比赛软件开发交付范围
+# 比赛软件开发交付范围（2026 年 10 月历史记录）
 
 当前协议材料以[比赛交接入口](competition/FINAL_PROTOCOL_HANDOFF.md)为准；真实调用以[接口对照](competition/docs/final/interface-reference.md)为准。
 
@@ -12,4 +12,4 @@
 4. 应答丢失查询原操作，派发未知查询原 attempt；刷新页面只读取，不隐式执行或结算。
 5. 导出公钥、签名、具名运行和核验报告，不导出私钥或运行账库。
 
-适用前提与实际验证等级见[声明证据清单](competition/docs/final/claims-evidence.md)。界面、产品会话和安装包属于后续软件开发；完整研究模型与论文验证材料在本地归档中管理。
+适用前提与实际验证等级见[声明证据清单](competition/docs/final/claims-evidence.md)。主分支提供受信 HTTP 服务、会话认证、客户端控制台和只读观察页面，启动方式见[安装依赖与运行范围](INSTALL_AND_SCOPE.md)。完整研究模型与论文验证材料在本地归档中管理。
