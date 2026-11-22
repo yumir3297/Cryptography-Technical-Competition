@@ -8,7 +8,7 @@
 
 既有证据文件及 W manifest 保留原字节和原构建身份。源码摘要因路径迁移而改变；历史证据通过记录的 Git 提交核对，不改成当前构建结果。新的比赛回归、目录检查和演示证据独立记录于 `competition/evidence/repository-cleanup-20261011/`。
 
-两个线上研究分支归档后移除；`main` 和比赛开发分支发布整理后的同一内容。本地归档保留原研究 refs。GitHub 历史提交及既往 Actions 记录保留来源身份，此次目录整理不抹除历史。
+2026-10-12 整理完成时，两个线上研究分支已归档并移除，`main` 和比赛开发分支当时发布整理后的同一内容。本地归档保留原研究 refs。GitHub 历史提交及既往 Actions 记录可用于追溯来源。
 
 ## 整理验证
 
@@ -20,3 +20,11 @@
 - [既有 W 历史核验](competition/evidence/cleanup-protocol-final-20261011-w-verification.json)和[同 ID 历史核验](competition/evidence/cleanup-protocol-final-20261011-same-oid-verification.json)：外部 manifest pin、原签名与账对应通过；原源码按记录提交及被摘要精确确认的 Windows CRLF 检出字节核对。
 
 - [整理后三场景正常路径](competition/evidence/repository-cleanup-20261011/three-profile-normal/report.json)：工业、付款、医疗各自一次接受/attempt/发送/模拟效果/结算，查询再认证及重复结算不增效果；[独立核验](competition/evidence/repository-cleanup-20261011/three-profile-normal/verification.json) 724 项通过。源码构建 a034821，外部 manifest pin 为 `9782b1a4ac5eba26edb984afb63edb508c5964f7df90d0021d0cab9c3533fcf0`。
+
+## 2026-11-22 证据归档
+
+归档包含 40 份早期运行文件和 1 份重复的部署测试脚本，共 41 个文件。原文件可从[归档前提交](https://github.com/yumir3297/Cryptography-Technical-Competition/tree/c7e86dc1c01795c10f3c56a7c3fb2adda036e7af)按原路径恢复。本地归档附逐文件 SHA-256 清单。
+
+- 授权审查前记录共 22 个文件。[原目录](https://github.com/yumir3297/Cryptography-Technical-Competition/tree/c7e86dc1c01795c10f3c56a7c3fb2adda036e7af/competition/evidence/authorization-slice-20261011-pre-review) · [正式运行](competition/evidence/authorization-slice-20261011-final/)
+- 时间切片早期记录共 18 个文件。[原目录](https://github.com/yumir3297/Cryptography-Technical-Competition/tree/c7e86dc1c01795c10f3c56a7c3fb2adda036e7af/competition/evidence/time-slice-20261010) · [正式运行](competition/evidence/time-slice-20261010-final/)
+- 部署测试在证据目录中的副本与测试套件中的文件字节一致。[原副本](https://github.com/yumir3297/Cryptography-Technical-Competition/blob/c7e86dc1c01795c10f3c56a7c3fb2adda036e7af/integration-evidence/test_deployment_review.py) · [测试入口](competition/tests/test_deployment_review.py)
