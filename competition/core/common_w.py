@@ -14,6 +14,7 @@ from competition.core.w_state import WState
 from competition.core.authorization import CommonGuard
 from competition.core.event_clock import require_window, refresh_event_age
 from competition.profiles.w_plans import TransactionPlans
+from competition.profiles.industrial_completion import completion_basis, completion_ref
 from competition.support.wire import require, ProtocolError, canonical, b64, raw, digest, rec_ref, msgref, sortset, keyid, action_hash, strict_verify, envelope
 from competition.support.tool_final import verify_certificate, final_fact_id, final_fact, final_sign_bytes
 
@@ -175,13 +176,20 @@ class CommonW:
                 av=op['action'];rr=sortset([msgref(x) for x in op['reviews']]);pr=msgref(op['permit']);fr=msgref(op['proof']);ar=msgref(op['authorization'])
                 cv={'ctx':op['ctx'],'action':av,'permit_ref':pr,'proof_ref':fr,'authorization_ref':ar,'review_refs':rr,'accept_seq':str(seq),'accepted_at':str(event['lo']),'trusted_time':{'lo':str(event['lo']),'hi':str(event['hi'])},'checked_deps':guarded['deps'],'reservation_plan':[witness],'reservation_ids':[rid],'behavior_before':plan['behavior_before'],'behavior_after':plan['behavior_after'],'taskflight':plan['taskflight'],'dispatch_before':op['permit']['body']['payload']['dispatch_before'],'frozen_tool_request':av,'signing_public_key':b64(self.source.actors[p]['X'].pub),'credential_witnesses':sortset(credentials)}
                 if p!='PAY-1':cv.update(scene_before=plan['scene_before'],scene_after=plan['scene_after'])
+                completion = completion_basis(self, c, p, op, plan, resource, event)
+                if completion is not None:
+                    cv['completion_ref'] = completion_ref(completion)
                 commit={'version':'2.6','profile':p,'kind':'COMMIT','scope':PROFILE_SCOPES[p],'value':cv};self.source.schemas[p].validate(commit,'Record_COMMIT')
                 event=self._end_event(event);event=self._current_windows(c,p,op,event,accept=True)
+                if completion is not None:
+                    require(event['hi'] < min(int(step['expires']) for step in completion['path']), 'EXPIRED')
                 cv['trusted_time']['hi']=str(event['hi'])
                 cref=rec_ref(commit);xp=self.source.actors[p]['X']
                 payload={k:cv[k] for k in ('ctx','permit_ref','proof_ref','authorization_ref','review_refs','accept_seq','accepted_at','dispatch_before')};payload['commit_record_ref']=cref
                 core={'protected':{'proto':'ZJJ-AAP','version':'2.6','profile':p,'alg':'Ed25519','type':'Acceptance','issuer':xp.name,'kid':xp.kid},'body':{'id':b64(os.urandom(16)),'scope':PROFILE_SCOPES[p],'iat':str(event['lo']),'exp':str(event['lo']+900),'aud':sortset([self.source.actors[p][a].name for a in ('H','G','U')]),'refs':sortset(rr+[pr,fr,ar]),'deps':[],'payload':payload}}
                 frozen={'op':op,'plan':plan,'commit':commit,'commit_ref':cref,'acceptance_core':core,'accepted_at':event['lo'],'x_public':b64(xp.pub),'x_kid':xp.kid,'time_witness':event,'guard':guarded,'tool_certificate':json.loads(toolrow['certificate'])}
+                if completion is not None:
+                    frozen['completion_basis'] = completion
                 c.execute('UPDATE w_meta SET accept_seq=? WHERE id=1',(seq,));c.execute('INSERT INTO w_operation VALUES(?,?,?,?,?,NULL,?,?,NULL)',(p,oid,t['request_ref'],enc(plan['intent']),enc(frozen),'PENDING','NO_ATTEMPT'))
                 c.execute('INSERT INTO w_intent VALUES(?,?,?)',(p,enc(plan['intent']),oid));c.execute('INSERT INTO w_reservation VALUES(?,?,?,?,?,?)',(p,rid,oid,enc(plan['resource_key']),plan['amount'],'RESERVED'))
                 c.execute('UPDATE w_resource SET reserved=reserved+?,revision=revision+1 WHERE profile=? AND key=?',(plan['amount'],p,enc(plan['resource_key'])))
@@ -371,6 +379,8 @@ class CommonW:
             require(set(cl)=={'profile','scope','operation_id','purpose','commit_ref','nonce'} and (cl['profile'],cl['scope'],cl['operation_id'],cl['purpose'],cl['commit_ref'])==(p,PROFILE_SCOPES[p],oid,purpose,f['commit_ref']),'BINDING');who=self.source.actors[p]['H'];strict_verify(who.pub,raw(proof['signature'],64),canonical(['COMP-W-READ-v1',cl]));self.source.credential(c,p,'H',ROLES[p]['H'],'StatusQuery',f['op']['action'],event);self.source.read_permission(c,p,'H',f['op']['action'],event);self._consume_nonce(c,p,cl['nonce'],oid,purpose,f['commit_ref'],event)
             view=self._view(row);out=c.execute('SELECT * FROM w_outbox WHERE profile=? AND oid=?',(p,oid)).fetchone();view.update(attempt_id=out['attempt_id'],exec_consumed=bool(out['exec_marker']),queries=out['queries'],original_envelope=False,view_kind='APPLICATION_W_PROJECTION')
             if purpose=='AUDIT':view.update(commit=f['commit'],time_witness=f['time_witness'],evidence=[json.loads(r[0]) for r in c.execute('SELECT blob FROM w_evidence WHERE profile=? AND oid=? ORDER BY seq',(p,oid))])
+            if purpose=='AUDIT' and 'completion_basis' in f:
+                view['completion_basis'] = f['completion_basis']
             return view
     def status(self,p,oid,proof):return self._read(p,oid,proof,'STATUS')
     def audit(self,p,oid,proof):return self._read(p,oid,proof,'AUDIT')

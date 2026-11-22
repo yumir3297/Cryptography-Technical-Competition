@@ -97,7 +97,7 @@ class WRun:
         op['assessment'] = {'value': {'cutoff': frozen['cutoff'], 'iat': str(now), 'exp': frozen['exp']}}
         with self.store.tx() as c:
             event = self.store.event(c, profile, op['action']['operation_id'], 'AUTHZ_GUARD', '')
-            derived = self.base.service.verifier.adapters[profile].derive(c, op, event)
+            derived = self.w.guard.adapters[profile].derive(c, op, event)
         scope = op['action']['scope']; av = derived['assessment_value']
         op['assessment'] = _rec(profile, 'ASSESSMENT', scope, av)
         op['required'] = derived['required_reviews']; op['deps'] = derived['deps']

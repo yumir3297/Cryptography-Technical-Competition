@@ -9,7 +9,7 @@ their current authenticated originals and transitive references are rechecked.
 from pathlib import Path
 
 from competition.core.event_clock import require_window
-from competition.support.scene_authority import SceneAuthority, PROFILES, ROLES
+from competition.support.scene_authority import SceneAuthority, PROFILES, ROLES, DEST
 from competition.support.wire import action_hash, rec_ref, require, sortset
 from competition.support.schema import UpstreamSchema
 from competition.profiles.scene_bindings import bound_scene
@@ -29,6 +29,7 @@ class _BoundReader:
         self.store, self.profile, self.actors = store, profile, actors
         self.scope, self.event, self.schema = scope, event, schema
         self.windows = []
+        self.qualification_windows = []
 
     def current(self, c, namespace, key):
         row = self.store.current(c, self.profile, namespace, key)
@@ -55,6 +56,7 @@ class _BoundReader:
         rows = self.store.credential(c, self.profile, alias, role, purpose, action, self.event)
         for row in rows:
             require_window(row['record']['value'], self.event)
+            self.qualification_windows.append(row['record']['value'])
             # Qualification is current at each event, not a promised grant for
             # the whole Basis lifetime. Recheck at acceptance/publication/read.
         return rows
@@ -74,6 +76,22 @@ class SceneAuthorizationAdapter:
         require(profile in PROFILES, 'PROFILE')
         self.store, self.profile, self.actors = store, profile, actors
         self.schema = UpstreamSchema(Path(__file__).resolve().parents[2], profile)
+
+    def release_step(self, c, op, unit, event):
+        """Check a modeled future RELEASE using the same current business rules."""
+        action = {**op['action'], 'destination': DEST['RELEASE']}
+        action['payload'] = {**action['payload'], 'unit_id': unit['unit_id'],
+                             'batch_id': unit['batch_id'], 'route': 'RELEASE'}
+        reader = _BoundReader(self.store, self.profile, self.actors, action['scope'], event, self.schema)
+        key = reader.scope_key() + [action['payload']['line_id'], unit['unit_id']]
+        _, _, evidence, scene, reviews, deps = reader._bound(c, action, op['task_id'], key, event['lo'])
+        require(not reviews and evidence['value']['data']['unit_ref'] == unit['unit_ref'],
+                'TASK_COMPLETION_UNREACHABLE')
+        deadline = min(int(v['exp']) for v in reader.windows + reader.qualification_windows)
+        return {'unit_id': unit['unit_id'], 'scene_ref': scene['ref'],
+                'scene_revision': str(scene['revision']), 'scene_row': scene['record']['value'],
+                'evidence': evidence, 'deps': sortset(deps),
+                'expires': str(deadline)}
 
     def derive(self, c, op, event):
         action = op['action']

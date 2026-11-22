@@ -2,6 +2,8 @@
 
 先读[协议交接](FINAL_PROTOCOL_HANDOFF.md)，接线时使用[真实内部接口对照](docs/final/interface-reference.md)。CommonW 是工业、付款、医疗共用的接受、领取、执行、恢复与结算入口。
 
+工业首轮放行批次的可达性规范、隔离用例和离线复验命令见[工业任务完成路径](docs/industrial-task-completion.md)。
+
 | 目录 | 用途 |
 |---|---|
 | core/ | 当前身份、来源、批准、时间、持久接受、回执和共同 W |

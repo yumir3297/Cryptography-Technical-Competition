@@ -7,6 +7,21 @@ from competition.core.trusted_state import prefix
 from competition.support.wire import b64, canonical, rec_ref, require, sortset
 
 
+def register_release_batch(run):
+    """Certify a synthetic two-unit RELEASE task for the demo and regressions."""
+    profile = 'IND-DEMO-1'
+    second = register_ind_unit(run)
+    first = run.clone(profile)
+    key = prefix(profile) + [first['task_id']]
+    with run.store.db() as conn:
+        task = run.store.current(conn, profile, 'TASK', key)['record']
+        other = run.store.current(conn, profile, 'TASK', prefix(profile) + [second['task_id']])['record']
+    task['value'].update(task_revision='2', completion_model='release-all-initial-v1',
+                         allowed_units=sortset(task['value']['allowed_units'] + other['value']['allowed_units']))
+    run.base.publish(profile, 'TASK', key, task)
+    return run.fork_operation(profile, first), second
+
+
 def register_ind_unit(run, *, unit_id='unit-b', batch_id='batch-b', principal='principal-b'):
     """Register a second real authenticated unit/task/behavior, then sign its op.
 

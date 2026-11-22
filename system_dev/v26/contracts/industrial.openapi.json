@@ -3578,6 +3578,9 @@
                 "uniqueItems": true,
                 "x-zjj-order": "strict lexicographic Enc bytes"
               },
+              "completion_ref": {
+                "$ref": "#/components/schemas/B32"
+              },
               "scene_before": {
                 "$ref": "#/components/schemas/SceneWitness"
               },
@@ -4263,6 +4266,9 @@
               },
               "exp": {
                 "$ref": "#/components/schemas/N"
+              },
+              "completion_model": {
+                "const": "release-all-initial-v1"
               }
             },
             "required": [

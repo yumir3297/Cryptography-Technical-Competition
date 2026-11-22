@@ -108,6 +108,8 @@ line/station必须等于POLICY固定值。cycle/phase仅能为`("1","INITIAL")`�
 
 allowed_units是1至16项的规范集合；unit_ref预期kind为IND_UNIT，重复unit_id拒绝。同一任务所有项必须同一cycle/phase；每项的身份、当前阶段和来源均核对。allowed_routes非空且不超出三路线；route_destinations精确复制POLICY固定映射，不能扩权。任务exp≤iat+900且不晚于承重POLICY/委托资格到期。TaskFlight每任务至多一个在途；次数上限由唯一unit阶段意图和BEHAVIOR累计32共同限制，不另设可重置的客户端次数字段。
 
+工业批次可选扩展由 C 发布的 Task 声明 `completion_model`。其唯一值 `release-all-initial-v1` 将 `allowed_units` 指定为要求全部 RELEASE 的首轮工件集合。W 的判断、COMMIT 可选的 `completion_ref`、旧记录兼容规则以及离线复验见[工业任务完成路径](../../competition/docs/industrial-task-completion.md)。
+
 稳定意图精确为 `Enc([domain,tenant,"industrial",line_id,unit_id,inspection_cycle,phase])`。不含route、batch、station、holder、task_id、operation_id或协议版本。W由已批准任务与UNIT阶段行查找/登记一个B16 operation_id；新任务或换route不能给同一意图分配第二操作。接受前修订同操作可创建新Basis；接受后Action冻结，任何终局仍保留意图墓碑。
 
 ### 2.3 来源证据
