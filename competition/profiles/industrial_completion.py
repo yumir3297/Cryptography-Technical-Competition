@@ -51,6 +51,17 @@ def completion_basis(w, conn, profile, op, plan, resource, event):
                               'scene_revision': str(scene['revision']), 'scene_row': row,
                               'commit_ref': frozen['commit_ref'], 'final_fact_id': final['fact_id']})
         else:
+            if prior is not None and prior['oid'] == row['operation_id']:
+                # A reserved, unknown release cannot serve as a settled
+                # predecessor or be inserted as a fresh step in the path.
+                unresolved = conn.execute(
+                    """SELECT 1 FROM w_operation AS o
+                       JOIN w_flight AS f ON f.profile=o.profile AND f.oid=o.oid
+                       JOIN w_reservation AS r ON r.profile=o.profile AND r.oid=o.oid
+                       WHERE o.profile=? AND o.oid=? AND o.effect_state='UNKNOWN'
+                         AND f.key=? AND f.active=1 AND r.key=? AND r.state='RESERVED'""",
+                    (profile, prior['oid'], enc(task_key), enc(plan['resource_key']))).fetchone()
+                require(unresolved is None, 'TASK_COMPLETION_PENDING_UNKNOWN')
             require(row['state'] == 'READY' and prior is None, 'TASK_COMPLETION_UNREACHABLE')
             try:
                 path.append(adapter.release_step(conn, op, unit, event))

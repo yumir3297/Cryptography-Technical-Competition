@@ -162,7 +162,9 @@ class CommonW:
                 flight_count=c.execute('SELECT COUNT(*) FROM w_flight WHERE profile=? AND key=? AND active=1',(p,enc(plan['taskflight']['key']))).fetchone()[0]
                 # Original PAY_TASK has no max_inflight wire field; its one
                 # TaskFlight row grants one slot. Scene tasks explicitly say 1.
-                require(flight_count<(1 if p=='PAY-1' else int(task['max_inflight'])),'TASK_FLIGHT_LIMIT')
+                flight_available = flight_count < (1 if p == 'PAY-1' else int(task['max_inflight']))
+                if 'completion_model' not in task:
+                    require(flight_available, 'TASK_FLIGHT_LIMIT')
                 toolrow,trust=self._tool(c,p,op['action'],event)
                 for kind,ref in [('request',msgref(op['issue'])),('permit',msgref(op['permit'])),('proof',msgref(op['proof'])),('session',op['proof']['body']['payload']['session_id']),('nonce',op['proof']['body']['payload']['nonce'])]:
                     require(not c.execute('SELECT 1 FROM w_consumed WHERE profile=? AND kind=? AND ref=?',(p,kind,ref)).fetchone(),'REPLAY')
@@ -179,6 +181,7 @@ class CommonW:
                 cv={'ctx':op['ctx'],'action':av,'permit_ref':pr,'proof_ref':fr,'authorization_ref':ar,'review_refs':rr,'accept_seq':str(seq),'accepted_at':str(event['lo']),'trusted_time':{'lo':str(event['lo']),'hi':str(event['hi'])},'checked_deps':guarded['deps'],'reservation_plan':[witness],'reservation_ids':[rid],'behavior_before':plan['behavior_before'],'behavior_after':plan['behavior_after'],'taskflight':plan['taskflight'],'dispatch_before':op['permit']['body']['payload']['dispatch_before'],'frozen_tool_request':av,'signing_public_key':b64(self.source.actors[p]['X'].pub),'credential_witnesses':sortset(credentials)}
                 if p!='PAY-1':cv.update(scene_before=plan['scene_before'],scene_after=plan['scene_after'])
                 completion = completion_basis(self, c, p, op, plan, resource, event)
+                require(flight_available, 'TASK_FLIGHT_LIMIT')
                 if completion is not None:
                     cv['completion_ref'] = completion_ref(completion)
                 commit={'version':'2.6','profile':p,'kind':'COMMIT','scope':PROFILE_SCOPES[p],'value':cv};self.source.schemas[p].validate(commit,'Record_COMMIT')

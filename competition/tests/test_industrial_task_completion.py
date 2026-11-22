@@ -9,6 +9,7 @@ from competition.profiles.w_scenarios import register_ind_unit, register_release
 from competition.profiles.w_seed import initialize
 from competition.support.wire import ProtocolError, sortset
 from competition.verify_industrial_completion import verify
+from competition.w_cases import _configure_tool
 
 
 PROFILE = 'IND-DEMO-1'
@@ -78,6 +79,55 @@ class IndustrialTaskCompletionTests(unittest.TestCase):
         unknown = run.w.settle(PROFILE, oid, {'record': None}, run.worker_proof(PROFILE, oid, 'SETTLE'))
         self.assertTrue(unknown['reservation_retained'])
         self.assert_completion_rejected(run, ticket, 1)
+
+    def test_same_task_unknown_commitment_blocks_completion_until_reconciled(self):
+        run, first, second = self.build(2)
+        first_oid = first['action']['operation_id']
+        self.assertEqual(self.accept(run, self.prepare(run, first))['acceptance_state'], 'COMMITTED')
+        claim = run.w.claim(PROFILE, first_oid, run.worker_proof(PROFILE, first_oid, 'CLAIM'))
+        _configure_tool(run, PROFILE, crash_after_commit=True)
+        lost = run.w.execute_once(PROFILE, first_oid, run.worker_proof(PROFILE, first_oid, 'EXECUTE'))
+        self.assertEqual(lost['state'], 'EFFECT_UNKNOWN')
+        self.assertIsNone(lost['record'])
+        unknown = run.w.settle(PROFILE, first_oid, lost, run.worker_proof(PROFILE, first_oid, 'SETTLE'))
+        self.assertEqual((unknown['state'], unknown['reservation_retained']), ('UNKNOWN', True))
+
+        # Sign after the first acceptance so the second Basis carries current Behavior.
+        second = self.same_task(run, first, second)
+        second_oid = second['action']['operation_id']
+        self.assertEqual(second['task_id'], first['task_id'])
+        self.assertEqual(second['basis']['value']['task_ref'], first['basis']['value']['task_ref'])
+        ticket = self.prepare(run, second)
+        with run.store.db() as conn:
+            row = conn.execute(
+                'SELECT o.effect_state, r.state, r.amount, b.attempt_id FROM w_operation o '
+                'JOIN w_reservation r ON r.profile=o.profile AND r.oid=o.oid '
+                'JOIN w_outbox b ON b.profile=o.profile AND b.oid=o.oid WHERE o.oid=?',
+                (first_oid,)).fetchone()
+            self.assertEqual(tuple(row), ('UNKNOWN', 'RESERVED', 1, claim['attempt_id']))
+            self.assertEqual(tuple(conn.execute(
+                'SELECT capacity, reserved, spent FROM w_resource WHERE profile=? AND reserved=1',
+                (PROFILE,)).fetchone()), (2, 1, 0))
+        with self.assertRaisesRegex(ProtocolError, '^TASK_COMPLETION_PENDING_UNKNOWN$'):
+            self.accept(run, ticket)
+        with run.store.db() as conn:
+            for table in ('w_operation', 'w_reservation', 'w_outbox'):
+                self.assertEqual(conn.execute('SELECT oid FROM ' + table).fetchone()[0], first_oid)
+                self.assertEqual(conn.execute('SELECT COUNT(*) FROM ' + table).fetchone()[0], 1)
+                self.assertIsNone(conn.execute('SELECT 1 FROM ' + table + ' WHERE oid=?',
+                                               (second_oid,)).fetchone())
+            self.assertEqual(conn.execute('SELECT state FROM w_reservation WHERE oid=?',
+                                          (first_oid,)).fetchone()[0], 'RESERVED')
+
+        recovered = run.w.query_attempt(PROFILE, first_oid, run.worker_proof(PROFILE, first_oid, 'QUERY'))
+        self.assertEqual(recovered['state'], 'SUCCEEDED')
+        settled = run.w.settle(PROFILE, first_oid, recovered, run.worker_proof(PROFILE, first_oid, 'SETTLE'))
+        self.assertEqual(settled['state'], 'SETTLED')
+        with run.store.db() as conn:
+            self.assertEqual(conn.execute('SELECT state FROM w_reservation WHERE oid=?',
+                                          (first_oid,)).fetchone()[0], 'SPENT')
+        retry = run.fork_operation(PROFILE, second)
+        self.assertEqual(self.accept(run, self.prepare(run, retry))['acceptance_state'], 'COMMITTED')
 
     def test_permitted_cancellation_restores_competing_capacity(self):
         run, op, second = self.build(2)
