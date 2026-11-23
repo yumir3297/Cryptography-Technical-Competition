@@ -18,6 +18,7 @@
 - [当前内部接口与返回值](competition/docs/final/interface-reference.md)
 - [Agent MCP 接入与状态回推](competition/docs/final/agent-mcp-handoff.md)
 - [协议 1.1 优化与复检](competition/docs/final/optimization-review-20261012.md)
+- [时序闭包优化方案对齐说明](competition/docs/final/time-closure-formal-review-20261103.md)
 - [安装依赖与运行范围](INSTALL_AND_SCOPE.md)
 - [消息契约、Schema 与公开编码向量](system_dev/v26/README.md)
 - [声明与实际证据](competition/docs/final/claims-evidence.md)
