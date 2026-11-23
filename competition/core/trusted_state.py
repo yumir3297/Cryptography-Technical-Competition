@@ -106,10 +106,16 @@ class TrustedState:
         ns, key, r = cl['namespace'], cl['key'], cl['record']
         require(type(key) is list and all(type(k) is str for k in key) and type(cl['active']) is bool, 'CONTROL_FIELDS')
         require(set(r) == {'version','profile','kind','scope','value'} and (r['version'],r['profile'],r['scope']) == ('2.6',p,cl['scope']), 'BINDING')
-        allowed = {'POLICY':'POLICY','KEY':'KEY_GRANT','ROLE':'ROLE_GRANT','BEHAVIOR':'BEHAVIOR','UNIT':'UNIT','ENCOUNTER':'ENCOUNTER','TASK':{'IND-DEMO-1':'IND_TASK','MED-DEMO-1':'MED_TASK','PAY-1':'PAY_TASK'}[p], 'IDENTITY':'IND_UNIT' if p == 'IND-DEMO-1' else 'MED_ENCOUNTER','PACKAGE':'IND_PACKAGE','EVIDENCE':'IND_EVIDENCE' if p == 'IND-DEMO-1' else 'MED_EVIDENCE','ORDER':'PAY_EVIDENCE','EXPERIENCE':'PAY_HISTORY'}
+        allowed = {'POLICY':'POLICY','KEY':'KEY_GRANT','ROLE':'ROLE_GRANT','BEHAVIOR':'BEHAVIOR','UNIT':'UNIT','ENCOUNTER':'ENCOUNTER','TASK':{'IND-DEMO-1':'IND_TASK','MED-DEMO-1':'MED_TASK','PAY-1':'PAY_TASK'}[p], 'IDENTITY':'IND_UNIT' if p == 'IND-DEMO-1' else 'MED_ENCOUNTER','PACKAGE':'IND_PACKAGE','EVIDENCE':'IND_EVIDENCE' if p == 'IND-DEMO-1' else 'MED_EVIDENCE','ORDER':'PAY_EVIDENCE','EXPERIENCE':'PAY_HISTORY','GOAL':'GOAL_FLOOR','INCIDENT':'INCIDENT'}
         require(ns in allowed and r['kind'] in (allowed[ns], allowed[ns] + '_STATE'), 'OBJECT_KIND')
         if ns not in ('UNIT','ENCOUNTER','BEHAVIOR'):
             self.schemas[p].validate(r, 'Record_' + allowed[ns])
+        if ns == 'GOAL':
+            from competition.core.goal_floor import validate_claim
+            require(key[:3] == prefix(p) and key[3] == r['value']['group'], 'GOAL_KEY')
+            validate_claim(p, r['value'])
+        if ns == 'INCIDENT':
+            require(key[:3] == prefix(p) and key[3] == r['value']['incident_id'], 'INCIDENT_KEY')
         with self.tx() as c:
             event = self.event(c, p, '', 'CONTROL_PUBLISH', rec_ref(r))
             old = c.execute('SELECT * FROM a_current WHERE profile=? AND namespace=? AND key=?',(p,ns,enc(key))).fetchone()
