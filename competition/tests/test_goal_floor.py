@@ -170,6 +170,19 @@ class GoalFloorWTests(unittest.TestCase):
         self.assertIn(second_ref, witness['goal_refs'])
         self.assertNotIn(first_ref, witness['goal_refs'])
 
+    def test_goal_epoch_cannot_remove_an_obligation(self):
+        run = self._run('shadow')
+        ops = self._three_actions(run)
+        self._goal(run, ops)
+        current, revision = current_goal(run, PROFILE, 'goal-1')
+        rules = [{'name': 'inspect-a', 'op': ops[0], 'obligation': 'unit-a', 'cost': 1},
+                 {'name': 'inspect-c', 'op': ops[2], 'obligation': '', 'cost': 1}]
+        claim = goal_claim(run, PROFILE, 'goal-1', rules, capacity=2,
+                           epoch=str(revision + 1))
+        with self.assertRaises(ProtocolError) as error:
+            update_goal(run, PROFILE, 'goal-1', claim)
+        self.assertEqual(error.exception.code, 'GOAL_MIGRATION_REQUIRED')
+
     def test_concurrent_required_actions_have_one_winner(self):
         run = self._run('enforce')
         ops = self._three_actions(run)

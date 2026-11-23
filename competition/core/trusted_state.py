@@ -122,6 +122,17 @@ class TrustedState:
             rev = (old['revision'] if old else 0) + 1
             require(str(rev-1) == cl['previous_revision'], 'NONMONOTONIC')
             require(not (ns == 'KEY' and old and old['active'] == 0 and cl['active']), 'REVOKED_KEY_TOMBSTONE')
+            if ns == 'GOAL' and old:
+                previous = json.loads(old['record'])['value']
+                current_value = r['value']
+                require(int(current_value['epoch']) == int(previous['epoch']) + 1, 'GOAL_EPOCH')
+                require((current_value['capacity'], current_value['resource_key'],
+                         current_value['unit']) ==
+                        (previous['capacity'], previous['resource_key'], previous['unit']),
+                        'GOAL_MIGRATION_REQUIRED')
+                require({a['obligation'] for a in current_value['actions'] if a['obligation']} ==
+                        {a['obligation'] for a in previous['actions'] if a['obligation']},
+                        'GOAL_MIGRATION_REQUIRED')
             v = r['value']
             if ns in ('KEY','ROLE'):
                 require(v['epoch'] == str(rev), 'ROW_VERSION')
