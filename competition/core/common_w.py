@@ -13,6 +13,7 @@ from jsonschema import Draft202012Validator
 from competition.core.trusted_state import enc, prefix, ROLES, PROFILE_SCOPES
 from competition.core.w_state import WState
 from competition.core.authorization import CommonGuard
+from competition.core import pay_batch
 from competition.core.event_clock import require_window, refresh_event_age
 from competition.profiles.w_plans import TransactionPlans
 from competition.profiles.industrial_completion import completion_basis, completion_ref
@@ -46,7 +47,7 @@ class CommonW:
             CREATE TABLE IF NOT EXISTS w_settlement(profile TEXT,oid TEXT,fact_id TEXT,ledger TEXT,final_seq TEXT,effect_id TEXT,outcome TEXT,evidence TEXT,PRIMARY KEY(profile,oid),UNIQUE(profile,ledger,final_seq));
             CREATE UNIQUE INDEX IF NOT EXISTS w_effect_once ON w_settlement(profile,ledger,effect_id) WHERE effect_id!='';
             CREATE TABLE IF NOT EXISTS w_evidence(seq INTEGER PRIMARY KEY AUTOINCREMENT,profile TEXT,oid TEXT,kind TEXT,blob TEXT);
-            ''')
+            ''' + pay_batch.SCHEMA)
             saved=c.execute("SELECT blob FROM a_journal WHERE kind='W_BOOTSTRAP' ORDER BY seq LIMIT 1").fetchone()
             boot={'protocol':COMPETITION_PROTO,'worker':worker_certificate,'delivery_public':b64(delivery_key.public_key().public_bytes_raw())}
             if saved:require(json.loads(saved[0])==boot,'W_BOOTSTRAP_CONFLICT')
@@ -112,7 +113,11 @@ class CommonW:
         cert=json.loads(row['certificate']);cl=cert['claim'];strict_verify(self.source.root_public,raw(cert['signature'],64),canonical(['COMP-W-RESOURCE-v1',cl]))
         require(cl['profile']==p and cl['scope']==PROFILE_SCOPES[p] and cl['key']==key and cl['unit']==row['unit'] and int(cl['capacity'])==row['capacity'] and cl['active'] is True,'RESOURCE_INTEGRITY')
         totals=c.execute("SELECT COALESCE(SUM(CASE WHEN state='RESERVED' THEN amount ELSE 0 END),0),COALESCE(SUM(CASE WHEN state='SPENT' THEN amount ELSE 0 END),0) FROM w_reservation WHERE profile=? AND key=?",(p,enc(key))).fetchone()
-        require(tuple(totals)==(row['reserved'],row['spent']) and 0<=row['reserved']+row['spent']<=row['capacity'],'RESOURCE_INTEGRITY')
+        batch_spent = 0
+        if p == 'PAY-1':
+            batch_spent = c.execute('SELECT coalesce(sum(paid),0) FROM w_pay_batch WHERE resource_key=?',
+                                    (enc(key),)).fetchone()[0]
+        require((totals[0],totals[1]+batch_spent)==(row['reserved'],row['spent']) and 0<=row['reserved']+row['spent']<=row['capacity'],'RESOURCE_INTEGRITY')
         return row
     def _operation(self,c,p,oid):
         require(p in PROFILE_SCOPES,'PROFILE_REGISTRY');row=c.execute('SELECT * FROM w_operation WHERE profile=? AND oid=?',(p,oid)).fetchone();require(row is not None,'OPERATION_UNKNOWN')
@@ -236,9 +241,9 @@ class CommonW:
         self._worker_grant(event)
         nonce=c.execute('SELECT expires FROM w_nonce WHERE nonce=?',(proof['claim']['nonce'],)).fetchone();require(nonce is not None,'REPLAY')
         require_window({'iat':'0','exp':str(nonce[0])},event)
-    def _ownership(self,c,p,oid,frozen):
+    def _ownership(self,c,p,oid,frozen,*,reservation_state='RESERVED'):
         plan=frozen['plan'];rs=c.execute('SELECT * FROM w_reservation WHERE profile=? AND oid=?',(p,oid)).fetchall()
-        require(len(rs)==1 and rs[0]['id']==frozen['commit']['value']['reservation_ids'][0] and rs[0]['key']==enc(plan['resource_key']) and rs[0]['amount']==plan['amount'] and rs[0]['state']=='RESERVED','RESERVATION_OWNERSHIP')
+        require(len(rs)==1 and rs[0]['id']==frozen['commit']['value']['reservation_ids'][0] and rs[0]['key']==enc(plan['resource_key']) and rs[0]['amount']==plan['amount'] and rs[0]['state']==reservation_state,'RESERVATION_OWNERSHIP')
         self._resource(c,p,plan['resource_key'])
         flight=c.execute('SELECT * FROM w_flight WHERE profile=? AND oid=?',(p,oid)).fetchone();require(flight is not None and flight['active']==1 and flight['key']==enc(plan['taskflight']['key']),'FLIGHT_OWNERSHIP')
         self._behavior_integrity(c,p,plan['behavior_before']['key'])
@@ -315,7 +320,8 @@ class CommonW:
                 try:
                     event=self._event(c,p,oid,'SETTLE_GUARD',frozen['commit_ref'])
                     record,fid,halted=self._verify_final(c,p,oid,frozen,response,event)
-                    if not halted:c.execute('UPDATE w_operation SET effect_state=? WHERE profile=? AND oid=?',(record['value']['outcome'],p,oid))
+                    if not halted and (p != 'PAY-1' or pay_batch.membership(c,oid) is None):
+                        c.execute('UPDATE w_operation SET effect_state=? WHERE profile=? AND oid=?',(record['value']['outcome'],p,oid))
                 except ProtocolError as exc:
                     response={**response,'validation_error':exc.code}
             c.execute('INSERT INTO w_evidence(profile,oid,kind,blob) VALUES(?,?,?,?)',(p,oid,purpose,enc(response)))
@@ -323,6 +329,14 @@ class CommonW:
         return response
     def execute_once(self,p,oid,proof):return self._send(p,oid,proof,False)
     def query_attempt(self,p,oid,proof):return self._send(p,oid,proof,True)
+    def request_pay_batch(self,operation_ids,proofs):
+        return pay_batch.request_batch(self,operation_ids,proofs)
+    def settle_pay_batch(self,certificate,proofs):
+        return pay_batch.settle_batch(self,certificate,proofs)
+    def request_pay_batch_detail(self,batch_id,oid,proof):
+        return pay_batch.request_detail(self,batch_id,oid,proof)
+    def settle_pay_batch_detail(self,detail,proof):
+        return pay_batch.settle_detail(self,detail,proof)
     def _verify_final(self,c,p,oid,frozen,response,event):
         require(type(response) is dict and response.get('record') is not None,'FINAL_UNKNOWN');record=response['record'];self.source.schemas[p].validate(record,'Record_TOOL_FINAL');require(record['profile']==p and record['scope']==PROFILE_SCOPES[p],'FINAL_BINDING')
         tool,trust=self._tool(c,p,frozen['op']['action'],event);tv=trust['value'];v=record['value'];out=c.execute('SELECT * FROM w_outbox WHERE profile=? AND oid=?',(p,oid)).fetchone();require(out['attempt_id'] is not None,'NO_ATTEMPT')
@@ -341,6 +355,7 @@ class CommonW:
         observation=c.execute('SELECT observed_fact FROM w_operation WHERE profile=? AND oid=?',(p,oid)).fetchone()[0]
         if existing and existing['fact_id']!=fid:contradiction=True
         if observation and json.loads(observation)['final_fact_id']!=fid:contradiction=True
+        if p == 'PAY-1' and pay_batch.conflicts_with_observation(c,oid,fid,v['outcome']):contradiction=True
         conflict=c.execute('SELECT * FROM w_settlement WHERE profile=? AND ledger=? AND oid!=? AND (final_seq=? OR (effect_id!=? AND effect_id=?))',(p,tv['ledger_id'],oid,v['final_seq'],'',v['effect_id'])).fetchone()
         if conflict:contradiction=True
         if contradiction:
@@ -354,6 +369,13 @@ class CommonW:
         with self.source.tx() as c:
             row,frozen=self._operation(c,p,oid);event=self._event(c,p,oid,'SETTLE_GUARD',frozen['commit_ref']);self._worker(c,p,oid,'SETTLE',proof,event,frozen)
             if row['state']=='HALTED':return {'state':'HALTED','operation_id':oid,'reason':'TRUSTED_CONTRADICTION'}
+            member = pay_batch.membership(c,oid) if p == 'PAY-1' else None
+            if member is not None:
+                if response.get('record') is not None:
+                    _,fid,contradiction=self._verify_final(c,p,oid,frozen,response,event)
+                    if contradiction:return {'state':'HALTED','operation_id':oid,'final_fact_id':fid,'reason':'TRUSTED_CONTRADICTION'}
+                self._finish_worker(c,proof,self._end_event(event))
+                return pay_batch.ordinary_settlement(member,oid)
             require(c.execute('SELECT attempt_id FROM w_outbox WHERE profile=? AND oid=?',(p,oid)).fetchone()[0] is not None,'NO_ATTEMPT')
             if response.get('record') is None:
                 known=c.execute('SELECT fact_id FROM w_settlement WHERE profile=? AND oid=?',(p,oid)).fetchone()
@@ -369,10 +391,13 @@ class CommonW:
             return {'state':'SETTLED','operation_id':oid,'final_fact_id':fid,'existing':False}
     def _release(self,c,p,oid,frozen,target):
         plan=frozen['plan'];amount=plan['amount'];c.execute('UPDATE w_reservation SET state=? WHERE profile=? AND oid=? AND state=?',(target,p,oid,'RESERVED'))
-        c.execute('UPDATE w_resource SET reserved=reserved-?,spent=spent+?,revision=revision+1 WHERE profile=? AND key=?',(amount,amount if target=='SPENT' else 0,p,enc(plan['resource_key'])));c.execute('UPDATE w_flight SET active=0 WHERE profile=? AND oid=?',(p,oid))
-        b=self.state.current(c,p,'BEHAVIOR',plan['behavior_before']['key']);record=copy.deepcopy(b['record']);record['value']['inflight'].remove(oid);self.state.put(c,p,'BEHAVIOR',plan['behavior_before']['key'],record,b['revision']+1)
+        c.execute('UPDATE w_resource SET reserved=reserved-?,spent=spent+?,revision=revision+1 WHERE profile=? AND key=?',(amount,amount if target=='SPENT' else 0,p,enc(plan['resource_key'])))
+        self._clear_flight(c,p,oid,frozen)
         if plan['scene_after']:
             sw=plan['scene_after'];s=self.state.current(c,p,sw['namespace'],sw['key']);record=self.plans.terminal(p,s['record'],'SUCCEEDED' if target=='SPENT' else 'FAILED_CONFIRMED',action=frozen['op']['action']);self.state.put(c,p,sw['namespace'],sw['key'],record,s['revision']+1)
+    def _clear_flight(self,c,p,oid,frozen):
+        plan=frozen['plan'];c.execute('UPDATE w_flight SET active=0 WHERE profile=? AND oid=?',(p,oid))
+        b=self.state.current(c,p,'BEHAVIOR',plan['behavior_before']['key']);record=copy.deepcopy(b['record']);record['value']['inflight'].remove(oid);self.state.put(c,p,'BEHAVIOR',plan['behavior_before']['key'],record,b['revision']+1)
     def challenge_read(self,p,oid,purpose='STATUS'):
         require(purpose in ('STATUS','AUDIT'),'READ_PURPOSE')
         with self.source.tx() as c:
@@ -383,6 +408,10 @@ class CommonW:
             row,f=self._operation(c,p,oid);event=self._event(c,p,oid,'STATUS_READ' if purpose=='STATUS' else 'AUDIT_READ',f['commit_ref']);require(type(proof) is dict and set(proof)=={'claim','signature'},'IDENTITY_REQUIRED');cl=proof['claim']
             require(set(cl)=={'profile','scope','operation_id','purpose','commit_ref','nonce'} and (cl['profile'],cl['scope'],cl['operation_id'],cl['purpose'],cl['commit_ref'])==(p,PROFILE_SCOPES[p],oid,purpose,f['commit_ref']),'BINDING');who=self.source.actors[p]['H'];strict_verify(who.pub,raw(proof['signature'],64),canonical(['COMP-W-READ-v1',cl]));self.source.credential(c,p,'H',ROLES[p]['H'],'StatusQuery',f['op']['action'],event);self.source.read_permission(c,p,'H',f['op']['action'],event);self._consume_nonce(c,p,cl['nonce'],oid,purpose,f['commit_ref'],event)
             view=self._view(row);out=c.execute('SELECT * FROM w_outbox WHERE profile=? AND oid=?',(p,oid)).fetchone();view.update(attempt_id=out['attempt_id'],exec_consumed=bool(out['exec_marker']),queries=out['queries'],original_envelope=False,view_kind='APPLICATION_W_PROJECTION')
+            member = pay_batch.membership(c,oid) if p == 'PAY-1' else None
+            if member is not None:
+                view['batch'] = {'id': member['batch_id'], 'closed': member['certificate'] is not None,
+                                 'detail_known': member['detail'] is not None, 'assigned_minor': member['assigned']}
             if purpose=='AUDIT':view.update(commit=f['commit'],time_witness=f['time_witness'],evidence=[json.loads(r[0]) for r in c.execute('SELECT blob FROM w_evidence WHERE profile=? AND oid=? ORDER BY seq',(p,oid))])
             if purpose=='AUDIT' and 'completion_basis' in f:
                 view['completion_basis'] = f['completion_basis']
@@ -392,4 +421,8 @@ class CommonW:
     def counts(self):
         with self.source.db() as c:
             one=lambda sql:c.execute(sql).fetchone()[0]
-            return {'accepts':one('SELECT COUNT(*) FROM w_operation'),'outbox':one('SELECT COUNT(*) FROM w_outbox'),'attempts':one('SELECT COUNT(*) FROM w_outbox WHERE attempt_id IS NOT NULL'),'exec_invocations':one('SELECT COALESCE(SUM(exec_marker),0) FROM w_outbox'),'execution_sends_observed':one('SELECT COALESCE(SUM(send_observed),0) FROM w_outbox'),'execution_sends_unobserved_upper_bound':one('SELECT COUNT(*) FROM w_outbox WHERE exec_marker=1 AND send_observed IS NULL'),'queries':one('SELECT COALESCE(SUM(queries),0) FROM w_outbox'),'confirmed_simulated_effects':one("SELECT COUNT(*) FROM w_operation WHERE json_extract(observed_fact,'$.fact.outcome')='SUCCEEDED'"),'settlements':one('SELECT COUNT(*) FROM w_settlement'),'cancellations':one("SELECT COUNT(*) FROM w_operation WHERE state='CANCELED'"),'halts':one("SELECT COUNT(*) FROM w_operation WHERE state='HALTED'")}
+            details = one('SELECT count(*) FROM w_pay_batch_member WHERE detail IS NOT NULL')
+            confirmed = one("""SELECT count(*) FROM w_operation o
+                LEFT JOIN w_pay_batch_member m ON o.profile='PAY-1' AND m.oid=o.oid
+                WHERE json_extract(o.observed_fact,'$.fact.outcome')='SUCCEEDED' OR m.assigned>0""")
+            return {'accepts':one('SELECT COUNT(*) FROM w_operation'),'outbox':one('SELECT COUNT(*) FROM w_outbox'),'attempts':one('SELECT COUNT(*) FROM w_outbox WHERE attempt_id IS NOT NULL'),'exec_invocations':one('SELECT COALESCE(SUM(exec_marker),0) FROM w_outbox'),'execution_sends_observed':one('SELECT COALESCE(SUM(send_observed),0) FROM w_outbox'),'execution_sends_unobserved_upper_bound':one('SELECT COUNT(*) FROM w_outbox WHERE exec_marker=1 AND send_observed IS NULL'),'queries':one('SELECT COALESCE(SUM(queries),0) FROM w_outbox'),'confirmed_simulated_effects':confirmed,'settlements':one('SELECT COUNT(*) FROM w_settlement')+details,'cancellations':one("SELECT COUNT(*) FROM w_operation WHERE state='CANCELED'"),'halts':one("SELECT COUNT(*) FROM w_operation WHERE state='HALTED'")}

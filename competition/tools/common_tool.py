@@ -102,6 +102,9 @@ class CommonToolLedger:
         with self._db() as c:
             c.execute('BEGIN IMMEDIATE')
             self._continuity(c)
+            if profile == 'PAY-1':
+                from competition.tools.pay_batch import initialize
+                initialize(c)
             saved = c.execute('SELECT certificate FROM tool_meta WHERE id=1').fetchone()[0]
             if saved is None:
                 meta = c.execute('SELECT high_water,ledger_head FROM tool_meta WHERE id=1').fetchone()
@@ -211,6 +214,9 @@ class CommonToolLedger:
         with self._db() as c:
             c.execute('BEGIN IMMEDIATE'); self._continuity(c)
             fact = self._known(c,cl,rh)
+            if self.profile == 'PAY-1':
+                from competition.tools.pay_batch import allow_execute
+                allow_execute(c, cl, rh, fact)
             event = self._event(c,packet,rh,False)
             before = self._counts(c)
             event=refresh_event_age(event);require_window(self.trust['value'],event);require_window({'iat':cl['issued_at'],'exp':cl['expires']},event)
@@ -353,12 +359,18 @@ class ToolGateway:
     def query(self,packet):
         return self._call('query',packet)
 
+    def close_batch(self, request):
+        return self._call('close_batch', request)
+
+    def batch_detail(self, request):
+        return self._call('batch_detail', request)
+
 
 def worker(operation,config_path):
     clock = None
     try:
         gateway = ToolGateway(config_path); config=gateway.config
-        require(operation in {'execute','query'},'TOOL_OPERATION')
+        require(operation in {'execute','query','close_batch','batch_detail'},'TOOL_OPERATION')
         packet=json.loads(sys.stdin.read())
         if config.get('drop_before_tool') is True and operation=='execute':
             os._exit(97)
@@ -366,7 +378,13 @@ def worker(operation,config_path):
         ledger=CommonToolLedger(config['database'],config['profile'],certificate=config['certificate'],
             root_public=raw(config['root_public'],32),w_public=raw(config['w_public'],32),
             private_key=Ed25519PrivateKey.from_private_bytes(Path(config['tool_key_path']).read_bytes()),clock=clock)
-        result=ledger.execute_once(packet,crash_after_commit=config.get('crash_after_commit') is True) if operation=='execute' else ledger.query_attempt(packet)
+        if operation == 'execute':
+            result = ledger.execute_once(packet, crash_after_commit=config.get('crash_after_commit') is True)
+        elif operation == 'query':
+            result = ledger.query_attempt(packet)
+        else:
+            from competition.tools.pay_batch import close_batch, batch_detail
+            result = (close_batch if operation == 'close_batch' else batch_detail)(ledger, packet)
         print(_json(result),flush=True)
     except Exception as exc:
         print(_json({'error':exc.code if isinstance(exc,ProtocolError) else 'TOOL_UNAVAILABLE'}),flush=True)
