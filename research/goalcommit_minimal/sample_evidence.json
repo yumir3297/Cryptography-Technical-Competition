@@ -1,0 +1,85 @@
+{
+  "c_certificate": {
+    "claim": {
+      "model": "goal-floor-v1",
+      "group": "cross-task",
+      "epoch": "1",
+      "capacity": "3",
+      "resource": "w-shared-budget",
+      "deps": {
+        "TaskRef": "task-a:1|task-b:1",
+        "PolicyRef": "policy:1"
+      },
+      "actions": [
+        {
+          "name": "mandatory_a",
+          "profile": "IND-DEMO-1",
+          "obligation": "required:a",
+          "cost": "1"
+        },
+        {
+          "name": "mandatory_b",
+          "profile": "PAY-1",
+          "obligation": "required:b",
+          "cost": "1"
+        },
+        {
+          "name": "optional_diagnostic",
+          "profile": "IND-DEMO-1",
+          "obligation": "",
+          "cost": "1"
+        }
+      ]
+    },
+    "signature": "oW6vVmbwX5J9TO8XCy9Hmxlk2H1v4ap3Fo3-3MOx3vzJHWcEi2sgG0VdZXsQVnq9seUwZUe9ekg8D3JKSjwoDQ"
+  },
+  "before": {
+    "revision": "0",
+    "spent": "0",
+    "reserved": "0",
+    "status": {
+      "required:a": "OPEN",
+      "required:b": "OPEN"
+    }
+  },
+  "decision": {
+    "action": "optional_diagnostic",
+    "obligation": "",
+    "cost": "1",
+    "remaining_floor": "2",
+    "available_before": "3",
+    "available_after": "2"
+  },
+  "w_commit": {
+    "group": "cross-task",
+    "oid": "op-1",
+    "goal_ref": "kg3OzVIftDAS6QC1D-BceSQX484VkedZt3XISqdjYBk",
+    "deps_ref": "llmIRqorsRTwbW_vr5no-k5x7bb4304cbcuxz1cZim4",
+    "state_ref": "5bx04tRav2KCtYN4RJHz7WSglJ5Ronw3Q7n09zEG6ow",
+    "action_ref": "2y5bArmgsALTbtYyq9z75go-mDzQc-0LWiHzR4MNmUg",
+    "check_ref": "vQetMooQVo-nd_KewFEpn7EPxl8nVTJvn_Z5IicCkDo",
+    "epoch": "1",
+    "accept_seq": "1"
+  },
+  "action": {
+    "name": "optional_diagnostic",
+    "profile": "IND-DEMO-1",
+    "oid": "op-1"
+  },
+  "x_receipt": {
+    "claim": {
+      "oid": "op-1",
+      "commit_ref": "BlAryG22QOIKuzD94LEEFknzAOddYpocUtM7dvVMxz4"
+    },
+    "signature": "ccJzakLctHqn8JTb2g88RU1natlYNPr9_H1cyGfoUC-3I0elpahgZCtUaDcIQBd5eQGqBSbpwlLx8r9T0TfVCA"
+  },
+  "e_final": {
+    "claim": {
+      "oid": "op-1",
+      "commit_ref": "BlAryG22QOIKuzD94LEEFknzAOddYpocUtM7dvVMxz4",
+      "outcome": "SUCCEEDED",
+      "effect_id": "fact-op-1"
+    },
+    "signature": "Jfb7vUA4DptoOE5WLoYfS0aRAamCLO49fepBmEnJXrfFSU4pHyM0Kd3G1YTsHhuPMsKTnihmQpvl5h_dNDFjBg"
+  }
+}
