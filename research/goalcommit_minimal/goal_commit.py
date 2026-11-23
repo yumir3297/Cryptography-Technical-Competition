@@ -115,13 +115,13 @@ class GoalCommitHarness:
     def __init__(self,path,c_public,x_secret,e_public):
         self.path=str(Path(path));self.c_public=c_public;self.x_secret=x_secret;self.e_public=e_public
         with self.db() as c:
-            c.executescript("""
+            c.executescript('''
             CREATE TABLE IF NOT EXISTS c_goal(grp TEXT PRIMARY KEY,epoch INTEGER,certificate TEXT);
             CREATE TABLE IF NOT EXISTS c_refs(grp TEXT PRIMARY KEY,refs TEXT);
             CREATE TABLE IF NOT EXISTS w_state(grp TEXT PRIMARY KEY,rev INTEGER,spent INTEGER,reserved INTEGER,status TEXT);
             CREATE TABLE IF NOT EXISTS w_operation(oid TEXT PRIMARY KEY,grp TEXT,action TEXT,obligation TEXT,cost INTEGER,commit_body TEXT,commit_ref TEXT,receipt TEXT);
             CREATE TABLE IF NOT EXISTS w_final(oid TEXT PRIMARY KEY,fact TEXT);
-            """)
+            ''')
     @contextmanager
     def db(self):
         c=sqlite3.connect(self.path,timeout=10,isolation_level=None)
