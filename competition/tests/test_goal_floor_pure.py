@@ -80,3 +80,17 @@ class GoalFloorPureTests(unittest.TestCase):
         with self.assertRaises(ProtocolError) as error:
             validate_claim(PROFILE, duplicate['claim'])
         self.assertEqual(error.exception.code, 'GOAL_SELECTOR_DUPLICATE')
+
+    def test_goal_cannot_borrow_another_profile_or_resource(self):
+        borrowed = self._goal('g', [('one', 1)], capacity=3)
+        borrowed['claim']['actions'][0]['profile'] = 'PAY-1'
+        with self.assertRaises(ProtocolError) as error:
+            validate_claim(PROFILE, borrowed['claim'])
+        self.assertEqual(error.exception.code, 'GOAL_ACTION')
+        wrong_resource = self._goal('g', [('one', 1)], capacity=3)
+        wrong_resource['claim']['resource_key'] = ['lab', 't', 'industrial', 'other']
+        wrong_resource['ref'] = goal_ref(PROFILE, wrong_resource['claim'])
+        with self.assertRaises(ProtocolError) as error:
+            evaluate(PROFILE, [wrong_resource], {}, capacity=3, spent=0, reserved=0,
+                     candidate=self._candidate(wrong_resource))
+        self.assertEqual(error.exception.code, 'GOAL_RESOURCE_MISMATCH')
