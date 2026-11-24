@@ -213,15 +213,6 @@ body[data-open="1"] { overflow: hidden; }
   min-height: 28px;
   margin-bottom: 6px;
 }
-.ob-mapbar .ob-hint { margin: 0; }
-
-.ob-hint {
-  margin: 0 0 6px;
-  font-family: var(--ak-font-mono);
-  font-size: 10px;
-  letter-spacing: .06em;
-  color: var(--ak-fg-subtle);
-}
 
 .ob-graph {
   position: relative;
