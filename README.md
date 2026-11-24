@@ -8,7 +8,7 @@
 
 以 [最新研究定论](RESEARCH-STATUS-20261124.md)、[最终验收](FINAL_VERDICT.md)、[实验结论](competition/evaluation/experiment_conclusions.md) 为当前结论入口；旧阶段数字仅按原构建身份追溯。
 
-- [GoalFloor 集成](competition/docs/final/goalcommit-integration-20261123.md) · [核心贡献](competition/evaluation/core-contributions.md)
+- **[当前统一协议正文](competition/docs/final/competition-protocol.md)** · [GoalFloor 原始集成规范（保留溯源）](competition/docs/final/goalcommit-integration-20261123.md) · [核心贡献](competition/evaluation/core-contributions.md)
 - [实验与结果](competition/evaluation/README.md) · [原始 JSON 索引](competition/evaluation/results/README.md) · [39 项状态](competition/evaluation/conformance_39.md)
 - [评委独立复验](competition/evaluation/judge_replay.md) · [演示复验](competition/evaluation/reproduce/README.md) · [实验图表](competition/evaluation/figures/)
 - [剩余限制](competition/evaluation/remaining-limitations.md)
@@ -19,7 +19,7 @@ GoalFloor 只维护经 C 认证的必要资源下界，不证明目标可达、�
 
 - [比赛开发入口](competition/README.md) · [单机部署与本地回归](INSTALL_AND_SCOPE.md)
 - [工业全流程与三场景历史统一交付](competition/docs/final/unified-competition-delivery-20261018.md)
-- [共同安全协议](competition/docs/final/competition-protocol.md) · [比赛协议交付入口](competition/FINAL_PROTOCOL_HANDOFF.md)
+- [统一协议正文](competition/docs/final/competition-protocol.md) · [比赛协议交付入口](competition/FINAL_PROTOCOL_HANDOFF.md)
 - [三场景开发总交接](competition/docs/final/scenario-integration-handoff.md) · [内部接口](competition/docs/final/interface-reference.md) · [Agent MCP](competition/docs/final/agent-mcp-handoff.md)
 - [消息契约、Schema 与公开编码向量](system_dev/v26/README.md) · [安全边界](competition/docs/final/security-boundaries.md)
 - [声明与实际证据](competition/docs/final/claims-evidence.md) · [仓库范围](REPOSITORY_SCOPE.md)
