@@ -25,6 +25,8 @@
 
 ## 当前结论（只写已经跑过的）
 
+交付：分支 `integration/goalcommit-shadow-20261123`，提交 `89275d7d0c6910999e53f5538c93bfdc59ecd1eb`；代码/证据生成提交 `fcbc6b3b3ad63c9de84387c98bccc004f726a77b`。
+
 - 默认 `goal_mode='off'` 保持原 CommonW 语义；新增 GoalFloor 是 C 发布的可选对象，Agent 不能通过请求字段选择、删除或改价。- GoalFloor 已在 **shadow** 和 **enforce** 两种模式接入同一个 W 接受事务；enforce 模式下 `LegacyGuard AND GoalFloorGuard`，拒绝事务无业务副作用。
 - 18 项 GoalFloor 测试通过；三场景（IND/PAY/MED）各自生成并通过 13 类离线审计检查；安全事件响应工作流（复用 IND wire、独立 INCIDENT 记录/工具账/资源）通过审计。
 - 3 个崩溃边界（接受提交、EXEC-0 消费后、结算提交后）通过重启恢复测试；未发现第二次执行资格或第二次结算。

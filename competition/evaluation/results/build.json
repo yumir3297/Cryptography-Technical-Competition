@@ -20,5 +20,6 @@
   "incident_evidence": "python -m competition.evaluation.generate_incident_evidence"
  },
  "note": "GoalFloor default is off; enforce is used only in evaluation scenarios. Raw logs remain in the ignored .runtime directory; committed results are the JSON files in this directory and evidence/.",
- "test_sha": "925265229d63b077c0db23d65df4a6ef3ad19729"
+ "test_sha": "925265229d63b077c0db23d65df4a6ef3ad19729",
+ "docs_sha": "89275d7d0c6910999e53f5538c93bfdc59ecd1eb"
 }
