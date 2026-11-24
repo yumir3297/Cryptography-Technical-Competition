@@ -12,7 +12,6 @@
 
   var TOKEN_KEY = 'zjj.observe.token';
   var OID_KEY = 'zjj.observe.oid';
-  var THEME_KEY = 'zjj.observe.theme';
   var POLL_MS = 5000;
   var MAX_PARALLEL = 6;
   var NS = 'http://www.w3.org/2000/svg';
@@ -58,18 +57,6 @@
   function mask(token) {
     if (!token) return '';
     return token.length <= 10 ? '••••' : token.slice(0, 4) + '••••' + token.slice(-4);
-  }
-
-  /* ── 主题：终端（暗）/ 档案（亮） ─────────────────────────────────── */
-  function applyTheme(mode) {
-    var dark = mode !== 'light';
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-    if (el.theme) {
-      el.theme.textContent = dark ? '档案' : '终端';
-      el.theme.setAttribute('aria-pressed', dark ? 'true' : 'false');
-      el.theme.setAttribute('title', dark ? '切到档案模式' : '切到终端模式');
-    }
-    try { localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light'); } catch (e) {}
   }
 
   /* ── 请求 ─────────────────────────────────────────────────────────── */
@@ -290,10 +277,6 @@
   }
 
   /* ── 分层布局（mmd 结构，浏览器自绘） ─────────────────────────────── */
-  function graphHost(name) {
-    return document.querySelector('.ob-graph[data-graph="' + name + '"]');
-  }
-
   function labelsLayer(canvas) {
     var layer = canvas.querySelector('.ob-labels');
     if (!layer) {
@@ -346,7 +329,9 @@
 
     var labeled = name !== 'map';
     var pad = 14;
-    var gap = labeled ? 96 : 44;
+    var gap = labeled
+      ? (parseFloat(host.getAttribute('data-gap')) || 96)
+      : 44;
     var rowGap = 24;
     var reverse = model.edges.filter(function (edge) {
       return rankOf[edge.src] !== undefined && rankOf[edge.dst] !== undefined
@@ -656,73 +641,309 @@
     });
   }
 
-  function layoutAll() {
-    var map = graphHost('map');
+  function layoutMap() {
+    var map = mapHost();
     if (map) layoutGraph(map);
-    var open = document.querySelector('.ob-detail:not([hidden])');
-    if (open) {
-      var host = open.querySelector('.ob-graph');
-      if (host) layoutGraph(host);
-    }
   }
 
-  /* ── 飞入 / 飞出 ──────────────────────────────────────────────────── */
-  var closeTimer = null;
+  /* ── 就地展开：同一张画布的 zoom ─────────────────────────────────────
+     没有第二层页面。被点的块在这张图上就地铺开内部结构，其余块被挤到
+     两侧、缩小压暗，但始终留在视野里；收起时回到原位。所有变换都作用在
+     同一画布的节点上，不出现覆盖层。 */
+  var fly = null;
+  var FLY_IN = 420;
+  var FLY_OUT = 320;
+  var FLY_EASE = 'cubic-bezier(.2, 0, 0, 1)';
+  var PUSH_SCALE = 0.6;
+  var frameRects = {};
+  var view = { id: null, cw: 0, ch: 0, k: 1 };
 
   function syncTop() {
     if (!el.bar) return;
     document.documentElement.style.setProperty('--ob-top', el.bar.offsetHeight + 'px');
   }
 
-  function openBlock(id, push) {
-    var panel = document.getElementById('block-' + id);
-    if (!panel || !el.details) return;
-    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+  function calm() {
+    return !!(window.matchMedia
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+
+  function stopFly() {
+    if (!fly) return;
+    var running = fly;
+    fly = null;
+    running.onfinish = null;
+    running.cancel();
+  }
+
+  function mapHost() {
+    return document.querySelector('.ob-graph[data-graph="map"]');
+  }
+
+  function expandOf(id) {
+    return document.querySelector('[data-expand="' + id + '"]');
+  }
+
+  function blockOf(id) {
+    return document.querySelector('.ob-gnode--block[data-block="' + id + '"]');
+  }
+
+  // 每块在画布坐标系里的矩形，展开前量一次；收起时按它缩回去。
+  function captureFrames(host) {
+    var base = host.getBoundingClientRect();
+    frameRects = {};
+    host.querySelectorAll('.ob-gnode--block').forEach(function (node) {
+      var box = node.getBoundingClientRect();
+      frameRects[node.getAttribute('data-block')] = {
+        node: node,
+        x: box.left - base.left + host.scrollLeft,
+        y: box.top - base.top + host.scrollTop,
+        w: box.width,
+        h: box.height
+      };
+    });
+  }
+
+  function restoreBlocks(animate) {
+    Object.keys(frameRects).forEach(function (bid) {
+      var node = frameRects[bid].node;
+      node.style.transition = animate
+        ? 'transform ' + FLY_OUT + 'ms ' + FLY_EASE
+          + ', opacity ' + FLY_OUT + 'ms ' + FLY_EASE
+        : '';
+      node.style.transform = '';
+      node.style.opacity = '';
+      node.style.visibility = '';
+      node.removeAttribute('data-pushed');
+      node.removeAttribute('inert');
+      node.removeAttribute('aria-hidden');
+    });
+  }
+
+  // 其余块按「左/右」分列退到展开层的两侧，列内按原高度顺序均分。
+  function pushBlocks(activeId, animate) {
+    var host = mapHost();
+    if (!host) return;
+    var W = host.clientWidth;
+    var H = host.clientHeight;
+    var visW = view.w * view.k;
+    var frameLeft = (W - visW) / 2;
+    var frameRight = frameLeft + visW;
+    var left = [];
+    var right = [];
+    Object.keys(frameRects).forEach(function (bid) {
+      if (bid === activeId) return;
+      var box = frameRects[bid];
+      (box.x + box.w / 2 < W / 2 ? left : right).push(box);
+    });
+    left.sort(function (a, b) { return a.y - b.y; });
+    right.sort(function (a, b) { return a.y - b.y; });
+
+    function move(box, cx, cy, scale) {
+      cx = Math.max(10 + box.w * scale / 2,
+           Math.min(W - 10 - box.w * scale / 2, cx));
+      cy = Math.max(10 + box.h * scale / 2,
+           Math.min(H - 10 - box.h * scale / 2, cy));
+      var dx = cx - (box.x + box.w / 2);
+      var dy = cy - (box.y + box.h / 2);
+      box.node.style.transition = animate
+        ? 'transform ' + FLY_IN + 'ms ' + FLY_EASE
+          + ', opacity ' + FLY_IN + 'ms ' + FLY_EASE
+        : '';
+      box.node.style.transform = 'translate(' + dx.toFixed(1) + 'px, '
+        + dy.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
+      box.node.style.opacity = '.42';
+      box.node.setAttribute('data-pushed', '1');
+    }
+
+    function place(list, side) {
+      var count = list.length;
+      if (!count) return;
+      var room = side === 'left' ? frameLeft - 20 : W - frameRight - 20;
+      var scale = PUSH_SCALE;
+      list.forEach(function (box) {
+        scale = Math.min(scale, room / box.w);
+      });
+      scale = Math.max(0.38, scale);
+      // 列内紧凑排列，围绕展开层，不铺满整个画布。
+      var step = Math.min(H / count, list[0].h * scale + 26);
+      var top = (H - step * count) / 2;
+      list.forEach(function (box, index) {
+        var cx = side === 'left'
+          ? frameLeft - 14 - box.w * scale / 2
+          : frameRight + 14 + box.w * scale / 2;
+        move(box, cx, top + step * (index + 0.5), scale);
+      });
+    }
+
+    place(left, 'left');
+    place(right, 'right');
+    if (frameRects[activeId]) {
+      // 展开的那块彻底退场：不可见、不可点、不能被 Tab 聚焦。
+      var self = frameRects[activeId].node;
+      self.style.transition = animate ? 'opacity 160ms ease-out' : '';
+      self.style.opacity = '0';
+      self.style.visibility = 'hidden';
+      self.setAttribute('inert', '');
+      self.setAttribute('aria-hidden', 'true');
+    }
+
+    var edges = host.querySelector('.ob-edges');
+    if (edges) {
+      edges.style.transition = animate
+        ? 'opacity ' + Math.round(FLY_IN * 0.5) + 'ms ease-out' : '';
+      edges.style.opacity = '.12';
+    }
+  }
+
+  function showHud(id) {
+    var expand = expandOf(id);
+    if (!expand || !el.hud) return;
+    el.hud.hidden = false;
+    if (el.hudCode) el.hudCode.textContent = expand.getAttribute('data-code') || '';
+    if (el.hudName) el.hudName.textContent = expand.getAttribute('data-label') || '';
+    if (el.hudEn) el.hudEn.textContent = expand.getAttribute('data-en') || '';
+    document.querySelectorAll('[data-panel]').forEach(function (part) {
+      part.hidden = part.getAttribute('data-panel') !== id;
+    });
+    if (el.hudPanel) el.hudPanel.hidden = true;
+    if (el.hudRaw) el.hudRaw.setAttribute('aria-expanded', 'false');
+  }
+
+  function hideHud() {
+    if (el.hud) el.hud.hidden = true;
+    if (el.hudPanel) el.hudPanel.hidden = true;
+    if (el.hudRaw) el.hudRaw.setAttribute('aria-expanded', 'false');
+  }
+
+  function expandBlock(id, push, instant) {
+    var host = mapHost();
+    var expand = expandOf(id);
+    if (!host || !expand || !state.model) return;
+    if (view.id === id) return;
+    if (view.id) collapseBlock(false, true);
+
     syncTop();
-    document.querySelectorAll('.ob-detail').forEach(function (other) {
-      if (other !== panel) other.hidden = true;
-    });
-    panel.hidden = false;
-    el.details.hidden = false;
+    stopFly();
+    captureFrames(host);
+    var frame = frameRects[id];
+
+    var W = host.clientWidth;
+    var H = host.clientHeight;
+
+    expand.hidden = false;
+    // 先给排版一个接近最终宽度的参考，再按真实尺寸落位。
+    expand.style.width = Math.round(Math.max(W * 0.9, 1180)) + 'px';
+    expand.style.height = '';
+    expand.style.overflow = '';
+    layoutGraph(expand);
+
+    var canvas = expand.querySelector('.ob-canvas');
+    var cw = canvas.offsetWidth || 1;
+    var ch = canvas.offsetHeight || 1;
+    var k = Math.min(W * 0.8 / cw, (H - 40) / ch, 1);
+    expand.style.width = cw + 'px';
+    expand.style.height = ch + 'px';
+    expand.style.left = Math.round((W - cw) / 2) + 'px';
+    expand.style.top = Math.round((H - ch) / 2) + 'px';
+
+    var box = { x: (W - cw) / 2, y: (H - ch) / 2, w: cw, h: ch };
+    view = { id: id, cw: cw, ch: ch, k: k, x: box.x, y: box.y,
+             w: box.w, h: box.h };
+    var target = 'scale(' + k.toFixed(4) + ')';
     state.openBlock = id;
-    var host = panel.querySelector('.ob-graph');
-    if (host) layoutGraph(host);
-    requestAnimationFrame(function () {
-      el.details.classList.add('is-in');
-      if (host) layoutGraph(host);
-    });
-    document.body.setAttribute('data-open', '1');
+    showHud(id);
+
+    if (calm() || instant) {
+      expand.style.transform = target;
+      expand.style.opacity = '';
+      fly = null;
+      pushBlocks(id, false);
+    } else {
+      var vcx = box.x + box.w / 2;
+      var vcy = box.y + box.h / 2;
+      var cx = frame ? frame.x + frame.w / 2 : vcx;
+      var cy = frame ? frame.y + frame.h / 2 : vcy;
+      var sx = frame ? frame.w / box.w : 0.08;
+      var sy = frame ? frame.h / box.h : 0.08;
+      var from = 'translate(' + (cx - vcx).toFixed(2) + 'px, '
+        + (cy - vcy).toFixed(2) + 'px) scale(' + sx.toFixed(4) + ', '
+        + sy.toFixed(4) + ')';
+      fly = expand.animate(
+        [{ transform: from, opacity: 0.25 }, { transform: target, opacity: 1 }],
+        { duration: FLY_IN, easing: FLY_EASE });
+      fly.onfinish = function () {
+        fly = null;
+        expand.style.transform = target;
+      };
+      pushBlocks(id, true);
+    }
+
     if (push && location.hash !== '#block-' + id) {
       history.pushState(null, '', '#block-' + id);
     }
-    var back = panel.querySelector('[data-back]');
-    if (back) back.focus({ preventScroll: true });
   }
 
-  function closeBlock(push) {
-    if (!el.details || el.details.hidden) {
+  function collapseBlock(push, instant) {
+    var id = view.id;
+    if (!id) {
       if (push && location.hash !== '#map') history.pushState(null, '', '#map');
       return;
     }
-    var last = state.openBlock;
+    var host = mapHost();
+    var expand = expandOf(id);
+    var frame = frameRects[id];
+    var W = host ? host.clientWidth : 0;
+    var H = host ? host.clientHeight : 0;
+    var geometry = view;
+    view = { id: null, cw: 0, ch: 0, k: 1 };
     state.openBlock = null;
-    el.details.classList.remove('is-in');
-    document.body.removeAttribute('data-open');
-    closeTimer = setTimeout(function () {
-      if (el.details.classList.contains('is-in')) return;
-      el.details.hidden = true;
-      document.querySelectorAll('.ob-detail').forEach(function (panel) { panel.hidden = true; });
-      closeTimer = null;
-    }, 220);
+
+    var finish = function () {
+      if (expand) {
+        expand.hidden = true;
+        expand.style.transform = '';
+        expand.style.opacity = '';
+        expand.style.overflow = '';
+      }
+      restoreBlocks(false);
+      if (host) {
+        var edges = host.querySelector('.ob-edges');
+        if (edges) { edges.style.opacity = ''; edges.style.transition = ''; }
+      }
+      hideHud();
+    };
+
+    stopFly();
+    if (instant || calm() || !frame || !expand) {
+      finish();
+    } else {
+      var vcx = geometry.x + geometry.w / 2;
+      var vcy = geometry.y + geometry.h / 2;
+      var to = 'translate(' + ((frame.x + frame.w / 2) - vcx).toFixed(2) + 'px, '
+        + ((frame.y + frame.h / 2) - vcy).toFixed(2) + 'px) scale('
+        + (frame.w / geometry.w).toFixed(4) + ', '
+        + (frame.h / geometry.h).toFixed(4) + ')';
+      fly = expand.animate(
+        [{ transform: geometry.k === 1 ? 'none'
+            : 'scale(' + geometry.k.toFixed(4) + ')', opacity: 1 },
+         { transform: to, opacity: 0.2 }],
+        { duration: FLY_OUT, easing: FLY_EASE, fill: 'forwards' });
+      fly.onfinish = finish;
+      restoreBlocks(true);
+      var edges = host.querySelector('.ob-edges');
+      if (edges) {
+        edges.style.transition = 'opacity ' + FLY_OUT + 'ms ease-out';
+        edges.style.opacity = '';
+      }
+    }
     if (push && location.hash !== '#map') history.pushState(null, '', '#map');
-    var back = last && document.querySelector('.ob-gnode--block[data-block="' + last + '"]');
-    if (back) back.focus({ preventScroll: true });
   }
 
   function route() {
     var match = /^#block-([a-z0-9]+)$/.exec(location.hash || '');
-    if (match && document.getElementById('block-' + match[1])) openBlock(match[1], false);
-    else closeBlock(false);
+    if (match && expandOf(match[1])) expandBlock(match[1], false, true);
+    else collapseBlock(false, true);
   }
 
   /* ── 一轮刷新 ─────────────────────────────────────────────────────── */
@@ -837,25 +1058,16 @@
     el.token = $('ob-token');
     el.save = $('ob-token-save');
     el.clear = $('ob-token-clear');
-    el.theme = $('ob-theme');
     el.op = $('ob-op');
     el.profile = $('ob-profile');
     el.current = $('ob-current');
-    el.details = $('details');
+    el.hud = $('ob-hud');
+    el.hudCode = $('ob-hud-code');
+    el.hudName = $('ob-hud-name');
+    el.hudEn = $('ob-hud-en');
+    el.hudPanel = $('ob-hud-panel');
+    el.hudRaw = $('ob-hud-raw');
     el.bar = document.querySelector('.ob-bar');
-
-    var fallback = document.documentElement.getAttribute('data-theme') || 'light';
-    var stored = fallback;
-    try { stored = localStorage.getItem(THEME_KEY) || fallback; } catch (e) {}
-    applyTheme(stored);
-
-    if (el.theme) {
-      el.theme.addEventListener('click', function () {
-        applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        syncTop();
-        layoutAll();
-      });
-    }
 
     if (el.token) el.token.value = state.token ? mask(state.token) : '';
     if (el.save) el.save.addEventListener('click', function () {
@@ -885,20 +1097,31 @@
 
     document.querySelectorAll('.ob-gnode--block').forEach(function (block) {
       block.addEventListener('click', function () {
-        openBlock(block.getAttribute('data-block'), true);
+        var id = block.getAttribute('data-block');
+        if (view.id === id) collapseBlock(true);
+        else expandBlock(id, true);
       });
     });
     document.querySelectorAll('[data-back]').forEach(function (button) {
-      button.addEventListener('click', function () { closeBlock(true); });
+      button.addEventListener('click', function () { collapseBlock(true); });
     });
+    if (el.hudRaw) {
+      el.hudRaw.addEventListener('click', function () {
+        if (!el.hudPanel) return;
+        var open = el.hudPanel.hidden;
+        el.hudPanel.hidden = !open;
+        el.hudRaw.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
     document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && el.details && !el.details.hidden) closeBlock(true);
+      if (event.key === 'Escape' && view.id) collapseBlock(true);
     });
     window.addEventListener('hashchange', route);
     window.addEventListener('resize', function () {
       window.requestAnimationFrame(function () {
         syncTop();
-        layoutAll();
+        collapseBlock(false, true);
+        layoutMap();
       });
     });
     document.addEventListener('visibilitychange', function () {
@@ -912,14 +1135,14 @@
         state.model = model;
         state.graphs = { map: model.map };
         model.blocks.forEach(function (block) {
-          state.graphs['block-' + block.id] = { nodes: block.nodes, edges: block.edges };
+          state.graphs['expand-' + block.id] = { nodes: block.nodes, edges: block.edges };
         });
         fill();
         derive();
-        layoutAll();
+        layoutMap();
         syncTop();
         if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(function () { layoutAll(); });
+          document.fonts.ready.then(function () { layoutMap(); });
         }
         route();
         start(true);

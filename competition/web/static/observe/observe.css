@@ -183,11 +183,20 @@ body[data-open="1"] { overflow: hidden; }
 .ob-mapwrap {
   max-width: 1560px;
   margin: 0 auto;
-  padding: 18px 20px 28px;
+  padding: 12px 20px 24px;
 }
 
+.ob-mapbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 28px;
+  margin-bottom: 6px;
+}
+.ob-mapbar .ob-hint { margin: 0; }
+
 .ob-hint {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   font-family: var(--ak-font-mono);
   font-size: 10px;
   letter-spacing: .06em;
@@ -196,14 +205,17 @@ body[data-open="1"] { overflow: hidden; }
 
 .ob-graph {
   position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(340px, 50vh, 560px);
+  overflow: hidden;
 }
 
 .ob-canvas {
   position: relative;
-  margin: 0 auto;
+  margin: 0;
+  flex: none;
 }
 
 .ob-edges {
@@ -370,6 +382,11 @@ body[data-open="1"] { overflow: hidden; }
 .ob-dot[data-state="current"] { background: var(--ak-fg); }
 .ob-dot[data-state="blocked"] { background: var(--ak-danger); }
 
+/* 被挤开的模块只留编号与名称，细节让位给展开的那一块。 */
+.ob-gnode[data-pushed] .ob-gnode__tag,
+.ob-gnode[data-pushed] .ob-gnode__dots { display: none; }
+.ob-gnode[data-pushed] .ob-gnode__label { font-size: 12px; }
+
 /* ── 四态 ─────────────────────────────────────────────────────────────── */
 .ob-gnode[data-state="idle"] .ob-gnode__label,
 .ob-gnode[data-state="idle"] .ob-gnode__text,
@@ -429,49 +446,50 @@ body[data-open="1"] { overflow: hidden; }
 .ob-gnode[data-state="current"] .ob-dot { background: var(--ak-accent-fg); opacity: .35; }
 .ob-gnode[data-state="current"] .ob-dot[data-state="current"] { opacity: 1; }
 
-/* ── 飞入的块内视图 ───────────────────────────────────────────────────── */
-.ob-details {
-  position: fixed;
-  top: var(--ob-top, 0);
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 20;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 0 0 48px;
-  background: var(--ak-bg-canvas);
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity .2s var(--ak-ease-out, ease-out),
-              transform .2s var(--ak-ease-out, ease-out);
-}
-.ob-details[hidden] { display: none; }
-.ob-details.is-in { opacity: 1; transform: none; }
-
-.ob-detail { padding: 0; }
-
-.ob-detail__head {
-  position: sticky;
-  top: 0;
+/* ── 展开的模块：同一张画布上的就地放大 ───────────────────────────────
+   没有覆盖层，也没有第二张页面。展开层只是画布上的另一组节点；其余块
+   被推到两侧缩小压暗，仍然留在视野里。 */
+.ob-expand {
+  position: absolute;
   z-index: 3;
+  /* 与画布同色、无边框：它只是这张图展开后的一块,不是盖在上面的面板。 */
   background: var(--ak-bg-canvas);
-  border-bottom: 1px solid var(--ak-border);
+  transform-origin: 50% 50%;
 }
-.ob-detail__inner {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 12px 20px 14px;
-}
-.ob-legend--inline { margin: 10px 0 0; }
-.ob-legend--inline li { font-size: 10px; }
+.ob-expand[hidden] { display: none; }
+.ob-expand .ob-canvas { margin: 0; }
 
-.ob-back {
-  appearance: none;
-  margin: 0 0 10px;
-  padding: 3px 10px;
+/* ── 角落检查器：模块名、投影字段、全图 ─────────────────────────────── */
+.ob-hud { position: relative; margin-left: auto; }
+.ob-hud[hidden] { display: none; }
+.ob-hud__bar {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px 8px;
+  padding: 2px 0 2px 10px;
+  border-left: 2px solid var(--ak-accent);
+}
+.ob-hud__code {
   font-family: var(--ak-font-mono);
-  font-size: 11px;
+  font-size: 10px;
+  padding: 0 4px;
+  background: var(--ak-bg-inverse);
+  color: var(--ak-fg-inverse);
+}
+.ob-hud__name { font-size: 12px; font-weight: 700; color: var(--ak-fg); }
+.ob-hud__en {
+  font-family: var(--ak-font-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--ak-fg-muted);
+}
+.ob-hud__btn {
+  appearance: none;
+  margin-left: 2px;
+  padding: 1px 7px;
+  font-family: var(--ak-font-mono);
+  font-size: 10px;
   letter-spacing: .06em;
   color: var(--ak-fg-secondary);
   background: transparent;
@@ -479,72 +497,41 @@ body[data-open="1"] { overflow: hidden; }
   border-radius: 0;
   cursor: pointer;
 }
-.ob-back:hover { color: var(--ak-fg); border-color: var(--ak-fg-secondary); }
-.ob-back:focus-visible { outline: 2px solid var(--ak-focus); outline-offset: 2px; }
-
-.ob-detail__title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 12px; }
-.ob-detail__code {
-  font-family: var(--ak-font-mono);
-  font-size: 11px;
-  padding: 1px 6px;
-  background: var(--ak-bg-inverse);
-  color: var(--ak-fg-inverse);
+.ob-hud__btn:hover { color: var(--ak-fg); border-color: var(--ak-fg-secondary); }
+.ob-hud__btn:focus-visible { outline: 2px solid var(--ak-focus); outline-offset: 2px; }
+.ob-hud__btn--back { color: var(--ak-fg); }
+.ob-hud__panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 6;
+  width: min(620px, 86vw);
+  max-height: 56vh;
+  overflow: auto;
+  padding: 10px 12px 12px;
+  background: var(--ak-bg-surface);
+  border: 1px solid var(--ak-border-strong);
 }
-.ob-detail__title h2 { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: .01em; }
-.ob-detail__en {
+.ob-hud__panel[hidden] { display: none; }
+.ob-hud__node { margin-bottom: 10px; }
+.ob-hud__node:last-child { margin-bottom: 0; }
+.ob-hud__node h4 {
+  margin: 0 0 4px;
   font-family: var(--ak-font-mono);
   font-size: 10px;
-  letter-spacing: .12em;
+  letter-spacing: .08em;
   color: var(--ak-fg-muted);
-}
-.ob-detail__note {
-  max-width: 84ch;
-  margin: 6px 0 0;
-  font-size: 12px;
-  line-height: 1.7;
-  color: var(--ak-fg-secondary);
-}
-
-.ob-detail__body {
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 22px 20px 0;
 }
 
 /* ── 原始投影 ─────────────────────────────────────────────────────────── */
-.ob-raw {
-  margin-top: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.ob-raw__item > summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 2px 8px;
-  font-family: var(--ak-font-mono);
-  font-size: 10px;
-  letter-spacing: .06em;
-  color: var(--ak-fg-muted);
-  border: 1px solid var(--ak-border);
-  cursor: pointer;
-  list-style: none;
-}
-.ob-raw__item > summary::-webkit-details-marker { display: none; }
-.ob-raw__item > summary::before { content: "+"; font-size: 12px; }
-.ob-raw__item[open] > summary::before { content: "−"; }
-.ob-raw__item > summary:hover { color: var(--ak-fg); border-color: var(--ak-border-strong); }
-
 .ob-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 10px;
-  margin-top: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 8px;
 }
 .ob-card {
   min-width: 0;
-  padding: 8px 10px 10px;
+  padding: 7px 9px 9px;
   background: var(--ak-bg-surface-2);
   border-left: 2px solid var(--ak-border-strong);
 }
@@ -623,16 +610,10 @@ body[data-open="1"] { overflow: hidden; }
 }
 
 @media (max-width: 640px) {
-  .ob-mapwrap { padding: 14px 14px 22px; }
-  .ob-detail__inner { padding: 10px 14px 12px; }
-  .ob-detail__body { padding: 16px 14px 0; }
-  .ob-legend--inline { display: none; }
+  .ob-mapwrap { padding: 12px 14px 20px; }
+  .ob-hud__bar { gap: 2px 6px; }
   .ob-gnode--step { --gnode-w: 210px; }
   .ob-gnode--stub { --gnode-w: 186px; }
   .ob-gnode--block { --gnode-w: 190px; }
   .ob-foot { padding: 16px 14px 32px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ob-details { transition: none; }
 }

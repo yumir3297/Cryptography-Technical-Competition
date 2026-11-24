@@ -30,8 +30,6 @@
       </label>
       <button id="ob-token-save" type="button" class="ak-btn ak-btn--sm ak-btn--primary">保存</button>
       <button id="ob-token-clear" type="button" class="ak-btn ak-btn--sm">清除</button>
-      <button id="ob-theme" type="button" class="ak-btn ak-btn--sm ak-btn--outline"
-              aria-pressed="true">档案</button>
     </div>
   </header>
 
@@ -54,21 +52,33 @@
 
   <main class="ob-main">
     <section class="ob-mapwrap" id="map" aria-label="协议总图">
-      <p class="ob-hint">子块已收起；点任一子块飞入其内部结构。</p>
-      <p class="ob-hint" data-scroll-hint hidden>图形较宽，横向拖动查看整图。</p>
-      <div class="ob-graph" data-graph="map">
+      <div class="ob-mapbar">
+        <p class="ob-hint" id="ob-hint">点任一子块，它在这张图上就地展开内部结构。</p>
+        <div class="ob-hud" id="ob-hud" hidden>
+          <div class="ob-hud__bar">
+            <span class="ob-hud__code" id="ob-hud-code"></span>
+            <span class="ob-hud__name" id="ob-hud-name"></span>
+            <span class="ob-hud__en" id="ob-hud-en"></span>
+            <button type="button" class="ob-hud__btn" id="ob-hud-raw"
+                    aria-expanded="false">字段</button>
+            <button type="button" class="ob-hud__btn ob-hud__btn--back" data-back>全图</button>
+          </div>
+          <div class="ob-hud__panel" id="ob-hud-panel" hidden>
+<!-- {{HUD}} -->
+          </div>
+        </div>
+      </div>
+
+      <div class="ob-graph" data-graph="map" id="ob-graph">
         <div class="ob-canvas">
           <svg class="ob-edges" aria-hidden="true" focusable="false"></svg>
           <div class="ob-nodes">
 <!-- {{MAP}} -->
           </div>
         </div>
+<!-- {{EXPAND}} -->
       </div>
     </section>
-
-    <div class="ob-details" id="details" hidden>
-<!-- {{DETAIL}} -->
-    </div>
   </main>
 
   <footer class="ob-foot">

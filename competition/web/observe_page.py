@@ -783,49 +783,40 @@ def render_map(flow):
     return '\n'.join(items)
 
 
-def render_details(flow):
+def render_expand(flow):
+    """One layer per block: the sub-graph laid out inside the map's own canvas."""
     parts = []
     for index, block in enumerate(flow['blocks'], start=1):
         nodes = ''.join(_step_html(node) for node in block['nodes'])
+        parts.append(
+            '<div class="ob-expand" data-expand="%s" data-graph="expand-%s" '
+            'data-code="%02d" data-label="%s" data-en="%s" data-gap="54" hidden>'
+            '<div class="ob-canvas">'
+            '<svg class="ob-edges" aria-hidden="true" focusable="false"></svg>'
+            '<div class="ob-nodes">%s</div>'
+            '</div></div>'
+            % (escape(block['id']), escape(block['id']), index,
+               escape(block['label']), escape(block['en']), nodes))
+    return '\n'.join(parts)
+
+
+def render_hud(flow):
+    """Raw projections stay available, folded into the corner inspector."""
+    parts = []
+    for block in flow['blocks']:
         with_cards = [node for node in block['nodes']
                       if node['cards'] and not node['stub']]
-        raw = ''
         if with_cards:
-            items = ''.join(
-                '<details class="ob-raw__item"><summary>%s · 投影字段</summary>'
-                '<div class="ob-cards">%s</div></details>'
+            body = ''.join(
+                '<section class="ob-hud__node"><h4>%s</h4>'
+                '<div class="ob-cards">%s</div></section>'
                 % (escape(node['id']), _cards_html(node))
                 for node in with_cards)
-            raw = '<div class="ob-raw">%s</div>' % items
+        else:
+            body = '<p class="ob-hint">本模块没有投影字段。</p>'
         parts.append(
-            '<section class="ob-detail" id="block-%s" data-block="%s" hidden>'
-            '<header class="ob-detail__head"><div class="ob-detail__inner">'
-            '<button type="button" class="ob-back" data-back>'
-            '<span aria-hidden="true">←</span> 返回总图</button>'
-            '<div class="ob-detail__title">'
-            '<span class="ob-detail__code">%02d</span>'
-            '<h2>%s</h2>'
-            '<span class="ob-detail__en">%s</span>'
-            '</div>'
-            '<p class="ob-detail__note">%s</p>'
-            '<ul class="ob-legend ob-legend--inline" aria-label="四类关系">'
-            '<li data-kind="control">控制流</li>'
-            '<li data-kind="evidence">证据绑定</li>'
-            '<li data-kind="feedback">状态反馈</li>'
-            '<li data-kind="reject">阻断 / 未知</li>'
-            '</ul>'
-            '</div></header>'
-            '<div class="ob-detail__body">'
-            '<p class="ob-hint" data-scroll-hint hidden>图形较宽，横向滚动查看整图。</p>'
-            '<div class="ob-graph" data-graph="block-%s">'
-            '<div class="ob-canvas">'
-            '<svg class="ob-edges" aria-hidden="true"></svg>'
-            '<div class="ob-nodes">%s</div>'
-            '</div></div>%s</div>'
-            '</section>'
-            % (escape(block['id']), escape(block['id']), index,
-               escape(block['label']), escape(block['en']),
-               escape(block['note']), escape(block['id']), nodes, raw))
+            '<div class="ob-hud__part" data-panel="%s" hidden>%s</div>'
+            % (escape(block['id']), body))
     return '\n'.join(parts)
 
 
@@ -835,7 +826,8 @@ def build(source=SOURCE):
     layout = (STATIC / 'layout.html').read_text(encoding='utf-8')
     page = (layout
             .replace('<!-- {{MAP}} -->', render_map(flow))
-            .replace('<!-- {{DETAIL}} -->', render_details(flow)))
+            .replace('<!-- {{EXPAND}} -->', render_expand(flow))
+            .replace('<!-- {{HUD}} -->', render_hud(flow)))
     if '{{' in page:
         raise SystemExit('unreplaced placeholder in layout.html')
     FLOW.write_text(json.dumps(flow, ensure_ascii=False, indent=1) + '\n',

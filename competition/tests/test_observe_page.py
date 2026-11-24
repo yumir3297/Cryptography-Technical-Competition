@@ -70,6 +70,15 @@ class ObservePageTests(unittest.TestCase):
         for block in ('trust', 'gate', 's45', 's6', 'tool', 's7', 'db', 'view'):
             self.assertIn('data-block="%s"' % block, self.page)
 
+    def test_blocks_expand_inside_the_same_canvas(self):
+        """No overlay panel: each block's structure is a layer of the same map."""
+        self.assertNotIn('class="ob-details"', self.page)
+        self.assertIn('id="ob-hud"', self.page)
+        for block in self.flow['blocks']:
+            self.assertIn('data-expand="%s"' % block['id'], self.page)
+            self.assertIn('data-graph="expand-%s"' % block['id'], self.page)
+        self.assertIn('data-graph="map"', self.page)
+
     def test_the_page_holds_no_credential_of_its_own(self):
         self.assertNotIn('Bearer ', self.page)
         self.assertNotIn('authorization:', self.page.lower())
