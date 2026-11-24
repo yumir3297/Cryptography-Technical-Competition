@@ -32,6 +32,11 @@ def _is_id(value):
                 for ch in value))
 
 
+def _is_resource_item(value):
+    return (type(value) is str and 1 <= len(value) <= 64 and value.isascii() and
+            all(ch.isalnum() or ch in '._:-' for ch in value))
+
+
 def action_selector(profile, action):
     """Stable digest of the business action, excluding its fresh operation id.
 
@@ -58,7 +63,7 @@ def validate_claim(profile, claim):
     require(_is_id(claim['group']), 'GOAL_GROUP')
     require(number(claim['epoch'], True), 'GOAL_EPOCH')
     require(type(claim['resource_key']) is list and 1 <= len(claim['resource_key']) <= 8 and
-            all(_is_id(item) for item in claim['resource_key']), 'GOAL_RESOURCE_KEY')
+            all(_is_resource_item(item) for item in claim['resource_key']), 'GOAL_RESOURCE_KEY')
     require(claim['unit'] in UNITS, 'GOAL_UNIT')
     require(number(claim['capacity'], True), 'GOAL_CAPACITY')
     deps = claim['deps']

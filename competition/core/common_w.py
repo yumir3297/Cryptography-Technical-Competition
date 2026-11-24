@@ -128,6 +128,23 @@ class CommonW:
         require(tuple(totals)==(row['reserved'],row['spent']) and 0<=row['reserved']+row['spent']<=row['capacity'],'RESOURCE_INTEGRITY')
         return row
 
+    def _goal_inactive_pending(self,c,p):
+        """Return one group with a PENDING link but no active C goal, if any.
+
+        C may legitimately deactivate a goal, but an existing PENDING obligation
+        must not silently lose its floor.  Enforce then blocks new accepts
+        (GOAL_INACTIVE_PENDING); shadow records the difference.
+        """
+        rows=c.execute("SELECT DISTINCT goal_group FROM w_goal WHERE profile=? AND state='PENDING'",
+                       (p,)).fetchall()
+        for row in rows:
+            key=enc(prefix(p)+[row['goal_group']])
+            current=c.execute("SELECT active FROM a_current WHERE profile=? AND namespace='GOAL' AND key=?",
+                              (p,key)).fetchone()
+            if current is None or current['active'] != 1:
+                return row['goal_group']
+        return None
+
     def _goal_statuses(self,c,p):
         """Fold W's own goal links into one state per (group, obligation).
 
@@ -153,6 +170,7 @@ class CommonW:
         stable selector, reads the resource totals from its own ledger and uses
         the amount from its own transaction plan.
         """
+        stale = self._goal_inactive_pending(c,p)
         rows=c.execute("SELECT key FROM a_current WHERE profile=? AND namespace='GOAL' AND active=1",(p,)).fetchall()
         goals=[]; load_error=None
         for row in rows:
@@ -165,7 +183,7 @@ class CommonW:
                 goals.append({'ref':goal_ref(p,claim),'claim':claim,'revision':current['revision']})
             except ProtocolError as exc:
                 load_error=getattr(exc,'code','GOAL_STATE_INVALID')
-        if not goals and load_error is None:return {'applicable':False}
+        if not goals and load_error is None and stale is None:return {'applicable':False}
         statuses=self._goal_statuses(c,p)
         state_ref=goal_state_digest(resource['capacity'],spent=resource['spent'],reserved=resource['reserved'],statuses=statuses)
         base={'applicable':True,'goals':goals,'state_ref':state_ref,
@@ -178,6 +196,10 @@ class CommonW:
             for dep in goal['claim']['deps']:
                 goal_deps[(dep['namespace'],tuple(dep['key']))]=dep
         base['deps']=sortset(list(goal_deps.values()))
+        if stale is not None:
+            base.update(decision='F',reason='GOAL_INACTIVE_PENDING')
+            base['check_ref']=digest(['ZJJ-GOAL-CHECK-v1',{k:base[k] for k in ('capacity','spent','reserved','candidate_cost','remaining_floor','total','matched')}|{'decision':'F','reason':'GOAL_INACTIVE_PENDING'}])
+            return base
         if load_error is not None:
             base.update(decision='F',reason=load_error)
             base['check_ref']=digest(['ZJJ-GOAL-CHECK-v1',{k:base[k] for k in ('capacity','spent','reserved','candidate_cost','remaining_floor','total','matched')}|{'decision':'F','reason':load_error}])

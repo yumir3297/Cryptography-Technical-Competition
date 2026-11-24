@@ -4,6 +4,7 @@ These tests use the real CommonW/SQLite transaction, the real C publish path and
 the real signed acceptance chain.  They do not replace W's guard or the tool.
 """
 import json
+import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
@@ -12,7 +13,9 @@ from competition.profiles.w_seed import initialize
 from competition.profiles.w_scenarios import register_ind_unit
 from competition.support.goal_seed import (current_goal, goal_claim, publish_goal,
                                            update_goal)
+from competition.support.scene_contract import _rec
 from competition.support.wire import ProtocolError
+from competition.core.trusted_state import prefix, PROFILE_SCOPES
 
 PROFILE = 'IND-DEMO-1'
 
@@ -169,6 +172,48 @@ class GoalFloorWTests(unittest.TestCase):
         witness = _commit(run, ops[0])['value']['goal']
         self.assertIn(second_ref, witness['goal_refs'])
         self.assertNotIn(first_ref, witness['goal_refs'])
+
+    def test_goal_capacity_must_match_w_resource(self):
+        run = self._run('enforce')
+        ops = self._three_actions(run)
+        rules = [{'name': 'inspect-a', 'op': ops[0], 'obligation': 'unit-a', 'cost': 1},
+                 {'name': 'inspect-b', 'op': ops[1], 'obligation': 'unit-b', 'cost': 1}]
+        claim = goal_claim(run, PROFILE, 'goal-cap', rules, capacity=3)
+        publish_goal(run, PROFILE, claim)
+        with self.assertRaises(ProtocolError) as error:
+            _accept(run, ops[0])
+        self.assertEqual(error.exception.code, 'GOAL_CAPACITY_MISMATCH')
+        self.assertEqual(run.w.counts()['accepts'], 0)
+
+    def test_enforce_blocks_after_goal_deactivation_with_pending(self):
+        run = self._run('enforce')
+        ops = self._three_actions(run)
+        self._goal(run, ops)
+        _accept(run, ops[0])
+        current, revision = current_goal(run, PROFILE, 'goal-1')
+        claim = goal_claim(run, PROFILE, 'goal-1',
+                           [{'name': 'inspect-a', 'op': ops[0], 'obligation': 'unit-a', 'cost': 1},
+                            {'name': 'inspect-b', 'op': ops[1], 'obligation': 'unit-b', 'cost': 1},
+                            {'name': 'inspect-c', 'op': ops[2], 'obligation': '', 'cost': 1}],
+                           capacity=2, epoch=str(revision + 1))
+        run.base.publish(PROFILE, 'GOAL', prefix(PROFILE) + ['goal-1'],
+                         _rec(PROFILE, 'GOAL_FLOOR', PROFILE_SCOPES[PROFILE], claim),
+                         active=False)
+        with self.assertRaises(ProtocolError) as error:
+            _accept(run, ops[1])
+        self.assertEqual(error.exception.code, 'GOAL_INACTIVE_PENDING')
+        self.assertEqual(run.w.counts()['accepts'], 1)
+
+    def test_enforce_schema_has_unique_obligation_index(self):
+        run = self._run('enforce')
+        with run.store.db() as c:
+            indexes = [row[1] for row in c.execute("PRAGMA index_list('w_goal')")]
+            self.assertIn('w_goal_obligation_once', indexes)
+            columns = [row[2] for row in c.execute("PRAGMA index_info('w_goal_obligation_once')")]
+            self.assertEqual(columns, ['profile', 'goal_group', 'obligation'])
+            c.execute("INSERT INTO w_goal VALUES('IND-DEMO-1','o1','g','r','1','a','x',1,'PENDING')")
+            with self.assertRaises(sqlite3.IntegrityError):
+                c.execute("INSERT INTO w_goal VALUES('IND-DEMO-1','o2','g','r','1','a','x',1,'PENDING')")
 
     def test_goal_epoch_cannot_remove_an_obligation(self):
         run = self._run('shadow')

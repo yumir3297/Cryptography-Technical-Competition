@@ -442,6 +442,18 @@ class Verifier:
         if not witness:
             require(not goals, 'GOAL_WITNESS_MISSING')
             return 'No GoalFloor applies to this operation.'
+        if not goals:
+            require(witness['decision'] == 'F' and witness['reason'] == 'GOAL_INACTIVE_PENDING',
+                    'GOAL_UNKNOWN')
+            require(any(link['state'] == 'PENDING' for link in self.package['goal_links_all']),
+                    'GOAL_INACTIVE_PENDING')
+            check = digest(['ZJJ-GOAL-CHECK-v1',
+                            {k: witness[k] for k in ('capacity', 'spent', 'reserved',
+                                                     'candidate_cost', 'remaining_floor',
+                                                     'total', 'matched')} |
+                            {'decision': 'F', 'reason': 'GOAL_INACTIVE_PENDING'}])
+            require(check == witness['check_ref'], 'GOAL_CHECK_REF')
+            return {'decision': 'F', 'reason': 'GOAL_INACTIVE_PENDING'}
         require(goals, 'GOAL_UNKNOWN')
         goal_deps = {}
         for goal in goals:
