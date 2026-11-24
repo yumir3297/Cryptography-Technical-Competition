@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZJJ-CORE · 协议观察面</title>
+  <link rel="stylesheet" href="/observe/assets/prts/prts-design.css">
+  <link rel="stylesheet" href="/observe/assets/observe.css">
+</head>
+<body class="ak-scope">
+  <a class="ob-skip" href="#map">跳到总图</a>
+
+  <header class="ob-bar">
+    <div class="ob-brand">
+      <span class="ob-brand__mark">ZJJ-CORE</span>
+      <span class="ob-brand__sub">协议观察面 · 只读</span>
+    </div>
+
+    <div class="ob-status" role="status" aria-live="polite">
+      <span class="ob-led" id="ob-session" data-state="empty">未授权</span>
+      <span class="ob-mono" id="ob-asof">as_of —</span>
+      <span class="ob-mono" id="ob-latency">—</span>
+    </div>
+
+    <div class="ob-tools">
+      <label class="ob-token">
+        <span class="ob-token__label">AUDITOR TOKEN</span>
+        <input id="ob-token" class="ak-input ak-input--sm" type="password"
+               autocomplete="off" spellcheck="false" placeholder="粘贴 token">
+      </label>
+      <button id="ob-token-save" type="button" class="ak-btn ak-btn--sm ak-btn--primary">保存</button>
+      <button id="ob-token-clear" type="button" class="ak-btn ak-btn--sm">清除</button>
+      <button id="ob-theme" type="button" class="ak-btn ak-btn--sm ak-btn--outline"
+              aria-pressed="true">档案</button>
+    </div>
+  </header>
+
+  <div class="ob-sub">
+    <label class="ob-op">
+      <span class="ob-op__label">OPERATION</span>
+      <select id="ob-op" class="ak-select ak-select--sm">
+        <option value="">— 未授权 —</option>
+      </select>
+    </label>
+    <span class="ob-mono" id="ob-profile">profile —</span>
+    <span class="ob-current" id="ob-current" data-state="idle">当前 —</span>
+    <ul class="ob-legend" aria-label="四类关系">
+      <li data-kind="control">控制流</li>
+      <li data-kind="evidence">证据绑定</li>
+      <li data-kind="feedback">状态反馈</li>
+      <li data-kind="reject">阻断 / 未知</li>
+    </ul>
+  </div>
+
+  <main class="ob-main">
+    <section class="ob-mapwrap" id="map" aria-label="协议总图">
+      <ol class="ob-map">
+<!-- {{MAP}} -->
+      </ol>
+      <svg class="ob-wires" aria-hidden="true" focusable="false">
+        <defs>
+          <marker id="ob-arrow-control" viewBox="0 0 8 8" refX="7" refY="4"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L8 4 L0 8 z" class="ob-arrow ob-arrow--control"/>
+          </marker>
+          <marker id="ob-arrow-evidence" viewBox="0 0 8 8" refX="7" refY="4"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L8 4 L0 8 z" class="ob-arrow ob-arrow--evidence"/>
+          </marker>
+          <marker id="ob-arrow-feedback" viewBox="0 0 8 8" refX="7" refY="4"
+                  markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M0 0 L8 4 L0 8 z" class="ob-arrow ob-arrow--feedback"/>
+          </marker>
+          <marker id="ob-arrow-reject" viewBox="0 0 8 8" refX="7" refY="4"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L8 4 L0 8 z" class="ob-arrow ob-arrow--reject"/>
+          </marker>
+        </defs>
+        <g class="ob-wire-layer"></g>
+      </svg>
+    </section>
+
+    <div class="ob-details" id="details" hidden>
+<!-- {{DETAIL}} -->
+    </div>
+  </main>
+
+  <footer class="ob-foot">
+    <p>
+      只读投影：<code>signed=false</code>、<code>not_evidence=true</code>，不构成执行权限。
+      未知结果保留占用；未被可信终局确认的投影不构成完成或释放依据。
+      原子性仅限各自事务，不构成 Agent → 工具的长事务。
+    </p>
+    <p class="ob-mono">/api/diag/* · auditor side · 5s 轮询 · 页面隐藏时暂停</p>
+  </footer>
+
+  <script src="/observe/assets/observe.js" defer></script>
+</body>
+</html>

@@ -26,9 +26,11 @@ entry can even receive.
 import json
 import threading
 import time
+from pathlib import Path
 
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from starlette.concurrency import run_in_threadpool
 
 from competition.server.observe import ObservationFeed
@@ -291,6 +293,23 @@ def make_app(service, sessions):
             return _deny(exc.code)
 
     _register_diag(app, service, sessions)
+
+    # -- the read-only observation page ------------------------------------
+    # The page is static markup: it holds no state and no credential by itself,
+    # and every number on it is fetched from /api/diag/* with the reader's own
+    # auditor token.  Serving it unauthenticated is therefore the honest shape;
+    # the data behind it is not.
+    observe_dir = Path(__file__).resolve().parent / 'static' / 'observe'
+    prts_dir = Path(__file__).resolve().parent / 'static' / 'prts'
+
+    @app.get('/observe', include_in_schema=False)
+    def observe_page():
+        return FileResponse(observe_dir / 'index.html', media_type='text/html')
+
+    # The design-system snapshot is a separate tree; mount it first so the more
+    # specific prefix wins over the page's own asset mount.
+    app.mount('/observe/assets/prts', StaticFiles(directory=prts_dir), name='observe-prts')
+    app.mount('/observe/assets', StaticFiles(directory=observe_dir), name='observe-assets')
     return app
 
 
