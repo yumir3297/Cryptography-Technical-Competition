@@ -1167,11 +1167,27 @@
           document.fonts.ready.then(function () { layoutMap(); });
         }
         route();
-        start(true);
+        autoToken();
       })
       .catch(function () {
         setSession('流程图未构建 · 运行 observe_page', 'error');
       });
+  }
+
+  // 演示服务会给出自己的 auditor token；页面拿到就自己填上，省掉粘贴。
+  // 受信端入口没有这个路由，404 时退回 sessionStorage 里的 token。
+  function autoToken() {
+    fetch('/api/observe/demo-token', { cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (body) {
+        if (body && body.token) {
+          state.token = body.token;
+          try { sessionStorage.setItem(TOKEN_KEY, body.token); } catch (e) {}
+          if (el.token) el.token.value = mask(body.token);
+        }
+        start(true);
+      })
+      .catch(function () { start(true); });
   }
 
   function start(withEntry) {

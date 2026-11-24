@@ -23,12 +23,13 @@ from pathlib import Path
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+from fastapi.responses import JSONResponse
 
 from competition.profiles.w_seed import initialize
 from competition.server.service import STEPS, TrustedService
 from competition.server.signer import LocalSigner
 from competition.support.wire import b64, canonical, keyid
-from competition.web.app import serve
+from competition.web.app import make_app
 from competition.web.session import SESSION_DOMAIN, Sessions, read_callers
 
 
@@ -91,7 +92,17 @@ def main():
     print('TOKEN %s' % token, flush=True)
     for name, value in report.items():
         print('SEED  %s = %s' % (name, value), flush=True)
-    serve(host, port, service, sessions)
+
+    app = make_app(service, sessions)
+
+    # 页面打开就自己填 token。这条路由只属于这个自包含演示服务；受信端入口
+    # 没有它，页面在那边仍走手工粘贴。服务只监听回环，token 也只活一个窗口。
+    @app.get('/api/observe/demo-token', include_in_schema=False)
+    def demo_token():
+        return JSONResponse(content={'token': token})
+
+    import uvicorn
+    uvicorn.run(app, host=host, port=port, log_level='warning', access_log=False)
     return 0
 
 
