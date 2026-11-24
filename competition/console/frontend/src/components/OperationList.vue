@@ -10,7 +10,7 @@
  * The row is the entry's read-only projection: scalar state and nothing else, so
  * the business intent stays in the conversation that proposed it.
  */
-import { scenarioLabel } from '../constants'
+import { scenarioLabel, stateLabel } from '../constants'
 import { actions, state } from '../store'
 
 /** The state tag is a reading aid, not this page's decision. */
@@ -25,7 +25,7 @@ function tagType(rowState: string): 'success' | 'warning' | 'info' {
   <el-card shadow="never" class="panel">
     <template #header>
       <div class="card-head">
-        <span>候选操作</span>
+        <h2 class="card-title">候选操作</h2>
         <el-tag size="small" type="info">同一受信实例</el-tag>
       </div>
     </template>
@@ -34,7 +34,12 @@ function tagType(rowState: string): 'success' | 'warning' | 'info' {
       这里列出该实例收到的全部候选，包括 agent 通过 MCP 提交的。点“接手”后，下面的提出方与执行方按钮就是对它驱动；不接受就不会执行。
     </p>
 
-    <el-empty v-if="!state.operations.length" description="还没有候选" :image-size="56" />
+    <el-empty
+      v-if="!state.operations.length"
+      description="还没有候选。在提出方面板提交一条，或等 agent 送来。"
+      :image-size="56"
+    />
+    <div class="rows" aria-live="polite">
     <div
       v-for="row in state.operations"
       :key="row.operation_id"
@@ -43,7 +48,7 @@ function tagType(rowState: string): 'success' | 'warning' | 'info' {
     >
       <div class="line">
         <span class="profile">{{ scenarioLabel(row.profile) }}</span>
-        <el-tag size="small" :type="tagType(row.state)">{{ row.state }}</el-tag>
+        <el-tag size="small" :type="tagType(row.state)">{{ stateLabel(row.state) }}</el-tag>
         <span class="muted">{{ row.stage }}</span>
       </div>
       <div class="line">
@@ -52,12 +57,22 @@ function tagType(rowState: string): 'success' | 'warning' | 'info' {
           size="small"
           text
           type="primary"
-          :disabled="row.operation_id === state.operationId"
+          :disabled="row.operation_id === state.operationId || !!state.stepBusy || state.submitting"
+          :aria-label="`接手 ${scenarioLabel(row.profile)} 的候选 ${row.operation_id.slice(0, 8)}`"
           @click="actions.attach(row.operation_id)"
         >
-          {{ row.operation_id === state.operationId ? '已接手' : '接手' }}
+          {{ row.operation_id === state.operationId ? '已接手' : `接手 ${row.operation_id.slice(0, 6)}` }}
+        </el-button>
+        <el-button
+          v-if="row.operation_id === state.operationId"
+          size="small"
+          text
+          @click="actions.detach"
+        >
+          放弃
         </el-button>
       </div>
+    </div>
     </div>
   </el-card>
 </template>

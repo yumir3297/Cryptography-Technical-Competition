@@ -7,7 +7,7 @@
 #   caller-worker    流程执行方那一侧（核心演示；agent 模式下不启动）
 #   caller-observer  只读观看者：订阅观察面，打印每一步，不驱动任何一步
 #   console          客户端控制台：以两个调用者身份接入入口，把流程呈现为页面
-#   observe          观察面：自包含的演示 W + 三个示例操作，页面在宿主 8770，
+#   observe          观察面：挂在受信端上读真实进度，页面在宿主 8770，
 #                    启动时打印 auditor token（宿主 8770 → observe:8770）
 #   viewer           展示页网关：持 observer 凭据只读转接四个读路由，托管 Vue 页面
 #                    （宿主 8081 → viewer:8008）。启动脚本不再默认打开它。
@@ -35,6 +35,7 @@
 #   zjj-run        受信端的运行目录（C.key、W-delivery.key、账库、工具配置）
 #   zjj-endpoints  各端自生成的钥 + roster.jsonl；受信端**只读**挂载
 #   zjj-callers    各调用者自生成的钥 + callers.jsonl；受信端**只读**挂载
+#   zjj-observe    观察面自己的 auditor 钥；重启复用同一身份，不重复登记
 #   zjj-agent      agent-gateway 自己的 caller key + SQLite 事件账
 #   zjj-operator   operator 自己的 caller key
 #   zjj-executor   executor 自己的 caller key
@@ -204,9 +205,23 @@ services:
       context: ../..
       dockerfile: competition/deploy/Dockerfile
     command: python -m competition.deploy.observe
+    depends_on:
+      # The page can be served before the entry is initialized; the service
+      # waits for /healthz itself, then opens its auditor session.  Starting
+      # earlier just means the readiness loop runs a moment longer.
+      trusted:
+        condition: service_started
     environment:
       ZJJ_OBSERVE_HOST: 0.0.0.0
       ZJJ_OBSERVE_PORT: "8770"
+      # Follow the run the entry is actually driving.  Unset ZJJ_OBSERVE_ENTRY
+      # to get the self-contained three-operation demo instead.
+      ZJJ_OBSERVE_ENTRY: http://trusted:8000
+      ZJJ_OBSERVE_CALLERS: /callers/callers.jsonl
+      ZJJ_OBSERVE_WORK: /observe
+    volumes:
+      - zjj-callers:/callers
+      - zjj-observe:/observe
     ports:
       - "127.0.0.1:8770:8770"
     healthcheck:
@@ -339,6 +354,7 @@ volumes:
   zjj-run:
   zjj-endpoints:
   zjj-callers:
+  zjj-observe:
   zjj-agent:
   zjj-operator:
   zjj-executor:

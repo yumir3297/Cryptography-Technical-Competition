@@ -446,7 +446,10 @@ def up_local(args):
         observe = spawn(['competition.deploy.observe'], env,
                         ZJJ_OBSERVE_HOST='127.0.0.1',
                         ZJJ_OBSERVE_PORT=str(args.observe_port),
-                        ZJJ_OBSERVE_WORK=str(root / 'observe-demo'))
+                        ZJJ_OBSERVE_WORK=str(root / 'observe-demo'),
+                        # Read the run this stack is driving, not a canned W.
+                        ZJJ_OBSERVE_ENTRY=entry,
+                        ZJJ_OBSERVE_CALLERS=str(callers / 'callers.jsonl'))
         print('[3/4] 起只读观察者。没有人替流程签字：受信端构造链时会停在', flush=True)
         print('      角色端等人，等的是页面上的放行。', flush=True)
         observer = spawn(['competition.deploy.observer'], env, capture=True,

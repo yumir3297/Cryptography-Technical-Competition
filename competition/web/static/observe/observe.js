@@ -33,6 +33,13 @@
     profile: '',
     timer: null,
     running: false,
+    generation: 0,
+    paused: false,
+    opsKey: '',
+    autoPicked: false,
+    stale: false,
+    pannedFor: '',
+    emptyOps: {},
     asOf: null,
     model: null,
     graphs: {},
@@ -78,7 +85,11 @@
   function pathFor(name) {
     var scope = state.model && state.model.endpoints[name];
     if (scope === 'operation') {
-      return state.oid ? '/api/diag/' + name + '/' + encodeURIComponent(state.oid) : null;
+      // An operation that returned OPERATION_UNKNOWN for every operation read
+      // has no projection yet; asking all 18 routes again every five seconds
+      // only fills the browser log with expected 403s.
+      if (!state.oid || state.emptyOps[state.oid]) return null;
+      return '/api/diag/' + name + '/' + encodeURIComponent(state.oid);
     }
     if (scope === 'profile') {
       return state.profile ? '/api/diag/' + name + '/' + encodeURIComponent(state.profile) : null;
@@ -148,6 +159,15 @@
   function derive() {
     var model = state.model;
     if (!model) return;
+    // Without a selected operation there is no flow: the static projections
+    // (registry/store/observe) are loaded, but they are not "current".
+    if (!state.oid) {
+      state.nodes = {};
+      state.blocks = {};
+      state.current = null;
+      paint();
+      return;
+    }
     var d = state.data;
     var nodes = {};
     var has = function (name) { return d[name] !== undefined; };
@@ -190,6 +210,9 @@
 
     nodes.TOOL = (arr('tool', 'requests').length || arr('tool', 'effects').length
       || arr('tool', 'finalfacts').length) ? 'done' : 'idle';
+    // The ledger and the tool effect are the same fact seen from two sides; a
+    // settled operation with tool records must not report "未到达" here.
+    nodes.TOOLDB = nodes.TOOL;
 
     nodes.QUERY = (seen('W_QUERY_INTENT') || (has('query') && d.query.queries > 0)) ? 'done' : 'idle';
     nodes.FINAL = (has('final') && d.final.final_fact_id) ? 'done' : 'idle';
@@ -212,8 +235,19 @@
     nodes.VIEW = has('result') && d.result.status ? 'done' : 'idle';
     nodes.NOTE = 'note';
 
+    // Submitted but not yet assembled: the operation-scoped projections are
+    // still OPERATION_UNKNOWN, so the static registry/store must not be read
+    // as "the flow is at C".
+    var row = null;
+    arr('entry', 'operations').forEach(function (item) {
+      if (item.operation_id === state.oid) row = item;
+    });
+    var early = row && (!row.state || row.state === 'SUBMITTED')
+      && !has('plan') && !has('guard') && !has('accept');
+
     var current = null;
-    if (halted) current = 'HALTED';
+    if (early) current = null;
+    else if (halted) current = 'HALTED';
     else if (nodes.CANCEL === 'done') current = 'CANCEL';
     else if (nodes.SETTLE === 'done') current = 'SETTLE';
     else if (unknown) current = 'UNKNOWN';
@@ -264,7 +298,19 @@
       if (tag) tag.textContent = LABEL[value];
     });
 
+    var note = document.querySelector('.ob-gnode--block[data-block="note"]');
+    if (note) {
+      note.setAttribute('data-state', 'note');
+      var noteTag = note.querySelector('[data-block-state]');
+      if (noteTag) noteTag.textContent = '';
+    }
+
     if (el.current) {
+      if (!state.oid) {
+        el.current.textContent = '未选择操作';
+        el.current.setAttribute('data-state', 'idle');
+        return;
+      }
       var current = state.current;
       if (!current) {
         el.current.textContent = '当前 —';
@@ -272,7 +318,9 @@
       } else {
         var blocked = state.nodes[current] === 'blocked'
           || state.nodes[current] === 'current-blocked';
-        el.current.textContent = '当前 · ' + current + (blocked ? ' · 阻断' : '');
+        var node = document.querySelector('[data-node="' + current + '"] .ob-gnode__label');
+        var label = node ? node.textContent : current;
+        el.current.textContent = '当前 · ' + label + (blocked ? ' · 阻断' : '');
         el.current.setAttribute('data-state', blocked ? 'blocked' : 'current');
       }
     }
@@ -505,9 +553,17 @@
     // 高度铺满，块保持可读；横向超出就拖，滚轮可以拉远看全图。
     var k = Math.min((H - 40) / ch, 1.5);
     mapView.k = Math.max(0.2, k);
-    mapView.x = 24;
+    var wide = cw * mapView.k;
+    mapView.x = wide <= W - 48 ? Math.round((W - wide) / 2) : 24;
     mapView.y = Math.round((H - ch * mapView.k) / 2);
     applyMapPan();
+    // Fonts load after the first layout and used to reset the view to the left
+    // edge; keep the selected operation's current block in sight.
+    if (state.oid && state.current && state.pannedFor) {
+      var active = blockForNode(state.current);
+      if (active) centerOnBlock(active);
+    }
+    showZoom();
   }
 
   /* ── 就地展开：同一张画布的 zoom ─────────────────────────────────────
@@ -531,6 +587,9 @@
   function syncTop() {
     if (!el.bar) return;
     document.documentElement.style.setProperty('--ob-top', el.bar.offsetHeight + 'px');
+    if (el.sub) {
+      document.documentElement.style.setProperty('--ob-sub', el.sub.offsetHeight + 'px');
+    }
   }
 
   function calm() {
@@ -552,12 +611,75 @@
   }
 
   function showZoom() {
-    if (!el.zoomVal) return;
-    el.zoomVal.textContent = view.id ? Math.round(view.k * 100) + '%' : '—';
+    var text = view.id ? Math.round(view.k * 100) + '%'
+                       : Math.round(mapView.k * 100) + '%';
+    if (el.zoomVal) el.zoomVal.textContent = text;
+    if (el.mapZoom) el.mapZoom.textContent = text;
+  }
+
+  function mapZoom(next) {
+    var map = mapHost();
+    if (!map) return;
+    var W = map.clientWidth;
+    var H = map.clientHeight;
+    var cx = W / 2;
+    var cy = H / 2;
+    var wx = (cx - mapView.x) / mapView.k;
+    var wy = (cy - mapView.y) / mapView.k;
+    mapView.k = Math.max(0.2, Math.min(1.6, next));
+    mapView.x = cx - wx * mapView.k;
+    mapView.y = cy - wy * mapView.k;
+    applyMapPan();
+    showZoom();
+  }
+
+  function fitMap() {
+    var map = mapHost();
+    if (!map) return;
+    var canvas = map.querySelector('.ob-canvas');
+    if (!canvas) return;
+    var W = map.clientWidth;
+    var H = map.clientHeight;
+    var cw = canvas.offsetWidth || 1;
+    var ch = canvas.offsetHeight || 1;
+    mapView.k = Math.max(0.2, Math.min(1.5, (W - 48) / cw, (H - 40) / ch));
+    mapView.x = Math.round((W - cw * mapView.k) / 2);
+    mapView.y = Math.round((H - ch * mapView.k) / 2);
+    // "适应" is an explicit view choice; do not let the next poll jump back to
+    // the current block.  state.pannedFor stays as it was.
+    applyMapPan();
+    showZoom();
+  }
+
+  function blockForNode(id) {
+    var blocks = state.model ? state.model.blocks : [];
+    for (var i = 0; i < blocks.length; i++) {
+      for (var j = 0; j < blocks[i].nodes.length; j++) {
+        if (blocks[i].nodes[j].id === id) return blocks[i].id;
+      }
+    }
+    return '';
+  }
+
+  function centerOnBlock(id) {
+    var map = mapHost();
+    var block = blockOf(id);
+    if (!map || !block) return;
+    var W = map.clientWidth;
+    var H = map.clientHeight;
+    var x = block.offsetLeft + block.offsetWidth / 2;
+    var y = block.offsetTop + block.offsetHeight / 2;
+    mapView.x = Math.round(W / 2 - x * mapView.k);
+    mapView.y = Math.round(H / 2 - y * mapView.k);
+    applyMapPan();
+    showZoom();
   }
 
   function setZoom(k) {
-    if (!view.id) return;
+    if (!view.id) {
+      mapZoom(k);
+      return;
+    }
     view.k = Math.max(view.fit, Math.min(ZOOM_MAX, k));
     var expand = expandOf(view.id);
     if (expand) expand.style.transform = viewTransform(view);
@@ -722,12 +844,16 @@
     });
     if (el.hudPanel) el.hudPanel.hidden = true;
     if (el.hudRaw) el.hudRaw.setAttribute('aria-expanded', 'false');
+    if (el.mapctl) el.mapctl.hidden = true;
+    showZoom();
   }
 
   function hideHud() {
     if (el.hud) el.hud.hidden = true;
     if (el.hudPanel) el.hudPanel.hidden = true;
     if (el.hudRaw) el.hudRaw.setAttribute('aria-expanded', 'false');
+    if (el.mapctl) el.mapctl.hidden = false;
+    showZoom();
   }
 
   function clearSelection() {
@@ -777,7 +903,10 @@
     // 展开默认放大：子图直接铺满，细节先看清；要全貌时再缩回 fit。
     // S7 节点最多，125% 就够，再大两端的 CANCEL / SETTLE 会被裁掉。
     var preferred = id === 's7' ? 1.25 : 1.5;
-    var k = Math.max(fit, Math.min(ZOOM_MAX, preferred));
+    // The preferred zoom is a preference, not permission to cut the ends off:
+    // 150% on a wide block hid the first and last node.  Fit is the floor.
+    var k = Math.min(preferred, (W - 24) / cw, (H - 24) / ch);
+    k = Math.max(fit, Math.min(ZOOM_MAX, k));
     expand.style.width = cw + 'px';
     expand.style.height = ch + 'px';
     expand.style.left = Math.round((W - cw) / 2) + 'px';
@@ -825,6 +954,8 @@
     clearSelection();
     var id = view.id;
     if (!id) {
+      clearSelection();
+      hideHud();
       if (push && location.hash !== '#map') history.pushState(null, '', '#map');
       return;
     }
@@ -884,8 +1015,18 @@
 
   function route() {
     var match = /^#block-([a-z0-9]+)$/.exec(location.hash || '');
-    if (match && expandOf(match[1])) expandBlock(match[1], false, true);
-    else collapseBlock(false, true);
+    if (match && expandOf(match[1])) {
+      expandBlock(match[1], false, true);
+      return;
+    }
+    collapseBlock(false, true);
+    // A stale #block-* has no view; do not leave it in the address bar.
+    if ((location.hash || '').indexOf('#block-') === 0) {
+      history.replaceState(null, '', '#map');
+    }
+    // #map is an anchor, and the native jump lands under the sticky bars on a
+    // narrow screen.  The whole map starts at the top of the page.
+    window.scrollTo(0, 0);
   }
 
   /* ── 一轮刷新 ─────────────────────────────────────────────────────── */
@@ -901,61 +1042,178 @@
     return Promise.all(chain);
   }
 
-  function refresh() {
-    if (state.running || !state.model) return Promise.resolve();
+  // A round belongs to the operation it started on.  Switching the dropdown
+  // while twenty-seven reads are in flight must not paste the old operation's
+  // answer under the new name: the generation check drops the late writes.
+  function invalidate() {
+    state.generation += 1;
+    state.running = false;
+    state.data = {};
+    state.error = {};
+    state.stale = false;
+    state.asOf = null;
+    state.pannedFor = '';
+    setError('');
+    if (el.latency) el.latency.textContent = '—';
+    fill();
+    derive();
+  }
+
+  function isAuth(error) {
+    var code = (error && error.deny) || '';
+    return code.indexOf('SESSION_') === 0 || code === 'HTTP_401';
+  }
+
+  function setError(text) {
+    if (!el.error) return;
+    el.error.textContent = text || '';
+    el.error.hidden = !text;
+  }
+
+  function refresh(force) {
+    if (!state.model) return Promise.resolve();
+    if (state.paused) return Promise.resolve();
+    if (state.running && !force) return Promise.resolve();
     if (!state.token) {
       state.data = {};
       state.error = {};
+      state.stale = false;
+      setError('');
       derive();
       setSession('未授权 · 页面只读', 'empty');
+      if (el.latency) el.latency.textContent = '—';
       return Promise.resolve();
     }
+    var gen = ++state.generation;
     state.running = true;
     var started = Date.now();
-    var names = Object.keys(state.model.endpoints);
-    var tasks = [];
-    names.forEach(function (name) {
-      var path = pathFor(name);
-      if (!path) {
-        delete state.data[name];
-        delete state.error[name];
-        return;
-      }
-      tasks.push(function () {
-        return api(path).then(function (body) {
-          state.data[name] = body && body.data ? body.data : {};
-          state.error[name] = null;
-          if (body && body.as_of) state.asOf = body.as_of;
-        }, function (err) {
-          delete state.data[name];
-          state.error[name] = (err && err.deny) || 'ERROR';
+    // ``entry`` is fetched once below and reused; asking for it a second time
+    // as one of the projections doubled the request every five seconds.
+    var names = Object.keys(state.model.endpoints).filter(function (name) {
+      return name !== 'entry';
+    });
+    var attempted = 0;
+    var authErrors = 0;
+    var opAttempts = 0;
+    var opUnknown = 0;
+
+    // The entry is read every round: a new candidate appears without a reload,
+    // and an existing row's state stops saying STARTED for ever.
+    return api('/api/diag/entry').then(function (body) {
+      if (gen !== state.generation) return;
+      state.data.entry = body && body.data ? body.data : {};
+      state.error.entry = null;
+      if (body && body.as_of) state.asOf = body.as_of;
+      fillOperations(body, false);
+    }, function (err) {
+      if (gen !== state.generation) return;
+      // Keep the operations and their data: a rejected session makes the read
+      // stale, not the run empty.  The banner and the paused poll say so.
+      state.error.entry = (err && err.deny) || 'ERROR';
+    }).then(function () {
+      // Auto-selecting a different operation inside fillOperations invalidated
+      // this round; start a fresh one for the id now on screen.
+      if (gen !== state.generation) return refresh(true);
+      var tasks = [];
+      names.forEach(function (name) {
+        tasks.push(function () {
+          var path = pathFor(name);
+          if (!path) {
+            delete state.data[name];
+            delete state.error[name];
+            return Promise.resolve();
+          }
+          attempted += 1;
+          if (state.model.endpoints[name] === 'operation') opAttempts += 1;
+          return api(path).then(function (body) {
+            if (gen !== state.generation) return;
+            state.data[name] = body && body.data ? body.data : {};
+            state.error[name] = null;
+            if (body && body.as_of) state.asOf = body.as_of;
+          }, function (err) {
+            if (gen !== state.generation) return;
+            if (isAuth(err)) authErrors += 1;
+            // A freshly submitted operation has no records yet; several
+            // operation-scoped routes answer OPERATION_UNKNOWN until it does.
+            // That is "not there yet", not a stale projection.
+            if (err && err.deny === 'OPERATION_UNKNOWN') {
+              opUnknown += 1;
+              delete state.data[name];
+              state.error[name] = null;
+              return;
+            }
+            // Keep the last value: "could not read" is not "never happened".
+            state.error[name] = (err && err.deny) || 'ERROR';
+          });
         });
       });
-    });
-
-    return runPool(tasks, MAX_PARALLEL).then(function () {
+      return runPool(tasks, MAX_PARALLEL);
+    }).then(function () {
+      if (gen !== state.generation) return;
+      if (opAttempts && opUnknown === opAttempts && state.oid) {
+        state.emptyOps[state.oid] = true;
+      }
       fill();
       derive();
-      var ok = Object.keys(state.data).length > 0;
-      var denied = Object.keys(state.error).filter(function (key) { return state.error[key]; });
-      if (ok) setSession('已授权 · auditor · ' + mask(state.token), 'ok');
-      else if (denied.length) setSession('会话无效 · ' + state.error[denied[0]], 'error');
-      else setSession('无可用投影', 'error');
-      if (el.asof) {
-        el.asof.textContent = state.asOf
-          ? 'as_of ' + new Date(state.asOf * 1000).toLocaleTimeString()
-          : 'as_of —';
+      if (state.oid && state.current) {
+        var active = blockForNode(state.current);
+        // Follow the stage, not just the operation: a claim becoming a settle
+        // moves the current block, and the map should move with it.
+        var key = state.oid + ':' + state.current;
+        if (active && state.pannedFor !== key) {
+          centerOnBlock(active);
+          state.pannedFor = key;
+        }
       }
-      if (el.latency) el.latency.textContent = '本轮 ' + (Date.now() - started) + ' ms';
+      var denied = Object.keys(state.error).filter(function (key) { return state.error[key]; });
+      var ok = Object.keys(state.data).length > 0;
+      var auth = attempted > 0 && authErrors === attempted;
+      // One broken projection is a gap in the face, not "the whole run is
+      // stale": only an entry failure or a failed whole round dims the map.
+      var critical = auth || !!state.error.entry
+        || (attempted > 0 && denied.length === attempted);
+      state.stale = ok && critical;
+      if (state.stale) setError('数据未更新 · ' + state.error[denied[0]]);
+      else if (ok && denied.length) {
+        setError('部分投影不可用 · ' + denied.slice(0, 3).join(' / '));
+      } else if (!ok && denied.length) setError('数据不可用 · ' + state.error[denied[0]]);
+      else setError('');
+      var map = mapHost();
+      if (map) map.setAttribute('data-stale', state.stale ? '1' : '');
+      if (ok) {
+        setSession('已授权 · auditor · ' + mask(state.token)
+          + (state.stale ? ' · 数据过期' : ''), state.stale ? 'error' : 'ok');
+      } else if (denied.length) {
+        setSession('会话无效 · ' + state.error[denied[0]], 'error');
+      } else {
+        setSession('无可用投影', 'error');
+      }
+      if (el.latency) {
+        if (auth) el.latency.textContent = '已暂停 · 重新保存 token';
+        else if (!ok && denied.length) {
+          el.latency.textContent = '本轮失败 · ' + (Date.now() - started) + ' ms';
+        } else {
+          el.latency.textContent = '本轮 ' + (Date.now() - started) + ' ms';
+        }
+      }
+      if (auth) stop(true);
     }).catch(function () {
-    }).then(function () { state.running = false; });
+    }).then(function () {
+      if (gen === state.generation) state.running = false;
+    });
   }
 
   /* ── 操作列表 ─────────────────────────────────────────────────────── */
-  function fillOperations(body) {
+  function fillOperations(body, first, force) {
     var data = (body && body.data) || {};
     var ops = Array.isArray(data.operations) ? data.operations : [];
     if (!el.op) return;
+    var key = ops.map(function (item) {
+      return item.operation_id + ':' + (item.state || '');
+    }).join('|');
+    if (!force && key === state.opsKey) return;
+    state.opsKey = key;
+
     el.op.textContent = '';
     var blank = document.createElement('option');
     blank.value = '';
@@ -973,22 +1231,49 @@
       if (item.operation_id === state.oid) selected = option;
     });
 
-    if (!selected && ops.length === 1) selected = el.op.options[1];
-    if (selected) {
-      el.op.value = selected.value;
-    } else {
-      state.oid = '';
-      state.profile = '';
+    // With several operations there is no saved choice on a first visit; pick
+    // the one that is still moving rather than leaving the whole map blank.
+    if (!selected && ops.length && !state.autoPicked) {
+      var preferred = ops[0];
+      for (var i = 0; i < ops.length; i++) {
+        if (['SETTLED', 'CANCELED', 'HALTED', 'DENIED'].indexOf(ops[i].state) === -1) {
+          preferred = ops[i];
+          break;
+        }
+      }
+      selected = el.op.options[ops.indexOf(preferred) + 1];
+      state.autoPicked = true;
     }
-    syncProfile();
+    el.op.value = selected ? selected.value : '';
+    el.op.disabled = false;
+    // Once the operation has a state, its projections should exist again;
+    // stop suppressing the operation-scoped reads.
+    var chosen = null;
+    ops.forEach(function (item) {
+      if (item.operation_id === state.oid) chosen = item;
+    });
+    if (chosen && chosen.state && chosen.state !== 'SUBMITTED') {
+      delete state.emptyOps[state.oid];
+    }
+    if (el.empty) el.empty.hidden = ops.length > 0;
+    syncProfile(!!selected);
   }
 
-  function syncProfile() {
+  function syncProfile(selected) {
     if (!el.op) return;
     var option = el.op.selectedOptions && el.op.selectedOptions[0];
-    state.oid = el.op.value || '';
-    state.profile = (option && option.getAttribute('data-profile')) || '';
-    try { sessionStorage.setItem(OID_KEY, state.oid); } catch (e) {}
+    var oid = el.op.value || '';
+    var profile = (option && option.getAttribute('data-profile')) || '';
+    try {
+      if (oid) sessionStorage.setItem(OID_KEY, oid);
+      else sessionStorage.removeItem(OID_KEY);
+    } catch (e) {}
+    if (oid !== state.oid || profile !== state.profile) {
+      state.oid = oid;
+      state.profile = profile;
+      // The old operation's nodes are not this operation's answer.
+      invalidate();
+    }
     if (el.profile) el.profile.textContent = 'profile ' + (state.profile || '—');
   }
 
@@ -1012,32 +1297,79 @@
     el.zoomIn = $('ob-zoom-in');
     el.zoomOut = $('ob-zoom-out');
     el.zoomVal = $('ob-zoom-val');
+    el.mapctl = $('ob-mapctl');
+    el.mapZoom = $('ob-map-zoom');
+    el.mapIn = $('ob-map-in');
+    el.mapOut = $('ob-map-out');
+    el.mapFit = $('ob-map-fit');
+    el.error = $('ob-error');
+    el.empty = $('ob-empty');
     el.bar = document.querySelector('.ob-bar');
+    el.sub = document.querySelector('.ob-sub');
+
+    var skip = document.querySelector('.ob-skip');
+    if (skip) skip.addEventListener('click', function (event) {
+      event.preventDefault();
+      window.scrollTo(0, 0);
+      var graph = document.getElementById('ob-graph');
+      if (graph) {
+        graph.setAttribute('tabindex', '-1');
+        graph.focus();
+      }
+    });
 
     if (el.token) el.token.value = state.token ? mask(state.token) : '';
     if (el.save) el.save.addEventListener('click', function () {
       var value = (el.token.value || '').trim();
-      if (!value || value.indexOf('••') !== -1) return;
+      // After a rejected token the box still holds the mask.  Saving it again
+      // should fetch the service's current token instead of doing nothing.
+      if (state.paused && (!value || value.indexOf('••') !== -1)) {
+        autoToken();
+        return;
+      }
+      if (value.indexOf('••') !== -1) return;
+      if (!value) {
+        // An empty save is a clear, not a silent no-op that leaves the old
+        // token working while the box looks empty.
+        if (el.clear) el.clear.click();
+        return;
+      }
       state.token = value.replace(/^Bearer\s+/i, '');
+      state.paused = false;
+      state.autoPicked = false;
       try { sessionStorage.setItem(TOKEN_KEY, state.token); } catch (e) {}
       el.token.value = mask(state.token);
       start(true);
     });
     if (el.clear) el.clear.addEventListener('click', function () {
       state.token = '';
+      state.paused = false;
       try { sessionStorage.removeItem(TOKEN_KEY); } catch (e) {}
       if (el.token) el.token.value = '';
       stop();
+      state.generation += 1;
+      state.running = false;
       state.data = {};
       state.error = {};
-      if (el.op) fillOperations(null);
+      state.stale = false;
+      fillOperations(null, false, true);
       fill();
       derive();
+      setError('');
       setSession('未授权 · 页面只读', 'empty');
+      if (el.latency) el.latency.textContent = '—';
     });
+    if (el.mapIn) el.mapIn.addEventListener('click', function () {
+      mapZoom(mapView.k * ZOOM_STEP);
+    });
+    if (el.mapOut) el.mapOut.addEventListener('click', function () {
+      mapZoom(mapView.k / ZOOM_STEP);
+    });
+    if (el.mapFit) el.mapFit.addEventListener('click', fitMap);
     if (el.op) el.op.addEventListener('change', function () {
-      syncProfile();
-      refresh();
+      state.autoPicked = true;
+      syncProfile(true);
+      refresh(true);
     });
 
     document.querySelectorAll('.ob-expand').forEach(function (layer) {
@@ -1110,6 +1442,7 @@
         mapView.x = cx - wx * next;
         mapView.y = cy - wy * next;
         applyMapPan();
+        showZoom();
       }, { passive: false });
     }
 
@@ -1124,8 +1457,12 @@
     document.querySelectorAll('[data-back]').forEach(function (button) {
       button.addEventListener('click', function () { collapseBlock(true); });
     });
-    if (el.zoomIn) el.zoomIn.addEventListener('click', function () { setZoom(view.k * ZOOM_STEP); });
-    if (el.zoomOut) el.zoomOut.addEventListener('click', function () { setZoom(view.k / ZOOM_STEP); });
+    if (el.zoomIn) el.zoomIn.addEventListener('click', function () {
+      setZoom((view.id ? view.k : mapView.k) * ZOOM_STEP);
+    });
+    if (el.zoomOut) el.zoomOut.addEventListener('click', function () {
+      setZoom((view.id ? view.k : mapView.k) / ZOOM_STEP);
+    });
 
     if (el.hudRaw) {
       el.hudRaw.addEventListener('click', function () {
@@ -1142,8 +1479,13 @@
     window.addEventListener('resize', function () {
       window.requestAnimationFrame(function () {
         syncTop();
-        collapseBlock(false, true);
-        layoutMap();
+        if (view.id) {
+          var open = view.id;
+          collapseBlock(false, true);
+          expandBlock(open, false, true);
+        } else {
+          layoutMap();
+        }
       });
     });
     document.addEventListener('visibilitychange', function () {
@@ -1182,6 +1524,7 @@
       .then(function (body) {
         if (body && body.token) {
           state.token = body.token;
+          state.paused = false;
           try { sessionStorage.setItem(TOKEN_KEY, body.token); } catch (e) {}
           if (el.token) el.token.value = mask(body.token);
         }
@@ -1191,27 +1534,37 @@
   }
 
   function start(withEntry) {
+    if (state.paused) return;
     if (!state.token) {
       setSession('未授权 · 页面只读', 'empty');
       return;
     }
     if (withEntry) {
       api('/api/diag/entry').then(function (body) {
-        fillOperations(body);
-        return refresh();
+        fillOperations(body, true);
+        return refresh(true);
       }, function (err) {
-        setSession('会话无效 · ' + ((err && err.deny) || 'ERROR'), 'error');
+        var code = (err && err.deny) || 'ERROR';
+        setSession('会话无效 · ' + code, 'error');
+        setError('会话无效 · ' + code + '，请重新保存 token');
+        // Keep the last list visible but not selectable; the data already on
+        // screen stays as stale evidence instead of turning into "未到达".
+        if (isAuth(err)) stop(true);
       });
     } else {
-      refresh();
+      refresh(false);
     }
     if (state.timer) clearInterval(state.timer);
-    state.timer = setInterval(refresh, POLL_MS);
+    state.timer = setInterval(function () { refresh(false); }, POLL_MS);
   }
 
-  function stop() {
+  function stop(paused) {
     if (state.timer) clearInterval(state.timer);
     state.timer = null;
+    if (paused) {
+      state.paused = true;
+      if (el.op) el.op.disabled = true;
+    }
   }
 
   if (document.readyState === 'loading') {

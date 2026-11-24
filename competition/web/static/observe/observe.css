@@ -120,8 +120,9 @@ body[data-open="1"] { overflow: hidden; }
 
 /* ── 操作与图例 ───────────────────────────────────────────────────────── */
 .ob-sub {
-  position: relative;
-  z-index: 1;
+  position: sticky;
+  top: var(--ob-top, 56px);
+  z-index: 20;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -141,10 +142,25 @@ body[data-open="1"] { overflow: hidden; }
 .ob-op .ak-select { max-width: 320px; min-width: 180px; }
 
 .ob-current {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: var(--ak-font-mono);
   font-size: 11px;
   padding: 2px 8px;
   border: 1px solid var(--ak-border);
+  color: var(--ak-fg-muted);
+}
+.ob-error {
+  font-family: var(--ak-font-mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border: 1px solid var(--ob-reject);
+  color: var(--ob-reject);
+}
+.ob-empty {
+  font-size: 11px;
   color: var(--ak-fg-muted);
 }
 .ob-current[data-state="current"] {
@@ -196,6 +212,11 @@ body[data-open="1"] { overflow: hidden; }
   min-height: calc(100dvh - 108px);
 }
 
+#map {
+  /* The sticky bars wrap on narrow screens; leave room for both. */
+  scroll-margin-top: calc(var(--ob-top, 56px) + var(--ob-sub, 56px) + 8px);
+}
+
 .ob-mapwrap {
   box-sizing: border-box;
   flex: 1;
@@ -207,11 +228,29 @@ body[data-open="1"] { overflow: hidden; }
 }
 
 .ob-mapbar {
+  position: relative;
+  z-index: 6;
   display: flex;
   align-items: center;
   gap: 12px;
   min-height: 28px;
   margin-bottom: 6px;
+}
+.ob-mapctl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.ob-mapctl[hidden] { display: none; }
+.ob-mapctl__hint {
+  margin-left: 4px;
+  font-size: 11px;
+  color: var(--ak-fg-muted);
+  white-space: nowrap;
+}
+.ob-graph[data-stale="1"] {
+  opacity: .72;
 }
 
 .ob-graph {
@@ -343,6 +382,7 @@ body[data-open="1"] { overflow: hidden; }
 .ob-gnode--block .ob-gnode__label { font-size: 16px; line-height: 1.4; }
 .ob-gnode--block .ob-gnode__en { font-size: 10px; }
 .ob-gnode--block .ob-gnode__code { font-size: 10px; }
+.ob-gnode--block[data-state="note"] [data-block-state] { visibility: hidden; }
 .ob-gnode--block:hover { background: var(--ak-bg-surface-2); border-color: var(--ak-border-strong); }
 .ob-gnode--block:focus-visible { outline: 2px solid var(--ak-focus); outline-offset: 2px; }
 
@@ -484,7 +524,8 @@ body[data-open="1"] { overflow: hidden; }
    被推到两侧缩小压暗，仍然留在视野里。 */
 .ob-expand {
   position: absolute;
-  z-index: 3;
+  /* Above the pushed context blocks: they are context, not an overlay. */
+  z-index: 5;
   /* 与画布同色、无边框：它只是这张图展开后的一块,不是盖在上面的面板。 */
   background: var(--ak-bg-canvas);
   transform-origin: 50% 50%;

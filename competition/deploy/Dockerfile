@@ -7,6 +7,8 @@ WORKDIR /page
 COPY competition/console/frontend/package.json competition/console/frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY competition/console/frontend/ ./
+# 控制台和展示页共用观察面的 PRTS 令牌、主题桥接与背景场，页面构建期从仓库里取。
+COPY competition/web /web
 RUN npm run build
 
 FROM python:3.13-slim
@@ -31,8 +33,8 @@ COPY --from=page /page/dist ./competition/console/frontend/dist
 
 # 卷的挂载点先在镜像里建好并归给 zjj，命名卷才会以这个属主落盘。
 # agent/operator/executor 各自一个卷，所以三个 caller 的私钥不会住在一起。
-RUN mkdir -p /run /endpoints /callers /agent /operator /executor \
-    && chown -R zjj:zjj /run /endpoints /callers /agent /operator /executor /app
+RUN mkdir -p /run /endpoints /callers /agent /operator /executor /observe \
+    && chown -R zjj:zjj /run /endpoints /callers /agent /operator /executor /observe /app
 
 ENV PYTHONPATH=/app \
     PYTHONUNBUFFERED=1

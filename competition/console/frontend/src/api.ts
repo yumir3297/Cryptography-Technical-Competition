@@ -31,13 +31,19 @@ export interface CallTrace {
   ok?: boolean
 }
 
-async function call<T>(path: string, init?: RequestInit, trace?: CallTrace): Promise<T> {
+async function call<T>(path: string, init?: RequestInit, trace?: CallTrace, within = 0)
+  : Promise<T> {
   const started = performance.now()
   const headers = new Headers(init?.headers)
   if (trace?.trace) headers.set('x-zjj-trace', trace.trace)
   let reply: Response
   try {
-    reply = await fetch(BASE + path, { ...init, headers })
+    // Reads get a deadline so one dead service cannot leave the page loading
+    // for ever.  Steps are deliberately unbounded: a chain can wait minutes
+    // on a person, and the page has its own "waiting" state for that.
+    const signal = within > 0 && typeof AbortSignal !== 'undefined'
+      && 'timeout' in AbortSignal ? AbortSignal.timeout(within) : undefined
+    reply = await fetch(BASE + path, { ...init, headers, ...(signal ? { signal } : {}) })
   } catch {
     if (trace) Object.assign(trace, { ms: performance.now() - started, ok: false })
     throw new DenyError('CONSOLE_UNREACHABLE')
@@ -70,25 +76,27 @@ function post(payload: Record<string, unknown>): RequestInit {
 }
 
 export const consoleApi = {
-  status: (trace?: CallTrace) => call<ConsoleStatus>('/api/status', undefined, trace),
+  status: (trace?: CallTrace) =>
+    call<ConsoleStatus>('/api/status', undefined, trace, 10000),
 
   scenarios: (trace?: CallTrace) =>
-    call<Scenarios>('/api/scenarios', undefined, trace),
+    call<Scenarios>('/api/scenarios', undefined, trace, 10000),
 
   pending: (profile: string, trace?: CallTrace) =>
-    call<Pending>('/api/pending?profile=' + encodeURIComponent(profile), undefined, trace),
+    call<Pending>('/api/pending?profile=' + encodeURIComponent(profile), undefined, trace, 10000),
 
   operations: (limit = 50, trace?: CallTrace) =>
-    call<Operations>('/api/operations?limit=' + limit, undefined, trace),
+    call<Operations>('/api/operations?limit=' + limit, undefined, trace, 10000),
 
   decide: (profile: string, role: string, id: string, approve: boolean, trace?: CallTrace) =>
     call<{ taken: boolean }>(
       '/api/decide',
       post({ profile, role, id, approve }),
       trace,
+      20000,
     ),
 
-  package: (trace?: CallTrace) => call<unknown>('/api/package', undefined, trace),
+  package: (trace?: CallTrace) => call<unknown>('/api/package', undefined, trace, 20000),
 
   submit: (profile: string, intent?: Record<string, unknown>, trace?: CallTrace) =>
     call<SubmitReply>(
@@ -106,5 +114,5 @@ export const consoleApi = {
 
   /** The page's own events.  Sent on a timer; a failure is not the page's problem. */
   trace: (page: string, events: unknown[]) =>
-    call<{ taken: boolean }>('/api/trace', post({ page, events })),
+    call<{ taken: boolean }>('/api/trace', post({ page, events }), undefined, 5000),
 }

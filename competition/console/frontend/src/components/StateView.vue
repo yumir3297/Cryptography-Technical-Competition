@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+import { viewLabel } from '../constants'
 import { state } from '../store'
 
 // The fields the entry's authenticated view carries.  Read-only, and only the
@@ -30,18 +31,18 @@ const rows = computed(() => {
 
 <template>
   <el-card shadow="never" class="panel">
-    <template #header>操作状态</template>
+    <template #header><h2 class="card-title">操作状态</h2></template>
     <div class="stack">
       <div>
         <div class="muted">操作 id</div>
         <div class="mono">{{ state.operationId || '（尚未提交）' }}</div>
       </div>
       <el-descriptions v-if="rows.length" :column="1" border size="small">
-        <el-descriptions-item v-for="row in rows" :key="row.name" :label="row.name">
+        <el-descriptions-item v-for="row in rows" :key="row.name" :label="viewLabel(row.name)">
           {{ row.value }}
         </el-descriptions-item>
       </el-descriptions>
-      <el-empty v-else description="提交并读取状态后，这里显示认证视图" :image-size="56" />
+      <el-empty v-else description="点「状态 status」后，这里显示认证视图" :image-size="56" />
     </div>
   </el-card>
 </template>

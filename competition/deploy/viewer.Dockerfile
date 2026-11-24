@@ -10,6 +10,8 @@ WORKDIR /page
 COPY competition/display/package.json competition/display/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY competition/display/ ./
+# 展示页同样用观察面的令牌 / 主题 / 背景场。
+COPY competition/web /web
 RUN npm run build
 
 FROM python:3.13-slim

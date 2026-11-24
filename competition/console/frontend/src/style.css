@@ -16,6 +16,13 @@ body {
   margin: 0 auto;
 }
 
+.card-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
 .muted {
   color: var(--ak-fg-muted);
 }
@@ -33,4 +40,42 @@ body {
   color: var(--ak-fg-muted);
   font-size: 12px;
   line-height: 1.5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ak-accent);
+  outline-offset: 2px;
+}
+/* Element Plus removes the outline on menu items and gives buttons a low
+ * contrast ring; both selectors are more specific than the global rule. */
+.page .aside .el-menu-item:focus-visible,
+.page .aside .el-menu-item:focus {
+  outline: 2px solid var(--ak-accent);
+  outline-offset: -2px;
+}
+.el-button:focus-visible {
+  outline: 2px solid var(--ak-accent) !important;
+  outline-offset: 2px;
+}
+.el-input__wrapper.is-focus {
+  box-shadow: inset 0 0 0 2px var(--ak-accent) !important;
+}
+
+@media (max-width: 640px) {
+  .page {
+    flex-direction: column;
+  }
+  .page > .aside {
+    width: 100% !important;
+    padding: 8px 0 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--ak-border);
+  }
+  .page > .aside .el-menu {
+    display: flex;
+    overflow-x: auto;
+  }
+  .page > .aside .el-menu-item {
+    flex: 0 0 auto;
+  }
 }

@@ -52,7 +52,7 @@ html[data-theme="dark"] {
   --el-text-color-primary: var(--ak-fg);
   --el-text-color-regular: var(--ak-fg-secondary);
   --el-text-color-secondary: var(--ak-fg-muted);
-  --el-text-color-placeholder: var(--ak-fg-subtle);
+  --el-text-color-placeholder: var(--ak-fg-muted);
   --el-text-color-disabled: var(--ak-fg-disabled);
 
   --el-border-color: var(--ak-border);

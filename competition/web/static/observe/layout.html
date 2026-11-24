@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ZJJ-CORE · 协议观察面</title>
+  <link rel="icon" href="data:," />
   <link rel="stylesheet" href="/observe/assets/prts/prts-design.css">
   <link rel="stylesheet" href="/observe/assets/observe.css">
 </head>
@@ -42,6 +43,8 @@
     </label>
     <span class="ob-mono" id="ob-profile">profile —</span>
     <span class="ob-current" id="ob-current" data-state="idle">当前 —</span>
+    <span class="ob-error" id="ob-error" role="status" hidden></span>
+    <span class="ob-empty" id="ob-empty" hidden>还没有操作：在控制台提交后会出现在这里</span>
     <ul class="ob-legend" aria-label="四类关系">
       <li data-kind="control">控制流</li>
       <li data-kind="evidence">证据绑定</li>
@@ -53,6 +56,15 @@
   <main class="ob-main">
     <section class="ob-mapwrap" id="map" aria-label="协议总图">
       <div class="ob-mapbar">
+        <div class="ob-mapctl" id="ob-mapctl">
+          <button type="button" class="ob-hud__btn ob-zoom__btn"
+                  id="ob-map-out" aria-label="缩小总图">−</button>
+          <span class="ob-zoom__val" id="ob-map-zoom">—</span>
+          <button type="button" class="ob-hud__btn ob-zoom__btn"
+                  id="ob-map-in" aria-label="放大总图">+</button>
+          <button type="button" class="ob-hud__btn" id="ob-map-fit">适应</button>
+          <span class="ob-mapctl__hint">拖动平移 · 滚轮缩放 · 点块展开</span>
+        </div>
         <div class="ob-hud" id="ob-hud" hidden>
           <div class="ob-hud__bar">
             <span class="ob-hud__code" id="ob-hud-code"></span>
