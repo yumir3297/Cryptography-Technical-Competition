@@ -3,8 +3,9 @@
 ``python -m competition.deploy.up``
     bring up the deployment, bring up DeepSeek Harness alongside it, wait for the
     two sides of the flow to finish, and print what they did.  Everything stays up
-    afterwards; the deployment's door is on the host at 8080, the display page at
-    8081, the harness at 3080.
+    afterwards; the deployment's door is on the host at 8080, the observation
+    face at 8770, the harness at 3080.  The Vue display is still served on 8081
+    but the script no longer opens it.
 ``--local``
     run the same entry points as plain processes on this machine, in one
     directory, for a host whose docker daemon is not reachable.  Nothing is
@@ -40,16 +41,16 @@ COMPOSE = Path(__file__).resolve().parent / 'docker-compose.yml'
 # the console drives those steps now.  Leaving them up would accept and execute
 # every candidate before a person could look at it, which is exactly the thing
 # the console is there to decide.  ``up --auto`` puts them back.
-AGENT_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'viewer', 'caller-observer',
-                  'agent-gateway')
+AGENT_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'observe', 'viewer',
+                  'caller-observer', 'agent-gateway')
 # The same deployment with the automatic workbench callers, for a run that is not
 # meant to stop for a person.
 AUTO_SERVICES = AGENT_SERVICES + ('agent-operator', 'agent-executor')
 # The original core services, kept for --no-zjj and --local.  ``caller-h`` and
 # ``caller-worker`` still walk their two sides, but they stop where a person has
 # to answer, so they stop there.
-CORE_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'viewer', 'caller-observer',
-                 'caller-h', 'caller-worker')
+CORE_SERVICES = ('endpoints', 'trusted', 'caddy', 'console', 'observe', 'viewer',
+                 'caller-observer', 'caller-h', 'caller-worker')
 # The watcher that reads the observation face.  It drives no step, so its run is
 # shown for its output and never counted against the demo.
 OBSERVER = 'caller-observer'
@@ -58,6 +59,10 @@ OBSERVER = 'caller-observer'
 # shown and never waited on.
 VIEWER = 'viewer'
 VIEWER_PORT = 8081
+# The face the script opens: its own demo run, so it is up even before the entry
+# finishes initializing.  The viewer next to it only carries the read routes the
+# console lists operations through.
+OBSERVE_PORT = 8770
 DISPLAY = ROOT / 'competition' / 'display' / 'dist'
 TOKEN_FILE = ROOT / '.runtime' / 'agent-tokens.json'
 TOKEN_ENV = ROOT / '.runtime' / 'agent-tokens.env'
@@ -370,7 +375,8 @@ def up_docker(args):
         print('客户端控制台在 http://127.0.0.1:8080/console/；'
               'agent 网关在 http://127.0.0.1:8090/healthz（只对宿主回环）；'
               'DeepSeek Harness 在 http://127.0.0.1:%d/。' % HARNESS_PORT, flush=True)
-    print('显示页在 http://127.0.0.1:%d/。' % VIEWER_PORT, flush=True)
+    print('观察面在 http://127.0.0.1:%d/observe#map（auditor token 见 '
+          'docker compose logs observe）。' % OBSERVE_PORT, flush=True)
     print('受信端初始化是脚本模拟（不代表真人同意），不会停在页面上。'
           '加 --await-approval 后，agent 每提交一条候选都要在控制台上放行'
           'G/U/V/X 的链内签名，否则候选进不来。', flush=True)
@@ -384,7 +390,7 @@ def up_docker(args):
         if not args.no_deepseek:
             doors.append('http://127.0.0.1:%d/' % HARNESS_PORT)
         doors.append('http://127.0.0.1:8080/console/')
-        doors.append('http://127.0.0.1:%d/' % VIEWER_PORT)
+        doors.append('http://127.0.0.1:%d/observe#map' % OBSERVE_PORT)
         open_pages(doors, args.no_open)
     if args.down:
         print('== 收摊', flush=True)
@@ -420,6 +426,7 @@ def up_local(args):
     children = []
     observer = None
     viewer = None
+    observe = None
     try:
         print('[2/4] 起各角色端、受信端与控制台（它们自己的日志就在下面）', flush=True)
         children.append(spawn(['competition.deploy.endpoints'], env,
@@ -436,6 +443,10 @@ def up_local(args):
         if page.is_dir():
             console_env['ZJJ_CONSOLE_DIST'] = str(page)
         children.append(spawn(['competition.console'], env, **console_env))
+        observe = spawn(['competition.deploy.observe'], env,
+                        ZJJ_OBSERVE_HOST='127.0.0.1',
+                        ZJJ_OBSERVE_PORT=str(args.observe_port),
+                        ZJJ_OBSERVE_WORK=str(root / 'observe-demo'))
         print('[3/4] 起只读观察者。没有人替流程签字：受信端构造链时会停在', flush=True)
         print('      角色端等人，等的是页面上的放行。', flush=True)
         observer = spawn(['competition.deploy.observer'], env, capture=True,
@@ -446,12 +457,15 @@ def up_local(args):
         viewer = spawn(['competition.deploy.viewer'], env,
                        ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry,
                        ZJJ_VIEWER_PORT=str(args.viewer_port))
+        print('观察面在 http://127.0.0.1:%d/observe#map（auditor token 在它的日志里）。'
+              % args.observe_port, flush=True)
         if DISPLAY.is_dir():
-            print('展示页在 http://127.0.0.1:%d/（只读）。' % args.viewer_port, flush=True)
+            print('展示页仍可在 http://127.0.0.1:%d/ 打开（只读，不自动打开）。'
+                  % args.viewer_port, flush=True)
         else:
-            print('展示页还没构建：cd competition/display && npm install && npm run build；'
-                  '构建好再跑本命令，就能在 http://127.0.0.1:%d/ 看到。'
-                  '观察面本身已经在跑，控制台的「操作」走它。' % args.viewer_port, flush=True)
+            print('展示页源码还在：cd competition/display && npm install && npm run build；'
+                  '构建好才在 http://127.0.0.1:%d/ 有页面。'
+                  % args.viewer_port, flush=True)
 
         if args.await_approval:
             print('[4/4] 初始化仍然自动；但 agent 每提交一条候选，都会在页面上停下，'
@@ -484,7 +498,7 @@ def up_local(args):
               % (page_port, root), flush=True)
         # The same two doors as the container deployment, on this mode's ports.
         open_pages(['http://127.0.0.1:%d/console/' % page_port,
-                    'http://127.0.0.1:%d/' % args.viewer_port], args.no_open)
+                    'http://127.0.0.1:%d/observe#map' % args.observe_port], args.no_open)
         try:
             while True:
                 time.sleep(1.0)
@@ -499,6 +513,8 @@ def up_local(args):
             observer.terminate()
         if viewer is not None and viewer.poll() is None:
             viewer.terminate()
+        if observe is not None and observe.poll() is None:
+            observe.terminate()
         for child in children:
             try:
                 child.wait(timeout=15)
@@ -514,6 +530,11 @@ def up_local(args):
                 viewer.wait(timeout=15)
             except subprocess.TimeoutExpired:
                 viewer.kill()
+        if observe is not None and observe.poll() is None:
+            try:
+                observe.wait(timeout=15)
+            except subprocess.TimeoutExpired:
+                observe.kill()
 
 
 def main(argv=None):
@@ -538,13 +559,15 @@ def main(argv=None):
                         help='agent 模式照旧起 operator/executor，让它们自动接受并执行，'
                              '不在控制台上等人')
     parser.add_argument('--no-open', action='store_true',
-                        help='不要把 agent、控制台、显示页的地址扔给浏览器')
+                        help='不要把 agent、控制台、观察面的地址扔给浏览器')
     parser.add_argument('--harness-dir', default=str(Path.home() / 'Projects'),
                         help='挂给 DeepSeek Harness 当工作区的宿主机目录（默认 ~/Projects）')
     parser.add_argument('--dir', default=None, help='--local 时的运行目录（默认 .runtime/deploy）')
     parser.add_argument('--port', type=int, default=8000, help='--local 时受信端入口端口')
+    parser.add_argument('--observe-port', type=int, default=8770,
+                        help='观察面的端口（docker 与 --local 都是 8770）')
     parser.add_argument('--viewer-port', type=int, default=8008,
-                        help='--local 时观察页面网关的端口（docker 走 8081）')
+                        help='--local 时展示页网关的端口（docker 走 8081）；只给控制台读数用')
     parser.add_argument('--timeout', type=float, default=600.0, help='等演示跑完的上限秒数')
     args = parser.parse_args(argv)
     print('这一套要 22 个端点凭据，其中 %d 个会起服务。' % (expected_manifest() - 3), flush=True)

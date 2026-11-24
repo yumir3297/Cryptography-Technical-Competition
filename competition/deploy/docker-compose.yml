@@ -7,8 +7,10 @@
 #   caller-worker    流程执行方那一侧（核心演示；agent 模式下不启动）
 #   caller-observer  只读观看者：订阅观察面，打印每一步，不驱动任何一步
 #   console          客户端控制台：以两个调用者身份接入入口，把流程呈现为页面
-#   viewer           观察面展示页：托管 Vue 页面，持 observer 凭据只读转接四个读路由
-#                    （宿主 8081 → viewer:8008）
+#   observe          观察面：自包含的演示 W + 三个示例操作，页面在宿主 8770，
+#                    启动时打印 auditor token（宿主 8770 → observe:8770）
+#   viewer           展示页网关：持 observer 凭据只读转接四个读路由，托管 Vue 页面
+#                    （宿主 8081 → viewer:8008）。启动脚本不再默认打开它。
 #   agent-gateway    agent 侧 MCP 入口：只有 propose/status，不 approve/execute
 #   agent-operator   独立 H 侧：prepare/accept。默认**不起**——控制台是人接手的地方，
 #                    让它跑会抢在人的前面把候选接受掉。up --auto 才起。
@@ -192,6 +194,28 @@ services:
       ZJJ_CALLERS: /callers
     volumes:
       - zjj-callers:/callers
+    restart: "no"
+
+  # 观察面是启动后默认给人看的页面：自包含一套演示 run，不依赖 trusted /
+  # endpoints，也不对外驱动任何一步。页面本身是静态的，读数仍要 auditor token，
+  # token 在容器日志里（docker compose logs observe）。
+  observe:
+    build:
+      context: ../..
+      dockerfile: competition/deploy/Dockerfile
+    command: python -m competition.deploy.observe
+    environment:
+      ZJJ_OBSERVE_HOST: 0.0.0.0
+      ZJJ_OBSERVE_PORT: "8770"
+    ports:
+      - "127.0.0.1:8770:8770"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8770/observe', timeout=2)"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+      # 初始化 + 三个示例操作要签几轮，给它一分钟。
+      start_period: 90s
     restart: "no"
 
   viewer:
