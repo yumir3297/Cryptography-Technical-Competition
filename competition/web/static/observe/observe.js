@@ -772,8 +772,10 @@
     var cw = canvas.offsetWidth || 1;
     var ch = canvas.offsetHeight || 1;
     var fit = Math.min(W * 0.72 / cw, (H - 40) / ch, 1);
-    // 展开默认 150%：子图直接铺满，细节先看清；要全貌时再缩回 fit。
-    var k = Math.max(fit, Math.min(ZOOM_MAX, 1.5));
+    // 展开默认放大：子图直接铺满，细节先看清；要全貌时再缩回 fit。
+    // S7 节点最多，125% 就够，再大两端的 CANCEL / SETTLE 会被裁掉。
+    var preferred = id === 's7' ? 1.25 : 1.5;
+    var k = Math.max(fit, Math.min(ZOOM_MAX, preferred));
     expand.style.width = cw + 'px';
     expand.style.height = ch + 'px';
     expand.style.left = Math.round((W - cw) / 2) + 'px';
