@@ -18,6 +18,7 @@ def load(name):
 
 
 def save(fig, name):
+    fig = plt.gcf()
     FIG.mkdir(parents=True, exist_ok=True)
     for ext in ('svg', 'png'):
         fig.savefig(FIG / f'{name}.{ext}', bbox_inches='tight')
@@ -43,7 +44,7 @@ def long_sequence():
     plt.xlabel('action position'); plt.ylabel('reserved + spent')
     plt.title('Long sequence: resource occupancy (first paired sequence)')
     plt.legend(); plt.grid(alpha=.3)
-    save(plt.figure(), 'fig1-long-sequence-resource')
+    save(None, 'fig1-long-sequence-resource')
     write_csv('fig1-long-sequence-resource',
               ['position', 'off_occupancy', 'enforce_occupancy'],
               [[i, (seq['off']['trace'][i].get('after') or {}).get('reserved', '') if
@@ -65,7 +66,7 @@ def long_sequence():
         plt.xlabel('action position'); plt.ylabel('units')
         plt.title('GoalFloor witness on accepted actions')
         plt.legend(); plt.grid(alpha=.3)
-        save(plt.figure(), 'fig2-goal-floor-margin')
+        save(None, 'fig2-goal-floor-margin')
         write_csv('fig2-goal-floor-margin', ['position', 'remaining_floor', 'headroom'], margins)
 
 
@@ -76,7 +77,7 @@ def ablation():
     plt.ylabel('illegal accepts (of 5)'); plt.ylim(0, 5)
     plt.title('Ablation: illegal accepts')
     plt.xticks(rotation=20)
-    save(plt.figure(), 'fig3-ablation')
+    save(None, 'fig3-ablation')
     write_csv('fig3-ablation', ['model', 'illegal_accepted', 'total'],
               [[n, data[n]['illegal_accepted'], data[n]['illegal_total']] for n in names])
 
@@ -89,7 +90,7 @@ def concurrency():
     plt.bar(labels, values, color=['#1b9e77', '#7570b3', '#999'])
     plt.yscale('log'); plt.ylabel('histories (log)')
     plt.title('Concurrency evidence volume')
-    save(plt.figure(), 'fig4-concurrency-volume')
+    save(None, 'fig4-concurrency-volume')
     write_csv('fig4-concurrency-volume', ['kind', 'histories'], list(zip(labels, values)))
 
 
@@ -99,7 +100,7 @@ def crash():
     plt.barh([r[0] for r in rows], [r[1] for r in rows], color='#1b9e77')
     plt.xlim(0, 1.2); plt.xlabel('pass=1')
     plt.title('Crash boundaries')
-    save(plt.figure(), 'fig5-crash-boundaries')
+    save(None, 'fig5-crash-boundaries')
     write_csv('fig5-crash-boundaries', ['test', 'passed'], rows)
 
 
@@ -110,7 +111,7 @@ def tamper():
     plt.barh([r[0] for r in rows], [r[1] for r in rows], color='#d95f02')
     plt.xlim(0, 1.2); plt.xlabel('rejected=1')
     plt.title('Directed tamper/replay matrix')
-    save(plt.figure(), 'fig6-tamper-matrix')
+    save(None, 'fig6-tamper-matrix')
     write_csv('fig6-tamper-matrix', ['mutation', 'rejected'], rows)
 
 
@@ -124,7 +125,7 @@ def performance():
     plt.ylabel('ms'); plt.yscale('log')
     plt.title('Latency (exploratory samples)')
     plt.xticks(rotation=20)
-    save(plt.figure(), 'fig7-performance')
+    save(None, 'fig7-performance')
     write_csv('fig7-performance', ['metric', 'ms'], list(zip(labels, values)))
 
 
@@ -135,7 +136,7 @@ def cross():
     plt.barh(labels, values, color='#1b9e77')
     plt.xlim(0, 1.2); plt.xlabel('accepted=1')
     plt.title('Cross-profile GoalFloor')
-    save(plt.figure(), 'fig8-cross-scenario')
+    save(None, 'fig8-cross-scenario')
     write_csv('fig8-cross-scenario', ['profile', 'mode', 'crowd', 'accepted', 'code'],
               [[r['profile'], r['mode'], r['crowd'], r['accepted'], r['code']] for r in data])
 

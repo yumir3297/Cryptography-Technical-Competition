@@ -49,8 +49,8 @@
 3. **GoalFloor 依赖 `INCIDENT` 状态**：事件响应工作流在状态变化后必须由 C 发布新 epoch；这是刻意的新鲜性要求，但增加了运行复杂度。
 4. **跨 Profile 无原子性**：不能把两个 Profile 的资源放在一个 GoalFloor 里；`validate_claim` 要求 action profile 与 goal profile 一致。
 5. **离线验证器对 W 账本的信任**：`spent/reserved` 是 W 断言；验证器只检查算术和签名链。要更强，需要 W 对资源账/结算行签名，或使用可验证账本。
-6. **Windows 全量测试**：Linux DAC/Unix socket 测试在 Windows 失败；必须用 Linux CI 重新跑完整套件，才能把“未回归”从核心子集提升到全量。
+6. **Windows/Linux 回归**：Windows 全量测试存在 Linux DAC/Unix socket 环境失败；本轮已尝试在 WSL Ubuntu 上运行完整套件，结果以 `results/regression.json` 为准。若仍有失败，必须逐项分类，不能统一归因于环境。
 7. **工具换钥/账丢失**：AUD-02B/C 未跑；当前只有高水位/head 矛盾检测，不能证明工具账完整回滚会被发现。
-8. **性能样本量**：n=5 的 p95/p99 不具统计意义；高并发 QPS 未测。
-9. **Goal 停用与未决 obligation**：`TrustedState.publish` 允许把 GOAL 记录 `active` 置为 false；W 只读取 active=1 的 Goal，因此停用后该 floor 不再约束新接受。当前没有“存在 PENDING/DONE 链接时禁止停用”的自动检查；这是 C 治理规则，需在正式运行中约束。建议下一步增加 W/C 联合检查或独立审计任务。
+8. **性能样本量**：常规 accept 样本仅 5 次；本轮新增 8 单元批量测量（40 次/模式）仍属探索性，不宣称稳定 p99 或统计显著的低开销。
+9. **Goal 停用与未决 obligation**：C 可将 GOAL 置为 inactive。W 现在会在 `w_goal` 仍有 PENDING 链接时以 `GOAL_INACTIVE_PENDING` 阻止新接受（enforce），shadow 仅记录；所有链接 DONE 后停用不再阻止。这是受信 C 的治理边界，不是对恶意 C 的防护。
 10. **Goal 容量变更**：同一 group 的 epoch 必须保持 capacity/resource/unit 不变（`GOAL_MIGRATION_REQUIRED`）；扩容需要新 group 或新的迁移规则，当前未实现。

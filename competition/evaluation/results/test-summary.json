@@ -1,6 +1,6 @@
 {
  "baseline_sha": "7604d6b5b902f38d950234dec53d9375429f1e7f",
- "integration_sha": "fcbc6b3b3ad63c9de84387c98bccc004f726a77b",
+ "integration_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c",
  "core_subset_before": {
   "tests": 54,
   "ok": true,
@@ -14,17 +14,18 @@
   "log": ".runtime/core-final.log"
  },
  "new_suite": {
-  "tests": 40,
+  "tests": 45,
   "ok": true,
-  "seconds": 261.941,
-  "log": ".runtime/final-suite4.log",
+  "seconds": 310.422,
+  "log": ".runtime/final-new-suite.log",
   "breakdown": {
-   "goal_floor_w": 10,
+   "goal_floor_w": 13,
    "goal_floor_pure": 8,
    "evidence_verifier": 15,
    "cross_scenario": 3,
    "incident_workflow": 1,
-   "crash_boundaries": 3
+   "crash_boundaries": 3,
+   "cross_goal": 2
   }
  },
  "full_windows_discover": {

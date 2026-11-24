@@ -1,6 +1,6 @@
 {
  "baseline_sha": "7604d6b5b902f38d950234dec53d9375429f1e7f",
- "integration_sha": "fcbc6b3b3ad63c9de84387c98bccc004f726a77b",
+ "integration_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c",
  "protocol": "ZJJ-CORE-COMP-1 / 2.6",
  "python": "3.13.9",
  "cryptography": "50.0.0",
@@ -22,5 +22,6 @@
  "note": "GoalFloor default is off; enforce is used only in evaluation scenarios. Raw logs remain in the ignored .runtime directory; committed results are the JSON files in this directory and evidence/.",
  "test_sha": "925265229d63b077c0db23d65df4a6ef3ad19729",
  "docs_sha": "89275d7d0c6910999e53f5538c93bfdc59ecd1eb",
- "head_sha": "f4766ac1a3a413a6d3d52a838479729c00224863"
+ "head_sha": "f4766ac1a3a413a6d3d52a838479729c00224863",
+ "verifier_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c"
 }

@@ -160,6 +160,17 @@ w_goal 链接的 obligation 必须来自同 profile 的 C GoalFloor 规则
 测试：`test_goal_epoch_update_replaces_the_certified_ref`（合法 epoch 2）、`test_goal_epoch_cannot_remove_an_obligation`（删除必要事项被拒绝）。
 限制：当前不允许通过“删除已完成 obligation”来简化 Goal；需要新 group 或显式迁移规则（尚未实现）。
 
+## INV-15 停用不遗失未决义务
+
+```text
+若某 group 仍有 PENDING 的 w_goal 链接，而该 group 的 C 记录已 inactive，
+enforce 必须拒绝新的接受（GOAL_INACTIVE_PENDING），不得把 floor 静默移除
+```
+
+实现：`CommonW._goal_inactive_pending` + `_goal_context`；shadow 只记录差异，off 不读取 Goal。
+测试：`test_enforce_blocks_after_goal_deactivation_with_pending`。
+限制：这是 W 侧的保守保护；C 仍是受信治理方，所有链接 DONE 后停用不再阻止。没有自动清理/迁移未决链接的治理协议。
+
 
 ## 有界/模型检查
 

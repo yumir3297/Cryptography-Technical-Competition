@@ -4,12 +4,13 @@
 
 | # | 实验 | 目标 | 状态 | 原始结果 | 结论/限制 |
 |---|---|---|---|---|---|
-| 1 | 线性化并发 | 多 Agent 同资源/同 obligation 不因旧读造成双重接受 | PASS | `results/concurrency.json` | 20 条真实 W 历史全线性化；10,000 条独立模型历史 0 违反；不是 1,000 条真实 W 历史 |
-| 2 | 故障注入/崩溃恢复 | 持久化边界不产生第二次执行资格/结算 | PASS | `results/crash-recovery.json`、`tests/test_crash_boundaries.py` | 接受提交、EXEC-0 消费后、结算提交后 3 个边界；工具已执行应答丢失用现有 `lost_ack` |
-| 3 | 密码学篡改/重放/上下文替换 | 单签名合法但对象关系非法必须拒绝 | PASS | `results/crypto-attacks.json`、`tests/test_evidence_verifier.py` | 15 个定向篡改全部拒绝；覆盖 payload/action_hash/goal capacity/task ref/resource/scope/permit/acceptance commit/signature/control signature/attempt/final signature/FinalFactID |
-| 4 | 差分/消融 | 每项机制的独立贡献 | PARTIAL | `results/ablation.json` | Baseline A/B、Original、Shadow、Proposed 六类案例；A/B 是规则级基线，不是完整协议实现 |
-| 5 | 端到端独立审计 | 评委只用证据包+固定信任根复验 | PASS | `evidence/20261123/*`、`results/evidence-audit.json` | 三 Profile 各 12 类检查；Goal 包；Incident 包；15 项负例 |
-| 6 | 跨业务场景 | IND/PAY/MED + 安全事件响应 | PARTIAL | `results/cross-scenario.json`、`tests/test_cross_scenario_evidence.py`、`tests/test_incident_workflow.py`、`evidence/incident-20261123/` | 三个官方 Profile 各有真实 W 链；第四工作流复用 IND wire，不宣称第四个官方 Profile |
+| 1 | 长序列决策差分 | 连续局部合法动作逐步侵占必要资源，GoalFloor 在下界处拒绝 | PASS | `results/long-sequence.json`、`results/long-sequence-summary.json`、`counterexamples/` | 20 条真实配对、112 动作、off 84 / enforce 76、20 个反例、Oracle mismatch 0；10,000 条四类模型序列 |
+| 2 | 线性化并发 | 多 Agent 同资源/同 obligation 不因旧读造成双重接受 | PASS | `results/concurrency-summary.json` | 40 条真实 W 历史全线性化；10,000 条独立模型历史、240,000 转移、0 违反；不是 1,000 条真实 W 历史 |
+| 3 | 故障注入/崩溃恢复 | 持久化边界不产生第二次执行资格/结算 | PASS | `results/crash-recovery.json`、`tests/test_crash_boundaries.py` | 3 个边界；UNKNOWN 保留；停用有 PENDING 时 `GOAL_INACTIVE_PENDING` |
+| 4 | 密码学篡改/重放/上下文替换 | 单签名合法但对象关系非法必须拒绝 | PASS | `results/crypto-attacks.json`、`tests/test_evidence_verifier.py` | 15 个定向篡改全部拒绝；新增 Goal capacity/Profile/资源/epoch 关系测试 |
+| 5 | 差分/消融 | 每项机制的独立贡献 | PARTIAL | `results/ablation.json` | Baseline A/B、Original、Shadow、Proposed；A/B 是规则级基线 |
+| 6 | 端到端独立审计 | 评委只用证据包+固定信任根复验 | PASS | `evidence/20261123/*`、`results/evidence-audit.json` | 三 Profile/Goal/Incident 各 13 类检查；干净 checkout 13/13 PASS |
+| 7 | 跨业务场景 | IND/PAY/MED + 安全事件响应 | PASS（GoalFloor 子集） | `results/cross-goal.json`、`results/cross-scenario.json` | PAY/MED 正常 GoalFloor 审计 PASS、挤占拒绝；事件响应复用 IND wire，不是第四官方 Profile |
 
 ## 1. 线性化并发
 

@@ -8,17 +8,17 @@
 
 ```text
 competition/evaluation/evidence/20261123/anchor-three-profiles.json
-SHA-256 982b189c7b841dbd1c81323c6b166d59bbeb6d9235a0c297c7e43fbc9c64c23f
+SHA-256 e51dea5ba3057ce9da8cfb90c24950c36c2b27582d1a7efe93d4f94dc5287324
 ```
 
 以及：
 
 ```text
 anchor-goal.json
-SHA-256 dfc8f59a4db3009d01077d67260b15ce8eaf4d67c7ab01f57cda071a809f788b
+SHA-256 8e9055d1b9e90c69bb168fc8df1d225bedbbdfe4f7a88e74f3d8371200c851e1
 
 incident-20261123/anchor-incident.json
-SHA-256 1398a057fb2cfbcf7b172b352eccd9af439c0fad3fa0b93eadc97deaa7f6b291
+SHA-256 9ac310c2f076e08192ddb427a376a53c46f1c9f52662fbf80fd0c6a827c15e0e
 ```
 
 `anchor` 含 C 根公钥、W delivery 公钥、六个角色的 name/kid/public_key/roles/purposes。**不要**信任证据包内附带的公钥副本；只信外部固定的 anchor。

@@ -33,7 +33,7 @@
   {
    "check": "tool_trust_certificate",
    "detail": {
-    "kid": "pqbz4QfmHTRQQlIBPqimV4Urcy1b_HpUGvqx2eTDY_k",
+    "kid": "1DNzpRxUFMFLRnBx64rBzw4Z3RZ5I828juS3ibp3xDA",
     "ledger": "competition-ledger-med-demo-1"
    },
    "kind": "cryptographic",
@@ -61,7 +61,7 @@
   {
    "check": "commit_record_ref",
    "detail": {
-    "commit_ref": "vPW60A4DsC3M7cj34GuScUf_Cndj5IptL4Pv1pF3ggw"
+    "commit_ref": "BwXl_JOW4uTkDI8-oVH7DQKsSu7ynAaSKAe8RTt4CRE"
    },
    "kind": "cryptographic",
    "status": "PASS"
@@ -69,7 +69,7 @@
   {
    "check": "x_acceptance_signature",
    "detail": {
-    "acceptance_ref": "bqpCaRmx75te-fX4Gwya0-op8IqqU8kaFHJaaEmvOzU"
+    "acceptance_ref": "ggTUsdJSiIO47Bwojl1VuMx2FQJet-vaqoPRkh41Qh4"
    },
    "kind": "cryptographic",
    "status": "PASS"
@@ -77,7 +77,7 @@
   {
    "check": "unique_attempt_and_delivery_signature",
    "detail": {
-    "attempt_id": "Zt71d7vZ6ZJBaeDqlzXUfw"
+    "attempt_id": "gRfTd8g_b1HpaH4uA6sPUg"
    },
    "kind": "cryptographic",
    "status": "PASS"
@@ -91,7 +91,7 @@
   {
    "check": "tool_final_fact_signature",
    "detail": {
-    "final_fact_id": "rbpooTJ7u5jXYWAibMs0dmqs4D9OwObta1rbprTfGrs",
+    "final_fact_id": "7mhXRzCXE2hCM39AZN87dWrKlymTlMtQ0UPcIFzBmL8",
     "outcome": "SUCCEEDED"
    },
    "kind": "cryptographic",
@@ -100,7 +100,7 @@
   {
    "check": "settlement_binding",
    "detail": {
-    "final_fact_id": "rbpooTJ7u5jXYWAibMs0dmqs4D9OwObta1rbprTfGrs",
+    "final_fact_id": "7mhXRzCXE2hCM39AZN87dWrKlymTlMtQ0UPcIFzBmL8",
     "outcome": "SUCCEEDED"
    },
    "kind": "cryptographic",
@@ -117,5 +117,5 @@
  "passed": 13,
  "skipped": 0,
  "status": "PASS",
- "trust_anchor_sha256": "XlBhLQvHgGUwTU6AcbYcoCbXHB5i5u7WzhaVbe6On_M"
+ "trust_anchor_sha256": "SzbPml-UTPgUQTTUNYkIdHrC0dUSuwu5X5sulyVGbOI"
 }

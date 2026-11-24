@@ -1,0 +1,5 @@
+metric,ms
+pure p50,0.0982
+pure p95,0.1197
+off p50,1324.9025
+enforce p50,1338.352

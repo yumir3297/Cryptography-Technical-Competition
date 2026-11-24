@@ -1,0 +1,6 @@
+model,illegal_accepted,total
+A_local_gate,5,5
+B_single_signature,4,5
+C_original,2,5
+shadow,2,5
+proposed,0,5

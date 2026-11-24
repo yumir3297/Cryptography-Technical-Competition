@@ -2,9 +2,9 @@
  "actors": {
   "IND-DEMO-1": {
    "E": {
-    "kid": "o6JxWv7EuLVa7E3tVyQgjvIUXOMyiAfg9Pj22qeVobA",
+    "kid": "geBePghgDUvRnb8ttQIB8cU-LkmnDkX5HPmLRj6Oy9w",
     "name": "auth-industrial-e",
-    "public_key": "z0u-3_t_7foUHvCe-bZM6GlwuJDq1V9fzkqwc89Vw8k",
+    "public_key": "RbKUbRWTSFVZrd_O285GE_26OwjPk-1iLskVntHv48Q",
     "purposes": [
      "READ",
      "SOURCE"
@@ -14,9 +14,9 @@
     ]
    },
    "G": {
-    "kid": "S3Dz4xENfl1XtOv9BNdUF41zUywZuEiY48tGvIMDsx0",
+    "kid": "Tj0cbUARiRsdQ85DcO9soi7hpIIRMIEzLuMQWoAkbFk",
     "name": "auth-industrial-g",
-    "public_key": "7efMXqB1YJqGn9IKrhtfEHC1nFLewif8RQoKVdKi4-s",
+    "public_key": "JbwkbdA6MxKACy0vH12dBFoGDYZWKG-5H7zAtQ66XEY",
     "purposes": [
      "Permit",
      "READ"
@@ -26,9 +26,9 @@
     ]
    },
    "H": {
-    "kid": "K_YLB8S6M38UiC2L_suSkoEacfl_GPDh6wOg7ZVaSuw",
+    "kid": "KMPQNC-CMK3wLi95qMn48hBVFFKCMoLRweitas66WkE",
     "name": "auth-industrial-h",
-    "public_key": "3hS7XSapakQu3dqLbUUmd03MkDz4hk1cMDDlVKAEyyo",
+    "public_key": "bZFnfI58IVzVDO7v4hsSJiZqJgrr9YpkiCajFt27_SQ",
     "purposes": [
      "ChallengeRequest",
      "CommitProof",
@@ -41,9 +41,9 @@
     ]
    },
    "U": {
-    "kid": "zuFxAB1oLPWI7SrWaAoKZB0AfBBCXwyAOOtWR1AGOLM",
+    "kid": "Zhu2rbB2X3lnGqU0E9_9g82eK_jUjoKx_x3-oB5-NBY",
     "name": "auth-industrial-u",
-    "public_key": "3eCwJi6Zp6xHO4SuYdwimLcwMieEg5_6rZ8jFJEYx9c",
+    "public_key": "qVhVY3loRSXAAHKWoAgJxfyLNEXJA72EKNIKJcfAoWM",
     "purposes": [
      "Authorization",
      "READ"
@@ -53,9 +53,9 @@
     ]
    },
    "V": {
-    "kid": "ub8gWLLJXos5PfsSHntq46lS1do21t-JKM-1tqAST1U",
+    "kid": "Gp3GXGiTtxt4EZYZOon6mIg_Oq7EWh1aP5ory7iic0I",
     "name": "auth-industrial-v",
-    "public_key": "UiQsEQqxFOoh74TFfYybWtWBjFHIhq3V9vIBKmUPfKg",
+    "public_key": "XiyrTMuOnRAIPzdfZ82wYJ-GDlJ-ks7V6z6kGPMCLsk",
     "purposes": [
      "READ",
      "Review"
@@ -65,9 +65,9 @@
     ]
    },
    "X": {
-    "kid": "cOjd2nqqVSmfWSaxQ9DYxK9W-mtxvzTHTQa4uCoJ4l0",
+    "kid": "pxxY3ojDc4ZfcNRiJMJuApHAjDptk2rBBnZMbl3-Wzo",
     "name": "auth-industrial-x",
-    "public_key": "D7s1Igu5erDpLwsxhn6uBfr7znnbLtJNOOAA-TDiQjk",
+    "public_key": "ogS_TH82xsnrk1BlQ_QgIueNPg9VCrqHK_D9tQdCMZk",
     "purposes": [
      "Acceptance",
      "Challenge",
@@ -81,9 +81,9 @@
   },
   "MED-DEMO-1": {
    "E": {
-    "kid": "OZ9d0OrJ_IMlZFz8FrjKWZ4dLK2zHbFAzXoopgT_50Y",
+    "kid": "e38K0HbqgI42wdGPbxHkGdQN70gdY-ugu2tWcoZDy88",
     "name": "auth-medical-e",
-    "public_key": "F3NVWu3CCSxXAO_PkO0C5PvqXuVLzYHq9FpLjbyx5W0",
+    "public_key": "Z2QC6nGUy3xJoGRbvr3R7Xi5T4hB0GXH_ay-bF9N8uQ",
     "purposes": [
      "READ",
      "SOURCE"
@@ -93,9 +93,9 @@
     ]
    },
    "G": {
-    "kid": "ebD_bk57CVH4abYiyhpzIOMDMiyA616ofzXGyL0lQ48",
+    "kid": "8zowdqt-B3G_8rjYjC0V6Rix7PXUfJVaiireYdHHDnI",
     "name": "auth-medical-g",
-    "public_key": "n-uK2h_K_j7aH6DzCYHBe1b2dfIpBN8zXTy3NiHByNw",
+    "public_key": "DrFjWwBzi_oLJtxoCoWcCTbXuSTmkJDwx4cFLR9X_Uc",
     "purposes": [
      "Permit",
      "READ"
@@ -105,9 +105,9 @@
     ]
    },
    "H": {
-    "kid": "tLOrEFCOyFiQI80Fy61IMGaTbGKVKf_nlJq7oh3f5Oc",
+    "kid": "QPOh4imWMWaqGSLIukSgRSfkXMEx0FwKFghozrTcETE",
     "name": "auth-medical-h",
-    "public_key": "0c02y30e-w7ibFZJO1P1Oxrv_6R0na-rBTXJJMP8BMw",
+    "public_key": "Mh81_WcEmMveznig-AC_FNMRHaYcWno3KOOiZ8ps3kQ",
     "purposes": [
      "ChallengeRequest",
      "CommitProof",
@@ -120,9 +120,9 @@
     ]
    },
    "U": {
-    "kid": "JL3aehh1KP68i3htNLczY9M8xcy2NX3IEWYKth_6EOs",
+    "kid": "t85yBlBku76X8aXIH69hxeZtUZmBnlzsS3Ax0z_TcYI",
     "name": "auth-medical-u",
-    "public_key": "zxObf2UYA4Ok097Mt0fvGhxnMYbGTwTFcHRQMCHtUoM",
+    "public_key": "drvKVnhPUVHDdMu8X3ZatQZzckOY77jZPaRF03QfrcI",
     "purposes": [
      "Authorization",
      "READ"
@@ -132,9 +132,9 @@
     ]
    },
    "V": {
-    "kid": "JmNJqQNyCQTwI_P46MB5tfUVuKrBc5SDUV5XsmjKdBU",
+    "kid": "ePzFo-8xvCFL2NQtXaHavy8ESUfOj2Lrm1tF9JVjgp4",
     "name": "auth-medical-v",
-    "public_key": "wlLQe5jgc40odZT_plmUqqom0bMDXbc8_ZTZPyTtOiQ",
+    "public_key": "Wnwoz0xk2FydUc2C_kL3ULXvRQba4dfiBOHN7rUPMtM",
     "purposes": [
      "READ",
      "Review"
@@ -144,9 +144,9 @@
     ]
    },
    "X": {
-    "kid": "U54PFuvpW2d6qCTsfyyM9YNPGqbYfWPWWTZ6TdW7i-U",
+    "kid": "Z9jKLTZrnDkE4uLrqY7ozmqSwg29U5tXcgxnrvj5l8M",
     "name": "auth-medical-x",
-    "public_key": "n_8fM0GNCWCPaz7uAJKB0xwyN2h3_zmK9XnLaWHDsxU",
+    "public_key": "7WReXf0n4yIFLAFk2KowOTR0SmtoN_sm9feZrNHpG1Y",
     "purposes": [
      "Acceptance",
      "Challenge",
@@ -160,9 +160,9 @@
   },
   "PAY-1": {
    "E": {
-    "kid": "jx_-K2XnRl7r4s8tCxqcuyvCj-C3FyLoTQr_f6B4Ea0",
+    "kid": "-WQdXZNOQafgmDYMRPBaefHOZ_l_ZdcmTKZx2VREJ8E",
     "name": "auth-payment-e",
-    "public_key": "4YhfI1UnbCROKcMNZHOxI8h3XtPDrRbEukdYhzEjTc4",
+    "public_key": "d4V0l1yv8iu9ZLTCVYuHOnlcSm1BPMT7CwEf9jFN344",
     "purposes": [
      "READ",
      "SOURCE"
@@ -172,9 +172,9 @@
     ]
    },
    "G": {
-    "kid": "ZoijZ0u1-SAjvfufTn8k-CTAYDATGmWvn9hJsP9tKuM",
+    "kid": "l9Ch747rc_PS6ltTQJvbnKsGBjRbhawuhkIaj0oI0fc",
     "name": "auth-payment-g",
-    "public_key": "AkP8CE3wNeQLyw9zYISY0BIIBo3RqiVIX69VrdfGwwo",
+    "public_key": "iu-k8HEuYSlSWs_7HgJhDg1aK36xitJvryG6Elg94jI",
     "purposes": [
      "Permit",
      "READ"
@@ -184,9 +184,9 @@
     ]
    },
    "H": {
-    "kid": "Q33kfrqSoikLpXsVteWgoRfrZnRoOkEh-ZYU7nQ9jdQ",
+    "kid": "FplL5ARwLHV0cuiUxFY4J094kDggCOiL_8brMMULA9w",
     "name": "auth-payment-h",
-    "public_key": "-peMb1CxEJ9iYn5qLeR3Ped9NbqKkQratHVj8O8Be4g",
+    "public_key": "wTrPkEzL-vV2ju-eKGgZwa9Zr0TNtqkrthIo27manyQ",
     "purposes": [
      "ChallengeRequest",
      "CommitProof",
@@ -199,9 +199,9 @@
     ]
    },
    "U": {
-    "kid": "819I7nQW7Cz0pQyVJUfY_R8Ih7hbwJyRfnBUqfSvgrA",
+    "kid": "eQyCwVZKnWKibHtkGAVrhNr540mvZcLdu_C8zInsXTE",
     "name": "auth-payment-u",
-    "public_key": "zliC8d-qBqTEA8iTIp8D-K5qR_PNFUwJ838u1ssSL4E",
+    "public_key": "kiFWGwaqsjCYhqh-vWvvIKq1m5-90mEVjh5I_C8nMZ4",
     "purposes": [
      "Authorization",
      "READ"
@@ -211,9 +211,9 @@
     ]
    },
    "V": {
-    "kid": "x-k56WZehWAJRs8Jkxq0YtDSpVXi33zCAJEzvVu_HBE",
+    "kid": "V4IFIpJzy5PL_Ln8GwNqG5ygd1jllWvRmsC-zVFwq4E",
     "name": "auth-payment-v",
-    "public_key": "Bu7Iv8Zr3946R24-FCFuN2uYLGIXH5KQwkg-raIxHJk",
+    "public_key": "ICm0UD5Qy5EmrVAkic3XWpu2RWJJOZ6wx_k3C8ybQHY",
     "purposes": [
      "READ",
      "Review"
@@ -223,9 +223,9 @@
     ]
    },
    "X": {
-    "kid": "BpYMdSIKKnjUQ0UsenmSDrCs0kdQjFxnJqvr_6TrnBo",
+    "kid": "-MiQltJTaXhGgCQ1ko-O5i0Vqq5wKy6ZCyANfZR2G3Q",
     "name": "auth-payment-x",
-    "public_key": "ijt4-GxXAI2BwYMSzHYVwy9l3-XG8d2LmMXAeqzXIpY",
+    "public_key": "etxjRPUiyoOuco84Y8_PqOF9PPH2cCBvTnxd6TceFOI",
     "purposes": [
      "Acceptance",
      "Challenge",
@@ -238,9 +238,9 @@
    }
   }
  },
- "delivery_public": "VJGaxvD3sJTscuTxnV0CY_upOpxYupOKrUyvFM6mvYE",
+ "delivery_public": "Y8kuEaXWWkTwmXlLBXmHt4804eveHud1SF6-KxyA_WY",
  "format": "ZJJ-CORE-TRUST-ANCHOR-1",
- "generated_utc": "2026-11-23T14:26:40Z",
+ "generated_utc": "2026-11-24T10:14:02Z",
  "protocol": "ZJJ-CORE-COMP-1",
- "root_public": "D7nwHSbJy4iR4WYtng-WbHsGr0xN3uvZbKJGlGEboQA"
+ "root_public": "ZEH-dlnb3hINgm-wN-AJeAIzsOYl0fFl7BYKQ4sVfjI"
 }

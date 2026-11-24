@@ -1,14 +1,14 @@
 {
  "audit_status": "PASS",
  "checks": 13,
- "code_sha": "fcbc6b3b3ad63c9de84387c98bccc004f726a77b",
+ "code_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c",
  "files": {
-  "anchor-incident.json": "1398a057fb2cfbcf7b172b352eccd9af439c0fad3fa0b93eadc97deaa7f6b291",
-  "incident-audit.json": "0b3ae004a978d2a43deb22b2cddaf3ea71a671d7a57f68d180f35ca391d67f54",
-  "incident-package.json": "4f22211c142e55b6b9dda60d11934b5f3a2943bf54fa1ab8a960deb1046b018e"
+  "anchor-incident.json": "9ac310c2f076e08192ddb427a376a53c46f1c9f52662fbf80fd0c6a827c15e0e",
+  "incident-audit.json": "fc99d51a2a9654b2879c7f103fcf8487dff8e89847eb1827065cd719a571a735",
+  "incident-package.json": "d7adb9a7ad720bb5f7d24f41f2f09a0f0b6b69401d613c953429463453b79ccf"
  },
- "generated_utc": "2026-11-23T14:26:57Z",
- "git_sha": "b657be2b5c56c397f2c7f8f937d146c4249feaaf",
+ "generated_utc": "2026-11-24T10:14:19Z",
+ "git_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c",
  "low_priority": {
   "accepted": false,
   "code": "GOAL_CAPACITY_FLOOR"
@@ -19,6 +19,5 @@
   "accepted": false,
   "code": "GOAL_DEPS_STALE"
  },
- "test_sha": "925265229d63b077c0db23d65df4a6ef3ad19729",
- "verifier_sha": "8372e255affed13cb823ccd020912781edf08f1a"
+ "verifier_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c"
 }
