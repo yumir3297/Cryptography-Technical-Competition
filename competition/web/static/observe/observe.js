@@ -523,7 +523,6 @@
   var mapView = { k: 1, x: 0, y: 0 };
   var mapDrag = null;
   var suppressClick = false;
-  var lastPushed = null;
   var ZOOM_MAX = 1.5;
   var ZOOM_STEP = 1.2;
 
@@ -561,7 +560,6 @@
     var expand = expandOf(view.id);
     if (expand) expand.style.transform = viewTransform(view);
     showZoom();
-    if (lastPushed) drawOutbound(view.id, lastPushed);
   }
 
   function mapHost() {
@@ -699,12 +697,14 @@
 
     var edges = host.querySelector('.ob-edges');
     if (edges) {
+      // 展开后总图连线整体退场，只留外部泳道；否则它们会在展开层
+      // 底下拖一条条残影。transition 结束后再置 visibility，避免任何
+      // 合成层残留。
       edges.style.transition = animate
         ? 'opacity ' + Math.round(FLY_IN * 0.5) + 'ms ease-out' : '';
-      edges.style.opacity = '.3';
+      edges.style.opacity = '0';
+      edges.style.visibility = 'hidden';
     }
-    lastPushed = pushed;
-    drawOutbound(activeId, pushed);
   }
 
   function showHud(id) {
@@ -736,7 +736,6 @@
 
   function selectLeaf(id) {
     if (view.id) collapseBlock(false, true);
-    clearOutbound();
     clearSelection();
     var node = blockOf(id);
     if (node) node.setAttribute('data-selected', '1');
@@ -819,8 +818,6 @@
   }
 
   function collapseBlock(push, instant) {
-    clearOutbound();
-    lastPushed = null;
     clearSelection();
     var id = view.id;
     if (!id) {
@@ -846,10 +843,12 @@
       restoreBlocks(false);
       if (host) {
         var edges = host.querySelector('.ob-edges');
-        if (edges) { edges.style.opacity = ''; edges.style.transition = ''; }
+        if (edges) {
+          edges.style.opacity = '';
+          edges.style.visibility = '';
+          edges.style.transition = '';
+        }
       }
-      clearOutbound();
-      lastPushed = null;
       hideHud();
     };
 
@@ -871,112 +870,12 @@
       restoreBlocks(true);
       var edges = host.querySelector('.ob-edges');
       if (edges) {
+        edges.style.visibility = '';
         edges.style.transition = 'opacity ' + FLY_OUT + 'ms ease-out';
         edges.style.opacity = '';
       }
     }
     if (push && location.hash !== '#map') history.pushState(null, '', '#map');
-  }
-
-  function clearOutbound() {
-    var layer = document.getElementById('ob-outbound');
-    if (layer) layer.parentNode.removeChild(layer);
-  }
-
-  // 展开层与外部：每条跨块边一道泳道，从屏幕边缘进来，连到展开层里
-  // 代表外部的那个「块外」节点本身，不再落到被挤开的块上。
-  function drawOutbound(id, pushed) {
-    clearOutbound();
-    var host = mapHost();
-    var expand = expandOf(id);
-    var model = state.model && state.model.map;
-    if (!host || !expand || !model) return;
-    var hostBox = host.getBoundingClientRect();
-
-    var stubs = {};
-    expand.querySelectorAll('.ob-gnode--stub').forEach(function (node) {
-      var r = node.getBoundingClientRect();
-      stubs[node.getAttribute('data-gid')] = {
-        x: r.left - hostBox.left, y: r.top - hostBox.top,
-        w: r.width, h: r.height
-      };
-    });
-
-    var edges = [];
-    model.edges.forEach(function (edge) {
-      if (edge.src !== id && edge.dst !== id) return;
-      if (edge.src === id && edge.dst === id) return;
-      (edge.members || []).forEach(function (member) {
-        var other = edge.src === id ? member.dst : member.src;
-        if (!stubs[other]) return;
-        edges.push({ kind: edge.kind, other: other,
-                     label: member.label || (edge.labels && edge.labels[0]) || '' });
-      });
-    });
-    if (!edges.length) return;
-
-    var svg = document.createElementNS(NS, 'svg');
-    svg.setAttribute('id', 'ob-outbound');
-    svg.setAttribute('class', 'ob-outbound');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.setAttribute('width', host.clientWidth);
-    svg.setAttribute('height', host.clientHeight);
-    host.appendChild(svg);
-
-    var defs = document.createElementNS(NS, 'defs');
-    KINDS.forEach(function (kind) {
-      var marker = document.createElementNS(NS, 'marker');
-      marker.setAttribute('id', 'arrow-out-' + kind);
-      marker.setAttribute('viewBox', '0 0 8 8');
-      marker.setAttribute('refX', '7');
-      marker.setAttribute('refY', '4');
-      marker.setAttribute('markerWidth', '7');
-      marker.setAttribute('markerHeight', '7');
-      marker.setAttribute('orient', 'auto-start-reverse');
-      var head = document.createElementNS(NS, 'path');
-      head.setAttribute('d', 'M0 0 L8 4 L0 8 z');
-      head.setAttribute('class', 'ob-arrow--' + kind);
-      marker.appendChild(head);
-      defs.appendChild(marker);
-    });
-    svg.appendChild(defs);
-
-    var ports = {};
-    edges.forEach(function (edge) {
-      var other = edge.other;
-      var stub = stubs[other];
-      var cx = stub.x + stub.w / 2;
-      var side = cx < host.clientWidth / 2 ? 'left' : 'right';
-      var x1 = side === 'left' ? 0 : host.clientWidth;
-      var x2 = side === 'left' ? stub.x : stub.x + stub.w;
-      var slot = (ports[other] = (ports[other] || 0) + 1) - 1;
-      var cy = stub.y + stub.h / 2;
-      var y = Math.max(stub.y + 8,
-              Math.min(stub.y + stub.h - 8, cy + slot * 9 - 4));
-
-      var path = document.createElementNS(NS, 'path');
-      path.setAttribute('d', 'M ' + x1.toFixed(1) + ' ' + y.toFixed(1)
-        + ' H ' + x2.toFixed(1));
-      path.setAttribute('class', 'ob-edge ob-outbound__line');
-      path.setAttribute('data-kind', edge.kind);
-      path.setAttribute('marker-end', 'url(#arrow-out-' + edge.kind + ')');
-
-      var label = edge.label || '';
-      if (label) {
-        var title = document.createElementNS(NS, 'title');
-        title.textContent = label;
-        path.appendChild(title);
-        var text = document.createElementNS(NS, 'text');
-        text.setAttribute('x', ((x1 + x2) / 2).toFixed(1));
-        text.setAttribute('y', (y - 5).toFixed(1));
-        text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('class', 'ob-outbound__label');
-        text.textContent = label.length > 20
-          ? label.slice(0, 19) + '…' : label;
-        svg.appendChild(text);
-      }
-      svg.appendChild(path);
-    });
   }
 
   function route() {

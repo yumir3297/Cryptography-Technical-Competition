@@ -239,23 +239,6 @@ body[data-open="1"] { overflow: hidden; }
 .ob-graph[data-panning] { cursor: grabbing; }
 .ob-graph[data-panning] .ob-gnode { cursor: grabbing; }
 
-/* 被展开子块与外部的关系：每条跨块边一道，从展开层边缘排到屏幕边缘。
-   线在块下面（z-index 1），块自身盖住经过的部分。 */
-.ob-outbound {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  overflow: visible;
-  pointer-events: none;
-}
-.ob-outbound__line { stroke-width: 1.4; }
-.ob-outbound__label {
-  font-family: var(--ak-font-mono);
-  font-size: 9px;
-  letter-spacing: .04em;
-  fill: var(--ak-fg-muted);
-}
-
 .ob-gnode--block[data-selected] {
   border-color: var(--ak-accent);
   border-left-color: var(--ak-accent);
