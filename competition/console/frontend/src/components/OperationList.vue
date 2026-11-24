@@ -75,12 +75,12 @@ function tagType(rowState: string): 'success' | 'warning' | 'info' {
   margin: 0 0 12px;
   font-size: 13px;
   line-height: 1.6;
-  color: #606266;
+  color: var(--ak-fg-secondary);
 }
 .row {
   padding: 8px 10px;
-  border: 1px solid #ebeef5;
-  border-radius: 4px;
+  border: 1px solid var(--ak-border-subtle);
+  border-radius: 0;
 }
 .row + .row {
   margin-top: 8px;

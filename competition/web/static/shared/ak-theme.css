@@ -1,0 +1,260 @@
+/* Element Plus ⇄ PRTS 设计令牌的桥接层。
+ *
+ * 观察面（/observe）用的是 --ak-* 令牌；控制台与展示页是 Element Plus
+ * 应用。这一层只做两件事：把 --el-* 语义变量指到同一套令牌上，并把
+ * 卡片 / 表格 / 菜单这类组件里的圆角、投影、浅色底改回直角、细边、
+ * 暗色底。业务样式不必再关心颜色。 */
+
+html.dark,
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --el-color-primary: var(--ak-accent);
+  --el-color-primary-light-3: color-mix(in srgb, var(--ak-accent) 72%, var(--ak-bg-canvas));
+  --el-color-primary-light-5: color-mix(in srgb, var(--ak-accent) 52%, var(--ak-bg-canvas));
+  --el-color-primary-light-7: color-mix(in srgb, var(--ak-accent) 32%, var(--ak-bg-canvas));
+  --el-color-primary-light-8: color-mix(in srgb, var(--ak-accent) 22%, var(--ak-bg-canvas));
+  --el-color-primary-light-9: color-mix(in srgb, var(--ak-accent) 12%, var(--ak-bg-canvas));
+  --el-color-primary-dark-2: color-mix(in srgb, var(--ak-accent) 80%, #000);
+
+  --el-color-success: var(--ak-success);
+  --el-color-success-light-3: color-mix(in srgb, var(--ak-success) 72%, var(--ak-bg-canvas));
+  --el-color-success-light-5: color-mix(in srgb, var(--ak-success) 52%, var(--ak-bg-canvas));
+  --el-color-success-light-7: color-mix(in srgb, var(--ak-success) 32%, var(--ak-bg-canvas));
+  --el-color-success-light-8: color-mix(in srgb, var(--ak-success) 22%, var(--ak-bg-canvas));
+  --el-color-success-light-9: color-mix(in srgb, var(--ak-success) 12%, var(--ak-bg-canvas));
+
+  --el-color-warning: var(--ak-warning);
+  --el-color-warning-light-3: color-mix(in srgb, var(--ak-warning) 72%, var(--ak-bg-canvas));
+  --el-color-warning-light-5: color-mix(in srgb, var(--ak-warning) 52%, var(--ak-bg-canvas));
+  --el-color-warning-light-7: color-mix(in srgb, var(--ak-warning) 32%, var(--ak-bg-canvas));
+  --el-color-warning-light-8: color-mix(in srgb, var(--ak-warning) 22%, var(--ak-bg-canvas));
+  --el-color-warning-light-9: color-mix(in srgb, var(--ak-warning) 12%, var(--ak-bg-canvas));
+
+  --el-color-danger: var(--ak-danger);
+  --el-color-danger-light-3: color-mix(in srgb, var(--ak-danger) 72%, var(--ak-bg-canvas));
+  --el-color-danger-light-5: color-mix(in srgb, var(--ak-danger) 52%, var(--ak-bg-canvas));
+  --el-color-danger-light-7: color-mix(in srgb, var(--ak-danger) 32%, var(--ak-bg-canvas));
+  --el-color-danger-light-8: color-mix(in srgb, var(--ak-danger) 22%, var(--ak-bg-canvas));
+  --el-color-danger-light-9: color-mix(in srgb, var(--ak-danger) 12%, var(--ak-bg-canvas));
+
+  --el-color-info: var(--ak-info);
+  --el-color-info-light-3: color-mix(in srgb, var(--ak-info) 72%, var(--ak-bg-canvas));
+  --el-color-info-light-5: color-mix(in srgb, var(--ak-info) 52%, var(--ak-bg-canvas));
+  --el-color-info-light-7: color-mix(in srgb, var(--ak-info) 32%, var(--ak-bg-canvas));
+  --el-color-info-light-8: color-mix(in srgb, var(--ak-info) 22%, var(--ak-bg-canvas));
+  --el-color-info-light-9: color-mix(in srgb, var(--ak-info) 12%, var(--ak-bg-canvas));
+
+  --el-bg-color: var(--ak-bg-surface);
+  --el-bg-color-page: var(--ak-bg-canvas);
+  --el-bg-color-overlay: var(--ak-bg-surface-2);
+
+  --el-text-color-primary: var(--ak-fg);
+  --el-text-color-regular: var(--ak-fg-secondary);
+  --el-text-color-secondary: var(--ak-fg-muted);
+  --el-text-color-placeholder: var(--ak-fg-subtle);
+  --el-text-color-disabled: var(--ak-fg-disabled);
+
+  --el-border-color: var(--ak-border);
+  --el-border-color-light: var(--ak-border-subtle);
+  --el-border-color-lighter: var(--ak-border-subtle);
+  --el-border-color-extra-light: var(--ak-border-subtle);
+  --el-border-color-dark: var(--ak-border-strong);
+  --el-border-color-darker: var(--ak-border-strong);
+
+  --el-fill-color: var(--ak-bg-surface-3);
+  --el-fill-color-light: var(--ak-bg-surface-2);
+  --el-fill-color-lighter: var(--ak-bg-surface-2);
+  --el-fill-color-extra-light: var(--ak-bg-surface-2);
+  --el-fill-color-dark: var(--ak-bg-surface-3);
+  --el-fill-color-darker: var(--ak-bg-surface-3);
+  --el-fill-color-blank: var(--ak-bg-surface);
+
+  --el-disabled-bg-color: var(--ak-bg-surface-2);
+  --el-disabled-text-color: var(--ak-fg-disabled);
+  --el-disabled-border-color: var(--ak-border-subtle);
+
+  --el-box-shadow: none;
+  --el-box-shadow-light: none;
+  --el-box-shadow-lighter: none;
+  --el-box-shadow-dark: none;
+
+  --el-border-radius-base: 0;
+  --el-border-radius-small: 0;
+  --el-border-radius-round: 0;
+  --el-border-radius-circle: 0;
+
+  --el-font-family: var(--ak-font-body);
+  --el-mask-color: rgba(0, 0, 0, 0.62);
+}
+
+html,
+body {
+  background: var(--ak-bg-canvas);
+  color: var(--ak-fg);
+}
+
+/* 背景 ASCII 场：和观察面同一层胶片，铺在内容下面。 */
+.ob-bg {
+  position: fixed;
+  left: -12px;
+  top: -12px;
+  z-index: 0;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  pointer-events: none;
+  opacity: .85;
+  filter: blur(1.1px);
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  background: transparent;
+}
+
+/* ── 组件：直角、细边、无投影 ─────────────────────────────────────────── */
+.el-card {
+  --el-card-border-color: var(--ak-border);
+  --el-card-bg-color: var(--ak-bg-surface);
+  border-radius: 0;
+}
+.el-card.is-never-shadow { box-shadow: none; }
+.el-card__header {
+  border-bottom: 1px solid var(--ak-border);
+  padding: 10px 14px;
+  font-family: var(--ak-font-label);
+  letter-spacing: .06em;
+}
+.el-card__body { padding: 12px; }
+
+.el-button {
+  border-radius: 0;
+  font-family: var(--ak-font-label);
+  letter-spacing: .05em;
+}
+.el-button--primary {
+  --el-button-bg-color: var(--ak-accent);
+  --el-button-border-color: var(--ak-accent);
+  --el-button-text-color: var(--ak-accent-fg);
+  --el-button-hover-bg-color: var(--ak-accent-hover);
+  --el-button-hover-border-color: var(--ak-accent-hover);
+  --el-button-active-bg-color: var(--ak-accent-hover);
+  --el-button-active-border-color: var(--ak-accent-hover);
+}
+.el-button.is-plain {
+  background: transparent;
+}
+
+.el-tag {
+  border-radius: 0;
+  font-family: var(--ak-font-label);
+  letter-spacing: .04em;
+}
+.el-tag.is-round { border-radius: 0; }
+
+.el-input__wrapper,
+.el-select__wrapper,
+.el-textarea__inner {
+  border-radius: 0;
+  background: var(--ak-bg-surface-2);
+  box-shadow: 0 0 0 1px var(--ak-border) inset;
+}
+.el-input__wrapper.is-focus,
+.el-select__wrapper.is-focused,
+.el-textarea__inner:focus {
+  box-shadow: 0 0 0 1px var(--ak-accent) inset;
+}
+
+.el-table {
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: var(--ak-bg-surface-2);
+  --el-table-row-hover-bg-color: var(--ak-bg-surface-3);
+  --el-table-border-color: var(--ak-border-subtle);
+  --el-table-text-color: var(--ak-fg-secondary);
+  --el-table-header-text-color: var(--ak-fg-muted);
+  --el-table-expanded-cell-bg-color: transparent;
+  background: transparent;
+}
+.el-table tr,
+.el-table th.el-table__cell,
+.el-table td.el-table__cell {
+  background: transparent;
+}
+.el-table th.el-table__cell {
+  font-family: var(--ak-font-label);
+  font-weight: 600;
+  letter-spacing: .05em;
+}
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background: var(--ak-bg-surface-2);
+}
+.el-table__inner-wrapper::before { background: var(--ak-border); }
+
+.el-menu {
+  background: transparent;
+  border-right: 0;
+}
+.el-menu-item {
+  color: var(--ak-fg-muted);
+  font-family: var(--ak-font-label);
+  letter-spacing: .04em;
+}
+.el-menu-item:hover {
+  background: var(--ak-bg-surface-2);
+  color: var(--ak-fg);
+}
+.el-menu-item.is-active {
+  background: var(--ak-accent-subtle);
+  color: var(--ak-fg);
+  box-shadow: inset 2px 0 0 var(--ak-accent);
+}
+
+.el-step__icon,
+.el-step__icon.is-text,
+.el-step__icon.is-icon {
+  border-radius: 0;
+}
+.el-step__line { background-color: var(--ak-border); }
+
+.el-timeline-item__tail { border-left-color: var(--ak-border); }
+.el-timeline-item__timestamp {
+  font-family: var(--ak-font-mono);
+  color: var(--ak-fg-muted);
+}
+
+.el-descriptions {
+  --el-descriptions-table-border: 1px solid var(--ak-border);
+}
+.el-descriptions__body { background: transparent; }
+.el-descriptions__label.el-descriptions__cell.is-bordered-label {
+  background: var(--ak-bg-surface-2);
+  color: var(--ak-fg-muted);
+  font-family: var(--ak-font-label);
+}
+
+.el-alert {
+  border-radius: 0;
+  font-family: var(--ak-font-body);
+}
+.el-alert--warning.is-light { background: var(--ak-warning-bg); }
+
+.el-drawer { background: var(--ak-bg-surface); }
+.el-overlay { background: var(--el-mask-color); }
+.el-empty__description p { color: var(--ak-fg-muted); }
+.el-divider { border-color: var(--ak-border); }
+
+/* 滚动条跟着令牌走，别在暗底上留一条系统亮条。 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ak-border-strong) transparent;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--ak-border-strong);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}

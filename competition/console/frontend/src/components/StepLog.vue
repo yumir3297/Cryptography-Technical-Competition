@@ -41,9 +41,9 @@ function pretty(detail: unknown): string {
 .detail {
   margin: 6px 0 0;
   padding: 8px;
-  background: #fafafa;
-  border: 1px solid #ebeef5;
-  border-radius: 4px;
+  background: var(--ak-bg-surface-2);
+  border: 1px solid var(--ak-border-subtle);
+  border-radius: 0;
   font-size: 12px;
   max-height: 220px;
   overflow: auto;

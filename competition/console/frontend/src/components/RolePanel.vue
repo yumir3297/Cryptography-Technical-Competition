@@ -71,12 +71,12 @@ function shown(claim: unknown): string {
 .duty {
   margin: 0 0 12px;
   font-size: 13px;
-  color: #606266;
+  color: var(--ak-fg-secondary);
 }
 .empty {
   padding: 8px 0;
   font-size: 13px;
-  color: #909399;
+  color: var(--ak-fg-muted);
 }
 .todo + .todo {
   margin-top: 12px;
@@ -92,8 +92,8 @@ function shown(claim: unknown): string {
   overflow: auto;
   font-size: 11px;
   line-height: 1.5;
-  background: #f5f7fa;
-  border-radius: 4px;
+  background: var(--ak-bg-surface-2);
+  border-radius: 0;
   white-space: pre-wrap;
 }
 .todo-actions {

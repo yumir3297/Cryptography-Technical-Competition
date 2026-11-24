@@ -120,13 +120,13 @@ onUnmounted(() => {
 }
 .aside {
   padding: 16px 0;
-  background: #fff;
-  border-right: 1px solid #ebeef5;
+  background: var(--ak-bg-surface);
+  border-right: 1px solid var(--ak-border);
 }
 .aside-title {
   padding: 0 20px 8px;
   font-size: 13px;
-  color: #909399;
+  color: var(--ak-fg-muted);
 }
 .aside-foot {
   padding: 16px 20px 0;
@@ -144,12 +144,14 @@ onUnmounted(() => {
   flex-wrap: wrap;
   height: auto;
   padding: 16px 24px;
-  background: #fff;
-  border-bottom: 1px solid #ebeef5;
+  background: var(--ak-bg-surface);
+  border-bottom: 1px solid var(--ak-border);
 }
 .title {
   margin: 0;
+  font-family: var(--ak-font-display);
   font-size: 20px;
+  letter-spacing: .06em;
 }
 .header-actions {
   display: flex;

@@ -16,7 +16,7 @@ const STATUS: Record<FeedMode, { label: string; type: 'success' | 'warning' | 'd
 
 <template>
   <header class="bar">
-    <el-tag :type="STATUS[mode].type" effect="dark" round size="large">
+    <el-tag :type="STATUS[mode].type" effect="dark" size="large">
       {{ STATUS[mode].label }}
     </el-tag>
     <el-text class="metric">游标 seq <b class="mono">{{ cursor }}</b></el-text>

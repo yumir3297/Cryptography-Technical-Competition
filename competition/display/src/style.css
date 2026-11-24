@@ -5,7 +5,8 @@ body,
   margin: 0;
 }
 
-/* Element Plus owns the palette; this is only the one face a display needs. */
+/* Element Plus supplies the widgets; --ak-* (via ak-theme.css) supplies the
+ * face.  The page itself stays transparent so the ASCII field shows through. */
 .mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--ak-font-mono);
 }

@@ -98,7 +98,8 @@ const pointerLeft = computed(() => ((Math.max(0, active.value) + 0.5) / CHAIN.le
 :deep(.el-step__line) {
   top: 22px;
 }
-/* The pointer, and the glow under it, are the whole "you are here" of the page. */
+/* The pointer is the whole "you are here"; no glow — the design language is
+   right angles, fine rules and no shadows. */
 .pointer {
   position: absolute;
   top: 8px;
@@ -106,7 +107,6 @@ const pointerLeft = computed(() => ((Math.max(0, active.value) + 0.5) / CHAIN.le
   color: var(--el-color-primary);
   font-size: 18px;
   line-height: 1;
-  filter: drop-shadow(0 0 6px currentColor);
   animation: bob 1.1s ease-in-out infinite;
 }
 @keyframes bob {
@@ -116,32 +116,18 @@ const pointerLeft = computed(() => ((Math.max(0, active.value) + 0.5) / CHAIN.le
 .chain.failed .pointer {
   color: var(--el-color-danger);
 }
-/* The glow is driven by our own active index, not by Element's status classes:
-   a finished run puts the last node in ``is-success``, and it still has to be
-   the one that reads "you are here". */
+/* The active node is ours, not Element's status: a finished run puts the last
+   node in ``is-success``, and it still has to read "you are here". */
 :deep(.is-current .el-step__icon) {
   border-color: var(--el-color-primary);
-  animation: glow 1.6s ease-in-out infinite;
+  background: var(--el-color-primary-light-9);
 }
 :deep(.is-current .el-step__title) {
   color: var(--el-color-primary);
   font-weight: 700;
 }
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.20), 0 0 12px rgba(64, 158, 255, 0.55); }
-  50% { box-shadow: 0 0 0 9px rgba(64, 158, 255, 0.10), 0 0 26px rgba(64, 158, 255, 0.85); }
-}
 .chain.failed :deep(.is-current .el-step__icon) {
   border-color: var(--el-color-danger);
-  animation-name: glow-bad;
-}
-@keyframes glow-bad {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(245, 108, 108, 0.22), 0 0 12px rgba(245, 108, 108, 0.60); }
-  50% { box-shadow: 0 0 0 9px rgba(245, 108, 108, 0.12), 0 0 26px rgba(245, 108, 108, 0.90); }
-}
-/* Nothing glowing while nothing has happened. */
-.chain.idle :deep(.el-step__icon) {
-  box-shadow: none;
-  animation: none;
+  background: var(--el-color-danger-light-9);
 }
 </style>

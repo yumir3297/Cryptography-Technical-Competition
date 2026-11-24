@@ -13,13 +13,12 @@
  * 的字形遮罩，每格按遮罩覆盖率把自己的透明度乘下去，字缘的字符因此是
  * 慢慢淡出、自然让出字形的，而不是被硬边裁切。用户要求减少动态时只画
  * 一帧静止画面。 */
-(function () {
+export function mountBackdrop(canvas) {
   'use strict';
 
-  var canvas = document.getElementById('ob-bg');
-  if (!canvas) return;
+  if (!canvas) return null;
   var ctx = canvas.getContext('2d');
-  if (!ctx) return;
+  if (!ctx) return null;
 
   var GLYPHS = '0123456789ABCDEF0123456789abcdef<>[]{}()/\\|;:*+-=$#@%&|~^'.split('');
   var BLUE = '86, 146, 214';
@@ -242,4 +241,9 @@
   }
 
   start();
-})();
+  return { start: start, stop: stop };
+}
+
+// 页面里有 #ob-bg 就自己挂上；Vue 应用 import 这个模块即可。
+var auto = document.getElementById('ob-bg');
+if (auto) mountBackdrop(auto);

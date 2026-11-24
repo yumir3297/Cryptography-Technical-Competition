@@ -22,7 +22,8 @@
 }
 code {
   background: var(--el-fill-color);
-  border-radius: 4px;
+  border-radius: 0;
   padding: 0 4px;
+  font-family: var(--ak-font-mono);
 }
 </style>
