@@ -1,5 +1,7 @@
 # 比赛软件开发入口
 
+**2026-11-24 最新入口：** [研究定论](../RESEARCH-STATUS-20261124.md) · [最终验收](../FINAL_VERDICT.md) · [实验结论](evaluation/experiment_conclusions.md)。历史开发交接按原版本阅读；GoalFloor 强制保障仅在 enforce 模式成立。
+
 当前 IND 简化提案、受控 ID、短期证明更新、HTTP/MCP 与本机部署的完整交付见[开发接手入口（四项说明与实验证据）](docs/final/ind-complete-delivery-20261018.md)。它替代 PR #3 的待集成版本；PAY/MED 保留原完整 Action 入口。
 
 先读[共同协议](docs/final/competition-protocol.md)及[比赛开发总交接](docs/final/scenario-integration-handoff.md)，接线时使用[真实内部接口对照](docs/final/interface-reference.md)。CommonW 是工业、付款、医疗共用的接受、领取、执行、恢复与结算入口。

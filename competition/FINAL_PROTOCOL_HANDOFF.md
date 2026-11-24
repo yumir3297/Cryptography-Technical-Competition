@@ -1,5 +1,7 @@
 # ZJJ-CORE 比赛协议交付入口
 
+**当前交付入口（2026-11-24）：** [研究定论](../RESEARCH-STATUS-20261124.md) · [最终验收](../FINAL_VERDICT.md) · [GoalFloor 集成](docs/final/goalcommit-integration-20261123.md) · [实验与独立复验](evaluation/README.md)。下文为 2026-10-12 历史基础交接，保留原构建身份。
+
 2026-10-12 · `CORE-SPEC-1.3` · 比赛协议规则与开发接线约定
 
 ZJJ-CORE 面向 agent 参与的高风险、高后果流程。agent 提出动作，独立的受信验证与必要批准决定能否接受和派发。工业、付款、医疗共用安全核心，在受信单机和三个签名模拟工具范围内展示动作绑定、授权检查、一次执行资格与保守恢复。

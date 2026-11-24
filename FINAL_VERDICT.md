@@ -1,5 +1,7 @@
 # FINAL VERDICT — ZJJ-CORE GoalFloor（2026-11-24）
 
+冻结实验代码 `7f5dd03`，实验分支头 `d83546b`。后续文档/合并不改变原运行身份；默认 off 保持旧入口兼容，只有 enforce 提供强制下界保障。原始 JSON、证据包已提交，运行日志仍需独立归档。
+
 ## 结论
 
 **CONDITIONAL_READY**。

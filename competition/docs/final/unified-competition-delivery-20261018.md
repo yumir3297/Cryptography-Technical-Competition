@@ -2,7 +2,7 @@
 
 日期：2026-10-18。解决了开发同学提出的几个问题，协议层面没有问题，是实验代码层面用问题。
 
-> **2026-11-23 后续：GoalFloor 最小集成。** 本轮没有改动上述三场景的共同 W 主语义，而是在 C 发布层新增可选 `GOAL_FLOOR`，在 W 接受事务中增加必要资源下界检查（默认 `goal_mode='off'`）。新增实验、39 项状态、离线证据与限制见 [`competition/evaluation/`](../../evaluation/README.md)。该集成不宣称跨 Profile 原子性、目标可达或正式 39 项全部通过。
+> **2026-11-24 更新：** 本页为 10 月历史交付；当前 GoalFloor、实验及验收见 [最新实验结论](../../evaluation/experiment_conclusions.md)、[最终验收](../../../FINAL_VERDICT.md) 和 [集成说明](goalcommit-integration-20261123.md)。默认 off 保持既有入口兼容，只有 enforce 强制下界；不宣称目标可达、跨 Profile 原子性或正式 39 项全部通过。
 
 
 ## 1. 交付范围与展示安排
