@@ -176,7 +176,7 @@ def _preapprover(fleet, *, ask=True):
     return report
 
 
-def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kwargs):
+def initialize(folder, *, resource_capacity=None, fleet=None, goal_mode='off', **authorization_kwargs):
     """Create one fresh authenticated three-profile W and three tool ledgers.
 
     With no ``fleet`` the controlled bootstrap makes every key and keeps it: the
@@ -286,7 +286,7 @@ def initialize(folder, *, resource_capacity=None, fleet=None, **authorization_kw
             gateways[profile] = ToolGateway(config_path)
             x_signers[profile] = CommonReceiptSigner(x_key_path, base.store.path,
                                                     base.store.root_public, profile)
-        w = CommonW(base.store, delivery, worker_certificate, x_signers, gateways)
+        w = CommonW(base.store, delivery, worker_certificate, x_signers, gateways, goal_mode=goal_mode)
         planner = TransactionPlans(base.store)
         for profile, op in base.operations.items():
             w.register_tool(profile, tools[profile]['certificate'])

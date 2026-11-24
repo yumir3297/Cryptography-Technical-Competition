@@ -1,0 +1,246 @@
+{
+ "actors": {
+  "IND-DEMO-1": {
+   "E": {
+    "kid": "QuZvUGFxEo0dmgafrDAvIbgPbVeC0USKitI4_TLQs68",
+    "name": "auth-industrial-e",
+    "public_key": "ZxPquRzGYRPvDH_yenue11rG31hLBAgNIpOMoR7-FsI",
+    "purposes": [
+     "READ",
+     "SOURCE"
+    ],
+    "roles": [
+     "SOURCE"
+    ]
+   },
+   "G": {
+    "kid": "N3bMfL34dFfpoTOOaFkF_FB0yhLyTKmpieqtdWc4iKM",
+    "name": "auth-industrial-g",
+    "public_key": "iQmu8Kr8Wsaz9ijYud-tfPAaUxmZDfxc5Qp0qRpTcYs",
+    "purposes": [
+     "Permit",
+     "READ"
+    ],
+    "roles": [
+     "ISSUER"
+    ]
+   },
+   "H": {
+    "kid": "XUW30sRZwIwqtKAKBS36txOMPsgw3JpK-uyNu0wBYcY",
+    "name": "auth-industrial-h",
+    "public_key": "MaC11YL1NUew1w7vq-ff22tKVMMhSTMzj6ih0iThshA",
+    "purposes": [
+     "ChallengeRequest",
+     "CommitProof",
+     "IssueRequest",
+     "READ",
+     "StatusQuery"
+    ],
+    "roles": [
+     "HOLDER"
+    ]
+   },
+   "U": {
+    "kid": "GcN94JQaLLnKaO1h8tROImI5looFamypWJh-npJ0rhs",
+    "name": "auth-industrial-u",
+    "public_key": "sqgmQXJQNo68OaCt6P44MaBupz-rnbyMvmCmkT65eP4",
+    "purposes": [
+     "Authorization",
+     "READ"
+    ],
+    "roles": [
+     "LINE_OPERATOR"
+    ]
+   },
+   "V": {
+    "kid": "BxIiYYaDuLC8PWOWv857-AJC_gfYe6aKwWwfheluQDc",
+    "name": "auth-industrial-v",
+    "public_key": "b1Bb-n0DxBUydU9bJDc3XfoWkSme-C27bzq2wjHoOTA",
+    "purposes": [
+     "READ",
+     "Review"
+    ],
+    "roles": [
+     "QUALITY_REVIEWER"
+    ]
+   },
+   "X": {
+    "kid": "H6sb0J59AwpLknqKa7BuEB8S84LtbhRcqkRPe8628Xc",
+    "name": "auth-industrial-x",
+    "public_key": "MlTNX03aAZP7F3_HqK-6MVC68zPOzt41RmXDzf7FQCg",
+    "purposes": [
+     "Acceptance",
+     "Challenge",
+     "READ",
+     "Result"
+    ],
+    "roles": [
+     "EXECUTOR"
+    ]
+   }
+  },
+  "MED-DEMO-1": {
+   "E": {
+    "kid": "32Lyk1x0HTG7DWZxpDullcnziZ9Gp2BWzKiYX--TF8s",
+    "name": "auth-medical-e",
+    "public_key": "CbE2HOjWieKNVh1szmUAC_0wlEXlnHv4kF3y_uLy4-g",
+    "purposes": [
+     "READ",
+     "SOURCE"
+    ],
+    "roles": [
+     "SOURCE"
+    ]
+   },
+   "G": {
+    "kid": "wkyR1jGZWukpoJUxHBMj7RDXnmKxhyEsh1YHgrvxPuM",
+    "name": "auth-medical-g",
+    "public_key": "xK0W4taSuIouxpM4wIcTmqvU2EahaDXxzZjSVvks0NM",
+    "purposes": [
+     "Permit",
+     "READ"
+    ],
+    "roles": [
+     "ISSUER"
+    ]
+   },
+   "H": {
+    "kid": "aezyzvdiykFJzUt-ykvz-MKFpqI4T3u7VVkgEQZWmbk",
+    "name": "auth-medical-h",
+    "public_key": "mtv4x9XZGgu3iZUKGUNQcShyLCQjDOfQTf2RaK27G2o",
+    "purposes": [
+     "ChallengeRequest",
+     "CommitProof",
+     "IssueRequest",
+     "READ",
+     "StatusQuery"
+    ],
+    "roles": [
+     "HOLDER"
+    ]
+   },
+   "U": {
+    "kid": "moWbDWGyMYjDl4bGqYrp5x5frKPvPT9cjiLUoL7d3Sw",
+    "name": "auth-medical-u",
+    "public_key": "yIa8CwDN97f-ztCiz_qQYKH1s0nV0iL-NmQE7eCnifs",
+    "purposes": [
+     "Authorization",
+     "READ"
+    ],
+    "roles": [
+     "MEDICAL_AUTHORIZER"
+    ]
+   },
+   "V": {
+    "kid": "Y4-Ci-XP0Ktov6itzBaSrbXXx0RKhTGyVQBfi7YYLpg",
+    "name": "auth-medical-v",
+    "public_key": "5EWvVEq9JWamDAT_Ihf7PvaVVh-J7bJMH3aSfO2ketM",
+    "purposes": [
+     "READ",
+     "Review"
+    ],
+    "roles": [
+     "CLINICAL_REVIEWER"
+    ]
+   },
+   "X": {
+    "kid": "PblkzreriMuLX0N9yU89838OdQnvBIFjglwoIbjvZM4",
+    "name": "auth-medical-x",
+    "public_key": "8C21sNQgsR9YoHo-2-XMNffv3_1IdahGEtY293b3X2I",
+    "purposes": [
+     "Acceptance",
+     "Challenge",
+     "READ",
+     "Result"
+    ],
+    "roles": [
+     "EXECUTOR"
+    ]
+   }
+  },
+  "PAY-1": {
+   "E": {
+    "kid": "9ZnK1yIQDmVg3Z4bVrCL9VPfxJcjTLNMjxhvHrPHTCw",
+    "name": "auth-payment-e",
+    "public_key": "iVkSAUdL1yTNaL6J3z9YsWV8SyOn3BiQuLu4QFAvtM4",
+    "purposes": [
+     "READ",
+     "SOURCE"
+    ],
+    "roles": [
+     "SOURCE"
+    ]
+   },
+   "G": {
+    "kid": "XplgqJJ5VscbSJd5VIhdv-OWBKUVCnbHt-TXBS6Dy14",
+    "name": "auth-payment-g",
+    "public_key": "1m4SmObx9uIAiy0nlimvn-7u68YELxtgVtpQ7jXTqi0",
+    "purposes": [
+     "Permit",
+     "READ"
+    ],
+    "roles": [
+     "ISSUER"
+    ]
+   },
+   "H": {
+    "kid": "VOMerF17pDaSAMT2BX5h6lnuSY16HWlpDmNJe1t5Y9o",
+    "name": "auth-payment-h",
+    "public_key": "wC3E8VOxwnKzsXJE5crKk501zZr5bN2DtBeNU7eLxm8",
+    "purposes": [
+     "ChallengeRequest",
+     "CommitProof",
+     "IssueRequest",
+     "READ",
+     "StatusQuery"
+    ],
+    "roles": [
+     "HOLDER"
+    ]
+   },
+   "U": {
+    "kid": "OBMKjFMAP3LXuk9mY1WceAEs5Cp6R6t0DIJfgb7rer4",
+    "name": "auth-payment-u",
+    "public_key": "6Iq9-U4x62bSW43IBE1Z7xlDFSe2sG4Pj0rerFr2zRc",
+    "purposes": [
+     "Authorization",
+     "READ"
+    ],
+    "roles": [
+     "FINANCE"
+    ]
+   },
+   "V": {
+    "kid": "MkbNbOBqX0uHXcyY0sEN1XjnAovhJm62uZBhlwkmKKE",
+    "name": "auth-payment-v",
+    "public_key": "s1O7ynxFFj9e5x69TBRNJm-hJlnrEX1egGuquhcyLqs",
+    "purposes": [
+     "READ",
+     "Review"
+    ],
+    "roles": [
+     "ANOMALY"
+    ]
+   },
+   "X": {
+    "kid": "t8kzQkTeHEQqqgIsJWzM4aBnjjDdjX9ky_8W8ze8-Vw",
+    "name": "auth-payment-x",
+    "public_key": "dFXkC741HBXaGb8H4UmHVCWUdvVcxVTv2croqPJLRDE",
+    "purposes": [
+     "Acceptance",
+     "Challenge",
+     "READ",
+     "Result"
+    ],
+    "roles": [
+     "EXECUTOR"
+    ]
+   }
+  }
+ },
+ "delivery_public": "Sq5SK_zmpsKnEnJTTM2AfquYj8SbKmeWUEjU73P-G8k",
+ "format": "ZJJ-CORE-TRUST-ANCHOR-1",
+ "generated_utc": "2026-11-24T10:14:19Z",
+ "protocol": "ZJJ-CORE-COMP-1",
+ "root_public": "Ytx6djSnY49SqEm57kPZQSeBT5-33cgukBjJSOkQZxw"
+}

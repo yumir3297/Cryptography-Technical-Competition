@@ -1,0 +1,17 @@
+{
+ "generated_utc": "2026-11-24T08:46:59Z",
+ "old_real_histories": 20,
+ "bulk_real_histories": 20,
+ "total_real_histories": 40,
+ "old_all_linearizable": true,
+ "bulk_all_linearizable": true,
+ "reference_model_histories": 10000,
+ "reference_model_transitions": 240000,
+ "reference_model_violations": 0,
+ "bulk_scenarios": {
+  "optional_last_slot": 5,
+  "required_race": 5,
+  "multi_goal_shared_resource": 5,
+  "same_intent": 5
+ }
+}

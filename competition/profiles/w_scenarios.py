@@ -4,11 +4,17 @@ import json
 import os
 
 from competition.core.trusted_state import prefix
+from competition.support.scene_contract import DEST, MAPPING
 from competition.support.wire import b64, canonical, rec_ref, require, sortset
 
 
-def register_ind_unit(run, *, unit_id='unit-b', batch_id='batch-b', principal='principal-b'):
+def register_ind_unit(run, *, unit_id='unit-b', batch_id='batch-b', principal='principal-b',
+                      route=None):
     """Register a second real authenticated unit/task/behavior, then sign its op.
+
+    ``route`` is only used by the evaluation incident workflow to request a
+    certified QUARANTINE/RELEASE label; the default keeps every existing caller
+    on the original evidence label.
 
     The original policy/package and all source windows stay unchanged. C widens
     current role unit sets before either competing operation is re-derived, so
@@ -30,6 +36,10 @@ def register_ind_unit(run, *, unit_id='unit-b', batch_id='batch-b', principal='p
     identity_ref = rec_ref(identity)
     evidence['value']['data'].update(unit_id=unit_id, batch_id=batch_id,
                                     unit_ref=identity_ref, evidence_id=b64(os.urandom(16)))
+    if route is not None:
+        require(route in DEST and route in set(MAPPING.values()), 'SCENARIO_ROUTE')
+        evidence['value']['data']['label'] = next(label for label, mapped in MAPPING.items()
+                                                  if mapped == route)
     attestation = evidence['value']['attestation']
     header = {k: attestation[k] for k in ('issuer', 'kid', 'iat', 'exp')}
     attestation['sig'] = b64(run.actors[profile]['E'].key.sign(canonical([
@@ -57,6 +67,9 @@ def register_ind_unit(run, *, unit_id='unit-b', batch_id='batch-b', principal='p
         ('BEHAVIOR', scope_key + [principal], behavior)):
         run.base.publish(profile, namespace, key, record)
     original['action']['payload'].update(unit_id=unit_id, batch_id=batch_id)
+    if route is not None:
+        original['action']['payload']['route'] = route
+        original['action']['destination'] = DEST[route]
     original['action']['principal'] = principal
     original['task_id'] = task_id; original['scene_key'] = scene_key
     return run.fork_operation(profile, original)

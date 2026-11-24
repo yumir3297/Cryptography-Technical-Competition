@@ -1,0 +1,99 @@
+{
+ "generated_utc": "2026-11-24T10:14:34Z",
+ "git_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c",
+ "anchor_sha256": {
+  "anchor-three-profiles.json": "e51dea5ba3057ce9da8cfb90c24950c36c2b27582d1a7efe93d4f94dc5287324",
+  "anchor-goal.json": "8e9055d1b9e90c69bb168fc8df1d225bedbbdfe4f7a88e74f3d8371200c851e1"
+ },
+ "packages": {
+  "IND-DEMO-1": {
+   "status": "PASS",
+   "passed": 13,
+   "failed": 0,
+   "skipped": 0,
+   "package_sha256": "e626f7e59ccc1a8c4a736a24d7c643f80ba99b3a0c574fd1bb8d86ae50e0ef1a",
+   "checks": [
+    "anchor_matches_package_root",
+    "anchor_actor_keys",
+    "control_certificates_and_refs",
+    "control_history_certificates",
+    "tool_trust_certificate",
+    "resource_certificate_and_sums",
+    "authorization_chain",
+    "commit_record_ref",
+    "x_acceptance_signature",
+    "unique_attempt_and_delivery_signature",
+    "goal_floor_recomputation",
+    "tool_final_fact_signature",
+    "settlement_binding"
+   ]
+  },
+  "IND-DEMO-1-goal": {
+   "status": "PASS",
+   "passed": 13,
+   "failed": 0,
+   "skipped": 0,
+   "package_sha256": "2b741fcde79ba06a73f97b73f28091c9cee1e859a04e11bfab9d8e4a9d073065",
+   "checks": [
+    "anchor_matches_package_root",
+    "anchor_actor_keys",
+    "control_certificates_and_refs",
+    "control_history_certificates",
+    "tool_trust_certificate",
+    "resource_certificate_and_sums",
+    "authorization_chain",
+    "commit_record_ref",
+    "x_acceptance_signature",
+    "unique_attempt_and_delivery_signature",
+    "goal_floor_recomputation",
+    "tool_final_fact_signature",
+    "settlement_binding"
+   ]
+  },
+  "MED-DEMO-1": {
+   "status": "PASS",
+   "passed": 13,
+   "failed": 0,
+   "skipped": 0,
+   "package_sha256": "406827cbb4583f5fcb40df96284b603d762335e328d1da44d55e3d9c184a8d19",
+   "checks": [
+    "anchor_matches_package_root",
+    "anchor_actor_keys",
+    "control_certificates_and_refs",
+    "control_history_certificates",
+    "tool_trust_certificate",
+    "resource_certificate_and_sums",
+    "authorization_chain",
+    "commit_record_ref",
+    "x_acceptance_signature",
+    "unique_attempt_and_delivery_signature",
+    "goal_floor_recomputation",
+    "tool_final_fact_signature",
+    "settlement_binding"
+   ]
+  },
+  "PAY-1": {
+   "status": "PASS",
+   "passed": 13,
+   "failed": 0,
+   "skipped": 0,
+   "package_sha256": "01f1feeac6d85ff015d4a1bff6e143a238fe1f6576280978570bbf98d741dafd",
+   "checks": [
+    "anchor_matches_package_root",
+    "anchor_actor_keys",
+    "control_certificates_and_refs",
+    "control_history_certificates",
+    "tool_trust_certificate",
+    "resource_certificate_and_sums",
+    "authorization_chain",
+    "commit_record_ref",
+    "x_acceptance_signature",
+    "unique_attempt_and_delivery_signature",
+    "goal_floor_recomputation",
+    "tool_final_fact_signature",
+    "settlement_binding"
+   ]
+  }
+ },
+ "all_pass": true
+}

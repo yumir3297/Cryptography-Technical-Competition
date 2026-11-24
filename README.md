@@ -1,32 +1,28 @@
 # ZJJ-CORE 安全协议与比赛模拟软件
 
-##作者吐槽：其实作者本人觉得这个东西出产的逻辑就存在一点问题。从实际科研与解决的问题的角度出发，进行一个协议的或者系统的设计应该以实际问题的现象入手，进而剖析问题背后的逻辑，然后针对该问题逻辑进行优化。但是该作品的初衷是针对工业生产情况进行一些问题的解决，但是因为不可抗力的要求下，被要求抽象成一套宽泛的安全协议，其中包括签名内容，参与签名者，参与签名者之间的关系等因素其实逻辑上并不满足抽象成一个宽泛协议的条件，这点在另外两个展示场景的开发过程中就生动形象的体现出来，很多非对称密码学实现的过程中的数学逻辑分配的别扭的不行。
+面向高后果智能体决策的密码学可验证动作授权与原子接受协议。Agent 提出候选动作，受信控制面 C 发布约束，共同 W 确定性核验身份、授权、资源及必要目标下界，将接受、执行资格、工具终局与结算绑定到可复验的证据链。
 
-**统一交付入口：[工业全流程主展示与三场景本地补充演示](competition/docs/final/unified-competition-delivery-20261018.md)。** 主分支的启动方式见[单机部署与本地回归](INSTALL_AND_SCOPE.md)。
+## 当前交付与实验结论（2026-11-24）
 
-工业提供受信单机中的候选、审批签署、接受、模拟执行、结算和重启恢复全流程；工业、付款、医疗三个场景的可信本地 CLI 作为补充演示。两种入口共用核心、保持隔离，PAY/MED 不声明已提供工业新版公开服务。
+**当前验收：CONDITIONAL_READY（有条件就绪）。** 核心 91/91、专项 45/45（含 GoalFloor/跨场景 23 项）；20 条真实长序列配对、112 个候选动作位置、20 个差分拒绝位置、Oracle mismatch 0；40 条真实并发历史全部存在线性化解释；15/15 定向篡改拒绝、3/3 崩溃边界通过；IND/PAY/MED 与事件响应（复用 IND wire）；4,363 个有限模型状态、67,746 次转移、0 违反。独立模型长序列及并发历史各 10,000 条，不能混为真实 W 样本。真实接受路径 40 次/模式，p50 1324.9/1338.4 ms，探索性增加约 1%；证据包约 +1.6%。正式 39 项为 2 PASS / 0 FAIL / 22 PARTIAL / 15 NOT_RUN；Linux/WSL 全量 526 tests、1 failure / 3 errors，隔离复跑通过，尚无单次全绿。统计可能重叠，不相加。
 
-工业实现细节：[如何解决、其他影响、补全方案、实验代码与结果](competition/docs/final/ind-complete-delivery-20261018.md)。
+以 [最新研究定论](RESEARCH-STATUS-20261124.md)、[最终验收](FINAL_VERDICT.md)、[实验结论](competition/evaluation/experiment_conclusions.md) 为当前结论入口；旧阶段数字仅按原构建身份追溯。
 
-本仓库用于密码学技术竞赛的软件开发与演示。agent 提出动作，独立的受信验证、必要批准和执行约束决定动作能否产生模拟效果。工业、付款、医疗共用接受与执行核心。
+- [GoalFloor 集成](competition/docs/final/goalcommit-integration-20261123.md) · [核心贡献](competition/evaluation/core-contributions.md)
+- [实验与结果](competition/evaluation/README.md) · [原始 JSON 索引](competition/evaluation/results/README.md) · [39 项状态](competition/evaluation/conformance_39.md)
+- [评委独立复验](competition/evaluation/judge_replay.md) · [演示复验](competition/evaluation/reproduce/README.md) · [实验图表](competition/evaluation/figures/)
+- [剩余限制](competition/evaluation/remaining-limitations.md)
 
-- [研究讨论案（2026-11-20）：高后果 Agent 的人类可定义操作约束与密码学可验证动作边界](competition/docs/discussions/2026-11-20-agent-action-governance-proposal.md)
-- [共同安全协议](competition/docs/final/competition-protocol.md)
-- [比赛配置与三个场景开发总交接](competition/docs/final/scenario-integration-handoff.md)
-- [完整交付入口](competition/FINAL_PROTOCOL_HANDOFF.md)
-- [开发入口与运行命令](competition/README.md)
-- [当前内部接口与返回值](competition/docs/final/interface-reference.md)
-- [Agent MCP 接入与状态回推](competition/docs/final/agent-mcp-handoff.md)
-- [协议 1.1 优化与复检](competition/docs/final/optimization-review-20261012.md)
-- [安装依赖与运行范围](INSTALL_AND_SCOPE.md)
-- [消息契约、Schema 与公开编码向量](system_dev/v26/README.md)
-- [声明与实际证据](competition/docs/final/claims-evidence.md)
-- [仓库范围与整理记录](REPOSITORY_SCOPE.md)
+GoalFloor 只维护经 C 认证的必要资源下界，不证明目标可达、规划正确或最终成功。默认 off 保持已有入口兼容；只有明确启用 enforce 才有新约束保障。已验证的是受信单机真实协议实现与签名模拟工具，不是生产设备。
 
-比赛采用受信单机、固定登记范围和三个签名模拟工具。当前查询与审计是经过认证的本地应用投影；正式 R2 签名响应与应用实现差异在交接材料中分别说明。
+## 开发与运行
 
-仓库当前内容提供比赛代码、协议说明、场景交接、开发契约、回归测试及模拟证据。论文正文、研究模型、研究实验结果与研究分支快照已完整归档本地。既有运行证据保持原构建身份，当前运行命令见开发入口。
+- [比赛开发入口](competition/README.md) · [单机部署与本地回归](INSTALL_AND_SCOPE.md)
+- [工业全流程与三场景历史统一交付](competition/docs/final/unified-competition-delivery-20261018.md)
+- [共同安全协议](competition/docs/final/competition-protocol.md) · [比赛协议交付入口](competition/FINAL_PROTOCOL_HANDOFF.md)
+- [三场景开发总交接](competition/docs/final/scenario-integration-handoff.md) · [内部接口](competition/docs/final/interface-reference.md) · [Agent MCP](competition/docs/final/agent-mcp-handoff.md)
+- [消息契约、Schema 与公开编码向量](system_dev/v26/README.md) · [安全边界](competition/docs/final/security-boundaries.md)
+- [声明与实际证据](competition/docs/final/claims-evidence.md) · [仓库范围](REPOSITORY_SCOPE.md)
+- [研究讨论案](competition/docs/discussions/2026-11-20-agent-action-governance-proposal.md)
 
-当前比赛语义、agent 能力与角色签署边界见[安全边界](competition/docs/final/security-boundaries.md)；修复和验证结果见[整改记录](competition/docs/final/rectification-results-20261012.md)。
-
-协议共同规则与具体比赛开发内容已分层，见[CORE-SPEC-1.3 整理记录](competition/docs/final/protocol-separation-record-20261012.md)；既有执行代码和 wire 标识保持。
+既有工业服务和 PAY/MED 本地 CLI 保持隔离。历史证据保留原构建身份。

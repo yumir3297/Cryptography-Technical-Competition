@@ -17,15 +17,19 @@ from competition.core.event_clock import require_window, refresh_event_age
 from competition.profiles.w_plans import TransactionPlans
 from competition.support.wire import require, ProtocolError, canonical, b64, raw, digest, rec_ref, msgref, sortset, keyid, action_hash, strict_verify, envelope
 from competition.support.final_fact import verify_certificate, final_fact_id, final_fact, final_sign_bytes
+from competition.core.goal_floor import (action_selector, evaluate as evaluate_goal_floor,
+    goal_ref, state_digest as goal_state_digest, validate_claim as validate_goal_claim)
 
 WORKER_PURPOSES=('AUDIT','CANCEL','CLAIM','EXECUTE','QUERY','RECEIPT','SETTLE')
 KNOWN_CANCEL={'EXPIRED','REVOKED','STALE','NO_ROLE','DEP_CONFLICT','REVIEW_DENY','STATE_GENESIS_CHANGED','STATE_CONFLICT','ASSESSMENT_MISMATCH'}
 
 class CommonW:
-    def __init__(self,state,delivery_key,worker_certificate,x_signers,tool_gateways):
+    def __init__(self,state,delivery_key,worker_certificate,x_signers,tool_gateways,*,goal_mode='off'):
+        require(goal_mode in ('off','shadow','enforce'),'GOAL_MODE')
         require(state.protocol==COMPETITION_PROTO,'W_PROTOCOL_BINDING')
         self.source=state; self.state=WState(state); self.guard=CommonGuard(self.state); self.plans=TransactionPlans(self.state)
         self.delivery_key=delivery_key; self.worker_certificate=worker_certificate; self.x_signers=x_signers; self.tool_gateways=tool_gateways
+        self.goal_mode=goal_mode
         self._clock_lock=threading.RLock()
         with state.db() as c:
             c.executescript('''
@@ -44,8 +48,15 @@ class CommonW:
             CREATE TABLE IF NOT EXISTS w_tool(profile TEXT,key TEXT,certificate TEXT,origin TEXT,high_water INTEGER,head TEXT,halted INTEGER,PRIMARY KEY(profile,key));
             CREATE TABLE IF NOT EXISTS w_settlement(profile TEXT,oid TEXT,fact_id TEXT,ledger TEXT,final_seq TEXT,effect_id TEXT,outcome TEXT,evidence TEXT,PRIMARY KEY(profile,oid),UNIQUE(profile,ledger,final_seq));
             CREATE UNIQUE INDEX IF NOT EXISTS w_effect_once ON w_settlement(profile,ledger,effect_id) WHERE effect_id!='';
+            CREATE TABLE IF NOT EXISTS w_goal(profile TEXT,oid TEXT,goal_group TEXT,goal_ref TEXT,epoch TEXT,action TEXT,obligation TEXT,cost INTEGER,state TEXT,PRIMARY KEY(profile,oid,goal_group));
             CREATE TABLE IF NOT EXISTS w_evidence(seq INTEGER PRIMARY KEY AUTOINCREMENT,profile TEXT,oid TEXT,kind TEXT,blob TEXT);
             ''')
+            if goal_mode == 'enforce':
+                # Defense in depth: enforce never links one certified obligation
+                # to two operations.  A database that already contains a shadow
+                # duplicate fails closed at startup rather than silently
+                # becoming an enforce state.
+                c.execute("CREATE UNIQUE INDEX IF NOT EXISTS w_goal_obligation_once ON w_goal(profile,goal_group,obligation) WHERE obligation!=''")
             saved=c.execute("SELECT blob FROM a_journal WHERE kind='W_BOOTSTRAP' ORDER BY seq LIMIT 1").fetchone()
             boot={'protocol':COMPETITION_PROTO,'worker':worker_certificate,'delivery_public':b64(delivery_key.public_key().public_bytes_raw())}
             if saved:require(json.loads(saved[0])==boot,'W_BOOTSTRAP_CONFLICT')
@@ -116,6 +127,124 @@ class CommonW:
         totals=c.execute("SELECT COALESCE(SUM(CASE WHEN state='RESERVED' THEN amount ELSE 0 END),0),COALESCE(SUM(CASE WHEN state='SPENT' THEN amount ELSE 0 END),0) FROM w_reservation WHERE profile=? AND key=?",(p,enc(key))).fetchone()
         require(tuple(totals)==(row['reserved'],row['spent']) and 0<=row['reserved']+row['spent']<=row['capacity'],'RESOURCE_INTEGRITY')
         return row
+
+    def _goal_inactive_pending(self,c,p):
+        """Return one group with a PENDING link but no active C goal, if any.
+
+        C may legitimately deactivate a goal, but an existing PENDING obligation
+        must not silently lose its floor.  Enforce then blocks new accepts
+        (GOAL_INACTIVE_PENDING); shadow records the difference.
+        """
+        rows=c.execute("SELECT DISTINCT goal_group FROM w_goal WHERE profile=? AND state='PENDING'",
+                       (p,)).fetchall()
+        for row in rows:
+            key=enc(prefix(p)+[row['goal_group']])
+            current=c.execute("SELECT active FROM a_current WHERE profile=? AND namespace='GOAL' AND key=?",
+                              (p,key)).fetchone()
+            if current is None or current['active'] != 1:
+                return row['goal_group']
+        return None
+
+    def _goal_statuses(self,c,p):
+        """Fold W's own goal links into one state per (group, obligation).
+
+        In shadow mode two operations may link the same obligation (the point of
+        shadow is to observe, not to reject).  PENDING dominates, then BLOCKED,
+        then DONE; absence is OPEN.  Enforce mode never creates the duplicate
+        because the goal decision rejects it before the link insert.
+        """
+        rows=c.execute('SELECT goal_group,obligation,state FROM w_goal WHERE profile=?',(p,)).fetchall()
+        states={}
+        rank={'OPEN':0,'DONE':1,'BLOCKED':2,'PENDING':3}
+        for row in rows:
+            key=(row['goal_group'],row['obligation']); state=row['state']
+            require(state in rank,'GOAL_STATUS')
+            if key not in states or rank[state]>rank[states[key]]:states[key]=state
+        return states
+
+    def _goal_context(self,c,p,op,plan,resource):
+        """Evaluate every active C-certified floor sharing the candidate resource.
+
+        The Agent supplies no cost, capacity, status, goal id or action name.  W
+        reads the C-signed GoalFloor records, matches the frozen Action by its
+        stable selector, reads the resource totals from its own ledger and uses
+        the amount from its own transaction plan.
+        """
+        stale = self._goal_inactive_pending(c,p)
+        rows=c.execute("SELECT key FROM a_current WHERE profile=? AND namespace='GOAL' AND active=1",(p,)).fetchall()
+        goals=[]; load_error=None
+        for row in rows:
+            try:
+                key=json.loads(row['key']); current=self.state.current(c,p,'GOAL',key); record=current['record']
+                require(record['kind']=='GOAL_FLOOR' and record['profile']==p and record['scope']==PROFILE_SCOPES[p],'GOAL_CERTIFIED')
+                claim=record['value']; validate_goal_claim(p,claim)
+                require(key[:3]==self.source_prefix(p) and key[3]==claim['group'],'GOAL_KEY')
+                if claim['resource_key']!=plan['resource_key']:continue
+                goals.append({'ref':goal_ref(p,claim),'claim':claim,'revision':current['revision']})
+            except ProtocolError as exc:
+                load_error=getattr(exc,'code','GOAL_STATE_INVALID')
+        if not goals and load_error is None and stale is None:return {'applicable':False}
+        statuses=self._goal_statuses(c,p)
+        state_ref=goal_state_digest(resource['capacity'],spent=resource['spent'],reserved=resource['reserved'],statuses=statuses)
+        base={'applicable':True,'goals':goals,'state_ref':state_ref,
+              'capacity':str(resource['capacity']),'spent':str(resource['spent']),
+              'reserved':str(resource['reserved']),'candidate_cost':str(plan['amount']),
+              'matched':[],'remaining_floor':'0','total':str(resource['spent']+resource['reserved']+plan['amount']),
+              'headroom':str(resource['capacity']-resource['spent']-resource['reserved']-plan['amount'])}
+        goal_deps={}
+        for goal in goals:
+            for dep in goal['claim']['deps']:
+                goal_deps[(dep['namespace'],tuple(dep['key']))]=dep
+        base['deps']=sortset(list(goal_deps.values()))
+        if stale is not None:
+            base.update(decision='F',reason='GOAL_INACTIVE_PENDING')
+            base['check_ref']=digest(['ZJJ-GOAL-CHECK-v1',{k:base[k] for k in ('capacity','spent','reserved','candidate_cost','remaining_floor','total','matched')}|{'decision':'F','reason':'GOAL_INACTIVE_PENDING'}])
+            return base
+        if load_error is not None:
+            base.update(decision='F',reason=load_error)
+            base['check_ref']=digest(['ZJJ-GOAL-CHECK-v1',{k:base[k] for k in ('capacity','spent','reserved','candidate_cost','remaining_floor','total','matched')}|{'decision':'F','reason':load_error}])
+            return base
+        for goal in goals:
+            for dep in goal['claim']['deps']:
+                try:current=self.state.current(c,p,dep['namespace'],dep['key'])
+                except ProtocolError:
+                    base.update(decision='F',reason='GOAL_DEPS_UNKNOWN')
+                    base['check_ref']=digest(['ZJJ-GOAL-CHECK-v1',{k:base[k] for k in ('capacity','spent','reserved','candidate_cost','remaining_floor','total','matched')}|{'decision':'F','reason':'GOAL_DEPS_UNKNOWN'}])
+                    return base
+                if str(current['revision'])!=dep['revision'] or current['ref']!=dep['ref']:
+                    base.update(decision='F',reason='GOAL_DEPS_STALE')
+                    base['check_ref']=digest(['ZJJ-GOAL-CHECK-v1',{k:base[k] for k in ('capacity','spent','reserved','candidate_cost','remaining_floor','total','matched')}|{'decision':'F','reason':'GOAL_DEPS_STALE'}])
+                    return base
+        candidate={'cost':plan['amount'],'resource_key':plan['resource_key'],'unit':plan['unit'],
+                   'selector':action_selector(p,op['action'])}
+        try:
+            decision=evaluate_goal_floor(p,goals,statuses,capacity=resource['capacity'],
+                spent=resource['spent'],
+                reserved=resource['reserved'],candidate=candidate)
+        except ProtocolError as exc:
+            base.update(decision='F',reason=getattr(exc,'code','GOAL_INVALID'))
+            base['check_ref']=digest(['ZJJ-GOAL-CHECK-v1',{k:base[k] for k in ('capacity','spent','reserved','candidate_cost','remaining_floor','total','matched')}|{'decision':'F','reason':base['reason']}])
+            return base
+        base.update(decision=decision['decision'],reason=decision['reason'],
+            matched=decision['matched'],remaining_floor=decision['remaining_floor'],
+            total=decision['total'],headroom=decision['headroom'],
+            check_ref=decision['check_ref'])
+        return base
+
+    def _goal_witness(self,context):
+        return {'mode':self.goal_mode,'decision':context['decision'],'reason':context['reason'],
+            'goal_refs':sortset([goal['ref'] for goal in context['goals']]),
+            'deps':context.get('deps',[]),
+            'matched':context['matched'],'capacity':context['capacity'],
+            'spent':context['spent'],'reserved':context['reserved'],
+            'candidate_cost':context['candidate_cost'],
+            'remaining_floor':context['remaining_floor'],'total':context['total'],
+            'headroom':context['headroom'],'state_ref':context['state_ref'],
+            'check_ref':context['check_ref']}
+
+    @staticmethod
+    def source_prefix(p):
+        return prefix(p)
     def _operation(self,c,p,oid):
         require(p in PROFILE_SCOPES,'PROFILE_REGISTRY');row=c.execute('SELECT * FROM w_operation WHERE profile=? AND oid=?',(p,oid)).fetchone();require(row is not None,'OPERATION_UNKNOWN')
         return row,json.loads(row['frozen'])
@@ -166,6 +295,9 @@ class CommonW:
                 self._behavior_integrity(c,p,plan['behavior_before']['key'])
                 require(not c.execute('SELECT 1 FROM w_intent WHERE profile=? AND intent=?',(p,enc(plan['intent']))).fetchone(),'INTENT_CONFLICT')
                 resource=self._resource(c,p,plan['resource_key']);require(resource['unit']==plan['unit'] and resource['capacity']<=plan['limit'],'RESOURCE_INTEGRITY')
+                goal=self._goal_context(c,p,op,plan,resource) if self.goal_mode!='off' else {'applicable':False}
+                if self.goal_mode=='enforce' and goal['applicable'] and goal['decision']!='T':
+                    raise ProtocolError(goal['reason'] or 'GOAL_DENY')
                 require(resource['reserved']+resource['spent']+plan['amount']<=resource['capacity'],'RESOURCE_EXHAUSTED')
                 task=self.state.current(c,p,'TASK',plan['taskflight']['key'])['record']['value']
                 flight_count=c.execute('SELECT COUNT(*) FROM w_flight WHERE profile=? AND key=? AND active=1',(p,enc(plan['taskflight']['key']))).fetchone()[0]
@@ -187,6 +319,7 @@ class CommonW:
                 av=op['action'];rr=sortset([msgref(x) for x in op['reviews']]);pr=msgref(op['permit']);fr=msgref(op['proof']);ar=msgref(op['authorization'])
                 cv={'ctx':op['ctx'],'action':av,'permit_ref':pr,'proof_ref':fr,'authorization_ref':ar,'review_refs':rr,'accept_seq':str(seq),'accepted_at':str(event['lo']),'trusted_time':{'lo':str(event['lo']),'hi':str(event['hi'])},'checked_deps':guarded['deps'],'reservation_plan':[witness],'reservation_ids':[rid],'behavior_before':plan['behavior_before'],'behavior_after':plan['behavior_after'],'taskflight':plan['taskflight'],'dispatch_before':op['permit']['body']['payload']['dispatch_before'],'frozen_tool_request':av,'signing_public_key':b64(self.source.actors[p]['X'].pub),'credential_witnesses':sortset(credentials)}
                 if p!='PAY-1':cv.update(scene_before=plan['scene_before'],scene_after=plan['scene_after'])
+                if goal['applicable']:cv['goal']=self._goal_witness(goal)
                 commit={'version':'2.6','profile':p,'kind':'COMMIT','scope':PROFILE_SCOPES[p],'value':cv};self.source.schemas[p].validate(commit,'Record_COMMIT')
                 event=self._end_event(event);event=self._current_windows(c,p,op,event,accept=True)
                 cv['trusted_time']['hi']=str(event['hi'])
@@ -198,6 +331,10 @@ class CommonW:
                 c.execute('INSERT INTO w_intent VALUES(?,?,?)',(p,enc(plan['intent']),oid));c.execute('INSERT INTO w_reservation VALUES(?,?,?,?,?,?)',(p,rid,oid,enc(plan['resource_key']),plan['amount'],'RESERVED'))
                 c.execute('UPDATE w_resource SET reserved=reserved+?,revision=revision+1 WHERE profile=? AND key=?',(plan['amount'],p,enc(plan['resource_key'])))
                 c.execute('INSERT INTO w_flight VALUES(?,?,?,1)',(p,enc(plan['taskflight']['key']),oid));c.execute('INSERT INTO w_outbox VALUES(?,?,?,NULL,NULL,0,NULL,0)',(p,oid,'PENDING'))
+                if goal['applicable']:
+                    for match in goal['matched']:
+                        if match['obligation']:
+                            c.execute('INSERT OR IGNORE INTO w_goal VALUES(?,?,?,?,?,?,?,?,?)',(p,oid,match['group'],match['goal_ref'],match['epoch'],match['action'],match['obligation'],int(match['cost']),'PENDING'))
                 self._put_witness(c,p,'BEHAVIOR',plan['behavior_after'])
                 if plan['scene_after']:self._put_witness(c,p,plan['scene_after']['namespace'],plan['scene_after'])
                 self._journal(c,'W_COMMIT',p,oid,frozen)
@@ -291,10 +428,10 @@ class CommonW:
             except ProtocolError as exc:require(exc.code in KNOWN_CANCEL,'CANCEL_UNKNOWN');reason=exc.code
             else:raise ProtocolError('CANCEL_NOT_INVALID')
             event=self._end_event(event);self._finish_worker(c,proof,event)
-            self._release(c,p,oid,frozen,'CANCELED');c.execute("UPDATE w_operation SET state='CANCELED',effect_state='NO_EFFECT' WHERE profile=? AND oid=?",(p,oid));c.execute("UPDATE w_outbox SET state='CANCELED' WHERE profile=? AND oid=?",(p,oid));self._journal(c,'W_CANCEL',p,oid,{'reason':reason,'event':event})
+            self._release(c,p,oid,frozen,'CANCELED');c.execute("UPDATE w_operation SET state='CANCELED',effect_state='NO_EFFECT' WHERE profile=? AND oid=?",(p,oid));c.execute("UPDATE w_outbox SET state='CANCELED' WHERE profile=? AND oid=?",(p,oid));c.execute("UPDATE w_goal SET state='BLOCKED' WHERE profile=? AND oid=?",(p,oid));self._journal(c,'W_CANCEL',p,oid,{'reason':reason,'event':event})
             self.source.observe(c,'CANCELED',p,oid,{'stage':'取消','lanes':['W'],'trusted_time':{'lo':event['lo'],'hi':event['hi']},'refs':{'commit_ref':frozen['commit_ref']},'status_label':'CANCELED','detail':{'reason':reason}})
             return self._view(c.execute('SELECT * FROM w_operation WHERE profile=? AND oid=?',(p,oid)).fetchone())
-    def _send(self,p,oid,proof,query):
+    def _send(self,p,oid,proof,query,*,crash_after_marker=False):
         purpose='QUERY' if query else 'EXECUTE'
         with self.source.tx() as c:
             row,frozen=self._operation(c,p,oid);event=self._event(c,p,oid,'QUERY_GUARD' if query else 'EXECUTE_GUARD',frozen['commit_ref']);self._worker(c,p,oid,purpose,proof,event,frozen)
@@ -311,6 +448,9 @@ class CommonW:
                 c.execute('UPDATE w_outbox SET exec_marker=1 WHERE profile=? AND oid=?',(p,oid))
             self._journal(c,'W_QUERY_INTENT' if query else 'W_EXEC_INTENT',p,oid,{'packet':packet,'event':event})
             self.source.observe(c,'QUERY_DISPATCHED' if query else 'EXEC_DISPATCHED',p,oid,{'stage':'查询原 attempt' if query else '消费执行资格并派发','lanes':['worker','工具'],'refs':{'attempt_id':out['attempt_id']},'status_label':'STARTED','detail':{'purpose':purpose}})
+        # Controlled fault fixture: the EXEC-0 marker is committed, the tool was
+        # not called.  Never sourced from a wire request.
+        if crash_after_marker and not query:os._exit(98)
         gateway=self.tool_gateways[p]
         try:response=gateway.query(packet) if query else gateway.execute(packet)
         except (ProtocolError,OSError,TimeoutError) as exc:response={'state':'UNKNOWN','record':None,'reason':getattr(exc,'code',type(exc).__name__),'trace':getattr(exc,'trace',{})}
@@ -328,7 +468,7 @@ class CommonW:
             self._journal(c,'W_TOOL_RESPONSE',p,oid,{'purpose':purpose,'response':response})
             self.source.observe(c,'TOOL_RESPONDED',p,oid,{'stage':'工具响应','lanes':['worker','工具'],'detail':{'purpose':purpose,'effect_state':response.get('state')}})
         return response
-    def execute_once(self,p,oid,proof):return self._send(p,oid,proof,False)
+    def execute_once(self,p,oid,proof,*,crash_after_marker=False):return self._send(p,oid,proof,False,crash_after_marker=crash_after_marker)
     def query_attempt(self,p,oid,proof):return self._send(p,oid,proof,True)
     def _verify_final(self,c,p,oid,frozen,response,event):
         require(type(response) is dict and response.get('record') is not None,'FINAL_UNKNOWN');record=response['record'];self.source.schemas[p].validate(record,'Record_TOOL_FINAL');require(record['profile']==p and record['scope']==PROFILE_SCOPES[p],'FINAL_BINDING')
@@ -358,7 +498,7 @@ class CommonW:
         c.execute('UPDATE w_tool SET high_water=?,head=? WHERE profile=? AND key=?',(int(cl['high_water']),cl['ledger_head'],p,tool['key']))
         c.execute('UPDATE w_operation SET observed_fact=? WHERE profile=? AND oid=?',(enc({'final_fact_id':fid,'fact':final_fact(record)}),p,oid))
         return record,fid,False
-    def settle(self,p,oid,response,proof):
+    def settle(self,p,oid,response,proof,*,crash_after_settlement=False):
         with self.source.tx() as c:
             row,frozen=self._operation(c,p,oid);event=self._event(c,p,oid,'SETTLE_GUARD',frozen['commit_ref']);self._worker(c,p,oid,'SETTLE',proof,event,frozen)
             if row['state']=='HALTED':return {'state':'HALTED','operation_id':oid,'reason':'TRUSTED_CONTRADICTION'}
@@ -373,9 +513,12 @@ class CommonW:
             existing=c.execute('SELECT * FROM w_settlement WHERE profile=? AND oid=?',(p,oid)).fetchone()
             if existing:return {'state':'SETTLED','operation_id':oid,'final_fact_id':fid,'existing':True}
             require(row['state']=='STARTED','SETTLE_STATE');self._ownership(c,p,oid,frozen);v=record['value'];event=self._end_event(event);require_window(v,event);require_window(frozen['tool_certificate']['claim']['record']['value'],event);self._finish_worker(c,proof,event);self._release(c,p,oid,frozen,'SPENT' if v['outcome']=='SUCCEEDED' else 'RELEASED')
-            c.execute('INSERT INTO w_settlement VALUES(?,?,?,?,?,?,?,?)',(p,oid,fid,v['ledger_id'],v['final_seq'],v['effect_id'],v['outcome'],enc(response)));c.execute("UPDATE w_operation SET state='SETTLED',effect_state=? WHERE profile=? AND oid=?",(v['outcome'],p,oid));self._journal(c,'W_SETTLE',p,oid,{'final_fact_id':fid,'record':record,'event':event})
+            c.execute('INSERT INTO w_settlement VALUES(?,?,?,?,?,?,?,?)',(p,oid,fid,v['ledger_id'],v['final_seq'],v['effect_id'],v['outcome'],enc(response)));c.execute("UPDATE w_operation SET state='SETTLED',effect_state=? WHERE profile=? AND oid=?",(v['outcome'],p,oid));c.execute('UPDATE w_goal SET state=? WHERE profile=? AND oid=?',('DONE' if v['outcome']=='SUCCEEDED' else 'BLOCKED',p,oid));self._journal(c,'W_SETTLE',p,oid,{'final_fact_id':fid,'record':record,'event':event})
             self.source.observe(c,'SETTLED',p,oid,{'stage':'一次结算','lanes':['W'],'trusted_time':{'lo':event['lo'],'hi':event['hi']},'refs':{'final_fact_id':fid},'status_label':'SETTLED','detail':{'outcome':v['outcome']}})
-            return {'state':'SETTLED','operation_id':oid,'final_fact_id':fid,'existing':False}
+            result={'state':'SETTLED','operation_id':oid,'final_fact_id':fid,'existing':False}
+        # Controlled fault fixture: settlement committed, caller never saw success.
+        if crash_after_settlement:os._exit(96)
+        return result
     def _release(self,c,p,oid,frozen,target):
         plan=frozen['plan'];amount=plan['amount'];c.execute('UPDATE w_reservation SET state=? WHERE profile=? AND oid=? AND state=?',(target,p,oid,'RESERVED'))
         c.execute('UPDATE w_resource SET reserved=reserved-?,spent=spent+?,revision=revision+1 WHERE profile=? AND key=?',(amount,amount if target=='SPENT' else 0,p,enc(plan['resource_key'])));c.execute('UPDATE w_flight SET active=0 WHERE profile=? AND oid=?',(p,oid))
@@ -400,4 +543,4 @@ class CommonW:
     def counts(self):
         with self.source.db() as c:
             one=lambda sql:c.execute(sql).fetchone()[0]
-            return {'accepts':one('SELECT COUNT(*) FROM w_operation'),'outbox':one('SELECT COUNT(*) FROM w_outbox'),'attempts':one('SELECT COUNT(*) FROM w_outbox WHERE attempt_id IS NOT NULL'),'exec_invocations':one('SELECT COALESCE(SUM(exec_marker),0) FROM w_outbox'),'execution_sends_observed':one('SELECT COALESCE(SUM(send_observed),0) FROM w_outbox'),'execution_sends_unobserved_upper_bound':one('SELECT COUNT(*) FROM w_outbox WHERE exec_marker=1 AND send_observed IS NULL'),'queries':one('SELECT COALESCE(SUM(queries),0) FROM w_outbox'),'confirmed_simulated_effects':one("SELECT COUNT(*) FROM w_operation WHERE json_extract(observed_fact,'$.fact.outcome')='SUCCEEDED'"),'settlements':one('SELECT COUNT(*) FROM w_settlement'),'cancellations':one("SELECT COUNT(*) FROM w_operation WHERE state='CANCELED'"),'halts':one("SELECT COUNT(*) FROM w_operation WHERE state='HALTED'")}
+            return {'accepts':one('SELECT COUNT(*) FROM w_operation'),'outbox':one('SELECT COUNT(*) FROM w_outbox'),'attempts':one('SELECT COUNT(*) FROM w_outbox WHERE attempt_id IS NOT NULL'),'exec_invocations':one('SELECT COALESCE(SUM(exec_marker),0) FROM w_outbox'),'execution_sends_observed':one('SELECT COALESCE(SUM(send_observed),0) FROM w_outbox'),'execution_sends_unobserved_upper_bound':one('SELECT COUNT(*) FROM w_outbox WHERE exec_marker=1 AND send_observed IS NULL'),'queries':one('SELECT COALESCE(SUM(queries),0) FROM w_outbox'),'confirmed_simulated_effects':one("SELECT COUNT(*) FROM w_operation WHERE json_extract(observed_fact,'$.fact.outcome')='SUCCEEDED'"),'settlements':one('SELECT COUNT(*) FROM w_settlement'),'cancellations':one("SELECT COUNT(*) FROM w_operation WHERE state='CANCELED'"),'halts':one("SELECT COUNT(*) FROM w_operation WHERE state='HALTED'"),'goal_links':one('SELECT COUNT(*) FROM w_goal'),'goal_pending':one("SELECT COUNT(*) FROM w_goal WHERE state='PENDING'"),'goal_done':one("SELECT COUNT(*) FROM w_goal WHERE state='DONE'"),'goal_blocked':one("SELECT COUNT(*) FROM w_goal WHERE state='BLOCKED'")}

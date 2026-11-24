@@ -1,0 +1,53 @@
+{
+ "baseline_sha": "7604d6b5b902f38d950234dec53d9375429f1e7f",
+ "integration_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c",
+ "core_subset_before": {
+  "tests": 54,
+  "ok": true,
+  "seconds": 330.345,
+  "log": ".runtime/baseline/core-tests.log"
+ },
+ "core_subset_after": {
+  "tests": 91,
+  "ok": true,
+  "seconds": 551.567,
+  "log": ".runtime/core-final.log"
+ },
+ "new_suite": {
+  "tests": 45,
+  "ok": true,
+  "seconds": 310.422,
+  "log": ".runtime/final-new-suite.log",
+  "breakdown": {
+   "goal_floor_w": 13,
+   "goal_floor_pure": 8,
+   "evidence_verifier": 15,
+   "cross_scenario": 3,
+   "incident_workflow": 1,
+   "crash_boundaries": 3,
+   "cross_goal": 2
+  }
+ },
+ "full_windows_discover": {
+  "tests": 400,
+  "failures": 25,
+  "errors": 101,
+  "seconds": 1434.344,
+  "status": "ENVIRONMENTAL_FAILURES_NOT_PROTOCOL_PASS",
+  "log": ".runtime/baseline/full-tests.log"
+ },
+ "repository_check": {
+  "passed": true,
+  "python_files": 198,
+  "documents": 71,
+  "links": 471
+ },
+ "contracts_check": {
+  "checks_passed": 371,
+  "envelopes": 30,
+  "records": 34,
+  "actions": 3,
+  "node_checked": 70
+ },
+ "note": "The full Windows suite failures are Linux DAC/Unix-socket/permission and HTTP-face environment failures; they are not counted as protocol PASS. The core subset and all new targeted suites are clean."
+}

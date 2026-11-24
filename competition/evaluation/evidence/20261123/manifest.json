@@ -1,0 +1,47 @@
+{
+ "code_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c",
+ "command": "python -m competition.evaluation.generate_evidence",
+ "files": {
+  "IND-DEMO-1-audit.json": "ecaf75e0a367f8424894a82a57cfd7b1771bded4dda16b58d9168a53d3c4b5df",
+  "IND-DEMO-1-package.json": "e626f7e59ccc1a8c4a736a24d7c643f80ba99b3a0c574fd1bb8d86ae50e0ef1a",
+  "MED-DEMO-1-audit.json": "2c915fd0fe9caa30b67aabb1eb8e02326d1b0dba4a10baea14876dc415b4c47f",
+  "MED-DEMO-1-package.json": "406827cbb4583f5fcb40df96284b603d762335e328d1da44d55e3d9c184a8d19",
+  "PAY-1-audit.json": "2861badcab2d01a6e9616ceb51a73c71a0ba540427bd3b94aadc8fb9605ec2a7",
+  "PAY-1-package.json": "01f1feeac6d85ff015d4a1bff6e143a238fe1f6576280978570bbf98d741dafd",
+  "anchor-goal.json": "8e9055d1b9e90c69bb168fc8df1d225bedbbdfe4f7a88e74f3d8371200c851e1",
+  "anchor-three-profiles.json": "e51dea5ba3057ce9da8cfb90c24950c36c2b27582d1a7efe93d4f94dc5287324",
+  "ind-goal-audit.json": "95e3f365c8223635a1457cfe78b428003d2d8aab5785d7d1a61d1ecae1169976",
+  "ind-goal-package.json": "2b741fcde79ba06a73f97b73f28091c9cee1e859a04e11bfab9d8e4a9d073065"
+ },
+ "generated_utc": "2026-11-24T10:13:55Z",
+ "git_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c",
+ "packages": {
+  "IND-DEMO-1": {
+   "audit_status": "PASS",
+   "checks": 13,
+   "package": "IND-DEMO-1-package.json",
+   "sha256": "e626f7e59ccc1a8c4a736a24d7c643f80ba99b3a0c574fd1bb8d86ae50e0ef1a"
+  },
+  "IND-DEMO-1-goal": {
+   "audit_status": "PASS",
+   "checks": 13,
+   "package": "ind-goal-package.json",
+   "sha256": "2b741fcde79ba06a73f97b73f28091c9cee1e859a04e11bfab9d8e4a9d073065"
+  },
+  "MED-DEMO-1": {
+   "audit_status": "PASS",
+   "checks": 13,
+   "package": "MED-DEMO-1-package.json",
+   "sha256": "406827cbb4583f5fcb40df96284b603d762335e328d1da44d55e3d9c184a8d19"
+  },
+  "PAY-1": {
+   "audit_status": "PASS",
+   "checks": 13,
+   "package": "PAY-1-package.json",
+   "sha256": "01f1feeac6d85ff015d4a1bff6e143a238fe1f6576280978570bbf98d741dafd"
+  }
+ },
+ "platform": "Windows-11-10.0.26340-SP0",
+ "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+ "verifier_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c"
+}

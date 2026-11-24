@@ -1,0 +1,684 @@
+{
+ "generated_utc": "2026-11-24T10:16:01Z",
+ "runs": [
+  {
+   "capacity": 2,
+   "required": 2,
+   "optional": 0,
+   "states": 12,
+   "transitions": 96,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 2,
+   "optional": 1,
+   "states": 12,
+   "transitions": 108,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 2,
+   "optional": 2,
+   "states": 12,
+   "transitions": 120,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 2,
+   "optional": 3,
+   "states": 12,
+   "transitions": 132,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 2,
+   "optional": 4,
+   "states": 12,
+   "transitions": 144,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 3,
+   "optional": 0,
+   "states": 1,
+   "transitions": 12,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 3,
+   "optional": 1,
+   "states": 1,
+   "transitions": 13,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 3,
+   "optional": 2,
+   "states": 1,
+   "transitions": 14,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 3,
+   "optional": 3,
+   "states": 1,
+   "transitions": 15,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 3,
+   "optional": 4,
+   "states": 1,
+   "transitions": 16,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 4,
+   "optional": 0,
+   "states": 1,
+   "transitions": 16,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 4,
+   "optional": 1,
+   "states": 1,
+   "transitions": 17,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 4,
+   "optional": 2,
+   "states": 1,
+   "transitions": 18,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 4,
+   "optional": 3,
+   "states": 1,
+   "transitions": 19,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 2,
+   "required": 4,
+   "optional": 4,
+   "states": 1,
+   "transitions": 20,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 2,
+   "optional": 0,
+   "states": 12,
+   "transitions": 96,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 2,
+   "optional": 1,
+   "states": 24,
+   "transitions": 216,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 2,
+   "optional": 2,
+   "states": 24,
+   "transitions": 240,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 2,
+   "optional": 3,
+   "states": 24,
+   "transitions": 264,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 2,
+   "optional": 4,
+   "states": 24,
+   "transitions": 288,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 3,
+   "optional": 0,
+   "states": 32,
+   "transitions": 384,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 3,
+   "optional": 1,
+   "states": 32,
+   "transitions": 416,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 3,
+   "optional": 2,
+   "states": 32,
+   "transitions": 448,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 3,
+   "optional": 3,
+   "states": 32,
+   "transitions": 480,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 3,
+   "optional": 4,
+   "states": 32,
+   "transitions": 512,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 4,
+   "optional": 0,
+   "states": 1,
+   "transitions": 16,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 4,
+   "optional": 1,
+   "states": 1,
+   "transitions": 17,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 4,
+   "optional": 2,
+   "states": 1,
+   "transitions": 18,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 4,
+   "optional": 3,
+   "states": 1,
+   "transitions": 19,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 3,
+   "required": 4,
+   "optional": 4,
+   "states": 1,
+   "transitions": 20,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 2,
+   "optional": 0,
+   "states": 12,
+   "transitions": 96,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 2,
+   "optional": 1,
+   "states": 36,
+   "transitions": 324,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 2,
+   "optional": 2,
+   "states": 36,
+   "transitions": 360,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 2,
+   "optional": 3,
+   "states": 36,
+   "transitions": 396,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 2,
+   "optional": 4,
+   "states": 36,
+   "transitions": 432,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 3,
+   "optional": 0,
+   "states": 32,
+   "transitions": 384,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 3,
+   "optional": 1,
+   "states": 64,
+   "transitions": 832,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 3,
+   "optional": 2,
+   "states": 64,
+   "transitions": 896,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 3,
+   "optional": 3,
+   "states": 64,
+   "transitions": 960,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 3,
+   "optional": 4,
+   "states": 64,
+   "transitions": 1024,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 4,
+   "optional": 0,
+   "states": 80,
+   "transitions": 1280,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 4,
+   "optional": 1,
+   "states": 80,
+   "transitions": 1360,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 4,
+   "optional": 2,
+   "states": 80,
+   "transitions": 1440,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 4,
+   "optional": 3,
+   "states": 80,
+   "transitions": 1520,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 4,
+   "required": 4,
+   "optional": 4,
+   "states": 80,
+   "transitions": 1600,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 2,
+   "optional": 0,
+   "states": 12,
+   "transitions": 96,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 2,
+   "optional": 1,
+   "states": 48,
+   "transitions": 432,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 2,
+   "optional": 2,
+   "states": 48,
+   "transitions": 480,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 2,
+   "optional": 3,
+   "states": 48,
+   "transitions": 528,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 2,
+   "optional": 4,
+   "states": 48,
+   "transitions": 576,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 3,
+   "optional": 0,
+   "states": 32,
+   "transitions": 384,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 3,
+   "optional": 1,
+   "states": 96,
+   "transitions": 1248,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 3,
+   "optional": 2,
+   "states": 96,
+   "transitions": 1344,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 3,
+   "optional": 3,
+   "states": 96,
+   "transitions": 1440,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 3,
+   "optional": 4,
+   "states": 96,
+   "transitions": 1536,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 4,
+   "optional": 0,
+   "states": 80,
+   "transitions": 1280,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 4,
+   "optional": 1,
+   "states": 160,
+   "transitions": 2720,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 4,
+   "optional": 2,
+   "states": 160,
+   "transitions": 2880,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 4,
+   "optional": 3,
+   "states": 160,
+   "transitions": 3040,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 5,
+   "required": 4,
+   "optional": 4,
+   "states": 160,
+   "transitions": 3200,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 2,
+   "optional": 0,
+   "states": 12,
+   "transitions": 96,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 2,
+   "optional": 1,
+   "states": 60,
+   "transitions": 540,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 2,
+   "optional": 2,
+   "states": 60,
+   "transitions": 600,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 2,
+   "optional": 3,
+   "states": 60,
+   "transitions": 660,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 2,
+   "optional": 4,
+   "states": 60,
+   "transitions": 720,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 3,
+   "optional": 0,
+   "states": 32,
+   "transitions": 384,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 3,
+   "optional": 1,
+   "states": 128,
+   "transitions": 1664,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 3,
+   "optional": 2,
+   "states": 128,
+   "transitions": 1792,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 3,
+   "optional": 3,
+   "states": 128,
+   "transitions": 1920,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 3,
+   "optional": 4,
+   "states": 128,
+   "transitions": 2048,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 4,
+   "optional": 0,
+   "states": 80,
+   "transitions": 1280,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 4,
+   "optional": 1,
+   "states": 240,
+   "transitions": 4080,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 4,
+   "optional": 2,
+   "states": 240,
+   "transitions": 4320,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 4,
+   "optional": 3,
+   "states": 240,
+   "transitions": 4560,
+   "violations": 0,
+   "examples": []
+  },
+  {
+   "capacity": 6,
+   "required": 4,
+   "optional": 4,
+   "states": 240,
+   "transitions": 4800,
+   "violations": 0,
+   "examples": []
+  }
+ ],
+ "states": 4363,
+ "transitions": 67746,
+ "violations": 0,
+ "all_zero": true
+}

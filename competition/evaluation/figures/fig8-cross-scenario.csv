@@ -1,0 +1,7 @@
+profile,mode,crowd,accepted,code
+PAY-1,off,True,True,
+PAY-1,enforce,True,False,GOAL_CAPACITY_FLOOR
+PAY-1,enforce,False,True,
+MED-DEMO-1,off,True,True,
+MED-DEMO-1,enforce,True,False,GOAL_CAPACITY_FLOOR
+MED-DEMO-1,enforce,False,True,

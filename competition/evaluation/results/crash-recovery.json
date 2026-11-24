@@ -1,0 +1,48 @@
+{
+ "generated_utc": "2026-11-23T14:21:09Z",
+ "tests": [
+  {
+   "test": "test_accept_commit_crash_leaves_one_committed_operation_and_pending_receipt",
+   "returncode": 0,
+   "passed": true,
+   "seconds": 12.486,
+   "tail": [
+    "test_accept_commit_crash_leaves_one_committed_operation_and_pending_receipt (competition.tests.test_crash_boundaries.CrashBoundaryTests.test_accept_commit_crash_leaves_one_committed_operation_and_pending_receipt) ... ok",
+    "",
+    "----------------------------------------------------------------------",
+    "Ran 1 test in 12.068s",
+    "",
+    "OK"
+   ]
+  },
+  {
+   "test": "test_exec_marker_crash_uses_one_execution_qualification_and_does_not_call_tool",
+   "returncode": 0,
+   "passed": true,
+   "seconds": 14.546,
+   "tail": [
+    "test_exec_marker_crash_uses_one_execution_qualification_and_does_not_call_tool (competition.tests.test_crash_boundaries.CrashBoundaryTests.test_exec_marker_crash_uses_one_execution_qualification_and_does_not_call_tool) ... ok",
+    "",
+    "----------------------------------------------------------------------",
+    "Ran 1 test in 14.107s",
+    "",
+    "OK"
+   ]
+  },
+  {
+   "test": "test_settlement_commit_crash_is_recovered_without_a_second_settlement",
+   "returncode": 0,
+   "passed": true,
+   "seconds": 14.668,
+   "tail": [
+    "test_settlement_commit_crash_is_recovered_without_a_second_settlement (competition.tests.test_crash_boundaries.CrashBoundaryTests.test_settlement_commit_crash_is_recovered_without_a_second_settlement) ... ok",
+    "",
+    "----------------------------------------------------------------------",
+    "Ran 1 test in 14.251s",
+    "",
+    "OK"
+   ]
+  }
+ ],
+ "all_pass": true
+}

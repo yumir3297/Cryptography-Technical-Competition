@@ -1,0 +1,168 @@
+{
+ "generated_utc": "2026-11-24T09:45:10Z",
+ "source": "system_dev/v26/semantic_cases.json",
+ "count": 39,
+ "pass": 2,
+ "fail": 0,
+ "partial": 22,
+ "not_run": 15,
+ "out_of_scope": 0,
+ "cases": [
+  {
+   "id": "CORE-01",
+   "status": "PASS"
+  },
+  {
+   "id": "CORE-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-03",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-04",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-05",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-06",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-07",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-08",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-09",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-10",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-11",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-12",
+   "status": "PASS"
+  },
+  {
+   "id": "CORE-13",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-14",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-15",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-16",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-17",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-18",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-19",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "CORE-20",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "PAY-01",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "PAY-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "PAY-03",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "PAY-04",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "PAY-05",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "IND-01",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "IND-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "IND-03",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "IND-04",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "MED-01",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "MED-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "MED-03",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "MED-04",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "SC-01",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "SC-02",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "AUD-02A",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "AUD-02B",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "AUD-02C",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "AUD-02D",
+   "status": "PARTIAL"
+  }
+ ]
+}

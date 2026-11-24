@@ -1,0 +1,16 @@
+mutation,rejected
+action_payload,1
+action_hash,1
+goal_capacity,1
+task_ref,1
+resource_capacity,1
+scope,1
+permit_ref,1
+acceptance_commit_ref,1
+acceptance_signature,1
+control_signature,1
+attempt_id,1
+final_outcome,1
+final_fact_id,1
+replay_acceptance_from_other_operation,1
+replay_commit_from_other_operation,1

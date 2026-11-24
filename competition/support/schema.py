@@ -49,10 +49,134 @@ class CompetitionSchema(UpstreamSchema):
     """R2 field definitions with an explicit, signed competition protocol id.
 
     The retained R2 source files are immutable. This view changes only the
-    Envelope protected.proto const; Record and Action hashes stay R2 2.6.
+    Envelope protected.proto const; Record and Action hashes stay R2 2.6.  It
+    also adds the optional GoalFloor record and the optional COMMIT.goal witness
+    used when the competition integration enables the goal-floor guard.  Both
+    are additive: existing records remain valid without them.
     """
     def __init__(self,root,profile):
         super().__init__(root,profile)
         from competition.support.wire import TYPES
         for name in TYPES:
             self.defs[name]['properties']['protected']['properties']['proto']['const'] = COMPETITION_PROTO
+        self.defs['Record_GOAL_FLOOR'] = {
+            'type': 'object',
+            'properties': {
+                'version': {'const': '2.6'},
+                'profile': {'const': profile},
+                'kind': {'const': 'GOAL_FLOOR'},
+                'scope': {'$ref': '#/$defs/Scope'},
+                'value': {
+                    'type': 'object',
+                    'properties': {
+                        'model': {'const': 'goal-floor-v1'},
+                        'group': {'$ref': '#/$defs/Id'},
+                        'epoch': {'$ref': '#/$defs/Positive'},
+                        'resource_key': {'type': 'array', 'items': {'type': 'string',
+                                         'minLength': 1, 'maxLength': 64,
+                                         'pattern': '^[A-Za-z0-9._:-]+$'},
+                                         'minItems': 1, 'maxItems': 8, 'uniqueItems': True},
+                        'unit': {'type': 'string', 'enum': ['UNIT', 'ORDER', 'CNY_MINOR']},
+                        'capacity': {'$ref': '#/$defs/Positive'},
+                        'deps': {'type': 'array', 'minItems': 1, 'maxItems': 16,
+                                 'items': {
+                                     'type': 'object',
+                                     'properties': {
+                                         'namespace': {'type': 'string', 'enum': ['POLICY', 'TASK', 'INCIDENT']},
+                                         'key': {'type': 'array', 'items': {'type': 'string'},
+                                                 'minItems': 1, 'maxItems': 8},
+                                         'revision': {'$ref': '#/$defs/Positive'},
+                                         'ref': {'$ref': '#/$defs/B32'}},
+                                     'required': ['namespace', 'key', 'revision', 'ref'],
+                                     'additionalProperties': False}},
+                        'actions': {'type': 'array', 'minItems': 1, 'maxItems': 64,
+                                    'items': {
+                                        'type': 'object',
+                                        'properties': {
+                                            'name': {'$ref': '#/$defs/Id'},
+                                            'profile': {'const': profile},
+                                            'action_digest': {'$ref': '#/$defs/B32'},
+                                            'obligation': {'type': 'string', 'maxLength': 64,
+                                                           'pattern': '^$|^[a-z0-9][a-z0-9._:-]{0,63}$'},
+                                            'cost': {'$ref': '#/$defs/Positive'}},
+                                        'required': ['name', 'profile', 'action_digest',
+                                                     'obligation', 'cost'],
+                                        'additionalProperties': False}}
+                    },
+                    'required': ['model', 'group', 'epoch', 'resource_key', 'unit',
+                                 'capacity', 'deps', 'actions'],
+                    'additionalProperties': False}
+            },
+            'required': ['version', 'profile', 'kind', 'scope', 'value'],
+            'additionalProperties': False}
+        commit = self.defs['Record_COMMIT']['properties']['value']
+        commit['properties']['goal'] = {
+            'type': 'object',
+            'properties': {
+                'mode': {'type': 'string', 'enum': ['shadow', 'enforce']},
+                'decision': {'type': 'string', 'enum': ['T', 'F']},
+                'reason': {'type': 'string', 'maxLength': 128},
+                'goal_refs': {'type': 'array', 'items': {'$ref': '#/$defs/B32'},
+                              'minItems': 0, 'maxItems': 64, 'uniqueItems': True},
+                'deps': {'type': 'array', 'minItems': 0, 'maxItems': 64, 'items': {
+                    'type': 'object',
+                    'properties': {
+                        'namespace': {'type': 'string', 'enum': ['POLICY', 'TASK', 'INCIDENT']},
+                        'key': {'type': 'array', 'items': {'type': 'string'},
+                                'minItems': 1, 'maxItems': 8},
+                        'revision': {'$ref': '#/$defs/Positive'},
+                        'ref': {'$ref': '#/$defs/B32'}},
+                    'required': ['namespace', 'key', 'revision', 'ref'],
+                    'additionalProperties': False}},
+                'matched': {'type': 'array', 'maxItems': 64, 'items': {
+                    'type': 'object',
+                    'properties': {
+                        'group': {'$ref': '#/$defs/Id'},
+                        'goal_ref': {'$ref': '#/$defs/B32'},
+                        'epoch': {'$ref': '#/$defs/Positive'},
+                        'action': {'$ref': '#/$defs/Id'},
+                        'obligation': {'type': 'string', 'maxLength': 64},
+                        'cost': {'$ref': '#/$defs/Positive'}},
+                    'required': ['group', 'goal_ref', 'epoch', 'action', 'obligation', 'cost'],
+                    'additionalProperties': False}},
+                'capacity': {'$ref': '#/$defs/N'},
+                'spent': {'$ref': '#/$defs/N'},
+                'reserved': {'$ref': '#/$defs/N'},
+                'candidate_cost': {'$ref': '#/$defs/Positive'},
+                'remaining_floor': {'$ref': '#/$defs/N'},
+                'total': {'$ref': '#/$defs/N'},
+                'headroom': {'type': 'string', 'pattern': '^-?[0-9]+$'},
+                'state_ref': {'$ref': '#/$defs/B32'},
+                'check_ref': {'$ref': '#/$defs/B32'}
+            },
+            'required': ['mode', 'decision', 'reason', 'goal_refs', 'deps', 'matched',
+                         'capacity', 'spent', 'reserved', 'candidate_cost',
+                         'remaining_floor', 'total', 'headroom', 'state_ref', 'check_ref'],
+            'additionalProperties': False}
+        self.defs['Record_INCIDENT'] = {
+            'type': 'object',
+            'properties': {
+                'version': {'const': '2.6'},
+                'profile': {'const': profile},
+                'kind': {'const': 'INCIDENT'},
+                'scope': {'$ref': '#/$defs/Scope'},
+                'value': {
+                    'type': 'object',
+                    'properties': {
+                        'incident_id': {'$ref': '#/$defs/Id'},
+                        'zone': {'$ref': '#/$defs/Id'},
+                        'asset': {'$ref': '#/$defs/Id'},
+                        'severity': {'type': 'string',
+                                     'enum': ['LOW', 'HIGH', 'CRITICAL']},
+                        'status': {'type': 'string',
+                                   'enum': ['TRIGGERED', 'CONTAINED', 'RESTORED', 'CLOSED']},
+                        'required_actions': {'type': 'array', 'items': {'$ref': '#/$defs/Id'},
+                                             'minItems': 1, 'maxItems': 8},
+                        'iat': {'$ref': '#/$defs/N'},
+                        'exp': {'$ref': '#/$defs/N'}},
+                    'required': ['incident_id', 'zone', 'asset', 'severity', 'status',
+                                 'required_actions', 'iat', 'exp'],
+                    'additionalProperties': False}
+            },
+            'required': ['version', 'profile', 'kind', 'scope', 'value'],
+            'additionalProperties': False}

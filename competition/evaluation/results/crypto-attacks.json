@@ -1,0 +1,577 @@
+{
+ "generated_utc": "2026-11-23T14:20:18Z",
+ "clean_status": "PASS",
+ "mutations": [
+  {
+   "mutation": "none",
+   "status": "PASS",
+   "failed_checks": []
+  },
+  {
+   "mutation": "action_payload",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "commit_record_ref",
+     "status": "FAIL",
+     "error": "COMMIT_REF"
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "action_hash",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "authorization_chain",
+     "status": "FAIL",
+     "error": "ACTION_HASH"
+    },
+    {
+     "check": "commit_record_ref",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "goal_capacity",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "control_certificates_and_refs",
+     "status": "FAIL",
+     "error": "CONTROL_RECORD"
+    },
+    {
+     "check": "control_history_certificates",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_trust_certificate",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "resource_certificate_and_sums",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "authorization_chain",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "commit_record_ref",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "task_ref",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "authorization_chain",
+     "status": "FAIL",
+     "error": "BASIS_REF"
+    },
+    {
+     "check": "commit_record_ref",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "resource_capacity",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "resource_certificate_and_sums",
+     "status": "FAIL",
+     "error": "RESOURCE_CAPACITY"
+    },
+    {
+     "check": "authorization_chain",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "commit_record_ref",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "scope",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "control_certificates_and_refs",
+     "status": "FAIL",
+     "error": "CONTROL_SCOPE"
+    },
+    {
+     "check": "control_history_certificates",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_trust_certificate",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "resource_certificate_and_sums",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "authorization_chain",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "commit_record_ref",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "permit_ref",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "commit_record_ref",
+     "status": "FAIL",
+     "error": "COMMIT_REF"
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "acceptance_commit_ref",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "x_acceptance_signature",
+     "status": "FAIL",
+     "error": "FROZEN_RECEIPT_CONFLICT"
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "acceptance_signature",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "x_acceptance_signature",
+     "status": "FAIL",
+     "error": "SIGNATURE_ENCODING"
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "control_signature",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "control_certificates_and_refs",
+     "status": "FAIL",
+     "error": "SIGNATURE_ENCODING"
+    },
+    {
+     "check": "control_history_certificates",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_trust_certificate",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "resource_certificate_and_sums",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "authorization_chain",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "commit_record_ref",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "attempt_id",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "FAIL",
+     "error": "ATTEMPT_ID"
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "final_outcome",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "tool_final_fact_signature",
+     "status": "FAIL",
+     "error": "BAD_SIGNATURE"
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "final_fact_id",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "settlement_binding",
+     "status": "FAIL",
+     "error": "SETTLEMENT_FACT"
+    }
+   ]
+  },
+  {
+   "mutation": "replay_acceptance_from_other_operation",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "x_acceptance_signature",
+     "status": "FAIL",
+     "error": "FROZEN_RECEIPT_CONFLICT"
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  },
+  {
+   "mutation": "replay_commit_from_other_operation",
+   "status": "FAIL",
+   "failed_checks": [
+    {
+     "check": "commit_record_ref",
+     "status": "FAIL",
+     "error": "COMMIT_ACTION"
+    },
+    {
+     "check": "x_acceptance_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "unique_attempt_and_delivery_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "goal_floor_recomputation",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "tool_final_fact_signature",
+     "status": "SKIP",
+     "error": null
+    },
+    {
+     "check": "settlement_binding",
+     "status": "SKIP",
+     "error": null
+    }
+   ]
+  }
+ ],
+ "all_mutations_rejected": true
+}

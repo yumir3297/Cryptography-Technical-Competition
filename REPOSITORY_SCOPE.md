@@ -1,5 +1,7 @@
 # 仓库内容与整理记录
 
+**2026-11-24 更新：** GoalFloor 最新比赛实验、图表、证据包、复验脚本位于 [competition/evaluation](competition/evaluation/README.md)，当前结论见 [最终验收](FINAL_VERDICT.md)。历史证据身份及早期归档规则不变。
+
 整理开始于 2026-10-11，收尾验证于 2026-10-12。GitHub 当前目录面向比赛软件开发：`competition/` 保存安全核心、固定场景、签名模拟工具、回归、交接及模拟证据；`system_dev/v26/` 保存运行所需消息契约、Schema、开发校验清单与公开编码向量；`.github/workflows/` 只运行比赛检查。
 
 论文正文、完整研究代码、局部研究模型、正式研究实验/结果、研究 ZIP、研究工作流及研究分支快照已经归档到项目本地的 `local-research-archive/20261011-repository-cleanup/`。该目录位于 Git 工作区之外。归档包括完整 Git bundle、四个线上分支 ZIP、含未提交材料的工作区快照和逐文件 SHA-256 清单。使用普通提交整理当前目录，不重写历史；旧提交仍可追溯。

@@ -1,0 +1,47 @@
+{
+ "generated_utc": "2026-11-24T09:30:00Z",
+ "platform": "WSL2 Ubuntu, Linux 6.6.87.2, Python 3.14.4, cryptography 50.0.2, jsonschema 4.26.0",
+ "suite": "python -m unittest discover -s competition/tests -t . -v",
+ "full_run": {
+  "tests": 526,
+  "failures": 1,
+  "errors": 3,
+  "seconds": 1197.925,
+  "log": "logs/linux-full-526.log",
+  "status": "ENVIRONMENT_ISSUES_ONLY_AFTER_TRIAGE"
+ },
+ "issues": [
+  {
+   "test": "test_an_operation_the_trusted_side_lost_becomes_unavailable",
+   "kind": "CLOCK_UNKNOWN under full-suite load; clock sample age exceeded 2s",
+   "isolated_rerun": "PASS",
+   "classification": "environment/timing"
+  },
+  {
+   "test": "test_a_candidate_with_a_role_or_key_field_is_refused",
+   "kind": "CLOCK_UNKNOWN under full-suite load; clock sample age exceeded 2s",
+   "isolated_rerun": "PASS",
+   "classification": "environment/timing"
+  },
+  {
+   "test": "setUpClass test_export_face.ExportFaceTests",
+   "kind": "git rev-parse failed because the copied test tree had no .git",
+   "isolated_rerun": "PASS after git init in the copied tree",
+   "classification": "environment/packaging"
+  },
+  {
+   "test": "test_a_dead_endpoint_fails_as_unavailable",
+   "kind": "HTTP_PROXY intercepted 127.0.0.1 and returned 502",
+   "isolated_rerun": "PASS with NO_PROXY=127.0.0.1,localhost",
+   "classification": "environment/proxy"
+  }
+ ],
+ "isolated_reruns": {
+  "command": "python -m unittest -v test_export_face test_agent_gateway.GatewayDegradedTests... test_agent_gateway.GatewayHttpTests... test_http_transport...",
+  "tests": 12,
+  "failures_before_proxy_fix": 1,
+  "failures_after_proxy_fix": 0,
+  "note": "The first 3 issues passed isolated; the proxy issue passed with NO_PROXY. The complete 526-test suite was not rerun in one corrected process."
+ },
+ "conclusion": "Linux full suite has no observed code failure after triage; 4 issues are environment/timing/proxy/packaging. Windows-only failures are not evidence of Linux protocol failure. A final single-process 526/526 run with NO_PROXY and a git-initialized tree remains a reproducibility item."
+}

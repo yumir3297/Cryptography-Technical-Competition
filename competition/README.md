@@ -1,5 +1,7 @@
 # 比赛软件开发入口
 
+**2026-11-24 最新入口：** [研究定论](../RESEARCH-STATUS-20261124.md) · [最终验收](../FINAL_VERDICT.md) · [实验结论](evaluation/experiment_conclusions.md)。历史开发交接按原版本阅读；GoalFloor 强制保障仅在 enforce 模式成立。
+
 当前 IND 简化提案、受控 ID、短期证明更新、HTTP/MCP 与本机部署的完整交付见[开发接手入口（四项说明与实验证据）](docs/final/ind-complete-delivery-20261018.md)。它替代 PR #3 的待集成版本；PAY/MED 保留原完整 Action 入口。
 
 先读[共同协议](docs/final/competition-protocol.md)及[比赛开发总交接](docs/final/scenario-integration-handoff.md)，接线时使用[真实内部接口对照](docs/final/interface-reference.md)。CommonW 是工业、付款、医疗共用的接受、领取、执行、恢复与结算入口。
@@ -14,6 +16,7 @@
 | support/ | 运行和测试实际依赖的编码、场景校验及恢复基础模块 |
 | tests/ | 比赛组件、并发、故障恢复与终局回归 |
 | docs/final/ | 共同协议、比赛配置、接口、场景交接及证据口径 |
+| evaluation/ | GoalFloor 正式集成实验、39 项状态、独立离线复验与评委 replay |
 | evidence/ | 不含运行私钥的比赛模拟与核验记录 |
 
 从仓库根目录运行：
@@ -38,3 +41,5 @@ python system_dev/v26/tools/verify_contracts.py
 当前比赛语义、agent 能力与角色签署边界见[安全边界](docs/final/security-boundaries.md)；修复和验证结果见[整改记录](docs/final/rectification-results-20261012.md)。
 
 本轮仅整理协议正文与场景开发规则；wire 标识及运行逻辑保持。版本与原证据身份见[分层记录](docs/final/protocol-separation-record-20261012.md)。
+
+GoalFloor 最小正式集成（可选 C 记录、shadow/enforce、COMMIT 见证、离线复验）见[集成说明](docs/final/goalcommit-integration-20261123.md)与[实验目录](evaluation/README.md)。默认 `goal_mode='off'`；正式 39 项状态以 `evaluation/conformance_39.md` 为准。
