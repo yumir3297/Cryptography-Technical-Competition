@@ -47,18 +47,12 @@ onUnmounted(() => {
           {{ scenarioLabel(entry.profile) }}
         </el-menu-item>
       </el-menu>
-      <div class="aside-foot muted">
-        六个角色，各自只拿到自己那几个动作
-      </div>
     </el-aside>
 
     <el-container direction="vertical">
       <el-header class="header">
         <div>
           <h1 class="title">ZJJ-CORE 客户端控制台</h1>
-          <div class="muted">
-            {{ scenarioLabel(state.profile) }} —— 提出方与执行方逐步驱动，签发、批准、复核、效果端在链内签署
-          </div>
         </div>
         <div class="header-actions">
           <el-tag
@@ -127,11 +121,6 @@ onUnmounted(() => {
   padding: 0 20px 8px;
   font-size: 13px;
   color: var(--ak-fg-muted);
-}
-.aside-foot {
-  padding: 16px 20px 0;
-  font-size: 12px;
-  line-height: 1.6;
 }
 .aside :deep(.el-menu) {
   border-right: none;
