@@ -883,18 +883,35 @@
     if (layer) layer.parentNode.removeChild(layer);
   }
 
+  // 展开层与外部：每条跨块边一道泳道，从屏幕边缘进来，连到展开层里
+  // 代表外部的那个「块外」节点本身，不再落到被挤开的块上。
   function drawOutbound(id, pushed) {
     clearOutbound();
     var host = mapHost();
     var expand = expandOf(id);
     var model = state.model && state.model.map;
     if (!host || !expand || !model) return;
-    var rect = expand.getBoundingClientRect();
     var hostBox = host.getBoundingClientRect();
-    var box = { x: rect.left - hostBox.left, y: rect.top - hostBox.top,
-                w: rect.width, h: rect.height };
-    var edges = model.edges.filter(function (edge) {
-      return edge.src === id || edge.dst === id;
+
+    var stubs = {};
+    expand.querySelectorAll('.ob-gnode--stub').forEach(function (node) {
+      var r = node.getBoundingClientRect();
+      stubs[node.getAttribute('data-gid')] = {
+        x: r.left - hostBox.left, y: r.top - hostBox.top,
+        w: r.width, h: r.height
+      };
+    });
+
+    var edges = [];
+    model.edges.forEach(function (edge) {
+      if (edge.src !== id && edge.dst !== id) return;
+      if (edge.src === id && edge.dst === id) return;
+      (edge.members || []).forEach(function (member) {
+        var other = edge.src === id ? member.dst : member.src;
+        if (!stubs[other]) return;
+        edges.push({ kind: edge.kind, other: other,
+                     label: member.label || (edge.labels && edge.labels[0]) || '' });
+      });
     });
     if (!edges.length) return;
 
@@ -906,75 +923,59 @@
     svg.setAttribute('height', host.clientHeight);
     host.appendChild(svg);
 
-    var lanes = { left: [], right: [] };
-    edges.forEach(function (edge) {
-      var other = edge.src === id ? edge.dst : edge.src;
-      var peer = pushed && pushed[other];
-      var side;
-      if (peer) {
-        side = (peer.x + peer.w / 2) < (box.x + box.w / 2) ? 'left' : 'right';
-      } else {
-        side = edge.src === id ? 'right' : 'left';
-      }
-      lanes[side].push(edge);
+    var defs = document.createElementNS(NS, 'defs');
+    KINDS.forEach(function (kind) {
+      var marker = document.createElementNS(NS, 'marker');
+      marker.setAttribute('id', 'arrow-out-' + kind);
+      marker.setAttribute('viewBox', '0 0 8 8');
+      marker.setAttribute('refX', '7');
+      marker.setAttribute('refY', '4');
+      marker.setAttribute('markerWidth', '7');
+      marker.setAttribute('markerHeight', '7');
+      marker.setAttribute('orient', 'auto-start-reverse');
+      var head = document.createElementNS(NS, 'path');
+      head.setAttribute('d', 'M0 0 L8 4 L0 8 z');
+      head.setAttribute('class', 'ob-arrow--' + kind);
+      marker.appendChild(head);
+      defs.appendChild(marker);
     });
+    svg.appendChild(defs);
 
-    function sidePeers(side) {
-      var list = [];
-      Object.keys(pushed || {}).forEach(function (key) {
-        var p = pushed[key];
-        var isLeft = (p.x + p.w / 2) < (box.x + box.w / 2);
-        if ((side === 'left') === isLeft) list.push(p);
-      });
-      return list;
-    }
+    var ports = {};
+    edges.forEach(function (edge) {
+      var other = edge.other;
+      var stub = stubs[other];
+      var cx = stub.x + stub.w / 2;
+      var side = cx < host.clientWidth / 2 ? 'left' : 'right';
+      var x1 = side === 'left' ? 0 : host.clientWidth;
+      var x2 = side === 'left' ? stub.x : stub.x + stub.w;
+      var slot = (ports[other] = (ports[other] || 0) + 1) - 1;
+      var cy = stub.y + stub.h / 2;
+      var y = Math.max(stub.y + 8,
+              Math.min(stub.y + stub.h - 8, cy + slot * 9 - 4));
 
-    function avoid(y, peers) {
-      var guard = 0;
-      var changed = true;
-      while (changed && guard++ < 16) {
-        changed = false;
-        peers.forEach(function (p) {
-          if (y > p.y - 5 && y < p.y + p.h + 5) {
-            y = p.y + p.h + 11;
-            changed = true;
-          }
-        });
-      }
-      return Math.max(10, Math.min(host.clientHeight - 10, y));
-    }
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', 'M ' + x1.toFixed(1) + ' ' + y.toFixed(1)
+        + ' H ' + x2.toFixed(1));
+      path.setAttribute('class', 'ob-edge ob-outbound__line');
+      path.setAttribute('data-kind', edge.kind);
+      path.setAttribute('marker-end', 'url(#arrow-out-' + edge.kind + ')');
 
-    ['left', 'right'].forEach(function (side) {
-      var list = lanes[side];
-      if (!list.length) return;
-      var peers = sidePeers(side);
-      var top = box.y + 16;
-      var bottom = box.y + box.h - 16;
-      var step = list.length > 1 ? (bottom - top) / (list.length - 1) : 0;
-      list.forEach(function (edge, index) {
-        var y = list.length > 1 ? top + step * index : (top + bottom) / 2;
-        y = avoid(y, peers);
-        var x1 = side === 'left' ? box.x : box.x + box.w;
-        var x2 = side === 'left' ? 0 : host.clientWidth;
-        var label = (edge.labels && edge.labels[0]) || (edge.src + ' → ' + edge.dst);
-
-        var line = document.createElementNS(NS, 'line');
-        line.setAttribute('x1', x1.toFixed(1));
-        line.setAttribute('y1', y.toFixed(1));
-        line.setAttribute('x2', x2.toFixed(1));
-        line.setAttribute('y2', y.toFixed(1));
-        line.setAttribute('class', 'ob-edge ob-outbound__line');
-        line.setAttribute('data-kind', edge.kind);
-        svg.appendChild(line);
-
+      var label = edge.label || '';
+      if (label) {
+        var title = document.createElementNS(NS, 'title');
+        title.textContent = label;
+        path.appendChild(title);
         var text = document.createElementNS(NS, 'text');
-        text.setAttribute('x', side === 'left' ? 8 : host.clientWidth - 8);
+        text.setAttribute('x', ((x1 + x2) / 2).toFixed(1));
         text.setAttribute('y', (y - 5).toFixed(1));
-        text.setAttribute('text-anchor', side === 'left' ? 'start' : 'end');
+        text.setAttribute('text-anchor', 'middle');
         text.setAttribute('class', 'ob-outbound__label');
-        text.textContent = label.length > 34 ? label.slice(0, 33) + '…' : label;
+        text.textContent = label.length > 20
+          ? label.slice(0, 19) + '…' : label;
         svg.appendChild(text);
-      });
+      }
+      svg.appendChild(path);
     });
   }
 

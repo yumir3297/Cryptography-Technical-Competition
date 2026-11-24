@@ -232,6 +232,9 @@ body[data-open="1"] { overflow: hidden; }
   transform-origin: 0 0;
 }
 
+/* 被挤开的块要浮在展开层之上，否则 150% 时展开层会把它们盖掉。 */
+.ob-graph > .ob-canvas { z-index: 4; }
+
 .ob-graph { cursor: grab; }
 .ob-graph[data-panning] { cursor: grabbing; }
 .ob-graph[data-panning] .ob-gnode { cursor: grabbing; }
@@ -241,7 +244,7 @@ body[data-open="1"] { overflow: hidden; }
 .ob-outbound {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 5;
   overflow: visible;
   pointer-events: none;
 }
