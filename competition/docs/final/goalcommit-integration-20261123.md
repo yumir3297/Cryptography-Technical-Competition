@@ -68,13 +68,14 @@ total = spent + reserved + candidate_cost + remaining_floor
 
 ## 6. 证据
 
-- `competition/tests/test_goal_floor.py`（10 项）
+- `competition/tests/test_goal_floor.py`（13 项）
 - `competition/tests/test_goal_floor_pure.py`（8 项）
 - `competition/tests/test_evidence_verifier.py`（15 项）
 - `competition/tests/test_cross_scenario_evidence.py`（3 项）
 - `competition/tests/test_incident_workflow.py`（1 项）
 - `competition/tests/test_crash_boundaries.py`（3 项）
-- `competition/evaluation/`：五组实验、39 项状态、性能、评委复验。
+- `competition/tests/test_cross_goal.py`（2 项，PAY/MED）。
+- 最新 [实验结论](../../evaluation/experiment_conclusions.md)、[原始结果](../../evaluation/results/README.md)、[最终验收](../../evaluation/final-acceptance.md)：核心 91/91、专项 45/45；各项统计不相加。
 
 ## 7. 不声称
 

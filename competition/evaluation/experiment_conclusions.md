@@ -1,10 +1,10 @@
 # 实验结论（2026-11-24 最终轮）
 
-构建身份：基线 `7604d6b`；代码/证据生成 `fcbc6b3`；本轮新增代码/测试提交以最终 Git 记录为准。所有数字来自 `results/` 原始 JSON，未把参考模型结果冒充真实 W 结果。
+构建身份：基线 `7604d6b`；早期代码 `fcbc6b3`；最终实验代码/验证器 `7f5dd03`，最终证据 manifest 记录该版本；其他实验保留各自原始身份。所有数字来自 `results/` 原始 JSON，未把参考模型结果冒充真实 W 结果。
 
 ## E1 长序列 Agent 决策差分（核心主实验）
 
-- 真实 CommonW 配对序列：**20 条**（每条 5–8 个真实签名动作）。
+- 真实 CommonW 配对序列：**20 条**（5 种固定模板重复，每条 5–6 个候选动作位置；真实 W 签名流程）。
 - 总动作：**112**；off 接受 **84**，enforce 接受 **76**；UNKNOWN **8**。
 - 原 W 接受但 Proposed 拒绝的真实反例：**20 个动作位置**；独立 Oracle 与实际结果 mismatch：**0**。
 - 最小 headroom：**0**；这表示 Proposed 在必要资源下限处精确拒绝，而不是靠事后余额检查。
@@ -72,4 +72,4 @@
 
 - 526 tests，1 failure / 3 errors；失败/错误均为环境：负载下 clock 样本超过 2s（2 项）、复制树缺少 `.git`（1 项）、HTTP proxy 拦截 127.0.0.1（1 项）。
 - 4 项隔离复跑均通过（NO_PROXY、git init、无并发负载）；未在单一修正进程重跑 526/526，因此不宣称全绿。
-- 原始记录：`results/regression.json`、`logs/linux-full-526.log`。
+- 线上记录：`results/regression.json`；`logs/linux-full-526.log` 是运行工作区日志路径，当前 Git 树未包含该日志。

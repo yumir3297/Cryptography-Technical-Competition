@@ -1,19 +1,21 @@
-# 原始结果索引
+# 原始结果索引（2026-11-24 最终轮）
 
-| 文件 | 内容 | 生成命令 |
-|---|---|---|
-| `build.json` | 构建 SHA、环境、命令 | 手工维护（绑定 `f6b4bc2`） |
-| `test-summary.json` | 核心/新增/全量测试计数 | 由实际日志整理 |
-| `conformance-39.json` | 39 项机器可读状态 | `conformance_39.md` 同步 |
-| `concurrency.json` | 20 条真实 W 历史 + 10,000 条参考模型 | `python -m competition.evaluation.experiments.concurrency` |
-| `crash-recovery.json` | 3 个崩溃边界实际结果 | `python -m competition.evaluation.experiments.crash_report` |
-| `crypto-attacks.json` | 15 个定向篡改/重放 | `python -m competition.evaluation.experiments.crypto_attacks` |
-| `ablation.json` | Baseline A/B/C/Shadow/Proposed | `python -m competition.evaluation.experiments.ablation` |
-| `performance.json` | 纯 GoalFloor/接受/生命周期延迟 | `python -m competition.evaluation.experiments.performance` |
-| `evidence-audit.json` | 三 Profile + Goal 包审计汇总 | `python -m competition.evaluation.experiments.audit_report` |
-| `cross-scenario.json` | 三 Profile 业务差异与包审计 | `python -m competition.evaluation.experiments.cross_scenario_report` |
+| 文件 | 内容 |
+|---|---|
+| [build.json](build.json) | 构建身份与命令；历史实验保留自身 SHA |
+| [test-summary.json](test-summary.json) | 核心 91/91、专项 45/45、契约 371 |
+| [regression.json](regression.json) | Linux/WSL 全量 526 项及隔离复跑 |
+| [conformance-39.json](conformance-39.json) | 2 PASS / 0 FAIL / 22 PARTIAL / 15 NOT_RUN |
+| [long-sequence-summary.json](long-sequence-summary.json) | 20 条真实配对、112 动作位置、20 个差分拒绝、Oracle mismatch 0 |
+| [long-sequence.json](long-sequence.json) | 真实序列与 10,000 条参考模型原始轨迹 |
+| [concurrency-summary.json](concurrency-summary.json) | 40 条真实历史、10,000 模型历史 |
+| [concurrency.json](concurrency.json) / [concurrency-bulk.json](concurrency-bulk.json) | 初轮、补充真实历史 |
+| [crash-recovery.json](crash-recovery.json) | 3 个崩溃边界 |
+| [crypto-attacks.json](crypto-attacks.json) | 15 个定向篡改 |
+| [ablation.json](ablation.json) | 规则级及机制消融 |
+| [performance.json](performance.json) / [performance-bulk.json](performance-bulk.json) | 纯判定与真实接受路径；40 次/模式批量探索 |
+| [evidence-audit.json](evidence-audit.json) | 证据包审计 |
+| [cross-scenario.json](cross-scenario.json) / [cross-goal.json](cross-goal.json) | 跨场景与 PAY/MED GoalFloor |
+| [model-check.json](model-check.json) | 4,363 状态 / 67,746 转移 / 0 违反 |
 
-注意：
-- `concurrency.json` 的 20 条是真实 W 历史；10,000 条是独立参考模型，两者不能相加成“10,020 条真实并发”。
-- `ablation.json` 的 Baseline A/B 是规则级基线，不是完整协议实现。
-- 所有结果均绑定 `build.json.integration_sha`；证据包 manifest 另含 `git_sha`。
+真实 W 与模型结果不混算；A/B 消融是规则级基线，不是完整竞品。代码、证据与文档身份分开，原始运行日志未随本次 Git 提交公开；JSON 和证据包按原身份保留。当前综合结论见 [实验结论](../experiment_conclusions.md)。

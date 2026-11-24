@@ -1,6 +1,6 @@
 # 评委独立复验指南
 
-交付分支：`integration/goalcommit-shadow-20261123`，交付提交 `89275d7d0c6910999e53f5538c93bfdc59ecd1eb`；代码/证据生成提交 `fcbc6b3b3ad63c9de84387c98bccc004f726a77b`；基线 `7604d6b5b902f38d950234dec53d9375429f1e7f`。
+冻结实验来源：`integration/goalcommit-shadow-20261123`，HEAD `d83546be8bfa2304b984a439baf13c2571f3f866`；最终证据及验证器提交 `7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c`；基线 `7604d6b5b902f38d950234dec53d9375429f1e7f`。信任锚摘要与最终 manifest 一致；不将后续合并身份作为实际运行版本。
 
 ## 1. 固定信任根
 
@@ -92,12 +92,14 @@ python -m competition.evaluation.verify `
 
 ```powershell
 python -m competition.evaluation.generate_evidence `
-  --output competition/evaluation/evidence/20261123
+  --output .runtime/judge-replay-evidence
 ```
 
-这会新建一次运行并覆盖同名证据文件；`manifest.json` 记录 git SHA、Python、平台、每个文件的 SHA-256。重新生成后的 SHA 会变化，评委应使用本次提交附带的 manifest，而不是用旧哈希校验新文件。
+这会在独立输出目录新建运行；不要覆盖已冻结的公开证据文件。`manifest.json` 记录 git SHA、Python、平台、每个文件的 SHA-256。重新生成后的 SHA 会变化，评委应使用本次提交附带的 manifest，而不是用旧哈希校验新文件。
 
 ## 6. 重新运行主要实验
+
+请使用独立 checkout 或运行副本，避免覆盖冻结的 results/ 和 counterexamples/。
 
 ```powershell
 python -m unittest -v competition.tests.test_goal_floor
@@ -110,6 +112,11 @@ python -m competition.evaluation.experiments.concurrency --repetitions 10 --mode
 python -m competition.evaluation.experiments.ablation
 python -m competition.evaluation.experiments.crypto_attacks
 python -m competition.evaluation.experiments.performance
+python -m competition.evaluation.experiments.long_sequence
+python -m competition.evaluation.experiments.concurrency_bulk
+python -m competition.evaluation.experiments.cross_goal
+python -m competition.evaluation.experiments.model_check
+python -m competition.evaluation.experiments.performance_bulk
 ```
 
 ## 7. 预期限制

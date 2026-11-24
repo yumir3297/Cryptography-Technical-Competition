@@ -36,4 +36,4 @@ Spent + Reserved + CandidateCost + RemainingGoalFloor <= Capacity
 - `shadow`：计算并记录，不改变放行。
 - `enforce`：`LegacyGuard AND GoalFloorGuard`；比赛演示固定使用该模式。
 
-Agent 没有 goal 选择字段；W 用冻结 Action 的 selector 匹配 C 规则。停用、epoch、依赖和 obligation 集合的治理规则见 `invariant-spec.md` 与 `protocol-boundary.md`。
+Agent 没有 goal 选择字段；W 用冻结 Action 的 selector 匹配 C 规则。停用、epoch、依赖和 obligation 集合的治理规则见 `invariant_spec.md` 与 `protocol-boundary.md`。
