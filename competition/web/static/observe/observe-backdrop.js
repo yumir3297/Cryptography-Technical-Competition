@@ -173,7 +173,7 @@
       for (var x = 0; x < cols; x += 1) {
         var cell = cells[y * cols + x];
         var lit = (cell.lit + 1) * 0.5;
-        var alpha = (0.14 + lit * lit * 0.52) * (1 - cell.cover);
+        var alpha = (0.07 + lit * lit * 0.26) * (1 - cell.cover);
         if (alpha < 0.01) continue;
 
         var offset = cell.pos * 2.1;
