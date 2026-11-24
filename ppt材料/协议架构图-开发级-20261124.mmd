@@ -1,0 +1,152 @@
+%% 协议架构图（开发级）— 按《协议架构图审查与重绘规范》重新分类关系
+%% 源码基线 e9b3cfe；本图表达结构与关系，不宣称全部验收项已 PASS。
+%% ----
+%% 四类关系严格区分，不得混用同一种箭头：
+%%   1) 业务控制流           实线 -->
+%%   2) 密码学证据绑定       蓝色虚线 -.->（标注实际绑定字段）
+%%   3) 跨动作状态反馈       橙色粗线 ==>（回流下一次接受）
+%%   4) 阻断 / 待回执 / 未知 红色虚线 -.->（状态含义不可混同）
+%% ----
+%% 边框：绿色 = W 统一安全核心（每阶段各自事务边界）；
+%%       共享 SQLite 单独成框；工具账本在 W 事务之外。
+flowchart LR
+
+  %% ---- 入口与信任域 ----
+  subgraph TRUST["入口与信任域（Agent / C / E）"]
+    AG["Agent 候选意图<br/>只提供候选数据<br/>不自定权限 / 复核 / 依赖 / 义务状态"]
+    ENTRY_SRV["① Server 演示入口<br/>submit / challenge / prove"]
+    ENTRY_IND["① IND HTTP / MCP 适配（可选）<br/>MCP stdio 适配本地 REST<br/>与 Server 入口并列，非串联"]
+    C["C 受信控制面<br/>认证策略 / 任务 / 角色 / 资源 / GOAL_FLOOR<br/>负责登记与发布，不代替 Agent 提案"]
+    E["E 来源认证<br/>签名认证来源与内容<br/>不证明现实事实为真"]
+  end
+
+  CTX["② 可信构造<br/>意图 → 完整 Action → ActionHash<br/>Basis / Assessment / RequiredDeps / Ctx<br/>请求冻结与版本绑定属可选应用路径"]
+  GUARD["③ 关系核验 CommonGuard（共享组件）<br/>签名 / Ctx / Refs / RequiredDeps / DENY / 窗口<br/>PREPARE 初检 · ACCEPT 事务内重核 · 终局窗口重核"]
+
+  %% ---- W 统一安全核心 ----
+  subgraph W["W 统一安全核心（每个阶段各自事务边界）"]
+    subgraph S45["准备、判定与原子接受"]
+      PREPARE["PREPARE 初检<br/>短时准备凭据<br/>非接受"]
+      CHAL["ACCEPT 挑战 / 身份认证<br/>挑战可先发起<br/>但不等于已获执行资格"]
+      GF["④ GoalFloor 判定<br/>S + R + c(A) + F(A) ≤ K<br/>默认 off；shadow 只记录；enforce 才阻断<br/>适用资源上 PENDING / BLOCKED 阻断新接受<br/>仅在 ACCEPT 事务内判定，非每阶段重算"]
+      ACCEPT["⑤ ACCEPT 原子事务 BEGIN IMMEDIATE<br/>守卫重核 + GoalFloor + 预留<br/>+ 意图墓碑 + COMMIT + 冻结回执 Core"]
+    end
+    subgraph S6["⑥ 回执与唯一执行资格"]
+      RECEIPT["X 签署并验证回执<br/>只签原冻结 Core<br/>失败仅恢复原 Core"]
+      PENDING["COMMITTED / receipt PENDING<br/>保留接受事实与资源占用<br/>不得新领取"]
+      CLAIM["CLAIM 原子固定唯一 attempt<br/>_claim_checks 重建条件<br/>非再次整调用 CommonGuard"]
+      EXEC0["EXEC-0（阶段专用守卫）<br/>先持久消费执行标记<br/>再向工具派发"]
+    end
+    subgraph S7["⑦ 终局、结算与恢复"]
+      QUERY["QUERY 认证查询原 attempt<br/>不重新执行、不新增 attempt"]
+      FINAL["终局核验<br/>核对原 attempt / ActionHash / 签名 / checkpoint"]
+      SETTLE["SETTLE（阶段专用守卫）<br/>一次结算<br/>可信终局才结算<br/>资源与义务状态随之更新"]
+      CANCEL["CANCEL<br/>仅 PENDING 且未领取、满足已知失效条件<br/>STARTED 不可通用取消"]
+      UNKNOWN["UNKNOWN<br/>未决效果：保留预留与在途"]
+      HALTED["HALTED<br/>可信矛盾，工具停用"]
+      DUP["EXEC_ALREADY_CONSUMED"]
+      REJ["阻断分支<br/>BINDING / REVIEW_DENY<br/>DEP_CONFLICT / CLOCK_UNKNOWN / GOAL_*"]
+    end
+  end
+
+  %% ---- 工具端：独立账本 ----
+  TOOL["工具效果端<br/>验签 → 执行 / 查询 → 签名返回"]
+  TOOLDB[("工具 SQLite<br/>requests / effects / finalfacts<br/>不并入 W 事务")]
+
+  %% ---- 持久化与只读投影 ----
+  subgraph DB["共享 SQLite（C 控制状态 + W 业务状态，BEGIN IMMEDIATE）"]
+    SHARED[("a_current / a_journal / a_publication<br/>w_operation / w_outbox / w_settlement")]
+    RES["资源账<br/>w_resource / w_reservation<br/>S 已消耗 · R 已预留"]
+    OBL["义务账 w_goal<br/>OPEN → PENDING → DONE / BLOCKED<br/>PENDING 保留占用"]
+  end
+  OBS["观察 / 审计投影<br/>只读，不形成授权"]
+  VIEW["Agent 认证视图<br/>只读投影，不含执行权限"]
+  NOTE["边界<br/>原子性仅限各自事务，不构成 Agent→工具的长事务<br/>UNKNOWN 保留占用，不保证生产效果恰好一次<br/>哈希不认证来源；默认 off 入口不得宣称已强制启用"]
+
+  %% =====================================================
+  %% 1) 业务控制流（实线）
+  %% =====================================================
+  AG --> ENTRY_SRV
+  AG --> ENTRY_IND
+  ENTRY_SRV --> CTX
+  ENTRY_IND --> CTX
+  GUARD --> PREPARE
+  PREPARE --> CHAL
+  CHAL --> ACCEPT
+  GF --> ACCEPT
+  ACCEPT --> RECEIPT
+  RECEIPT --> CLAIM
+  CLAIM --> EXEC0
+  EXEC0 --> TOOL
+  TOOL --> FINAL
+  FINAL --> SETTLE
+  QUERY --> TOOL
+  SETTLE --> OBS
+  CANCEL --> OBS
+  ACCEPT --> SHARED
+  SETTLE --> SHARED
+  TOOL --> TOOLDB
+
+  %% =====================================================
+  %% 2) 密码学证据绑定（蓝色虚线，标注实际绑定字段）
+  %% =====================================================
+  C -.->|"C 认证约束引用"| GUARD
+  E -.->|"签名来源事实 source_envelope"| CTX
+  E -.->|"按当前记录重算来源"| GUARD
+  CTX -.->|"ActionHash / Ctx / Refs / RequiredDeps"| GUARD
+  ACCEPT -.->|"commit_record_ref → 冻结 Core"| RECEIPT
+  RECEIPT -.->|"Acceptance Ref 绑定 COMMIT"| ACCEPT
+  CLAIM -.->|"W 签名派发包：ActionHash / attempt / COMMIT / Acceptance"| EXEC0
+  TOOL -.->|"TOOL_FINAL + checkpoint + FinalFactID"| FINAL
+  FINAL -.->|"FinalFactID"| SETTLE
+  C -.->|"GOAL_FLOOR revision / deps / 认证容量"| GF
+
+  %% =====================================================
+  %% 3) 跨动作状态反馈（橙色粗线，回流下一次接受）
+  %% =====================================================
+  SETTLE ==>|"可信成功 → DONE"| OBL
+  SETTLE ==>|"扣减 S、释放 R"| RES
+  CANCEL ==>|"合法取消 → BLOCKED"| OBL
+  CANCEL ==>|"释放预留"| RES
+  OBL ==>|"义务状态参与下界"| GF
+  RES ==>|"资源账 S / R 参与下界"| GF
+  OBS ==>|"认证状态投影（非执行权限）"| VIEW
+  UNKNOWN ==>|"未知保留占用，不释放"| RES
+
+  %% =====================================================
+  %% 4) 阻断 / 待回执 / 未知（红色虚线）
+  %% =====================================================
+  GUARD -.->|"F / 未知 / DENY / 依赖冲突 / 窗口失效"| REJ
+  GF -.->|"enforce 下界不满足"| REJ
+  RECEIPT -.->|"签署或验证失败"| PENDING
+  PENDING -.->|"只允许恢复原冻结 Core"| RECEIPT
+  PENDING -.->|"无合法回执禁止新 CLAIM"| CLAIM
+  CLAIM -.->|"重复 CLAIM 不新增 attempt"| CLAIM
+  EXEC0 -.->|"执行标记已消费"| DUP
+  CANCEL -.->|"STARTED / UNKNOWN 禁止通用取消"| REJ
+  FINAL -.->|"签名 / 绑定 / checkpoint 不一致 → 不结算"| REJ
+  FINAL -.->|"可信矛盾"| HALTED
+  EXEC0 -.->|"执行前崩溃 / 结果未知"| UNKNOWN
+  UNKNOWN -.->|"只能认证查询原 attempt"| QUERY
+
+  %% =====================================================
+  %% 样式
+  %% =====================================================
+  linkStyle default stroke:#4b5563,stroke-width:1.6px
+  linkStyle 20,21,22,23,24,25,26,27,28,29 stroke:#2563eb,stroke-width:1.8px,stroke-dasharray:7 5
+  linkStyle 30,31,32,33,34,35,36,37 stroke:#ea580c,stroke-width:3px
+  linkStyle 38,39,40,41,42,43,44,45,46,47,48,49 stroke:#dc2626,stroke-width:1.8px,stroke-dasharray:4 4
+
+  classDef core fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#064e3b
+  classDef ledger fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#7c2d12
+  classDef block fill:#fef2f2,stroke:#dc2626,stroke-width:1.5px,color:#7f1d1d
+  classDef trust fill:#eff6ff,stroke:#2563eb,stroke-width:1.5px,color:#1e3a8a
+  classDef entry fill:#f3f4f6,stroke:#6b7280,stroke-width:1.5px,color:#111827
+  classDef note fill:#fffbeb,stroke:#d97706,stroke-width:1px,stroke-dasharray:4 4,color:#78350f
+
+  class PREPARE,CHAL,GF,ACCEPT,RECEIPT,CLAIM,EXEC0,QUERY,FINAL,SETTLE,CANCEL core
+  class RES,OBL ledger
+  class PENDING,UNKNOWN,HALTED,DUP,REJ block
+  class C,E,CTX,GUARD trust
+  class AG,ENTRY_SRV,ENTRY_IND,OBS,VIEW,TOOL,TOOLDB,SHARED entry
+  class NOTE note
