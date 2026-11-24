@@ -208,7 +208,7 @@ body[data-open="1"] { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  height: clamp(340px, 50vh, 560px);
+  height: clamp(340px, 62vh, 720px);
   overflow: hidden;
 }
 
@@ -576,22 +576,6 @@ body[data-open="1"] { overflow: hidden; }
   overflow-wrap: anywhere;
 }
 
-/* ── 页脚 ─────────────────────────────────────────────────────────────── */
-.ob-foot {
-  max-width: 1560px;
-  margin: 0 auto;
-  padding: 20px 20px 40px;
-  border-top: 1px solid var(--ak-border);
-}
-.ob-foot p {
-  max-width: 92ch;
-  margin: 0 0 6px;
-  font-size: 11px;
-  line-height: 1.8;
-  color: var(--ak-fg-muted);
-}
-.ob-foot code { font-family: var(--ak-font-mono); color: var(--ak-fg-secondary); }
-
 /* ── 窄屏 ─────────────────────────────────────────────────────────────── */
 @media (max-width: 860px) {
   .ob-bar {
@@ -615,5 +599,4 @@ body[data-open="1"] { overflow: hidden; }
   .ob-gnode--step { --gnode-w: 210px; }
   .ob-gnode--stub { --gnode-w: 186px; }
   .ob-gnode--block { --gnode-w: 190px; }
-  .ob-foot { padding: 16px 14px 32px; }
 }
