@@ -54,30 +54,16 @@
 
   <main class="ob-main">
     <section class="ob-mapwrap" id="map" aria-label="协议总图">
-      <ol class="ob-map">
+      <p class="ob-hint">子块已收起；点任一子块飞入其内部结构。</p>
+      <p class="ob-hint" data-scroll-hint hidden>图形较宽，横向拖动查看整图。</p>
+      <div class="ob-graph" data-graph="map">
+        <div class="ob-canvas">
+          <svg class="ob-edges" aria-hidden="true" focusable="false"></svg>
+          <div class="ob-nodes">
 <!-- {{MAP}} -->
-      </ol>
-      <svg class="ob-wires" aria-hidden="true" focusable="false">
-        <defs>
-          <marker id="ob-arrow-control" viewBox="0 0 8 8" refX="7" refY="4"
-                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0 0 L8 4 L0 8 z" class="ob-arrow ob-arrow--control"/>
-          </marker>
-          <marker id="ob-arrow-evidence" viewBox="0 0 8 8" refX="7" refY="4"
-                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0 0 L8 4 L0 8 z" class="ob-arrow ob-arrow--evidence"/>
-          </marker>
-          <marker id="ob-arrow-feedback" viewBox="0 0 8 8" refX="7" refY="4"
-                  markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-            <path d="M0 0 L8 4 L0 8 z" class="ob-arrow ob-arrow--feedback"/>
-          </marker>
-          <marker id="ob-arrow-reject" viewBox="0 0 8 8" refX="7" refY="4"
-                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0 0 L8 4 L0 8 z" class="ob-arrow ob-arrow--reject"/>
-          </marker>
-        </defs>
-        <g class="ob-wire-layer"></g>
-      </svg>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div class="ob-details" id="details" hidden>

@@ -74,7 +74,6 @@
       "不自定权限 / 复核 / 依赖 / 义务状态"
      ],
      "style": "entry",
-     "subgraph": "TRUST",
      "live": [
       {
        "label": "候选",
@@ -110,7 +109,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "trust",
+     "rank": 0,
+     "order": 0
     },
     {
      "id": "ENTRY_SRV",
@@ -119,7 +122,6 @@
       "submit / challenge / prove"
      ],
      "style": "entry",
-     "subgraph": "TRUST",
      "live": [
       {
        "label": "入口种类",
@@ -146,7 +148,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "trust",
+     "rank": 1,
+     "order": 0
     },
     {
      "id": "ENTRY_IND",
@@ -156,7 +162,6 @@
       "与 Server 入口并列，非串联"
      ],
      "style": "entry",
-     "subgraph": "TRUST",
      "live": [
       {
        "label": "入口种类",
@@ -179,7 +184,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "trust",
+     "rank": 1,
+     "order": 1
     },
     {
      "id": "C",
@@ -189,7 +198,6 @@
       "负责登记与发布，不代替 Agent 提案"
      ],
      "style": "trust",
-     "subgraph": "TRUST",
      "live": [
       {
        "label": "登记记录",
@@ -218,7 +226,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "trust",
+     "rank": 0,
+     "order": 1
     },
     {
      "id": "E",
@@ -228,7 +240,6 @@
       "不证明现实事实为真"
      ],
      "style": "trust",
-     "subgraph": "TRUST",
      "live": [
       {
        "label": "来源 kid",
@@ -273,7 +284,59 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "trust",
+     "rank": 0,
+     "order": 2
+    },
+    {
+     "id": "CTX",
+     "title": "② 可信构造",
+     "lines": [
+      "意图 → 完整 Action → ActionHash",
+      "Basis / Assessment / RequiredDeps / Ctx",
+      "请求冻结与版本绑定属可选应用路径"
+     ],
+     "style": "trust",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "可信构造与关系核验",
+     "rank": 2,
+     "order": 0
+    },
+    {
+     "id": "GUARD",
+     "title": "③ 关系核验 CommonGuard（共享组件）",
+     "lines": [
+      "签名 / Ctx / Refs / RequiredDeps / DENY / 窗口",
+      "PREPARE 初检 · ACCEPT 事务内重核 · 终局窗口重核"
+     ],
+     "style": "trust",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "可信构造与关系核验",
+     "rank": 0,
+     "order": 4
+    },
+    {
+     "id": "GF",
+     "title": "④ GoalFloor 判定",
+     "lines": [
+      "S + R + c(A) + F(A) ≤ K",
+      "默认 off；shadow 只记录；enforce 才阻断",
+      "适用资源上 PENDING / BLOCKED 阻断新接受",
+      "仅在 ACCEPT 事务内判定，非每阶段重算"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "准备、判定与原子接受",
+     "rank": 0,
+     "order": 3
     }
    ],
    "edges": [
@@ -281,63 +344,57 @@
      "src": "AG",
      "dst": "ENTRY_SRV",
      "kind": "control",
-     "label": ""
+     "label": "",
+     "back": false
     },
     {
      "src": "AG",
      "dst": "ENTRY_IND",
      "kind": "control",
-     "label": ""
-    }
-   ],
-   "cross": [
-    {
-     "direction": "out",
-     "kind": "control",
      "label": "",
-     "peer": "gate",
-     "node": "ENTRY_SRV",
-     "other": "CTX"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "ENTRY_SRV",
+     "dst": "CTX",
      "kind": "control",
      "label": "",
-     "peer": "gate",
-     "node": "ENTRY_IND",
-     "other": "CTX"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "ENTRY_IND",
+     "dst": "CTX",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "C",
+     "dst": "GUARD",
      "kind": "evidence",
      "label": "C 认证约束引用",
-     "peer": "gate",
-     "node": "C",
-     "other": "GUARD"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "E",
+     "dst": "CTX",
      "kind": "evidence",
      "label": "签名来源事实 source_envelope",
-     "peer": "gate",
-     "node": "E",
-     "other": "CTX"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "E",
+     "dst": "GUARD",
      "kind": "evidence",
      "label": "按当前记录重算来源",
-     "peer": "gate",
-     "node": "E",
-     "other": "GUARD"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "C",
+     "dst": "GF",
      "kind": "evidence",
      "label": "GOAL_FLOOR revision / deps / 认证容量",
-     "peer": "s45",
-     "node": "C",
-     "other": "GF"
+     "back": false
     }
    ]
   },
@@ -358,7 +415,6 @@
       "请求冻结与版本绑定属可选应用路径"
      ],
      "style": "trust",
-     "subgraph": null,
      "live": [
       {
        "label": "ActionHash",
@@ -423,7 +479,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "gate",
+     "rank": 1,
+     "order": 2
     },
     {
      "id": "GUARD",
@@ -433,7 +493,6 @@
       "PREPARE 初检 · ACCEPT 事务内重核 · 终局窗口重核"
      ],
      "style": "trust",
-     "subgraph": null,
      "live": [
       {
        "label": "判定",
@@ -499,73 +558,158 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "gate",
+     "rank": 0,
+     "order": 0
+    },
+    {
+     "id": "ENTRY_SRV",
+     "title": "① Server 演示入口",
+     "lines": [
+      "submit / challenge / prove"
+     ],
+     "style": "entry",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "入口与信任域",
+     "rank": 0,
+     "order": 4
+    },
+    {
+     "id": "ENTRY_IND",
+     "title": "① IND HTTP / MCP 适配（可选）",
+     "lines": [
+      "MCP stdio 适配本地 REST",
+      "与 Server 入口并列，非串联"
+     ],
+     "style": "entry",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "入口与信任域",
+     "rank": 0,
+     "order": 3
+    },
+    {
+     "id": "PREPARE",
+     "title": "PREPARE 初检",
+     "lines": [
+      "短时准备凭据",
+      "非接受"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "准备、判定与原子接受",
+     "rank": 1,
+     "order": 0
+    },
+    {
+     "id": "C",
+     "title": "C 受信控制面",
+     "lines": [
+      "认证策略 / 任务 / 角色 / 资源 / GOAL_FLOOR",
+      "负责登记与发布，不代替 Agent 提案"
+     ],
+     "style": "trust",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "入口与信任域",
+     "rank": 0,
+     "order": 1
+    },
+    {
+     "id": "E",
+     "title": "E 来源认证",
+     "lines": [
+      "签名认证来源与内容",
+      "不证明现实事实为真"
+     ],
+     "style": "trust",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "入口与信任域",
+     "rank": 0,
+     "order": 2
+    },
+    {
+     "id": "REJ",
+     "title": "阻断分支",
+     "lines": [
+      "BINDING / REVIEW_DENY",
+      "DEP_CONFLICT / CLOCK_UNKNOWN / GOAL_*"
+     ],
+     "style": "block",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 1,
+     "order": 1
     }
    ],
    "edges": [
     {
+     "src": "ENTRY_SRV",
+     "dst": "CTX",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "ENTRY_IND",
+     "dst": "CTX",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "GUARD",
+     "dst": "PREPARE",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "C",
+     "dst": "GUARD",
+     "kind": "evidence",
+     "label": "C 认证约束引用",
+     "back": false
+    },
+    {
+     "src": "E",
+     "dst": "CTX",
+     "kind": "evidence",
+     "label": "签名来源事实 source_envelope",
+     "back": false
+    },
+    {
+     "src": "E",
+     "dst": "GUARD",
+     "kind": "evidence",
+     "label": "按当前记录重算来源",
+     "back": false
+    },
+    {
      "src": "CTX",
      "dst": "GUARD",
      "kind": "evidence",
-     "label": "ActionHash / Ctx / Refs / RequiredDeps"
-    }
-   ],
-   "cross": [
-    {
-     "direction": "in",
-     "kind": "control",
-     "label": "",
-     "peer": "trust",
-     "node": "CTX",
-     "other": "ENTRY_SRV"
+     "label": "ActionHash / Ctx / Refs / RequiredDeps",
+     "back": false
     },
     {
-     "direction": "in",
-     "kind": "control",
-     "label": "",
-     "peer": "trust",
-     "node": "CTX",
-     "other": "ENTRY_IND"
-    },
-    {
-     "direction": "out",
-     "kind": "control",
-     "label": "",
-     "peer": "s45",
-     "node": "GUARD",
-     "other": "PREPARE"
-    },
-    {
-     "direction": "in",
-     "kind": "evidence",
-     "label": "C 认证约束引用",
-     "peer": "trust",
-     "node": "GUARD",
-     "other": "C"
-    },
-    {
-     "direction": "in",
-     "kind": "evidence",
-     "label": "签名来源事实 source_envelope",
-     "peer": "trust",
-     "node": "CTX",
-     "other": "E"
-    },
-    {
-     "direction": "in",
-     "kind": "evidence",
-     "label": "按当前记录重算来源",
-     "peer": "trust",
-     "node": "GUARD",
-     "other": "E"
-    },
-    {
-     "direction": "out",
+     "src": "GUARD",
+     "dst": "REJ",
      "kind": "reject",
      "label": "F / 未知 / DENY / 依赖冲突 / 窗口失效",
-     "peer": "s7",
-     "node": "GUARD",
-     "other": "REJ"
+     "back": false
     }
    ]
   },
@@ -585,7 +729,6 @@
       "非接受"
      ],
      "style": "core",
-     "subgraph": "S45",
      "live": [
       {
        "label": "意图",
@@ -641,7 +784,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s45",
+     "rank": 1,
+     "order": 0
     },
     {
      "id": "CHAL",
@@ -651,7 +798,6 @@
       "但不等于已获执行资格"
      ],
      "style": "core",
-     "subgraph": "S45",
      "live": [
       {
        "label": "nonce",
@@ -701,7 +847,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s45",
+     "rank": 2,
+     "order": 0
     },
     {
      "id": "GF",
@@ -713,7 +863,6 @@
       "仅在 ACCEPT 事务内判定，非每阶段重算"
      ],
      "style": "core",
-     "subgraph": "S45",
      "live": [
       {
        "label": "模式",
@@ -777,7 +926,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s45",
+     "rank": 1,
+     "order": 1
     },
     {
      "id": "ACCEPT",
@@ -787,7 +940,6 @@
       "+ 意图墓碑 + COMMIT + 冻结回执 Core"
      ],
      "style": "core",
-     "subgraph": "S45",
      "live": [
       {
        "label": "state",
@@ -883,101 +1035,201 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s45",
+     "rank": 3,
+     "order": 0
+    },
+    {
+     "id": "GUARD",
+     "title": "③ 关系核验 CommonGuard（共享组件）",
+     "lines": [
+      "签名 / Ctx / Refs / RequiredDeps / DENY / 窗口",
+      "PREPARE 初检 · ACCEPT 事务内重核 · 终局窗口重核"
+     ],
+     "style": "trust",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "可信构造与关系核验",
+     "rank": 0,
+     "order": 1
+    },
+    {
+     "id": "RECEIPT",
+     "title": "X 签署并验证回执",
+     "lines": [
+      "只签原冻结 Core",
+      "失败仅恢复原 Core"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "回执与唯一执行资格",
+     "rank": 4,
+     "order": 0
+    },
+    {
+     "id": "SHARED",
+     "title": "a_current / a_journal / a_publication",
+     "lines": [
+      "w_operation / w_outbox / w_settlement"
+     ],
+     "style": "entry",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "共享 SQLite 与账本",
+     "rank": 4,
+     "order": 1
+    },
+    {
+     "id": "C",
+     "title": "C 受信控制面",
+     "lines": [
+      "认证策略 / 任务 / 角色 / 资源 / GOAL_FLOOR",
+      "负责登记与发布，不代替 Agent 提案"
+     ],
+     "style": "trust",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "入口与信任域",
+     "rank": 0,
+     "order": 0
+    },
+    {
+     "id": "OBL",
+     "title": "义务账 w_goal",
+     "lines": [
+      "OPEN → PENDING → DONE / BLOCKED",
+      "PENDING 保留占用"
+     ],
+     "style": "ledger",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "共享 SQLite 与账本",
+     "rank": 0,
+     "order": 2
+    },
+    {
+     "id": "RES",
+     "title": "资源账",
+     "lines": [
+      "w_resource / w_reservation",
+      "S 已消耗 · R 已预留"
+     ],
+     "style": "ledger",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "共享 SQLite 与账本",
+     "rank": 0,
+     "order": 3
+    },
+    {
+     "id": "REJ",
+     "title": "阻断分支",
+     "lines": [
+      "BINDING / REVIEW_DENY",
+      "DEP_CONFLICT / CLOCK_UNKNOWN / GOAL_*"
+     ],
+     "style": "block",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 2,
+     "order": 1
     }
    ],
    "edges": [
     {
+     "src": "GUARD",
+     "dst": "PREPARE",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
      "src": "PREPARE",
      "dst": "CHAL",
      "kind": "control",
-     "label": ""
+     "label": "",
+     "back": false
     },
     {
      "src": "CHAL",
      "dst": "ACCEPT",
      "kind": "control",
-     "label": ""
+     "label": "",
+     "back": false
     },
     {
      "src": "GF",
      "dst": "ACCEPT",
      "kind": "control",
-     "label": ""
-    }
-   ],
-   "cross": [
-    {
-     "direction": "in",
-     "kind": "control",
      "label": "",
-     "peer": "gate",
-     "node": "PREPARE",
-     "other": "GUARD"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "ACCEPT",
+     "dst": "RECEIPT",
      "kind": "control",
      "label": "",
-     "peer": "s6",
-     "node": "ACCEPT",
-     "other": "RECEIPT"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "ACCEPT",
+     "dst": "SHARED",
      "kind": "control",
      "label": "",
-     "peer": "db",
-     "node": "ACCEPT",
-     "other": "SHARED"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "ACCEPT",
+     "dst": "RECEIPT",
      "kind": "evidence",
      "label": "commit_record_ref → 冻结 Core",
-     "peer": "s6",
-     "node": "ACCEPT",
-     "other": "RECEIPT"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "RECEIPT",
+     "dst": "ACCEPT",
      "kind": "evidence",
      "label": "Acceptance Ref 绑定 COMMIT",
-     "peer": "s6",
-     "node": "ACCEPT",
-     "other": "RECEIPT"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "C",
+     "dst": "GF",
      "kind": "evidence",
      "label": "GOAL_FLOOR revision / deps / 认证容量",
-     "peer": "trust",
-     "node": "GF",
-     "other": "C"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "OBL",
+     "dst": "GF",
      "kind": "feedback",
      "label": "义务状态参与下界",
-     "peer": "db",
-     "node": "GF",
-     "other": "OBL"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "RES",
+     "dst": "GF",
      "kind": "feedback",
      "label": "资源账 S / R 参与下界",
-     "peer": "db",
-     "node": "GF",
-     "other": "RES"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "GF",
+     "dst": "REJ",
      "kind": "reject",
      "label": "enforce 下界不满足",
-     "peer": "s7",
-     "node": "GF",
-     "other": "REJ"
+     "back": false
     }
    ]
   },
@@ -997,7 +1249,6 @@
       "失败仅恢复原 Core"
      ],
      "style": "core",
-     "subgraph": "S6",
      "live": [
       {
        "label": "state",
@@ -1032,7 +1283,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s6",
+     "rank": 1,
+     "order": 0
     },
     {
      "id": "PENDING",
@@ -1042,7 +1297,6 @@
       "不得新领取"
      ],
      "style": "block",
-     "subgraph": "S6",
      "live": [
       {
        "label": "receipt",
@@ -1088,7 +1342,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s6",
+     "rank": 2,
+     "order": 0
     },
     {
      "id": "CLAIM",
@@ -1098,7 +1356,6 @@
       "非再次整调用 CommonGuard"
      ],
      "style": "core",
-     "subgraph": "S6",
      "live": [
       {
        "label": "attempt",
@@ -1138,7 +1395,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s6",
+     "rank": 3,
+     "order": 0
     },
     {
      "id": "EXEC0",
@@ -1148,7 +1409,6 @@
       "再向工具派发"
      ],
      "style": "core",
-     "subgraph": "S6",
      "live": [
       {
        "label": "已消费",
@@ -1188,101 +1448,159 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s6",
+     "rank": 4,
+     "order": 0
+    },
+    {
+     "id": "ACCEPT",
+     "title": "⑤ ACCEPT 原子事务 BEGIN IMMEDIATE",
+     "lines": [
+      "守卫重核 + GoalFloor + 预留",
+      "+ 意图墓碑 + COMMIT + 冻结回执 Core"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "准备、判定与原子接受",
+     "rank": 0,
+     "order": 0
+    },
+    {
+     "id": "TOOL",
+     "title": "工具效果端",
+     "lines": [
+      "验签 → 执行 / 查询 → 签名返回"
+     ],
+     "style": "entry",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "工具端与独立账本",
+     "rank": 5,
+     "order": 1
+    },
+    {
+     "id": "DUP",
+     "title": "EXEC_ALREADY_CONSUMED",
+     "lines": [],
+     "style": "block",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 5,
+     "order": 0
+    },
+    {
+     "id": "UNKNOWN",
+     "title": "UNKNOWN",
+     "lines": [
+      "未决效果：保留预留与在途"
+     ],
+     "style": "block",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 5,
+     "order": 2
     }
    ],
    "edges": [
     {
+     "src": "ACCEPT",
+     "dst": "RECEIPT",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
      "src": "RECEIPT",
      "dst": "CLAIM",
      "kind": "control",
-     "label": ""
+     "label": "",
+     "back": false
     },
     {
      "src": "CLAIM",
      "dst": "EXEC0",
      "kind": "control",
-     "label": ""
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "EXEC0",
+     "dst": "TOOL",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "ACCEPT",
+     "dst": "RECEIPT",
+     "kind": "evidence",
+     "label": "commit_record_ref → 冻结 Core",
+     "back": false
+    },
+    {
+     "src": "RECEIPT",
+     "dst": "ACCEPT",
+     "kind": "evidence",
+     "label": "Acceptance Ref 绑定 COMMIT",
+     "back": false
     },
     {
      "src": "CLAIM",
      "dst": "EXEC0",
      "kind": "evidence",
-     "label": "W 签名派发包：ActionHash / attempt / COMMIT / Acceptance"
+     "label": "W 签名派发包：ActionHash / attempt / COMMIT / Acceptance",
+     "back": false
     },
     {
      "src": "RECEIPT",
      "dst": "PENDING",
      "kind": "reject",
-     "label": "签署或验证失败"
+     "label": "签署或验证失败",
+     "back": false
     },
     {
      "src": "PENDING",
      "dst": "RECEIPT",
      "kind": "reject",
-     "label": "只允许恢复原冻结 Core"
+     "label": "只允许恢复原冻结 Core",
+     "back": true
     },
     {
      "src": "PENDING",
      "dst": "CLAIM",
      "kind": "reject",
-     "label": "无合法回执禁止新 CLAIM"
+     "label": "无合法回执禁止新 CLAIM",
+     "back": false
     },
     {
      "src": "CLAIM",
      "dst": "CLAIM",
      "kind": "reject",
-     "label": "重复 CLAIM 不新增 attempt"
-    }
-   ],
-   "cross": [
-    {
-     "direction": "in",
-     "kind": "control",
-     "label": "",
-     "peer": "s45",
-     "node": "RECEIPT",
-     "other": "ACCEPT"
+     "label": "重复 CLAIM 不新增 attempt",
+     "back": true
     },
     {
-     "direction": "out",
-     "kind": "control",
-     "label": "",
-     "peer": "tool",
-     "node": "EXEC0",
-     "other": "TOOL"
-    },
-    {
-     "direction": "in",
-     "kind": "evidence",
-     "label": "commit_record_ref → 冻结 Core",
-     "peer": "s45",
-     "node": "RECEIPT",
-     "other": "ACCEPT"
-    },
-    {
-     "direction": "out",
-     "kind": "evidence",
-     "label": "Acceptance Ref 绑定 COMMIT",
-     "peer": "s45",
-     "node": "RECEIPT",
-     "other": "ACCEPT"
-    },
-    {
-     "direction": "out",
+     "src": "EXEC0",
+     "dst": "DUP",
      "kind": "reject",
      "label": "执行标记已消费",
-     "peer": "s7",
-     "node": "EXEC0",
-     "other": "DUP"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "EXEC0",
+     "dst": "UNKNOWN",
      "kind": "reject",
      "label": "执行前崩溃 / 结果未知",
-     "peer": "s7",
-     "node": "EXEC0",
-     "other": "UNKNOWN"
+     "back": false
     }
    ]
   },
@@ -1301,7 +1619,6 @@
       "只读，不形成授权"
      ],
      "style": "entry",
-     "subgraph": null,
      "live": [
       {
        "label": "事件",
@@ -1329,7 +1646,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "view",
+     "rank": 1,
+     "order": 0
     },
     {
      "id": "VIEW",
@@ -1338,7 +1659,6 @@
       "只读投影，不含执行权限"
      ],
      "style": "entry",
-     "subgraph": null,
      "live": [
       {
        "label": "派发",
@@ -1394,7 +1714,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "view",
+     "rank": 2,
+     "order": 0
     },
     {
      "id": "NOTE",
@@ -1405,35 +1729,66 @@
       "哈希不认证来源；默认 off 入口不得宣称已强制启用"
      ],
      "style": "note",
-     "subgraph": null,
      "live": [],
-     "cards": []
+     "cards": [],
+     "stub": false,
+     "block": "view",
+     "rank": 2,
+     "order": 1
+    },
+    {
+     "id": "SETTLE",
+     "title": "SETTLE（阶段专用守卫）",
+     "lines": [
+      "一次结算",
+      "可信终局才结算",
+      "资源与义务状态随之更新"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 0,
+     "order": 2
+    },
+    {
+     "id": "CANCEL",
+     "title": "CANCEL",
+     "lines": [
+      "仅 PENDING 且未领取、满足已知失效条件",
+      "STARTED 不可通用取消"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 0,
+     "order": 1
     }
    ],
    "edges": [
     {
+     "src": "SETTLE",
+     "dst": "OBS",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "CANCEL",
+     "dst": "OBS",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
      "src": "OBS",
      "dst": "VIEW",
      "kind": "feedback",
-     "label": "认证状态投影（非执行权限）"
-    }
-   ],
-   "cross": [
-    {
-     "direction": "in",
-     "kind": "control",
-     "label": "",
-     "peer": "s7",
-     "node": "OBS",
-     "other": "SETTLE"
-    },
-    {
-     "direction": "in",
-     "kind": "control",
-     "label": "",
-     "peer": "s7",
-     "node": "OBS",
-     "other": "CANCEL"
+     "label": "认证状态投影（非执行权限）",
+     "back": false
     }
    ]
   },
@@ -1452,7 +1807,6 @@
       "不重新执行、不新增 attempt"
      ],
      "style": "core",
-     "subgraph": "S7",
      "live": [
       {
        "label": "查询",
@@ -1484,7 +1838,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s7",
+     "rank": 2,
+     "order": 0
     },
     {
      "id": "FINAL",
@@ -1493,7 +1851,6 @@
       "核对原 attempt / ActionHash / 签名 / checkpoint"
      ],
      "style": "core",
-     "subgraph": "S7",
      "live": [
       {
        "label": "终局",
@@ -1533,7 +1890,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s7",
+     "rank": 4,
+     "order": 0
     },
     {
      "id": "SETTLE",
@@ -1544,7 +1905,6 @@
       "资源与义务状态随之更新"
      ],
      "style": "core",
-     "subgraph": "S7",
      "live": [
       {
        "label": "结果",
@@ -1584,7 +1944,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s7",
+     "rank": 5,
+     "order": 0
     },
     {
      "id": "CANCEL",
@@ -1594,7 +1958,6 @@
       "STARTED 不可通用取消"
      ],
      "style": "core",
-     "subgraph": "S7",
      "live": [
       {
        "label": "state",
@@ -1630,7 +1993,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s7",
+     "rank": 0,
+     "order": 0
     },
     {
      "id": "UNKNOWN",
@@ -1639,7 +2006,6 @@
       "未决效果：保留预留与在途"
      ],
      "style": "block",
-     "subgraph": "S7",
      "live": [
       {
        "label": "effect",
@@ -1666,7 +2032,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s7",
+     "rank": 1,
+     "order": 0
     },
     {
      "id": "HALTED",
@@ -1675,7 +2045,6 @@
       "可信矛盾，工具停用"
      ],
      "style": "block",
-     "subgraph": "S7",
      "live": [
       {
        "label": "已停用",
@@ -1698,14 +2067,17 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s7",
+     "rank": 5,
+     "order": 1
     },
     {
      "id": "DUP",
      "title": "EXEC_ALREADY_CONSUMED",
      "lines": [],
      "style": "block",
-     "subgraph": "S7",
      "live": [
       {
        "label": "重复阻断",
@@ -1728,7 +2100,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s7",
+     "rank": 1,
+     "order": 1
     },
     {
      "id": "REJ",
@@ -1738,7 +2114,6 @@
       "DEP_CONFLICT / CLOCK_UNKNOWN / GOAL_*"
      ],
      "style": "block",
-     "subgraph": "S7",
      "live": [
       {
        "label": "DENY",
@@ -1774,167 +2149,279 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "s7",
+     "rank": 5,
+     "order": 2
+    },
+    {
+     "id": "TOOL",
+     "title": "工具效果端",
+     "lines": [
+      "验签 → 执行 / 查询 → 签名返回"
+     ],
+     "style": "entry",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "工具端与独立账本",
+     "rank": 3,
+     "order": 0
+    },
+    {
+     "id": "OBS",
+     "title": "观察 / 审计投影",
+     "lines": [
+      "只读，不形成授权"
+     ],
+     "style": "entry",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "只读投影与边界",
+     "rank": 6,
+     "order": 1
+    },
+    {
+     "id": "SHARED",
+     "title": "a_current / a_journal / a_publication",
+     "lines": [
+      "w_operation / w_outbox / w_settlement"
+     ],
+     "style": "entry",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "共享 SQLite 与账本",
+     "rank": 6,
+     "order": 3
+    },
+    {
+     "id": "OBL",
+     "title": "义务账 w_goal",
+     "lines": [
+      "OPEN → PENDING → DONE / BLOCKED",
+      "PENDING 保留占用"
+     ],
+     "style": "ledger",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "共享 SQLite 与账本",
+     "rank": 6,
+     "order": 0
+    },
+    {
+     "id": "RES",
+     "title": "资源账",
+     "lines": [
+      "w_resource / w_reservation",
+      "S 已消耗 · R 已预留"
+     ],
+     "style": "ledger",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "共享 SQLite 与账本",
+     "rank": 6,
+     "order": 2
+    },
+    {
+     "id": "GUARD",
+     "title": "③ 关系核验 CommonGuard（共享组件）",
+     "lines": [
+      "签名 / Ctx / Refs / RequiredDeps / DENY / 窗口",
+      "PREPARE 初检 · ACCEPT 事务内重核 · 终局窗口重核"
+     ],
+     "style": "trust",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "可信构造与关系核验",
+     "rank": 0,
+     "order": 3
+    },
+    {
+     "id": "GF",
+     "title": "④ GoalFloor 判定",
+     "lines": [
+      "S + R + c(A) + F(A) ≤ K",
+      "默认 off；shadow 只记录；enforce 才阻断",
+      "适用资源上 PENDING / BLOCKED 阻断新接受",
+      "仅在 ACCEPT 事务内判定，非每阶段重算"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "准备、判定与原子接受",
+     "rank": 0,
+     "order": 2
+    },
+    {
+     "id": "EXEC0",
+     "title": "EXEC-0（阶段专用守卫）",
+     "lines": [
+      "先持久消费执行标记",
+      "再向工具派发"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "回执与唯一执行资格",
+     "rank": 0,
+     "order": 1
     }
    ],
    "edges": [
     {
+     "src": "TOOL",
+     "dst": "FINAL",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
      "src": "FINAL",
      "dst": "SETTLE",
      "kind": "control",
-     "label": ""
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "QUERY",
+     "dst": "TOOL",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "SETTLE",
+     "dst": "OBS",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "CANCEL",
+     "dst": "OBS",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "SETTLE",
+     "dst": "SHARED",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "TOOL",
+     "dst": "FINAL",
+     "kind": "evidence",
+     "label": "TOOL_FINAL + checkpoint + FinalFactID",
+     "back": false
     },
     {
      "src": "FINAL",
      "dst": "SETTLE",
      "kind": "evidence",
-     "label": "FinalFactID"
+     "label": "FinalFactID",
+     "back": false
+    },
+    {
+     "src": "SETTLE",
+     "dst": "OBL",
+     "kind": "feedback",
+     "label": "可信成功 → DONE",
+     "back": false
+    },
+    {
+     "src": "SETTLE",
+     "dst": "RES",
+     "kind": "feedback",
+     "label": "扣减 S、释放 R",
+     "back": false
+    },
+    {
+     "src": "CANCEL",
+     "dst": "OBL",
+     "kind": "feedback",
+     "label": "合法取消 → BLOCKED",
+     "back": false
+    },
+    {
+     "src": "CANCEL",
+     "dst": "RES",
+     "kind": "feedback",
+     "label": "释放预留",
+     "back": false
+    },
+    {
+     "src": "UNKNOWN",
+     "dst": "RES",
+     "kind": "feedback",
+     "label": "未知保留占用，不释放",
+     "back": false
+    },
+    {
+     "src": "GUARD",
+     "dst": "REJ",
+     "kind": "reject",
+     "label": "F / 未知 / DENY / 依赖冲突 / 窗口失效",
+     "back": false
+    },
+    {
+     "src": "GF",
+     "dst": "REJ",
+     "kind": "reject",
+     "label": "enforce 下界不满足",
+     "back": false
+    },
+    {
+     "src": "EXEC0",
+     "dst": "DUP",
+     "kind": "reject",
+     "label": "执行标记已消费",
+     "back": false
     },
     {
      "src": "CANCEL",
      "dst": "REJ",
      "kind": "reject",
-     "label": "STARTED / UNKNOWN 禁止通用取消"
+     "label": "STARTED / UNKNOWN 禁止通用取消",
+     "back": false
     },
     {
      "src": "FINAL",
      "dst": "REJ",
      "kind": "reject",
-     "label": "签名 / 绑定 / checkpoint 不一致 → 不结算"
+     "label": "签名 / 绑定 / checkpoint 不一致 → 不结算",
+     "back": false
     },
     {
      "src": "FINAL",
      "dst": "HALTED",
      "kind": "reject",
-     "label": "可信矛盾"
+     "label": "可信矛盾",
+     "back": false
+    },
+    {
+     "src": "EXEC0",
+     "dst": "UNKNOWN",
+     "kind": "reject",
+     "label": "执行前崩溃 / 结果未知",
+     "back": false
     },
     {
      "src": "UNKNOWN",
      "dst": "QUERY",
      "kind": "reject",
-     "label": "只能认证查询原 attempt"
-    }
-   ],
-   "cross": [
-    {
-     "direction": "in",
-     "kind": "control",
-     "label": "",
-     "peer": "tool",
-     "node": "FINAL",
-     "other": "TOOL"
-    },
-    {
-     "direction": "out",
-     "kind": "control",
-     "label": "",
-     "peer": "tool",
-     "node": "QUERY",
-     "other": "TOOL"
-    },
-    {
-     "direction": "out",
-     "kind": "control",
-     "label": "",
-     "peer": "view",
-     "node": "SETTLE",
-     "other": "OBS"
-    },
-    {
-     "direction": "out",
-     "kind": "control",
-     "label": "",
-     "peer": "view",
-     "node": "CANCEL",
-     "other": "OBS"
-    },
-    {
-     "direction": "out",
-     "kind": "control",
-     "label": "",
-     "peer": "db",
-     "node": "SETTLE",
-     "other": "SHARED"
-    },
-    {
-     "direction": "in",
-     "kind": "evidence",
-     "label": "TOOL_FINAL + checkpoint + FinalFactID",
-     "peer": "tool",
-     "node": "FINAL",
-     "other": "TOOL"
-    },
-    {
-     "direction": "out",
-     "kind": "feedback",
-     "label": "可信成功 → DONE",
-     "peer": "db",
-     "node": "SETTLE",
-     "other": "OBL"
-    },
-    {
-     "direction": "out",
-     "kind": "feedback",
-     "label": "扣减 S、释放 R",
-     "peer": "db",
-     "node": "SETTLE",
-     "other": "RES"
-    },
-    {
-     "direction": "out",
-     "kind": "feedback",
-     "label": "合法取消 → BLOCKED",
-     "peer": "db",
-     "node": "CANCEL",
-     "other": "OBL"
-    },
-    {
-     "direction": "out",
-     "kind": "feedback",
-     "label": "释放预留",
-     "peer": "db",
-     "node": "CANCEL",
-     "other": "RES"
-    },
-    {
-     "direction": "out",
-     "kind": "feedback",
-     "label": "未知保留占用，不释放",
-     "peer": "db",
-     "node": "UNKNOWN",
-     "other": "RES"
-    },
-    {
-     "direction": "in",
-     "kind": "reject",
-     "label": "F / 未知 / DENY / 依赖冲突 / 窗口失效",
-     "peer": "gate",
-     "node": "REJ",
-     "other": "GUARD"
-    },
-    {
-     "direction": "in",
-     "kind": "reject",
-     "label": "enforce 下界不满足",
-     "peer": "s45",
-     "node": "REJ",
-     "other": "GF"
-    },
-    {
-     "direction": "in",
-     "kind": "reject",
-     "label": "执行标记已消费",
-     "peer": "s6",
-     "node": "DUP",
-     "other": "EXEC0"
-    },
-    {
-     "direction": "in",
-     "kind": "reject",
-     "label": "执行前崩溃 / 结果未知",
-     "peer": "s6",
-     "node": "UNKNOWN",
-     "other": "EXEC0"
+     "label": "只能认证查询原 attempt",
+     "back": false
     }
    ]
   },
@@ -1953,7 +2440,6 @@
       "验签 → 执行 / 查询 → 签名返回"
      ],
      "style": "entry",
-     "subgraph": null,
      "live": [
       {
        "label": "requests",
@@ -1993,7 +2479,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "tool",
+     "rank": 1,
+     "order": 0
     },
     {
      "id": "TOOLDB",
@@ -2003,7 +2493,6 @@
       "不并入 W 事务"
      ],
      "style": "entry",
-     "subgraph": null,
      "live": [
       {
        "label": "库",
@@ -2045,49 +2534,91 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "tool",
+     "rank": 2,
+     "order": 0
+    },
+    {
+     "id": "EXEC0",
+     "title": "EXEC-0（阶段专用守卫）",
+     "lines": [
+      "先持久消费执行标记",
+      "再向工具派发"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "回执与唯一执行资格",
+     "rank": 0,
+     "order": 0
+    },
+    {
+     "id": "FINAL",
+     "title": "终局核验",
+     "lines": [
+      "核对原 attempt / ActionHash / 签名 / checkpoint"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 2,
+     "order": 1
+    },
+    {
+     "id": "QUERY",
+     "title": "QUERY 认证查询原 attempt",
+     "lines": [
+      "不重新执行、不新增 attempt"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 0,
+     "order": 1
     }
    ],
    "edges": [
     {
+     "src": "EXEC0",
+     "dst": "TOOL",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "TOOL",
+     "dst": "FINAL",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
+     "src": "QUERY",
+     "dst": "TOOL",
+     "kind": "control",
+     "label": "",
+     "back": false
+    },
+    {
      "src": "TOOL",
      "dst": "TOOLDB",
      "kind": "control",
-     "label": ""
-    }
-   ],
-   "cross": [
-    {
-     "direction": "in",
-     "kind": "control",
      "label": "",
-     "peer": "s6",
-     "node": "TOOL",
-     "other": "EXEC0"
+     "back": false
     },
     {
-     "direction": "out",
-     "kind": "control",
-     "label": "",
-     "peer": "s7",
-     "node": "TOOL",
-     "other": "FINAL"
-    },
-    {
-     "direction": "in",
-     "kind": "control",
-     "label": "",
-     "peer": "s7",
-     "node": "TOOL",
-     "other": "QUERY"
-    },
-    {
-     "direction": "out",
+     "src": "TOOL",
+     "dst": "FINAL",
      "kind": "evidence",
      "label": "TOOL_FINAL + checkpoint + FinalFactID",
-     "peer": "s7",
-     "node": "TOOL",
-     "other": "FINAL"
+     "back": false
     }
    ]
   },
@@ -2106,7 +2637,6 @@
       "w_operation / w_outbox / w_settlement"
      ],
      "style": "entry",
-     "subgraph": "DB",
      "live": [
       {
        "label": "库",
@@ -2172,7 +2702,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "db",
+     "rank": 1,
+     "order": 0
     },
     {
      "id": "RES",
@@ -2182,7 +2716,6 @@
       "S 已消耗 · R 已预留"
      ],
      "style": "ledger",
-     "subgraph": "DB",
      "live": [
       {
        "label": "资源",
@@ -2214,7 +2747,11 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "db",
+     "rank": 1,
+     "order": 2
     },
     {
      "id": "OBL",
@@ -2224,7 +2761,6 @@
       "PENDING 保留占用"
      ],
      "style": "ledger",
-     "subgraph": "DB",
      "live": [
       {
        "label": "义务",
@@ -2256,228 +2792,397 @@
         }
        ]
       }
-     ]
+     ],
+     "stub": false,
+     "block": "db",
+     "rank": 1,
+     "order": 1
+    },
+    {
+     "id": "ACCEPT",
+     "title": "⑤ ACCEPT 原子事务 BEGIN IMMEDIATE",
+     "lines": [
+      "守卫重核 + GoalFloor + 预留",
+      "+ 意图墓碑 + COMMIT + 冻结回执 Core"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "准备、判定与原子接受",
+     "rank": 0,
+     "order": 0
+    },
+    {
+     "id": "SETTLE",
+     "title": "SETTLE（阶段专用守卫）",
+     "lines": [
+      "一次结算",
+      "可信终局才结算",
+      "资源与义务状态随之更新"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 0,
+     "order": 2
+    },
+    {
+     "id": "CANCEL",
+     "title": "CANCEL",
+     "lines": [
+      "仅 PENDING 且未领取、满足已知失效条件",
+      "STARTED 不可通用取消"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 0,
+     "order": 1
+    },
+    {
+     "id": "GF",
+     "title": "④ GoalFloor 判定",
+     "lines": [
+      "S + R + c(A) + F(A) ≤ K",
+      "默认 off；shadow 只记录；enforce 才阻断",
+      "适用资源上 PENDING / BLOCKED 阻断新接受",
+      "仅在 ACCEPT 事务内判定，非每阶段重算"
+     ],
+     "style": "core",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "准备、判定与原子接受",
+     "rank": 2,
+     "order": 0
+    },
+    {
+     "id": "UNKNOWN",
+     "title": "UNKNOWN",
+     "lines": [
+      "未决效果：保留预留与在途"
+     ],
+     "style": "block",
+     "live": [],
+     "cards": [],
+     "stub": true,
+     "block": "终局、结算与恢复",
+     "rank": 0,
+     "order": 3
     }
    ],
-   "edges": [],
-   "cross": [
+   "edges": [
     {
-     "direction": "in",
+     "src": "ACCEPT",
+     "dst": "SHARED",
      "kind": "control",
      "label": "",
-     "peer": "s45",
-     "node": "SHARED",
-     "other": "ACCEPT"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "SETTLE",
+     "dst": "SHARED",
      "kind": "control",
      "label": "",
-     "peer": "s7",
-     "node": "SHARED",
-     "other": "SETTLE"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "SETTLE",
+     "dst": "OBL",
      "kind": "feedback",
      "label": "可信成功 → DONE",
-     "peer": "s7",
-     "node": "OBL",
-     "other": "SETTLE"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "SETTLE",
+     "dst": "RES",
      "kind": "feedback",
      "label": "扣减 S、释放 R",
-     "peer": "s7",
-     "node": "RES",
-     "other": "SETTLE"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "CANCEL",
+     "dst": "OBL",
      "kind": "feedback",
      "label": "合法取消 → BLOCKED",
-     "peer": "s7",
-     "node": "OBL",
-     "other": "CANCEL"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "CANCEL",
+     "dst": "RES",
      "kind": "feedback",
      "label": "释放预留",
-     "peer": "s7",
-     "node": "RES",
-     "other": "CANCEL"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "OBL",
+     "dst": "GF",
      "kind": "feedback",
      "label": "义务状态参与下界",
-     "peer": "s45",
-     "node": "OBL",
-     "other": "GF"
+     "back": false
     },
     {
-     "direction": "out",
+     "src": "RES",
+     "dst": "GF",
      "kind": "feedback",
      "label": "资源账 S / R 参与下界",
-     "peer": "s45",
-     "node": "RES",
-     "other": "GF"
+     "back": false
     },
     {
-     "direction": "in",
+     "src": "UNKNOWN",
+     "dst": "RES",
      "kind": "feedback",
      "label": "未知保留占用，不释放",
-     "peer": "s7",
-     "node": "RES",
-     "other": "UNKNOWN"
+     "back": false
     }
    ]
   }
  ],
- "block_edges": [
-  {
-   "src": "db",
-   "dst": "s45",
-   "kind": "feedback",
-   "labels": [
-    "义务状态参与下界",
-    "资源账 S / R 参与下界"
-   ]
-  },
-  {
-   "src": "gate",
-   "dst": "s45",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "gate",
-   "dst": "s7",
-   "kind": "reject",
-   "labels": [
-    "F / 未知 / DENY / 依赖冲突 / 窗口失效"
-   ]
-  },
-  {
-   "src": "s45",
-   "dst": "db",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "s45",
-   "dst": "s6",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "s45",
-   "dst": "s6",
-   "kind": "evidence",
-   "labels": [
-    "commit_record_ref → 冻结 Core"
-   ]
-  },
-  {
-   "src": "s45",
-   "dst": "s7",
-   "kind": "reject",
-   "labels": [
-    "enforce 下界不满足"
-   ]
-  },
-  {
-   "src": "s6",
-   "dst": "s45",
-   "kind": "evidence",
-   "labels": [
-    "Acceptance Ref 绑定 COMMIT"
-   ]
-  },
-  {
-   "src": "s6",
-   "dst": "s7",
-   "kind": "reject",
-   "labels": [
-    "执行标记已消费",
-    "执行前崩溃 / 结果未知"
-   ]
-  },
-  {
-   "src": "s6",
-   "dst": "tool",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "s7",
-   "dst": "db",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "s7",
-   "dst": "db",
-   "kind": "feedback",
-   "labels": [
-    "可信成功 → DONE",
-    "扣减 S、释放 R",
-    "合法取消 → BLOCKED",
-    "释放预留",
-    "未知保留占用，不释放"
-   ]
-  },
-  {
-   "src": "s7",
-   "dst": "tool",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "s7",
-   "dst": "view",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "tool",
-   "dst": "s7",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "tool",
-   "dst": "s7",
-   "kind": "evidence",
-   "labels": [
-    "TOOL_FINAL + checkpoint + FinalFactID"
-   ]
-  },
-  {
-   "src": "trust",
-   "dst": "gate",
-   "kind": "control",
-   "labels": []
-  },
-  {
-   "src": "trust",
-   "dst": "gate",
-   "kind": "evidence",
-   "labels": [
-    "C 认证约束引用",
-    "签名来源事实 source_envelope",
-    "按当前记录重算来源"
-   ]
-  },
-  {
-   "src": "trust",
-   "dst": "s45",
-   "kind": "evidence",
-   "labels": [
-    "GOAL_FLOOR revision / deps / 认证容量"
-   ]
-  }
- ]
+ "map": {
+  "nodes": [
+   {
+    "id": "trust",
+    "label": "入口与信任域",
+    "en": "TRUST",
+    "rank": 0,
+    "order": 0
+   },
+   {
+    "id": "gate",
+    "label": "可信构造与关系核验",
+    "en": "CONSTRUCT · VERIFY",
+    "rank": 1,
+    "order": 0
+   },
+   {
+    "id": "s45",
+    "label": "准备、判定与原子接受",
+    "en": "PREPARE · ACCEPT",
+    "rank": 2,
+    "order": 0
+   },
+   {
+    "id": "s6",
+    "label": "回执与唯一执行资格",
+    "en": "RECEIPT · CLAIM",
+    "rank": 3,
+    "order": 0
+   },
+   {
+    "id": "view",
+    "label": "只读投影与边界",
+    "en": "READ-ONLY VIEW",
+    "rank": 6,
+    "order": 0
+   },
+   {
+    "id": "s7",
+    "label": "终局、结算与恢复",
+    "en": "FINAL · RECOVER",
+    "rank": 5,
+    "order": 0
+   },
+   {
+    "id": "tool",
+    "label": "工具端与独立账本",
+    "en": "TOOL",
+    "rank": 4,
+    "order": 0
+   },
+   {
+    "id": "db",
+    "label": "共享 SQLite 与账本",
+    "en": "SHARED LEDGER",
+    "rank": 6,
+    "order": 1
+   }
+  ],
+  "edges": [
+   {
+    "src": "trust",
+    "dst": "gate",
+    "kind": "control",
+    "labels": [],
+    "count": 2,
+    "back": false
+   },
+   {
+    "src": "gate",
+    "dst": "s45",
+    "kind": "control",
+    "labels": [],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s45",
+    "dst": "s6",
+    "kind": "control",
+    "labels": [],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s45",
+    "dst": "db",
+    "kind": "control",
+    "labels": [],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s6",
+    "dst": "tool",
+    "kind": "control",
+    "labels": [],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s7",
+    "dst": "view",
+    "kind": "control",
+    "labels": [],
+    "count": 2,
+    "back": false
+   },
+   {
+    "src": "s7",
+    "dst": "tool",
+    "kind": "control",
+    "labels": [],
+    "count": 1,
+    "back": true
+   },
+   {
+    "src": "s7",
+    "dst": "db",
+    "kind": "control",
+    "labels": [],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "tool",
+    "dst": "s7",
+    "kind": "control",
+    "labels": [],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "trust",
+    "dst": "gate",
+    "kind": "evidence",
+    "labels": [
+     "C 认证约束引用",
+     "签名来源事实 source_envelope",
+     "按当前记录重算来源"
+    ],
+    "count": 3,
+    "back": false
+   },
+   {
+    "src": "trust",
+    "dst": "s45",
+    "kind": "evidence",
+    "labels": [
+     "GOAL_FLOOR revision / deps / 认证容量"
+    ],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s45",
+    "dst": "s6",
+    "kind": "evidence",
+    "labels": [
+     "commit_record_ref → 冻结 Core"
+    ],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s6",
+    "dst": "s45",
+    "kind": "evidence",
+    "labels": [
+     "Acceptance Ref 绑定 COMMIT"
+    ],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "tool",
+    "dst": "s7",
+    "kind": "evidence",
+    "labels": [
+     "TOOL_FINAL + checkpoint + FinalFactID"
+    ],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s7",
+    "dst": "db",
+    "kind": "feedback",
+    "labels": [
+     "可信成功 → DONE",
+     "扣减 S、释放 R",
+     "合法取消 → BLOCKED",
+     "释放预留",
+     "未知保留占用，不释放"
+    ],
+    "count": 5,
+    "back": false
+   },
+   {
+    "src": "db",
+    "dst": "s45",
+    "kind": "feedback",
+    "labels": [
+     "义务状态参与下界",
+     "资源账 S / R 参与下界"
+    ],
+    "count": 2,
+    "back": true
+   },
+   {
+    "src": "gate",
+    "dst": "s7",
+    "kind": "reject",
+    "labels": [
+     "F / 未知 / DENY / 依赖冲突 / 窗口失效"
+    ],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s45",
+    "dst": "s7",
+    "kind": "reject",
+    "labels": [
+     "enforce 下界不满足"
+    ],
+    "count": 1,
+    "back": false
+   },
+   {
+    "src": "s6",
+    "dst": "s7",
+    "kind": "reject",
+    "labels": [
+     "执行标记已消费",
+     "执行前崩溃 / 结果未知"
+    ],
+    "count": 2,
+    "back": false
+   }
+  ]
+ }
 }

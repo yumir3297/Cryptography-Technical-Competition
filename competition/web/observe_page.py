@@ -31,12 +31,6 @@ INDEX = STATIC / 'index.html'
 
 KINDS = ('control', 'evidence', 'feedback', 'reject')
 
-KIND_LABEL = {
-    'control': '控制',
-    'evidence': '证据',
-    'feedback': '反馈',
-    'reject': '阻断',
-}
 
 # ── 分块 ───────────────────────────────────────────────────────────────────
 # The mmd already draws TRUST / S45 / S6 / S7 / DB; CTX+GUARD, TOOL+TOOLDB and
@@ -433,13 +427,203 @@ class Diagram:
                 }
 
 
-def _short(text, limit=26):
-    text = text.replace('（', '(').replace('）', ')')
-    return text if len(text) <= limit else text[:limit - 1] + '…'
+# ── 分层布局 ───────────────────────────────────────────────────────────────
+# The page draws the diagram the way the mmd declares it: a left-to-right
+# layered graph.  Ranking happens here so the browser only has to measure
+# boxes and place them; cycles in the committed diagram (QUERY → TOOL and
+# TOOL → FINAL, ACCEPT → SFARED and SHARED → GF) are cut at the back edges
+# before the longest-path pass, exactly like a layered drawer would.
+
+def _pos(hint, name):
+    try:
+        return hint.index(name)
+    except ValueError:
+        return len(hint)
+
+
+def _back_edges(ids, edges, hint):
+    """DFS over the declared order; edges back into the stack are feedback."""
+    adj = {name: [] for name in ids}
+    for edge in edges:
+        if edge['src'] in adj and edge['dst'] in adj:
+            adj[edge['src']].append(edge['dst'])
+    color = {name: 0 for name in ids}
+    back = set()
+    for root in sorted(ids, key=lambda name: _pos(hint, name)):
+        if color[root]:
+            continue
+        color[root] = 1
+        stack = [[root, 0]]
+        while stack:
+            name, index = stack[-1]
+            if index < len(adj[name]):
+                stack[-1][1] += 1
+                target = adj[name][index]
+                if color[target] == 1:
+                    back.add((name, target))
+                elif color[target] == 0:
+                    color[target] = 1
+                    stack.append([target, 0])
+            else:
+                color[name] = 2
+                stack.pop()
+    return back
+
+
+def _ranks(ids, edges, back, hint):
+    """Longest-path ranks over the acyclic part, in the declared order."""
+    rank = {name: 0 for name in ids}
+    indegree = {name: 0 for name in ids}
+    dag = []
+    for edge in edges:
+        if (edge['src'], edge['dst']) in back:
+            continue
+        if edge['src'] not in rank or edge['dst'] not in rank:
+            continue
+        dag.append(edge)
+        indegree[edge['dst']] += 1
+    ready = sorted((name for name in ids if indegree[name] == 0),
+                   key=lambda name: _pos(hint, name))
+    while ready:
+        name = ready.pop(0)
+        for edge in dag:
+            if edge['src'] != name:
+                continue
+            target = edge['dst']
+            rank[target] = max(rank[target], rank[name] + 1)
+            indegree[target] -= 1
+            if indegree[target] == 0:
+                ready.append(target)
+        ready.sort(key=lambda item: _pos(hint, item))
+    return rank
+
+
+def _orders(ids, edges, rank, hint):
+    """Barycenter pass over ranked rows: fewer crossings, stable order."""
+    levels = {}
+    for name in ids:
+        levels.setdefault(rank[name], []).append(name)
+    for row in levels.values():
+        row.sort(key=lambda name: _pos(hint, name))
+    neighbours = {name: set() for name in ids}
+    for edge in edges:
+        if edge['src'] in neighbours and edge['dst'] in neighbours:
+            neighbours[edge['src']].add(edge['dst'])
+            neighbours[edge['dst']].add(edge['src'])
+
+    order = {}
+    for name in ids:
+        order[name] = levels[rank[name]].index(name)
+    for _ in range(6):
+        for level in sorted(levels)[1:]:
+            previous = levels[level - 1]
+            position = {name: index for index, name in enumerate(previous)}
+            def key(name):
+                hits = [position[item] for item in neighbours[name] if item in position]
+                return ((sum(hits) / len(hits) if hits else order[name]), order[name])
+            levels[level].sort(key=key)
+            for index, name in enumerate(levels[level]):
+                order[name] = index
+    for level in levels:
+        for index, name in enumerate(levels[level]):
+            order[name] = index
+    return order
+
+
+def arrange(ids, edges, hint):
+    """Evidence edges bind, they do not order: rank on the behavioural spine.
+
+    Ranking on every edge lets a binding pointer back to a prerequisite win the
+    cycle cut and drags the prerequisite into the same column (ACCEPT below
+    RECEIPT, for example).  The spine is control + feedback + reject; evidence
+    only fine-tunes the order inside a column.
+    """
+    spine = [edge for edge in edges if edge['kind'] != 'evidence']
+    back = _back_edges(ids, spine, hint)
+    rank = _ranks(ids, spine, back, hint)
+    spine_nodes = {edge['src'] for edge in spine} | {edge['dst'] for edge in spine}
+    for _ in range(3):
+        for edge in edges:
+            if edge['kind'] != 'evidence' or edge['dst'] in spine_nodes:
+                continue
+            if rank[edge['dst']] == 0 and rank[edge['src']] > 0:
+                rank[edge['dst']] = rank[edge['src']]
+    order = _orders(ids, edges, rank, hint)
+    return rank, order, back
+
+
+# ── 模型 ──────────────────────────────────────────────────────────────────
+def _node_meta(name, diagram):
+    lines = diagram.nodes[name]['lines'] or [name]
+    return {
+        'id': name,
+        'title': lines[0],
+        'lines': lines[1:],
+        'style': diagram.classes.get(name, 'entry'),
+        'live': [{'label': item[0], 'diag': item[1], 'field': item[2]}
+                 for item in LIVE.get(name, ())],
+        'cards': [{'diag': diag, 'scope': scope,
+                   'rows': [{'label': row[0], 'field': row[1]} for row in rows]}
+                  for diag, scope, rows in CARDS.get(name, ())],
+    }
+
+
+def _block_graph(members, diagram, block_of, block_label):
+    """One block drawn like the mmd subgraph: its nodes plus one-hop stubs."""
+    inside = set(members)
+    ids = list(members)
+    edges = []
+    seen = set()
+    for edge in diagram.edges:
+        src, dst = edge['src'], edge['dst']
+        if src not in inside and dst not in inside:
+            continue
+        key = (src, dst, edge['kind'], edge['label'])
+        if key in seen:
+            continue
+        seen.add(key)
+        edges.append({'src': src, 'dst': dst, 'kind': edge['kind'],
+                      'label': edge['label']})
+        for endpoint in (src, dst):
+            if endpoint not in inside and endpoint not in ids:
+                ids.append(endpoint)
+
+    hint = list(NODE_ORDER[block_of[members[0]]]) + \
+        sorted(name for name in ids if name not in inside)
+    rank, order, back = arrange(ids, edges, hint)
+
+    nodes = []
+    for name in ids:
+        if name in inside:
+            node = _node_meta(name, diagram)
+            node['stub'] = False
+            node['block'] = block_of[name]
+        else:
+            lines = diagram.nodes[name]['lines'] or [name]
+            node = {'id': name, 'title': lines[0], 'lines': lines[1:],
+                    'style': diagram.classes.get(name, 'entry'),
+                    'live': [], 'cards': [], 'stub': True,
+                    'block': block_label[block_of[name]]}
+        node['rank'] = rank[name]
+        node['order'] = order[name]
+        nodes.append(node)
+
+    for edge in edges:
+        edge['back'] = (edge['src'], edge['dst']) in back
+
+    # A node with no remaining edge (a boundary note) sits at the far right.
+    if nodes:
+        top = max(node['rank'] for node in nodes)
+        for node in nodes:
+            if not any(edge['src'] == node['id'] or edge['dst'] == node['id']
+                       for edge in edges):
+                node['rank'] = top
+                node['order'] = max(item['order'] for item in nodes
+                                    if item['rank'] == top) + 1
+    return nodes, edges
 
 
 def build_flow(diagram):
-    """The page model: blocks, their nodes, and the aggregate block graph."""
     block_of = {}
     for bid, _col, _row, _label, _en, _note, members in BLOCKS:
         for name in members:
@@ -452,6 +636,18 @@ def build_flow(diagram):
     if missing:
         raise SystemExit('nodes without a block: ' + ', '.join(sorted(missing)))
 
+    block_label = {bid: label for bid, _col, _row, label, _en, _note, _m in BLOCKS}
+    blocks = []
+    for bid, col, row, label, en, note, members in BLOCKS:
+        nodes, edges = _block_graph(members, diagram, block_of, block_label)
+        blocks.append({
+            'id': bid, 'col': col, 'row': row,
+            'label': label, 'en': en, 'note': note,
+            'nodes': nodes, 'edges': edges,
+        })
+
+    # The map is the same diagram with every sub-block collapsed: one node per
+    # block, every original edge folded into a block-to-block relation.
     aggregate = {}
     for edge in diagram.edges:
         src, dst = block_of[edge['src']], block_of[edge['dst']]
@@ -459,57 +655,34 @@ def build_flow(diagram):
             continue
         key = (src, dst, edge['kind'])
         item = aggregate.setdefault(key, {'src': src, 'dst': dst,
-                                          'kind': edge['kind'], 'labels': []})
+                                          'kind': edge['kind'], 'labels': [],
+                                          'count': 0})
+        item['count'] += 1
         if edge['label'] and edge['label'] not in item['labels']:
             item['labels'].append(edge['label'])
 
-    blocks = []
-    for bid, col, row, label, en, note, members in BLOCKS:
-        order = NODE_ORDER[bid]
-        nodes = []
-        for name in order:
-            node = diagram.nodes[name]
-            lines = node['lines'] or [name]
-            nodes.append({
-                'id': name,
-                'title': lines[0],
-                'lines': lines[1:],
-                'style': diagram.classes.get(name, 'entry'),
-                'subgraph': node['subgraph'],
-                'live': [{'label': item[0], 'diag': item[1], 'field': item[2]}
-                         for item in LIVE.get(name, ())],
-                'cards': [{'diag': diag, 'scope': scope,
-                           'rows': [{'label': r[0], 'field': r[1]} for r in rows]}
-                          for diag, scope, rows in CARDS.get(name, ())],
-            })
-        inside = set(members)
-        edges = [dict(edge) for edge in diagram.edges
-                 if edge['src'] in inside and edge['dst'] in inside]
-        cross = []
-        for edge in diagram.edges:
-            if edge['src'] in inside and edge['dst'] not in inside:
-                cross.append({'direction': 'out', 'kind': edge['kind'],
-                              'label': edge['label'], 'peer': block_of[edge['dst']],
-                              'node': edge['src'], 'other': edge['dst']})
-            elif edge['dst'] in inside and edge['src'] not in inside:
-                cross.append({'direction': 'in', 'kind': edge['kind'],
-                              'label': edge['label'], 'peer': block_of[edge['src']],
-                              'node': edge['dst'], 'other': edge['src']})
-        blocks.append({
-            'id': bid, 'col': col, 'row': row,
-            'label': label, 'en': en, 'note': note,
-            'nodes': nodes, 'edges': edges, 'cross': cross,
-        })
+    ids = [block[0] for block in BLOCKS]
+    hint = list(ids)
+    priority = {'control': 0, 'evidence': 1, 'feedback': 2, 'reject': 3}
+    map_edges = sorted(aggregate.values(),
+                       key=lambda item: (priority[item['kind']],
+                                         hint.index(item['src']),
+                                         hint.index(item['dst'])))
+    rank, order, back = arrange(ids, map_edges, hint)
+    map_nodes = [{'id': name,
+                  'label': next(block[3] for block in BLOCKS if block[0] == name),
+                  'en': next(block[4] for block in BLOCKS if block[0] == name),
+                  'rank': rank[name], 'order': order[name]} for name in ids]
+    for edge in map_edges:
+        edge['back'] = (edge['src'], edge['dst']) in back
 
-    block_edges = sorted(aggregate.values(),
-                         key=lambda e: (e['src'], e['dst'], e['kind']))
     return {
         'source': SOURCE.name,
         'stages': list(STAGES),
         'kinds': list(KINDS),
         'endpoints': ENDPOINT_SCOPE,
         'blocks': blocks,
-        'block_edges': block_edges,
+        'map': {'nodes': map_nodes, 'edges': map_edges},
     }
 
 
@@ -518,12 +691,11 @@ def _live_html(node):
     if not node['live']:
         return ''
     chips = ''.join(
-        '<div class="ob-k"><dt>%s</dt>'
-        '<dd><span class="ob-v" data-live data-live-diag="%s" '
-        'data-live-field="%s">—</span></dd></div>'
+        '<span class="ob-gkey"><i>%s</i>'
+        '<b data-live data-live-diag="%s" data-live-field="%s">—</b></span>'
         % (escape(item['label']), escape(item['diag']), escape(item['field']))
         for item in node['live'])
-    return '<dl class="ob-keys">%s</dl>' % chips
+    return '<span class="ob-gnode__keys">%s</span>' % chips
 
 
 def _cards_html(node):
@@ -552,98 +724,80 @@ def _cards_html(node):
             % (escape(card['diag']), escape(card['scope']),
                ' data-table="w_operation"' if card['scope'] == 'table' else '',
                escape(card['diag']), escape(source), rows))
-    return ('<details class="ob-more"><summary>投影字段</summary>'
-            '<div class="ob-cards">%s</div></details>' % ''.join(parts))
+    return ''.join(parts)
 
 
-def _relations_html(node, edges, cross):
-    items = []
-    for edge in edges:
-        if edge['src'] == node['id']:
-            arrow, peer = '→', edge['dst']
-        elif edge['dst'] == node['id']:
-            arrow, peer = '←', edge['src']
-        else:
-            continue
-        items.append(
-            '<li class="ob-rel" data-kind="%s"><span class="ob-rel__k">%s</span>'
-            '<span class="ob-rel__d">%s</span>'
-            '<span class="ob-rel__t">%s%s</span></li>'
-            % (edge['kind'], KIND_LABEL[edge['kind']], arrow,
-               escape(peer), (' · ' + escape(edge['label'])) if edge['label'] else ''))
-    for item in cross:
-        if item['node'] != node['id']:
-            continue
-        peer = next((b[3] for b in BLOCKS if b[0] == item['peer']), item['peer'])
-        arrow = '⇥' if item['direction'] == 'out' else '⇤'
-        items.append(
-            '<li class="ob-rel ob-rel--cross" data-kind="%s">'
-            '<span class="ob-rel__k">%s</span>'
-            '<span class="ob-rel__d">%s</span>'
-            '<span class="ob-rel__t">块外 · %s · %s</span></li>'
-            % (item['kind'], KIND_LABEL[item['kind']], arrow,
-               escape(_short(peer, 12)),
-               escape(item['label'] or item['other'])))
-    if not items:
+def _text_html(node):
+    if not node['lines']:
         return ''
-    return '<ul class="ob-rels">%s</ul>' % ''.join(items)
+    return '<span class="ob-gnode__text">%s</span>' % '<br>'.join(
+        escape(line) for line in node['lines'])
 
 
-def _node_html(node, edges, cross):
-    title = escape(node['title'])
-    desc = ' '.join(escape(line) for line in node['lines'])
-    body = ''
-    if desc:
-        body = '<p class="ob-node__desc">%s</p>' % desc
-    return (
-        '<li class="ob-node" data-node="%s" data-state="idle">'
-        '<span class="ob-node__rail" aria-hidden="true"></span>'
-        '<article class="ob-node__body">'
-        '<header class="ob-node__head">'
-        '<span class="ob-node__code">%s</span>'
-        '<h3 class="ob-node__title">%s</h3>'
-        '<span class="ob-node__state" data-node-state>未到达</span>'
-        '</header>%s%s%s%s'
-        '</article></li>'
-        % (escape(node['id']), escape(node['id']), title, body,
-           _live_html(node), _relations_html(node, edges, cross),
-           _cards_html(node)))
+def _step_html(node):
+    if node['stub']:
+        return ('<div class="ob-gnode ob-gnode--stub" data-gid="%s" data-node="%s" '
+                'data-graph-node data-rank="%d" data-order="%d" data-state="idle">'
+                '<span class="ob-gnode__top"><span class="ob-gnode__code">块外</span>'
+                '<span class="ob-gnode__tag" data-node-state></span></span>'
+                '<span class="ob-gnode__label">%s</span>'
+                '<span class="ob-gnode__en">%s</span></div>'
+                % (escape(node['id']), escape(node['id']), node['rank'],
+                   node['order'], escape(node['title']), escape(node['block'])))
+    return ('<div class="ob-gnode ob-gnode--step" data-gid="%s" data-node="%s" '
+            'data-graph-node data-rank="%d" data-order="%d" data-state="idle">'
+            '<span class="ob-gnode__top"><span class="ob-gnode__code">%s</span>'
+            '<span class="ob-gnode__tag" data-node-state>未到达</span></span>'
+            '<span class="ob-gnode__label">%s</span>%s%s</div>'
+            % (escape(node['id']), escape(node['id']), node['rank'],
+               node['order'], escape(node['id']), escape(node['title']),
+               _text_html(node), _live_html(node)))
 
 
-def _dots_html(nodes):
+def _dots_html(block):
     return ''.join('<i class="ob-dot" data-node="%s" data-state="idle"></i>'
-                   % escape(node['id']) for node in nodes)
+                   % escape(node['id']) for node in block['nodes']
+                   if not node['stub'])
 
 
-def render_map(blocks):
+def render_map(flow):
+    positions = {node['id']: node for node in flow['map']['nodes']}
     items = []
-    for index, block in enumerate(blocks, start=1):
+    for index, block in enumerate(flow['blocks'], start=1):
+        pos = positions[block['id']]
         items.append(
-            '<li class="ob-map__cell" data-col="%d" data-row="%d">'
-            '<button type="button" class="ob-block" data-block="%s" data-state="idle">'
-            '<span class="ob-block__head">'
-            '<span class="ob-block__code">%02d</span>'
-            '<span class="ob-block__label">%s</span>'
-            '<span class="ob-block__state" data-block-state>未到达</span>'
+            '<button type="button" class="ob-gnode ob-gnode--block" '
+            'data-gid="%s" data-graph-node data-block="%s" data-state="idle" '
+            'data-rank="%d" data-order="%d">'
+            '<span class="ob-gnode__top">'
+            '<span class="ob-gnode__code">%02d</span>'
+            '<span class="ob-gnode__tag" data-block-state>未到达</span>'
             '</span>'
-            '<span class="ob-block__en">%s</span>'
-            '<span class="ob-block__note">%s</span>'
-            '<span class="ob-block__dots" aria-hidden="true">%s</span>'
-            '<span class="ob-block__cta" aria-hidden="true">打开</span>'
-            '</button></li>'
-            % (block['col'], block['row'], escape(block['id']),
-               index, escape(block['label']), escape(block['en']),
-               escape(block['note']), _dots_html(block['nodes'])))
+            '<span class="ob-gnode__label">%s</span>'
+            '<span class="ob-gnode__en">%s</span>'
+            '<span class="ob-gnode__dots" aria-hidden="true">%s</span>'
+            '</button>'
+            % (escape(block['id']), escape(block['id']), pos['rank'],
+               pos['order'], index, escape(block['label']), escape(block['en']),
+               _dots_html(block)))
     return '\n'.join(items)
 
 
-def render_details(blocks):
-    blocks_by_id = {block['id']: block for block in blocks}
-    out = []
-    for index, block in enumerate(blocks, start=1):
-        nodes = ''.join(_node_html(node, block['edges'], block['cross'])
-                        for node in block['nodes'])
-        out.append(
+def render_details(flow):
+    parts = []
+    for index, block in enumerate(flow['blocks'], start=1):
+        nodes = ''.join(_step_html(node) for node in block['nodes'])
+        with_cards = [node for node in block['nodes']
+                      if node['cards'] and not node['stub']]
+        raw = ''
+        if with_cards:
+            items = ''.join(
+                '<details class="ob-raw__item"><summary>%s · 投影字段</summary>'
+                '<div class="ob-cards">%s</div></details>'
+                % (escape(node['id']), _cards_html(node))
+                for node in with_cards)
+            raw = '<div class="ob-raw">%s</div>' % items
+        parts.append(
             '<section class="ob-detail" id="block-%s" data-block="%s" hidden>'
             '<header class="ob-detail__head"><div class="ob-detail__inner">'
             '<button type="button" class="ob-back" data-back>'
@@ -661,12 +815,18 @@ def render_details(blocks):
             '<li data-kind="reject">阻断 / 未知</li>'
             '</ul>'
             '</div></header>'
-            '<ol class="ob-chain">%s</ol>'
+            '<div class="ob-detail__body">'
+            '<p class="ob-hint" data-scroll-hint hidden>图形较宽，横向滚动查看整图。</p>'
+            '<div class="ob-graph" data-graph="block-%s">'
+            '<div class="ob-canvas">'
+            '<svg class="ob-edges" aria-hidden="true"></svg>'
+            '<div class="ob-nodes">%s</div>'
+            '</div></div>%s</div>'
             '</section>'
             % (escape(block['id']), escape(block['id']), index,
                escape(block['label']), escape(block['en']),
-               escape(block['note']), nodes))
-    return '\n'.join(out)
+               escape(block['note']), escape(block['id']), nodes, raw))
+    return '\n'.join(parts)
 
 
 def build(source=SOURCE):
@@ -674,8 +834,8 @@ def build(source=SOURCE):
     flow = build_flow(diagram)
     layout = (STATIC / 'layout.html').read_text(encoding='utf-8')
     page = (layout
-            .replace('<!-- {{MAP}} -->', render_map(flow['blocks']))
-            .replace('<!-- {{DETAIL}} -->', render_details(flow['blocks'])))
+            .replace('<!-- {{MAP}} -->', render_map(flow))
+            .replace('<!-- {{DETAIL}} -->', render_details(flow)))
     if '{{' in page:
         raise SystemExit('unreplaced placeholder in layout.html')
     FLOW.write_text(json.dumps(flow, ensure_ascii=False, indent=1) + '\n',
@@ -690,9 +850,12 @@ def main(argv=None):
     flow, page = build()
     print('wrote', FLOW.relative_to(ROOT))
     print('wrote', page.relative_to(ROOT))
-    print('blocks', len(flow['blocks']),
-          'nodes', sum(len(b['nodes']) for b in flow['blocks']),
-          'block edges', len(flow['block_edges']))
+    print('blocks', len(flow['blocks']))
+    print('map', [(node['id'], node['rank']) for node in flow['map']['nodes']])
+    for block in flow['blocks']:
+        print(block['id'], 'ranks',
+              sorted({node['rank'] for node in block['nodes']}),
+              'nodes', len(block['nodes']), 'edges', len(block['edges']))
     return 0
 
 

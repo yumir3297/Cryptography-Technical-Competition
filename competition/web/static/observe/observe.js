@@ -1,8 +1,11 @@
-/* 只读观察面：把 /api/diag/* 的投影贴到流程的每个阶段上。
+/* 只读观察面：把 /api/diag/* 的投影贴到流程图的每个节点上。
+ *
+ * 图形按 mmd 的声明画成左到右的分层图：总图把子块收起成单点，块内视图
+ * 展开该子图（含一步之外的块外节点）。列的先后由构建期的 flow.json 给出，
+ * 浏览器只负责量文字、摆方块、连正交线——不加载任何预渲染图片。
  *
  * 页面自己不持有任何凭据：token 只放在本标签页的 sessionStorage，
  * 数据请求仍要经过 auditor 会话；轮询在页面隐藏时暂停。
- * 流程图由浏览器自绘（DOM 方块 + SVG 连线），不加载任何预渲染图片。
  */
 (function () {
   'use strict';
@@ -12,6 +15,9 @@
   var THEME_KEY = 'zjj.observe.theme';
   var POLL_MS = 5000;
   var MAX_PARALLEL = 6;
+  var NS = 'http://www.w3.org/2000/svg';
+
+  var KINDS = ['control', 'evidence', 'feedback', 'reject'];
 
   var LABEL = {
     idle: '未到达',
@@ -30,11 +36,13 @@
     running: false,
     asOf: null,
     model: null,
+    graphs: {},
     data: {},
     error: {},
     nodes: {},
     blocks: {},
-    current: null
+    current: null,
+    openBlock: null
   };
 
   var el = {};
@@ -234,8 +242,9 @@
 
     var blocks = {};
     model.blocks.forEach(function (block) {
-      var list = block.nodes.filter(function (node) { return node.id !== 'NOTE'; })
-        .map(function (node) { return nodes[node.id] || 'idle'; });
+      var list = block.nodes.filter(function (node) {
+        return node.id !== 'NOTE' && !node.stub;
+      }).map(function (node) { return nodes[node.id] || 'idle'; });
       if (list.indexOf('current-blocked') !== -1) blocks[block.id] = 'current-blocked';
       else if (list.indexOf('blocked') !== -1) blocks[block.id] = 'blocked';
       else if (list.indexOf('current') !== -1) blocks[block.id] = 'current';
@@ -258,7 +267,7 @@
       if (tag) tag.textContent = LABEL[value];
     });
 
-    document.querySelectorAll('.ob-block').forEach(function (block) {
+    document.querySelectorAll('.ob-gnode--block[data-block]').forEach(function (block) {
       var id = block.getAttribute('data-block');
       var value = state.blocks[id] || 'idle';
       block.setAttribute('data-state', value);
@@ -280,143 +289,381 @@
     }
   }
 
-  /* ── 总图连线（自绘，不用图片） ───────────────────────────────────── */
-  function segmentsHit(points, ignore, rects) {
-    for (var i = 0; i + 1 < points.length; i++) {
-      var x1 = points[i][0], y1 = points[i][1];
-      var x2 = points[i + 1][0], y2 = points[i + 1][1];
-      for (var key in rects) {
-        if (ignore.indexOf(key) !== -1) continue;
-        var r = rects[key];
-        var left = r.left - 6, right = r.right + 6;
-        var top = r.top - 6, bottom = r.bottom + 6;
-        if (Math.abs(y1 - y2) < 0.5) {
-          if (y1 > top && y1 < bottom) {
-            var lo = Math.min(x1, x2), hi = Math.max(x1, x2);
-            if (hi > left && lo < right) return true;
-          }
-        } else if (Math.abs(x1 - x2) < 0.5) {
-          if (x1 > left && x1 < right) {
-            var loY = Math.min(y1, y2), hiY = Math.max(y1, y2);
-            if (hiY > top && loY < bottom) return true;
-          }
-        }
-      }
+  /* ── 分层布局（mmd 结构，浏览器自绘） ─────────────────────────────── */
+  function graphHost(name) {
+    return document.querySelector('.ob-graph[data-graph="' + name + '"]');
+  }
+
+  function labelsLayer(canvas) {
+    var layer = canvas.querySelector('.ob-labels');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.className = 'ob-labels';
+      canvas.appendChild(layer);
     }
-    return false;
+    return layer;
   }
 
-  function laneOffset(taken, key) {
-    taken[key] = (taken[key] || 0) + 1;
-    return (taken[key] - 1) * 14;
-  }
+  function layoutGraph(host) {
+    var name = host.getAttribute('data-graph');
+    var model = state.graphs[name];
+    if (!model || !model.nodes.length) return;
+    var wrap = host.querySelector('.ob-nodes');
+    var canvas = host.querySelector('.ob-canvas');
+    var svg = host.querySelector('.ob-edges');
+    if (!wrap || !canvas || !svg || !host.clientWidth) return;
 
-  function spread(index) {
-    var seq = [0, 10, -10, 20, -20, 30, -30];
-    return seq[Math.min(index, seq.length - 1)];
-  }
+    var items = Array.prototype.slice.call(wrap.querySelectorAll('[data-graph-node]'));
+    wrap.classList.add('is-laid');
+    items.forEach(function (node) {
+      node.style.left = '0px';
+      node.style.top = '0px';
+    });
 
-  function drawWires() {
-    if (!state.model || !el.svg) return;
-    var host = el.mapwrap;
-    var box = host.getBoundingClientRect();
-    var layer = el.svg.querySelector('.ob-wire-layer');
-    if (!box.width || !box.height || !layer) return;
+    var geo = {};
+    var byId = {};
+    items.forEach(function (node) {
+      var id = node.getAttribute('data-gid');
+      byId[id] = node;
+      geo[id] = { w: node.offsetWidth, h: node.offsetHeight };
+    });
 
-    el.svg.setAttribute('viewBox', '0 0 ' + Math.ceil(box.width) + ' ' + Math.ceil(box.height));
-    layer.textContent = '';
+    var rankOf = {};
+    model.nodes.forEach(function (node) {
+      rankOf[node.id] = node.rank;
+    });
+
+    var levels = {};
+    model.nodes.forEach(function (node) {
+      if (!byId[node.id]) return;
+      (levels[node.rank] = levels[node.rank] || []).push(node);
+    });
+    var ranks = Object.keys(levels).map(Number).sort(function (a, b) { return a - b; });
+    if (!ranks.length) return;
+    ranks.forEach(function (rank) {
+      levels[rank].sort(function (a, b) { return a.order - b.order; });
+    });
+
+    var labeled = name !== 'map';
+    var pad = 14;
+    var gap = labeled ? 96 : 44;
+    var rowGap = 24;
+    var reverse = model.edges.filter(function (edge) {
+      return rankOf[edge.src] !== undefined && rankOf[edge.dst] !== undefined
+        && rankOf[edge.src] > rankOf[edge.dst];
+    }).length;
+    var longForward = model.edges.filter(function (edge) {
+      return rankOf[edge.src] !== undefined && rankOf[edge.dst] !== undefined
+        && rankOf[edge.dst] - rankOf[edge.src] > 1;
+    }).length;
+
+    var colW = {};
+    var colH = {};
+    var rowW = {};
+    var rowH = {};
+    ranks.forEach(function (rank) {
+      var widthMax = 0;
+      var heightSum = 0;
+      var widthSum = 0;
+      var heightMax = 0;
+      levels[rank].forEach(function (node, index) {
+        var box = geo[node.id];
+        widthMax = Math.max(widthMax, box.w);
+        heightSum += box.h + (index ? rowGap : 0);
+        widthSum += box.w + (index ? rowGap : 0);
+        heightMax = Math.max(heightMax, box.h);
+      });
+      colW[rank] = widthMax;
+      colH[rank] = heightSum;
+      rowW[rank] = widthSum;
+      rowH[rank] = heightMax;
+    });
+
+    var maxCol = Math.max.apply(null, ranks.map(function (rank) { return colH[rank]; }));
+    var maxRow = Math.max.apply(null, ranks.map(function (rank) { return rowW[rank]; }));
+    var lrWidth = ranks.reduce(function (sum, rank) { return sum + colW[rank]; }, 0)
+      + gap * (ranks.length - 1) + pad * 2;
+    var LR = lrWidth <= host.clientWidth || host.clientWidth >= 1100;
+    var gutter = LR
+      ? (reverse + longForward ? 16 + (reverse + longForward) * 14 : 0)
+      : (reverse ? 16 + reverse * 14 : 0);
+    var bus = LR ? 0 : (longForward ? 16 + longForward * 14 : 0);
+    var available = Math.max(160, host.clientWidth - pad * 2 - gutter);
+    var inlineRow = {};
+    ranks.forEach(function (rank) {
+      inlineRow[rank] = rowW[rank] <= available;
+    });
+    var lineH = {};
+    ranks.forEach(function (rank) {
+      lineH[rank] = inlineRow[rank] ? rowH[rank]
+        : levels[rank].reduce(function (sum, node, index) {
+          return sum + geo[node.id].h + (index ? rowGap : 0);
+        }, 0);
+    });
+    var tbWidth = pad * 2 + gutter + Math.max.apply(null, ranks.map(function (rank) {
+      return inlineRow[rank] ? rowW[rank]
+        : Math.max.apply(null, levels[rank].map(function (node) { return geo[node.id].w; }));
+    }));
 
     var rects = {};
-    var bounds = { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity };
-    document.querySelectorAll('.ob-block').forEach(function (node) {
-      var r = node.getBoundingClientRect();
-      var item = {
-        left: r.left - box.left,
-        top: r.top - box.top,
-        right: r.right - box.left,
-        bottom: r.bottom - box.top,
-        cx: r.left - box.left + r.width / 2,
-        cy: r.top - box.top + r.height / 2
-      };
-      rects[node.getAttribute('data-block')] = item;
-      bounds.left = Math.min(bounds.left, item.left);
-      bounds.top = Math.min(bounds.top, item.top);
-      bounds.right = Math.max(bounds.right, item.right);
-      bounds.bottom = Math.max(bounds.bottom, item.bottom);
+    var width;
+    var height;
+
+    function place(node, x, y) {
+      var box = geo[node.id];
+      var nodeEl = byId[node.id];
+      nodeEl.style.left = Math.round(x) + 'px';
+      nodeEl.style.top = Math.round(y) + 'px';
+      rects[node.id] = { x: x, y: y, w: box.w, h: box.h,
+                         rank: node.rank, order: node.order };
+    }
+
+    if (LR) {
+      width = lrWidth;
+      height = pad * 2 + gutter + maxCol + bus;
+      var x = pad;
+      ranks.forEach(function (rank) {
+        var y = pad + gutter;
+        levels[rank].forEach(function (node) {
+          place(node, x + (colW[rank] - geo[node.id].w) / 2, y);
+          y += geo[node.id].h + rowGap;
+        });
+        x += colW[rank] + gap;
+      });
+    } else {
+      width = tbWidth;
+      height = pad * 2 + bus + ranks.reduce(function (sum, rank) {
+        return sum + lineH[rank];
+      }, 0) + gap * (ranks.length - 1);
+      var y2 = pad;
+      ranks.forEach(function (rank) {
+        if (inlineRow[rank]) {
+          var x3 = pad + gutter;
+          levels[rank].forEach(function (node) {
+            place(node, x3, y2 + (lineH[rank] - geo[node.id].h) / 2);
+            x3 += geo[node.id].w + rowGap;
+          });
+        } else {
+          var y3 = y2;
+          levels[rank].forEach(function (node) {
+            place(node, pad + gutter, y3);
+            y3 += geo[node.id].h + rowGap;
+          });
+        }
+        y2 += lineH[rank] + gap;
+      });
+    }
+
+    canvas.style.width = Math.ceil(width) + 'px';
+    canvas.style.height = Math.ceil(height) + 'px';
+    var hint = host.parentNode && host.parentNode.querySelector('[data-scroll-hint]');
+    if (hint) hint.hidden = width <= host.clientWidth + 1;
+    svg.setAttribute('viewBox', '0 0 ' + Math.ceil(width) + ' ' + Math.ceil(height));
+    svg.setAttribute('width', Math.ceil(width));
+    svg.setAttribute('height', Math.ceil(height));
+
+    drawEdges(host, model, rects, LR, name, {
+      gutter: gutter,
+      forwardLane: 10 + reverse * 14,
+      busStart: LR ? pad + gutter + maxCol + 14
+        : pad + ranks.reduce(function (sum, rank) { return sum + lineH[rank]; }, 0)
+          + gap * (ranks.length - 1) + 14
     });
-    if (!isFinite(bounds.left)) return;
+  }
 
-    var lanes = {};
-    var arrows = {};
+  function drawEdges(host, model, rects, LR, name, frame) {
+    var svg = host.querySelector('.ob-edges');
+    var canvas = host.querySelector('.ob-canvas');
+    svg.textContent = '';
 
-    var order = {};
-    state.model.blocks.forEach(function (block, index) { order[block.id] = index; });
-    var narrow = window.innerWidth <= 1180;
+    var defs = document.createElementNS(NS, 'defs');
+    KINDS.forEach(function (kind) {
+      var marker = document.createElementNS(NS, 'marker');
+      marker.setAttribute('id', 'arrow-' + name + '-' + kind);
+      marker.setAttribute('viewBox', '0 0 8 8');
+      marker.setAttribute('refX', '7');
+      marker.setAttribute('refY', '4');
+      marker.setAttribute('markerWidth', '7');
+      marker.setAttribute('markerHeight', '7');
+      marker.setAttribute('orient', 'auto-start-reverse');
+      var head = document.createElementNS(NS, 'path');
+      head.setAttribute('d', 'M0 0 L8 4 L0 8 z');
+      head.setAttribute('class', 'ob-arrow--' + kind);
+      marker.appendChild(head);
+      defs.appendChild(marker);
+    });
+    svg.appendChild(defs);
+    var layer = document.createElementNS(NS, 'g');
+    svg.appendChild(layer);
 
-    state.model.block_edges.forEach(function (edge) {
+    var labels = labelsLayer(canvas);
+    labels.textContent = '';
+
+    var pairs = {};
+    var lane = 0;
+    var busLane = 0;
+    var ports = {};
+    var labeled = name !== 'map';
+
+    function port(id) {
+      var index = (ports[id] = (ports[id] || 0) + 1) - 1;
+      var seq = [0, 9, -9, 18, -18, 27, -27];
+      return seq[Math.min(index, seq.length - 1)];
+    }
+
+    model.edges.forEach(function (edge) {
       var a = rects[edge.src];
       var b = rects[edge.dst];
       if (!a || !b) return;
-      if (narrow && Math.abs(order[edge.src] - order[edge.dst]) !== 1) return;
-
       var pair = [edge.src, edge.dst].sort().join('<>');
-      arrows[pair] = (arrows[pair] || 0) + 1;
-      var nudge = spread(arrows[pair] - 1);
+      pairs[pair] = (pairs[pair] || 0) + 1;
+      var nudge = (pairs[pair] - 1) * 8;
+      var pa = port(edge.src);
+      var pb = port(edge.dst);
 
-      var horizontal = Math.abs(a.cy - b.cy) < 40;
-      var points;
+      var d;
+      var labelX;
+      var labelY;
 
-      if (horizontal) {
-        var dir = b.cx >= a.cx ? 1 : -1;
-        var sx = dir > 0 ? a.right : a.left;
-        var tx = dir > 0 ? b.left : b.right;
-        if (Math.abs(a.cy - b.cy) < 1) {
-          var y = a.cy + (dir > 0 ? -nudge : nudge);
-          points = [[sx, y], [tx, y]];
+      if (edge.src === edge.dst) {
+        var loopY = a.y + a.h / 2;
+        d = 'M ' + (a.x + a.w) + ' ' + (loopY - 11)
+          + ' H ' + (a.x + a.w + 26)
+          + ' V ' + (loopY + 11)
+          + ' H ' + (a.x + a.w);
+        labelX = a.x + a.w + 30;
+        labelY = loopY + 20;
+      } else if (LR) {
+        if (b.rank - a.rank > 1) {
+          var busY = frame.forwardLane + (busLane++) * 14;
+          var ay = a.y + a.h / 2 + pa;
+          var oy = b.y + b.h / 2 + pb;
+          d = 'M ' + (a.x + a.w) + ' ' + ay
+            + ' H ' + (a.x + a.w + 14)
+            + ' V ' + busY
+            + ' H ' + (b.x - 14)
+            + ' V ' + oy
+            + ' H ' + b.x;
+          labelX = (a.x + b.x) / 2;
+          labelY = busY;
+        } else if (b.rank > a.rank) {
+          var sx = a.x + a.w;
+          var sy = a.y + a.h / 2 + pa;
+          var tx = b.x;
+          var ty = b.y + b.h / 2 + pb;
+          var mx = (sx + tx) / 2 + nudge;
+          d = 'M ' + sx + ' ' + sy + ' H ' + mx + ' V ' + ty + ' H ' + tx;
+          labelX = mx;
+          labelY = (sy + ty) / 2;
+        } else if (b.rank === a.rank) {
+          var cx = a.x + a.w / 2 + pa;
+          var dx = b.x + b.w / 2 + pb;
+          if (b.y > a.y) {
+            d = 'M ' + cx + ' ' + (a.y + a.h) + ' V ' + (a.y + a.h + 12)
+              + ' H ' + dx + ' V ' + b.y;
+            labelX = (cx + dx) / 2;
+            labelY = a.y + a.h + 8;
+          } else {
+            d = 'M ' + cx + ' ' + a.y + ' V ' + (a.y - 12)
+              + ' H ' + dx + ' V ' + (b.y + b.h);
+            labelX = (cx + dx) / 2;
+            labelY = a.y - 8;
+          }
         } else {
-          var midX = (sx + tx) / 2 + nudge;
-          points = [[sx, a.cy], [midX, a.cy], [midX, b.cy], [tx, b.cy]];
-        }
-        if (segmentsHit(points, [edge.src, edge.dst], rects)) {
-          var rowTop = Math.min(a.top, b.top);
-          var rowBottom = Math.max(a.bottom, b.bottom);
-          var below = rowTop > (bounds.top + bounds.bottom) / 2;
-          var key = (below ? 'below-' : 'above-') + Math.round(below ? rowBottom : rowTop);
-          var laneY = below
-            ? rowBottom + 14 + laneOffset(lanes, key)
-            : rowTop - 14 - laneOffset(lanes, key);
-          points = [[a.cx, a.top], [a.cx, laneY],
-                    [b.cx, laneY], [b.cx, b.top]];
+          var laneY = 10 + (lane++) * 14;
+          var ly = a.y + a.h / 2 + pa;
+          var ry = b.y + b.h / 2 + pb;
+          d = 'M ' + a.x + ' ' + ly
+            + ' H ' + (a.x - 12)
+            + ' V ' + laneY
+            + ' H ' + (b.x + b.w + 12)
+            + ' V ' + ry
+            + ' H ' + (b.x + b.w);
+          labelX = (a.x + b.x + b.w) / 2;
+          labelY = laneY;
         }
       } else {
-        var down = b.cy >= a.cy;
-        var sy = down ? a.bottom : a.top;
-        var ty = down ? b.top : b.bottom;
-        if (Math.abs(a.cx - b.cx) < 1) {
-          var x = a.cx + (down ? nudge : -nudge);
-          points = [[x, sy], [x, ty]];
+        if (b.rank - a.rank > 1) {
+          var busY = frame.busStart + (busLane++) * 14;
+          var ay2 = a.y + a.h / 2 + pa;
+          var oy = b.y + b.h / 2 + pb;
+          d = 'M ' + (a.x + a.w) + ' ' + ay2
+            + ' H ' + (a.x + a.w + 12)
+            + ' V ' + busY
+            + ' H ' + (b.x - 14)
+            + ' V ' + oy
+            + ' H ' + b.x;
+          labelX = (a.x + b.x) / 2;
+          labelY = busY;
+        } else if (b.rank > a.rank) {
+          var bx = a.x + a.w / 2 + pa;
+          var by = a.y + a.h;
+          var ex = b.x + b.w / 2 + pb;
+          var ey = b.y;
+          var my = (by + ey) / 2 + nudge;
+          d = 'M ' + bx + ' ' + by + ' V ' + my + ' H ' + ex + ' V ' + ey;
+          labelX = (bx + ex) / 2;
+          labelY = my;
+        } else if (b.rank === a.rank) {
+          var cy = a.y + a.h / 2 + pa;
+          var fy = b.y + b.h / 2 + pb;
+          if (b.x > a.x) {
+            d = 'M ' + (a.x + a.w) + ' ' + cy + ' H ' + (a.x + a.w + 12)
+              + ' V ' + fy + ' H ' + b.x;
+            labelX = a.x + a.w + 8;
+            labelY = (cy + fy) / 2;
+          } else {
+            d = 'M ' + a.x + ' ' + cy + ' H ' + (a.x - 12)
+              + ' V ' + fy + ' H ' + (b.x + b.w);
+            labelX = a.x - 8;
+            labelY = (cy + fy) / 2;
+          }
         } else {
-          var midY = (sy + ty) / 2 + nudge;
-          points = [[a.cx, sy], [a.cx, midY], [b.cx, midY], [b.cx, ty]];
-        }
-        if (segmentsHit(points, [edge.src, edge.dst], rects)) {
-          var laneX = bounds.right + 18 + laneOffset(lanes, 'right');
-          if (laneX > box.width - 10) return;
-          points = [[a.right, a.cy], [laneX, a.cy], [laneX, b.cy], [b.right, b.cy]];
+          var laneX = 10 + (lane++) * 14;
+          var fx = a.x + a.w / 2 + pa;
+          var gy = b.y + b.h / 2 + pb;
+          d = 'M ' + fx + ' ' + a.y
+            + ' V ' + (a.y - 12)
+            + ' H ' + laneX
+            + ' V ' + gy
+            + ' H ' + b.x;
+          labelX = laneX;
+          labelY = (a.y + b.y + b.h / 2) / 2;
         }
       }
 
-      var d = 'M ' + points.map(function (point) {
-        return (Math.round(point[0] * 10) / 10) + ' ' + (Math.round(point[1] * 10) / 10);
-      }).join(' L ');
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'ob-edge');
+      path.setAttribute('data-kind', edge.kind);
+      path.setAttribute('marker-end', 'url(#arrow-' + name + '-' + edge.kind + ')');
+      if (edge.label) {
+        var title = document.createElementNS(NS, 'title');
+        title.textContent = edge.label;
+        path.appendChild(title);
+      }
+      layer.appendChild(path);
 
-      var node = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      node.setAttribute('d', d);
-      node.setAttribute('class', 'ob-wire');
-      node.setAttribute('data-kind', edge.kind);
-      node.setAttribute('marker-end', 'url(#ob-arrow-' + edge.kind + ')');
-      layer.appendChild(node);
+      if (labeled && edge.label) {
+        var chip = document.createElement('span');
+        chip.className = 'ob-elabel';
+        chip.textContent = edge.label;
+        chip.title = edge.label;
+        chip.style.left = Math.round(labelX) + 'px';
+        chip.style.top = Math.round(labelY) + 'px';
+        labels.appendChild(chip);
+      }
     });
+  }
+
+  function layoutAll() {
+    var map = graphHost('map');
+    if (map) layoutGraph(map);
+    var open = document.querySelector('.ob-detail:not([hidden])');
+    if (open) {
+      var host = open.querySelector('.ob-graph');
+      if (host) layoutGraph(host);
+    }
   }
 
   /* ── 飞入 / 飞出 ──────────────────────────────────────────────────── */
@@ -437,9 +684,13 @@
     });
     panel.hidden = false;
     el.details.hidden = false;
-    el.details.scrollTop = 0;
     state.openBlock = id;
-    requestAnimationFrame(function () { el.details.classList.add('is-in'); });
+    var host = panel.querySelector('.ob-graph');
+    if (host) layoutGraph(host);
+    requestAnimationFrame(function () {
+      el.details.classList.add('is-in');
+      if (host) layoutGraph(host);
+    });
     document.body.setAttribute('data-open', '1');
     if (push && location.hash !== '#block-' + id) {
       history.pushState(null, '', '#block-' + id);
@@ -464,7 +715,7 @@
       closeTimer = null;
     }, 220);
     if (push && location.hash !== '#map') history.pushState(null, '', '#map');
-    var back = last && document.querySelector('.ob-block[data-block="' + last + '"]');
+    var back = last && document.querySelector('.ob-gnode--block[data-block="' + last + '"]');
     if (back) back.focus({ preventScroll: true });
   }
 
@@ -523,7 +774,7 @@
       fill();
       derive();
       var ok = Object.keys(state.data).length > 0;
-      var denied = Object.keys(state.error).filter(function (k) { return state.error[k]; });
+      var denied = Object.keys(state.error).filter(function (key) { return state.error[key]; });
       if (ok) setSession('已授权 · auditor · ' + mask(state.token), 'ok');
       else if (denied.length) setSession('会话无效 · ' + state.error[denied[0]], 'error');
       else setSession('无可用投影', 'error');
@@ -591,8 +842,6 @@
     el.profile = $('ob-profile');
     el.current = $('ob-current');
     el.details = $('details');
-    el.mapwrap = document.querySelector('.ob-mapwrap');
-    el.svg = document.querySelector('.ob-wires');
     el.bar = document.querySelector('.ob-bar');
 
     var fallback = document.documentElement.getAttribute('data-theme') || 'light';
@@ -604,7 +853,7 @@
       el.theme.addEventListener('click', function () {
         applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         syncTop();
-        drawWires();
+        layoutAll();
       });
     }
 
@@ -634,7 +883,7 @@
       refresh();
     });
 
-    document.querySelectorAll('.ob-block').forEach(function (block) {
+    document.querySelectorAll('.ob-gnode--block').forEach(function (block) {
       block.addEventListener('click', function () {
         openBlock(block.getAttribute('data-block'), true);
       });
@@ -649,7 +898,7 @@
     window.addEventListener('resize', function () {
       window.requestAnimationFrame(function () {
         syncTop();
-        drawWires();
+        layoutAll();
       });
     });
     document.addEventListener('visibilitychange', function () {
@@ -661,11 +910,16 @@
       .then(function (res) { return res.json(); })
       .then(function (model) {
         state.model = model;
+        state.graphs = { map: model.map };
+        model.blocks.forEach(function (block) {
+          state.graphs['block-' + block.id] = { nodes: block.nodes, edges: block.edges };
+        });
         fill();
         derive();
-        drawWires();
+        layoutAll();
+        syncTop();
         if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(function () { drawWires(); });
+          document.fonts.ready.then(function () { layoutAll(); });
         }
         route();
         start(true);

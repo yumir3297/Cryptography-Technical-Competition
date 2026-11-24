@@ -101,18 +101,25 @@ class ObservePageTests(unittest.TestCase):
 
         seen = []
         for block in blocks:
-            self.assertTrue(set(block) >= {'id', 'label', 'nodes', 'edges', 'cross'})
+            self.assertTrue(set(block) >= {'id', 'label', 'nodes', 'edges'})
             names = [node['id'] for node in block['nodes']]
-            seen.extend(names)
+            seen.extend(node['id'] for node in block['nodes'] if not node['stub'])
+            for node in block['nodes']:
+                self.assertIn(node['rank'], range(0, 32), block['id'])
+                self.assertIn(node['order'], range(0, 32), block['id'])
             for edge in block['edges']:
                 self.assertIn(edge['kind'], KINDS)
                 self.assertIn(edge['src'], names)
                 self.assertIn(edge['dst'], names)
         self.assertEqual(len(seen), len(set(seen)), 'a node is in two blocks')
-        for block_edge in self.flow['block_edges']:
-            self.assertIn(block_edge['kind'], KINDS)
-            self.assertIn(block_edge['src'], [b['id'] for b in blocks])
-            self.assertIn(block_edge['dst'], [b['id'] for b in blocks])
+
+        map_nodes = [node['id'] for node in self.flow['map']['nodes']]
+        self.assertEqual(map_nodes, [block['id'] for block in blocks])
+        for edge in self.flow['map']['edges']:
+            self.assertIn(edge['kind'], KINDS)
+            self.assertIn(edge['src'], map_nodes)
+            self.assertIn(edge['dst'], map_nodes)
+            self.assertGreaterEqual(edge['count'], 1)
 
     def test_every_live_value_names_a_known_endpoint(self):
         endpoints = self.flow['endpoints']
@@ -121,6 +128,9 @@ class ObservePageTests(unittest.TestCase):
             self.assertIn(scope, SCOPES, name)
         for block in self.flow['blocks']:
             for node in block['nodes']:
+                if node['stub']:
+                    self.assertEqual(node['live'], [])
+                    self.assertEqual(node['cards'], [])
                 for item in node['live']:
                     self.assertIn(item['diag'], endpoints, node['id'])
                 for card in node['cards']:
