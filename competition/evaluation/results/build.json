@@ -21,7 +21,7 @@
  },
  "note": "GoalFloor default is off; enforce is used only in evaluation scenarios. Raw logs remain in the ignored .runtime directory; committed results are the JSON files in this directory and evidence/.",
  "test_sha": "925265229d63b077c0db23d65df4a6ef3ad19729",
- "docs_sha": "89275d7d0c6910999e53f5538c93bfdc59ecd1eb",
- "head_sha": "f4766ac1a3a413a6d3d52a838479729c00224863",
+ "docs_sha": "175cc01a7cb4a5140ad89b6f1e90e3a726d274a3",
+ "head_sha": "175cc01a7cb4a5140ad89b6f1e90e3a726d274a3",
  "verifier_sha": "7f5dd03c404a9320dfebd4bcf0d87c8cd53e8a7c"
 }
