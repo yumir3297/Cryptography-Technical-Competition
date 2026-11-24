@@ -31,7 +31,7 @@ python -m competition.evaluation.experiments.concurrency --repetitions 10 --mode
 - 拒绝请求没有 `w_operation` 行；
 - 不接受“只看最终余额”的弱检查。
 
-限制：20 条真实历史，不是 1,000 条；1,000+ 用独立模型补足，二者分开报告。
+初轮命令生成 20 条真实历史；本轮 bulk 增加 20 条，共 40 条，未达到 1,000 条。独立模型 10,000 条分列，不补足真实历史数。
 
 ## 2. 崩溃恢复
 

@@ -84,7 +84,7 @@ Spent + Reserved + CandidateCost + RemainingGoalFloor <= Capacity
 ```
 
 实现：`competition/core/goal_floor.py::evaluate`；`CommonW._goal_context` 在同一个 `BEGIN IMMEDIATE` 事务内读取资源账、GoalFloor、`w_goal` 状态和 W 计划。
-测试：`test_goal_floor_pure` 7 项；`test_goal_floor` 10 项。
+测试：`test_goal_floor_pure` 8 项；`test_goal_floor` 13 项。
 限制：**仅是必要条件**。它不证明目标可达、不证明必要事项会成功、不做 winning region/rank/规划。多个 Goal 共享资源时按所有活跃 Goal 的 OPEN 必要成本求和（保守）；若 Goal 之间是“二选一”关系，会被保守拒绝。
 
 ## INV-8 Goal 事项唯一且 UNKNOWN 不算 DONE
@@ -176,4 +176,5 @@ enforce 必须拒绝新的接受（GOAL_INACTIVE_PENDING），不得把 floor �
 
 - 纯 GoalFloor：`test_goal_floor_pure` 覆盖资源、pending/blocked/done、成本不匹配、双 Goal 求和、不可达发布、重复 selector。
 - 参考模型：`competition/evaluation/experiments/concurrency.py::Model` 独立实现（不调用 `goal_floor.evaluate`），10,000 条历史 × 24 次转移，0 违反。
-- 并发：20 条真实 W 历史，检查 accept_seq 唯一、reservation 链、拒绝无 operation 行、资源账一致。
+- 有界检查：4,363 状态、67,746 次转移、0 违反；限定容量与义务范围。
+- 并发：40 条真实 W 历史，检查 accept_seq 唯一、reservation 链、拒绝无 operation 行、资源账一致。

@@ -1,10 +1,10 @@
 # 线性化并发实验结果
 
-生成脚本：`python -m competition.evaluation.experiments.concurrency --repetitions 10 --model-count 10000`。原始：`results/concurrency.json`。
+生成脚本：`python -m competition.evaluation.experiments.concurrency --repetitions 10 --model-count 10000`。初轮原始：`results/concurrency.json`；补充批量：`results/concurrency-bulk.json`；最新汇总：[concurrency-summary.json](results/concurrency-summary.json)。
 
 ## 1. 实际 W 历史
 
-- 真实历史：20 条（10 次 × 2 场景），每次从新的 C/W/tool 初始化开始。
+- 最新合计 40 条真实 W 历史：初轮 20 条（10 次 × 2 场景），补充 20 条（4 场景 × 5 次：optional_last_slot、required_race、multi_goal_shared_resource、same_intent）。
 - 全部 `linearizable = true`。
 - 每个 winner 的 `reservation_plan` 见证形成串行链：`reserved_before` 等于前一个 winner 的 `reserved_after`；`accept_seq` 唯一。
 - 拒绝调用没有 `w_operation` 行；`w_resource.reserved/spent` 等于 `w_reservation` 求和；容量不超限。
@@ -51,7 +51,7 @@ optional_race 0 True {'accept_seq': [1], 'reserved_chain': [1],
 
 ## 4. 限制
 
-- 20 条是真实 W 历史，不是 P1 建议的 1,000 条真实 W 历史。1,000+ 由独立模型补足，二者在报告中分开，不能混算。
+- 40 条是真实 W 历史，未达到 P1 建议的 1,000 条。10,000 条独立模型历史单独报告，不能补足或混算为真实 W 数量。
 - 单机 SQLite `BEGIN IMMEDIATE`；没有多机/网络分区。
 - 没有测 1,000 个真实并发线程的吞吐；见 `performance_results.md` 的样本量说明。
 - 没有把 `w_goal` 的 shadow 重复链接当作安全通过；enforce 才是结论对象。

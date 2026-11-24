@@ -20,8 +20,8 @@ Spent + Reserved + CandidateCost + RemainingGoalFloor <= Capacity
 - 判定与资源预留、意图、COMMIT 在同一个 `BEGIN IMMEDIATE` 事务；拒绝无业务副作用。
 
 证据：
-- `test_goal_floor.py` 10 项（shadow/enforce、成本不匹配、依赖失效、epoch 更新、并发单赢家）；
-- `test_goal_floor_pure.py` 7 项（下界、UNKNOWN/BLOCKED、DONE 重复、双 Goal 求和、发布不可达）；
+- `test_goal_floor.py` 13 项（shadow/enforce、成本不匹配、依赖失效、epoch 更新、并发单赢家）；
+- `test_goal_floor_pure.py` 8 项（下界、UNKNOWN/BLOCKED、DONE 重复、双 Goal 求和、发布不可达）；
 - `results/ablation.json`：原 W 在 5 个非法案例中接受 2 个；Proposed 接受 0 个。
 
 ## 2. 组合创新：GoalFloor 见证进入 COMMIT，由 X Acceptance 间接签名
@@ -77,11 +77,14 @@ GoalFloor 把必要事项状态分为 `OPEN/PENDING/DONE/BLOCKED`：
 - 把 UNKNOWN/PENDING 纳入目标下界状态，而不是只做单动作资源检查；
 - 安全事件响应工作流复用同一 W 核心，但新增 C 认证 INCIDENT 状态、独立 containment 工具账和优先级保留，不另造第二套安全核心。
 
-## 6. 不应夸大的点
+## 6. 最终实验与边界
+
+最新证据：20 条真实长序列配对、40 条真实并发历史、PAY/MED GoalFloor 专项、4,363 状态 / 67,746 转移，见 [实验结论](experiment_conclusions.md)。
+
 
 - 没有证明目标最终可达；GoalFloor 只是必要条件。
 - 没有跨 Profile 原子性；资源账按 `(profile,key)` 隔离。
 - 没有真实生产支付/医疗/工业/隔离设备效果；工具是模拟器。
-- 没有把正式 39 项全部跑完（2/39 PASS，37 NOT_RUN）。
+- 没有把正式 39 项全部跑完（2 PASS、0 FAIL、22 PARTIAL、15 NOT_RUN）。
 - 没有 HSM/远端治理/多机共识；C/W/X/工具/时间源仍是本地受信组件。
 - 没有把 `status/audit` 说成正式签名 Result/AUDITBundle。

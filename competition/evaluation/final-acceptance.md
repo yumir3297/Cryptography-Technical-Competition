@@ -28,7 +28,7 @@
 | P1-7 | 关键字段定向篡改 | PASS | 15 项 + 新增关系测试 |
 | P1-8 | 崩溃边界逐点 | PARTIAL | 3 新增 + 既有；工具换钥/账丢失未跑 |
 | P1-9 | 重复运行 | PARTIAL | 20 序列、40 历史；未跨日/跨机 |
-| P1-10 | 原始日志/SHA/审计脚本 | PASS | `results`、`logs`、`manifest` |
+| P1-10 | 结果/SHA/审计脚本与日志 | PARTIAL | `results`、`manifest`、复验脚本已提交；原始日志在运行工作区，待独立归档 |
 
 ## P2：竞争力增强
 
@@ -44,7 +44,7 @@
 
 ## 环境
 
-- Windows：核心 91/91、专项 40/40、目标/跨场景 23/23。
+- Windows：核心 91/91、专项 45/45、目标/跨场景 23/23。
 - Linux/WSL：完整套件 **526 tests，1 failure / 3 errors**；4 项均为环境（负载下 clock 超 2s、复制树无 `.git`、HTTP proxy 拦截 127.0.0.1），隔离复跑均通过；未在单一修正进程重跑 526/526。
 - 证据：`evidence/20261123/`、`evidence/incident-20261123/`；干净 checkout 13/13 PASS。
 

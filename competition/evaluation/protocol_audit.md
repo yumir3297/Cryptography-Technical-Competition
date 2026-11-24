@@ -176,5 +176,5 @@
 3. `status/audit` 不是正式签名 Result/AUDITBundle。
 4. C 根、W、X、工具、时间源仍是本地受信组件；没有 HSM/远端治理。
 5. 工具是模拟器；没有真实支付/工业/医疗/隔离设备效果。
-6. 全量测试在 Windows 上有环境性失败（Linux DAC/Unix socket/权限），尚未在 Linux CI 重新跑完整 39 项。
-7. `w_goal` 在 shadow 模式允许同一 obligation 出现多条链接（用于观察差异）；enforce 由决策先拒绝重复，未用数据库唯一索引兜底。该差异是刻意的，但不能把 shadow 表当作安全边界。
+6. Linux/WSL 全量 526 tests：1 failure / 3 errors；隔离复跑通过，但单次全量未全绿；正式 39 项另为 2 PASS / 0 FAIL / 22 PARTIAL / 15 NOT_RUN。
+7. `w_goal` 在 shadow 模式允许同一 obligation 出现多条链接（用于观察差异）；enforce 由决策先拒绝重复，并创建 w_goal_obligation_once 部分唯一索引；实际重复插入测试被拒绝。该差异是刻意的，但不能把 shadow 表当作安全边界。
