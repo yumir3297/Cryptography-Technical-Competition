@@ -287,6 +287,73 @@
     return layer;
   }
 
+  // ── 布局：交给 dagre ────────────────────────────────────────────────────
+  // 总图与块内是同一套：量出每个节点的真实宽高，交给 dagre 排 LR 泳道，
+  // 再把节点放到它给的中心点、把边按它给的折线点画成直角折线。页面自己
+  // 不做分层，也不猜列号。
+  function orthoPath(points) {
+    if (!points || !points.length) return '';
+    var d = 'M ' + Math.round(points[0].x) + ' ' + Math.round(points[0].y);
+    for (var i = 1; i < points.length; i++) {
+      var p = points[i];
+      var q = points[i - 1];
+      var dx = Math.abs(p.x - q.x);
+      var dy = Math.abs(p.y - q.y);
+      if (dx > 0.5 && dy > 0.5) {
+        d += ' H ' + Math.round(p.x) + ' V ' + Math.round(p.y);
+      } else {
+        d += ' L ' + Math.round(p.x) + ' ' + Math.round(p.y);
+      }
+    }
+    return d;
+  }
+
+  function midPoint(points) {
+    if (!points || !points.length) return { x: 0, y: 0 };
+    var lens = [];
+    var total = 0;
+    for (var i = 1; i < points.length; i++) {
+      var len = Math.abs(points[i].x - points[i - 1].x)
+        + Math.abs(points[i].y - points[i - 1].y);
+      lens.push(len);
+      total += len;
+    }
+    var half = total / 2;
+    var acc = 0;
+    for (var j = 0; j < lens.length; j++) {
+      if (acc + lens[j] >= half) {
+        var t = lens[j] ? (half - acc) / lens[j] : 0;
+        return {
+          x: points[j].x + (points[j + 1].x - points[j].x) * t,
+          y: points[j].y + (points[j + 1].y - points[j].y) * t
+        };
+      }
+      acc += lens[j];
+    }
+    var last = points[points.length - 1];
+    return { x: last.x, y: last.y };
+  }
+
+  function fallbackLayout(host, model, geo, byId) {
+    // dagre 没加载成功时的兜底：一排横放，至少还能看清节点。
+    var x = 18;
+    var y = 18;
+    var maxH = 0;
+    model.nodes.forEach(function (node) {
+      var el = byId[node.id];
+      if (!el) return;
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      x += geo[node.id].w + 90;
+      maxH = Math.max(maxH, geo[node.id].h);
+    });
+    var canvas = host.querySelector('.ob-canvas');
+    var svg = host.querySelector('.ob-edges');
+    canvas.style.width = (x + 18) + 'px';
+    canvas.style.height = (maxH + 36) + 'px';
+    svg.setAttribute('viewBox', '0 0 ' + (x + 18) + ' ' + (maxH + 36));
+  }
+
   function layoutGraph(host) {
     var name = host.getAttribute('data-graph');
     var model = state.graphs[name];
@@ -308,155 +375,53 @@
     items.forEach(function (node) {
       var id = node.getAttribute('data-gid');
       byId[id] = node;
-      geo[id] = { w: node.offsetWidth, h: node.offsetHeight };
+      geo[id] = { w: node.offsetWidth || 1, h: node.offsetHeight || 1 };
     });
 
-    var rankOf = {};
-    model.nodes.forEach(function (node) {
-      rankOf[node.id] = node.rank;
-    });
+    if (typeof dagre === 'undefined' || !dagre.layout) {
+      fallbackLayout(host, model, geo, byId);
+      return;
+    }
 
-    var levels = {};
+    var pad = 18;
+    var labeled = name !== 'map';
+    var gap = labeled ? (parseFloat(host.getAttribute('data-gap')) || 54) : 92;
+    var rowGap = labeled ? 22 : 48;
+
+    var g = new dagre.graphlib.Graph({ multigraph: true });
+    g.setGraph({ rankdir: 'LR', nodesep: rowGap, ranksep: gap,
+                 marginx: pad, marginy: pad });
+    g.setDefaultEdgeLabel(function () { return {}; });
     model.nodes.forEach(function (node) {
       if (!byId[node.id]) return;
-      (levels[node.rank] = levels[node.rank] || []).push(node);
+      g.setNode(node.id, { width: geo[node.id].w, height: geo[node.id].h });
     });
-    var ranks = Object.keys(levels).map(Number).sort(function (a, b) { return a - b; });
-    if (!ranks.length) return;
-    ranks.forEach(function (rank) {
-      levels[rank].sort(function (a, b) { return a.order - b.order; });
+    model.edges.forEach(function (edge, index) {
+      if (!byId[edge.src] || !byId[edge.dst]) return;
+      g.setEdge(edge.src, edge.dst, { weight: 1, minlen: 1 }, 'e' + index);
     });
+    dagre.layout(g);
 
-    var labeled = name !== 'map';
-    var pad = 14;
-    var gap = labeled
-      ? (parseFloat(host.getAttribute('data-gap')) || 96)
-      : 44;
-    var rowGap = 24;
-    var reverse = model.edges.filter(function (edge) {
-      return rankOf[edge.src] !== undefined && rankOf[edge.dst] !== undefined
-        && rankOf[edge.src] > rankOf[edge.dst];
-    }).length;
-    var longForward = model.edges.filter(function (edge) {
-      return rankOf[edge.src] !== undefined && rankOf[edge.dst] !== undefined
-        && rankOf[edge.dst] - rankOf[edge.src] > 1;
-    }).length;
-
-    var colW = {};
-    var colH = {};
-    var rowW = {};
-    var rowH = {};
-    ranks.forEach(function (rank) {
-      var widthMax = 0;
-      var heightSum = 0;
-      var widthSum = 0;
-      var heightMax = 0;
-      levels[rank].forEach(function (node, index) {
-        var box = geo[node.id];
-        widthMax = Math.max(widthMax, box.w);
-        heightSum += box.h + (index ? rowGap : 0);
-        widthSum += box.w + (index ? rowGap : 0);
-        heightMax = Math.max(heightMax, box.h);
-      });
-      colW[rank] = widthMax;
-      colH[rank] = heightSum;
-      rowW[rank] = widthSum;
-      rowH[rank] = heightMax;
+    g.nodes().forEach(function (id) {
+      var point = g.node(id);
+      var box = geo[id];
+      byId[id].style.left = Math.round(point.x - box.w / 2) + 'px';
+      byId[id].style.top = Math.round(point.y - box.h / 2) + 'px';
     });
 
-    var maxCol = Math.max.apply(null, ranks.map(function (rank) { return colH[rank]; }));
-    var maxRow = Math.max.apply(null, ranks.map(function (rank) { return rowW[rank]; }));
-    var lrWidth = ranks.reduce(function (sum, rank) { return sum + colW[rank]; }, 0)
-      + gap * (ranks.length - 1) + pad * 2;
-    var LR = lrWidth <= host.clientWidth || host.clientWidth >= 1100;
-    var gutter = LR
-      ? (reverse + longForward ? 16 + (reverse + longForward) * 14 : 0)
-      : (reverse ? 16 + reverse * 14 : 0);
-    var bus = LR ? 0 : (longForward ? 16 + longForward * 14 : 0);
-    var available = Math.max(160, host.clientWidth - pad * 2 - gutter);
-    var inlineRow = {};
-    ranks.forEach(function (rank) {
-      inlineRow[rank] = rowW[rank] <= available;
-    });
-    var lineH = {};
-    ranks.forEach(function (rank) {
-      lineH[rank] = inlineRow[rank] ? rowH[rank]
-        : levels[rank].reduce(function (sum, node, index) {
-          return sum + geo[node.id].h + (index ? rowGap : 0);
-        }, 0);
-    });
-    var tbWidth = pad * 2 + gutter + Math.max.apply(null, ranks.map(function (rank) {
-      return inlineRow[rank] ? rowW[rank]
-        : Math.max.apply(null, levels[rank].map(function (node) { return geo[node.id].w; }));
-    }));
+    var graph = g.graph();
+    var width = Math.ceil(graph.width || 0);
+    var height = Math.ceil(graph.height || 0);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+    svg.setAttribute('width', width);
+    svg.setAttribute('height', height);
 
-    var rects = {};
-    var width;
-    var height;
-
-    function place(node, x, y) {
-      var box = geo[node.id];
-      var nodeEl = byId[node.id];
-      nodeEl.style.left = Math.round(x) + 'px';
-      nodeEl.style.top = Math.round(y) + 'px';
-      rects[node.id] = { x: x, y: y, w: box.w, h: box.h,
-                         rank: node.rank, order: node.order };
-    }
-
-    if (LR) {
-      width = lrWidth;
-      height = pad * 2 + gutter + maxCol + bus;
-      var x = pad;
-      ranks.forEach(function (rank) {
-        var y = pad + gutter;
-        levels[rank].forEach(function (node) {
-          place(node, x + (colW[rank] - geo[node.id].w) / 2, y);
-          y += geo[node.id].h + rowGap;
-        });
-        x += colW[rank] + gap;
-      });
-    } else {
-      width = tbWidth;
-      height = pad * 2 + bus + ranks.reduce(function (sum, rank) {
-        return sum + lineH[rank];
-      }, 0) + gap * (ranks.length - 1);
-      var y2 = pad;
-      ranks.forEach(function (rank) {
-        if (inlineRow[rank]) {
-          var x3 = pad + gutter;
-          levels[rank].forEach(function (node) {
-            place(node, x3, y2 + (lineH[rank] - geo[node.id].h) / 2);
-            x3 += geo[node.id].w + rowGap;
-          });
-        } else {
-          var y3 = y2;
-          levels[rank].forEach(function (node) {
-            place(node, pad + gutter, y3);
-            y3 += geo[node.id].h + rowGap;
-          });
-        }
-        y2 += lineH[rank] + gap;
-      });
-    }
-
-    canvas.style.width = Math.ceil(width) + 'px';
-    canvas.style.height = Math.ceil(height) + 'px';
-    var hint = host.parentNode && host.parentNode.querySelector('[data-scroll-hint]');
-    if (hint) hint.hidden = width <= host.clientWidth + 1;
-    svg.setAttribute('viewBox', '0 0 ' + Math.ceil(width) + ' ' + Math.ceil(height));
-    svg.setAttribute('width', Math.ceil(width));
-    svg.setAttribute('height', Math.ceil(height));
-
-    drawEdges(host, model, rects, LR, name, {
-      gutter: gutter,
-      forwardLane: 10 + reverse * 14,
-      busStart: LR ? pad + gutter + maxCol + 14
-        : pad + ranks.reduce(function (sum, rank) { return sum + lineH[rank]; }, 0)
-          + gap * (ranks.length - 1) + 14
-    });
+    drawEdges(host, model, g, name);
   }
 
-  function drawEdges(host, model, rects, LR, name, frame) {
+  function drawEdges(host, model, g, name) {
     var svg = host.querySelector('.ob-edges');
     var canvas = host.querySelector('.ob-canvas');
     svg.textContent = '';
@@ -483,145 +448,18 @@
 
     var labels = labelsLayer(canvas);
     labels.textContent = '';
-
-    var pairs = {};
-    var lane = 0;
-    var busLane = 0;
-    var ports = {};
     var labeled = name !== 'map';
 
-    function port(id) {
-      var index = (ports[id] = (ports[id] || 0) + 1) - 1;
-      var seq = [0, 9, -9, 18, -18, 27, -27];
-      return seq[Math.min(index, seq.length - 1)];
-    }
-
-    model.edges.forEach(function (edge) {
-      var a = rects[edge.src];
-      var b = rects[edge.dst];
-      if (!a || !b) return;
-      var pair = [edge.src, edge.dst].sort().join('<>');
-      pairs[pair] = (pairs[pair] || 0) + 1;
-      var nudge = (pairs[pair] - 1) * 8;
-      var pa = port(edge.src);
-      var pb = port(edge.dst);
-
-      var d;
-      var labelX;
-      var labelY;
-
-      if (edge.src === edge.dst) {
-        var loopY = a.y + a.h / 2;
-        d = 'M ' + (a.x + a.w) + ' ' + (loopY - 11)
-          + ' H ' + (a.x + a.w + 26)
-          + ' V ' + (loopY + 11)
-          + ' H ' + (a.x + a.w);
-        labelX = a.x + a.w + 30;
-        labelY = loopY + 20;
-      } else if (LR) {
-        if (b.rank - a.rank > 1) {
-          var busY = frame.forwardLane + (busLane++) * 14;
-          var ay = a.y + a.h / 2 + pa;
-          var oy = b.y + b.h / 2 + pb;
-          d = 'M ' + (a.x + a.w) + ' ' + ay
-            + ' H ' + (a.x + a.w + 14)
-            + ' V ' + busY
-            + ' H ' + (b.x - 14)
-            + ' V ' + oy
-            + ' H ' + b.x;
-          labelX = (a.x + b.x) / 2;
-          labelY = busY;
-        } else if (b.rank > a.rank) {
-          var sx = a.x + a.w;
-          var sy = a.y + a.h / 2 + pa;
-          var tx = b.x;
-          var ty = b.y + b.h / 2 + pb;
-          var mx = (sx + tx) / 2 + nudge;
-          d = 'M ' + sx + ' ' + sy + ' H ' + mx + ' V ' + ty + ' H ' + tx;
-          labelX = mx;
-          labelY = (sy + ty) / 2;
-        } else if (b.rank === a.rank) {
-          var cx = a.x + a.w / 2 + pa;
-          var dx = b.x + b.w / 2 + pb;
-          if (b.y > a.y) {
-            d = 'M ' + cx + ' ' + (a.y + a.h) + ' V ' + (a.y + a.h + 12)
-              + ' H ' + dx + ' V ' + b.y;
-            labelX = (cx + dx) / 2;
-            labelY = a.y + a.h + 8;
-          } else {
-            d = 'M ' + cx + ' ' + a.y + ' V ' + (a.y - 12)
-              + ' H ' + dx + ' V ' + (b.y + b.h);
-            labelX = (cx + dx) / 2;
-            labelY = a.y - 8;
-          }
-        } else {
-          var laneY = 10 + (lane++) * 14;
-          var ly = a.y + a.h / 2 + pa;
-          var ry = b.y + b.h / 2 + pb;
-          d = 'M ' + a.x + ' ' + ly
-            + ' H ' + (a.x - 12)
-            + ' V ' + laneY
-            + ' H ' + (b.x + b.w + 12)
-            + ' V ' + ry
-            + ' H ' + (b.x + b.w);
-          labelX = (a.x + b.x + b.w) / 2;
-          labelY = laneY;
-        }
-      } else {
-        if (b.rank - a.rank > 1) {
-          var busY = frame.busStart + (busLane++) * 14;
-          var ay2 = a.y + a.h / 2 + pa;
-          var oy = b.y + b.h / 2 + pb;
-          d = 'M ' + (a.x + a.w) + ' ' + ay2
-            + ' H ' + (a.x + a.w + 12)
-            + ' V ' + busY
-            + ' H ' + (b.x - 14)
-            + ' V ' + oy
-            + ' H ' + b.x;
-          labelX = (a.x + b.x) / 2;
-          labelY = busY;
-        } else if (b.rank > a.rank) {
-          var bx = a.x + a.w / 2 + pa;
-          var by = a.y + a.h;
-          var ex = b.x + b.w / 2 + pb;
-          var ey = b.y;
-          var my = (by + ey) / 2 + nudge;
-          d = 'M ' + bx + ' ' + by + ' V ' + my + ' H ' + ex + ' V ' + ey;
-          labelX = (bx + ex) / 2;
-          labelY = my;
-        } else if (b.rank === a.rank) {
-          var cy = a.y + a.h / 2 + pa;
-          var fy = b.y + b.h / 2 + pb;
-          if (b.x > a.x) {
-            d = 'M ' + (a.x + a.w) + ' ' + cy + ' H ' + (a.x + a.w + 12)
-              + ' V ' + fy + ' H ' + b.x;
-            labelX = a.x + a.w + 8;
-            labelY = (cy + fy) / 2;
-          } else {
-            d = 'M ' + a.x + ' ' + cy + ' H ' + (a.x - 12)
-              + ' V ' + fy + ' H ' + (b.x + b.w);
-            labelX = a.x - 8;
-            labelY = (cy + fy) / 2;
-          }
-        } else {
-          var laneX = 10 + (lane++) * 14;
-          var fx = a.x + a.w / 2 + pa;
-          var gy = b.y + b.h / 2 + pb;
-          d = 'M ' + fx + ' ' + a.y
-            + ' V ' + (a.y - 12)
-            + ' H ' + laneX
-            + ' V ' + gy
-            + ' H ' + b.x;
-          labelX = laneX;
-          labelY = (a.y + b.y + b.h / 2) / 2;
-        }
-      }
-
+    model.edges.forEach(function (edge, index) {
+      var datum = g.edge({ v: edge.src, w: edge.dst, name: 'e' + index });
+      if (!datum || !datum.points || !datum.points.length) return;
+      var points = datum.points;
       var path = document.createElementNS(NS, 'path');
-      path.setAttribute('d', d);
+      path.setAttribute('d', orthoPath(points));
       path.setAttribute('class', 'ob-edge');
       path.setAttribute('data-kind', edge.kind);
-      path.setAttribute('marker-end', 'url(#arrow-' + name + '-' + edge.kind + ')');
+      path.setAttribute('marker-end',
+                        'url(#arrow-' + name + '-' + edge.kind + ')');
       if (edge.label) {
         var title = document.createElementNS(NS, 'title');
         title.textContent = edge.label;
@@ -630,20 +468,44 @@
       layer.appendChild(path);
 
       if (labeled && edge.label) {
+        var mid = midPoint(points);
         var chip = document.createElement('span');
         chip.className = 'ob-elabel';
         chip.textContent = edge.label;
         chip.title = edge.label;
-        chip.style.left = Math.round(labelX) + 'px';
-        chip.style.top = Math.round(labelY) + 'px';
+        chip.style.left = Math.round(mid.x) + 'px';
+        chip.style.top = Math.round(mid.y) + 'px';
         labels.appendChild(chip);
       }
     });
   }
 
+  function applyMapPan() {
+    var map = mapHost();
+    if (!map) return;
+    var canvas = map.querySelector('.ob-canvas');
+    if (canvas) {
+      canvas.style.transform = 'translate(' + mapView.x.toFixed(1) + 'px, '
+        + mapView.y.toFixed(1) + 'px) scale(' + mapView.k.toFixed(4) + ')';
+    }
+  }
+
   function layoutMap() {
     var map = mapHost();
-    if (map) layoutGraph(map);
+    if (!map) return;
+    layoutGraph(map);
+    var canvas = map.querySelector('.ob-canvas');
+    if (!canvas) return;
+    var W = map.clientWidth;
+    var H = map.clientHeight;
+    var cw = canvas.offsetWidth || 1;
+    var ch = canvas.offsetHeight || 1;
+    // 高度铺满，块保持可读；横向超出就拖，滚轮可以拉远看全图。
+    var k = Math.min((H - 40) / ch, 1.5);
+    mapView.k = Math.max(0.2, k);
+    mapView.x = 24;
+    mapView.y = Math.round((H - ch * mapView.k) / 2);
+    applyMapPan();
   }
 
   /* ── 就地展开：同一张画布的 zoom ─────────────────────────────────────
@@ -658,6 +520,10 @@
   var frameRects = {};
   var view = { id: null, cw: 0, ch: 0, k: 1, fit: 1,
                panX: 0, panY: 0 };
+  var mapView = { k: 1, x: 0, y: 0 };
+  var mapDrag = null;
+  var suppressClick = false;
+  var lastPushed = null;
   var ZOOM_MAX = 1.5;
   var ZOOM_STEP = 1.2;
 
@@ -695,6 +561,7 @@
     var expand = expandOf(view.id);
     if (expand) expand.style.transform = viewTransform(view);
     showZoom();
+    if (lastPushed) drawOutbound(view.id, lastPushed);
   }
 
   function mapHost() {
@@ -710,17 +577,17 @@
   }
 
   // 每块在画布坐标系里的矩形，展开前量一次；收起时按它缩回去。
+  // 块在画布坐标系里的矩形。总图的缩放/平移只作用在 .ob-canvas 上，
+  // 屏幕坐标不能直接写回块的 transform；这里统一用 offset 尺寸。
   function captureFrames(host) {
-    var base = host.getBoundingClientRect();
     frameRects = {};
     host.querySelectorAll('.ob-gnode--block').forEach(function (node) {
-      var box = node.getBoundingClientRect();
       frameRects[node.getAttribute('data-block')] = {
         node: node,
-        x: box.left - base.left + host.scrollLeft,
-        y: box.top - base.top + host.scrollTop,
-        w: box.width,
-        h: box.height
+        x: node.offsetLeft,
+        y: node.offsetTop,
+        w: node.offsetWidth,
+        h: node.offsetHeight
       };
     });
   }
@@ -745,26 +612,45 @@
   function pushBlocks(activeId, animate) {
     var host = mapHost();
     if (!host) return;
+    var k = mapView.k || 1;
     var W = host.clientWidth;
     var H = host.clientHeight;
+    // 展开层在屏幕上的位置，换算回画布坐标；两侧的块也在这个坐标系里排。
+    function localX(x) { return (x - mapView.x) / k; }
+    function localY(y) { return (y - mapView.y) / k; }
     var visW = view.w * view.k;
-    var frameLeft = (W - visW) / 2;
-    var frameRight = frameLeft + visW;
+    var visH = view.h * view.k;
+    var frameLeft = localX((W - visW) / 2);
+    var frameRight = localX((W + visW) / 2);
+    var frameTop = localY((H - visH) / 2);
+    var frameBottom = localY((H + visH) / 2);
     var left = [];
     var right = [];
     Object.keys(frameRects).forEach(function (bid) {
       if (bid === activeId) return;
       var box = frameRects[bid];
-      (box.x + box.w / 2 < W / 2 ? left : right).push(box);
+      (box.x + box.w / 2 < localX(W / 2) ? left : right).push(box);
     });
     left.sort(function (a, b) { return a.y - b.y; });
     right.sort(function (a, b) { return a.y - b.y; });
 
+    var pushed = {};
+    var pad = 10 / k;
+    var gap = 14 / k;
+
     function move(box, cx, cy, scale) {
-      cx = Math.max(10 + box.w * scale / 2,
-           Math.min(W - 10 - box.w * scale / 2, cx));
-      cy = Math.max(10 + box.h * scale / 2,
-           Math.min(H - 10 - box.h * scale / 2, cy));
+      var halfW = box.w * scale / 2;
+      var halfH = box.h * scale / 2;
+      cx = Math.max(localX(0) + pad + halfW,
+           Math.min(localX(W) - pad - halfW, cx));
+      cy = Math.max(localY(0) + pad + halfH,
+           Math.min(localY(H) - pad - halfH, cy));
+      pushed[box.node.getAttribute('data-block')] = {
+        x: mapView.x + (cx - halfW) * k,
+        y: mapView.y + (cy - halfH) * k,
+        w: box.w * scale * k,
+        h: box.h * scale * k
+      };
       var dx = cx - (box.x + box.w / 2);
       var dy = cy - (box.y + box.h / 2);
       box.node.style.transition = animate
@@ -780,19 +666,21 @@
     function place(list, side) {
       var count = list.length;
       if (!count) return;
-      var room = side === 'left' ? frameLeft - 20 : W - frameRight - 20;
-      var scale = PUSH_SCALE;
+      var room = side === 'left'
+        ? frameLeft - localX(20) : localX(W - 20) - frameRight;
+      var scale = PUSH_SCALE / k;
       list.forEach(function (box) {
         scale = Math.min(scale, room / box.w);
       });
-      scale = Math.max(0.38, scale);
-      // 列内紧凑排列，围绕展开层，不铺满整个画布。
-      var step = Math.min(H / count, list[0].h * scale + 26);
-      var top = (H - step * count) / 2;
+      scale = Math.max(0.38 / k, scale);
+      // 列内紧凑排列，夹在展开层的上下边界之间。
+      var step = Math.min((frameBottom - frameTop) / count,
+                          list[0].h * scale + 26 / k);
+      var top = (frameTop + frameBottom - step * count) / 2;
       list.forEach(function (box, index) {
         var cx = side === 'left'
-          ? frameLeft - 14 - box.w * scale / 2
-          : frameRight + 14 + box.w * scale / 2;
+          ? frameLeft - gap - box.w * scale / 2
+          : frameRight + gap + box.w * scale / 2;
         move(box, cx, top + step * (index + 0.5), scale);
       });
     }
@@ -813,17 +701,19 @@
     if (edges) {
       edges.style.transition = animate
         ? 'opacity ' + Math.round(FLY_IN * 0.5) + 'ms ease-out' : '';
-      edges.style.opacity = '.12';
+      edges.style.opacity = '.3';
     }
+    lastPushed = pushed;
+    drawOutbound(activeId, pushed);
   }
 
   function showHud(id) {
-    var expand = expandOf(id);
-    if (!expand || !el.hud) return;
+    var node = blockOf(id) || expandOf(id);
+    if (!node || !el.hud) return;
     el.hud.hidden = false;
-    if (el.hudCode) el.hudCode.textContent = expand.getAttribute('data-code') || '';
-    if (el.hudName) el.hudName.textContent = expand.getAttribute('data-label') || '';
-    if (el.hudEn) el.hudEn.textContent = expand.getAttribute('data-en') || '';
+    if (el.hudCode) el.hudCode.textContent = node.getAttribute('data-code') || '';
+    if (el.hudName) el.hudName.textContent = node.getAttribute('data-label') || '';
+    if (el.hudEn) el.hudEn.textContent = node.getAttribute('data-en') || '';
     showZoom();
     document.querySelectorAll('[data-panel]').forEach(function (part) {
       part.hidden = part.getAttribute('data-panel') !== id;
@@ -838,14 +728,33 @@
     if (el.hudRaw) el.hudRaw.setAttribute('aria-expanded', 'false');
   }
 
+  function clearSelection() {
+    document.querySelectorAll('[data-selected]').forEach(function (node) {
+      node.removeAttribute('data-selected');
+    });
+  }
+
+  function selectLeaf(id) {
+    if (view.id) collapseBlock(false, true);
+    clearOutbound();
+    clearSelection();
+    var node = blockOf(id);
+    if (node) node.setAttribute('data-selected', '1');
+    showHud(id);
+  }
+
   function expandBlock(id, push, instant) {
     var host = mapHost();
     var expand = expandOf(id);
+    if (!expand) { selectLeaf(id); return; }
     if (!host || !expand || !state.model) return;
     if (view.id === id) return;
     if (view.id) collapseBlock(false, true);
 
+    clearSelection();
     syncTop();
+    host.scrollLeft = 0;
+    host.scrollTop = 0;
     stopFly();
     captureFrames(host);
     var frame = frameRects[id];
@@ -863,14 +772,16 @@
     var canvas = expand.querySelector('.ob-canvas');
     var cw = canvas.offsetWidth || 1;
     var ch = canvas.offsetHeight || 1;
-    var k = Math.min(W * 0.86 / cw, (H - 40) / ch, 1);
+    var fit = Math.min(W * 0.72 / cw, (H - 40) / ch, 1);
+    // 展开默认 150%：子图直接铺满，细节先看清；要全貌时再缩回 fit。
+    var k = Math.max(fit, Math.min(ZOOM_MAX, 1.5));
     expand.style.width = cw + 'px';
     expand.style.height = ch + 'px';
     expand.style.left = Math.round((W - cw) / 2) + 'px';
     expand.style.top = Math.round((H - ch) / 2) + 'px';
 
     var box = { x: (W - cw) / 2, y: (H - ch) / 2, w: cw, h: ch };
-    view = { id: id, cw: cw, ch: ch, k: k, fit: k, panX: 0, panY: 0,
+    view = { id: id, cw: cw, ch: ch, k: k, fit: fit, panX: 0, panY: 0,
              x: box.x, y: box.y, w: box.w, h: box.h };
     var target = viewTransform(view);
     showZoom();
@@ -908,6 +819,9 @@
   }
 
   function collapseBlock(push, instant) {
+    clearOutbound();
+    lastPushed = null;
+    clearSelection();
     var id = view.id;
     if (!id) {
       if (push && location.hash !== '#map') history.pushState(null, '', '#map');
@@ -934,6 +848,8 @@
         var edges = host.querySelector('.ob-edges');
         if (edges) { edges.style.opacity = ''; edges.style.transition = ''; }
       }
+      clearOutbound();
+      lastPushed = null;
       hideHud();
     };
 
@@ -960,6 +876,106 @@
       }
     }
     if (push && location.hash !== '#map') history.pushState(null, '', '#map');
+  }
+
+  function clearOutbound() {
+    var layer = document.getElementById('ob-outbound');
+    if (layer) layer.parentNode.removeChild(layer);
+  }
+
+  function drawOutbound(id, pushed) {
+    clearOutbound();
+    var host = mapHost();
+    var expand = expandOf(id);
+    var model = state.model && state.model.map;
+    if (!host || !expand || !model) return;
+    var rect = expand.getBoundingClientRect();
+    var hostBox = host.getBoundingClientRect();
+    var box = { x: rect.left - hostBox.left, y: rect.top - hostBox.top,
+                w: rect.width, h: rect.height };
+    var edges = model.edges.filter(function (edge) {
+      return edge.src === id || edge.dst === id;
+    });
+    if (!edges.length) return;
+
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('id', 'ob-outbound');
+    svg.setAttribute('class', 'ob-outbound');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('width', host.clientWidth);
+    svg.setAttribute('height', host.clientHeight);
+    host.appendChild(svg);
+
+    var lanes = { left: [], right: [] };
+    edges.forEach(function (edge) {
+      var other = edge.src === id ? edge.dst : edge.src;
+      var peer = pushed && pushed[other];
+      var side;
+      if (peer) {
+        side = (peer.x + peer.w / 2) < (box.x + box.w / 2) ? 'left' : 'right';
+      } else {
+        side = edge.src === id ? 'right' : 'left';
+      }
+      lanes[side].push(edge);
+    });
+
+    function sidePeers(side) {
+      var list = [];
+      Object.keys(pushed || {}).forEach(function (key) {
+        var p = pushed[key];
+        var isLeft = (p.x + p.w / 2) < (box.x + box.w / 2);
+        if ((side === 'left') === isLeft) list.push(p);
+      });
+      return list;
+    }
+
+    function avoid(y, peers) {
+      var guard = 0;
+      var changed = true;
+      while (changed && guard++ < 16) {
+        changed = false;
+        peers.forEach(function (p) {
+          if (y > p.y - 5 && y < p.y + p.h + 5) {
+            y = p.y + p.h + 11;
+            changed = true;
+          }
+        });
+      }
+      return Math.max(10, Math.min(host.clientHeight - 10, y));
+    }
+
+    ['left', 'right'].forEach(function (side) {
+      var list = lanes[side];
+      if (!list.length) return;
+      var peers = sidePeers(side);
+      var top = box.y + 16;
+      var bottom = box.y + box.h - 16;
+      var step = list.length > 1 ? (bottom - top) / (list.length - 1) : 0;
+      list.forEach(function (edge, index) {
+        var y = list.length > 1 ? top + step * index : (top + bottom) / 2;
+        y = avoid(y, peers);
+        var x1 = side === 'left' ? box.x : box.x + box.w;
+        var x2 = side === 'left' ? 0 : host.clientWidth;
+        var label = (edge.labels && edge.labels[0]) || (edge.src + ' → ' + edge.dst);
+
+        var line = document.createElementNS(NS, 'line');
+        line.setAttribute('x1', x1.toFixed(1));
+        line.setAttribute('y1', y.toFixed(1));
+        line.setAttribute('x2', x2.toFixed(1));
+        line.setAttribute('y2', y.toFixed(1));
+        line.setAttribute('class', 'ob-edge ob-outbound__line');
+        line.setAttribute('data-kind', edge.kind);
+        svg.appendChild(line);
+
+        var text = document.createElementNS(NS, 'text');
+        text.setAttribute('x', side === 'left' ? 8 : host.clientWidth - 8);
+        text.setAttribute('y', (y - 5).toFixed(1));
+        text.setAttribute('text-anchor', side === 'left' ? 'start' : 'end');
+        text.setAttribute('class', 'ob-outbound__label');
+        text.textContent = label.length > 34 ? label.slice(0, 33) + '…' : label;
+        svg.appendChild(text);
+      });
+    });
   }
 
   function route() {
@@ -1147,8 +1163,55 @@
       });
     });
 
+    var graph = mapHost();
+    if (graph) {
+      graph.addEventListener('pointerdown', function (event) {
+        if (event.button !== 0 || view.id) return;
+        mapDrag = { x: event.clientX, y: event.clientY,
+                    px: mapView.x, py: mapView.y, moved: false };
+      });
+      graph.addEventListener('pointermove', function (event) {
+        if (!mapDrag) return;
+        var dx = event.clientX - mapDrag.x;
+        var dy = event.clientY - mapDrag.y;
+        if (!mapDrag.moved && Math.abs(dx) + Math.abs(dy) < 5) return;
+        mapDrag.moved = true;
+        suppressClick = true;
+        mapView.x = mapDrag.px + dx;
+        mapView.y = mapDrag.py + dy;
+        applyMapPan();
+        graph.setAttribute('data-panning', '1');
+      });
+      var endDrag = function () {
+        if (!mapDrag) return;
+        var moved = mapDrag.moved;
+        mapDrag = null;
+        graph.removeAttribute('data-panning');
+        if (moved) window.setTimeout(function () { suppressClick = false; }, 0);
+      };
+      graph.addEventListener('pointerup', endDrag);
+      graph.addEventListener('pointercancel', endDrag);
+      graph.addEventListener('pointerleave', endDrag);
+      graph.addEventListener('wheel', function (event) {
+        if (view.id) return;
+        event.preventDefault();
+        var rect = graph.getBoundingClientRect();
+        var cx = event.clientX - rect.left;
+        var cy = event.clientY - rect.top;
+        var wx = (cx - mapView.x) / mapView.k;
+        var wy = (cy - mapView.y) / mapView.k;
+        var next = mapView.k * (event.deltaY < 0 ? 1.1 : 0.9);
+        next = Math.max(0.2, Math.min(1.6, next));
+        mapView.k = next;
+        mapView.x = cx - wx * next;
+        mapView.y = cy - wy * next;
+        applyMapPan();
+      }, { passive: false });
+    }
+
     document.querySelectorAll('.ob-gnode--block').forEach(function (block) {
       block.addEventListener('click', function () {
+        if (suppressClick) { suppressClick = false; return; }
         var id = block.getAttribute('data-block');
         if (view.id === id) collapseBlock(true);
         else expandBlock(id, true);

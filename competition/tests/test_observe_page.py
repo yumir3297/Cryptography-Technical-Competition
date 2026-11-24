@@ -67,16 +67,21 @@ class ObservePageTests(unittest.TestCase):
         response = self.client.get('/observe')
         self.assertEqual(response.status_code, 200)
         self.assertIn('text/html', response.headers['content-type'])
-        for block in ('trust', 'gate', 's45', 's6', 'tool', 's7', 'db', 'view'):
+        for block in ('trust', 'ctx', 'guard', 's45', 's6', 's7',
+                      'tool', 'tooldb', 'db', 'obs', 'view', 'note'):
             self.assertIn('data-block="%s"' % block, self.page)
 
     def test_blocks_expand_inside_the_same_canvas(self):
-        """No overlay panel: each block's structure is a layer of the same map."""
+        """Only blocks with children get a layer; leaves stay on the map."""
         self.assertNotIn('class="ob-details"', self.page)
         self.assertIn('id="ob-hud"', self.page)
         for block in self.flow['blocks']:
-            self.assertIn('data-expand="%s"' % block['id'], self.page)
-            self.assertIn('data-graph="expand-%s"' % block['id'], self.page)
+            if block['expand']:
+                self.assertIn('data-expand="%s"' % block['id'], self.page)
+                self.assertIn('data-graph="expand-%s"' % block['id'], self.page)
+            else:
+                self.assertNotIn('data-expand="%s"' % block['id'], self.page)
+                self.assertIn('data-expandable="0"', self.page)
         self.assertIn('data-graph="map"', self.page)
 
     def test_the_page_holds_no_credential_of_its_own(self):
@@ -88,6 +93,7 @@ class ObservePageTests(unittest.TestCase):
             ('/observe/assets/observe.css', 'text/css'),
             ('/observe/assets/observe.js', 'javascript'),
             ('/observe/assets/flow.json', 'json'),
+            ('/observe/assets/vendor/dagre.min.js', 'javascript'),
             ('/observe/assets/prts/prts-design.css', 'text/css'),
         ):
             response = self.client.get(path)
@@ -106,13 +112,16 @@ class ObservePageTests(unittest.TestCase):
         self.assertEqual(self.flow['source'], SOURCE.name)
         self.assertEqual(set(self.flow['kinds']), KINDS)
         blocks = self.flow['blocks']
-        self.assertEqual(len(blocks), 8)
+        self.assertEqual(len(blocks), 12)
 
         seen = []
         for block in blocks:
-            self.assertTrue(set(block) >= {'id', 'label', 'nodes', 'edges'})
+            self.assertTrue(set(block) >= {'id', 'label', 'nodes', 'edges',
+                                           'expand'})
             names = [node['id'] for node in block['nodes']]
             seen.extend(node['id'] for node in block['nodes'] if not node['stub'])
+            if block['expand']:
+                self.assertGreater(len(block['nodes']), 1, block['id'])
             for node in block['nodes']:
                 self.assertIn(node['rank'], range(0, 32), block['id'])
                 self.assertIn(node['order'], range(0, 32), block['id'])
@@ -129,6 +138,7 @@ class ObservePageTests(unittest.TestCase):
             self.assertIn(edge['src'], map_nodes)
             self.assertIn(edge['dst'], map_nodes)
             self.assertGreaterEqual(edge['count'], 1)
+            self.assertEqual(len(edge['members']), edge['count'])
 
     def test_every_live_value_names_a_known_endpoint(self):
         endpoints = self.flow['endpoints']

@@ -33,47 +33,64 @@ KINDS = ('control', 'evidence', 'feedback', 'reject')
 
 
 # ── 分块 ───────────────────────────────────────────────────────────────────
-# The mmd already draws TRUST / S45 / S6 / S7 / DB; CTX+GUARD, TOOL+TOOLDB and
-# OBS+VIEW+NOTE are top-level there and are grouped here so every stage of the
-# flow belongs to exactly one clickable block.  ``col``/``row`` place the block
-# on the map: two rows, the second read right to left.
+# A block is a mmd subgraph or a lone node: what decides the level is whether
+# it has children, not whether it is drawn as a box.  Five have children and
+# can be opened; the other seven are leaves and can only be selected.  There is
+# deliberately no W block — its three children sit on the map at their own
+# rank, and no grouping frame is drawn.
 BLOCKS = (
-    ('trust', 1, 1, '入口与信任域', 'TRUST',
+    ('trust', '入口与信任域', 'TRUST',
      'Agent 只提供候选；C 负责登记与发布；E 只认证来源。两个入口并列，不串联。',
-     ('AG', 'ENTRY_SRV', 'ENTRY_IND', 'C', 'E')),
-    ('gate', 2, 1, '可信构造与关系核验', 'CONSTRUCT · VERIFY',
-     'CTX 把意图固化成完整 Action 与 ActionHash；GUARD 在初检、接受与终局各重核一次。',
-     ('CTX', 'GUARD')),
-    ('s45', 3, 1, '准备、判定与原子接受', 'PREPARE · ACCEPT',
+     ('AG', 'ENTRY_SRV', 'ENTRY_IND', 'C', 'E'), True),
+    ('ctx', '可信构造', 'CONSTRUCT',
+     '把意图固化成完整 Action 与 ActionHash；Basis / Assessment / RequiredDeps / Ctx 一并冻结。',
+     ('CTX',), False),
+    ('guard', '关系核验', 'COMMON GUARD',
+     '签名 / Ctx / Refs / RequiredDeps / DENY / 窗口；PREPARE 初检、ACCEPT 事务内重核、终局再核。',
+     ('GUARD',), False),
+    ('s45', '准备、判定与原子接受', 'PREPARE · ACCEPT',
      'PREPARE 成功不等于接受；GoalFloor 默认 off，只在 ACCEPT 事务内判定。',
-     ('PREPARE', 'CHAL', 'GF', 'ACCEPT')),
-    ('s6', 4, 1, '回执与唯一执行资格', 'RECEIPT · CLAIM',
+     ('PREPARE', 'CHAL', 'GF', 'ACCEPT'), True),
+    ('s6', '回执与唯一执行资格', 'RECEIPT · CLAIM',
      '回执只签原冻结 Core；EXEC-0 先持久消费标记，再向工具派发。',
-     ('RECEIPT', 'PENDING', 'CLAIM', 'EXEC0')),
-    ('view', 1, 2, '只读投影与边界', 'READ-ONLY VIEW',
-     '投影只读，不形成授权；UNKNOWN 保留占用，不保证生产效果恰好一次。',
-     ('OBS', 'VIEW', 'NOTE')),
-    ('s7', 2, 2, '终局、结算与恢复', 'FINAL · RECOVER',
+     ('RECEIPT', 'PENDING', 'CLAIM', 'EXEC0'), True),
+    ('s7', '终局、结算与恢复', 'FINAL · RECOVER',
      '只有可信终局才结算；STARTED 不可通用取消，未知只能认证查询原 attempt。',
-     ('QUERY', 'FINAL', 'SETTLE', 'CANCEL', 'UNKNOWN', 'HALTED', 'DUP', 'REJ')),
-    ('tool', 3, 2, '工具端与独立账本', 'TOOL',
-     '工具验签后执行并签名返回；工具账本独立，不并入 W 事务。',
-     ('TOOL', 'TOOLDB')),
-    ('db', 4, 2, '共享 SQLite 与账本', 'SHARED LEDGER',
+     ('QUERY', 'FINAL', 'SETTLE', 'CANCEL', 'UNKNOWN', 'HALTED', 'DUP', 'REJ'), True),
+    ('tool', '工具端效果', 'TOOL',
+     '验签后执行或查询，并签名返回；工具账本在 W 事务之外。',
+     ('TOOL',), False),
+    ('tooldb', '工具账本', 'TOOL SQLITE',
+     'requests / effects / finalfacts 独立存放，不并入 W 事务。',
+     ('TOOLDB',), False),
+    ('db', '共享 SQLite 与账本', 'SHARED LEDGER',
      'C 控制状态与 W 业务状态同库同事务；资源与义务账随终局更新。',
-     ('SHARED', 'RES', 'OBL')),
+     ('SHARED', 'RES', 'OBL'), True),
+    ('obs', '观察 / 审计投影', 'OBSERVE',
+     '只读投影，不形成授权。',
+     ('OBS',), False),
+    ('view', 'Agent 认证视图', 'AGENT VIEW',
+     '只读投影，不含执行权限。',
+     ('VIEW',), False),
+    ('note', '边界', 'BOUNDARIES',
+     '原子性仅限各自事务；UNKNOWN 保留占用；哈希不认证来源。',
+     ('NOTE',), False),
 )
 
 # 块内阅读顺序：主链在前，分支随后。控制流边本身仍以 mmd 为准。
 NODE_ORDER = {
     'trust': ('AG', 'ENTRY_SRV', 'ENTRY_IND', 'C', 'E'),
-    'gate': ('CTX', 'GUARD'),
+    'ctx': ('CTX',),
+    'guard': ('GUARD',),
     's45': ('PREPARE', 'CHAL', 'GF', 'ACCEPT'),
     's6': ('RECEIPT', 'PENDING', 'CLAIM', 'EXEC0'),
-    'view': ('OBS', 'VIEW', 'NOTE'),
     's7': ('QUERY', 'FINAL', 'SETTLE', 'CANCEL', 'UNKNOWN', 'HALTED', 'DUP', 'REJ'),
-    'tool': ('TOOL', 'TOOLDB'),
+    'tool': ('TOOL',),
+    'tooldb': ('TOOLDB',),
     'db': ('SHARED', 'RES', 'OBL'),
+    'obs': ('OBS',),
+    'view': ('VIEW',),
+    'note': ('NOTE',),
 }
 
 # 每一步在数据流上的先后（只用于「当前停在哪」）。
@@ -625,7 +642,7 @@ def _block_graph(members, diagram, block_of, block_label):
 
 def build_flow(diagram):
     block_of = {}
-    for bid, _col, _row, _label, _en, _note, members in BLOCKS:
+    for bid, _label, _en, _note, members, _expand in BLOCKS:
         for name in members:
             if name not in diagram.nodes:
                 raise SystemExit('block %s names unknown node %s' % (bid, name))
@@ -636,18 +653,20 @@ def build_flow(diagram):
     if missing:
         raise SystemExit('nodes without a block: ' + ', '.join(sorted(missing)))
 
-    block_label = {bid: label for bid, _col, _row, label, _en, _note, _m in BLOCKS}
+    block_label = {bid: label for bid, label, _en, _note, _m, _x in BLOCKS}
     blocks = []
-    for bid, col, row, label, en, note, members in BLOCKS:
+    for bid, label, en, note, members, expand in BLOCKS:
         nodes, edges = _block_graph(members, diagram, block_of, block_label)
         blocks.append({
-            'id': bid, 'col': col, 'row': row,
-            'label': label, 'en': en, 'note': note,
+            'id': bid, 'label': label, 'en': en, 'note': note,
+            'expand': expand,
             'nodes': nodes, 'edges': edges,
         })
 
-    # The map is the same diagram with every sub-block collapsed: one node per
-    # block, every original edge folded into a block-to-block relation.
+    # The map is the same diagram with every block collapsed: one node per
+    # block, every original edge folded into a block-to-block relation.  Edges
+    # keep their two endpoint names so the open layer can draw each one on its
+    # own lane.
     aggregate = {}
     for edge in diagram.edges:
         src, dst = block_of[edge['src']], block_of[edge['dst']]
@@ -656,25 +675,24 @@ def build_flow(diagram):
         key = (src, dst, edge['kind'])
         item = aggregate.setdefault(key, {'src': src, 'dst': dst,
                                           'kind': edge['kind'], 'labels': [],
-                                          'count': 0})
+                                          'count': 0, 'members': []})
         item['count'] += 1
+        item['members'].append({'src': edge['src'], 'dst': edge['dst'],
+                                'label': edge['label']})
         if edge['label'] and edge['label'] not in item['labels']:
             item['labels'].append(edge['label'])
 
     ids = [block[0] for block in BLOCKS]
-    hint = list(ids)
     priority = {'control': 0, 'evidence': 1, 'feedback': 2, 'reject': 3}
     map_edges = sorted(aggregate.values(),
                        key=lambda item: (priority[item['kind']],
-                                         hint.index(item['src']),
-                                         hint.index(item['dst'])))
-    rank, order, back = arrange(ids, map_edges, hint)
+                                         ids.index(item['src']),
+                                         ids.index(item['dst'])))
     map_nodes = [{'id': name,
-                  'label': next(block[3] for block in BLOCKS if block[0] == name),
-                  'en': next(block[4] for block in BLOCKS if block[0] == name),
-                  'rank': rank[name], 'order': order[name]} for name in ids]
-    for edge in map_edges:
-        edge['back'] = (edge['src'], edge['dst']) in back
+                  'label': next(block[1] for block in BLOCKS if block[0] == name),
+                  'en': next(block[2] for block in BLOCKS if block[0] == name),
+                  'expand': next(block[5] for block in BLOCKS if block[0] == name)}
+                 for name in ids]
 
     return {
         'source': SOURCE.name,
@@ -761,14 +779,12 @@ def _dots_html(block):
 
 
 def render_map(flow):
-    positions = {node['id']: node for node in flow['map']['nodes']}
     items = []
     for index, block in enumerate(flow['blocks'], start=1):
-        pos = positions[block['id']]
         items.append(
             '<button type="button" class="ob-gnode ob-gnode--block" '
             'data-gid="%s" data-graph-node data-block="%s" data-state="idle" '
-            'data-rank="%d" data-order="%d">'
+            'data-expandable="%d" data-code="%02d" data-label="%s" data-en="%s">'
             '<span class="ob-gnode__top">'
             '<span class="ob-gnode__code">%02d</span>'
             '<span class="ob-gnode__tag" data-block-state>未到达</span>'
@@ -777,16 +793,20 @@ def render_map(flow):
             '<span class="ob-gnode__en">%s</span>'
             '<span class="ob-gnode__dots" aria-hidden="true">%s</span>'
             '</button>'
-            % (escape(block['id']), escape(block['id']), pos['rank'],
-               pos['order'], index, escape(block['label']), escape(block['en']),
+            % (escape(block['id']), escape(block['id']),
+               1 if block['expand'] else 0, index,
+               escape(block['label']), escape(block['en']),
+               index, escape(block['label']), escape(block['en']),
                _dots_html(block)))
     return '\n'.join(items)
 
 
 def render_expand(flow):
-    """One layer per block: the sub-graph laid out inside the map's own canvas."""
+    """One layer per block with children: the sub-graph laid out in the map."""
     parts = []
     for index, block in enumerate(flow['blocks'], start=1):
+        if not block['expand']:
+            continue
         nodes = ''.join(_step_html(node) for node in block['nodes'])
         parts.append(
             '<div class="ob-expand" data-expand="%s" data-graph="expand-%s" '
@@ -843,7 +863,8 @@ def main(argv=None):
     print('wrote', FLOW.relative_to(ROOT))
     print('wrote', page.relative_to(ROOT))
     print('blocks', len(flow['blocks']))
-    print('map', [(node['id'], node['rank']) for node in flow['map']['nodes']])
+    print('map', [(node['id'], 'open' if node['expand'] else 'leaf')
+                  for node in flow['map']['nodes']])
     for block in flow['blocks']:
         print(block['id'], 'ranks',
               sorted({node['rank'] for node in block['nodes']}),
