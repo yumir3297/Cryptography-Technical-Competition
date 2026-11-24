@@ -51,6 +51,12 @@ class CommonW:
             CREATE TABLE IF NOT EXISTS w_goal(profile TEXT,oid TEXT,goal_group TEXT,goal_ref TEXT,epoch TEXT,action TEXT,obligation TEXT,cost INTEGER,state TEXT,PRIMARY KEY(profile,oid,goal_group));
             CREATE TABLE IF NOT EXISTS w_evidence(seq INTEGER PRIMARY KEY AUTOINCREMENT,profile TEXT,oid TEXT,kind TEXT,blob TEXT);
             ''')
+            if goal_mode == 'enforce':
+                # Defense in depth: enforce never links one certified obligation
+                # to two operations.  A database that already contains a shadow
+                # duplicate fails closed at startup rather than silently
+                # becoming an enforce state.
+                c.execute("CREATE UNIQUE INDEX IF NOT EXISTS w_goal_obligation_once ON w_goal(profile,goal_group,obligation) WHERE obligation!=''")
             saved=c.execute("SELECT blob FROM a_journal WHERE kind='W_BOOTSTRAP' ORDER BY seq LIMIT 1").fetchone()
             boot={'protocol':COMPETITION_PROTO,'worker':worker_certificate,'delivery_public':b64(delivery_key.public_key().public_bytes_raw())}
             if saved:require(json.loads(saved[0])==boot,'W_BOOTSTRAP_CONFLICT')
