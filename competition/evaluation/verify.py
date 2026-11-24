@@ -272,6 +272,7 @@ class Verifier:
         require(op['ctx']['action_hash'] == action_hash(self.profile, action), 'ACTION_HASH')
         policy = self.controls[('POLICY', tuple(self._policy_key()))]
         task = self.controls[('TASK', tuple(self._task_key()))]
+        require(policy['active'] and task['active'], 'CONTROL_ACTIVE')
         require(op['ctx']['policy_ref'] == policy['ref'], 'POLICY_REF')
         basis = op['basis']
         assessment = op['assessment']
@@ -458,7 +459,8 @@ class Verifier:
                     dep['key'][-1] == own_incident):
                 continue
             control = self.controls.get((dep['namespace'], tuple(dep['key'])))
-            if (control is None or str(control['revision']) != dep['revision'] or
+            if (control is None or not control['active'] or
+                    str(control['revision']) != dep['revision'] or
                     control['ref'] != dep['ref']):
                 require(witness['decision'] == 'F' and
                         witness['reason'] in ('GOAL_DEPS_STALE', 'GOAL_DEPS_UNKNOWN'),
