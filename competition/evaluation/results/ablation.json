@@ -1,0 +1,429 @@
+{
+ "generated_utc": "2026-11-23T14:31:31Z",
+ "cases": [
+  "legit",
+  "payload_tamper",
+  "duplicate",
+  "capacity",
+  "goal_floor",
+  "unknown"
+ ],
+ "modes": {
+  "C_original": {
+   "legit": {
+    "accepted": true,
+    "code": "",
+    "elapsed_ns": 2115879200,
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "payload_tamper": {
+    "accepted": false,
+    "code": "CLAIM_FALSE",
+    "baseline_a": true,
+    "baseline_b": false,
+    "counts": {
+     "accepts": 0,
+     "outbox": 0,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "duplicate": {
+    "accepted": true,
+    "code": "",
+    "accepts": 1,
+    "attempts": 0
+   },
+   "capacity": {
+    "accepted": 1,
+    "outcomes": [
+     "ACCEPTED",
+     "RESOURCE_EXHAUSTED"
+    ],
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "goal_floor": {
+    "accepted": true,
+    "code": "",
+    "baseline_a": true,
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "unknown": {
+    "accepted": true,
+    "code": "",
+    "first_effect": "EFFECT_UNKNOWN",
+    "counts": {
+     "accepts": 2,
+     "outbox": 2,
+     "attempts": 1,
+     "exec_invocations": 1,
+     "execution_sends_observed": 1,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   }
+  },
+  "shadow": {
+   "legit": {
+    "accepted": true,
+    "code": "",
+    "elapsed_ns": 2097014600,
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "payload_tamper": {
+    "accepted": false,
+    "code": "CLAIM_FALSE",
+    "baseline_a": true,
+    "baseline_b": false,
+    "counts": {
+     "accepts": 0,
+     "outbox": 0,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "duplicate": {
+    "accepted": true,
+    "code": "",
+    "accepts": 1,
+    "attempts": 0
+   },
+   "capacity": {
+    "accepted": 1,
+    "outcomes": [
+     "ACCEPTED",
+     "RESOURCE_EXHAUSTED"
+    ],
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "goal_floor": {
+    "accepted": true,
+    "code": "",
+    "baseline_a": true,
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "unknown": {
+    "accepted": true,
+    "code": "",
+    "first_effect": "EFFECT_UNKNOWN",
+    "counts": {
+     "accepts": 2,
+     "outbox": 2,
+     "attempts": 1,
+     "exec_invocations": 1,
+     "execution_sends_observed": 1,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 2,
+     "goal_pending": 2,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   }
+  },
+  "proposed": {
+   "legit": {
+    "accepted": true,
+    "code": "",
+    "elapsed_ns": 2183406400,
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "payload_tamper": {
+    "accepted": false,
+    "code": "CLAIM_FALSE",
+    "baseline_a": true,
+    "baseline_b": false,
+    "counts": {
+     "accepts": 0,
+     "outbox": 0,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "duplicate": {
+    "accepted": true,
+    "code": "",
+    "accepts": 1,
+    "attempts": 0
+   },
+   "capacity": {
+    "accepted": 1,
+    "outcomes": [
+     "ACCEPTED",
+     "RESOURCE_EXHAUSTED"
+    ],
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "goal_floor": {
+    "accepted": false,
+    "code": "GOAL_CAPACITY_FLOOR",
+    "baseline_a": true,
+    "counts": {
+     "accepts": 0,
+     "outbox": 0,
+     "attempts": 0,
+     "exec_invocations": 0,
+     "execution_sends_observed": 0,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 0,
+     "goal_pending": 0,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   },
+   "unknown": {
+    "accepted": false,
+    "code": "GOAL_PENDING_UNKNOWN",
+    "first_effect": "EFFECT_UNKNOWN",
+    "counts": {
+     "accepts": 1,
+     "outbox": 1,
+     "attempts": 1,
+     "exec_invocations": 1,
+     "execution_sends_observed": 1,
+     "execution_sends_unobserved_upper_bound": 0,
+     "queries": 0,
+     "confirmed_simulated_effects": 0,
+     "settlements": 0,
+     "cancellations": 0,
+     "halts": 0,
+     "goal_links": 1,
+     "goal_pending": 1,
+     "goal_done": 0,
+     "goal_blocked": 0
+    }
+   }
+  }
+ },
+ "baselines": {
+  "legit": {
+   "A": true,
+   "B": true
+  },
+  "payload_tamper": {
+   "A": true,
+   "B": false
+  },
+  "duplicate": {
+   "A": true,
+   "B": true
+  },
+  "capacity": {
+   "A": true,
+   "B": true
+  },
+  "goal_floor": {
+   "A": true,
+   "B": true
+  },
+  "unknown": {
+   "A": true,
+   "B": true
+  }
+ },
+ "summary": {
+  "A_local_gate": {
+   "illegal_accepted": 5,
+   "illegal_total": 5,
+   "illegal_accept_rate": 1.0
+  },
+  "B_single_signature": {
+   "illegal_accepted": 4,
+   "illegal_total": 5,
+   "illegal_accept_rate": 0.8
+  },
+  "C_original": {
+   "illegal_accepted": 2,
+   "illegal_total": 5,
+   "illegal_accept_rate": 0.4
+  },
+  "shadow": {
+   "illegal_accepted": 2,
+   "illegal_total": 5,
+   "illegal_accept_rate": 0.4
+  },
+  "proposed": {
+   "illegal_accepted": 0,
+   "illegal_total": 5,
+   "illegal_accept_rate": 0.0
+  }
+ }
+}

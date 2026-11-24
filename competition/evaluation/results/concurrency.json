@@ -1,0 +1,995 @@
+{
+ "generated_utc": "2026-11-23T14:26:00Z",
+ "actual_histories": 20,
+ "actual_all_linearizable": true,
+ "actual": [
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "0FVt_3n4tDPzRyDhSnJXGQ",
+     "start_ns": 16576129548700,
+     "end_ns": 16577702592800,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "_vqDLqpoHrHIy8sdoEhUxw",
+     "start_ns": 16576129790000,
+     "end_ns": 16578358891700,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 0
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "tULAOd1vadefi0ZphcQpVA",
+     "start_ns": 16590210843500,
+     "end_ns": 16591764519000,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "81Hi26h7fv3R2MX-ATvSgg",
+     "start_ns": 16590211080500,
+     "end_ns": 16592412671000,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 0
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "WKI42WeNiWoBt7P38Xs1BA",
+     "start_ns": 16604368798800,
+     "end_ns": 16606578868700,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    },
+    {
+     "operation_id": "uOlvwP7j3xPxm5VGT21GLA",
+     "start_ns": 16604368979600,
+     "end_ns": 16605952126400,
+     "status": "COMMITTED",
+     "code": ""
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 1
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "ZjhP8Nyqduq3X2jpMeUpNw",
+     "start_ns": 16618426615200,
+     "end_ns": 16620001255200,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "urUWmPrqjosTIFUqb1WnJQ",
+     "start_ns": 16618426800100,
+     "end_ns": 16620628988300,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 1
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "KeQ0_NzMqDFG9sgefuz9mQ",
+     "start_ns": 16632742148500,
+     "end_ns": 16635073376500,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    },
+    {
+     "operation_id": "umcdTCDVORKkrs6086a5WQ",
+     "start_ns": 16632742506700,
+     "end_ns": 16634403584600,
+     "status": "COMMITTED",
+     "code": ""
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 2
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "N1PVy7q-9-hWLwslngf85A",
+     "start_ns": 16647322747700,
+     "end_ns": 16649536779400,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    },
+    {
+     "operation_id": "JwIPDsz4T0WcJErrtG4vcQ",
+     "start_ns": 16647323012900,
+     "end_ns": 16648929407500,
+     "status": "COMMITTED",
+     "code": ""
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 2
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "qbkJ2OqXHTXIdGTUgjiGNw",
+     "start_ns": 16661243000600,
+     "end_ns": 16663032782000,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "Tgv_HkJxtBPJ09JpQwr5xw",
+     "start_ns": 16661243225600,
+     "end_ns": 16663668713500,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 3
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "yD9Yx3eahb4aWo8v-ZSsJQ",
+     "start_ns": 16675374553800,
+     "end_ns": 16677567658500,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    },
+    {
+     "operation_id": "ZgA62Ra_ti2MOZwL6cWGAg",
+     "start_ns": 16675374744800,
+     "end_ns": 16676939804700,
+     "status": "COMMITTED",
+     "code": ""
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 3
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "OEy7tfeuH8WXHa6Vsb4AEw",
+     "start_ns": 16689928869400,
+     "end_ns": 16692253728200,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "VVp5fCSAANLNOxFd8BhsGw",
+     "start_ns": 16689930241200,
+     "end_ns": 16691797548700,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 4
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "NGReHwUCdx25NHU3ZdrLpA",
+     "start_ns": 16704188534900,
+     "end_ns": 16705773133300,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "iNmqwHySg1I2F32UfYxcDg",
+     "start_ns": 16704188894300,
+     "end_ns": 16706402445200,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 4
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "L9xzfwi17CBxy4ZlUx7izQ",
+     "start_ns": 16718385844700,
+     "end_ns": 16720074748700,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "5iPk3KiB1J9GPB4tIt8dkA",
+     "start_ns": 16718386044900,
+     "end_ns": 16720692489600,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 5
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "vqQzgj6IBP3C6WJc66KuIQ",
+     "start_ns": 16733198921600,
+     "end_ns": 16735436023900,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    },
+    {
+     "operation_id": "HlvzWSmVhaAKM_ApJ7wKSQ",
+     "start_ns": 16733199224000,
+     "end_ns": 16734815502300,
+     "status": "COMMITTED",
+     "code": ""
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 5
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "wRB1bljf9ZwVf2r1avLyHg",
+     "start_ns": 16747304494600,
+     "end_ns": 16748885226100,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "-8XCn-55K3UFNschoWQ9DQ",
+     "start_ns": 16747304692100,
+     "end_ns": 16749482179600,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 6
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "QDb6N0PkhCh-YaDQrsN-ug",
+     "start_ns": 16761393718700,
+     "end_ns": 16762963467100,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "4zQrf_ZR4WX1aTqH5ZzlYw",
+     "start_ns": 16761393891500,
+     "end_ns": 16763576654400,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 6
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "tLJb4KhwPlHDBRRg7ibJsQ",
+     "start_ns": 16775494928900,
+     "end_ns": 16777076559000,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "tKnAkGtslXPcT2wH-4y6-A",
+     "start_ns": 16775495190100,
+     "end_ns": 16777698767400,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 7
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "G2HyxoMTdIGAHKQhTaW2ug",
+     "start_ns": 16789392386400,
+     "end_ns": 16791001490200,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "n41KKK-5uCmTVuOhBa7ykA",
+     "start_ns": 16789392612400,
+     "end_ns": 16791575915500,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 7
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "ckVzfP1IzWIa3xTilG22Mg",
+     "start_ns": 16803328315500,
+     "end_ns": 16805579156500,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    },
+    {
+     "operation_id": "UqhrdY6k7mqti1aDEI3e9Q",
+     "start_ns": 16803328526200,
+     "end_ns": 16804882619900,
+     "status": "COMMITTED",
+     "code": ""
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 8
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "2KP5QW6g_2xnQmv0MusKmg",
+     "start_ns": 16817197092800,
+     "end_ns": 16818807425300,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "WheRT0rM-YRfwhbtkWyZQg",
+     "start_ns": 16817197407600,
+     "end_ns": 16819375258800,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 8
+  },
+  {
+   "scenario": "two_required_obligations",
+   "outcomes": [
+    {
+     "operation_id": "ijDl-LNzSjmToZTMxCmPxA",
+     "start_ns": 16830972226800,
+     "end_ns": 16832558133600,
+     "status": "COMMITTED",
+     "code": ""
+    },
+    {
+     "operation_id": "YvaEpjT_tfWMicgfJ9aJKQ",
+     "start_ns": 16830972413100,
+     "end_ns": 16833192220500,
+     "status": "REJECTED",
+     "code": "GOAL_PENDING_UNKNOWN"
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_PENDING_UNKNOWN"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 1,
+    "goal_pending": 1,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 9
+  },
+  {
+   "scenario": "optional_last_slot",
+   "outcomes": [
+    {
+     "operation_id": "4lEpG27Yn_HGZOb01qfyGQ",
+     "start_ns": 16844852097300,
+     "end_ns": 16847128570100,
+     "status": "REJECTED",
+     "code": "GOAL_CAPACITY_FLOOR"
+    },
+    {
+     "operation_id": "d3gXo-jkTW4e2gatUQYeoA",
+     "start_ns": 16844852355100,
+     "end_ns": 16846510621000,
+     "status": "COMMITTED",
+     "code": ""
+    }
+   ],
+   "linearizable": true,
+   "detail": {
+    "accept_seq": [
+     1
+    ],
+    "reserved_chain": [
+     1
+    ],
+    "rejected_codes": [
+     "GOAL_CAPACITY_FLOOR"
+    ]
+   },
+   "counts": {
+    "accepts": 1,
+    "outbox": 1,
+    "attempts": 0,
+    "exec_invocations": 0,
+    "execution_sends_observed": 0,
+    "execution_sends_unobserved_upper_bound": 0,
+    "queries": 0,
+    "confirmed_simulated_effects": 0,
+    "settlements": 0,
+    "cancellations": 0,
+    "halts": 0,
+    "goal_links": 0,
+    "goal_pending": 0,
+    "goal_done": 0,
+    "goal_blocked": 0
+   },
+   "repetition": 9
+  }
+ ],
+ "model": {
+  "histories": 10000,
+  "seed": 20261123,
+  "operations_per_history": 24,
+  "violations": 0,
+  "counterexamples": [],
+  "checked_transitions": 240000
+ }
+}

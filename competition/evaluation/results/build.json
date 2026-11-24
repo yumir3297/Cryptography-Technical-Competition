@@ -1,0 +1,24 @@
+{
+ "baseline_sha": "7604d6b5b902f38d950234dec53d9375429f1e7f",
+ "integration_sha": "fcbc6b3b3ad63c9de84387c98bccc004f726a77b",
+ "protocol": "ZJJ-CORE-COMP-1 / 2.6",
+ "python": "3.13.9",
+ "cryptography": "50.0.0",
+ "jsonschema": "4.26.0",
+ "platform": "Windows-11-10.0.26340-SP0 (CPython MSC v.1944 64 bit)",
+ "commands": {
+  "goal_tests": "python -m unittest -v competition.tests.test_goal_floor competition.tests.test_goal_floor_pure",
+  "crash": "python -m unittest -v competition.tests.test_crash_boundaries",
+  "tamper": "python -m unittest -v competition.tests.test_evidence_verifier",
+  "cross_scenario": "python -m unittest -v competition.tests.test_cross_scenario_evidence",
+  "incident": "python -m unittest -v competition.tests.test_incident_workflow",
+  "concurrency": "python -m competition.evaluation.experiments.concurrency --repetitions 10 --model-count 10000",
+  "ablation": "python -m competition.evaluation.experiments.ablation",
+  "crypto_attacks": "python -m competition.evaluation.experiments.crypto_attacks",
+  "performance": "python -m competition.evaluation.experiments.performance",
+  "evidence": "python -m competition.evaluation.generate_evidence --output competition/evaluation/evidence/20261123",
+  "incident_evidence": "python -m competition.evaluation.generate_incident_evidence"
+ },
+ "note": "GoalFloor default is off; enforce is used only in evaluation scenarios. Raw logs remain in the ignored .runtime directory; committed results are the JSON files in this directory and evidence/.",
+ "test_sha": "925265229d63b077c0db23d65df4a6ef3ad19729"
+}

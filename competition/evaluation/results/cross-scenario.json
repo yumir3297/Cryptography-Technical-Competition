@@ -1,0 +1,39 @@
+{
+ "generated_utc": "2026-11-23T14:40:01Z",
+ "profiles": {
+  "IND-DEMO-1": {
+   "audit_status": "PASS",
+   "checks": 13,
+   "ledger_id": "competition-ledger-ind-demo-1",
+   "reviews": [
+    "QUALITY_REVIEW"
+   ],
+   "outcome": "SUCCEEDED",
+   "effect_id": "effect-81797b192e394a8f84db993f0188a72d",
+   "goal_witness": false
+  },
+  "PAY-1": {
+   "audit_status": "PASS",
+   "checks": 13,
+   "ledger_id": "competition-ledger-pay-1",
+   "reviews": [
+    "ANOMALY"
+   ],
+   "outcome": "SUCCEEDED",
+   "effect_id": "effect-f5628e8e4b1b26ebf069609d25811a71",
+   "goal_witness": false
+  },
+  "MED-DEMO-1": {
+   "audit_status": "PASS",
+   "checks": 13,
+   "ledger_id": "competition-ledger-med-demo-1",
+   "reviews": [
+    "CLINICAL_REVIEW"
+   ],
+   "outcome": "SUCCEEDED",
+   "effect_id": "effect-30d7aa9d3b78e3abb571ee51bc6ca199",
+   "goal_witness": false
+  }
+ },
+ "all_pass": true
+}

@@ -1,0 +1,24 @@
+{
+ "audit_status": "PASS",
+ "checks": 13,
+ "code_sha": "fcbc6b3b3ad63c9de84387c98bccc004f726a77b",
+ "files": {
+  "anchor-incident.json": "1398a057fb2cfbcf7b172b352eccd9af439c0fad3fa0b93eadc97deaa7f6b291",
+  "incident-audit.json": "0b3ae004a978d2a43deb22b2cddaf3ea71a671d7a57f68d180f35ca391d67f54",
+  "incident-package.json": "4f22211c142e55b6b9dda60d11934b5f3a2943bf54fa1ab8a960deb1046b018e"
+ },
+ "generated_utc": "2026-11-23T14:26:57Z",
+ "git_sha": "b657be2b5c56c397f2c7f8f937d146c4249feaaf",
+ "low_priority": {
+  "accepted": false,
+  "code": "GOAL_CAPACITY_FLOOR"
+ },
+ "platform": "Windows-11-10.0.26340-SP0",
+ "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:13) [MSC v.1944 64 bit (AMD64)]",
+ "stale_goal": {
+  "accepted": false,
+  "code": "GOAL_DEPS_STALE"
+ },
+ "test_sha": "925265229d63b077c0db23d65df4a6ef3ad19729",
+ "verifier_sha": "8372e255affed13cb823ccd020912781edf08f1a"
+}

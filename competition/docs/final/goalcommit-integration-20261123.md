@@ -30,6 +30,7 @@ C 通过既有 `TrustedState.publish` 路径发布（域 `COMP-APP-C-PUBLISH-v1`
 
 - `action_digest` 由 `competition/core/goal_floor.py::action_selector` 计算，覆盖 scope/principal/holder/holder_kid/executor/tool/tool_version/destination/payload，排除 `operation_id`。Agent 请求中没有 goal 字段；W 用冻结 Action 匹配 C 规则。
 - `deps` 支持 `POLICY/TASK/INCIDENT`，逐项比较 revision 与 ref；任一变化使旧 GoalFloor 失效（`GOAL_DEPS_STALE`）。
+- 同一 group 的新 epoch 必须保持 `resource_key/capacity/unit` 和非空 obligation 集合不变（`GOAL_MIGRATION_REQUIRED`），避免更新把未决 obligation 孤立。
 - `capacity` 必须等于 W 资源证书容量；`cost` 必须等于 W `plan.amount`；否则 `GOAL_CAPACITY_MISMATCH` / `GOAL_COST_MISMATCH`。
 
 ## 3. W 接受事务
@@ -66,8 +67,8 @@ total = spent + reserved + candidate_cost + remaining_floor
 
 ## 6. 证据
 
-- `competition/tests/test_goal_floor.py`（9 项）
-- `competition/tests/test_goal_floor_pure.py`（7 项）
+- `competition/tests/test_goal_floor.py`（10 项）
+- `competition/tests/test_goal_floor_pure.py`（8 项）
 - `competition/tests/test_evidence_verifier.py`（15 项）
 - `competition/tests/test_cross_scenario_evidence.py`（3 项）
 - `competition/tests/test_incident_workflow.py`（1 项）

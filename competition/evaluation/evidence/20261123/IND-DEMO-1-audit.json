@@ -1,0 +1,121 @@
+{
+ "checks": [
+  {
+   "check": "anchor_matches_package_root",
+   "detail": true,
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "anchor_actor_keys",
+   "detail": {
+    "actors": 6
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "control_certificates_and_refs",
+   "detail": {
+    "controls": 24
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "control_history_certificates",
+   "detail": {
+    "history_records": 24
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "tool_trust_certificate",
+   "detail": {
+    "kid": "KOojmapbGuRNog8u9aTNbkLt53WkKIIJle2XTUaa5bQ",
+    "ledger": "competition-ledger-ind-demo-1"
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "resource_certificate_and_sums",
+   "detail": {
+    "capacity": 8,
+    "reserved": 0,
+    "spent": 1
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "authorization_chain",
+   "detail": {
+    "messages": 7,
+    "reviews": 1
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "commit_record_ref",
+   "detail": {
+    "commit_ref": "iSmS5fXGmmhqI2h6b1glBmio1bVjDrtol8AHBk56_-w"
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "x_acceptance_signature",
+   "detail": {
+    "acceptance_ref": "bqqScB8D_KWGjzkNG0ZXiP1UpuOFwNjNYTcwj26ybmo"
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "unique_attempt_and_delivery_signature",
+   "detail": {
+    "attempt_id": "V3TvfYW5NQBCjYkv0YI5JA"
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "goal_floor_recomputation",
+   "detail": "No GoalFloor applies to this operation.",
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "tool_final_fact_signature",
+   "detail": {
+    "final_fact_id": "SWIej35yojeT2ffM9XYi56vl1xP_oGgvA92jthhvO1E",
+    "outcome": "SUCCEEDED"
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  },
+  {
+   "check": "settlement_binding",
+   "detail": {
+    "final_fact_id": "SWIej35yojeT2ffM9XYi56vl1xP_oGgvA92jthhvO1E",
+    "outcome": "SUCCEEDED"
+   },
+   "kind": "cryptographic",
+   "status": "PASS"
+  }
+ ],
+ "failed": 0,
+ "limitations": [
+  "W ledger totals (spent/reserved) are a trusted W assertion; the package checks their arithmetic, not physical truth.",
+  "Offline time checks prove internal iat/exp ordering, not that the evidence is current at audit time.",
+  "The simulated tool ledger proves the simulator effect, not a real industrial/payment/medical effect.",
+  "A complete absence of evidence cannot be distinguished from evidence withheld outside this package."
+ ],
+ "passed": 13,
+ "skipped": 0,
+ "status": "PASS",
+ "trust_anchor_sha256": "XlBhLQvHgGUwTU6AcbYcoCbXHB5i5u7WzhaVbe6On_M"
+}

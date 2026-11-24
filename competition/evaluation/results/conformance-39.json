@@ -1,0 +1,167 @@
+{
+ "generated_utc": "2026-11-23T14:14:23Z",
+ "source": "system_dev/v26/semantic_cases.json",
+ "count": 39,
+ "pass": 2,
+ "fail": 0,
+ "not_run": 37,
+ "out_of_scope": 0,
+ "cases": [
+  {
+   "id": "CORE-01",
+   "status": "PASS"
+  },
+  {
+   "id": "CORE-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-03",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-04",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-05",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-06",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-07",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-08",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-09",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-10",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-11",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-12",
+   "status": "PASS"
+  },
+  {
+   "id": "CORE-13",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-14",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-15",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-16",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-17",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-18",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-19",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "CORE-20",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "PAY-01",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "PAY-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "PAY-03",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "PAY-04",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "PAY-05",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "IND-01",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "IND-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "IND-03",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "IND-04",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "MED-01",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "MED-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "MED-03",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "MED-04",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "SC-01",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "SC-02",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "AUD-02A",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "AUD-02B",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "AUD-02C",
+   "status": "NOT_RUN"
+  },
+  {
+   "id": "AUD-02D",
+   "status": "NOT_RUN"
+  }
+ ]
+}
