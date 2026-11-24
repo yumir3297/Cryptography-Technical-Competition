@@ -656,7 +656,10 @@
   var FLY_EASE = 'cubic-bezier(.2, 0, 0, 1)';
   var PUSH_SCALE = 0.6;
   var frameRects = {};
-  var view = { id: null, cw: 0, ch: 0, k: 1 };
+  var view = { id: null, cw: 0, ch: 0, k: 1, fit: 1,
+               panX: 0, panY: 0 };
+  var ZOOM_MAX = 1.5;
+  var ZOOM_STEP = 1.2;
 
   function syncTop() {
     if (!el.bar) return;
@@ -674,6 +677,24 @@
     fly = null;
     running.onfinish = null;
     running.cancel();
+  }
+
+  function viewTransform(v) {
+    return 'translate(' + (v.panX || 0) + 'px, ' + (v.panY || 0) + 'px)'
+      + ' scale(' + v.k.toFixed(4) + ')';
+  }
+
+  function showZoom() {
+    if (!el.zoomVal) return;
+    el.zoomVal.textContent = view.id ? Math.round(view.k * 100) + '%' : '—';
+  }
+
+  function setZoom(k) {
+    if (!view.id) return;
+    view.k = Math.max(view.fit, Math.min(ZOOM_MAX, k));
+    var expand = expandOf(view.id);
+    if (expand) expand.style.transform = viewTransform(view);
+    showZoom();
   }
 
   function mapHost() {
@@ -803,6 +824,7 @@
     if (el.hudCode) el.hudCode.textContent = expand.getAttribute('data-code') || '';
     if (el.hudName) el.hudName.textContent = expand.getAttribute('data-label') || '';
     if (el.hudEn) el.hudEn.textContent = expand.getAttribute('data-en') || '';
+    showZoom();
     document.querySelectorAll('[data-panel]').forEach(function (part) {
       part.hidden = part.getAttribute('data-panel') !== id;
     });
@@ -841,16 +863,17 @@
     var canvas = expand.querySelector('.ob-canvas');
     var cw = canvas.offsetWidth || 1;
     var ch = canvas.offsetHeight || 1;
-    var k = Math.min(W * 0.8 / cw, (H - 40) / ch, 1);
+    var k = Math.min(W * 0.86 / cw, (H - 40) / ch, 1);
     expand.style.width = cw + 'px';
     expand.style.height = ch + 'px';
     expand.style.left = Math.round((W - cw) / 2) + 'px';
     expand.style.top = Math.round((H - ch) / 2) + 'px';
 
     var box = { x: (W - cw) / 2, y: (H - ch) / 2, w: cw, h: ch };
-    view = { id: id, cw: cw, ch: ch, k: k, x: box.x, y: box.y,
-             w: box.w, h: box.h };
-    var target = 'scale(' + k.toFixed(4) + ')';
+    view = { id: id, cw: cw, ch: ch, k: k, fit: k, panX: 0, panY: 0,
+             x: box.x, y: box.y, w: box.w, h: box.h };
+    var target = viewTransform(view);
+    showZoom();
     state.openBlock = id;
     showHud(id);
 
@@ -896,7 +919,7 @@
     var W = host ? host.clientWidth : 0;
     var H = host ? host.clientHeight : 0;
     var geometry = view;
-    view = { id: null, cw: 0, ch: 0, k: 1 };
+    view = { id: null, cw: 0, ch: 0, k: 1, fit: 1, panX: 0, panY: 0 };
     state.openBlock = null;
 
     var finish = function () {
@@ -925,8 +948,7 @@
         + (frame.w / geometry.w).toFixed(4) + ', '
         + (frame.h / geometry.h).toFixed(4) + ')';
       fly = expand.animate(
-        [{ transform: geometry.k === 1 ? 'none'
-            : 'scale(' + geometry.k.toFixed(4) + ')', opacity: 1 },
+        [{ transform: viewTransform(geometry), opacity: 1 },
          { transform: to, opacity: 0.2 }],
         { duration: FLY_OUT, easing: FLY_EASE, fill: 'forwards' });
       fly.onfinish = finish;
@@ -1067,6 +1089,9 @@
     el.hudEn = $('ob-hud-en');
     el.hudPanel = $('ob-hud-panel');
     el.hudRaw = $('ob-hud-raw');
+    el.zoomIn = $('ob-zoom-in');
+    el.zoomOut = $('ob-zoom-out');
+    el.zoomVal = $('ob-zoom-val');
     el.bar = document.querySelector('.ob-bar');
 
     if (el.token) el.token.value = state.token ? mask(state.token) : '';
@@ -1095,6 +1120,33 @@
       refresh();
     });
 
+    document.querySelectorAll('.ob-expand').forEach(function (layer) {
+      layer.addEventListener('pointerdown', function (event) {
+        if (!view.id || event.button !== 0) return;
+        if (view.k <= view.fit + 0.001) return;
+        var originX = event.clientX;
+        var originY = event.clientY;
+        var startX = view.panX;
+        var startY = view.panY;
+        var node = layer;
+        function move(moveEvent) {
+          view.panX = startX + (moveEvent.clientX - originX);
+          view.panY = startY + (moveEvent.clientY - originY);
+          node.style.transform = viewTransform(view);
+        }
+        function stop() {
+          node.removeEventListener('pointermove', move);
+          node.removeEventListener('pointerup', stop);
+          node.removeEventListener('pointercancel', stop);
+        }
+        node.setPointerCapture && node.setPointerCapture(event.pointerId);
+        node.addEventListener('pointermove', move);
+        node.addEventListener('pointerup', stop);
+        node.addEventListener('pointercancel', stop);
+        event.preventDefault();
+      });
+    });
+
     document.querySelectorAll('.ob-gnode--block').forEach(function (block) {
       block.addEventListener('click', function () {
         var id = block.getAttribute('data-block');
@@ -1105,6 +1157,9 @@
     document.querySelectorAll('[data-back]').forEach(function (button) {
       button.addEventListener('click', function () { collapseBlock(true); });
     });
+    if (el.zoomIn) el.zoomIn.addEventListener('click', function () { setZoom(view.k * ZOOM_STEP); });
+    if (el.zoomOut) el.zoomOut.addEventListener('click', function () { setZoom(view.k / ZOOM_STEP); });
+
     if (el.hudRaw) {
       el.hudRaw.addEventListener('click', function () {
         if (!el.hudPanel) return;

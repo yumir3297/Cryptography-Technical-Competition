@@ -500,6 +500,16 @@ body[data-open="1"] { overflow: hidden; }
 .ob-hud__btn:hover { color: var(--ak-fg); border-color: var(--ak-fg-secondary); }
 .ob-hud__btn:focus-visible { outline: 2px solid var(--ak-focus); outline-offset: 2px; }
 .ob-hud__btn--back { color: var(--ak-fg); }
+.ob-zoom { display: inline-flex; align-items: center; gap: 2px; }
+.ob-zoom__btn { margin: 0; padding: 0 6px; }
+.ob-zoom__val {
+  min-width: 34px;
+  font-family: var(--ak-font-mono);
+  font-size: 10px;
+  color: var(--ak-fg-secondary);
+  text-align: center;
+}
+.ob-expand { user-select: none; }
 .ob-hud__panel {
   position: absolute;
   top: calc(100% + 6px);
