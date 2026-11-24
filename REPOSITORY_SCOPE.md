@@ -30,3 +30,7 @@
 - 授权审查前记录共 22 个文件。[原目录](https://github.com/yumir3297/Cryptography-Technical-Competition/tree/c7e86dc1c01795c10f3c56a7c3fb2adda036e7af/competition/evidence/authorization-slice-20261011-pre-review) · [正式运行](competition/evidence/authorization-slice-20261011-final/)
 - 时间切片早期记录共 18 个文件。[原目录](https://github.com/yumir3297/Cryptography-Technical-Competition/tree/c7e86dc1c01795c10f3c56a7c3fb2adda036e7af/competition/evidence/time-slice-20261010) · [正式运行](competition/evidence/time-slice-20261010-final/)
 - 部署测试在证据目录中的副本与测试套件中的文件字节一致。[原副本](https://github.com/yumir3297/Cryptography-Technical-Competition/blob/c7e86dc1c01795c10f3c56a7c3fb2adda036e7af/integration-evidence/test_deployment_review.py) · [测试入口](competition/tests/test_deployment_review.py)
+
+## 2026-11-24 历史产物清理
+
+从当前树移除 21 份早期审查快照/未完成实验记录及 3 个依赖已移除 support.tool_final 的旧验证脚本（148 物理源码行）。原文件完整保留于[清理前提交](https://github.com/yumir3297/Cryptography-Technical-Competition/tree/fe9ea0922d247fc36aeb6523c665ea13ff83ba82)，不改写历史。保留当前协议、回归、最新 GoalFloor 证据、历史 W manifest 校验和仍由 run_unified_checks.sh 调用的诊断脚本。旧验证脚本仅供历史研究追溯，不作为当前复验入口。

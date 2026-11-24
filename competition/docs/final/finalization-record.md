@@ -44,7 +44,7 @@ python -m competition.verify_protocol_handoff --output competition/evidence/prot
 
 本轮交付内容限协议材料和最小展示验证。界面、安装包、产品会话与产品化由开发后续衔接；本轮没有提交、推送、合并、创建 PR 或向其他聊天发送指令。
 
-补充验证首次将明确 ROLE 撤销预期为 NO_ROLE，实际拒绝码为 REVOKED。按 systematic-debugging 核对 current() 的 active 守卫后，仅修正新脚本预期；[首次记录](../../evidence/protocol-handoff-20261011/first-run-assertion.json)及部分输出保留，最终六例使用新目录，不删除原记录。
+补充验证首次将明确 ROLE 撤销预期为 NO_ROLE，实际拒绝码为 REVOKED。按 systematic-debugging 核对 current() 的 active 守卫后，仅修正新脚本预期；[首次记录](https://github.com/yumir3297/Cryptography-Technical-Competition/blob/fe9ea0922d247fc36aeb6523c665ea13ff83ba82/competition/evidence/protocol-handoff-20261011/first-run-assertion.json)及部分输出保留，最终六例使用新目录，不删除原记录。
 
 随后用户要求复检结构、语气和比赛执行流程：正文精简，R2 字段差异移至开发对照，比赛前提与暂不扩展行为加开发注释。此次新增材料、实际接法和验证以[复检记录](protocol-review.md)为准；原 22＋3＋6 例、15 项组件结果保持其原记录身份。
 

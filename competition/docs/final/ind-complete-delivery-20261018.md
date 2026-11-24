@@ -82,13 +82,13 @@ env -u PYTHONHOME "$ZJJ_PYTHON" -m competition.deployment.acceptance --config /a
 
 实验代码：[短期更新/竞态](../../tests/test_submission_renewal.py)、[服务认证](../../tests/test_operation_service.py)、[HTTP/MCP 真实传输](../../tests/test_operation_transport.py)、[启动配置](../../tests/test_local_deployment.py)、[审查反例](../../tests/test_deployment_review.py)、[实际部署验收](../../deployment/acceptance.py)。批准夹具只在受控模拟操作端使用，不暴露给 Agent；测试没有删字段、伪造 H 或跳过守卫。
 
-[公开核验脚本](../../../integration-evidence/verify_public_deployment.py)与[本机原始证据核验脚本](../../../integration-evidence/verify_deployment.py)一并交付。上表15份签名和三项篡改反例是本地完整原始材料的实际结果；公开的是脱敏核验记录，不能对结果摘要重新运行签名核验，也不将删除字段后的包伪称为有效签名包。
+[公开核验脚本](https://github.com/yumir3297/Cryptography-Technical-Competition/blob/fe9ea0922d247fc36aeb6523c665ea13ff83ba82/integration-evidence/verify_public_deployment.py)与[本机原始证据核验脚本](https://github.com/yumir3297/Cryptography-Technical-Competition/blob/fe9ea0922d247fc36aeb6523c665ea13ff83ba82/integration-evidence/verify_deployment.py)为历史构建的核验工具，已移出当前主线；须在与其依赖相符的原历史构建中运行，不适用于当前源码。上表15份签名和三项篡改反例是本地完整原始材料的实际结果；公开的是脱敏核验记录，不能对结果摘要重新运行签名核验，也不将删除字段后的包伪称为有效签名包。
 
 如需独立复核，按第3节在新目录连续引导并验收，随后在自己的安装上执行：
 
 ```sh
-"$ZJJ_PYTHON" integration-evidence/verify_deployment.py /absolute/new-live-evidence/public-evidence.json
-"$ZJJ_PYTHON" integration-evidence/verify_public_deployment.py /absolute/new-live-evidence/public-evidence.json
+# 旧验证命令已归档；请在对应历史构建中按原文档运行。
+# 旧验证命令已归档；请在对应历史构建中按原文档运行。
 ```
 
 第一步从自己的模拟账提取公开证书/结算并核验，第二步仅使用刚生成的导出文件核验。它们生成自己的独立模拟身份，不复用本机身份、授权或账本。这些脚本检查独立于208项套件，不相加。发布前核对108个运行/测试源码摘要一致，脱敏未改协议、守卫或实验逻辑。

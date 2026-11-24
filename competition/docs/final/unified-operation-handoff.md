@@ -36,4 +36,4 @@ P5 重新核查远程发现 dev 已推进到 32370d4，与比赛分支不同。�
 
 时钟未决项仍存在：历史样本缺失使部分 CLOCK_UNKNOWN/CASE_RECEIPT_PENDING 无法精确归因；已有记录支持一次休眠引起的 64.62 秒墙钟/单调计时偏离，另有约 45.42 ms 校时线索。防空闲休眠仅处理已知宿主条件，不放宽阈值、不修改 healthy、不重签冻结 Core。见 [时钟说明](unified-operation-clock.md)。本次通过不等于所有历史间歇问题已根治。
 
-复现：安装 cryptography==50.0.2、jsonschema==4.26.0，从仓库根目录运行 ZJJ_PYTHON=<解释器> sh competition/run_unified_checks.sh <全新证据目录>。演示及其离线核验分别为 integration-evidence/demo.py 和 verify_demo.py，均为测试工具。
+复现：安装 cryptography==50.0.2、jsonschema==4.26.0，从仓库根目录运行 ZJJ_PYTHON=<解释器> sh competition/run_unified_checks.sh <全新证据目录>。演示脚本仍保留为 integration-evidence/demo.py；[历史离线核验脚本](https://github.com/yumir3297/Cryptography-Technical-Competition/blob/fe9ea0922d247fc36aeb6523c665ea13ff83ba82/integration-evidence/verify_demo.py) 已归档，其旧依赖不适用于当前源码。

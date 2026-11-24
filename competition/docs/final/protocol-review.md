@@ -43,7 +43,7 @@
 
 主正文由 6100 字符收敛至约 4900 字符，减少约 20%；字节重复与消息数量保持原合同，本次没有据此声称 wire 已精简。验证摘要与实际文件来源见[复检汇总](../../evidence/protocol-review-summary.json)。
 
-复检前七份正文已保存[原文本和摘要](../../evidence/protocol-review-20261011-before-docs/manifest.json)。新的文档/副本/证据引用核对记录使用独立路径，保留上一轮报告；详见[本轮机器核对](../../evidence/protocol-review-document-check.json)。本轮不修改原运行代码、Schema、证据绑定合同或既有 W manifest，不提交、推送或合并。
+复检前七份正文已保存[原文本和摘要](https://github.com/yumir3297/Cryptography-Technical-Competition/blob/fe9ea0922d247fc36aeb6523c665ea13ff83ba82/competition/evidence/protocol-review-20261011-before-docs/manifest.json)。新的文档/副本/证据引用核对记录使用独立路径，保留上一轮报告；详见[本轮机器核对](../../evidence/protocol-review-document-check.json)。本轮不修改原运行代码、Schema、证据绑定合同或既有 W manifest，不提交、推送或合并。
 
 ## 后续仓库整理
 
