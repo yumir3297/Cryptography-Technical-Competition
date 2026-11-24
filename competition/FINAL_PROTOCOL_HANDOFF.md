@@ -18,6 +18,7 @@ ZJJ-CORE 面向 agent 参与的高风险、高后果流程。agent 提出动作�
 | 当前函数、认证凭据、返回值与幂等接法 | [内部接口对照](docs/final/interface-reference.md) |
 | agent MCP 两个工具与状态回推 | [agent MCP 交接](docs/final/agent-mcp-handoff.md) |
 | 实验结论采纳、优化后的逻辑与书写复检 | [2026-10-12 优化记录](docs/final/optimization-review-20261012.md) |
+| 10 月比赛优化与后续研究方案基线对齐 | [时序闭包优化方案对齐说明](docs/final/time-closure-formal-review-20261103.md) |
 | 开发对应、比赛暂不扩展的条件与本轮复检 | [R2 对照](docs/final/r2-application-mapping.md) · [开发注释](docs/final/developer-scope-notes.md) · [复检记录](docs/final/protocol-review.md) |
 
 本轮核对的源码基线：分支 `competition/zjj-core-final-20261010`，HEAD `1aa5a9e36e1558b95972941d5ce7dbf6553da431`。较早运行包按其原 `4202127` 构建身份核验；仓库整理后新运行记录另列。2026-10-11 整理将所需支持模块迁入 competition/support，研究资料归档本地；当前目录与验证见[整理记录](../REPOSITORY_SCOPE.md)。此前 1.2 实现认证签署请求、独立 wire proto、严格候选入口和 W 当前依据构造；本轮 1.3 只将共同协议与具体开发规则分层，wire ZJJ-CORE-COMP-1、执行代码、原 Schema 及证据保持。
