@@ -11,6 +11,21 @@
 
 html { background: var(--ak-bg-canvas); }
 
+/* 背景 ASCII 场：固定在视口底层，轻微高斯模糊，不接收指针事件。
+   inset 取负值，免得模糊把四边的字符吃掉一圈。 */
+.ob-bg {
+  position: fixed;
+  left: -12px;
+  top: -12px;
+  z-index: 0;
+  /* canvas 是替换元素，inset 拉伸不了它，宽高必须写死。 */
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  pointer-events: none;
+  opacity: .85;
+  filter: blur(1.1px);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -112,6 +127,8 @@ body[data-open="1"] { overflow: hidden; }
 
 /* ── 操作与图例 ───────────────────────────────────────────────────────── */
 .ob-sub {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -179,6 +196,8 @@ body[data-open="1"] { overflow: hidden; }
 
 /* ── 流程图 ───────────────────────────────────────────────────────────── */
 .ob-main {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   min-height: calc(100dvh - 108px);
