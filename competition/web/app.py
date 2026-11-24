@@ -86,6 +86,29 @@ def _int_param(request, name, default):
     return value
 
 
+def _diag_endpoint(fn, sessions):
+    """One read-only diagnostic route behind the ``auditor`` session side."""
+    def endpoint(request: Request):
+        try:
+            sessions.authorize(_token(request), 'auditor')
+            return JSONResponse(content=fn(request))
+        except ProtocolError as exc:
+            return _deny(exc.code)
+    return endpoint
+
+
+def _register_diag(app, service, sessions):
+    """Attach the flat read-only diagnostic routes; one URL per node."""
+    from competition.server import (diag_accept, diag_entry, diag_exec,
+                                     diag_protocol, diag_runtime)
+    for module in (diag_entry, diag_accept, diag_exec, diag_runtime, diag_protocol):
+        for path, fn in module.routes(service):
+            endpoint = _diag_endpoint(fn, sessions)
+            endpoint.__name__ = 'diag_' + path.strip('/').replace('/', '_') \
+                .replace('{', '').replace('}', '')
+            app.get(path)(endpoint)
+
+
 def make_app(service, sessions):
     """Build the trusted entry over one initialized service and its callers."""
     app = FastAPI(title='zjj-trusted', description='ZJJ-CORE trusted entry')
@@ -267,6 +290,7 @@ def make_app(service, sessions):
         except ProtocolError as exc:
             return _deny(exc.code)
 
+    _register_diag(app, service, sessions)
     return app
 
 

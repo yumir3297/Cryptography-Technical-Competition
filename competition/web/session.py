@@ -47,7 +47,7 @@ SESSION_TTL = WINDOW
 # The sides of the flow a caller may be allowed to drive; the same names
 # ``competition.server.service.STEPS`` gives each step's signing role.  ``observer``
 # is the read-only side: it drives no step, it may only read the observation face.
-SIDES = ('H', 'worker', 'observer')
+SIDES = ('H', 'worker', 'observer', 'auditor')
 CALLER_FIELDS = frozenset({'name', 'public_key', 'sides'})
 CLAIM_FIELDS = frozenset({'caller', 'kid', 'nonce', 'iat', 'exp', 'domain'})
 
