@@ -80,13 +80,6 @@ body[data-open="1"] { overflow: hidden; }
   color: var(--ak-fg);
   white-space: nowrap;
 }
-.ob-brand__sub {
-  font-family: var(--ak-font-mono);
-  font-size: 10px;
-  letter-spacing: .12em;
-  color: var(--ak-fg-muted);
-  white-space: nowrap;
-}
 
 .ob-status {
   display: flex;

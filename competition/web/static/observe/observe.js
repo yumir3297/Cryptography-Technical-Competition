@@ -50,7 +50,9 @@
 
   function setSession(text, kind) {
     if (!el.session) return;
-    el.session.textContent = text;
+    // 顶栏只留状态灯：文字不进页面，留给 tooltip 与读屏。
+    el.session.title = text;
+    el.session.setAttribute('aria-label', text);
     el.session.setAttribute('data-state', kind || 'empty');
   }
 
