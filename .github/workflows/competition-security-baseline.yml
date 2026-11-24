@@ -10,10 +10,23 @@ on:
       - '.github/workflows/competition-security-baseline.yml'
   pull_request:
   workflow_dispatch:
+    inputs:
+      issue:
+        description: issue number（只在手动触发 agent-fix 时填，填了就不跑比赛检查）
+        required: false
+        type: string
+  # agent-fix：新 issue 进来后在自托管 runner 上跑修复/判定/审查三阶段。
+  # 本仓库的 competition/verify_repository.py 要求 .github/workflows/ 下只有
+  # 一个文件，所以这两个 job 必须并在这个文件里，不能另开 workflow。
+  issues:
+    types: [opened]
+  schedule:
+    - cron: "0 4 * * *"
 permissions:
   contents: read
 jobs:
   competition-checks:
+    if: github.event_name != 'issues' && github.event_name != 'schedule' && !github.event.inputs.issue
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -42,6 +55,7 @@ jobs:
         run: python competition/docs/final/verify-existing-evidence.py
   fusion-targeted:
     name: Fusion three-profile and security-boundary checks
+    if: github.event_name != 'issues' && github.event_name != 'schedule' && !github.event.inputs.issue
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -57,3 +71,45 @@ jobs:
         run: python -m unittest competition.tests.test_bridge_facade competition.tests.test_cli_session competition.tests.test_server_service -v
       - name: Check IND lifecycle and authenticated public service
         run: python -m unittest competition.tests.test_submission_renewal competition.tests.test_operation_service -v
+
+  # 工具代码在 runner 主机的固定路径，不在被测仓库里，因此不执行 checkout。
+  agent-fix:
+    if: github.event_name == 'issues' || (github.event_name == 'workflow_dispatch' && github.event.inputs.issue)
+    runs-on: self-hosted
+    # 45 修复 + 50 判定 + 10 审查 + 开销；实测判定约 30 分钟
+    timeout-minutes: 150
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_ID: ${{ github.event.inputs.issue || github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: /home/umr/Projects/software-test-sandbox/scripts/runner.sh
+
+  sweep:
+    if: github.event_name == 'schedule'
+    runs-on: self-hosted
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: dispatch unprocessed issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          cd /home/umr/Projects/software-test-sandbox
+          gh issue list --state open --limit 20 --json number \
+            --jq '.[].number' | while read -r n; do
+              if [ -e "state/processed/$n" ] || [ -e "state/rejected/$n" ]; then
+                continue
+              fi
+              gh workflow run competition-security-baseline.yml -f "issue=$n" || true
+            done
