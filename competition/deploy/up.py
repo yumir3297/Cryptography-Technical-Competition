@@ -183,6 +183,48 @@ def harness_running(sudo):
                        capture=True, check=False).stdout.split())
 
 
+def last_token(text):
+    """The last auditor token a service printed.
+
+    The observation face prints one each time it opens an auditor session, so a
+    restarted container leaves an older line in its log; the newest one is the
+    live credential.
+    """
+    token = ''
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith('TOKEN '):
+            token = line[len('TOKEN '):].strip()
+    return token
+
+
+def wait_for_token(read, timeout):
+    """Poll ``read`` until it returns a token, or the deadline passes."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        token = read()
+        if token:
+            return token
+        time.sleep(0.5)
+    return ''
+
+
+def docker_observe_token(sudo):
+    """The auditor token the observation container printed, while it is up."""
+    return last_token(compose(['logs', '--no-log-prefix', 'observe'], sudo,
+                              capture=True, check=False).stdout)
+
+
+def file_token(path, timeout):
+    """The token a local observation process left beside its auditor key."""
+    def read():
+        try:
+            return path.read_text(encoding='utf-8').strip()
+        except OSError:
+            return ''
+    return wait_for_token(read, timeout)
+
+
 def harness_networks(sudo):
     """The networks the harness container is attached to."""
     text = docker(['inspect', '-f',
@@ -368,6 +410,13 @@ def up_docker(args):
         return 1
     print('== 服务都起来了', flush=True)
     show('trusted', args.sudo)
+    # The observation face mints its auditor token once the entry answers, and
+    # prints it.  Read it back so the address printed below comes with the
+    # credential the person needs, instead of sending them to another command.
+    observe_token = ''
+    if not args.down:
+        observe_token = wait_for_token(lambda: docker_observe_token(args.sudo),
+                                       min(args.timeout, 30.0))
     if args.no_zjj:
         print('客户端控制台在 http://127.0.0.1:8080/console/，'
               '受信端入口在 http://127.0.0.1:8080/healthz。', flush=True)
@@ -375,8 +424,13 @@ def up_docker(args):
         print('客户端控制台在 http://127.0.0.1:8080/console/；'
               'agent 网关在 http://127.0.0.1:8090/healthz（只对宿主回环）；'
               'DeepSeek Harness 在 http://127.0.0.1:%d/。' % HARNESS_PORT, flush=True)
-    print('观察面在 http://127.0.0.1:%d/observe#map（auditor token 见 '
-          'docker compose logs observe）。' % OBSERVE_PORT, flush=True)
+    print('观察面在 http://127.0.0.1:%d/observe#map' % OBSERVE_PORT, flush=True)
+    if observe_token:
+        print('AUDITOR TOKEN %s（页面打开时会自动填入；observe 重启会换新）'
+              % observe_token, flush=True)
+    elif not args.down:
+        print('auditor token 还没有出现；等 observe 就绪后运行 '
+              'docker compose logs observe | grep TOKEN', flush=True)
     print('受信端初始化是脚本模拟（不代表真人同意），不会停在页面上。'
           '加 --await-approval 后，agent 每提交一条候选都要在控制台上放行'
           'G/U/V/X 的链内签名，否则候选进不来。', flush=True)
@@ -460,7 +514,7 @@ def up_local(args):
         viewer = spawn(['competition.deploy.viewer'], env,
                        ZJJ_NAME=OBSERVER, ZJJ_CALLERS=str(callers), ZJJ_ENTRY=entry,
                        ZJJ_VIEWER_PORT=str(args.viewer_port))
-        print('观察面在 http://127.0.0.1:%d/observe#map（auditor token 在它的日志里）。'
+        print('观察面在 http://127.0.0.1:%d/observe#map（token 稍后打印）。'
               % args.observe_port, flush=True)
         if DISPLAY.is_dir():
             print('展示页仍可在 http://127.0.0.1:%d/ 打开（只读，不自动打开）。'
@@ -499,6 +553,14 @@ def up_local(args):
         print('流程还没走：用页面上的步骤按钮走 H 与 worker 的九步。', flush=True)
         print('页面 http://127.0.0.1:%d/console/；收摊按 Ctrl-C。运行目录：%s'
               % (page_port, root), flush=True)
+        observe_token = file_token(root / 'observe-demo' / 'token',
+                                   min(args.timeout, 30.0))
+        print('观察面 http://127.0.0.1:%d/observe#map' % args.observe_port, flush=True)
+        if observe_token:
+            print('AUDITOR TOKEN %s（页面打开时会自动填入；observe 重启会换新）'
+                  % observe_token, flush=True)
+        else:
+            print('auditor token 还没有出现；看上面 observe 进程的 TOKEN 行。', flush=True)
         # The same two doors as the container deployment, on this mode's ports.
         open_pages(['http://127.0.0.1:%d/console/' % page_port,
                     'http://127.0.0.1:%d/observe#map' % args.observe_port], args.no_open)

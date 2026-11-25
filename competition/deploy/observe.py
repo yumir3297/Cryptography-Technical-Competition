@@ -56,6 +56,21 @@ def public_of(key):
     return key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
 
 
+def write_token(work, token):
+    """Leave the current auditor token where the start script can read it.
+
+    The page fills itself in, but the person starting the stack still needs the
+    credential for another machine, a restarted browser, or ``curl``.  The start
+    script cannot parse another process's log when that process is a container,
+    so the token is also written beside the auditor key.
+    """
+    work.mkdir(parents=True, exist_ok=True)
+    temporary = work / 'token.tmp'
+    temporary.write_text(token, encoding='utf-8')
+    os.chmod(temporary, 0o600)
+    os.replace(temporary, work / 'token')
+
+
 def auditor_caller(folder):
     """One auditor credential and its allowlist, plus the thing that answers it."""
     folder.mkdir(parents=True, exist_ok=True)
@@ -103,6 +118,7 @@ def demo(host, port, work):
     sessions = Sessions(read_callers(callers_path))
     claim = sessions.challenge(caller['kid'])
     token = sessions.open(claim, caller['sign'](claim))['token']
+    write_token(work, token)
 
     print('URL   http://%s:%d/observe#map' % (host, port), flush=True)
     print('TOKEN %s' % token, flush=True)
@@ -147,6 +163,7 @@ class RemoteAuditor:
         self.entry = entry.rstrip('/')
         self.callers = Path(callers)
         self.key = None
+        self.work = None
         self.kid = ''
         self.token = ''
         self.minted = 0.0
@@ -161,6 +178,7 @@ class RemoteAuditor:
 
     def load(self, work):
         work.mkdir(parents=True, exist_ok=True)
+        self.work = work
         path = work / 'auditor.key'
         if path.exists():
             self.key = Ed25519PrivateKey.from_private_bytes(path.read_bytes())
@@ -192,6 +210,8 @@ class RemoteAuditor:
         with self.lock:
             self.token = token
             self.minted = time.monotonic()
+        if self.work is not None:
+            write_token(self.work, token)
         return token
 
     def ensure(self):

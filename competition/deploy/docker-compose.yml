@@ -8,7 +8,8 @@
 #   caller-observer  只读观看者：订阅观察面，打印每一步，不驱动任何一步
 #   console          客户端控制台：以两个调用者身份接入入口，把流程呈现为页面
 #   observe          观察面：挂在受信端上读真实进度，页面在宿主 8770，
-#                    启动时打印 auditor token（宿主 8770 → observe:8770）
+#                    启动时打印 auditor token；一键脚本会把它接在观察面地址后面
+#                    （宿主 8770 → observe:8770）
 #   viewer           展示页网关：持 observer 凭据只读转接四个读路由，托管 Vue 页面
 #                    （宿主 8081 → viewer:8008）。启动脚本不再默认打开它。
 #   agent-gateway    agent 侧 MCP 入口：只有 propose/status，不 approve/execute
@@ -197,9 +198,9 @@ services:
       - zjj-callers:/callers
     restart: "no"
 
-  # 观察面是启动后默认给人看的页面：自包含一套演示 run，不依赖 trusted /
-  # endpoints，也不对外驱动任何一步。页面本身是静态的，读数仍要 auditor token，
-  # token 在容器日志里（docker compose logs observe）。
+  # 观察面是启动后默认给人看的页面：读 trusted 正在驱动的同一个 W，不对外
+  # 驱动任何一步。页面本身是静态的，读数仍要 auditor token；token 在容器日志里，
+  # 一键脚本读出来贴在观察面地址后面（也可 docker compose logs observe）。
   observe:
     build:
       context: ../..

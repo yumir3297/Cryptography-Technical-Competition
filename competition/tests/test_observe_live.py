@@ -7,13 +7,14 @@ that are easy to get wrong -- the caller line it writes into a shared list, and
 the forwarding route -- without starting an entry.
 """
 import json
+import stat
 import tempfile
 import unittest
 from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from competition.deploy.observe import RemoteAuditor, live_app
+from competition.deploy.observe import RemoteAuditor, live_app, write_token
 from competition.web.session import read_callers
 
 
@@ -46,6 +47,22 @@ class AuditorLineTest(unittest.TestCase):
             for name in ('a', 'b'):
                 RemoteAuditor('http://127.0.0.1:1', callers).load(root / name)
             self.assertEqual(len(read_callers(callers)), 2)
+
+
+class TokenFileTest(unittest.TestCase):
+    def test_the_start_script_gets_the_live_token_privately(self):
+        with tempfile.TemporaryDirectory() as folder:
+            work = Path(folder) / 'work'
+            write_token(work, 'first-token')
+            path = work / 'token'
+            self.assertEqual(path.read_text(encoding='utf-8'), 'first-token')
+            self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o600)
+
+            # A re-minted session replaces the file rather than appending, and
+            # the published credential is the newest one.
+            write_token(work, 'second-token')
+            self.assertEqual(path.read_text(encoding='utf-8'), 'second-token')
+            self.assertFalse((work / 'token.tmp').exists())
 
 
 class _Stub:
