@@ -1,0 +1,91 @@
+{
+  "aadp": {
+    "repository": "shamiksaharcciit-oss/onedoor",
+    "version": "0.12.1",
+    "sha": "9d0b69879273af21b8cbf5d1098ff50f2cb1d6ea",
+    "license": "Apache-2.0",
+    "full_suite": {
+      "total": 2513,
+      "passed": 2501,
+      "failed": 8,
+      "skipped": 4,
+      "failures": [
+        "tests.eval.test_chart::test_the_chart_s_numbers_equal_results_md",
+        "tests.eval.test_not_shipped::test_eval_examples_and_docs_img_are_absent_from_the_built_artifacts",
+        "tests.test_formatter_fence::test_every_virtualenv_in_the_tree_is_excluded_from_the_formatter",
+        "tests.test_gate_discipline::test_each_pattern_matches_its_own_gates_real_output",
+        "tests.test_gate_discipline::test_no_pattern_matches_another_gates_real_output",
+        "tests.test_packaging::test_every_file_manifest_in_includes_is_in_the_built_sdist",
+        "tests.test_packaging::test_build_release_is_byte_identical_across_two_runs",
+        "tests.test_packaging::test_build_release_accepts_the_pinned_versions"
+      ]
+    },
+    "selected_capability_suite": {
+      "total": 266,
+      "passed": 266,
+      "failed": 0,
+      "skipped": 0,
+      "failures": []
+    },
+    "native_eval": {
+      "harmful_without": 16,
+      "harmful_with": 3,
+      "legitimate_wrongly_stopped": 0,
+      "held": 4,
+      "duplicate_effects_without": 2,
+      "duplicate_effects_with": 2,
+      "scenarios": 32,
+      "categories": 8
+    },
+    "environment_failures": [
+      "8 failures: locale GBK chart read (1), release build pinned versions (3), stray virtualenv lint scan (1), ruff not on PATH (2), build module absent (1); none in the guardrail decision suite.",
+      "17 targeted chart/gate tests pass when PYTHONUTF8=1 and Scripts is on PATH."
+    ]
+  },
+  "ap2": {
+    "repository": "google-agentic-commerce/AP2",
+    "sha": "e1ea56db72a6385bce3e5c1112b3a56ce60acb43",
+    "license": "Apache-2.0",
+    "full_suite": {
+      "total": 188,
+      "passed": 186,
+      "failed": 2,
+      "skipped": 0,
+      "failures": [
+        "code.sdk.python.ap2.tests.kb_sd_jwt_intermediate_tests::test_verify_rejects_aud_mismatch",
+        "code.sdk.python.ap2.tests.kb_sd_jwt_intermediate_tests::test_verify_rejects_nonce_mismatch"
+      ]
+    },
+    "relevant_failure": "Two intermediate KB-SD-JWT tests expect aud/nonce mismatch rejection; the frozen SDK did not raise in this path. Final-hop aud/nonce tests pass."
+  },
+  "agentdojo": {
+    "repository": "ethz-spylab/agentdojo",
+    "version": "0.1.35",
+    "sha": "089ed468cf3ed0322acc66b0211f26d9d90dbf60",
+    "license": "MIT",
+    "full_suite": {
+      "total": 32,
+      "passed": 31,
+      "failed": 1,
+      "skipped": 0,
+      "failures": [
+        "tests.test_agent_pipeline.test_anthropic_llm::test_merge_tool_result_messages"
+      ]
+    },
+    "banking_user_tasks": 16,
+    "banking_injection_tasks": 9,
+    "failure": "One Anthropic message-merge test fails because typing.Union cannot be instantiated in the installed SDK; unrelated to Banking tool execution."
+  },
+  "camel": {
+    "repository": "google-research/camel-prompt-injection",
+    "sha": "f083b6b396399d3b3c7f2ddaf613a5945eaf32d8",
+    "license": "Apache-2.0",
+    "status": "BLOCKED_NO_MODEL_API"
+  },
+  "tether": {
+    "paper": "arXiv:2611.25599v1",
+    "published": "2026-11-19",
+    "code_release": "NOT_PUBLIC_AT_CHECK_TIME",
+    "status": "BLOCKED_NO_PUBLIC_IMPLEMENTATION"
+  }
+}

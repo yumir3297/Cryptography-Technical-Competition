@@ -1,0 +1,207 @@
+{
+  "definition": {
+    "coverage_num": "ZJJ properties satisfied",
+    "coverage_den": "competitor-verified and commonly applicable properties",
+    "coverage": 0.8333333333333334,
+    "note": "Property-level, not a claim of implementation equivalence or universal proof."
+  },
+  "properties": [
+    {
+      "id": "P01",
+      "name": "动作授权有效性",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AADP default-deny/bounds",
+        "AP2 constraint chain",
+        "ZJJ CommonGuard"
+      ]
+    },
+    {
+      "id": "P02",
+      "name": "身份及授权来源认证",
+      "aadp": "PASS",
+      "ap2": "PARTIAL",
+      "zjj": "PASS",
+      "sources": [
+        "AADP approver identity",
+        "AP2 issuer/holder signatures",
+        "ZJJ Ed25519 registry"
+      ]
+    },
+    {
+      "id": "P03",
+      "name": "动作与授权内容一致性",
+      "aadp": "N/A",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AP2 mandate chain (aud/nonce caveat)",
+        "ZJJ ActionHash/Ctx binding"
+      ]
+    },
+    {
+      "id": "P04",
+      "name": "并发预算安全",
+      "aadp": "PASS",
+      "ap2": "N/A",
+      "zjj": "PASS",
+      "sources": [
+        "AADP SQLite BEGIN IMMEDIATE concurrency",
+        "ZJJ W last-resource race"
+      ]
+    },
+    {
+      "id": "P05",
+      "name": "原子资源预留",
+      "aadp": "PASS",
+      "ap2": "N/A",
+      "zjj": "PASS",
+      "sources": [
+        "AADP reservation ledger",
+        "ZJJ resource transaction + GoalFloor rollback"
+      ]
+    },
+    {
+      "id": "P06",
+      "name": "重放与重复执行控制",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AADP request_id replay",
+        "ZJJ intent tombstone/nonce/attempt"
+      ]
+    },
+    {
+      "id": "P07",
+      "name": "崩溃恢复",
+      "aadp": "PARTIAL",
+      "ap2": "N/A",
+      "zjj": "PASS",
+      "sources": [
+        "AADP has rebuild/audit recovery, no process-kill boundary test in the frozen revision",
+        "ZJJ 3 real child-process crash boundaries"
+      ]
+    },
+    {
+      "id": "P08",
+      "name": "审批及撤销语义",
+      "aadp": "PASS",
+      "ap2": "N/A",
+      "zjj": "PASS",
+      "sources": [
+        "AADP approvals",
+        "ZJJ role revocation/deny coverage"
+      ]
+    },
+    {
+      "id": "P09",
+      "name": "执行结果关联",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AADP report_result",
+        "AP2 receipt",
+        "ZJJ attempt/final/settlement binding"
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "历史证据独立验证",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AADP hash-chained audit",
+        "AP2 receipt verification",
+        "ZJJ offline evidence verifier"
+      ]
+    },
+    {
+      "id": "P11",
+      "name": "高后果恶意动作阻断",
+      "aadp": "PASS",
+      "ap2": "PARTIAL",
+      "zjj": "PARTIAL",
+      "sources": [
+        "AADP eval: harmful carried out 16 -> 3",
+        "AP2 scope/amount constraints",
+        "ZJJ policy-bound action; LLM benchmark pending"
+      ],
+      "note": "AADP eval is scripted, not model-based; ZJJ row is deterministic authorization, not an LLM agent score."
+    },
+    {
+      "id": "P12",
+      "name": "跨步骤安全状态保持",
+      "aadp": "PASS",
+      "ap2": "PARTIAL",
+      "zjj": "PASS",
+      "sources": [
+        "AADP sequence rules",
+        "Tether stateful policy (paper only)",
+        "ZJJ GoalFloor/W ledger"
+      ]
+    },
+    {
+      "id": "P13",
+      "name": "跨信任边界动作绑定凭证",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PARTIAL",
+      "sources": [
+        "AADP bound-permit profile 23/24 (V17 gap)",
+        "AP2 delegated mandate chain",
+        "ZJJ internal delivery/attempt receipt; no public cross-organization bound-permit profile"
+      ],
+      "note": "ZJJ binds a tool delivery packet to action, attempt and commit, but this is an internal W-to-tool credential, not an AADP-style cross-domain permit."
+    }
+  ],
+  "applicable": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P08",
+    "P09",
+    "P10",
+    "P11",
+    "P12",
+    "P13"
+  ],
+  "satisfied": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P08",
+    "P09",
+    "P10",
+    "P12"
+  ],
+  "not_satisfied": [
+    "P11",
+    "P13"
+  ],
+  "coverage": 0.8333333333333334,
+  "junit": {
+    "aadp_selected": {
+      "passed": 266,
+      "total": 266
+    },
+    "ap2_all": {
+      "passed": 186,
+      "total": 188
+    },
+    "zjj_selected": {
+      "passed": 75,
+      "total": 75
+    }
+  }
+}

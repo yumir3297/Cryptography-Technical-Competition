@@ -1,0 +1,565 @@
+{
+  "generated_utc": "2026-11-25",
+  "baseline_sha": "c5caa73f711da93a24efacbac0456ed82a79dd4e",
+  "baseline_branch": "research/external-benchmark-20261125",
+  "native": {
+    "aadp": {
+      "repository": "shamiksaharcciit-oss/onedoor",
+      "version": "0.12.1",
+      "sha": "9d0b69879273af21b8cbf5d1098ff50f2cb1d6ea",
+      "license": "Apache-2.0",
+      "full_suite": {
+        "total": 2513,
+        "passed": 2501,
+        "failed": 8,
+        "skipped": 4,
+        "failures": [
+          "tests.eval.test_chart::test_the_chart_s_numbers_equal_results_md",
+          "tests.eval.test_not_shipped::test_eval_examples_and_docs_img_are_absent_from_the_built_artifacts",
+          "tests.test_formatter_fence::test_every_virtualenv_in_the_tree_is_excluded_from_the_formatter",
+          "tests.test_gate_discipline::test_each_pattern_matches_its_own_gates_real_output",
+          "tests.test_gate_discipline::test_no_pattern_matches_another_gates_real_output",
+          "tests.test_packaging::test_every_file_manifest_in_includes_is_in_the_built_sdist",
+          "tests.test_packaging::test_build_release_is_byte_identical_across_two_runs",
+          "tests.test_packaging::test_build_release_accepts_the_pinned_versions"
+        ]
+      },
+      "selected_capability_suite": {
+        "total": 266,
+        "passed": 266,
+        "failed": 0,
+        "skipped": 0,
+        "failures": []
+      },
+      "native_eval": {
+        "harmful_without": 16,
+        "harmful_with": 3,
+        "legitimate_wrongly_stopped": 0,
+        "held": 4,
+        "duplicate_effects_without": 2,
+        "duplicate_effects_with": 2,
+        "scenarios": 32,
+        "categories": 8
+      },
+      "environment_failures": [
+        "8 failures: locale GBK chart read (1), release build pinned versions (3), stray virtualenv lint scan (1), ruff not on PATH (2), build module absent (1); none in the guardrail decision suite.",
+        "17 targeted chart/gate tests pass when PYTHONUTF8=1 and Scripts is on PATH."
+      ]
+    },
+    "ap2": {
+      "repository": "google-agentic-commerce/AP2",
+      "sha": "e1ea56db72a6385bce3e5c1112b3a56ce60acb43",
+      "license": "Apache-2.0",
+      "full_suite": {
+        "total": 188,
+        "passed": 186,
+        "failed": 2,
+        "skipped": 0,
+        "failures": [
+          "code.sdk.python.ap2.tests.kb_sd_jwt_intermediate_tests::test_verify_rejects_aud_mismatch",
+          "code.sdk.python.ap2.tests.kb_sd_jwt_intermediate_tests::test_verify_rejects_nonce_mismatch"
+        ]
+      },
+      "relevant_failure": "Two intermediate KB-SD-JWT tests expect aud/nonce mismatch rejection; the frozen SDK did not raise in this path. Final-hop aud/nonce tests pass."
+    },
+    "agentdojo": {
+      "repository": "ethz-spylab/agentdojo",
+      "version": "0.1.35",
+      "sha": "089ed468cf3ed0322acc66b0211f26d9d90dbf60",
+      "license": "MIT",
+      "full_suite": {
+        "total": 32,
+        "passed": 31,
+        "failed": 1,
+        "skipped": 0,
+        "failures": [
+          "tests.test_agent_pipeline.test_anthropic_llm::test_merge_tool_result_messages"
+        ]
+      },
+      "banking_user_tasks": 16,
+      "banking_injection_tasks": 9,
+      "failure": "One Anthropic message-merge test fails because typing.Union cannot be instantiated in the installed SDK; unrelated to Banking tool execution."
+    },
+    "camel": {
+      "repository": "google-research/camel-prompt-injection",
+      "sha": "f083b6b396399d3b3c7f2ddaf613a5945eaf32d8",
+      "license": "Apache-2.0",
+      "status": "BLOCKED_NO_MODEL_API"
+    },
+    "tether": {
+      "paper": "arXiv:2611.25599v1",
+      "published": "2026-11-19",
+      "code_release": "NOT_PUBLIC_AT_CHECK_TIME",
+      "status": "BLOCKED_NO_PUBLIC_IMPLEMENTATION"
+    }
+  },
+  "capability_coverage": {
+    "definition": {
+      "coverage_num": "ZJJ properties satisfied",
+      "coverage_den": "competitor-verified and commonly applicable properties",
+      "coverage": 0.8333333333333334,
+      "note": "Property-level, not a claim of implementation equivalence or universal proof."
+    },
+    "properties": [
+      {
+        "id": "P01",
+        "name": "动作授权有效性",
+        "aadp": "PASS",
+        "ap2": "PASS",
+        "zjj": "PASS",
+        "sources": [
+          "AADP default-deny/bounds",
+          "AP2 constraint chain",
+          "ZJJ CommonGuard"
+        ]
+      },
+      {
+        "id": "P02",
+        "name": "身份及授权来源认证",
+        "aadp": "PASS",
+        "ap2": "PARTIAL",
+        "zjj": "PASS",
+        "sources": [
+          "AADP approver identity",
+          "AP2 issuer/holder signatures",
+          "ZJJ Ed25519 registry"
+        ]
+      },
+      {
+        "id": "P03",
+        "name": "动作与授权内容一致性",
+        "aadp": "N/A",
+        "ap2": "PASS",
+        "zjj": "PASS",
+        "sources": [
+          "AP2 mandate chain (aud/nonce caveat)",
+          "ZJJ ActionHash/Ctx binding"
+        ]
+      },
+      {
+        "id": "P04",
+        "name": "并发预算安全",
+        "aadp": "PASS",
+        "ap2": "N/A",
+        "zjj": "PASS",
+        "sources": [
+          "AADP SQLite BEGIN IMMEDIATE concurrency",
+          "ZJJ W last-resource race"
+        ]
+      },
+      {
+        "id": "P05",
+        "name": "原子资源预留",
+        "aadp": "PASS",
+        "ap2": "N/A",
+        "zjj": "PASS",
+        "sources": [
+          "AADP reservation ledger",
+          "ZJJ resource transaction + GoalFloor rollback"
+        ]
+      },
+      {
+        "id": "P06",
+        "name": "重放与重复执行控制",
+        "aadp": "PASS",
+        "ap2": "PASS",
+        "zjj": "PASS",
+        "sources": [
+          "AADP request_id replay",
+          "ZJJ intent tombstone/nonce/attempt"
+        ]
+      },
+      {
+        "id": "P07",
+        "name": "崩溃恢复",
+        "aadp": "PARTIAL",
+        "ap2": "N/A",
+        "zjj": "PASS",
+        "sources": [
+          "AADP has rebuild/audit recovery, no process-kill boundary test in the frozen revision",
+          "ZJJ 3 real child-process crash boundaries"
+        ]
+      },
+      {
+        "id": "P08",
+        "name": "审批及撤销语义",
+        "aadp": "PASS",
+        "ap2": "N/A",
+        "zjj": "PASS",
+        "sources": [
+          "AADP approvals",
+          "ZJJ role revocation/deny coverage"
+        ]
+      },
+      {
+        "id": "P09",
+        "name": "执行结果关联",
+        "aadp": "PASS",
+        "ap2": "PASS",
+        "zjj": "PASS",
+        "sources": [
+          "AADP report_result",
+          "AP2 receipt",
+          "ZJJ attempt/final/settlement binding"
+        ]
+      },
+      {
+        "id": "P10",
+        "name": "历史证据独立验证",
+        "aadp": "PASS",
+        "ap2": "PASS",
+        "zjj": "PASS",
+        "sources": [
+          "AADP hash-chained audit",
+          "AP2 receipt verification",
+          "ZJJ offline evidence verifier"
+        ]
+      },
+      {
+        "id": "P11",
+        "name": "高后果恶意动作阻断",
+        "aadp": "PASS",
+        "ap2": "PARTIAL",
+        "zjj": "PARTIAL",
+        "sources": [
+          "AADP eval: harmful carried out 16 -> 3",
+          "AP2 scope/amount constraints",
+          "ZJJ policy-bound action; LLM benchmark pending"
+        ],
+        "note": "AADP eval is scripted, not model-based; ZJJ row is deterministic authorization, not an LLM agent score."
+      },
+      {
+        "id": "P12",
+        "name": "跨步骤安全状态保持",
+        "aadp": "PASS",
+        "ap2": "PARTIAL",
+        "zjj": "PASS",
+        "sources": [
+          "AADP sequence rules",
+          "Tether stateful policy (paper only)",
+          "ZJJ GoalFloor/W ledger"
+        ]
+      },
+      {
+        "id": "P13",
+        "name": "跨信任边界动作绑定凭证",
+        "aadp": "PASS",
+        "ap2": "PASS",
+        "zjj": "PARTIAL",
+        "sources": [
+          "AADP bound-permit profile 23/24 (V17 gap)",
+          "AP2 delegated mandate chain",
+          "ZJJ internal delivery/attempt receipt; no public cross-organization bound-permit profile"
+        ],
+        "note": "ZJJ binds a tool delivery packet to action, attempt and commit, but this is an internal W-to-tool credential, not an AADP-style cross-domain permit."
+      }
+    ],
+    "applicable": [
+      "P01",
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P08",
+      "P09",
+      "P10",
+      "P11",
+      "P12",
+      "P13"
+    ],
+    "satisfied": [
+      "P01",
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P08",
+      "P09",
+      "P10",
+      "P12"
+    ],
+    "not_satisfied": [
+      "P11",
+      "P13"
+    ],
+    "coverage": 0.8333333333333334,
+    "junit": {
+      "aadp_selected": {
+        "passed": 266,
+        "total": 266
+      },
+      "ap2_all": {
+        "passed": 186,
+        "total": 188
+      },
+      "zjj_selected": {
+        "passed": 75,
+        "total": 75
+      }
+    }
+  },
+  "differential_goalfloor": {
+    "paired_20": {
+      "aadp": {
+        "A": {
+          "sequences": 20,
+          "floor_violations": 6,
+          "optional_accepted": 23,
+          "required_done": 46,
+          "all_done": 10,
+          "false_reject_optional": 0
+        },
+        "B": {
+          "sequences": 20,
+          "floor_violations": 0,
+          "optional_accepted": 16,
+          "required_done": 51,
+          "all_done": 10,
+          "false_reject_optional": 0
+        }
+      },
+      "zjj_off": {
+        "attempted_sequences": 20,
+        "clean_sequences": 20,
+        "excluded_clock_or_environment": 0,
+        "floor_violations": 6,
+        "floor_preserved": 14,
+        "illegal_accept_optional": 7,
+        "false_reject_optional": 0,
+        "optional_accepted": 23,
+        "required_done": 46,
+        "all_done": 10,
+        "oracle_mismatch": 0,
+        "accept_samples": 71,
+        "p50_ns": 3107834000,
+        "p95_ns": 4143413700,
+        "p99_ns": 4326494800,
+        "wall_seconds": 932.9
+      },
+      "zjj_enforce": {
+        "attempted_sequences": 20,
+        "clean_sequences": 20,
+        "excluded_clock_or_environment": 0,
+        "floor_violations": 0,
+        "floor_preserved": 20,
+        "illegal_accept_optional": 0,
+        "false_reject_optional": 0,
+        "optional_accepted": 16,
+        "required_done": 47,
+        "all_done": 10,
+        "oracle_mismatch": 0,
+        "accept_samples": 67,
+        "p50_ns": 2631871000,
+        "p95_ns": 4262814500,
+        "p99_ns": 4407908800,
+        "wall_seconds": 708.4
+      }
+    },
+    "aadp_1000": {
+      "A": {
+        "sequences": 1000,
+        "floor_violations": 490,
+        "optional_accepted": 1512,
+        "required_done": 2169,
+        "all_done": 287,
+        "false_reject_optional": 0
+      },
+      "B": {
+        "sequences": 1000,
+        "floor_violations": 0,
+        "optional_accepted": 841,
+        "required_done": 2785,
+        "all_done": 287,
+        "false_reject_optional": 0
+      }
+    },
+    "zjj_enforce_clean_aggregate": {
+      "attempted_sequences": 120,
+      "clean_sequences": 93,
+      "excluded_clock_or_environment": 27,
+      "floor_violations": 0,
+      "floor_preserved": 93,
+      "illegal_accept_optional": 0,
+      "false_reject_optional": 0,
+      "optional_accepted": 76,
+      "required_done": 229,
+      "all_done": 33,
+      "oracle_mismatch": 0,
+      "accept_samples": 327,
+      "p50_ns": 5074030100,
+      "p95_ns": 6431117000,
+      "p99_ns": 7141838600,
+      "wall_seconds": 7858.9
+    },
+    "literal_1000_zjj": {
+      "requested": 1000,
+      "completed_clean": 93,
+      "attempted_120": 120,
+      "blocked": "The first 120-sequence run was interrupted by a harness restart; 22 CLOCK_UNKNOWN rows and 4 aborted sessions from 14-way load are reported and excluded from the clean subset. They are not protocol denials."
+    },
+    "interpretation": "For fixed unit costs, a static AADP carve-out (B) preserves the floor and matches or exceeds ZJJ availability in this sample. GoalFloor's difference is not established for fixed-cost single-goal reserve; the dynamic-cost case remains checker-level only."
+  },
+  "crypto_relations": {
+    "class_count": 10,
+    "all_rejected": true,
+    "single_signature_baseline": {
+      "rejected": 0,
+      "accepted": 10,
+      "basis": "all producing signatures were made by registered keys; the protocol rejected on relationship checks, not signature checks",
+      "mode": "analytical_signature_only",
+      "not_run_note": "No separate signature-only verifier artifact was executed; the claim is that every producing signature was generated by a registered key and the observed rejection codes are relationship errors."
+    },
+    "results": [
+      {
+        "rejected": true,
+        "code": "STATE_UNAVAILABLE",
+        "case": "different_task",
+        "signatures_verified_individually": true
+      },
+      {
+        "rejected": true,
+        "code": "BASIS_BINDING",
+        "case": "policy_version",
+        "signatures_verified_individually": true
+      },
+      {
+        "rejected": true,
+        "code": "CLAIM_FALSE",
+        "case": "payload_action",
+        "signatures_verified_individually": true
+      },
+      {
+        "rejected": true,
+        "code": "REVIEW_DENY",
+        "case": "cross_review",
+        "signatures_verified_individually": true
+      },
+      {
+        "rejected": true,
+        "code": "DEP_CONFLICT",
+        "case": "missing_dep",
+        "signatures_verified_individually": true
+      },
+      {
+        "rejected": true,
+        "code": "BASIS_BINDING",
+        "case": "stale_task",
+        "signatures_verified_individually": true
+      },
+      {
+        "rejected": true,
+        "code": "BASIS_BINDING",
+        "case": "gate_version_change",
+        "signatures_verified_individually": true
+      },
+      {
+        "rejected": true,
+        "code": "FINAL_BINDING",
+        "case": "cross_attempt_settlement",
+        "signatures_verified_individually": true
+      },
+      {
+        "case": "cross_receipt_settlement",
+        "rejected": true,
+        "code": "x_acceptance_signature:FROZEN_RECEIPT_CONFLICT",
+        "signatures_verified_individually": true
+      },
+      {
+        "case": "cross_resource_certificate",
+        "rejected": true,
+        "code": "resource_certificate_and_sums:RESOURCE_KEY",
+        "signatures_verified_individually": true
+      }
+    ]
+  },
+  "atomic_evidence": {
+    "crash_boundaries": {
+      "passed": 3,
+      "total": 3,
+      "source": "competition.tests.test_crash_boundaries (real child processes)"
+    },
+    "acceptance_races": {
+      "passed": 4,
+      "total": 4,
+      "source": "competition.tests.test_w_acceptance_races"
+    },
+    "offline_package": {
+      "status": "PASS",
+      "passed": 13,
+      "failed": 0,
+      "checks": [
+        "anchor_matches_package_root",
+        "anchor_actor_keys",
+        "control_certificates_and_refs",
+        "control_history_certificates",
+        "tool_trust_certificate",
+        "resource_certificate_and_sums",
+        "authorization_chain",
+        "commit_record_ref",
+        "x_acceptance_signature",
+        "unique_attempt_and_delivery_signature",
+        "goal_floor_recomputation",
+        "tool_final_fact_signature",
+        "settlement_binding"
+      ]
+    },
+    "evidence_tamper_tests": {
+      "passed": 15,
+      "total": 15,
+      "source": "competition.tests.test_evidence_verifier"
+    },
+    "interleaved_settlement": {
+      "status": "CORE_DEFECT_FOUND",
+      "observed": {
+        "settle_a_after_b_final": {
+          "ok": false,
+          "code": "LEDGER_STALE_UNKNOWN"
+        },
+        "settle_b": {
+          "ok": true,
+          "result": {
+            "state": "SETTLED",
+            "operation_id": "ZZQbWaj1XFc_lk0oHxiRAA",
+            "final_fact_id": "ZQ0Bxxg2ja7CaMkqGtS0isbbZHxDDgjpATzAi70e9Uw",
+            "existing": false
+          }
+        }
+      },
+      "state": [
+        {
+          "oid": "ZUCd67-yw_NUZelRfHwyOg",
+          "state": "STARTED",
+          "effect_state": "SUCCEEDED"
+        },
+        {
+          "oid": "ZZQbWaj1XFc_lk0oHxiRAA",
+          "state": "SETTLED",
+          "effect_state": "SUCCEEDED"
+        }
+      ],
+      "reserved_after": 1,
+      "settlements_after": 1,
+      "scope": "Authentic final fact for A rejected as LEDGER_STALE_UNKNOWN after B advanced the tool ledger. No duplicate effect; A remains STARTED with its reservation held."
+    },
+    "external_effect_boundary": "ZJJ's accept transaction is atomic; the tool effect is not. UNKNOWN retains the reservation and is not re-executed."
+  },
+  "agentdojo_replay": {
+    "user_tasks": 16,
+    "user_utility_pass": 16,
+    "injection_tasks": 9,
+    "injection_success_without_defense": 9,
+    "zjj_end_to_end": "NOT_RUN",
+    "camel": "NOT_RUN"
+  },
+  "research_boundaries": [
+    "No LLM API key: AgentDojo is a ground-truth tool-trajectory replay, not a model evaluation.",
+    "CaMeL was not run end-to-end because it requires model APIs.",
+    "Tether has no public implementation at the frozen date; LinuxArena is a different OS-level scope.",
+    "AP2 native tests are 186/188 PASS; the two failures concern intermediate aud/nonce binding.",
+    "GoalFloor heterogeneous-cost evidence is checker-level; the 93/20 real W sample uses unit costs.",
+    "ZJJ does not publish a cross-organization bound-permit profile; P13 is PARTIAL."
+  ],
+  "experiment_commit": "cac11c022390b5bb94cf1a5f4f3a5464d8272d18"
+}

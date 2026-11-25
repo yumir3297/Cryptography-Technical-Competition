@@ -1,0 +1,850 @@
+{
+  "seed": 20261125,
+  "sequences": [
+    {
+      "A": {
+        "variant": "A_native_budget",
+        "sequence_id": 0,
+        "spec": {
+          "sequence_id": 0,
+          "capacity": 3,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O0",
+            "O1",
+            "R0",
+            "R1"
+          ],
+          "unknown_at": 3
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 1,
+            "token": "O1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "R1",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": null
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": false,
+        "required_done": 1,
+        "required_total": 2,
+        "optional_accepted": 2,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 2,
+        "all_done": false
+      },
+      "B": {
+        "variant": "B_static_carveout",
+        "sequence_id": 0,
+        "spec": {
+          "sequence_id": 0,
+          "capacity": 3,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O0",
+            "O1",
+            "R0",
+            "R1"
+          ],
+          "unknown_at": 3
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 1,
+            "token": "O1",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": false
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "PENDING",
+            "legitimate_optional": null
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "PENDING"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 1,
+        "required_total": 2,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 1,
+        "all_done": false
+      }
+    },
+    {
+      "A": {
+        "variant": "A_native_budget",
+        "sequence_id": 1,
+        "spec": {
+          "sequence_id": 1,
+          "capacity": 4,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O0",
+            "R1",
+            "R0",
+            "O1"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "O1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 2,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 1,
+        "all_done": true
+      },
+      "B": {
+        "variant": "B_static_carveout",
+        "sequence_id": 1,
+        "spec": {
+          "sequence_id": 1,
+          "capacity": 4,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O0",
+            "R1",
+            "R0",
+            "O1"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "O1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 2,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 1,
+        "all_done": true
+      }
+    },
+    {
+      "A": {
+        "variant": "A_native_budget",
+        "sequence_id": 2,
+        "spec": {
+          "sequence_id": 2,
+          "capacity": 4,
+          "required": 4,
+          "optional": 0,
+          "order": [
+            "R1",
+            "R0",
+            "R3",
+            "R2"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 1,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 2,
+            "token": "R3",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "R2",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 4,
+        "required_total": 4,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "all_done": true
+      },
+      "B": {
+        "variant": "B_static_carveout",
+        "sequence_id": 2,
+        "spec": {
+          "sequence_id": 2,
+          "capacity": 4,
+          "required": 4,
+          "optional": 0,
+          "order": [
+            "R1",
+            "R0",
+            "R3",
+            "R2"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 1,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 2,
+            "token": "R3",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "R2",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 4,
+        "required_total": 4,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "all_done": true
+      }
+    },
+    {
+      "A": {
+        "variant": "A_native_budget",
+        "sequence_id": 3,
+        "spec": {
+          "sequence_id": 3,
+          "capacity": 3,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O1",
+            "R1",
+            "R0",
+            "O0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": false
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 1,
+        "all_done": false
+      },
+      "B": {
+        "variant": "B_static_carveout",
+        "sequence_id": 3,
+        "spec": {
+          "sequence_id": 3,
+          "capacity": 3,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O1",
+            "R1",
+            "R0",
+            "O0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": false
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 1,
+        "all_done": false
+      }
+    },
+    {
+      "A": {
+        "variant": "A_native_budget",
+        "sequence_id": 4,
+        "spec": {
+          "sequence_id": 4,
+          "capacity": 4,
+          "required": 3,
+          "optional": 4,
+          "order": [
+            "O3",
+            "O2",
+            "R1",
+            "O0",
+            "O1",
+            "R2",
+            "R0"
+          ],
+          "unknown_at": 5
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O3",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 1,
+            "token": "O2",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 2,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 4,
+            "token": "O1",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": false
+          },
+          {
+            "position": 5,
+            "token": "R2",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": null
+          },
+          {
+            "position": 6,
+            "token": "R0",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": null
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 2,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": false,
+        "required_done": 1,
+        "required_total": 3,
+        "optional_accepted": 3,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 3,
+        "all_done": false
+      },
+      "B": {
+        "variant": "B_static_carveout",
+        "sequence_id": 4,
+        "spec": {
+          "sequence_id": 4,
+          "capacity": 4,
+          "required": 3,
+          "optional": 4,
+          "order": [
+            "O3",
+            "O2",
+            "R1",
+            "O0",
+            "O1",
+            "R2",
+            "R0"
+          ],
+          "unknown_at": 5
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O3",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": false
+          },
+          {
+            "position": 1,
+            "token": "O2",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": false
+          },
+          {
+            "position": 2,
+            "token": "R1",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": false
+          },
+          {
+            "position": 4,
+            "token": "O1",
+            "accepted": false,
+            "code": "budget_exhausted",
+            "outcome": "",
+            "legitimate_optional": false
+          },
+          {
+            "position": 5,
+            "token": "R2",
+            "accepted": true,
+            "code": "",
+            "outcome": "PENDING",
+            "legitimate_optional": null
+          },
+          {
+            "position": 6,
+            "token": "R0",
+            "accepted": true,
+            "code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "PENDING"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 3,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 1,
+        "all_done": false
+      }
+    }
+  ],
+  "source": "AADP/onedoor 0.12.1 official API"
+}

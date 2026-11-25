@@ -1,0 +1,247 @@
+{
+  "version": "1.0",
+  "created_utc": "2026-11-25",
+  "baseline_sha": "c5caa73f711da93a24efacbac0456ed82a79dd4e",
+  "coverage_formula": "ZJJ PASS / competitor-verified commonly applicable properties",
+  "properties": [
+    {
+      "id": "P01",
+      "name": "动作授权有效性",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AADP default-deny/bounds",
+        "AP2 constraint chain",
+        "ZJJ CommonGuard"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P02",
+      "name": "身份及授权来源认证",
+      "aadp": "PASS",
+      "ap2": "PARTIAL",
+      "zjj": "PASS",
+      "sources": [
+        "AADP approver identity",
+        "AP2 issuer/holder signatures",
+        "ZJJ Ed25519 registry"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P03",
+      "name": "动作与授权内容一致性",
+      "aadp": "N/A",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AP2 mandate chain (aud/nonce caveat)",
+        "ZJJ ActionHash/Ctx binding"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P04",
+      "name": "并发预算安全",
+      "aadp": "PASS",
+      "ap2": "N/A",
+      "zjj": "PASS",
+      "sources": [
+        "AADP SQLite BEGIN IMMEDIATE concurrency",
+        "ZJJ W last-resource race"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P05",
+      "name": "原子资源预留",
+      "aadp": "PASS",
+      "ap2": "N/A",
+      "zjj": "PASS",
+      "sources": [
+        "AADP reservation ledger",
+        "ZJJ resource transaction + GoalFloor rollback"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P06",
+      "name": "重放与重复执行控制",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AADP request_id replay",
+        "ZJJ intent tombstone/nonce/attempt"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P07",
+      "name": "崩溃恢复",
+      "aadp": "PARTIAL",
+      "ap2": "N/A",
+      "zjj": "PASS",
+      "sources": [
+        "AADP has rebuild/audit recovery, no process-kill boundary test in the frozen revision",
+        "ZJJ 3 real child-process crash boundaries"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "not_counted"
+    },
+    {
+      "id": "P08",
+      "name": "审批及撤销语义",
+      "aadp": "PASS",
+      "ap2": "N/A",
+      "zjj": "PASS",
+      "sources": [
+        "AADP approvals",
+        "ZJJ role revocation/deny coverage"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P09",
+      "name": "执行结果关联",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AADP report_result",
+        "AP2 receipt",
+        "ZJJ attempt/final/settlement binding"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P10",
+      "name": "历史证据独立验证",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PASS",
+      "sources": [
+        "AADP hash-chained audit",
+        "AP2 receipt verification",
+        "ZJJ offline evidence verifier"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P11",
+      "name": "高后果恶意动作阻断",
+      "aadp": "PASS",
+      "ap2": "PARTIAL",
+      "zjj": "PARTIAL",
+      "sources": [
+        "AADP eval: harmful carried out 16 -> 3",
+        "AP2 scope/amount constraints",
+        "ZJJ policy-bound action; LLM benchmark pending"
+      ],
+      "note": "AADP eval is scripted, not model-based; ZJJ row is deterministic authorization, not an LLM agent score.",
+      "frozen_expected": {
+        "zjj": "PARTIAL_OR_UNVERIFIED"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P12",
+      "name": "跨步骤安全状态保持",
+      "aadp": "PASS",
+      "ap2": "PARTIAL",
+      "zjj": "PASS",
+      "sources": [
+        "AADP sequence rules",
+        "Tether stateful policy (paper only)",
+        "ZJJ GoalFloor/W ledger"
+      ],
+      "frozen_expected": {
+        "zjj": "PASS"
+      },
+      "applicability": "included"
+    },
+    {
+      "id": "P13",
+      "name": "跨信任边界动作绑定凭证",
+      "aadp": "PASS",
+      "ap2": "PASS",
+      "zjj": "PARTIAL",
+      "sources": [
+        "AADP bound-permit profile 23/24 (V17 gap)",
+        "AP2 delegated mandate chain",
+        "ZJJ internal delivery/attempt receipt; no public cross-organization bound-permit profile"
+      ],
+      "note": "ZJJ binds a tool delivery packet to action, attempt and commit, but this is an internal W-to-tool credential, not an AADP-style cross-domain permit.",
+      "frozen_expected": {
+        "zjj": "PARTIAL_OR_UNVERIFIED"
+      },
+      "applicability": "included"
+    }
+  ],
+  "applicable": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P08",
+    "P09",
+    "P10",
+    "P11",
+    "P12",
+    "P13"
+  ],
+  "satisfied": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P08",
+    "P09",
+    "P10",
+    "P12"
+  ],
+  "excluded": [
+    "P07"
+  ],
+  "change_log": [
+    "P01-P12 drafted from the requested priority table before the capability matrix was run.",
+    "P13 (cross-trust-boundary bound permit) added after reading the AADP bound-permit profile; retained as a limitation, not removed to raise coverage.",
+    "No Oracle threshold or expected answer was changed after observing a test outcome."
+  ],
+  "frozen_verdict_rule": "A property counts as satisfied only when a named ZJJ test passed and at least one competitor public test passed. PARTIAL remains PARTIAL."
+}

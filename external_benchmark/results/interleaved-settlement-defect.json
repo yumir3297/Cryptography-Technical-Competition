@@ -1,0 +1,64 @@
+{
+  "experiment": "interleaved attempts on one tool ledger",
+  "sequence": [
+    "accept A",
+    "accept B",
+    "claim A",
+    "claim B",
+    "execute A",
+    "execute B",
+    "settle A",
+    "settle B"
+  ],
+  "outcomes": {
+    "settle_a_after_b_final": {
+      "ok": false,
+      "code": "LEDGER_STALE_UNKNOWN"
+    },
+    "settle_b": {
+      "ok": true,
+      "result": {
+        "state": "SETTLED",
+        "operation_id": "ZZQbWaj1XFc_lk0oHxiRAA",
+        "final_fact_id": "ZQ0Bxxg2ja7CaMkqGtS0isbbZHxDDgjpATzAi70e9Uw",
+        "existing": false
+      }
+    }
+  },
+  "snapshot": {
+    "reserved": 1,
+    "spent": 1,
+    "capacity": 4,
+    "goals": [],
+    "operations": [
+      {
+        "oid": "ZUCd67-yw_NUZelRfHwyOg",
+        "state": "STARTED",
+        "effect_state": "SUCCEEDED"
+      },
+      {
+        "oid": "ZZQbWaj1XFc_lk0oHxiRAA",
+        "state": "SETTLED",
+        "effect_state": "SUCCEEDED"
+      }
+    ],
+    "counts": {
+      "accepts": 2,
+      "outbox": 2,
+      "attempts": 2,
+      "exec_invocations": 2,
+      "execution_sends_observed": 2,
+      "execution_sends_unobserved_upper_bound": 0,
+      "queries": 0,
+      "confirmed_simulated_effects": 2,
+      "settlements": 1,
+      "cancellations": 0,
+      "halts": 0,
+      "goal_links": 0,
+      "goal_pending": 0,
+      "goal_done": 0,
+      "goal_blocked": 0
+    }
+  },
+  "finding": "Authentic final fact A is rejected after final B advanced the tool ledger's high-water mark. The operation remains STARTED, resource reservation is retained, and no duplicate effect was observed. This is a liveness/availability defect in evidence coupling, not evidence of an unauthorized effect."
+}

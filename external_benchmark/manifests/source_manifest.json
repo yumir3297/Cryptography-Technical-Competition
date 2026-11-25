@@ -1,0 +1,105 @@
+{
+  "checked_utc": "2026-11-25",
+  "aadp": {
+    "spec": {
+      "draft": "draft-saha-aadp-04",
+      "published": "2026-09-27",
+      "url": "https://datatracker.ietf.org/doc/html/draft-saha-aadp-04",
+      "status": "Active Internet-Draft (individual), Standards Track"
+    },
+    "bound_permit_spec": {
+      "draft": "draft-saha-aadp-bound-permit-00",
+      "published": "2026-09-29",
+      "url": "https://datatracker.ietf.org/doc/html/draft-saha-aadp-bound-permit-00"
+    },
+    "implementation": {
+      "repository": "https://github.com/shamiksaharcciit-oss/onedoor",
+      "sha": "9d0b69879273af21b8cbf5d1098ff50f2cb1d6ea",
+      "short_sha": "9d0b698",
+      "commit_date": "2026-11-24T01:28:35+01:00",
+      "package_version": "0.12.1",
+      "license": "Apache-2.0",
+      "python_requirement": ">=3.12",
+      "tested_python": "3.13.9",
+      "install": "python -m venv .venv_aadp; .venv_aadp/Scripts/pip install -e \".[signed,dev]\"",
+      "public_tests": {
+        "files": 204,
+        "tests": 2513,
+        "passed": 2501,
+        "failed": 8,
+        "skipped": 4,
+        "command": "python -m pytest -q --junitxml=../../results/aadp-native-junit.xml"
+      },
+      "selected_guardrail_tests": {
+        "tests": 266,
+        "passed": 266,
+        "command": "pytest selected guardrail/permit/sequence/audit files"
+      },
+      "public_eval": {
+        "command": "python -m eval run",
+        "scenarios": 32,
+        "harmful_without": 16,
+        "harmful_with": 3,
+        "legitimate_wrongly_stopped": 0,
+        "held": 4,
+        "duplicate_effects": "2/2"
+      },
+      "public_components": ["guardrail decision engine", "SQLite ledger", "audit chain", "bound-permit issuer and recipient", "eval harness", "Studio/service code"],
+      "not_public_or_not_asserted": ["no process-kill crash test at the frozen revision", "V17 status-checked currentness is a disclosed gap", "independent cross-organization deployment"],
+      "scope_intersection": ["per-action authorization", "budgets and reservations", "approval lifecycle", "idempotency", "evidence and audit", "bound permits"]
+    }
+  },
+  "camel": {
+    "paper": "https://arxiv.org/html/2503.18813v2",
+    "implementation": {
+      "repository": "https://github.com/google-research/camel-prompt-injection",
+      "sha": "f083b6b396399d3b3c7f2ddaf613a5945eaf32d8",
+      "license": "Apache-2.0",
+      "python": "3.13.9",
+      "tests_public": 1,
+      "status": "NOT_RUN_NO_MODEL_API",
+      "reason": "The artifact requires a model API and API key for any AgentDojo run; no key was available."
+    }
+  },
+  "agentdojo": {
+    "implementation": {
+      "repository": "https://github.com/ethz-spylab/agentdojo",
+      "sha": "089ed468cf3ed0322acc66b0211f26d9d90dbf60",
+      "version": "0.1.35",
+      "commit_date": "2026-06-02T11:59:58+02:00",
+      "license": "MIT",
+      "tested_python": "3.13.9",
+      "public_tests": {"tests": 32, "passed": 31, "failed": 1},
+      "suite": "banking v1.2.2",
+      "banking_user_tasks": 16,
+      "banking_injection_tasks": 9,
+      "public_components": ["Banking environment", "tools", "16 user tasks", "9 injection tasks", "utility/security scoring", "attack implementations"],
+      "not_public": ["model outputs and API keys", "a model-free defended execution baseline"],
+      "reproduced": "deterministic ground-truth tool replay only; 16/16 utility, 9/9 injection ground truths execute without a defense",
+      "not_reproduced": "LLM benchmark and CaMeL defense; requires API access"
+    }
+  },
+  "ap2": {
+    "implementation": {
+      "repository": "https://github.com/google-agentic-commerce/AP2",
+      "sha": "e1ea56db72a6385bce3e5c1112b3a56ce60acb43",
+      "commit_date": "2026-04-29T09:51:41-07:00",
+      "license": "Apache-2.0",
+      "tested_python": "3.13.9",
+      "public_tests": {"tests": 188, "passed": 186, "failed": 2},
+      "public_components": ["SD-JWT / KB-SD-JWT mandate chains", "constraints", "receipts", "samples and scenarios"],
+      "not_public": ["production payment network", "live issuer/acquirer services"],
+      "scope_intersection": ["action-bound mandate", "transaction consistency", "recurrence budgets", "receipts"]
+    }
+  },
+  "tether": {
+    "paper": "https://arxiv.org/html/2611.25599v1",
+    "arxiv": "2611.25599v1",
+    "published": "2026-11-19",
+    "code_release": "NOT_FOUND_AT_CHECK_TIME",
+    "linuxarena": "https://www.linuxarena.ai/",
+    "leaderboard": "https://leaderboard.linuxarena.ai/data",
+    "status": "NOT_REPRODUCED_NO_PUBLIC_IMPLEMENTATION",
+    "reason": "The paper reports a Lean 4 prototype and replay evaluation but no public code artifact was available. LinuxArena trajectories are public but are OS-level coding-agent data, not the ZJJ business-action semantics."
+  }
+}

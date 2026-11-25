@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="32" time="11.145" timestamp="2026-11-25T11:29:52.246323+08:00" hostname="LAPTOP-F6P4DP1J"><testcase classname="tests.test_agent_pipeline.test_anthropic_llm" name="test_merge_tool_result_messages" time="0.002"><failure message="TypeError: Cannot instantiate typing.Union">def test_merge_tool_result_messages():
+        messages = [
+&gt;           MessageParam(role="user", content=[TextBlockParam(type="text", text="Hi!")]),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            MessageParam(
+                role="user",
+                content=[
+                    ToolResultBlockParam(
+                        type="tool_result",
+                        tool_use_id="tool_use_id_1",
+                        content=[TextBlockParam(type="text", text="output_1")],
+                        is_error=False,
+                    )
+                ],
+            ),
+            MessageParam(
+                role="assistant",
+                content="Hello",
+            ),
+            MessageParam(
+                role="user",
+                content=[
+                    ToolResultBlockParam(
+                        type="tool_result",
+                        tool_use_id="tool_use_id_2",
+                        content=[TextBlockParam(type="text", text="output_2")],
+                        is_error=False,
+                    )
+                ],
+            ),
+            MessageParam(
+                role="user",
+                content=[
+                    ToolResultBlockParam(
+                        type="tool_result",
+                        tool_use_id="tool_use_id_3",
+                        content=[TextBlockParam(type="text", text="output_3")],
+                        is_error=False,
+                    )
+                ],
+            ),
+            MessageParam(role="user", content=[TextBlockParam(type="text", text="Bye")]),
+            MessageParam(
+                role="assistant",
+                content="Hello",
+            ),
+            MessageParam(
+                role="user",
+                content=[
+                    ToolResultBlockParam(
+                        type="tool_result",
+                        tool_use_id="tool_use_id_4",
+                        content=[TextBlockParam(type="text", text="output_4")],
+                        is_error=False,
+                    )
+                ],
+            ),
+            MessageParam(
+                role="user",
+                content=[
+                    ToolResultBlockParam(
+                        type="tool_result",
+                        tool_use_id="tool_use_id_5",
+                        content=[TextBlockParam(type="text", text="output_5")],
+                        is_error=False,
+                    )
+                ],
+            ),
+        ]
+
+tests\test_agent_pipeline\test_anthropic_llm.py:8: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\李洵\AppData\Local\Programs\Python\Python313\Lib\typing.py:1317: in __call__
+    result = self.__origin__(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = typing.Union, args = ()
+kwds = {'role': 'user', 'content': [{'type': 'text', 'text': 'Hi!'}]}
+
+    def __call__(self, *args, **kwds):
+&gt;       raise TypeError(f"Cannot instantiate {self!r}")
+E       TypeError: Cannot instantiate typing.Union
+
+C:\Users\李洵\AppData\Local\Programs\Python\Python313\Lib\typing.py:560: TypeError</failure></testcase><testcase classname="tests.test_agent_pipeline.test_cohere_llm" name="test_merge_tool_result_messages" time="0.002" /><testcase classname="tests.test_agent_pipeline.test_google_llm" name="test_merge_tool_result_messages" time="0.006" /><testcase classname="tests.test_agent_pipeline.test_pi_detector" name="test_detector_extracts_correct_content_from_multiple_tool_messages" time="0.001" /><testcase classname="tests.test_agent_pipeline.test_prompting_llm" name="test_parse_model_output" time="0.211" /><testcase classname="tests.test_agent_pipeline.test_prompting_llm" name="test_parse_model_output_no_call" time="0.002" /><testcase classname="tests.test_agent_pipeline.test_prompting_llm" name="test_tool_message_to_user_message_no_error" time="0.003" /><testcase classname="tests.test_agent_pipeline.test_prompting_llm" name="test_tool_message_to_user_message_with_error" time="0.002" /><testcase classname="tests.test_ast_utils" name="test_create_python_function_from_tool_call" time="0.000" /><testcase classname="tests.test_ast_utils" name="test_parse_tool_calls_from_python_function" time="0.000" /><testcase classname="tests.test_ast_utils" name="test_parse_tool_calls_from_python_function_weird_args" time="0.001" /><testcase classname="tests.test_ast_utils" name="test_parse_tool_calls_from_python_function_empty_string" time="0.000" /><testcase classname="tests.test_ast_utils" name="test_parse_tool_calls_from_python_function_ellipsis" time="0.000" /><testcase classname="tests.test_benchmark" name="test_convert_old_messages_format" time="0.000" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_register_function" time="0.006" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_register_function_return_type" time="0.004" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_register_function_return_union_type" time="0.004" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_register_function_return_none" time="0.004" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_register_function_no_return_type" time="0.003" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_register_function_return_union_type_nested" time="0.003" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_run_stateful_function" time="0.002" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_run_stateless_function" time="0.001" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_run_nested_function_call" time="0.001" /><testcase classname="tests.test_functions_runtime.test_functions_runtime" name="test_run_error_function" time="0.001" /><testcase classname="tests.test_workspace_user_tasks" name="test_check_only_unread_emails_marked_as_read_no_changes" time="0.224" /><testcase classname="tests.test_workspace_user_tasks" name="test_check_only_unread_emails_marked_as_read_only_read_field_changed" time="0.117" /><testcase classname="tests.test_workspace_user_tasks" name="test_check_only_unread_emails_marked_as_read_partial_read" time="0.121" /><testcase classname="tests.test_workspace_user_tasks" name="test_check_only_unread_emails_marked_as_read_other_changes" time="0.124" /><testcase classname="tests.test_workspace_user_tasks" name="test_check_only_unread_emails_marked_as_read_read_field_and_other_changes" time="0.120" /><testcase classname="tests.test_workspace_user_tasks" name="test_check_only_unread_emails_marked_as_read_already_read_email_changed" time="0.122" /><testcase classname="tests.test_workspace_user_tasks" name="test_check_only_unread_emails_marked_as_read_email_added" time="0.123" /><testcase classname="tests.test_workspace_user_tasks" name="test_check_only_unread_emails_marked_as_read_calendar_changed" time="0.122" /></testsuite></testsuites>

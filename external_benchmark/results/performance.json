@@ -1,0 +1,21 @@
+{
+  "paired_20": {
+    "zjj_off": {
+      "p50_ns": 3107834000,
+      "p95_ns": 4143413700,
+      "p99_ns": 4326494800,
+      "accept_samples": 71,
+      "clean_sequences": 20,
+      "wall_seconds": 932.9
+    },
+    "zjj_enforce": {
+      "p50_ns": 2631871000,
+      "p95_ns": 4262814500,
+      "p99_ns": 4407908800,
+      "accept_samples": 67,
+      "clean_sequences": 20,
+      "wall_seconds": 708.4
+    }
+  },
+  "note": "Exploratory, not a stable benchmark; clock/load affected."
+}

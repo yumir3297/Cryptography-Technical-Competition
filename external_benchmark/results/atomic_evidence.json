@@ -1,0 +1,71 @@
+{
+  "crash_boundaries": {
+    "passed": 3,
+    "total": 3,
+    "source": "competition.tests.test_crash_boundaries (real child processes)"
+  },
+  "acceptance_races": {
+    "passed": 4,
+    "total": 4,
+    "source": "competition.tests.test_w_acceptance_races"
+  },
+  "offline_package": {
+    "status": "PASS",
+    "passed": 13,
+    "failed": 0,
+    "checks": [
+      "anchor_matches_package_root",
+      "anchor_actor_keys",
+      "control_certificates_and_refs",
+      "control_history_certificates",
+      "tool_trust_certificate",
+      "resource_certificate_and_sums",
+      "authorization_chain",
+      "commit_record_ref",
+      "x_acceptance_signature",
+      "unique_attempt_and_delivery_signature",
+      "goal_floor_recomputation",
+      "tool_final_fact_signature",
+      "settlement_binding"
+    ]
+  },
+  "evidence_tamper_tests": {
+    "passed": 15,
+    "total": 15,
+    "source": "competition.tests.test_evidence_verifier"
+  },
+  "interleaved_settlement": {
+    "status": "CORE_DEFECT_FOUND",
+    "observed": {
+      "settle_a_after_b_final": {
+        "ok": false,
+        "code": "LEDGER_STALE_UNKNOWN"
+      },
+      "settle_b": {
+        "ok": true,
+        "result": {
+          "state": "SETTLED",
+          "operation_id": "ZZQbWaj1XFc_lk0oHxiRAA",
+          "final_fact_id": "ZQ0Bxxg2ja7CaMkqGtS0isbbZHxDDgjpATzAi70e9Uw",
+          "existing": false
+        }
+      }
+    },
+    "state": [
+      {
+        "oid": "ZUCd67-yw_NUZelRfHwyOg",
+        "state": "STARTED",
+        "effect_state": "SUCCEEDED"
+      },
+      {
+        "oid": "ZZQbWaj1XFc_lk0oHxiRAA",
+        "state": "SETTLED",
+        "effect_state": "SUCCEEDED"
+      }
+    ],
+    "reserved_after": 1,
+    "settlements_after": 1,
+    "scope": "Authentic final fact for A rejected as LEDGER_STALE_UNKNOWN after B advanced the tool ledger. No duplicate effect; A remains STARTED with its reservation held."
+  },
+  "external_effect_boundary": "ZJJ's accept transaction is atomic; the tool effect is not. UNKNOWN retains the reservation and is not re-executed."
+}

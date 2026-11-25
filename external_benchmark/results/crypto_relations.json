@@ -1,0 +1,68 @@
+{
+  "profile": "IND-DEMO-1",
+  "class_count": 10,
+  "all_rejected": true,
+  "results": [
+    {
+      "rejected": true,
+      "code": "STATE_UNAVAILABLE",
+      "case": "different_task",
+      "signatures_verified_individually": true
+    },
+    {
+      "rejected": true,
+      "code": "BASIS_BINDING",
+      "case": "policy_version",
+      "signatures_verified_individually": true
+    },
+    {
+      "rejected": true,
+      "code": "CLAIM_FALSE",
+      "case": "payload_action",
+      "signatures_verified_individually": true
+    },
+    {
+      "rejected": true,
+      "code": "REVIEW_DENY",
+      "case": "cross_review",
+      "signatures_verified_individually": true
+    },
+    {
+      "rejected": true,
+      "code": "DEP_CONFLICT",
+      "case": "missing_dep",
+      "signatures_verified_individually": true
+    },
+    {
+      "rejected": true,
+      "code": "BASIS_BINDING",
+      "case": "stale_task",
+      "signatures_verified_individually": true
+    },
+    {
+      "rejected": true,
+      "code": "BASIS_BINDING",
+      "case": "gate_version_change",
+      "signatures_verified_individually": true
+    },
+    {
+      "rejected": true,
+      "code": "FINAL_BINDING",
+      "case": "cross_attempt_settlement",
+      "signatures_verified_individually": true
+    },
+    {
+      "case": "cross_receipt_settlement",
+      "rejected": true,
+      "code": "x_acceptance_signature:FROZEN_RECEIPT_CONFLICT",
+      "signatures_verified_individually": true
+    },
+    {
+      "case": "cross_resource_certificate",
+      "rejected": true,
+      "code": "resource_certificate_and_sums:RESOURCE_KEY",
+      "signatures_verified_individually": true
+    }
+  ],
+  "note": "Every listed negative keeps the producing signature valid; the rejection is caused by the relationship between independently signed objects. The substituted resource certificate is root-signed."
+}

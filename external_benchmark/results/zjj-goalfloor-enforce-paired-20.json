@@ -1,0 +1,3203 @@
+{
+  "seed": 20261125,
+  "requested_sequences": 120,
+  "workers": 4,
+  "completed_tasks": 20,
+  "total_tasks": 120,
+  "wall_seconds": 196.4,
+  "results": {
+    "enforce": [
+      {
+        "mode": "enforce",
+        "sequence_id": 0,
+        "spec": {
+          "sequence_id": 0,
+          "capacity": 3,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O0",
+            "O1",
+            "R0",
+            "R1"
+          ],
+          "unknown_at": 3
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 4444866100
+          },
+          {
+            "position": 1,
+            "token": "O1",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1599065100
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2582484200
+          },
+          {
+            "position": 3,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "PENDING",
+            "legitimate_optional": null,
+            "elapsed_ns": 2326952700
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "PENDING"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 1,
+        "required_total": 2,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 1,
+          "spent": 2,
+          "capacity": 3,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "PENDING",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "IFYUsxOq1nZLV4wnj0vfxg",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "KNPVDnZAsQqrSHrDuRdNxQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "QrS6dx1kyqdjbsfME_Udjg",
+              "state": "STARTED",
+              "effect_state": "UNKNOWN"
+            }
+          ],
+          "counts": {
+            "accepts": 3,
+            "outbox": 3,
+            "attempts": 3,
+            "exec_invocations": 3,
+            "execution_sends_observed": 3,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 2,
+            "settlements": 2,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 1,
+            "goal_done": 1,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 37.471354899999994,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 1,
+        "spec": {
+          "sequence_id": 1,
+          "capacity": 4,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O0",
+            "R1",
+            "R0",
+            "O1"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 4316449800
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2562591900
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 3624312000
+          },
+          {
+            "position": 3,
+            "token": "O1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2319848200
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 2,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 4,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "-qlLLxLFQAIvn2oeKoCJIw",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "LHECAmki9tK_yqkw3OFRXQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "lhlRi6NEFyqePQF2HcTXlQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "p-zqEPvkaCFeNrSLEQ2K-w",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 4,
+            "outbox": 4,
+            "attempts": 4,
+            "exec_invocations": 4,
+            "execution_sends_observed": 4,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 41.72571149999999,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 2,
+        "spec": {
+          "sequence_id": 2,
+          "capacity": 4,
+          "required": 4,
+          "optional": 0,
+          "order": [
+            "R1",
+            "R0",
+            "R3",
+            "R2"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 4407908800
+          },
+          {
+            "position": 1,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2552112200
+          },
+          {
+            "position": 2,
+            "token": "R3",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 3515770900
+          },
+          {
+            "position": 3,
+            "token": "R2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2314516100
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 4,
+        "required_total": 4,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 4,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r2",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r3",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "_sJpuRR3PdGXmFJtEqZjuQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "brXNIIOl4iyydp0JdrKREw",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "htJqlfrQRFflHIV5rPVwfw",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "iG60MbYv39JzUupIxDJ1aw",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 4,
+            "outbox": 4,
+            "attempts": 4,
+            "exec_invocations": 4,
+            "execution_sends_observed": 4,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 4,
+            "goal_pending": 0,
+            "goal_done": 4,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 41.885606300000006,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 3,
+        "spec": {
+          "sequence_id": 3,
+          "capacity": 3,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "O1",
+            "R1",
+            "R0",
+            "O0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 4336852800
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2534670900
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 3599576200
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1270297300
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 3,
+          "capacity": 3,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "CW45V3yvGwTrqAv4yGabWw",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "LujRom9r_p01WO_3zi2zzg",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "SF1rW5HNcmwt9dhx08ctrA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 3,
+            "outbox": 3,
+            "attempts": 3,
+            "exec_invocations": 3,
+            "execution_sends_observed": 3,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 3,
+            "settlements": 3,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 38.1721694,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 4,
+        "spec": {
+          "sequence_id": 4,
+          "capacity": 4,
+          "required": 3,
+          "optional": 4,
+          "order": [
+            "O3",
+            "O2",
+            "R1",
+            "O0",
+            "O1",
+            "R2",
+            "R0"
+          ],
+          "unknown_at": 5
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O3",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2889461700
+          },
+          {
+            "position": 1,
+            "token": "O2",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1587717400
+          },
+          {
+            "position": 2,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2342239900
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1577889500
+          },
+          {
+            "position": 4,
+            "token": "O1",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1542286200
+          },
+          {
+            "position": 5,
+            "token": "R2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "PENDING",
+            "legitimate_optional": null,
+            "elapsed_ns": 2379429400
+          },
+          {
+            "position": 6,
+            "token": "R0",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": null,
+            "elapsed_ns": 1648283000
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "PENDING"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 1,
+        "required_total": 3,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 1,
+          "spent": 2,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r2",
+              "state": "PENDING",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "BxL7tybxEEtviNL18MzeaQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "eLEdmCGv7JEC50_9mtaD5Q",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "zhcFGgZXz2W47oIuLf3KCQ",
+              "state": "STARTED",
+              "effect_state": "UNKNOWN"
+            }
+          ],
+          "counts": {
+            "accepts": 3,
+            "outbox": 3,
+            "attempts": 3,
+            "exec_invocations": 3,
+            "execution_sends_observed": 3,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 2,
+            "settlements": 2,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 1,
+            "goal_done": 1,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 38.01319140000001,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 5,
+        "spec": {
+          "sequence_id": 5,
+          "capacity": 3,
+          "required": 2,
+          "optional": 1,
+          "order": [
+            "O0",
+            "R0",
+            "R1"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 3216494200
+          },
+          {
+            "position": 1,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2592930100
+          },
+          {
+            "position": 2,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2422914700
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 3,
+          "capacity": 3,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "EsaUyU94GV6w9Wqkqc3XFQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "Kyy4yF4FT4yqDIzNZipUjQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "uo5Te4yk8gZoh-eOGAE8-Q",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 3,
+            "outbox": 3,
+            "attempts": 3,
+            "exec_invocations": 3,
+            "execution_sends_observed": 3,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 3,
+            "settlements": 3,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 28.072084100000012,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 6,
+        "spec": {
+          "sequence_id": 6,
+          "capacity": 5,
+          "required": 2,
+          "optional": 4,
+          "order": [
+            "O1",
+            "R0",
+            "O2",
+            "O0",
+            "R1",
+            "O3"
+          ],
+          "unknown_at": 4
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "O1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2683588800
+          },
+          {
+            "position": 1,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2447393300
+          },
+          {
+            "position": 2,
+            "token": "O2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2414738600
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2838757100
+          },
+          {
+            "position": 4,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "PENDING",
+            "legitimate_optional": null,
+            "elapsed_ns": 2619735500
+          },
+          {
+            "position": 5,
+            "token": "O3",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1458446000
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 2,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "PENDING"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 1,
+        "required_total": 2,
+        "optional_accepted": 3,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 1,
+          "spent": 4,
+          "capacity": 5,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "PENDING",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "6eeIFur4JkV9hOt7xiOeqg",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "HlSxHfdOMHM9-4HzGa9DyA",
+              "state": "STARTED",
+              "effect_state": "UNKNOWN"
+            },
+            {
+              "oid": "U8lROGDvXJ91PbcZJAKg0A",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "Y1Qcc6ybkweFO0LG6LB_mQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "nJ1eE18KaenUwpPhxpZ6Vw",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 5,
+            "outbox": 5,
+            "attempts": 5,
+            "exec_invocations": 5,
+            "execution_sends_observed": 5,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 1,
+            "goal_done": 1,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 43.716846499999974,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 7,
+        "spec": {
+          "sequence_id": 7,
+          "capacity": 4,
+          "required": 4,
+          "optional": 4,
+          "order": [
+            "R0",
+            "R2",
+            "O2",
+            "R1",
+            "R3",
+            "O3",
+            "O0",
+            "O1"
+          ],
+          "unknown_at": 0
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "PENDING",
+            "legitimate_optional": null,
+            "elapsed_ns": 2856175400
+          },
+          {
+            "position": 1,
+            "token": "R2",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": null,
+            "elapsed_ns": 1369822800
+          },
+          {
+            "position": 2,
+            "token": "O2",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1595726800
+          },
+          {
+            "position": 3,
+            "token": "R1",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": null,
+            "elapsed_ns": 1575846200
+          },
+          {
+            "position": 4,
+            "token": "R3",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": null,
+            "elapsed_ns": 1333536500
+          },
+          {
+            "position": 5,
+            "token": "O3",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1606040800
+          },
+          {
+            "position": 6,
+            "token": "O0",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1614171500
+          },
+          {
+            "position": 7,
+            "token": "O1",
+            "expected": false,
+            "expected_code": "GOAL_PENDING_UNKNOWN",
+            "accepted": false,
+            "actual_code": "GOAL_PENDING_UNKNOWN",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1648809700
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "PENDING"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 0,
+        "required_total": 4,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 1,
+          "spent": 0,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "PENDING",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "IsrRjZzOG__3BXVfAu9z_w",
+              "state": "STARTED",
+              "effect_state": "UNKNOWN"
+            }
+          ],
+          "counts": {
+            "accepts": 1,
+            "outbox": 1,
+            "attempts": 1,
+            "exec_invocations": 1,
+            "execution_sends_observed": 1,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 0,
+            "settlements": 0,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 1,
+            "goal_pending": 1,
+            "goal_done": 0,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 33.66448460000001,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 8,
+        "spec": {
+          "sequence_id": 8,
+          "capacity": 3,
+          "required": 2,
+          "optional": 0,
+          "order": [
+            "R1",
+            "R0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 3147134600
+          },
+          {
+            "position": 1,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2631871000
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 2,
+          "capacity": 3,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "0IYkSWvB-wQOm6unB1ecng",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "qcjvS5N7mwXkVPvQBOlX3w",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 2,
+            "outbox": 2,
+            "attempts": 2,
+            "exec_invocations": 2,
+            "execution_sends_observed": 2,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 2,
+            "settlements": 2,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 22.012248900000003,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 9,
+        "spec": {
+          "sequence_id": 9,
+          "capacity": 4,
+          "required": 3,
+          "optional": 4,
+          "order": [
+            "R1",
+            "O3",
+            "O1",
+            "R0",
+            "O2",
+            "O0",
+            "R2"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2785897900
+          },
+          {
+            "position": 1,
+            "token": "O3",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2520319200
+          },
+          {
+            "position": 2,
+            "token": "O1",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1964995200
+          },
+          {
+            "position": 3,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 4262814500
+          },
+          {
+            "position": 4,
+            "token": "O2",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1737035300
+          },
+          {
+            "position": 5,
+            "token": "O0",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1292128200
+          },
+          {
+            "position": 6,
+            "token": "R2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2588373900
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 3,
+        "required_total": 3,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 4,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r2",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "6hqoKMWLVegf7Gl0-y0nhA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "A1uCXVdfFt8TcWMbwMNCjg",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "cGRHEUNUbeUc_OG2Dmy6rg",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "o3tnjdBAdG78rSh-d5y9ZQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 4,
+            "outbox": 4,
+            "attempts": 4,
+            "exec_invocations": 4,
+            "execution_sends_observed": 4,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 3,
+            "goal_pending": 0,
+            "goal_done": 3,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 45.03508169999998,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 10,
+        "spec": {
+          "sequence_id": 10,
+          "capacity": 4,
+          "required": 3,
+          "optional": 3,
+          "order": [
+            "R1",
+            "R2",
+            "O0",
+            "R0",
+            "O1",
+            "O2"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2922708300
+          },
+          {
+            "position": 1,
+            "token": "R2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2360287200
+          },
+          {
+            "position": 2,
+            "token": "O0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 3094011200
+          },
+          {
+            "position": 3,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 3228758100
+          },
+          {
+            "position": 4,
+            "token": "O1",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1334234600
+          },
+          {
+            "position": 5,
+            "token": "O2",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1645658600
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 3,
+        "required_total": 3,
+        "optional_accepted": 1,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 4,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r2",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "3vzA82ntR9UvSnuSh-ufqw",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "dwDbmjCwQpP5UwR5ZGxWRQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "jPboIN2TlWf7xeiU_2arbA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "xHv6NASRLPJwqQ7Ii_PupQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 4,
+            "outbox": 4,
+            "attempts": 4,
+            "exec_invocations": 4,
+            "execution_sends_observed": 4,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 3,
+            "goal_pending": 0,
+            "goal_done": 3,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 42.527303399999994,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 11,
+        "spec": {
+          "sequence_id": 11,
+          "capacity": 2,
+          "required": 2,
+          "optional": 5,
+          "order": [
+            "R1",
+            "O4",
+            "R0",
+            "O3",
+            "O2",
+            "O0",
+            "O1"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 3640692900
+          },
+          {
+            "position": 1,
+            "token": "O4",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 2037220500
+          },
+          {
+            "position": 2,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2908312400
+          },
+          {
+            "position": 3,
+            "token": "O3",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1624811300
+          },
+          {
+            "position": 4,
+            "token": "O2",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1397568900
+          },
+          {
+            "position": 5,
+            "token": "O0",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1379944200
+          },
+          {
+            "position": 6,
+            "token": "O1",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1551479000
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 2,
+          "capacity": 2,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "C8jAWHmFDZkFcXlnaqpNVA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "saJ495tUMkJRU0YFQ_w1Rg",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 2,
+            "outbox": 2,
+            "attempts": 2,
+            "exec_invocations": 2,
+            "execution_sends_observed": 2,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 2,
+            "settlements": 2,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 37.090309400000024,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 12,
+        "spec": {
+          "sequence_id": 12,
+          "capacity": 4,
+          "required": 4,
+          "optional": 1,
+          "order": [
+            "R2",
+            "R3",
+            "O0",
+            "R0",
+            "R1"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 3760288500
+          },
+          {
+            "position": 1,
+            "token": "R3",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2818940700
+          },
+          {
+            "position": 2,
+            "token": "O0",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1423984600
+          },
+          {
+            "position": 3,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2579879900
+          },
+          {
+            "position": 4,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2296695100
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 4,
+        "required_total": 4,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 4,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r2",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r3",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "5mdTG7uD17paxO3xRDP17w",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "D-2egdHI734_UVWMw3NphA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "Vq6KA0Djcxnk_H6opdQyLQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "ficEoXHXf0kFlvCJxXWq7g",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 4,
+            "outbox": 4,
+            "attempts": 4,
+            "exec_invocations": 4,
+            "execution_sends_observed": 4,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 4,
+            "goal_pending": 0,
+            "goal_done": 4,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 39.00275599999998,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 13,
+        "spec": {
+          "sequence_id": 13,
+          "capacity": 4,
+          "required": 2,
+          "optional": 0,
+          "order": [
+            "R0",
+            "R1"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2670319000
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2196830100
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 2,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "b3y_aWbs-axCLwFCEUO_0w",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "inezBtOY-RlhPJK4jSm5Ow",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 2,
+            "outbox": 2,
+            "attempts": 2,
+            "exec_invocations": 2,
+            "execution_sends_observed": 2,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 2,
+            "settlements": 2,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 20.521842300000003,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 14,
+        "spec": {
+          "sequence_id": 14,
+          "capacity": 5,
+          "required": 2,
+          "optional": 0,
+          "order": [
+            "R1",
+            "R0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2721299500
+          },
+          {
+            "position": 1,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2815160200
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 2,
+          "capacity": 5,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "4Viw-9uGNSVyaVHYie1oiQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "XeGLzFbKAHMaHUlP450x7Q",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 2,
+            "outbox": 2,
+            "attempts": 2,
+            "exec_invocations": 2,
+            "execution_sends_observed": 2,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 2,
+            "settlements": 2,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 20.5833207,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 15,
+        "spec": {
+          "sequence_id": 15,
+          "capacity": 4,
+          "required": 2,
+          "optional": 2,
+          "order": [
+            "R0",
+            "R1",
+            "O1",
+            "O0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 3053423400
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2586225800
+          },
+          {
+            "position": 2,
+            "token": "O1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2487620700
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2676287000
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 2,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 4,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "6jAi4y7jU_Gi178Bwvj7mQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "CNbaYXXI6QmR6Qmf1mH7VQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "O2hRxaEFXcq_89qfGG6pZQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "xVYvMK3FiBzaJP9Qg7EknA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 4,
+            "outbox": 4,
+            "attempts": 4,
+            "exec_invocations": 4,
+            "execution_sends_observed": 4,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 33.699164999999994,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 16,
+        "spec": {
+          "sequence_id": 16,
+          "capacity": 5,
+          "required": 2,
+          "optional": 0,
+          "order": [
+            "R1",
+            "R0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2723164700
+          },
+          {
+            "position": 1,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2277654800
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 2,
+        "required_total": 2,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 2,
+          "capacity": 5,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "oCdM2dnIwdBgeNuMFD0Tfg",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "qLiBfVCC_RuAJps1QKpeNw",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 2,
+            "outbox": 2,
+            "attempts": 2,
+            "exec_invocations": 2,
+            "execution_sends_observed": 2,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 2,
+            "settlements": 2,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 2,
+            "goal_pending": 0,
+            "goal_done": 2,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 20.387713500000018,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 17,
+        "spec": {
+          "sequence_id": 17,
+          "capacity": 4,
+          "required": 4,
+          "optional": 1,
+          "order": [
+            "R0",
+            "R1",
+            "R3",
+            "R2",
+            "O0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2751602800
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2562340000
+          },
+          {
+            "position": 2,
+            "token": "R3",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2287728700
+          },
+          {
+            "position": 3,
+            "token": "R2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2386782100
+          },
+          {
+            "position": 4,
+            "token": "O0",
+            "expected": false,
+            "expected_code": "GOAL_CAPACITY_FLOOR",
+            "accepted": false,
+            "actual_code": "GOAL_CAPACITY_FLOOR",
+            "outcome": "",
+            "legitimate_optional": false,
+            "elapsed_ns": 1587671600
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 4,
+        "required_total": 4,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": false,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 4,
+          "capacity": 4,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r2",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r3",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "3Wdgj-TJM0IAiDyMSPCg1A",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "7rCZdheqTUZAdGVH_PPoig",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "KIl6iXJJ752UmTjPBivYwQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "YR_FfaMi3oo-HwvOQRDd4A",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 4,
+            "outbox": 4,
+            "attempts": 4,
+            "exec_invocations": 4,
+            "execution_sends_observed": 4,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 4,
+            "goal_pending": 0,
+            "goal_done": 4,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 36.04335130000004,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 18,
+        "spec": {
+          "sequence_id": 18,
+          "capacity": 7,
+          "required": 4,
+          "optional": 3,
+          "order": [
+            "R0",
+            "R1",
+            "R2",
+            "O0",
+            "O1",
+            "O2",
+            "R3"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2922758900
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2285833900
+          },
+          {
+            "position": 2,
+            "token": "R2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2438691900
+          },
+          {
+            "position": 3,
+            "token": "O0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2625123900
+          },
+          {
+            "position": 4,
+            "token": "O1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2749039500
+          },
+          {
+            "position": 5,
+            "token": "O2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": true,
+            "elapsed_ns": 2475686800
+          },
+          {
+            "position": 6,
+            "token": "R3",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2454572200
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 0,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "O",
+            "index": 2,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 3,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 4,
+        "required_total": 4,
+        "optional_accepted": 3,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 7,
+          "capacity": 7,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r2",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r3",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "-_03M5b3GQl49L6OUbPNjA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "Fyx86rGRxMJcFzBKvR5b_g",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "VuhhZhStRlIdoIbsO7PnJQ",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "Z3e4hSySZGictkHwa1VKMA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "g4RyifKkQXl8-yA8vmFm9Q",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "khFSOlifC-VUk9BypOMzkg",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "qG30_kBM3jRbWtvhIo7E7A",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 7,
+            "outbox": 7,
+            "attempts": 7,
+            "exec_invocations": 7,
+            "execution_sends_observed": 7,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 7,
+            "settlements": 7,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 4,
+            "goal_pending": 0,
+            "goal_done": 4,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 54.47435330000002,
+        "error": ""
+      },
+      {
+        "mode": "enforce",
+        "sequence_id": 19,
+        "spec": {
+          "sequence_id": 19,
+          "capacity": 7,
+          "required": 4,
+          "optional": 0,
+          "order": [
+            "R3",
+            "R1",
+            "R2",
+            "R0"
+          ],
+          "unknown_at": null
+        },
+        "rows": [
+          {
+            "position": 0,
+            "token": "R3",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2710069900
+          },
+          {
+            "position": 1,
+            "token": "R1",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2486110200
+          },
+          {
+            "position": 2,
+            "token": "R2",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2295801000
+          },
+          {
+            "position": 3,
+            "token": "R0",
+            "expected": true,
+            "expected_code": "",
+            "accepted": true,
+            "actual_code": "",
+            "outcome": "SUCCESS",
+            "legitimate_optional": null,
+            "elapsed_ns": 2890621000
+          }
+        ],
+        "accepted": [
+          {
+            "kind": "R",
+            "index": 3,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 1,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 2,
+            "outcome": "SUCCESS"
+          },
+          {
+            "kind": "R",
+            "index": 0,
+            "outcome": "SUCCESS"
+          }
+        ],
+        "floor_preserved": true,
+        "required_done": 4,
+        "required_total": 4,
+        "optional_accepted": 0,
+        "false_reject_optional": 0,
+        "illegal_accept_optional": 0,
+        "oracle_mismatch": 0,
+        "inconsistent_codes": 0,
+        "all_done": true,
+        "snapshot": {
+          "reserved": 0,
+          "spent": 4,
+          "capacity": 7,
+          "goals": [
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r0",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r1",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r2",
+              "state": "DONE",
+              "cost": 1
+            },
+            {
+              "goal_group": "bench-goal",
+              "obligation": "r3",
+              "state": "DONE",
+              "cost": 1
+            }
+          ],
+          "operations": [
+            {
+              "oid": "3FL2Tzp9RqPiuS6bY4dpyA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "A2KIyL03k09aNvkYzSmHzA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "fD5CFwEl9lINGctaltK5ng",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            },
+            {
+              "oid": "vQ72D37If1GTjLuzmrn0mA",
+              "state": "SETTLED",
+              "effect_state": "SUCCEEDED"
+            }
+          ],
+          "counts": {
+            "accepts": 4,
+            "outbox": 4,
+            "attempts": 4,
+            "exec_invocations": 4,
+            "execution_sends_observed": 4,
+            "execution_sends_unobserved_upper_bound": 0,
+            "queries": 0,
+            "confirmed_simulated_effects": 4,
+            "settlements": 4,
+            "cancellations": 0,
+            "halts": 0,
+            "goal_links": 4,
+            "goal_pending": 0,
+            "goal_done": 4,
+            "goal_blocked": 0
+          }
+        },
+        "elapsed_seconds": 34.28271160000003,
+        "error": ""
+      }
+    ]
+  },
+  "summary": {
+    "enforce": {
+      "sequences": 20,
+      "errors": 0,
+      "floor_preserved": 20,
+      "floor_violations": 0,
+      "false_reject_optional": 0,
+      "illegal_accept_optional": 0,
+      "optional_accepted": 16,
+      "required_done": 47,
+      "all_done": 10,
+      "oracle_mismatch": 0,
+      "inconsistent_codes": 0,
+      "accept_p50_ns": 2631871000,
+      "accept_p95_ns": 4262814500,
+      "accept_p99_ns": 4407908800,
+      "wall_seconds": 708.4
+    }
+  }
+}
