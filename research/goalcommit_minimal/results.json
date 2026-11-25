@@ -1,0 +1,32 @@
+{
+  "demonstration": {
+    "single_step_baseline_would_allow_second": true,
+    "second_with_stale_version": "W_STATE_STALE",
+    "second_after_current_version": "GOAL_CAPACITY_FLOOR",
+    "x_receipt_ref": "BlAryG22QOIKuzD94LEEFknzAOddYpocUtM7dvVMxz4",
+    "final_state": {
+      "revision": "2",
+      "spent": "1",
+      "reserved": "0",
+      "status": {
+        "required:a": "OPEN",
+        "required:b": "OPEN"
+      }
+    }
+  },
+  "offline_evidence_check": {
+    "verified": true,
+    "goal_ref": "kg3OzVIftDAS6QC1D-BceSQX484VkedZt3XISqdjYBk",
+    "commit_ref": "BlAryG22QOIKuzD94LEEFknzAOddYpocUtM7dvVMxz4",
+    "cost": "1",
+    "minimum_remaining": "2",
+    "has_signed_final": true,
+    "scope": "synthetic witness; no verification of latest W ledger or physical effect"
+  },
+  "exhaustive_floor_check": {
+    "enumerated_state_action_combinations": 7830,
+    "accepted": 2130,
+    "violations_of_resource_floor_after_accept": 0
+  },
+  "limits": "Finite necessary-condition resource floor; no general reachability or real CommonW integration"
+}
