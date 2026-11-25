@@ -2,6 +2,7 @@
 
 **冻结基线：** `c5caa73f711da93a24efacbac0456ed82a79dd4e`（main，2026-11-25 08:36:09 +08:00）
 **实验工作分支：** `research/external-benchmark-20261125`
+**实验提交：** `5a06f5e5c57393cffcb4c9b030992c870bf4e100`
 **检查日期：** 2026-11-25
 **机器可读版本：** `external_benchmark/manifests/source_manifest.json`
 
